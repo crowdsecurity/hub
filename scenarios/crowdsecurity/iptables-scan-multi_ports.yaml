@@ -3,7 +3,7 @@ name: crowdsecurity/iptables-scan-multi_ports
 description: "ban IPs that are scanning us"
 filter: "evt.Meta.log_type == 'iptables_drop' && evt.Meta.service == 'tcp'"
 groupby: evt.Meta.source_ip
-distinct: evt.Event.dst_port
+distinct: evt.Parsed.dst_port
 capacity: 15
 leakspeed: 5s
 blackhole: 1m

@@ -1,5 +1,5 @@
 onsuccess: next_stage
-filter: "evt.Event.program == 'tcpdump'"
+filter: "evt.Parsed.program == 'tcpdump'"
 name: crowdsecurity/tcpdump-logs
 #debug: true
 description: "Parse tcpdump raw logs"
@@ -12,10 +12,10 @@ statics:
     - meta: log_type
       value: tcp_syn
     - meta: source_ip
-      expression: "evt.Event.source_ip"
+      expression: "evt.Parsed.source_ip"
     - meta: dest_ip
-      expression: "evt.Event.dest_ip"
+      expression: "evt.Parsed.dest_ip"
     - meta: dest_port
-      expression: "evt.Event.dest_port"
+      expression: "evt.Parsed.dest_port"
     - parsed: "new_connection"
-      expression: "evt.Event.tcpflags contains 'S' ? 'true' : 'false'"
+      expression: "evt.Parsed.tcpflags contains 'S' ? 'true' : 'false'"

@@ -1,5 +1,5 @@
 onsuccess: next_stage
-filter: "evt.Event.program == 'sshd'"
+filter: "evt.Parsed.program == 'sshd'"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
 nodes:
@@ -8,7 +8,7 @@ nodes:
       apply_on: message
       statics:
         - meta: target_user
-          expression: "evt.Event.sshd_invalid_user"
+          expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_DISC_PREAUTH"
       apply_on: message
@@ -20,17 +20,17 @@ nodes:
       apply_on: message
       statics:
         - meta: target_user
-          expression: "evt.Event.sshd_invalid_user"
+          expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
       statics:
         - meta: target_user
-          expression: "evt.Event.sshd_invalid_user"
+          expression: "evt.Parsed.sshd_invalid_user"
 statics:
     - meta: service
       value: ssh
     - meta: log_type
       value: ssh_failed-auth
     - meta: source_ip
-      expression: "evt.Event.sshd_client_ip"
+      expression: "evt.Parsed.sshd_client_ip"

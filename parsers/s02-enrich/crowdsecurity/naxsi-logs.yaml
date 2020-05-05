@@ -1,5 +1,5 @@
 #let's try to post-process nginx error log to have naxsi pattern
-filter: "evt.Meta.log_type == 'http_error-log' && evt.Event.program == 'nginx'"
+filter: "evt.Meta.log_type == 'http_error-log' && evt.Parsed.program == 'nginx'"
 description: "Enrich logs if its from NAXSI"
 name: crowdsecurity/naxsi-logs
 grok:
@@ -9,8 +9,8 @@ statics:
   - target: evt.Meta.log_type
     value: waf_naxsi-log
   - meta: source_ip
-    expression: "evt.Event.naxsi_src_ip"
+    expression: "evt.Parsed.naxsi_src_ip"
   - meta: http_path
-    expression: "evt.Event.http_path"
+    expression: "evt.Parsed.http_path"
   - meta: dest_ip
-    expression: "evt.Event.target_ip"
+    expression: "evt.Parsed.target_ip"

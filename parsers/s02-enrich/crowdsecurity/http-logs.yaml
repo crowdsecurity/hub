@@ -21,11 +21,11 @@ nodes:
       apply_on: request
       statics:
         - meta: http_path
-          expression: "evt.Event.http_path"
+          expression: "evt.Parsed.http_path"
           # meta af
         - meta: http_args_len
-          expression: "len(evt.Event.http_args)"
+          expression: "len(evt.Parsed.http_args)"
         - parsed: file_name
-          expression: evt.Event.file_frag + evt.Event.file_ext
+          expression: evt.Parsed.file_frag + evt.Parsed.file_ext
         - parsed: static_ressource
-          expression: "evt.Event.file_ext in ['.jpg', '.css', '.js', '.jpeg', '.png', '.svg'] ? 'true' : 'false'"
+          expression: "evt.Parsed.file_ext in ['.jpg', '.css', '.js', '.jpeg', '.png', '.svg'] ? 'true' : 'false'"
