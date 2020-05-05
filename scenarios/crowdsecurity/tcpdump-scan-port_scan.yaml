@@ -1,7 +1,7 @@
 type: trigger
 name: "New connection"
 description: "Detect new connection with tcpdump"
-filter: "evt.Meta.service == 'tcp' && evt.Event.new_connection == 'true'"
+filter: "evt.Meta.service == 'tcp' && evt.Parsed.new_connection == 'true'"
 reprocess: true
 labels:
   service: tcp
@@ -20,7 +20,7 @@ labels:
 type: leaky
 name: tcp_scan
 description: "detect synscan with tcpdump"
-filter: "evt.Meta.log_type == 'tcp_syn' and evt.Event.tcpflags == 'S'"
+filter: "evt.Meta.log_type == 'tcp_syn' and evt.Parsed.tcpflags == 'S'"
 groupby: "evt.Meta.source_ip"
 distinct: "evt.Meta.dest_port"
 capacity: 10

@@ -1,6 +1,6 @@
 onsuccess: next_stage
 name: crowdsecurity/smb-logs
-filter: evt.Event.program == 'smb'
+filter: evt.Parsed.program == 'smb'
 description: "Parse SMB logs"
 grok:
   name: "SMB_AUTH_FAIL"
@@ -9,6 +9,6 @@ statics:
   - meta: log_type
     value: smb_failed_auth
   - meta: source_ip
-    expression: "evt.Event.ip_source"
+    expression: "evt.Parsed.ip_source"
   - meta: user
-    expression: "evt.Event.user"
+    expression: "evt.Parsed.user"
