@@ -79,40 +79,65 @@ func main() {
 	var generate bool
 	var inputFile string
 	var outFile string
+	var target string
 
 	idx := make(map[string]map[string]typeInfo)
 	tmpIdx := make(map[string]map[string]typeInfo)
 
+	flag.StringVar(&target, "target", "all", "decide what to generate : blockers|configs|all")
 	flag.StringVar(&outFile, "output", ".index.json", "File to output index")
 	flag.BoolVar(&generate, "generate", false, "File to output index")
 	flag.StringVar(&inputFile, "input", ".index.json", "File to read index from")
 	flag.Parse()
 
-	if generate == true {
-		for _, t := range types {
-			configType, err := generateIndex(t)
-			if err != nil {
-				panic(err)
+	if target == "all" || target == "configs" {
+		if generate == true {
+			for _, t := range types {
+				configType, err := generateIndex(t)
+				if err != nil {
+					panic(err)
+				}
+				idx[t] = configType
 			}
-			idx[t] = configType
+		} else {
+			// update .index file
+			f, _ := ioutil.ReadFile(inputFile)
+
+			_ = json.Unmarshal([]byte(f), &tmpIdx)
+
+			for _, t := range types {
+				updateIndex(t, idx, tmpIdx)
+			}
 		}
-	} else {
-		// update .index file
-		f, _ := ioutil.ReadFile(inputFile)
 
-		_ = json.Unmarshal([]byte(f), &tmpIdx)
-
-		for _, t := range types {
-			updateIndex(t, idx, tmpIdx)
+		json, err := json.MarshalIndent(idx, "", " ")
+		if err != nil {
+			panic(err)
+		}
+		if err := ioutil.WriteFile(outFile, json, 0644); err != nil {
+			log.Fatalf("failed writting new json index : %s", err)
 		}
 	}
+	if target == "all" || target == "blockers" {
+		blockers, err := LoadJSON("blockers/list.json")
+		if err != nil {
+			log.Fatalf("failed to load json : %s", err)
+		}
+		log.Printf("Loaded %d blockers", len(blockers))
+		for x, blocker := range blockers {
+			log.Printf("%d/%d", x+1, len(blockers))
 
-	json, err := json.MarshalIndent(idx, "", " ")
-	if err != nil {
-		panic(err)
-	}
-	if err := ioutil.WriteFile(outFile, json, 0644); err != nil {
-		log.Fatalf("failed writting new json index : %s", err)
+			updated, err := UpdateItem(blocker)
+			if err != nil {
+				log.Fatalf("failed to update %+v : %s", blocker, err)
+			}
+			blockers[x] = updated
+		}
+		log.Printf("Dumping updated items")
+
+		if err := DumpJSON("blockers.json", blockers); err != nil {
+			log.Fatalf("failed to dump new json file : %s", err)
+		}
 	}
 	return
 
