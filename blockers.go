@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 
 	"github.com/google/go-github/github"
 )
@@ -93,26 +92,4 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		}
 	}
 	return item, nil
-}
-
-func main() {
-	blockers, err := LoadJSON("blockers/list.json")
-	if err != nil {
-		log.Fatalf("failed to load json : %s", err)
-	}
-	log.Printf("Loaded %d blockers", len(blockers))
-	for x, blocker := range blockers {
-		log.Printf("%d/%d", x+1, len(blockers))
-
-		updated, err := UpdateItem(blocker)
-		if err != nil {
-			log.Fatalf("failed to update %+v : %s", blocker, err)
-		}
-		blockers[x] = updated
-	}
-	log.Printf("Dumping updated items")
-
-	if err := DumpJSON("blockers.json", blockers); err != nil {
-		log.Fatalf("failed to dump new json file : %s", err)
-	}
 }
