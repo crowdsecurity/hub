@@ -1,0 +1,33 @@
+filter: "evt.Event.program == 'nginx'"
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/nginx-logs
+description: "Parse nginx access and error logs"
+nodes:
+  - grok:
+      name: NGINXACCESS
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Event.time_local
+  - grok:
+        # and this one the error log
+        name: NGINXERROR
+        apply_on: message
+        statics:
+          - meta: log_type
+            value: http_error-log
+          - target: evt.StrTime
+            expression: evt.Event.time
+# these ones apply for both grok patterns
+statics:
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Event.remote_addr"
+  - meta: http_status
+    expression: "evt.Event.status"
+  - meta: http_path
+    expression: "evt.Event.request"

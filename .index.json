@@ -1,0 +1,662 @@
+{
+ "collections": {
+  "crowdsecurity/apache2": {
+   "path": "collections/crowdsecurity/apache2.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "6daf46588c0aa23b0771ac4d8378745b3895438dcc26fb621bb77b7c8132399d",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "3601f38e187479724e830e0182f51468c980f661e6eedc6d2e586f622e3b48ea",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBhcGFjaGUyIDoKIC0gYXBhY2hlMiBwYXJzZXIKIC0gYmFzZSBodHRwIHNjZW5hcmlvcyBmb3IgY3Jhd2wsIHNjYW4gZXRjLgoK",
+   "content": "cGFyc2VyczoKI2dlbmVyaWMgcG9zdC1wYXJzaW5nIG9mIGh0dHAgc3R1ZmYKICAtIGNyb3dkc2VjdXJpdHkvYXBhY2hlMi1sb2dzCmNvbGxlY3Rpb25zOgogIC0gY3Jvd2RzZWN1cml0eS9iYXNlLWh0dHAtc2NlbmFyaW9zCmRlc2NyaXB0aW9uOiAiYXBhY2hlMiBzdXBwb3J0IDogcGFyc2VyIGFuZCBnZW5lcmljIGh0dHAgc2NlbmFyaW9zICIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gYXBhY2hlMgogIC0gY3Jhd2wKICAtIHNjYW4KCg==",
+   "description": "apache2 support : parser and generic http scenarios ",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/apache2-logs"
+   ],
+   "collections": [
+    "crowdsecurity/base-http-scenarios"
+   ]
+  },
+  "crowdsecurity/base-http-scenarios": {
+   "path": "collections/crowdsecurity/base-http-scenarios.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "47233db71224796b55ceaa08ec8a345c36ba6e03f9ca69427c01a4237fbd35ac",
+     "deprecated": false
+    }
+   },
+   "long_description": "Kipjb250YWlucyBubyBwYXJzZXIsIG1lYW50IHRvIGJlIGVtYmVkZGVkKioKCkEgY29sbGVjdGlvbiBvZiBkZWZlbnNpdmUgKGltcGxlbWVudGF0aW9uIGluZGVwZW5kYW50KSBzY2VuYXJpb3MgZm9yIGh0dHAgc2VydmljZXMgOgogLSBhZ2dyZXNzaXZlIGNyYXdsIGRldGVjdGlvbgogLSBzY2FubmluZyAoNDA0KSBkZXRlY3Rpb24KCgo=",
+   "content": "IyMgVGhpcyBpcyBtZWFudCB0byBiZSBlbWJkZWQgYnkgdXNlciBsZXZlbCBwYWNrYWdlcy4KcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1jcmF3bC1ub25fc3RhdGljcwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXNjYW4tdW5pcXVlc180MDQKZGVzY3JpcHRpb246ICJodHRwIHNjZW5hcmlvcyA6IGFnZ3Jlc3NpdmUgY3Jhd2wsIDQwNCBzY2FuIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBodHRwCiAgLSBjcmF3bAogIC0gc2NhbgoK",
+   "description": "http scenarios : aggressive crawl, 404 scan",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/http-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/http-crawl-non_statics",
+    "crowdsecurity/http-scan-uniques_404"
+   ]
+  },
+  "crowdsecurity/iptables": {
+   "path": "collections/crowdsecurity/iptables.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "ba5c8e97c06b19e4c075e0285e6b60c1da3b86381c88c4bfea4b374378ced10a",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBwb3J0c2NhbiBkZXRlY3Rpb24gdmlhIGlwdGFibGVzIDoKIC0gaXB0YWJsZXMgcGFyc2VyIChsaWtlIGluIGAtaiBMT0dgKQogLSBtdWx0aSBwb3J0IHNjYW4gZGV0ZWN0aW9uCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaXB0YWJsZXMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2lwdGFibGVzLXNjYW4tbXVsdGlfcG9ydHMKZGVzY3JpcHRpb246ICJpcHRhYmxlcyBzdXBwb3J0IDogbG9ncyBhbmQgcG9ydC1zY2FucyBkZXRlY3Rpb24gc2NlbmFyaW9zIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBwb3J0c2NhbgogIC0gaXB0YWJsZXMKCg==",
+   "description": "iptables support : logs and port-scans detection scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/iptables-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/iptables-scan-multi_ports"
+   ]
+  },
+  "crowdsecurity/linux": {
+   "path": "collections/crowdsecurity/linux.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8d16483218a979b84549fb020b0342feea3d1f4951294b6994d33a9b7214842f",
+     "deprecated": false
+    }
+   },
+   "long_description": "Kipjb3JlIHBhY2thZ2UgZm9yIGxpbnV4KioKCmNvbnRhaW5zIHN1cHBvcnQgZm9yIHN5c2xvZywgZG8gbm90IHJlbW92ZS4K",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvZ2VvaXAtZW5yaWNoCiAgLSBjcm93ZHNlY3VyaXR5L2RhdGVwYXJzZS1lbnJpY2gKZGVzY3JpcHRpb246ICJjb3JlIGxpbnV4IHN1cHBvcnQgOiBzeXNsb2crZ2VvaXAiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKCg==",
+   "description": "core linux support : syslog+geoip",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "crowdsecurity/geoip-enrich",
+    "crowdsecurity/dateparse-enrich"
+   ]
+  },
+  "crowdsecurity/mysql": {
+   "path": "collections/crowdsecurity/mysql.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "77e63a6deedaedc15457691e8631633c15663e796f9e896331d64aa3614fdafc",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBteXNxbCBzZXJ2aWNlcyA6CiAtIG15c3FsIGxvZ3MgcGFyc2VyCiAtIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiA=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvbXlzcWwtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L215c3FsLWJmCmRlc2NyaXB0aW9uOiAibXlzcWwgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gbXlzcWwKICAtIGJydXRlZm9yY2UK",
+   "description": "mysql support : logs and brute-force scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/mysql-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/mysql-bf"
+   ]
+  },
+  "crowdsecurity/naxsi": {
+   "path": "collections/crowdsecurity/naxsi.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "cd093e3b26795e8ae86898a585ef77509dc988c4841ea49ba61795a7c849b06e",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRldGVjdCB2aXJ0dWFsIHBhdGNoIHZpb2xhdGlvbnMgOgogLSBuYXhzaSBsb2dzIHBhcnNlcgogLSB2cGF0Y2ggaGlnaCBpZCAoPjk5OTkpIHRyaWdnZXIgcnVsZQog",
+   "content": "cGFyc2VyczoKI2dlbmVyaWMgcG9zdC1wYXJzaW5nIG9mIGh0dHAgc3R1ZmYKICAtIGNyb3dkc2VjdXJpdHkvbmdpbngtbG9ncwogIC0gY3Jvd2RzZWN1cml0eS9uYXhzaS1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvbmF4c2ktZXhwbG9pdC12cGF0Y2gKZGVzY3JpcHRpb246ICJuYXhzaSBzdXBwb3J0IDogcGFyc2VyIGFuZCB2cGF0Y2ggc2NlbmFyaW8iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIG5naW54CiAgLSBuYXhzaQogIC0gZXhwbG9pdAoK",
+   "description": "naxsi support : parser and vpatch scenario",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/nginx-logs",
+    "crowdsecurity/naxsi-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/naxsi-exploit-vpatch"
+   ]
+  },
+  "crowdsecurity/nginx": {
+   "path": "collections/crowdsecurity/nginx.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "5ef06c9a84fbea5b01d901a6a23d5de8de811da5036e5ec4f6a8d00fb096805b",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBuZ2lueCBhZ2FpbnN0IGNvbW1vbiBhdHRhY2tzIDoKIC0gbmdpbnggcGFyc2VyCiAtIGJhc2UgaHR0cCBzY2VuYXJpb3MgKGNyYXdsLCA0MDQgc2NhbiwgYmYpCgo=",
+   "content": "cGFyc2VyczoKI2dlbmVyaWMgcG9zdC1wYXJzaW5nIG9mIGh0dHAgc3R1ZmYKICAtIGNyb3dkc2VjdXJpdHkvbmdpbngtbG9ncwpjb2xsZWN0aW9uczoKICAtIGNyb3dkc2VjdXJpdHkvYmFzZS1odHRwLXNjZW5hcmlvcwpkZXNjcmlwdGlvbjogIm5naW54IHN1cHBvcnQgOiBwYXJzZXIgYW5kIGdlbmVyaWMgaHR0cCBzY2VuYXJpb3MiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIG5naW54CiAgLSBjcmF3bAogIC0gc2NhbgoK",
+   "description": "nginx support : parser and generic http scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/nginx-logs"
+   ],
+   "collections": [
+    "crowdsecurity/base-http-scenarios"
+   ]
+  },
+  "crowdsecurity/sshd": {
+   "path": "collections/crowdsecurity/sshd.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "21159aeb87529efcf1a5033f720413d5321a6451bab679a999f7f01a7aa972b3",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBzc2hkIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBzc2ggcGFyc2VyCiAtIHNzaCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCiAKCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
+   "description": "sshd support : parser and brute-force detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/sshd-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/ssh-bf"
+   ]
+  },
+  "crowdsecurity/wordpress": {
+   "path": "collections/crowdsecurity/wordpress.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "14f428b1d171a092d703478a891db27aaf83a3f6ba99199a3be4a64d193d718d",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBicnV0ZWZvcmNlIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgpkZXNjcmlwdGlvbjogIndvcmRwcmVzcyA6IGJydXRlZm9yY2UgZGV0ZWN0aW9uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3b3JkcHJlc3MKICAtIGJydXRlZm9yY2UKCg==",
+   "description": "wordpress : bruteforce detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "scenarios": [
+    "crowdsecurity/http-bf-wordpress_bf"
+   ]
+  }
+ },
+ "parsers": {
+  "crowdsecurity/apache2-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/apache2-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "35cc0d9c5fb1ee0401a8278e9f0f362719841c9d7dd195f95edf8ad3c3b37bfd",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhpcyBhcGFjaGUyIHBhcnNlciBzdXBwb3J0IGFjY2VzcyBhbmQgZXJyb3IgbG9ncyBpbiB0aGUgSFRUUEQgQ09NQklORUQgTE9HIHN0YW5kYXJkIGZvcm1hdC4K",
+   "content": "I0FwYWNoZSBhY2Nlc3MgbG9ncwojZGVidWc6IHRydWUKCmZpbHRlcjogImV2dC5FdmVudC5wcm9ncmFtID09ICdhcGFjaGUyJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvYXBhY2hlMi1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgQXBhY2hlMiBhY2Nlc3MgYW5kIGVycm9yIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogQ09NQklORURBUEFDSEVMT0cKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogaHR0cF9hY2Nlc3MtbG9nCiAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuRXZlbnQudGltZXN0YW1wCiMgdGhlc2Ugb25lcyBhcHBseSBmb3IgYm90aCBncm9rIHBhdHRlcm5zCnN0YXRpY3M6CiAgLSBtZXRhOiBzZXJ2aWNlCiAgICB2YWx1ZTogaHR0cAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuRXZlbnQuY2xpZW50aXAKICAtIG1ldGE6IGh0dHBfc3RhdHVzCiAgICBleHByZXNzaW9uOiBldnQuRXZlbnQucmVzcG9uc2UKICAtIG1ldGE6IGh0dHBfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkV2ZW50LnJlcXVlc3Q=",
+   "description": "Parse Apache2 access and error logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/cowrie-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/cowrie-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "9b4ca4d461c8eb849f746f76685c66892e44a7208f1a67e556d59c31c370d800",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNvd3JpZS1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgY293cmllIGhvbmV5cG90cyBsb2dzIgpmaWx0ZXI6ICJldnQuRXZlbnQucHJvZ3JhbSA9PSAnY293cmllJyIKZ3JvazoKICBuYW1lOiAiQ09XUklFX05FV19DTyIKICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogICAgLSBtZXRhOiBzZXJ2aWNlCiAgICAgIHZhbHVlOiB0ZWxuZXQKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IHRlbG5ldF9uZXdfc2Vzc2lvbgogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5zb3VyY2VfaXAiCiAgICAtIG1ldGE6IGRlc3RfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5kZXN0X2lwIgogICAgLSBtZXRhOiBkZXN0X3BvcnQKICAgICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5kZXN0X3BvcnQiCiAgICAtIHBhcnNlZDogInRlbG5ldF9zZXNzaW9uIgogICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LnRlbG5ldF9zZXNzaW9uIg==",
+   "description": "Parse cowrie honeypots logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/dateparse-enrich": {
+   "path": "parsers/s02-enrich/crowdsecurity/dateparse-enrich.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "16b79f7ef39d0c5e71180cff559b0e2ef98983f2009b5f26d778509e897f94d4",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VzIHRpbWUgaW4gbG9ncyBhbmQgYWx0ZXIgdGhlIGV2ZW50IHRpbWUuCkl0IGlzIG1hbmRhdG9yeSB3aGVuIHVzaW5nIGNyb3dkd2F0Y2ggd2l0aCAnY29sZCcgbG9ncy4K",
+   "content": "ZmlsdGVyOiAiZXZ0LlN0clRpbWUgIT0gJyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvZGF0ZXBhcnNlLWVucmljaAojZGVidWc6IHRydWUKI2l0J3MgYSBoYWNrIGxvbApzdGF0aWNzOgogIC0gbWV0aG9kOiBQYXJzZURhdGUKICAgIGV4cHJlc3Npb246IGV2dC5TdHJUaW1lCiAgLSB0YXJnZXQ6IE1hcnNoYWxlZFRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5FbnJpY2hlZC5NYXJzaGFsZWRUaW1l",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/geoip-enrich": {
+   "path": "parsers/s02-enrich/crowdsecurity/geoip-enrich.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c0718adfc71ad462ad90485ad5c490e5de0e54d8af425bff552994e114443ab6",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhlIEdlb0lQIG1vZHVsZSByZWxpZXMgb24gZ2VvbGl0ZSBkYXRhYmFzZSB0byBwcm92aWRlIGVucmljaG1lbnQgb24gc291cmNlIGlwIDoKIC0gSXNvQ29kZSA6IHRoZSB0d28tbGV0dGVycyBjb3VudHJ5IGNvZGUKIC0gQVNOTnVtYmVyIDogdGhlIEFTIE51bWJlcgogLSBBU05PcmcgOiB0aGUgZnVsbCBuYW1lIG9mIEFTIG9yZ2FuaXphdGlvbgo=",
+   "content": "ZmlsdGVyOiAiJ3NvdXJjZV9pcCcgaW4gZXZ0Lk1ldGEiCm5hbWU6IGNyb3dkc2VjdXJpdHkvZ2VvaXAtZW5yaWNoCmRlc2NyaXB0aW9uOiAiUG9wdWxhdGUgZXZlbnQgd2l0aCBnZW9sb2MgaW5mbyA6IGFzLCBjb3VudHJ5LCBjb29yZHMsIHNvdXJjZSByYW5nZS4iCnN0YXRpY3M6CiAgLSBtZXRob2Q6IEdlb0lwQ2l0eQogICAgZXhwcmVzc2lvbjogZXZ0Lk1ldGEuc291cmNlX2lwCiAgLSBtZXRhOiBJc29Db2RlCiAgICBleHByZXNzaW9uOiBldnQuRW5yaWNoZWQuSXNvQ29kZQogIC0gbWV0YTogSXNJbkVVCiAgICBleHByZXNzaW9uOiBldnQuRW5yaWNoZWQuSXNJbkVVCiAgLSBtZXRhOiBHZW9Db29yZHMKICAgIGV4cHJlc3Npb246IGV2dC5FbnJpY2hlZC5HZW9Db29yZHMKICAtIG1ldGhvZDogR2VvSXBBU04KICAgIGV4cHJlc3Npb246IGV2dC5NZXRhLnNvdXJjZV9pcAogIC0gbWV0YTogQVNOTnVtYmVyCiAgICBleHByZXNzaW9uOiBldnQuRW5yaWNoZWQuQVNOTnVtYmVyCiAgLSBtZXRhOiBBU05PcmcKICAgIGV4cHJlc3Npb246IGV2dC5FbnJpY2hlZC5BU05PcmcKICAtIG1ldGhvZDogSXBUb1JhbmdlCiAgICBleHByZXNzaW9uOiBldnQuTWV0YS5zb3VyY2VfaXAKICAtIG1ldGE6IFNvdXJjZVJhbmdlCiAgICBleHByZXNzaW9uOiBldnQuRW5yaWNoZWQuU291cmNlUmFuZ2UK",
+   "description": "Populate event with geoloc info : as, country, coords, source range.",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/http-logs": {
+   "path": "parsers/s02-enrich/crowdsecurity/http-logs.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "ae62c72676a23324774698b14302a7a881499774d3b4024a7e135c9ae69eb234",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhpcyBwYXJzZXIgaXMgYSBnZW5lcmljIHBvc3QtcGFyc2luZyBodHRwIHJlLXBhcnNlciBhbmQgcHJvZmlkZXMgbW9yZSBkZXRhaWxlZCBpbmZvcm1hdGlvbiBzdWNoIGFzIDoKIC0gc3RhdGljX3Jlc3NvdXJjZSA6IGEgYm9vbGVhbiB0byB0ZWxsIGlmIHRoZSByZXF1ZXN0ZWQgcmVzc291cmNlIGlzIGEgc3RhdGljIGZpbGUKIC0gZmlsZV9uYW1lIDogc2ltcGxlIGZpbGUrZmlsZS1leHRlbnNpb24KIC0gaW1wYWN0X2NvbXBsZXRpb24gOiBhIGJvb2xlYW4gZmxhZyBpbmRpY2F0aW5nIGlmIHRoZSByZXF1ZXN0IHN1Y2NlZWRlZCAoYmFzZWQgb24gdGhlIGh0dHAgcmVzcG9uc2UgY29kZSkK",
+   "content": "ZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnaHR0cCcgJiYgZXZ0Lk1ldGEubG9nX3R5cGUgaW4gWydodHRwX2FjY2Vzcy1sb2cnLCAnaHR0cF9lcnJvci1sb2cnXSIKZGVzY3JpcHRpb246ICJQYXJzZSBtb3JlIFNwZWNpZmljYWxseSBIVFRQIGxvZ3MsIHN1Y2ggYXMgSFRUUCBDb2RlLCBIVFRQIHBhdGgsIEhUVFAgYXJncyBhbmQgaWYgaXRzIGEgc3RhdGljIHJlc3NvdXJjZSIKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWxvZ3MKcGF0dGVybl9zeW50YXg6CiAgRElSOiAiXi4qLyIKICBGSUxFOiAiW14vXS4qPyIKICBFWFQ6ICJcXC5bXi5dKiR8JCIKbm9kZXM6CiAgLSBzdGF0aWNzOgogICAgIC0gcGFyc2VkOiAiaW1wYWN0X2NvbXBsZXRpb24iCiAgICAgICAjIHRoZSB2YWx1ZSBvZiBhIGZpZWxkIGNhbiBhcyB3ZWxsIGJlIGRldGVybWluZWQgYXMgdGhlIHJlc3VsdCBvZiBhbiBleHByZXNzaW9uCiAgICAgICBleHByZXNzaW9uOiAiZXZ0Lk1ldGEuaHR0cF9zdGF0dXMgaW4gWyc0MDQnLCAnNDAzJywgJzUwMiddID8gJ2ZhbHNlJyA6ICd0cnVlJyIKICAjIGxldCdzIHNwbGl0IHRoZSBwYXRoP3F1ZXJ5IGlmIHBvc3NpYmxlCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAiXiV7R1JFRURZREFUQTpyZXF1ZXN0fVxcPyV7R1JFRURZREFUQTpodHRwX2FyZ3N9JCIKICAgICAgYXBwbHlfb246IHJlcXVlc3QKICAjIHRoaXMgaXMgYW5vdGhlciBub2RlLCB3aXRoIGl0cyBvd24gcGF0dGVybl9zeW50YXgKICAtICNkZWJ1ZzogdHJ1ZQogICAgZ3JvazoKICAgICAgcGF0dGVybjogIiV7RElSOmZpbGVfZGlyfSV7RklMRTpmaWxlX2ZyYWd9JXtFWFQ6ZmlsZV9leHR9IgogICAgICBhcHBseV9vbjogcmVxdWVzdAogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogaHR0cF9wYXRoCiAgICAgICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50Lmh0dHBfcGF0aCIKICAgICAgICAgICMgbWV0YSBhZgogICAgICAgIC0gbWV0YTogaHR0cF9hcmdzX2xlbgogICAgICAgICAgZXhwcmVzc2lvbjogImxlbihldnQuRXZlbnQuaHR0cF9hcmdzKSIKICAgICAgICAtIHBhcnNlZDogZmlsZV9uYW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuRXZlbnQuZmlsZV9mcmFnICsgZXZ0LkV2ZW50LmZpbGVfZXh0CiAgICAgICAgLSBwYXJzZWQ6IHN0YXRpY19yZXNzb3VyY2UKICAgICAgICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQuZmlsZV9leHQgaW4gWycuanBnJywgJy5jc3MnLCAnLmpzJywgJy5qcGVnJywgJy5wbmcnLCAnLnN2ZyddID8gJ3RydWUnIDogJ2ZhbHNlJyI=",
+   "description": "Parse more Specifically HTTP logs, such as HTTP Code, HTTP path, HTTP args and if its a static ressource",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/iptables-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/iptables-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e2bb1c89c097efa33351b80f8dd26257d84d6299c1d9339501719632723474c4",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBwYXJzZXIgZm9yIGlwdGFibGVzIGAtaiBMT0dgIGxvZ3MuCkFsbCBsb2dnZWQgcGFja2V0cyBhcmUgY29uc2lkZXJlZCBhcyBEUk9Qcy4K",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuRXZlbnQucHJvZ3JhbSA9PSAna2VybmVsJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9pcHRhYmxlcy1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgaXB0YWJsZXMgZHJvcCBsb2dzIgpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46IFxbJXtEQVRBfVxdKy4qKCV7V09SRDphY3Rpb259KT8gSU49JXtXT1JEOmludF9ldGh9IE9VVD0gTUFDPSV7SVB9OiV7TUFDfSBTUkM9JXtJUDpzcmNfaXB9IERTVD0le0lQOmRzdF9pcH0gTEVOPSV7SU5UOmxlbmd0aH0uKlBST1RPPSV7V09SRDpwcm90b30gU1BUPSV7SU5UOnNyY19wb3J0fSBEUFQ9JXtJTlQ6ZHN0X3BvcnR9LioKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGNwCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBpcHRhYmxlc19kcm9wCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LnNyY19pcCIKICA=",
+   "description": "Parse iptables drop logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/mysql-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/mysql-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c6d924c057a05bf090f9d6ad15f2a27605cc0aa966482aa4f662573d1bf76d93",
+     "deprecated": false
+    }
+   },
+   "long_description": "TXlzcWwgYXV0aGVudGljYXRpb24gZmFpbCBwYXJzZXIuCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbXlzcWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIE15U1FMIGxvZ3MiCmZpbHRlcjogImV2dC5FdmVudC5wcm9ncmFtID09ICdteXNxbCciCmdyb2s6CiAgbmFtZTogIk1ZU1FMX0FVVEhfRkFJTCIKICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiBteXNxbF9mYWlsZWRfYXV0aAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LnNvdXJjZV9pcCIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQudXNlciI=",
+   "description": "Parse MySQL logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/naxsi-logs": {
+   "path": "parsers/s02-enrich/crowdsecurity/naxsi-logs.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "71e8e46a5b1426c4e8dd4195f448379bcadf216632072b6b3027d105cc6b0f69",
+     "deprecated": false
+    }
+   },
+   "content": "I2xldCdzIHRyeSB0byBwb3N0LXByb2Nlc3MgbmdpbnggZXJyb3IgbG9nIHRvIGhhdmUgbmF4c2kgcGF0dGVybgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnaHR0cF9lcnJvci1sb2cnICYmIGV2dC5FdmVudC5wcm9ncmFtID09ICduZ2lueCciCmRlc2NyaXB0aW9uOiAiRW5yaWNoIGxvZ3MgaWYgaXRzIGZyb20gTkFYU0kiCm5hbWU6IGNyb3dkc2VjdXJpdHkvbmF4c2ktbG9ncwpncm9rOgogIG5hbWU6ICJOQVhTSV9FWExPRyIKICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gdGFyZ2V0OiBldnQuTWV0YS5sb2dfdHlwZQogICAgdmFsdWU6IHdhZl9uYXhzaS1sb2cKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5uYXhzaV9zcmNfaXAiCiAgLSBtZXRhOiBodHRwX3BhdGgKICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQuaHR0cF9wYXRoIgogIC0gbWV0YTogZGVzdF9pcAogICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC50YXJnZXRfaXAi",
+   "description": "Enrich logs if its from NAXSI",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/nginx-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/nginx-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "95c7e4da2d443ee9db98a167db3e635863f5d9390f96fdca6d31597c7eb8763b",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBnZW5lcmljIHBhcnNlciBmb3IgbmdpbngsIHN1cHBvcnQgYm90aCBhY2Nlc3MgYW5kIGVycm9yIGxvZ3MuCklmIHlvdSBhcmUgdXNpbmcgdGhpbmdzIHN1Y2ggYXMgYGNyb3dkc2VjdXJpdHkvbmF4c2lgIHBhcnNlcnMgb3Igc2NlbmFyaW9zLCB0aGlzIHNob3VsZCBiZSBhIHJlcXVpcmVtZW50Lgo=",
+   "content": "ZmlsdGVyOiAiZXZ0LkV2ZW50LnByb2dyYW0gPT0gJ25naW54JyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L25naW54LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBuZ2lueCBhY2Nlc3MgYW5kIGVycm9yIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogTkdJTlhBQ0NFU1MKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogaHR0cF9hY2Nlc3MtbG9nCiAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuRXZlbnQudGltZV9sb2NhbAogIC0gZ3JvazoKICAgICAgICAjIGFuZCB0aGlzIG9uZSB0aGUgZXJyb3IgbG9nCiAgICAgICAgbmFtZTogTkdJTlhFUlJPUgogICAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgICAgc3RhdGljczoKICAgICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgICAgdmFsdWU6IGh0dHBfZXJyb3ItbG9nCiAgICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LkV2ZW50LnRpbWUKIyB0aGVzZSBvbmVzIGFwcGx5IGZvciBib3RoIGdyb2sgcGF0dGVybnMKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBodHRwCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQucmVtb3RlX2FkZHIiCiAgLSBtZXRhOiBodHRwX3N0YXR1cwogICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5zdGF0dXMiCiAgLSBtZXRhOiBodHRwX3BhdGgKICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQucmVxdWVzdCI=",
+   "description": "Parse nginx access and error logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/smb-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/smb-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7257e3a0964508f1f8075c172cd0791b87eb38264c6cdcceccf789867cd057ee",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvc21iLWxvZ3MKZmlsdGVyOiBldnQuRXZlbnQucHJvZ3JhbSA9PSAnc21iJwpkZXNjcmlwdGlvbjogIlBhcnNlIFNNQiBsb2dzIgpncm9rOgogIG5hbWU6ICJTTUJfQVVUSF9GQUlMIgogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IHNtYl9mYWlsZWRfYXV0aAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LmlwX3NvdXJjZSIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQudXNlciI=",
+   "description": "Parse SMB logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/sshd-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/sshd-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "778ff379a5e3c33795f07f1015fa4d3bcff1bffe3a65b44c0d2b61b7f1c55319",
+     "deprecated": false
+    }
+   },
+   "long_description": "WW91ciBvbmUgZml0cy1hbGwgc3NoIHBhcnNlciB3aXRoIHN1cHBvcnQgZm9yIHRoZSBtb3N0IGNvbW1vbiBraW5kIG9mIGZhaWxlZCBhdXRoZW50aWNhdGlvbnMgYW5kIGVycm9ycy4KCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5FdmVudC5wcm9ncmFtID09ICdzc2hkJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9zc2hkLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBvcGVuU1NIIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogIlNTSERfRkFJTCIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICAgICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LnNzaGRfaW52YWxpZF91c2VyIgogIC0gZ3JvazoKICAgICAgbmFtZTogIlNTSERfRElTQ19QUkVBVVRIIgogICAgICBhcHBseV9vbjogbWVzc2FnZQogIC0gZ3JvazoKICAgICAgbmFtZTogIlNTSERfQkFEX1ZFUlNJT04iCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBncm9rOgogICAgICBuYW1lOiAiU1NIRF9JTlZBTF9VU0VSIgogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogdGFyZ2V0X3VzZXIKICAgICAgICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQuc3NoZF9pbnZhbGlkX3VzZXIiCiAgLSBncm9rOgogICAgICBuYW1lOiAiU1NIRF9VU0VSX0ZBSUwiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiB0YXJnZXRfdXNlcgogICAgICAgICAgZXhwcmVzc2lvbjogImV2dC5FdmVudC5zc2hkX2ludmFsaWRfdXNlciIKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogc3NoCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBzc2hfZmFpbGVkLWF1dGgKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQuc3NoZF9jbGllbnRfaXAi",
+   "description": "Parse openSSH logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/syslog-logs": {
+   "path": "parsers/s00-raw/crowdsecurity/syslog-logs.yaml",
+   "stage": "s00-raw",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "eb06783d2726c3402216ea8f1b4917cb6cf2eb752b7dffa1d201f1020b8ec48b",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "df53dcdb3c65a798865d2213d02c712d82e6bd638dd5bc73c8eac9e75af7293a",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBTeXNsb2cgcGFyc2VyCgpUaGlzIGlzIGEgZ2VuZXJpYyBsaW51eCBzeXNsb2cgcGFyc2VyIHdpdGggdGltZS1zdXBwb3J0LgpUaGlzIG9uZSBvZnRlbiB3b3JrcyBhbG9uZyBgY3Jvd2RzZWN1cml0eS9za2lwLXByZXRhZ2AKCg==",
+   "content": "I0lmIGl0J3Mgc3lzbG9nLCB3ZSBhcmUgZ29pbmcgdG8gZXh0cmFjdCBwcm9nbmFtZSBmcm9tIGl0CmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlID09ICdzeXNsb2cnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9zeXNsb2ctbG9ncwpub2RlczoKICAtIGdyb2s6CiAgICAgICN0aGlzIGlzIGEgbmFtZWQgcmVndWxhciBleHByZXNzaW9uLiBncm9rIHBhdHRlcm5zIGNhbiBiZSBrZXB0IGludG8gc2VwYXJhdGUgZmlsZXMgZm9yIHJlYWRhYmlsaXR5CiAgICAgIG5hbWU6ICJTWVNMT0dMSU5FIiAKICAgICAgI1RoaXMgaXMgdGhlIGZpZWxkIG9mIHRoZSBgRXZlbnRgIHRvIHdoaWNoIHRoZSByZWdleHAgc2hvdWxkIGJlIGFwcGxpZWQKICAgICAgYXBwbHlfb246IExpbmUuUmF3CiNpZiB0aGUgbm9kZSB3YXMgc3VjY2Vzc2Z1bGwsIHN0YXRpY3Mgd2lsbCBiZSBhcHBsaWVkLgpzdGF0aWNzOgogIC0gcGFyc2VkOiAibG9nc291cmNlIgogICAgdmFsdWU6ICJzeXNsb2ciCiMgc3lzbG9nIGRhdGUgY2FuIGJlIGluIHR3byBkaWZmZXJlbnQgZmllbGRzIChvbmUgb2YgaHRlIGFzc2lnbm1lbnQgd2lsbCBmYWlsKQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LkV2ZW50LnRpbWVzdGFtcAogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LkV2ZW50LnRpbWVzdGFtcDg2MDEKLS0tCiNpZiBpdCdzIG5vdCBzeXNsb2csIHRoZSB0eXBlIGlzIHRoZSBwcm9nbmFtZQpmaWx0ZXI6ICJldnQuTGluZS5MYWJlbHMudHlwZSAhPSAnc3lzbG9nJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbm9uLXN5c2xvZwojZGVidWc6IHRydWUKc3RhdGljczoKICAtIHBhcnNlZDogbWVzc2FnZQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuUmF3CiAgLSBwYXJzZWQ6IHByb2dyYW0KICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLkxhYmVscy50eXBlCi0tLQo=",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/tcpdump-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/tcpdump-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e4c0a0e93b9d5609c3ff1f57c01d82c3696ae3994cc1ec106ef67af506a1f1b9",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5FdmVudC5wcm9ncmFtID09ICd0Y3BkdW1wJyIKbmFtZTogY3Jvd2RzZWN1cml0eS90Y3BkdW1wLWxvZ3MKI2RlYnVnOiB0cnVlCmRlc2NyaXB0aW9uOiAiUGFyc2UgdGNwZHVtcCByYXcgbG9ncyIKZ3JvazoKICBuYW1lOiAiVENQRFVNUF9PVVRQVVQiCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGNwCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiB0Y3Bfc3luCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LnNvdXJjZV9pcCIKICAgIC0gbWV0YTogZGVzdF9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LmRlc3RfaXAiCiAgICAtIG1ldGE6IGRlc3RfcG9ydAogICAgICBleHByZXNzaW9uOiAiZXZ0LkV2ZW50LmRlc3RfcG9ydCIKICAgIC0gcGFyc2VkOiAibmV3X2Nvbm5lY3Rpb24iCiAgICAgIGV4cHJlc3Npb246ICJldnQuRXZlbnQudGNwZmxhZ3MgY29udGFpbnMgJ1MnID8gJ3RydWUnIDogJ2ZhbHNlJyI=",
+   "description": "Parse tcpdump raw logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/whitelists": {
+   "path": "parsers/s02-enrich/crowdsecurity/whitelists.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "843ff6fbb0b1d3bef09ecdc57e477a1b1b231c22d3de8bb692734b72f2e22d0e",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBnZW5lcmljIHdoaXRlbGlzdCB0byBhdm9pZCBiYW5uaW5nIHlvdXJzZWxmLCB3aGl0ZWxpc3RlZCByYW5nZXMgOgoxOTIuMTY4LjAuMC8xNiwgMTAuMC4wLjAvOCwgMTcyLjE2LjAuMC8xMgo=",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3RzCmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IGV2ZW50cyBmcm9tIHByaXZhdGUgaXB2NCBhZGRyZXNzZXMiCndoaXRlbGlzdDoKICByZWFzb246ICJwcml2YXRlIGlwdjQgcmFuZ2VzIgojICBpcDogCiMgICAgLSAxOTUuMTU0LjM3LjExNQogIGNpZHI6CiAgICAtICIxOTIuMTY4LjAuMC8xNiIKICAgIC0gIjEwLjAuMC4wLzgiCiAgICAtICIxNzIuMTYuMC4wLzEyIgogICMgZXhwcmVzc2lvbjoKICAjICAgLSAiJ2Zvby5jb20nIGluIGV2dC5NZXRhLnNvdXJjZV9pcC5yZXZlcnNlIiAKCg==",
+   "description": "Whitelist events from private ipv4 addresses",
+   "author": "crowdsecurity",
+   "labels": null
+  }
+ },
+ "postoverflows": {
+  "crowdsecurity/rdns": {
+   "path": "postoverflows/s00-enrich/crowdsecurity/rdns.yaml",
+   "stage": "s00-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "606827c5bc238e5bedd29080edb8309b32e6e792765dbefba38e892c472fad9d",
+     "deprecated": false
+    }
+   },
+   "content": "ZmlsdGVyOiAiZXZ0Lk92ZXJmbG93LkxhYmVscy5yZW1lZGlhdGlvbiA9PSAndHJ1ZSciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcmRucwpkZXNjcmlwdGlvbjogIkxvb2t1cCB0aGUgRE5TIGFzc2lvY2F0ZWQgdG8gdGhlIHNvdXJjZSBJUCBvbmx5IGZvciBvdmVyZmxvd3MiCnN0YXRpY3M6CiAgLSBtZXRob2Q6IHJldmVyc2VfZG5zCiAgICBleHByZXNzaW9uOiBldnQuT3ZlcmZsb3cuU291cmNlX2lwCg==",
+   "description": "Lookup the DNS assiocated to the source IP only for overflows",
+   "author": "crowdsecurity",
+   "labels": null
+  }
+ },
+ "scenarios": {
+  "crowdsecurity/ban-defcon-drop_range": {
+   "path": "scenarios/crowdsecurity/ban-defcon-drop_range.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "da839847a4a67c1787ea5185e2b25e1e26710ac3b12e7c179a9bdda8a99b2009",
+     "deprecated": false
+    }
+   },
+   "long_description": "QmFucyBhIHJhbmdlIGlmIG1vcmUgdGhhbiA1IGlwcyBmcm9tIHNhaWQgcmFuZ2UgYXJlIGJhbm5lZC4KCkxlYWtzcGVlZCBvZiAxIG1pbnV0ZSwgY2FwYWNpdHkgb2YgNS4K",
+   "content": "I1RBUCBJVCBUV0lDRSA6IGlmIG1vcmUgdGhhbiA1IHVuaXF1ZSBJUHMgb2YgYSByYW5nZSBhcmUgYmVpbmcgYmFubmVkLCBkcm9wIHRoZSByYW5nZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9iYW4tZGVmY29uLWRyb3BfcmFuZ2UKZGVzY3JpcHRpb246ICJCYW4gYSByYW5nZSBpZiBtb3JlIHRoYW4gNSBpcHMgZnJvbSBpdCBhcmUgYmFubmVkIGF0IGEgdGltZSIKI2l0J3MgYW4gb3ZlcmZsb3cgZnJvbSBhIHNjZW5hcmlvIHRoYXQgdHJpZ2dlcmVkIGEgcmVtZWRpYXRpb24gOykKZmlsdGVyOiAibGVuKGV2dC5PdmVyZmxvdy5TY2VuYXJpbykgPiAwICYmIGV2dC5PdmVyZmxvdy5MYWJlbHMucmVtZWRpYXRpb24gPT0gJ3RydWUnIgpncm91cGJ5OiAiZXZ0Lk92ZXJmbG93LlNvdXJjZV9yYW5nZSIKZGlzdGluY3Q6ICJldnQuT3ZlcmZsb3cuU291cmNlX2lwIgpjYXBhY2l0eTogNQojZGVidWc6IHRydWUKbGVha3NwZWVkOiAiMW0iCmJsYWNraG9sZTogNW0KbGFiZWxzOgogcmVtZWRpYXRpb246IHRydWUKIHNjb3BlOiByYW5nZQoK",
+   "description": "Ban a range if more than 5 ips from it are banned at a time",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "scope": "range"
+   }
+  },
+  "crowdsecurity/ban-report-ssh_bf_report": {
+   "path": "scenarios/crowdsecurity/ban-report-ssh_bf_report.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "0a7bc501a12b4a8aff250d95d3a08dd0f53ad9eb874ac523ba9c628302749c4d",
+     "deprecated": false
+    }
+   },
+   "long_description": "Q291bnQgdGhlIG51bWJlciBvZiB1bmlxdWUgaXBzIHRoYXQgcGVyZm9ybWVkIHNzaF9icnV0ZWZvcmNlcywgcmVwb3J0IGV2ZXJ5IDEwIG1pbnV0ZXMuCg==",
+   "content": "dHlwZTogY291bnRlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2Jhbi1yZXBvcnRzLXNzaF9iZl9yZXBvcnQKZGVzY3JpcHRpb246ICJDb3VudCB1bmlxdWUgaXBzIHBlcmZvcm1pbmcgc3NoIGJydXRlZm9yY2UiCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuT3ZlcmZsb3cuU2NlbmFyaW8gPT0gJ3NzaF9icnV0ZWZvcmNlJyIKZGlzdGluY3Q6ICJldnQuT3ZlcmZsb3cuU291cmNlX2lwIgpjYXBhY2l0eTogLTEKZHVyYXRpb246IDEwbQpsYWJlbHM6CiAgc2VydmljZTogc3NoCgo=",
+   "description": "Count unique ips performing ssh bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "service": "ssh"
+   }
+  },
+  "crowdsecurity/http-bf-wordpress_bf": {
+   "path": "scenarios/crowdsecurity/http-bf-wordpress_bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e9c9c959f9d7123e13ab04f2486746f144128c842dd121800027ccf22b6b1dc4",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIG9uIHdvcmRwcmVzcyBsb2dpbiBwYWdlICd3cC1sb2dpbi5waHAnLgoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNQoK",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgpkZXNjcmlwdGlvbjogImRldGVjdCB3b3JkcHJlc3MgYnJ1dGVmb3JjZSIKZGVidWc6IGZhbHNlCiMgZmFpbGVkIGF1dGggb24gd3AtbG9naW4ucGhwIHJldHVybnMgMjAwCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdodHRwX2FjY2Vzcy1sb2cnICYmIGV2dC5FdmVudC5maWxlX25hbWUgPT0gJ3dwLWxvZ2luLnBocCcgJiYgZXZ0LkV2ZW50LnN0YXR1cyA9PSAnMjAwJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQ==",
+   "description": "detect wordpress bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/http-crawl-non_statics": {
+   "path": "scenarios/crowdsecurity/http-crawl-non_statics.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "0511b675bcf0a72dd33b21e7f9d2f99d7b1950f775d37d6707bccd2ad0f7538c",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGNyYXdsIG9uIG5vbi1zdGF0aWMgKGpwZyxjc3MsanMsZXRjLikgaHR0cCBwYWdlcyBmcm9tIGEgc2luZ2xlIGlwLgoKTGVha3NwZWVkIG9mIDAuNXMsIGNhcGFjaXR5IG9mIDQwCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWNyYXdsLW5vbl9zdGF0aWNzCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGFnZ3Jlc3NpdmUgY3Jhd2wgZnJvbSBzaW5nbGUgaXAiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlIGluIFsnaHR0cF9hY2Nlc3MtbG9nJywgJ2h0dHBfZXJyb3ItbG9nJ10gJiYgZXZ0LkV2ZW50LnN0YXRpY19yZXNzb3VyY2UgPT0gJ2ZhbHNlJyIKbGVha3NwZWVkOiAwLjVzCmNhcGFjaXR5OiA0MAojZGVidWc6IHRydWUKI3RoaXMgbGltaXRzIHRoZSBtZW1vcnkgY2FjaGUgKGFuZCBldmVudF9zZXF1ZW5jZXMgaW4gb3V0cHV0KSB0byBmaXZlIGV2ZW50cwpjYWNoZV9zaXplOiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCmxhYmVsczoKIHNlcnZpY2U6IGh0dHAKIHR5cGU6IGNyYXdsCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect aggressive crawl from single ip",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "crawl"
+   }
+  },
+  "crowdsecurity/http-scan-uniques_404": {
+   "path": "scenarios/crowdsecurity/http-scan-uniques_404.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "fcf8913ed504a1514cfa70f566da40eb66031d2f25ff013b830002477e816e38",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGFrZSByZW1lZGlhdGlvbiBhZ2FpbnN0IGEgc2luZ2xlIElQIHRoYXQgcmVxdWlyZXMgbXVsdGlwbGUgZGlmZmVyZW50IChodHRwIHBhdGgpIHBhZ2VzIHRoYXQgZW5kIHVwIGluIDQwNC80MDMvNDAwLgoKTGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNS4K",
+   "content": "IyA0MDQgc2Nhbgp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLXNjYW4tdW5pcXVlc180MDQKZGVzY3JpcHRpb246ICJEZXRlY3QgbXVsdGlwbGUgdW5pcXVlIDQwNCBmcm9tIGEgc2luZ2xlIGlwIgpmaWx0ZXI6ICJldnQuTWV0YS5zZXJ2aWNlID09ICdodHRwJyAmJiBldnQuTWV0YS5odHRwX3N0YXR1cyBpbiBbJzQwNCcsICc0MDMnLCAnNDAwJ10iCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmRpc3RpbmN0OiAiZXZ0Lk1ldGEuaHR0cF9wYXRoIgpjYXBhY2l0eTogNQojZGVidWc6IHRydWUKcmVwcm9jZXNzOiB0cnVlCmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBzY2FuCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect multiple unique 404 from a single ip",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "scan"
+   }
+  },
+  "crowdsecurity/iptables-scan-multi_ports": {
+   "path": "scenarios/crowdsecurity/iptables-scan-multi_ports.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "de8762245c5a5839997605d3314a5b2a28e34454cf30f03161f3dd428e9a88f8",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBhIHBvcnQgc2NhbiA6IGRldGVjdHMgaWYgYSBzaW5nbGUgSVAgYXR0ZW1wdHMgY29ubmVjdGlvbiB0byBtYW55IGRpZmZlcmVudCBwb3J0cy4KCkxlYWtzcGVlZCBvZiA1cywgY2FwYWNpdHkgb2YgMTUuCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9pcHRhYmxlcy1zY2FuLW11bHRpX3BvcnRzCmRlc2NyaXB0aW9uOiAiYmFuIElQcyB0aGF0IGFyZSBzY2FubmluZyB1cyIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2lwdGFibGVzX2Ryb3AnICYmIGV2dC5NZXRhLnNlcnZpY2UgPT0gJ3RjcCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0LkV2ZW50LmRzdF9wb3J0CmNhcGFjaXR5OiAxNQpsZWFrc3BlZWQ6IDVzCmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IHRjcAogIHR5cGU6IHNjYW4KICByZW1lZGlhdGlvbjogdHJ1ZQoK",
+   "description": "ban IPs that are scanning us",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "tcp",
+    "type": "scan"
+   }
+  },
+  "crowdsecurity/mysql-bf": {
+   "path": "scenarios/crowdsecurity/mysql-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "ce4f91453903dd28c1b95b02b291f5436f22e46f949ce34cb9e9a9c696860052",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHNldmVhbCBmYWlsZWQgbXlzcWwgYXV0aGVudGljYXRpb25zLgoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgMwo=",
+   "content": "IyBteXNxbCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L215c3FsLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG15c3FsIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ215c3FsX2ZhaWxlZF9hdXRoJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiAzCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IG15c3FsCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect mysql bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "mysql",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/naxsi-exploit-vpatch": {
+   "path": "scenarios/crowdsecurity/naxsi-exploit-vpatch.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d8dc5dc70ea3d42f176de1bf3906fca89dd29def825667a36fed63bf2f0f5e66",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBuYXhzaSBibG9ja2VkIHJlcXVlc3RzIG9uIGN1c3RvbSAoPjk5OTkpIHJ1bGVzLgoKVHJpZ2dlcnMgb24gZmlyc3QgcmVxdWVzdC4K",
+   "content": "IyBuYXhzaSB2cGF0Y2ggcnVsZXMgZGV0ZWN0aW9uCnR5cGU6IHRyaWdnZXIKbmFtZTogY3Jvd2RzZWN1cml0eS9uYXhzaS1leHBsb2l0LXZwYXRjaAojIGlkIGlzIGJpZ2dlciB0aGFuIDlrLCBjdXN0b20gcnVsZQpkZXNjcmlwdGlvbjogIkRldGVjdCBjdXN0b20gYmxhY2tsaXN0IHRyaWdnZXJlZCBpbiBuYXhzaSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3dhZl9uYXhzaS1sb2cnICYmIGxlbihldnQuRXZlbnQubmF4c2lfaWQpID4gNCIKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBzY2FuCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect custom blacklist triggered in naxsi",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "scan"
+   }
+  },
+  "crowdsecurity/smb-bf": {
+   "path": "scenarios/crowdsecurity/smb-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "189dc496dc7c6aeca84f02cfc1a346dc84e6b4d5975e064e2b3b24e12c87f8ab",
+     "deprecated": false
+    }
+   },
+   "long_description": "dHJhY2tzIGZhaWxlZCBzYW1iYSBhdXRoZW50aWNhdGlvbnMuCg==",
+   "content": "IyBzbWIgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NtYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzbWIgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnc21iX2ZhaWxlZF9hdXRoJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiAzCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHNtYgogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWU=",
+   "description": "Detect smb bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "smb",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/ssh-bf": {
+   "path": "scenarios/crowdsecurity/ssh-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7219681d0d7eb970fc5c844444e8f45abd49190e44dfab5e212f6e8937c67af3",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBzc2ggYXV0aGVudGljYXRpb25zIDoKCiAtIGxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiAzIHVuaXF1ZSBkaXN0aW5jdCB1c2VycwogCg==",
+   "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NzaC1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzc2ggYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9mYWlsZWQtYXV0aCciCmxlYWtzcGVlZDogIjEwcyIKcmVmZXJlbmNlczoKICAtIGh0dHA6Ly93aWtpcGVkaWEuY29tL3NzaC1iZi1pcy1iYWQKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKIHNlcnZpY2U6IHNzaAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKLS0tCiMgc3NoIHVzZXItZW51bQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NzaC1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdzc2hfZmFpbGVkLWF1dGgnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudGFyZ2V0X3VzZXIKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDMKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBzc2gKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCgo=",
+   "description": "Detect ssh bruteforce",
+   "author": "crowdsecurity",
+   "references": [
+    "http://wikipedia.com/ssh-bf-is-bad"
+   ],
+   "labels": {
+    "remediation": "true",
+    "service": "ssh",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/tcpdump-scan-port_scan": {
+   "path": "scenarios/crowdsecurity/tcpdump-scan-port_scan.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "add0cc7488c063e3b5d910a43c34a89ea0bc45106a59342dbfbf86762a5fe01f",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiAiTmV3IGNvbm5lY3Rpb24iCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG5ldyBjb25uZWN0aW9uIHdpdGggdGNwZHVtcCIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAndGNwJyAmJiBldnQuRXZlbnQubmV3X2Nvbm5lY3Rpb24gPT0gJ3RydWUnIgpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogIHNlcnZpY2U6IHRjcAotLS0KdHlwZTogY291bnRlcgpuYW1lOiBjb3VudF90cmlnZ2VycwpkZXNjcmlwdGlvbjogImNvdW50IG5ldyBjb25uZWN0aW9uIHdpdGggdGNwZHVtcCIKZmlsdGVyOiAiZXZ0Lk92ZXJmbG93LlNjZW5hcmlvID09ICdOZXcgY29ubmVjdGlvbiciCmRpc3RpbmN0OiAiZXZ0Lk92ZXJmbG93LlNvdXJjZV9pcCIKZHVyYXRpb246IDFtCmNhcGFjaXR5OiAtMQpsYWJlbHM6CiAgc2VydmljZTogdGNwCi0tLQojIHRjcCBzeW5zY2FuIGRldGVjdGlvbgp0eXBlOiBsZWFreQpuYW1lOiB0Y3Bfc2NhbgpkZXNjcmlwdGlvbjogImRldGVjdCBzeW5zY2FuIHdpdGggdGNwZHVtcCIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3RjcF9zeW4nIGFuZCBldnQuRXZlbnQudGNwZmxhZ3MgPT0gJ1MnIgpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpkaXN0aW5jdDogImV2dC5NZXRhLmRlc3RfcG9ydCIKY2FwYWNpdHk6IDEwCmxlYWtzcGVlZDogIjVzIgpsYWJlbHM6CiBzZXJ2aWNlOiB0Y3AKIHR5cGU6IHNjYW4KIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect new connection with tcpdump",
+   "author": "crowdsecurity",
+   "labels": {
+    "service": "tcp"
+   }
+  },
+  "crowdsecurity/telnet-bf": {
+   "path": "scenarios/crowdsecurity/telnet-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d9eb3fd7ac72d1a9e764255dd10b48e97887fd3691686d069cee1440c0518a35",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS90ZWxuZXQtYmYKZGVzY3JpcHRpb246ICJkZXRlY3QgdGVsbmV0IGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3RlbG5ldF9uZXdfc2Vzc2lvbicKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiAzCmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiB0ZWxuZXQKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVl",
+   "description": "detect telnet bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "telnet",
+    "type": "bruteforce"
+   }
+  }
+ }
+}

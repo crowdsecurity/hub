@@ -1,0 +1,17 @@
+#TAP IT TWICE : if more than 5 unique IPs of a range are being banned, drop the range
+type: leaky
+#debug: true
+name: crowdsecurity/ban-defcon-drop_range
+description: "Ban a range if more than 5 ips from it are banned at a time"
+#it's an overflow from a scenario that triggered a remediation ;)
+filter: "len(evt.Overflow.Scenario) > 0 && evt.Overflow.Labels.remediation == 'true'"
+groupby: "evt.Overflow.Source_range"
+distinct: "evt.Overflow.Source_ip"
+capacity: 5
+#debug: true
+leakspeed: "1m"
+blackhole: 5m
+labels:
+ remediation: true
+ scope: range
+

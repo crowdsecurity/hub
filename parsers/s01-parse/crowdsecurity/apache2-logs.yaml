@@ -1,0 +1,26 @@
+#Apache access logs
+#debug: true
+
+filter: "evt.Event.program == 'apache2'"
+onsuccess: next_stage
+name: crowdsecurity/apache2-logs
+description: "Parse Apache2 access and error logs"
+nodes:
+  - grok:
+      name: COMBINEDAPACHELOG
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Event.timestamp
+# these ones apply for both grok patterns
+statics:
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: evt.Event.clientip
+  - meta: http_status
+    expression: evt.Event.response
+  - meta: http_path
+    expression: evt.Event.request

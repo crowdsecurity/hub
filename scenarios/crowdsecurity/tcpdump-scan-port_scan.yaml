@@ -1,0 +1,31 @@
+type: trigger
+name: "New connection"
+description: "Detect new connection with tcpdump"
+filter: "evt.Meta.service == 'tcp' && evt.Event.new_connection == 'true'"
+reprocess: true
+labels:
+  service: tcp
+---
+type: counter
+name: count_triggers
+description: "count new connection with tcpdump"
+filter: "evt.Overflow.Scenario == 'New connection'"
+distinct: "evt.Overflow.Source_ip"
+duration: 1m
+capacity: -1
+labels:
+  service: tcp
+---
+# tcp synscan detection
+type: leaky
+name: tcp_scan
+description: "detect synscan with tcpdump"
+filter: "evt.Meta.log_type == 'tcp_syn' and evt.Event.tcpflags == 'S'"
+groupby: "evt.Meta.source_ip"
+distinct: "evt.Meta.dest_port"
+capacity: 10
+leakspeed: "5s"
+labels:
+ service: tcp
+ type: scan
+ remediation: true

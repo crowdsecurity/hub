@@ -1,0 +1,31 @@
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+description: "Parse more Specifically HTTP logs, such as HTTP Code, HTTP path, HTTP args and if its a static ressource"
+name: crowdsecurity/http-logs
+pattern_syntax:
+  DIR: "^.*/"
+  FILE: "[^/].*?"
+  EXT: "\\.[^.]*$|$"
+nodes:
+  - statics:
+     - parsed: "impact_completion"
+       # the value of a field can as well be determined as the result of an expression
+       expression: "evt.Meta.http_status in ['404', '403', '502'] ? 'false' : 'true'"
+  # let's split the path?query if possible
+  - grok:
+      pattern: "^%{GREEDYDATA:request}\\?%{GREEDYDATA:http_args}$"
+      apply_on: request
+  # this is another node, with its own pattern_syntax
+  - #debug: true
+    grok:
+      pattern: "%{DIR:file_dir}%{FILE:file_frag}%{EXT:file_ext}"
+      apply_on: request
+      statics:
+        - meta: http_path
+          expression: "evt.Event.http_path"
+          # meta af
+        - meta: http_args_len
+          expression: "len(evt.Event.http_args)"
+        - parsed: file_name
+          expression: evt.Event.file_frag + evt.Event.file_ext
+        - parsed: static_ressource
+          expression: "evt.Event.file_ext in ['.jpg', '.css', '.js', '.jpeg', '.png', '.svg'] ? 'true' : 'false'"

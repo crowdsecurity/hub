@@ -1,0 +1,9 @@
+filter: "evt.StrTime != ''"
+name: crowdsecurity/dateparse-enrich
+#debug: true
+#it's a hack lol
+statics:
+  - method: ParseDate
+    expression: evt.StrTime
+  - target: MarshaledTime
+    expression: evt.Enriched.MarshaledTime

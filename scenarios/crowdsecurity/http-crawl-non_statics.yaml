@@ -1,0 +1,15 @@
+type: leaky
+name: crowdsecurity/http-crawl-non_statics
+description: "Detect aggressive crawl from single ip"
+filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && evt.Event.static_ressource == 'false'"
+leakspeed: 0.5s
+capacity: 40
+#debug: true
+#this limits the memory cache (and event_sequences in output) to five events
+cache_size: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+ service: http
+ type: crawl
+ remediation: true

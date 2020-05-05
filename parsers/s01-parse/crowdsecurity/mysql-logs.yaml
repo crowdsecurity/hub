@@ -1,0 +1,14 @@
+onsuccess: next_stage
+name: crowdsecurity/mysql-logs
+description: "Parse MySQL logs"
+filter: "evt.Event.program == 'mysql'"
+grok:
+  name: "MYSQL_AUTH_FAIL"
+  apply_on: message
+statics:
+  - meta: log_type
+    value: mysql_failed_auth
+  - meta: source_ip
+    expression: "evt.Event.source_ip"
+  - meta: user
+    expression: "evt.Event.user"

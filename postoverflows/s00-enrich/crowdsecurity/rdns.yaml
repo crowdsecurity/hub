@@ -1,0 +1,6 @@
+filter: "evt.Overflow.Labels.remediation == 'true'"
+name: crowdsecurity/rdns
+description: "Lookup the DNS assiocated to the source IP only for overflows"
+statics:
+  - method: reverse_dns
+    expression: evt.Overflow.Source_ip

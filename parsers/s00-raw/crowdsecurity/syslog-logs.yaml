@@ -1,0 +1,31 @@
+#If it's syslog, we are going to extract progname from it
+filter: "evt.Line.Labels.type == 'syslog'"
+onsuccess: next_stage
+name: crowdsecurity/syslog-logs
+nodes:
+  - grok:
+      #this is a named regular expression. grok patterns can be kept into separate files for readability
+      name: "SYSLOGLINE" 
+      #This is the field of the `Event` to which the regexp should be applied
+      apply_on: Line.Raw
+#if the node was successfull, statics will be applied.
+statics:
+  - parsed: "logsource"
+    value: "syslog"
+# syslog date can be in two different fields (one of hte assignment will fail)
+  - target: evt.StrTime
+    expression: evt.Event.timestamp
+  - target: evt.StrTime
+    expression: evt.Event.timestamp8601
+---
+#if it's not syslog, the type is the progname
+filter: "evt.Line.Labels.type != 'syslog'"
+onsuccess: next_stage
+name: crowdsecurity/non-syslog
+#debug: true
+statics:
+  - parsed: message
+    expression: evt.Line.Raw
+  - parsed: program
+    expression: evt.Line.Labels.type
+---

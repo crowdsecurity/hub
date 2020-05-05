@@ -1,0 +1,17 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Event.program == 'kernel'"
+name: crowdsecurity/iptables-logs
+description: "Parse iptables drop logs"
+nodes:
+  - grok:
+      pattern: \[%{DATA}\]+.*(%{WORD:action})? IN=%{WORD:int_eth} OUT= MAC=%{IP}:%{MAC} SRC=%{IP:src_ip} DST=%{IP:dst_ip} LEN=%{INT:length}.*PROTO=%{WORD:proto} SPT=%{INT:src_port} DPT=%{INT:dst_port}.*
+      apply_on: message
+statics:
+    - meta: service
+      value: tcp
+    - meta: log_type
+      value: iptables_drop
+    - meta: source_ip
+      expression: "evt.Event.src_ip"
+  
