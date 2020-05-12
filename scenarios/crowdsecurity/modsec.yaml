@@ -1,0 +1,11 @@
+type: trigger
+debug: true
+name: crowdsecurity/modsecurity
+description: "Web exploitation via modsecurity"
+filter: evt.Parsed.ruleseverity == 'CRITICAL'
+blackhole: 2m
+labels:
+  type: web_attack
+  service: http
+  remediation: true
+  scope: ip
