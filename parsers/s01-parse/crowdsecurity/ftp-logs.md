@@ -1,0 +1,1 @@
+FTP ([vsftpd](https://en.wikipedia.org/wiki/Vsftpd)) authentication fail parser.
