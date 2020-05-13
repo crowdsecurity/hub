@@ -1,0 +1,13 @@
+type: leaky
+#debug: true
+name: crowdsecurity/vsftpd-bf
+description: "Detect FTP bruteforce (vsftpd)"
+filter: evt.Meta.log_type == 'ftp_failed_auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: ftp
+ type: bruteforce
+ remediation: true

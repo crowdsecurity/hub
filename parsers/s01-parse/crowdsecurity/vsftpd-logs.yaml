@@ -1,0 +1,21 @@
+onsuccess: next_stage
+name: vsftpd-logs
+description: "Parse VSFTPD logs"
+filter: "evt.Parsed.program == 'vsftpd'"
+#debug: true
+pattern_syntax:
+  FTP_AUTH_FAIL: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "%{IP:source_ip}"'
+grok:
+  pattern: "%{FTP_AUTH_FAIL}"
+  apply_on: message
+statics:
+    - meta: program
+      value: vsftpd
+    - meta: log_type
+      value: ftp_failed_auth
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: user
+      expression: "evt.Parsed.user"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
