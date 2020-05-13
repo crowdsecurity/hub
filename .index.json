@@ -177,6 +177,27 @@
     "crowdsecurity/ssh-bf"
    ]
   },
+  "crowdsecurity/vsftpd": {
+   "path": "collections/crowdsecurity/vsftpd.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7cb60c9ce9772d4dc7227cc415a55114b8f4e3c07e27c17a666e56e11cb04b32",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBWU0ZUUEQgYWdhaW5zdCBjb21tb24gYXR0YWNrcyA6Ci0gVlNGVFBEIHBhcnNlcjogYGNyb3dkc2VjdXJpdHkvdnNmdHBkLWxvZ3NgCi0gYnJ1dGVmb3JjZSBzY2VuYXJpbyA6IGBjcm93ZHNlY3VyaXR5L3ZzZnRwZC1iZmA=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvdnNmdHBkLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS92c2Z0cGQtYmYKZGVzY3JpcHRpb246ICJWU0ZUUEQgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gZnRwCiAgLSBicnV0ZWZvcmNlCg==",
+   "description": "VSFTPD support : logs and brute-force scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/vsftpd-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/vsftpd-bf"
+   ]
+  },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
    "version": "0.1",
@@ -444,6 +465,22 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAndGNwZHVtcCciCm5hbWU6IGNyb3dkc2VjdXJpdHkvdGNwZHVtcC1sb2dzCiNkZWJ1ZzogdHJ1ZQpkZXNjcmlwdGlvbjogIlBhcnNlIHRjcGR1bXAgcmF3IGxvZ3MiCmdyb2s6CiAgbmFtZTogIlRDUERVTVBfT1VUUFVUIgogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHRjcAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogdGNwX3N5bgogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc291cmNlX2lwIgogICAgLSBtZXRhOiBkZXN0X2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLmRlc3RfaXAiCiAgICAtIG1ldGE6IGRlc3RfcG9ydAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5kZXN0X3BvcnQiCiAgICAtIHBhcnNlZDogIm5ld19jb25uZWN0aW9uIgogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC50Y3BmbGFncyBjb250YWlucyAnUycgPyAndHJ1ZScgOiAnZmFsc2UnIg==",
    "description": "Parse tcpdump raw logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/vsftpd-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/vsftpd-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4867423a3ae7bf776a0833bba0d098ca8a021239746941ba3de527d75517c179",
+     "deprecated": false
+    }
+   },
+   "long_description": "RlRQIChbdnNmdHBkXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Wc2Z0cGQpKSBhdXRoZW50aWNhdGlvbiBmYWlsIHBhcnNlci4=",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IHZzZnRwZC1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgVlNGVFBEIGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAndnNmdHBkJyIKI2RlYnVnOiB0cnVlCnBhdHRlcm5fc3ludGF4OgogIEZUUF9BVVRIX0ZBSUw6ICcle0hUVFBERVJST1JfREFURTp0aW1lc3RhbXB9IFxbcGlkICV7TlVNQkVSfVxdIFxbJXtHUkVFRFlEQVRBOnVzZXJ9XF0gRkFJTCBMT0dJTjogQ2xpZW50ICIle0lQOnNvdXJjZV9pcH0iJwpncm9rOgogIHBhdHRlcm46ICIle0ZUUF9BVVRIX0ZBSUx9IgogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHByb2dyYW0KICAgICAgdmFsdWU6IHZzZnRwZAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogZnRwX2ZhaWxlZF9hdXRoCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgICAtIG1ldGE6IHVzZXIKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlciIKICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcA==",
+   "description": "Parse VSFTPD logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -727,6 +764,25 @@
    "labels": {
     "remediation": "true",
     "service": "telnet",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/vsftpd-bf": {
+   "path": "scenarios/crowdsecurity/vsftpd-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "3591247988014705cf3a7e42388f0c87f9b86d3141268d996c5820ceab6364e1",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRGV0ZWN0IEZUUCBicnV0ZWZvcmNlIGF0dGFjay4KCiMjIyBSdWxlCmxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDM=",
+   "content": "dHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvdnNmdHBkLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IEZUUCBicnV0ZWZvcmNlICh2c2Z0cGQpIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdmdHBfZmFpbGVkX2F1dGgnCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogZnRwCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQ==",
+   "description": "Detect FTP bruteforce (vsftpd)",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "ftp",
     "type": "bruteforce"
    }
   }
