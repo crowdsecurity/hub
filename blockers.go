@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 
 	"github.com/google/go-github/github"
 )
@@ -58,13 +59,18 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	/*Configure client with auth*/
 	client := github.NewClient(nil)
 	/*get main infos about repo*/
+	log.Printf("updating %s/%s", item.Owner, item.Name)
 	repinfo, _, err := client.Repositories.Get(context.Background(), item.Owner, item.Name)
 	if err != nil {
 		return item, fmt.Errorf("unable to get %s/%s : %s", item.Owner, item.Name, err)
 	}
 	item.Stargazers = repinfo.GetStargazersCount()
+	log.Printf("Stargazers : %d", item.Stargazers)
 	item.URL = repinfo.GetHTMLURL()
+	log.Printf("URL : %s", item.URL)
 	item.Description = repinfo.GetDescription()
+	log.Printf("Description : %s", item.Description)
+
 	/*get the readme*/
 	readme, _, err := client.Repositories.GetReadme(context.Background(), item.Owner, item.Name, nil)
 	if err != nil {
@@ -75,21 +81,27 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	if err != nil {
 		return item, fmt.Errorf("Failed to get the readme content : %s", err)
 	}
+	log.Printf("len(readme) : %d", len(item.ReadmeContent))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
 	/*get infos about latest release*/
 	release, _, err := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
 	if release != nil {
 		item.LastVersion = *release.TagName
-
+		log.Printf("LastVersion : %s", item.LastVersion)
 		item.DownloadURL = release.GetHTMLURL()
+		log.Printf("DownloadURL : %s", item.DownloadURL)
+		log.Printf("len(assets) : %d", len(release.Assets))
 
 		/*get download count*/
 		for x, asset := range release.Assets {
 			if x == 0 {
 				item.AssetURL = asset.GetBrowserDownloadURL()
+				log.Printf("AssetURL : %s", item.AssetURL)
 			}
 			item.DownloadCount += asset.GetDownloadCount()
 		}
+	} else {
+		log.Fatalf("No release")
 	}
 	return item, nil
 }
