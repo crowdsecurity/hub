@@ -92,6 +92,27 @@
     "crowdsecurity/dateparse-enrich"
    ]
   },
+  "crowdsecurity/modsecurity": {
+   "path": "collections/crowdsecurity/modsecurity.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "530454a9dbdb3800f62de4b8ba7d6ed2160b4e533d577c52393f5f286df2b615",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBtb2RzZWN1cml0eSAodGVzdGVkIG9ubHkgd2l0aCBBcGFjaGUpOgogLSBtb2RzZWN1cml0eSBwYXJzZXI6IGBjcm93ZHNlY3VyaXR5L21vZHNlY3VyaXR5YAogLSBtb2RzZWN1cml0eSBzY2VuYXJpbzogYGNyb3dkc2VjdXJpdHkvbW9kc2VjdXJpdHk=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvbW9kc2VjdXJpdHkKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9tb2RzZWN1cml0eQpkZXNjcmlwdGlvbjogIm1vZHNlY3VyaXR5IHN1cHBvcnQgOiBtb2RzZWN1cml0eSBwYXJzZXIgYW5kIHNjZW5hcmlvIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3ZWIKICAtIHdhZg==",
+   "description": "modsecurity support : modsecurity parser and scenario",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/modsecurity"
+   ],
+   "scenarios": [
+    "crowdsecurity/modsecurity"
+   ]
+  },
   "crowdsecurity/mysql": {
    "path": "collections/crowdsecurity/mysql.yaml",
    "version": "0.1",
@@ -325,6 +346,22 @@
    "long_description": "QSBwYXJzZXIgZm9yIGlwdGFibGVzIGAtaiBMT0dgIGxvZ3MuCkFsbCBsb2dnZWQgcGFja2V0cyBhcmUgY29uc2lkZXJlZCBhcyBEUk9Qcy4K",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tlcm5lbCciCm5hbWU6IGNyb3dkc2VjdXJpdHkvaXB0YWJsZXMtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIGlwdGFibGVzIGRyb3AgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiBcWyV7REFUQX1cXSsuKigle1dPUkQ6YWN0aW9ufSk/IElOPSV7V09SRDppbnRfZXRofSBPVVQ9IE1BQz0le0lQfTole01BQ30gU1JDPSV7SVA6c3JjX2lwfSBEU1Q9JXtJUDpkc3RfaXB9IExFTj0le0lOVDpsZW5ndGh9LipQUk9UTz0le1dPUkQ6cHJvdG99IFNQVD0le0lOVDpzcmNfcG9ydH0gRFBUPSV7SU5UOmRzdF9wb3J0fS4qCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGNwCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBpcHRhYmxlc19kcm9wCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zcmNfaXAiCiAg",
    "description": "Parse iptables drop logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/modsec": {
+   "path": "parsers/s01-parse/crowdsecurity/modsec.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8db1b74ef6681ebe8e9fcc09ed271830a330f3aa5dd3e273a98b3906c334f715",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhpcyBtb2RzZWN1cml0eSBwYXJzZXIgc3VwcG9ydCBtb2RzZWN1cml0eSBsb2dzIGZyb20gYXBhY2hlMiBlcnJvciBsb2cuCgooTm90IHRlc3RlZCB3aXRoIE5naW54IHlldCkuIA==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdtb2RzZWN1cml0eScKbmFtZTogY3Jvd2RzZWN1cml0eS9tb2RzZWN1cml0eQojZGVidWc6IHRydWUKZGVzY3JpcHRpb246IEEgcGFyc2VyIGZvciBtb2RzZWN1cml0eSBXQUYKZ3JvazoKICBuYW1lOiBNT0RTRUNBUEFDSEVFUlJPUgogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IG1vZHNlY3VyaXR5CiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlaG9zdAo=",
+   "description": "A parser for modsecurity WAF",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -644,6 +681,25 @@
     "remediation": "true",
     "service": "tcp",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/modsec": {
+   "path": "scenarios/crowdsecurity/modsec.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "447c63986f53a743d08fc16677d7f5427ed4b7efca6a0d73c47991d83582e0d0",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L21vZHNlY3VyaXR5CmRlc2NyaXB0aW9uOiAiV2ViIGV4cGxvaXRhdGlvbiB2aWEgbW9kc2VjdXJpdHkiCmZpbHRlcjogZXZ0LlBhcnNlZC5ydWxlc2V2ZXJpdHkgPT0gJ0NSSVRJQ0FMJwpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiB3ZWJfYXR0YWNrCiAgc2VydmljZTogaHR0cAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgc2NvcGU6IGlwCg==",
+   "description": "Web exploitation via modsecurity",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "scope": "ip",
+    "service": "http",
+    "type": "web_attack"
    }
   },
   "crowdsecurity/mysql-bf": {
