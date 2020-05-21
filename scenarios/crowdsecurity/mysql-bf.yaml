@@ -5,7 +5,7 @@ name: crowdsecurity/mysql-bf
 description: "Detect mysql bruteforce"
 filter: evt.Meta.log_type == 'mysql_failed_auth'
 leakspeed: "10s"
-capacity: 3
+capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
