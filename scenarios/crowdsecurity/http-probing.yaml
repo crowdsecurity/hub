@@ -1,12 +1,12 @@
 # 404 scan
 type: leaky
 #debug: true
-name: crowdsecurity/http-scan-uniques_404
-description: "Detect multiple unique 404 from a single ip"
+name: crowdsecurity/http-probing
+description: "Detect site scanning/probing from a single ip"
 filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404', '403', '400']"
 groupby: "evt.Meta.source_ip"
 distinct: "evt.Meta.http_path"
-capacity: 5
+capacity: 10
 #debug: true
 reprocess: true
 leakspeed: "10s"
