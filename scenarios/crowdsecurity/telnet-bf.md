@@ -1,4 +1,4 @@
-## Detect FTP bruteforce attack.
+## Detect Telnet bruteforce attack.
 
 ### Rule
 leakspeed of 10s, capacity of 5

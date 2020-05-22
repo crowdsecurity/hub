@@ -3,7 +3,7 @@ name: crowdsecurity/telnet-bf
 description: "detect telnet bruteforce"
 filter: evt.Meta.log_type == 'telnet_new_session'
 groupby: evt.Meta.source_ip
-capacity: 3
+capacity: 5
 leakspeed: "10s"
 blackhole: 5m
 labels:
