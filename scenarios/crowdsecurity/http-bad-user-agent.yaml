@@ -1,0 +1,15 @@
+type: leaky
+debug: true
+name: crowdsecurity/http-dangerous_file
+description: "Detect attempt to access to dangerous file (.log, .db ..) or folder (.git)"
+filter: evt.Parsed.user_agent in file("bad_user_agents.txt")
+data:
+  - source_url: https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/_generator_lists/bad-user-agents.list
+    dest_file: bad_user_agents.txt
+capacity: 3
+leakspeed: 1m
+blackhole: 2m
+labels:
+  type: scan
+  remediation: true
+  beta: test
