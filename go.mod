@@ -3,7 +3,7 @@ module main
 go 1.13
 
 require (
-	github.com/crowdsecurity/crowdsec v0.0.3-0.20200525085505-34a61560978f
+	github.com/crowdsecurity/crowdsec v0.0.3
 	github.com/davecgh/go-spew v1.1.1
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/sirupsen/logrus v1.6.0 // indirect
