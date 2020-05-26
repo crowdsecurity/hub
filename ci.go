@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/crowdsecurity/crowdsec/pkg/cwhub"
 	"io"
 	"io/ioutil"
 	"log"
@@ -116,6 +117,16 @@ func main() {
 		}
 		if err := ioutil.WriteFile(outFile, json, 0644); err != nil {
 			log.Fatalf("failed writting new json index : %s", err)
+		}
+
+		/*Check if the generated index is correct*/
+		indexContent, err := ioutil.ReadFile(outFile)
+		if err != nil {
+			log.Fatalf("Unable to read index : %v", err)
+		}
+		_, err = cwhub.LoadPkgIndex(indexContent)
+		if err != nil {
+			log.Fatalf("Unable to load existing index : %v.", err)
 		}
 	}
 	if target == "all" || target == "blockers" {

@@ -9,6 +9,14 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'scenarios/**.yaml'
+      - 'parsers/**.yaml'
+      - 'postoverflows/**.yaml'
+      - 'collections/**.yaml'
 
 jobs:
   build:
@@ -23,11 +31,13 @@ jobs:
         go build
         ./main -target configs
     - name: Commit files
+      if: ${{ github.event_name == 'push'}}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Update index" .index.json || exit 0
     - name: Push changes
+      if: ${{ github.event_name == 'push'}}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
