@@ -27,7 +27,7 @@
   },
   "crowdsecurity/base-http-scenarios": {
    "path": "collections/crowdsecurity/base-http-scenarios.yaml",
-   "version": "0.3",
+   "version": "0.4",
    "versions": {
     "0.1": {
      "digest": "47233db71224796b55ceaa08ec8a345c36ba6e03f9ca69427c01a4237fbd35ac",
@@ -40,11 +40,15 @@
     "0.3": {
      "digest": "91a77d674c59add7803fa90c1e759e6b6027b6d70e4d5675663b35cd916e5287",
      "deprecated": false
+    },
+    "0.4": {
+     "digest": "2011bc8fe56d92d85921165b3c01e017c931fee330f66c45f8d67aef804af3d5",
+     "deprecated": false
     }
    },
-   "long_description": "Kipjb250YWlucyBubyBwYXJzZXIsIG1lYW50IHRvIGJlIGVtYmVkZGVkKioKCkEgY29sbGVjdGlvbiBvZiBkZWZlbnNpdmUgKGltcGxlbWVudGF0aW9uIGluZGVwZW5kYW50KSBzY2VuYXJpb3MgZm9yIGh0dHAgc2VydmljZXMgOgogLSBhZ2dyZXNzaXZlIGNyYXdsIGRldGVjdGlvbgogLSBzY2FubmluZy9wcm9iaW5nIGRldGVjdGlvbgoKCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1jcmF3bC1ub25fc3RhdGljcwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXByb2JpbmcKZGVzY3JpcHRpb246ICJodHRwIHNjZW5hcmlvcyA6IGFnZ3Jlc3NpdmUgY3Jhd2wsIHNjYW5uaW5nL3Byb2JpbmciCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGh0dHAKICAtIGNyYXdsCiAgLSBzY2FuCgo=",
-   "description": "http scenarios : aggressive crawl, scanning/probing",
+   "long_description": "Kipjb250YWlucyBubyBwYXJzZXIsIG1lYW50IHRvIGJlIGVtYmVkZGVkKioKCkEgY29sbGVjdGlvbiBvZiBkZWZlbnNpdmUgKGltcGxlbWVudGF0aW9uIGluZGVwZW5kYW50KSBzY2VuYXJpb3MgZm9yIGh0dHAgc2VydmljZXMgOgogLSBhZ2dyZXNzaXZlIGNyYXdsIGRldGVjdGlvbgogLSBzY2FubmluZy9wcm9iaW5nIGRldGVjdGlvbgogLSBiYWQgdXNlci1hZ2VudCBkZXRlY3Rpb24KIC0gcGF0aCB0cmF2ZXJzYWwgZGV0ZWN0aW9uCiAtIHNlbnNpdGl2ZSBkYXRhIGFjY2VzcyBhdHRlbXB0cyBkZXRlY3Rpb24KIC0gU1FMIGluamVjdGlvbiBkZXRlY3Rpb24KCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1jcmF3bC1ub25fc3RhdGljcwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1iYWQtdXNlci1hZ2VudAogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXBhdGgtdHJhdmVyc2FsLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zZW5zaXRpdmUtZmlsZXMKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zcWxpLXByb2JpbmcKCmRlc2NyaXB0aW9uOiAiaHR0cCBzY2VuYXJpb3MgOiBiYWQgdXNlciBhZ2VudHMsIFNRTCBpbmplY3Rpb24sIHNlbnNpdGl2ZSBmaWxlcyBhY2Nlc3MsIGRpcmVjdG9yeSB0cmF2ZXJzYWwsIGFnZ3Jlc3NpdmUgaHR0cCBzY2FubmluZyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gaHR0cAogIC0gY3Jhd2wKICAtIHNjYW4KCg==",
+   "description": "http scenarios : bad user agents, SQL injection, sensitive files access, directory traversal, aggressive http scanning",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
@@ -52,7 +56,11 @@
    ],
    "scenarios": [
     "crowdsecurity/http-crawl-non_statics",
-    "crowdsecurity/http-probing"
+    "crowdsecurity/http-probing",
+    "crowdsecurity/http-bad-user-agent",
+    "crowdsecurity/http-path-traversal-probing",
+    "crowdsecurity/http-sensitive-files",
+    "crowdsecurity/http-sqli-probing"
    ]
   },
   "crowdsecurity/iptables": {
@@ -601,7 +609,7 @@
   },
   "crowdsecurity/http-bad-user-agent": {
    "path": "scenarios/crowdsecurity/http-bad-user-agent.yaml",
-   "version": "0.5",
+   "version": "0.6",
    "versions": {
     "0.1": {
      "digest": "05d9db40d69718859ef16cd7b5cb78b327405602804d38e4c8cac67bcaf4e521",
@@ -622,11 +630,15 @@
     "0.5": {
      "digest": "0b074540a98458e149f74086036657d3685cbf6326bc4d359898d234397252b8",
      "deprecated": false
+    },
+    "0.6": {
+     "digest": "4a9244099ebf9bfc9c5fb5efeadca8b77921d196a8b837e4624866206b73a904",
+     "deprecated": false
     }
    },
-   "long_description": "IyBIVFRQIERhbmdlcm91cyBmaWxlCgpEZXRlY3QgdGVudGF0aXZlIG9mIGRhbmdlcm91cyBmaWxlIHNjYW5uaW5nIHN1Y2ggYXMgbG9ncyBmaWxlLCBkYXRhYmFzZSBiYWNrdXAsIHppcCBhcmNoaXZlIGV0YyAuLi4KCg==",
-   "content": "dHlwZTogbGVha3kKZm9ybWF0OiAyLjAKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1iYWQtdXNlci1hZ2VudApkZXNjcmlwdGlvbjogIkRldGVjdCBhdHRlbXB0IHRvIGFjY2VzcyB0byBkYW5nZXJvdXMgZmlsZSAoLmxvZywgLmRiIC4uKSBvciBmb2xkZXIgKC5naXQpIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlIGluIFsnaHR0cF9hY2Nlc3MtbG9nJywgJ2h0dHBfZXJyb3ItbG9nJ10gJiYgZXZ0LlBhcnNlZC5odHRwX3VzZXJfYWdlbnQgaW4gRmlsZSgiYmFkX3VzZXJfYWdlbnRzLnR4dCIpCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vbWl0Y2hlbGxrcm9nemEvbmdpbngtdWx0aW1hdGUtYmFkLWJvdC1ibG9ja2VyL21hc3Rlci9fZ2VuZXJhdG9yX2xpc3RzL2JhZC11c2VyLWFnZW50cy5saXN0CiAgICBkZXN0X2ZpbGU6IGJhZF91c2VyX2FnZW50cy50eHQKY2FwYWNpdHk6IDEKbGVha3NwZWVkOiAxbQpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBzY2FuCiAgcmVtZWRpYXRpb246IHRydWUK",
-   "description": "Detect attempt to access to dangerous file (.log, .db ..) or folder (.git)",
+   "long_description": "IyBIVFRQIERhbmdlcm91cyBmaWxlCgpEZXRlY3QgYmFkIHVzZXItYWdlbnRzCgo=",
+   "content": "dHlwZTogbGVha3kKZm9ybWF0OiAyLjAKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1iYWQtdXNlci1hZ2VudApkZXNjcmlwdGlvbjogIkRldGVjdCBiYWQgdXNlci1hZ2VudHMiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgaW4gWydodHRwX2FjY2Vzcy1sb2cnLCAnaHR0cF9lcnJvci1sb2cnXSAmJiBldnQuUGFyc2VkLmh0dHBfdXNlcl9hZ2VudCBpbiBGaWxlKCJiYWRfdXNlcl9hZ2VudHMudHh0IikKZGF0YToKICAtIHNvdXJjZV91cmw6IGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9taXRjaGVsbGtyb2d6YS9uZ2lueC11bHRpbWF0ZS1iYWQtYm90LWJsb2NrZXIvbWFzdGVyL19nZW5lcmF0b3JfbGlzdHMvYmFkLXVzZXItYWdlbnRzLmxpc3QKICAgIGRlc3RfZmlsZTogYmFkX3VzZXJfYWdlbnRzLnR4dApjYXBhY2l0eTogMQpsZWFrc3BlZWQ6IDFtCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIHR5cGU6IHNjYW4KICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect bad user-agents",
    "author": "crowdsecurity",
    "labels": {
     "remediation": "true",
