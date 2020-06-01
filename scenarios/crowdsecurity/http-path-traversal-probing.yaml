@@ -1,0 +1,20 @@
+# path traversal probing
+type: leaky
+#debug: true
+name: crowdsecurity/http-path-traversal-probing
+description: "Detect path traversal attempt"
+filter: evt.Meta.service == 'http' and RegexpInFile(evt.Meta.http_path, "http_path_traversal.txt")
+data:
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/path_traversal.txt
+    dest_file: http_path_traversal.txt
+    type: regex
+groupby: "evt.Meta.source_ip"
+distinct: "evt.Meta.http_path"
+capacity: 3
+reprocess: true
+leakspeed: 10s
+blackhole: 2m
+labels:
+ service: http
+ type: scan
+ remediation: true
