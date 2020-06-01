@@ -2,7 +2,7 @@ type: leaky
 format: 2.0
 #debug: true
 name: crowdsecurity/http-bad-user-agent
-description: "Detect attempt to access to dangerous file (.log, .db ..) or folder (.git)"
+description: "Detect bad user-agents"
 filter: evt.Meta.log_type in ['http_access-log', 'http_error-log'] && evt.Parsed.http_user_agent in File("bad_user_agents.txt")
 data:
   - source_url: https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/_generator_lists/bad-user-agents.list
