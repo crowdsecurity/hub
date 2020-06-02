@@ -1,6 +1,6 @@
 type: leaky
 format: 2.0
-debug: true
+#debug: true
 name: crowdsecurity/http-sensitive-files
 description: "Detect attempt to access to sensitive files (.log, .db ..) or folders (.git)"
 filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] and any(File("sensitive_data.txt"), { evt.Parsed.request endsWith #})'
