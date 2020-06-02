@@ -1,8 +1,8 @@
-Detect atempts to common backdoors such as c99.php ...
+Detect attempts to access common backdoors such as c99.php ...
 
 ## Configuration
 
-This scenario will be trigger if an attacker requests minimum two differents file of [the list](https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/backdoors.txt)
+This scenario will be trigger if an attacker requests a minimum of two differents file of [the list](https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/backdoors.txt)
 
 `distinct` : `evt.Parsed.request` (HTTP request URI)
 `leakspeed` : 5 secondes
@@ -11,4 +11,4 @@ This scenario will be trigger if an attacker requests minimum two differents fil
 
 ### Data
 
-This scenario use the [following list backdoors.txt](https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/backdoors.txt)
+This scenario use the [following list backdoors.txt](https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/backdoors.txt) from [danielmiessler](https://github.com/danielmiessler/SecLists)
