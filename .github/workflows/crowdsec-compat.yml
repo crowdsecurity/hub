@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        csrelease: ["master", "v0.1.3", "v0.1.2"]
+        csrelease: ["v0.1.3", "v0.1.2"]
     name: Hub/Crowdsec ${{matrix.csrelease}} compatibility tests
     runs-on: ubuntu-latest
     steps:
@@ -19,53 +19,58 @@ jobs:
       with:
         go-version: 1.13
       id: go
-    - name: Clone, build, setup crowdsec with all parsers
+    # - name: Get latest release, setup crowdsec with all parsers
+    #   run: |
+    #     wget https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
+
+    #     git clone https://github.com/crowdsecurity/crowdsec.git
+    #     cd crowdsec
+    #     git checkout ${csrelease}
+    #     make release
+    #     ls -l
+    #     cd crowdsec-pull
+    #     ./test_env.sh
+    #     cd tests
+    #     for i in `./cscli -c dev.yaml list parsers -a -o json | jq -r ".[].name" ` ; do 
+    #       ./cscli -c dev.yaml install parser $i ; 
+    #     done
+    # - name: Clone and build hub CI
+    #   working-directory: ./crowdsec/
+    #   run: |
+    #     git clone https://github.com/crowdsecurity/hub-tests.git
+    #     cd hub-tests
+    #     make
+    #     cp ./main ../crowdsec-pull/tests/
+    #     cp -R ./tests ../crowdsec-pull/tests/
+    # - name: Run the actual tests
+    #   working-directory: ./crowdsec/tests/
+    #   run: |
+    #     for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
+    #        echo "::group::Test-${i}" ; 
+    #        ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
+    #        echo "::endgroup::" ;
+    #     done ;
+
+    - name: fetch and extract release
       run: |
-        git clone https://github.com/crowdsecurity/crowdsec.git
-        cd crowdsec
-        git checkout ${csrelease}
-        make release
-        ls -l
-        cd crowdsec-pull
-        ./test_env.sh
-        cd tests
-        for i in `./cscli -c dev.yaml list parsers -a -o json | jq -r ".[].name" ` ; do 
-          ./cscli -c dev.yaml install parser $i ; 
-        done
-    - name: Clone and build hub CI
-      working-directory: ./crowdsec/
+        wget https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
+        mkdir crowdsec-release
+        tar xvzf crowdsec-release.tgz -C ./crowdsec-release --strip 1
+        cd crowdsec-release && ./test_env.sh
+        cd tests/
+    - name: fetch hub ci
+      working-directory: ./crowdsec-release/tests/
       run: |
         git clone https://github.com/crowdsecurity/hub-tests.git
         cd hub-tests
+        go mod edit -replace github.com/crowdsecurity/crowdsec=github.com/crowdsecurity/crowdsec@${{matrix.csrelease}}
         make
-        cp ./main ../crowdsec-pull/tests/
-        cp -R ./tests ../crowdsec-pull/tests/
-    - name: Run the actual tests
-      working-directory: ./crowdsec/tests/
+        bash -x ./prep_tests.sh
+    - name: Run the tests
+      working-directory: crowdsec-release/tests/
       run: |
         for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
-           echo "::group::Test-${i}" ; 
-           ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
-           echo "::endgroup::" ;
+          echo "::group::Test-${i}" ; 
+          ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
+          echo "::endgroup::" ;
         done ;
-
-    # - name: fetch and extract release
-    #   run: |
-    #     wget https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
-    #     mkdir crowdsec-release
-    #     tar xvzf crowdsec-release.tgz -C ./crowdsec-release --strip 1
-    #     cd crowdsec-release && ./test_env.sh
-    #     cd tests/
-    # - name: fetch hub ci
-    #   working-directory: ./crowdsec-release/tests/
-    #   run: |
-    #     git clone https://github.com/crowdsecurity/hub-tests.git
-    #     cd hub-tests && bash -x ./prep_tests.sh && cd ..
-    # - name: Run the tests
-    #   working-directory: crowdsec-release/tests/
-    #   run: |
-    #     for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
-    #       echo "::group::Test-${i}" ; 
-    #       ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
-    #       echo "::endgroup::" ;
-    #     done ;
