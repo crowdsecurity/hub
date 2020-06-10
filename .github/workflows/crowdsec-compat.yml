@@ -53,7 +53,7 @@ jobs:
 
     - name: fetch and extract release
       run: |
-        wget https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
+        wget -quiet https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
         mkdir crowdsec-release
         tar xvzf crowdsec-release.tgz -C ./crowdsec-release --strip 1
         cd crowdsec-release && ./test_env.sh
