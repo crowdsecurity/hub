@@ -74,3 +74,9 @@ jobs:
           ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
           echo "::endgroup::" ;
         done ;
+    - name: Upload tests results
+      uses: actions/upload-artifact@v2
+      with:
+        name: tests-results
+        path: ./crowdsec-release/tests/tests/
+
