@@ -65,7 +65,7 @@ jobs:
         cd hub-tests
         go mod edit -replace github.com/crowdsecurity/crowdsec=github.com/crowdsecurity/crowdsec@${{matrix.csrelease}}
         make
-        bash -x ./prep_tests.sh
+        bash ./prep_tests.sh
     - name: Run the tests
       working-directory: crowdsec-release/tests/
       run: |
