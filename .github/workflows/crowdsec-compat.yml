@@ -19,38 +19,6 @@ jobs:
       with:
         go-version: 1.13
       id: go
-    # - name: Get latest release, setup crowdsec with all parsers
-    #   run: |
-    #     wget https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
-
-    #     git clone https://github.com/crowdsecurity/crowdsec.git
-    #     cd crowdsec
-    #     git checkout ${csrelease}
-    #     make release
-    #     ls -l
-    #     cd crowdsec-pull
-    #     ./test_env.sh
-    #     cd tests
-    #     for i in `./cscli -c dev.yaml list parsers -a -o json | jq -r ".[].name" ` ; do 
-    #       ./cscli -c dev.yaml install parser $i ; 
-    #     done
-    # - name: Clone and build hub CI
-    #   working-directory: ./crowdsec/
-    #   run: |
-    #     git clone https://github.com/crowdsecurity/hub-tests.git
-    #     cd hub-tests
-    #     make
-    #     cp ./main ../crowdsec-pull/tests/
-    #     cp -R ./tests ../crowdsec-pull/tests/
-    # - name: Run the actual tests
-    #   working-directory: ./crowdsec/tests/
-    #   run: |
-    #     for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
-    #        echo "::group::Test-${i}" ; 
-    #        ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail") ;
-    #        echo "::endgroup::" ;
-    #     done ;
-
     - name: fetch and extract release
       run: |
         wget --quiet https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
@@ -71,11 +39,13 @@ jobs:
       run: |
         for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
           echo "::group::Test-${i}" ; 
-          ./main $i || (echo "::error file=${i}::Failed test for ${i}" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail" ; exit 1) ;
+          ./main $i || (echo "::error file=${i}::Failed test for ${i}, diff :" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail" ; exit 1) ;
           echo "::endgroup::" ;
         done ;
+#upload artifacts in case of failure
     - name: Upload tests results
       uses: actions/upload-artifact@v2
+      if: failure()
       with:
         name: tests-results
         path: ./crowdsec-release/tests/tests/
