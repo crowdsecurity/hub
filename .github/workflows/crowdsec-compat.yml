@@ -39,7 +39,7 @@ jobs:
       run: |
         for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
           echo "::group::Test-${i}" ; 
-          ./main $i || (echo "::error file=${i}::Failed test for ${i}, diff :" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail" ; sha256sum ${i}"/results.yaml" ; sha256sum ${i}"/results.yaml.fail" exit 1) ;
+          ./main $i || (echo "::error file=${i}::Failed test for ${i}, diff :" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail" ; sha256sum ${i}"/results.yaml" ; sha256sum ${i}"/results.yaml.fail"; exit 1) ;
           echo "::endgroup::" ;
         done ;
 #upload artifacts in case of failure
