@@ -19,23 +19,24 @@ jobs:
       with:
         go-version: 1.13
       id: go
-    - name: fetch and extract release
+    - name: build env for proper tag
       run: |
-        wget --quiet https://github.com/crowdsecurity/crowdsec/releases/download/${{matrix.csrelease}}/crowdsec-release.tgz
-        mkdir crowdsec-release
-        tar xvzf crowdsec-release.tgz -C ./crowdsec-release --strip 1
-        cd crowdsec-release && ./test_env.sh
-        cd tests/
-    - name: fetch hub ci
-      working-directory: ./crowdsec-release/tests/
-      run: |
+        git clone https://github.com/crowdsecurity/crowdsec.git
+        cd crowdsec
+        git checkout tags/${{matrix.csrelease}}
         git clone https://github.com/crowdsecurity/hub-tests.git
         cd hub-tests
-        go mod edit -replace github.com/crowdsecurity/crowdsec=github.com/crowdsecurity/crowdsec@${{matrix.csrelease}}
         make
-        bash ./prep_tests.sh
+        cd ..
+        BUILD_VERSION=xxx make release
+        cd crowdsec-xxx
+        ./test_env.sh
+        cd tests
+        cp ../../hub-tests/main .
+        cp -R ../../hub-tests/tests .
+        bash ../../scripts/install_all.sh
     - name: Run the tests
-      working-directory: crowdsec-release/tests/
+      working-directory: crowdsec/crowdsec-xxx/tests/
       run: |
         for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
           echo "::group::Test-${i}" ; 
