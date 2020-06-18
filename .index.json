@@ -27,7 +27,7 @@
   },
   "crowdsecurity/base-http-scenarios": {
    "path": "collections/crowdsecurity/base-http-scenarios.yaml",
-   "version": "0.6",
+   "version": "0.7",
    "versions": {
     "0.1": {
      "digest": "47233db71224796b55ceaa08ec8a345c36ba6e03f9ca69427c01a4237fbd35ac",
@@ -52,10 +52,14 @@
     "0.6": {
      "digest": "a36b21772c8049a2f4e916c82bb451905e29912540c0e12d61d800814f1153d9",
      "deprecated": false
+    },
+    "0.7": {
+     "digest": "7ee043a9d2e063cad751e6ce5d048f02518a76d39ec81aebed3bae736b0ced9e",
+     "deprecated": false
     }
    },
    "long_description": "Kipjb250YWlucyBubyBwYXJzZXIsIG1lYW50IHRvIGJlIGVtYmVkZGVkKioKCkEgY29sbGVjdGlvbiBvZiBkZWZlbnNpdmUgKGltcGxlbWVudGF0aW9uIGluZGVwZW5kYW50KSBzY2VuYXJpb3MgZm9yIGh0dHAgc2VydmljZXMgOgogLSBhZ2dyZXNzaXZlIGNyYXdsIGRldGVjdGlvbgogLSBzY2FubmluZy9wcm9iaW5nIGRldGVjdGlvbgogLSBiYWQgdXNlci1hZ2VudCBkZXRlY3Rpb24KIC0gcGF0aCB0cmF2ZXJzYWwgZGV0ZWN0aW9uCiAtIHNlbnNpdGl2ZSBkYXRhIGFjY2VzcyBhdHRlbXB0cyBkZXRlY3Rpb24KIC0gU1FMIGluamVjdGlvbiBkZXRlY3Rpb24KCgo=",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1jcmF3bC1ub25fc3RhdGljcwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1iYWQtdXNlci1hZ2VudAogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXBhdGgtdHJhdmVyc2FsLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zZW5zaXRpdmUtZmlsZXMKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zcWxpLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1iYWNrZG9vcnMtYXR0ZW1wdHMKCmRlc2NyaXB0aW9uOiAiaHR0cCBjb21tb24gOiBzY2FubmVycyBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGh0dHAKICAtIGNyYXdsCiAgLSBzY2FuCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1jcmF3bC1ub25fc3RhdGljcwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1iYWQtdXNlci1hZ2VudAogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXBhdGgtdHJhdmVyc2FsLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zZW5zaXRpdmUtZmlsZXMKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1zcWxpLXByb2JpbmcKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC14c3MtcHJvYmluZwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJhY2tkb29ycy1hdHRlbXB0cwoKZGVzY3JpcHRpb246ICJodHRwIGNvbW1vbiA6IHNjYW5uZXJzIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gaHR0cAogIC0gY3Jhd2wKICAtIHNjYW4KCg==",
    "description": "http common : scanners detection",
    "author": "crowdsecurity",
    "labels": null,
@@ -69,6 +73,7 @@
     "crowdsecurity/http-path-traversal-probing",
     "crowdsecurity/http-sensitive-files",
     "crowdsecurity/http-sqli-probing",
+    "crowdsecurity/http-xss-probing",
     "crowdsecurity/http-backdoors-attempts"
    ]
   },
@@ -805,6 +810,25 @@
     "remediation": "true",
     "service": "http",
     "type": "sqli_probing"
+   }
+  },
+  "crowdsecurity/http-xss-probing": {
+   "path": "scenarios/crowdsecurity/http-xss-probing.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8d6f0d6f9dc48f8f5ad561a2cdb315e499539b3575f259e0d6cf5850ef1efc9e",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhlIGh0dHAgWFNTIHByb2Jpbmcgc2NlbmFyaW8gYWltcyBhdCBkZXRlY3RpbmcsIHdpdGggdmVyeSBsaXR0bGUgZmFsc2UgcG9zaXRpdmUgY2hhbmNlcywgWFNTIHByb2JpbmcgYXR0ZW1wdHMuCgpYU1MgcHJvYmluZyBhdHRlbXB0cyB3aWxsIGJlIGNoYXJhY3Rlcml6ZWQgYnkgdGhlIHByZXNlbmNlIG9mIHNwZWNpZmljIFhTUyByZWxhdGVkIHBhdHRlcm5zIGluIHVyaS9HRVQgYXJndW1lbnRzIChpZiBhbmQgd2hlbiB0aGlzIGlzIHdoZXJlIHRoZSBpbmplY3RlZCBwYXJhbWV0ZXIgaXMpLCBhbmQgdGhpcyBpcyB3aGF0IHRoaXMgc2NlbmFyaW8gZGV0ZWN0cy4KCgpUaGUgW3dvcmQgbGlzdF0oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Nyb3dkc2VjdXJpdHkvc2VjLWxpc3RzL21hc3Rlci93ZWIveHNzX3Byb2JlX3BhdHRlcm5zLnR4dCkgaXMgcGlja2VkIHNwZWNpZmljYWxseSB0byBsaW1pdCBmYWxzZSBwb3NpdGl2ZXMuCkZ1cnRoZXJtb3JlLCBhIGBkaXN0aW5jdGAgZGlyZWN0aXZlIGlzIHByZXNlbnQgb24gdGhlIGdldCBwYXJhbWV0ZXJzIHRoZW1zZWx2ZXMgdG8gcmVkdWNlIGZhbHNlIHBvc2l0aXZlIGNoYW5jZXMuCgoKKipXQVJOSU5HKiogVGhpcyBzY2VuYXJpbyBpcyBfbm90XyBhIFdBRiwgYW5kIHRoaXMgc2NlbmFyaW8gZG9lcyBfbm90XyBhaW1zIGF0IHJlcGxhY2luZyBhIFdBRi4gQSBtb3RpdmF0ZWQgYXR0YWNrZXIgd2l0aCBrbm93bGVkZ2Ugb2YgY3Jvd2RzZWMgd2lsbCBiZSBhYmxlIHRvIGJ5cGFzcyBpdC4gSXQgaXMgbW9zdGx5IG1lYW50IHRvIGJlIGEgd2F5IHRvIGRldGVjdCBnZW5lcmljIFhTUyBwcm9iaW5nLgo=",
+   "content": "dHlwZTogbGVha3kKI3JlcXVpcmVzIGF0IGxlYXN0IDIuMCBiZWNhdXNlIGl0J3MgdXNpbmcgdGhlICdkYXRhJyBzZWN0aW9uIGFuZCB0aGUgJ1VwcGVyJyBleHByIGhlbHBlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2h0dHAteHNzLXByb2JiaW5nCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vY3Jvd2RzZWN1cml0eS9zZWMtbGlzdHMvbWFzdGVyL3dlYi94c3NfcHJvYmVfcGF0dGVybnMudHh0CiAgICBkZXN0X2ZpbGU6IHhzc19wcm9iZV9wYXR0ZXJucy50eHQKZGVzY3JpcHRpb246ICJBIHNjZW5hcmlvIHRoYXQgZGV0ZWN0cyBYU1MgcHJvYmluZyB3aXRoIG1pbmltYWwgZmFsc2UgcG9zaXRpdmVzIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZycsICdodHRwX2Vycm9yLWxvZyddICYmIGFueShGaWxlKCd4c3NfcHJvYmVfcGF0dGVybnMudHh0JyksIHtVcHBlcihldnQuUGFyc2VkLmh0dHBfYXJncykgY29udGFpbnMgVXBwZXIoIyl9KSIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogMXMKYmxhY2tob2xlOiA1bQojbG93IGZhbHNlIHBvc2l0aXZlcyBhcHByb2FjaCA6IHdlIHJlcXVpcmUgZGlzdGluY3QgcGF5bG9hZHMgdG8gYXZvaWQgZmFsc2UgcG9zaXRpdmVzCmRpc3RpbmN0OiBldnQuUGFyc2VkLmh0dHBfYXJncwpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIHR5cGU6IHhzc19wcm9iaW5nCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "A scenario that detects XSS probing with minimal false positives",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "xss_probing"
    }
   },
   "crowdsecurity/iptables-scan-multi_ports": {
