@@ -1,0 +1,53 @@
+name: Hub-CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        csrelease: ["v0.1.4", "v0.1.5"]
+    name: Hub/Crowdsec ${{matrix.csrelease}} compatibility tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
+    - name: build env for proper tag
+      run: |
+        git clone https://github.com/crowdsecurity/crowdsec.git
+        cd crowdsec
+        git checkout tags/${{matrix.csrelease}}
+        git clone https://github.com/crowdsecurity/hub-tests.git
+        cd hub-tests
+        make
+        cd ..
+        BUILD_VERSION=xxx make release
+        cd crowdsec-xxx
+        ./test_env.sh
+        cd tests
+        cp ../../hub-tests/main .
+        cp -R ../../hub-tests/tests .
+        bash ../../scripts/install_all.sh
+    - name: Run the tests
+      working-directory: crowdsec/crowdsec-xxx/tests/
+      run: |
+        for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
+          echo "::group::Test-${i}" ; 
+          ./main $i || (echo "::error file=${i}::Failed test for ${i}, diff :" ; diff ${i}"/results.yaml" ${i}"/results.yaml.fail" ; sha256sum ${i}"/results.yaml" ; sha256sum ${i}"/results.yaml.fail"; exit 1) ;
+          echo "::endgroup::" ;
+        done ;
+#upload artifacts in case of failure
+    - name: Upload tests results
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: tests-results
+        path: ./crowdsec-release/tests/tests/
+
