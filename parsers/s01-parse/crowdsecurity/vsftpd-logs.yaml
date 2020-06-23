@@ -4,7 +4,7 @@ description: "Parse VSFTPD logs"
 filter: "evt.Parsed.program == 'vsftpd'"
 #debug: true
 pattern_syntax:
-  FTP_AUTH_FAIL: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "%{IP:source_ip}"'
+  FTP_AUTH_FAIL: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "(::ffff:)?%{IP:source_ip}"'
 grok:
   pattern: "%{FTP_AUTH_FAIL}"
   apply_on: message
