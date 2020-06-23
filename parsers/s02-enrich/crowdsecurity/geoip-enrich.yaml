@@ -1,6 +1,11 @@
 filter: "'source_ip' in evt.Meta"
 name: crowdsecurity/geoip-enrich
 description: "Populate event with geoloc info : as, country, coords, source range."
+data:
+  - source_url: https://crowdsec-statics-assets.s3-eu-west-1.amazonaws.com/GeoLite2-City.mmdb
+    dest_file: GeoLite2-City.mmdb
+  - source_url: https://crowdsec-statics-assets.s3-eu-west-1.amazonaws.com/GeoLite2-ASN.mmdb
+    dest_file: GeoLite2-ASN.mmdb
 statics:
   - method: GeoIpCity
     expression: evt.Meta.source_ip
