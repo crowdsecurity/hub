@@ -2,7 +2,7 @@ name: Hub-CI
 
 on:
   push:
-    branches: [ master, test_ci ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -24,7 +24,7 @@ jobs:
         git clone https://github.com/crowdsecurity/crowdsec.git
         cd crowdsec
         git checkout tags/${{matrix.csrelease}}
-        git clone -b hub_update https://github.com/crowdsecurity/hub-tests.git
+        git clone https://github.com/crowdsecurity/hub-tests.git
         cd hub-tests
         make
         cd ..
