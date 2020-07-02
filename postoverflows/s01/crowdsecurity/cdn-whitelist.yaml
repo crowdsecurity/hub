@@ -1,7 +1,7 @@
-name: crowdsecurity/benign-partners
-description: "Whitelist known partners"
+name: crowdsecurity/cdn-whitelist
+description: "Whitelist CDN providers"
 whitelist:
-  reason: "known partners"
+  reason: "CDN provider"
   expression: 
     - "any(File('cloudflare_ips.txt'), { IpInRange(evt.Overflow.Source_ip ,#)})"
 data:
