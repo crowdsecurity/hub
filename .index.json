@@ -245,6 +245,26 @@
     "crowdsecurity/vsftpd-bf"
    ]
   },
+  "crowdsecurity/whitelist-good-actors": {
+   "path": "collections/crowdsecurity/whitelist-good-actors.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "70f9b1723423de3918bfa3f33fa9c266da71c897b6173ff21e2fb73f9a24245e",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIHdoaXRlbGlzdCBhbGwgZ29vZCBhY3RvcnMgOgogLSByZG5zIHRvIHVzZSBpdCBpbiB3aGl0ZWxpc3RzIHRoYXQgbmVlZCByZG5zCiAtIHJkbnMgb2YgYWxsIGdvb2Qgc2VhcmNoIGVuZ2luZSBjcmF3bGVycyAoZ29vZ2xlYm90LCBiaW5nIGV0Yy4uLikKIC0gdHJ1c3RlZCBwYXJ0bmVycyBsaWtlIGNsb3VkZmxhcmU=",
+   "content": "cG9zdG92ZXJmbG93czoKICAtIGNyb3dkc2VjdXJpdHkvc2VvLWJvdHMtd2hpdGVsaXN0CiAgLSBjcm93ZHNlY3VyaXR5L2Nkbi13aGl0ZWxpc3QKICAtIGNyb3dkc2VjdXJpdHkvcmRucwpkZXNjcmlwdGlvbjogIkdvb2QgYWN0b3JzIHdoaXRlbGlzdHMiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2hpdGVsaXN0CiAgLSBib3RzCiAgLSBwYXJ0bmVycwo=",
+   "description": "Good actors whitelists",
+   "author": "crowdsecurity",
+   "labels": null,
+   "postoverflows": [
+    "crowdsecurity/seo-bots-whitelist",
+    "crowdsecurity/cdn-whitelist",
+    "crowdsecurity/rdns"
+   ]
+  },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
    "version": "0.1",
@@ -573,18 +593,60 @@
   }
  },
  "postoverflows": {
+  "crowdsecurity/cdn-whitelist": {
+   "path": "postoverflows/s01/crowdsecurity/cdn-whitelist.yaml",
+   "stage": "s01",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d1cb42fbe9f3bb37f3cfa77ef5c60ec0b17dc3703bffb0d422dc6fe9cc0eb9f5",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9jZG4td2hpdGVsaXN0CmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IENETiBwcm92aWRlcnMiCndoaXRlbGlzdDoKICByZWFzb246ICJDRE4gcHJvdmlkZXIiCiAgZXhwcmVzc2lvbjogCiAgICAtICJhbnkoRmlsZSgnY2xvdWRmbGFyZV9pcHMudHh0JyksIHsgSXBJblJhbmdlKGV2dC5PdmVyZmxvdy5Tb3VyY2VfaXAgLCMpfSkiCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL3d3dy5jbG91ZGZsYXJlLmNvbS9pcHMtdjQKICAgIGRlc3RfZmlsZTogY2xvdWRmbGFyZV9pcHMudHh0Cg==",
+   "description": "Whitelist CDN providers",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/rdns": {
    "path": "postoverflows/s00-enrich/crowdsecurity/rdns.yaml",
    "stage": "s00-enrich",
-   "version": "0.1",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "606827c5bc238e5bedd29080edb8309b32e6e792765dbefba38e892c472fad9d",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "453de9641a5bd87b6578df9d36e4584ea4feb915821623e7e5a3107c1b12a616",
+     "deprecated": false
+    },
+    "0.3": {
+     "digest": "12034b3a5dc308e614eede8ba0b0e5e70c3a87202c1c790ee782ccbec9da3a03",
+     "deprecated": false
     }
    },
-   "content": "ZmlsdGVyOiAiZXZ0Lk92ZXJmbG93LkxhYmVscy5yZW1lZGlhdGlvbiA9PSAndHJ1ZSciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcmRucwpkZXNjcmlwdGlvbjogIkxvb2t1cCB0aGUgRE5TIGFzc2lvY2F0ZWQgdG8gdGhlIHNvdXJjZSBJUCBvbmx5IGZvciBvdmVyZmxvd3MiCnN0YXRpY3M6CiAgLSBtZXRob2Q6IHJldmVyc2VfZG5zCiAgICBleHByZXNzaW9uOiBldnQuT3ZlcmZsb3cuU291cmNlX2lwCg==",
-   "description": "Lookup the DNS assiocated to the source IP only for overflows",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5PdmVyZmxvdy5MYWJlbHMucmVtZWRpYXRpb24gPT0gJ3RydWUnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L3JkbnMKZGVzY3JpcHRpb246ICJMb29rdXAgdGhlIEROUyBhc3NvY2lhdGVkIHRvIHRoZSBzb3VyY2UgSVAgb25seSBmb3Igb3ZlcmZsb3dzIgpzdGF0aWNzOgogIC0gbWV0aG9kOiByZXZlcnNlX2RucwogICAgZXhwcmVzc2lvbjogZXZ0Lk92ZXJmbG93LlNvdXJjZV9pcAo=",
+   "description": "Lookup the DNS associated to the source IP only for overflows",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/seo-bots-whitelist": {
+   "path": "postoverflows/s01/crowdsecurity/seo-bots-whitelist.yaml",
+   "stage": "s01",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "83cf25fd3ba1afee8e3076fb1ef94a991dab12ff9fb8ebea4e89fd187152e109",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "3378227fa541de82641bdba7794842e83e60fedf5e0fb82224bb8bdbd3e0fb97",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9zZW8tYm90cy13aGl0ZWxpc3QKZGVzY3JpcHRpb246ICJXaGl0ZWxpc3QgZ29vZCBzZWFyY2ggZW5naW5lIGNyYXdsZXJzIgp3aGl0ZWxpc3Q6CiAgcmVhc29uOiAiZ29vZCBib3RzIChzZWFyY2ggZW5naW5lIGNyYXdsZXJzKSIKICBleHByZXNzaW9uOiAKICAgIC0gImFueShGaWxlKCdyZG5zX3Nlb19ib3RzLnR4dCcpLCB7IGV2dC5FbnJpY2hlZC5yZXZlcnNlX2RucyBlbmRzV2l0aCAjfSkiCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vY3Jvd2RzZWN1cml0eS9zZWMtbGlzdHMvbWFzdGVyL3doaXRlbGlzdHMvYmVuaWduX2JvdHMvc2VhcmNoX2VuZ2luZV9jcmF3bGVycy9yZG5zX3Nlb19ib3RzLnR4dAogICAgZGVzdF9maWxlOiByZG5zX3Nlb19ib3RzLnR4dAo=",
+   "description": "Whitelist good search engine crawlers",
    "author": "crowdsecurity",
    "labels": null
   }
