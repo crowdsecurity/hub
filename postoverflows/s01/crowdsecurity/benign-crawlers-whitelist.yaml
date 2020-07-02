@@ -2,7 +2,8 @@ name: crowdsecurity/benign-crawlers-whitelist
 description: "Whitelist good search engine crawlers"
 whitelist:
   reason: "good bots (search engine crawlers)"
-  expression: "any(File('rdns_search_engine_bots.txt'), { evt.Enriched.reverse_dns endsWith #})"
+  expression: 
+    - "any(File('rdns_search_engine_bots.txt'), { evt.Enriched.reverse_dns endsWith #})"
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/benign_bots_whitelist/whitelists/benign_bots/search_engine_crawlers/rdns_good_bots.txt
     dest_file: rdns_search_engine_bots.txt
