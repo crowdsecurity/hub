@@ -5,9 +5,12 @@ whitelist:
   expression: 
     - "any(File('rdns_seo_bots.txt'), { evt.Enriched.reverse_dns endsWith #})"
     - "RegexpInFile(evt.Enriched.reverse_dns, 'rdns_seo_bots.regex')"
+    - "any(File('rdns_seo_bots.txt'), {evt.Meta.source_ip == #})"
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/whitelists/benign_bots/search_engine_crawlers/rdns_seo_bots.txt
     dest_file: rdns_seo_bots.txt
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/whitelists/benign_bots/search_engine_crawlers/rnds_seo_bots.regex
     dest_file: rdns_seo_bots.regex
     type: regexp
+  - source_url: https://github.com/crowdsecurity/sec-lists/blob/master/whitelists/benign_bots/search_engine_crawlers/ip_seo_bots.txt
+    dest_file: ip_seo_bots.txt
