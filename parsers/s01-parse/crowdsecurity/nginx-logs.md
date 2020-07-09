@@ -1,2 +1,5 @@
 A generic parser for nginx, support both access and error logs.
-If you are using things such as `crowdsecurity/naxsi` parsers or scenarios, this should be a requirement.
+
+
+*note : * If you are aggregating logs from several domains, prefix your logline with the target FQDN. HTTP based scenarios should take this into account so that buckets are _per_ source IP per target FQDN, limiting false positives due to logs multiplexing.
+

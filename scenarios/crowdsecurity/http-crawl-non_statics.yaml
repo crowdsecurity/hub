@@ -8,7 +8,7 @@ capacity: 40
 #debug: true
 #this limits the memory cache (and event_sequences in output) to five events
 cache_size: 5
-groupby: evt.Meta.source_ip
+groupby: "evt.Meta.source_ip + '/' + evt.Parsed.target_fqdn"
 blackhole: 1m
 labels:
  service: http

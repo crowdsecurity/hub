@@ -5,7 +5,7 @@ name: crowdsecurity/nginx-logs
 description: "Parse nginx access and error logs"
 nodes:
   - grok:
-      name: NGINXACCESS
+      pattern: '(%{IPORHOST:target_fqdn} )?%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:method} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
       apply_on: message
       statics:
         - meta: log_type
@@ -14,7 +14,7 @@ nodes:
           expression: evt.Parsed.time_local
   - grok:
         # and this one the error log
-        name: NGINXERROR
+        pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}'
         apply_on: message
         statics:
           - meta: log_type
