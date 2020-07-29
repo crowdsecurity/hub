@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        csrelease: ["v0.1.4", "v0.1.5", "v0.2.0"]
+        csrelease: ["v0.2.3", "v0.3.0-rc0", "v0.3.0-rc1"]
     name: Hub/Crowdsec ${{matrix.csrelease}} compatibility tests
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +26,7 @@ jobs:
         git checkout tags/${{matrix.csrelease}}
         git clone https://github.com/crowdsecurity/hub-tests.git
         cd hub-tests
+        git checkout tags/${{matrix.csrelease}}
         make
         cd ..
         BUILD_VERSION=xxx make release
