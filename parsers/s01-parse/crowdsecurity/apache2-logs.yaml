@@ -1,6 +1,6 @@
 #Apache access logs
 #debug: true
-filter: "evt.Parsed.program == 'apache2'"
+filter: "evt.Parsed.program startsWith 'apache2'"
 onsuccess: next_stage
 name: crowdsecurity/apache2-logs
 description: "Parse Apache2 access and error logs"
