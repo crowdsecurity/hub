@@ -1,12 +1,12 @@
 #Apache access logs
 #debug: true
-
-filter: "evt.Parsed.program == 'apache2'"
+filter: "evt.Parsed.program startsWith 'apache2'"
 onsuccess: next_stage
 name: crowdsecurity/apache2-logs
 description: "Parse Apache2 access and error logs"
+#log line can be prefixed by a target_fqdn
 grok:
-  name: COMBINEDAPACHELOG
+  name: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
   apply_on: message
 # these ones apply for both grok patterns
 statics:
