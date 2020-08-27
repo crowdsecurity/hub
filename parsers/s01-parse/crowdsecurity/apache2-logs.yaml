@@ -6,7 +6,7 @@ name: crowdsecurity/apache2-logs
 description: "Parse Apache2 access and error logs"
 #log line can be prefixed by a target_fqdn
 grok:
-  name: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
+  pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
   apply_on: message
 # these ones apply for both grok patterns
 statics:
