@@ -1,0 +1,13 @@
+name: Delete branch from external dispatch
+
+on:
+  repository_dispatch:
+    types: ['delete_branch']
+
+jobs:
+  delete_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set env
+        run: echo "${{ github.event.client_payload.version }}"
