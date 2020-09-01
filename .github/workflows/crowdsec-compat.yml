@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        csrelease: ["v0.3.1"]
+        csrelease: ["v0.3.1", "v0.3.2"]
     name: Hub/Crowdsec ${{matrix.csrelease}} compatibility tests
     runs-on: ubuntu-latest
     steps:
@@ -29,15 +29,15 @@ jobs:
         git checkout tags/${{matrix.csrelease}}
         make
         cd ..
-        BUILD_VERSION=xxx make release
-        cd crowdsec-xxx
+        BUILD_VERSION=${{matrix.csrelease}} make release
+        cd crowdsec-${{matrix.csrelease}}
         ./test_env.sh
         cd tests
         cp ../../hub-tests/main .
         cp -R ../../hub-tests/tests .
         bash ../../scripts/install_all.sh
     - name: Run the tests
-      working-directory: crowdsec/crowdsec-xxx/tests/
+      working-directory: crowdsec/crowdsec-${{matrix.csrelease}}/tests/
       run: |
         for i in `find ./tests -mindepth 1 -maxdepth 1 -type d` ; do 
           echo "::group::Test-${i}" ; 
