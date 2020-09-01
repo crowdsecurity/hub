@@ -29,7 +29,7 @@ jobs:
         git checkout tags/${{matrix.csrelease}}
         make
         cd ..
-        make release
+        BUILD_VERSION=${{matrix.csrelease}} make release
         cd crowdsec-${{matrix.csrelease}}
         ./test_env.sh
         cd tests
