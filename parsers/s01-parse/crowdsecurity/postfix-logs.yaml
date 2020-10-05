@@ -19,7 +19,7 @@ nodes:
       apply_on: message
       pattern_syntax:
         - POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
-        - POSTFIX_FAIL_AUTH warning: %{POSTFIX_HOSTNAME}: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}
+        - POSTFIX_FAIL_AUTH: warning: %{POSTFIX_HOSTNAME}: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}
 
 statics:
     - meta: service
