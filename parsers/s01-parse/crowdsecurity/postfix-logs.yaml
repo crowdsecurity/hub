@@ -15,7 +15,7 @@ nodes:
       pattern: 'lost connection after %{POSTFIX_COMMAND:command} from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]'
   - grok:
       apply_on: message
-      pattern: 'warning: %{POSTFIX_HOSTNAME}: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}'
+      pattern: 'warning: %{POSTFIX_HOSTNAME}\[%{IP:remote_addr}\]: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}'
 
 statics:
     - meta: service
