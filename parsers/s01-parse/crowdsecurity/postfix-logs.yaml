@@ -1,6 +1,9 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'postfix/smtpd'"
 name: crowdsecurity/postfix-logs
+pattern_syntax:
+  - POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
+  - POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO)'
 description: "Parse postfix logs"
 debug: true
 nodes:
@@ -10,16 +13,11 @@ nodes:
       statics:
         - meta: source_hostname
           expression: "evt.Parsed.remote_host"
-      pattern_syntax:
-        - POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
-        - POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO)'
-        - POSTFIX_LOST_CONNECTION: 'lost connection after %{POSTFIX_COMMAND:command} from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]'
+      pattern: 'lost connection after %{POSTFIX_COMMAND:command} from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]'
   - grok:
       name: "POSTFIX_FAIL_AUTH"
       apply_on: message
-      pattern_syntax:
-        - POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
-        - POSTFIX_FAIL_AUTH: 'warning: %{POSTFIX_HOSTNAME}: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}'
+      pattern: 'warning: %{POSTFIX_HOSTNAME}: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}'
 
 statics:
     - meta: service
