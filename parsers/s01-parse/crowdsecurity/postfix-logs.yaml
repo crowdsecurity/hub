@@ -2,8 +2,8 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'postfix/smtpd'"
 name: crowdsecurity/postfix-logs
 pattern_syntax:
-  - POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
-  - POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO)'
+  POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
+  POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO)'
 description: "Parse postfix logs"
 debug: true
 nodes:
