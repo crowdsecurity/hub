@@ -1,15 +1,15 @@
-# ssh bruteforce
+# postfix spam
 type: leaky
 name: crowdsecurity/postfix-spam
 description: "Detect spammers"
-filter: "evt.Meta.log_type == 'spam-attempt'"
+filter: "evt.Meta.log_type_enh == 'spam-attempt' || evt.Meta.log_type == postfix && evt.Parsed.action == 'reject'"
 leakspeed: "10s"
 references:
   - https://en.wikipedia.org/wiki/Spamming
 capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 1m
-reprocess: true
+reprocess: false
 labels:
  service: postfix
  type: bruteforce
