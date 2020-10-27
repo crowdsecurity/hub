@@ -14,3 +14,19 @@ labels:
  service: postfix
  type: bruteforce
  remediation: true
+---
+# postfix spam
+type: trigger
+name: crowdsecurity/postscreen-rbl
+description: "Detect spammers"
+filter: "evt.Meta.log_type_enh == 'spam-attempt' && evt.Meta.pregreet == 'PREGREET'"
+leakspeed: "10s"
+references:
+  - https://en.wikipedia.org/wiki/Spamming
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: false
+labels:
+ service: postfix
+ type: bruteforce
+ remediation: true

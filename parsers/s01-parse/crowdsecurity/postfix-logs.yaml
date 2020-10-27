@@ -50,7 +50,7 @@ nodes:
       pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{GREEDYDATA:reason}'
       statics:
         - meta: action
-          value: "evt.Parsed.action"        
+          expression: "evt.Parsed.action"        
 statics:
     - meta: service
       value: postfix
@@ -60,4 +60,3 @@ statics:
       expression: "evt.Parsed.remote_host"
     - meta: log_type
       value: postfix
---
