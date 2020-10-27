@@ -184,19 +184,24 @@
   },
   "crowdsecurity/postfix": {
    "path": "collections/crowdsecurity/postfix.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "81767bab91a7a071d8d32f3227f2391744eef5ba6a4cf916a96ec8183d050ae0",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "b4cceea527807a9fe70f673ef34e0d7d4372267d665fbbe164f0d6a1a3531a2e",
+     "deprecated": false
     }
    },
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcG9zdGZpeC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvcG9zdGZpeC1zcGFtCmRlc2NyaXB0aW9uOiAicG9zdGZpeCBzdXBwb3J0IDogcGFyc2VyIGFuZCBzcGFtbWVyIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gc3BhbQogIC0gYnJ1dGVmb3JjZQo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcG9zdGZpeC1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3Bvc3RzY3JlZW4tbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3Bvc3RmaXgtc3BhbQpkZXNjcmlwdGlvbjogInBvc3RmaXggc3VwcG9ydCA6IHBhcnNlciBhbmQgc3BhbW1lciBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNwYW0KICAtIGJydXRlZm9yY2UK",
    "description": "postfix support : parser and spammer detection",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
-    "crowdsecurity/postfix-logs"
+    "crowdsecurity/postfix-logs",
+    "crowdsecurity/postscreen-logs"
    ],
    "scenarios": [
     "crowdsecurity/postfix-spam"
@@ -461,6 +466,21 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGZpeC9zbXRwZCciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcG9zdGZpeC1sb2dzCnBhdHRlcm5fc3ludGF4OgogIFBPU1RGSVhfSE9TVE5BTUU6ICcoJXtIT1NUTkFNRX18dW5rbm93biknCiAgUE9TVEZJWF9DT01NQU5EOiAnKEFVVEh8U1RBUlRUTFN8Q09OTkVDVHxFSExPKScKZGVzY3JpcHRpb246ICJQYXJzZSBwb3N0Zml4IGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgcGF0dGVybjogJ2xvc3QgY29ubmVjdGlvbiBhZnRlciAle1BPU1RGSVhfQ09NTUFORDpjb21tYW5kfSBmcm9tICV7UE9TVEZJWF9IT1NUTkFNRTpyZW1vdGVfaG9zdH1cWyV7SVA6cmVtb3RlX2FkZHJ9XF0nCiAgLSBncm9rOgogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBwYXR0ZXJuOiAnd2FybmluZzogJXtQT1NURklYX0hPU1ROQU1FOnJlbW90ZV9ob3N0fVxbJXtJUDpyZW1vdGVfYWRkcn1cXTogU0FTTCAoKD9pKUxPR0lOfFBMQUlOfCg/OkNSQU18RElHRVNUKS1NRDUpIGF1dGhlbnRpY2F0aW9uIGZhaWxlZDole0dSRUVEWURBVEE6bWVzc2FnZV9mYWlsdXJlfScKCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHBvc3RmaXgKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IHNwYW0tYXR0ZW1wdAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQucmVtb3RlX2FkZHIiCiAgICAtIG1ldGE6IHNvdXJjZV9ob3N0bmFtZQogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5yZW1vdGVfaG9zdCIK",
    "description": "Parse postfix logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/postscreen-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/postscreen-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "cfdc013365b67b4b0b11f170b1321fa90ec5c08616cad89982709780dad01103",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGZpeC9wb3N0c2NyZWVuJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9wb3N0c2NyZWVuLWxvZ3MKcGF0dGVybl9zeW50YXg6CiAgUE9TVFNDUkVFTl9QUkVHUkVFVDogJ1BSRUdSRUVUJwogIFBPU1RTQ1JFRU5fUFJFR1JFRVRfVElNRV9BVFRFTVBUOiAnXGQrLlxkKycKZGVzY3JpcHRpb246ICJQYXJzZSBwb3N0c2NyZWVuIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgcGF0dGVybjogJyV7UE9TVFNDUkVFTl9QUkVHUkVFVDpwcmVncmVldH0gJXtJTlQ6Y291bnR9IGFmdGVyICV7UE9TVFNDUkVFTl9QUkVHUkVFVF9USU1FX0FUVEVNUFQ6dGltZV9hdHRlbXB0fSBmcm9tIFxbJXtJUDpyZW1vdGVfYWRkcn1cXTole0lOVDpwb3J0fTogJXtHUkVFRFlEQVRBOm1lc3NhZ2VfYXR0ZW1wdH0nCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHBvc3RzY3JlZW4KICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlbW90ZV9hZGRyIgogICAgLSBtZXRhOiBsb2dfdHlwZV9lbmgKICAgICAgdmFsdWU6IHNwYW0tYXR0ZW1wdAoKCg==",
+   "description": "Parse postscreen logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -925,14 +945,18 @@
   },
   "crowdsecurity/postfix-spam": {
    "path": "scenarios/crowdsecurity/postfix-spam.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "03876677d3fe37bdc9ad584cb015e3f0b648266450b2b494a40e1863d5a64d8a",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "97dbff3a99d69e11764af457eaab26ade7907beec5f5b9202e6909d7d6f64af5",
+     "deprecated": false
     }
    },
-   "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3Bvc3RmaXgtc3BhbQpkZXNjcmlwdGlvbjogIkRldGVjdCBzcGFtbWVycyIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NwYW0tYXR0ZW1wdCciCmxlYWtzcGVlZDogIjEwcyIKcmVmZXJlbmNlczoKICAtIGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL1NwYW1taW5nCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiBzZXJ2aWNlOiBwb3N0Zml4CiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "content": "IyBwb3N0Zml4IHNwYW0KdHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9wb3N0Zml4LXNwYW0KZGVzY3JpcHRpb246ICJEZXRlY3Qgc3BhbW1lcnMiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlX2VuaCA9PSAnc3BhbS1hdHRlbXB0JyB8fCBldnQuTWV0YS5sb2dfdHlwZSA9PSBwb3N0Zml4ICYmIGV2dC5QYXJzZWQuYWN0aW9uID09ICdyZWplY3QnIgpsZWFrc3BlZWQ6ICIxMHMiCnJlZmVyZW5jZXM6CiAgLSBodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9TcGFtbWluZwpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IGZhbHNlCmxhYmVsczoKIHNlcnZpY2U6IHBvc3RmaXgKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
    "description": "Detect spammers",
    "author": "crowdsecurity",
    "references": [
