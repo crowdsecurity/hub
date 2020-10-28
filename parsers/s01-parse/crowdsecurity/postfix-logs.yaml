@@ -28,8 +28,6 @@ pattern_syntax:
   POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
   POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO|HELO|RCPT)'
   POSTFIX_ACTION: 'discard|dunno|filter|hold|ignore|info|prepend|redirect|replace|reject|warn'
-  EMAILADDRESSPART: '[a-zA-Z0-9_.+-=:]+'
-  EMAILADDRESS: '%{EMAILADDRESSPART:local}@%{EMAILADDRESSPART:remote}'
   RELAY: '(?:%{HOSTNAME:source_hostname}(?:\[%{IP:source_ip}\](?::[0-9]+(.[0-9]+)?)?)?)'
 description: "Parse postfix logs"
 nodes:

@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/postfix-spam
 description: "Detect spammers"
-filter: "evt.Meta.log_type_enh == 'spam-attempt' || evt.Meta.log_type == postfix && evt.Parsed.action == 'reject'"
+filter: "evt.Meta.log_type_enh == 'spam-attempt' || evt.Meta.log_type == 'postfix' && evt.Meta.action == 'reject'"
 leakspeed: "10s"
 references:
   - https://en.wikipedia.org/wiki/Spamming
@@ -19,7 +19,7 @@ labels:
 type: trigger
 name: crowdsecurity/postscreen-rbl
 description: "Detect spammers"
-filter: "evt.Meta.log_type_enh == 'spam-attempt' && evt.Meta.pregreet == 'PREGREET'"
+filter: "evt.Meta.service == 'postscreen' && evt.Meta.pregreet == 'PREGREET'"
 leakspeed: "10s"
 references:
   - https://en.wikipedia.org/wiki/Spamming
@@ -27,6 +27,6 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: false
 labels:
- service: postfix
+ service: postscreen
  type: bruteforce
  remediation: true
