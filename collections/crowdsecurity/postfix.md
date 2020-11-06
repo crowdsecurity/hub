@@ -7,3 +7,11 @@ A collection for postfix
 This collection mostly aims at getting a similar spam protection than
 the normal fail2ban postfix configuration although postcreen log
 management isn't included by default by fail2ban.
+
+The relevant `acquis.yaml` should be:
+```
+filenames:
+  - /var/log/mail.log
+labels:
+  type: syslog
+```
