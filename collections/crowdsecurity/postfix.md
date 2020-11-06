@@ -3,3 +3,7 @@ A collection for postfix
  * postscreen log parser
  * postfix scenario bruteforce spam attempt
  * postscreen rb attempt blacklist
+
+This collection mostly aims at getting a similar spam protection than
+the normal fail2ban postfix configuration although postcreen log
+management isn't included by default by fail2ban.
