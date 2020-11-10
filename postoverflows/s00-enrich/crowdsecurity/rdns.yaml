@@ -1,9 +1,9 @@
 onsuccess: next_stage
-filter: "evt.Overflow.Labels.remediation == 'true'"
+filter: "evt.Overflow.Alert.Remediation == true"
 name: crowdsecurity/rdns
 description: "Lookup the DNS associated to the source IP only for overflows"
 statics:
   - method: reverse_dns
-    expression: evt.Overflow.Source_ip
+    expression: evt.Overflow.Alert.Source.IP
   - meta: reverse_dns
     expression: evt.Enriched.reverse_dns
