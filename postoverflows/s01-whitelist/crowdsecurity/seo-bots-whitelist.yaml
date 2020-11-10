@@ -5,7 +5,7 @@ whitelist:
   expression: 
     - "any(File('rdns_seo_bots.txt'), { evt.Enriched.reverse_dns endsWith #})"
     - "RegexpInFile(evt.Enriched.reverse_dns, 'rdns_seo_bots.regex')"
-    - "any(File('ip_seo_bots.txt'), { IpInRange(evt.Overflow.Source_ip ,#)})"
+    - "any(File('ip_seo_bots.txt'), { IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/whitelists/benign_bots/search_engine_crawlers/rdns_seo_bots.txt
     dest_file: rdns_seo_bots.txt
