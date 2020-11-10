@@ -81,7 +81,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	if err != nil {
 		return item, fmt.Errorf("Failed to get the readme content : %s", err)
 	}
-	log.Printf("len(readme) : %d", len(item.ReadmeContent))
+	log.Printf("len(readme) : %d", len(content))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
 	/*get infos about latest release*/
 	release, _, err := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
