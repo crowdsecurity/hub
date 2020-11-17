@@ -7,3 +7,4 @@ Configuration based on `crowdsecurity/rdns` to whitelist following benign SEO bo
 * bing
 * baidu
 * yahoo
+* pinterest

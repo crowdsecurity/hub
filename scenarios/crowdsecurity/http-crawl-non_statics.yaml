@@ -2,7 +2,7 @@ type: leaky
 name: crowdsecurity/http-crawl-non_statics
 description: "Detect aggressive crawl from single ip"
 filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && evt.Parsed.static_ressource == 'false'"
-distinct: "evt.Meta.http_path"
+distinct: "evt.Parsed.file_name"
 leakspeed: 0.5s
 capacity: 40
 #debug: true
