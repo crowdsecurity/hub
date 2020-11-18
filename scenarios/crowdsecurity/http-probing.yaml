@@ -1,6 +1,6 @@
 # 404 scan
 type: leaky
-debug: true
+#debug: true
 name: crowdsecurity/http-probing
 description: "Detect site scanning/probing from a single ip"
 filter: "evt.Meta.service == 'http' && ((evt.Meta.http_status in ['404', '403', '400'] && evt.Parsed.static_ressource == 'false') || evt.Meta.sub_type == 'permission_denied')"
