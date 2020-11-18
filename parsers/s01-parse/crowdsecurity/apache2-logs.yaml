@@ -2,10 +2,10 @@
 #debug: true
 filter: "evt.Parsed.program startsWith 'apache2'"
 onsuccess: next_stage
+#debug: true
 name: crowdsecurity/apache2-logs
 description: "Parse Apache2 access and error logs"
 #log line can be prefixed by a target_fqdn
-
 nodes:
   - grok:
       pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
@@ -28,11 +28,13 @@ nodes:
   - grok:
       pattern: '%{HTTPD_ERRORLOG}'
       apply_on: message
+    onsuccess: next_stage
     pattern_syntax:
       NOT_DOUBLE_POINT: '[^:]+'
       NOT_DOUBLE_QUOTE: '[^"]+'    
     nodes:
       - filter: "evt.Parsed.module == 'auth_basic'"
+        onsuccess: next_stage
         pattern_syntax:
           EXTRACT_USER_AND_PATH: 'user %{NOT_DOUBLE_POINT:username}: authentication failure for "%{NOT_DOUBLE_QUOTE:target_uri}": Password Mismatch'
         grok:
@@ -44,9 +46,10 @@ nodes:
             expression: evt.Parsed.username
           - meta: http_path
             expression: evt.Parsed.target_uri
-          - meta: type
+          - meta: sub_type
             value: "auth_fail"
       - filter: "evt.Parsed.module == 'authz_core' && evt.Parsed.message contains 'client denied'"
+        onsuccess: next_stage
         pattern_syntax:
           EXTRACT_PATH: 'client denied by server configuration: %{GREEDYDATA:target_uri}'
         grok:
@@ -55,7 +58,7 @@ nodes:
         statics:
           - meta: http_path
             expression: evt.Parsed.target_uri
-          - meta: type
+          - meta: sub_type
             value: "permission_denied"
     statics:
       - meta: log_type
