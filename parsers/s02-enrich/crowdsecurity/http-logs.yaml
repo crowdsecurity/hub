@@ -10,6 +10,8 @@ nodes:
      - parsed: "impact_completion"
        # the value of a field can as well be determined as the result of an expression
        expression: "evt.Meta.http_status in ['404', '403', '502'] ? 'false' : 'true'"
+     - target: evt.Parsed.static_ressource
+       value: 'false'
   # let's split the path?query if possible
   - grok:
       pattern: "^%{GREEDYDATA:request}\\?%{GREEDYDATA:http_args}$"
