@@ -1,0 +1,15 @@
+# 404 scan
+type: leaky
+debug: true
+name: crowdsecurity/http-generic-bf
+description: "Detect generic http brute force"
+filter: "evt.Meta.service == 'http' && evt.Meta.sub_type == 'auth_fail'"
+groupby: evt.Meta.source_ip
+capacity: 5
+#debug: true
+leakspeed: "10s"
+blackhole: 1m
+labels:
+ service: http
+ type: bf
+ remediation: true
