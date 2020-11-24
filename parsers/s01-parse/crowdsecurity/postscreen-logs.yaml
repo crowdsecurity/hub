@@ -1,0 +1,20 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'postfix/postscreen'"
+name: crowdsecurity/postscreen-logs
+pattern_syntax:
+  POSTSCREEN_PREGREET: 'PREGREET'
+  POSTSCREEN_PREGREET_TIME_ATTEMPT: '\d+.\d+'
+description: "Parse postscreen logs"
+nodes:
+  - grok:
+      apply_on: message
+      pattern: '%{POSTSCREEN_PREGREET:pregreet} %{INT:count} after %{POSTSCREEN_PREGREET_TIME_ATTEMPT:time_attempt} from \[%{IP:remote_addr}\]:%{INT:port}: %{GREEDYDATA:message_attempt}'
+statics:
+    - meta: service
+      value: postscreen
+    - meta: source_ip
+      expression: "evt.Parsed.remote_addr"
+    - meta: pregreet
+      expression: "evt.Parsed.pregreet"
+
+
