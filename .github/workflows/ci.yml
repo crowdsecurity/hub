@@ -20,5 +20,5 @@ jobs:
     - name: build
       run: cd hub-tests && go build && cd .. && find .
     - name: run test
-      run: find . -name config.yaml -exec "./hub-tests/hub-tests -target $(basename {} )" 
+      run: find . -name config.yaml -exec "./hub-tests/hub-tests -target $(basename {} ) \;" 
       
