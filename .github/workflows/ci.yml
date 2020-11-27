@@ -19,6 +19,7 @@ jobs:
         path: hub-tests
     - name: build
       run: cd hub-tests && go build && cd .. && find .
-    - name: run test
+    - name: run tests
       run: cp hub-tests/dev.yaml . && find . -name config.yaml -exec ./hub-tests/hub-tests -target $(basename {} ) \;
+      id: tests
       
