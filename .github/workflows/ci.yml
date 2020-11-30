@@ -31,12 +31,17 @@ jobs:
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
+        mkdir test-reports
+        mv output.xml test-reports/output.xml
       id: tests
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1.6
-      if: always()
+    - name: XUnit Viewer
+      id: xunit-viewer
+      uses: AutoModality/action-xunit-viewer@v1
+    - name: Attach the report
+      uses: actions/upload-artifact@v1
       with:
-        github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
-        files: output.xml
+        name: ${{ steps.xunit-viewer.outputs.report-name }}
+        path: ${{ steps.xunit-viewer.outputs.report-dir }}
+
 
         
