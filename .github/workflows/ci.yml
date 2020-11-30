@@ -31,7 +31,7 @@ jobs:
         cp .index.json config/hub
         find hub-tests
         cp -a hub-tests/config/patterns config
-        for i in $(find . -name config.yaml -print|tr '\n' ' ') ;
+        for i in $(find . -path ./hub-tests -prune -o -name config.yaml -print|tr '\n' ' ') ;
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
