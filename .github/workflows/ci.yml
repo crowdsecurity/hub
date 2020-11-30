@@ -26,7 +26,7 @@ jobs:
         cp hub-tests/dev.yaml .
         for i in $(find . -name config.yaml -print|tr '\n' ' ') ;
         do
-         . /hub-tests/hub-tests -target $(basename $i) ;
+         ./hub-tests/hub-tests -target $(basename $i) ;
         done
       id: tests
       
