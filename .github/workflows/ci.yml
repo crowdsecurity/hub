@@ -2,6 +2,7 @@ name: test-configurations
 on:
   - push
   - repository_dispatch
+  - pull_request_target
 jobs:
   build-hub-tests:
     runs-on: ubuntu-latest
@@ -29,4 +30,9 @@ jobs:
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
       id: tests
-      
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1.5
+      if: always()
+      with:
+        github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        files: output.xml
