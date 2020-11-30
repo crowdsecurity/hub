@@ -29,12 +29,13 @@ jobs:
         mkdir -p config/hub
         touch config/simulation.yaml
         cp .index.json config/hub
-        find hub-tests
         cp -a hub-tests/config/patterns config
+        set -x
         for i in $(find . -path ./hub-tests -prune -o -name config.yaml -print|tr '\n' ' ') ;
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
+        set +x
         pwd
         mkdir ../test-reports
         mv output.xml ../test-reports/output.xml
