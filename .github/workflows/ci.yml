@@ -22,6 +22,11 @@ jobs:
     - name: build
       run: cd hub-tests && go build && cd .. && find .
     - name: run tests
-      run: cp hub-tests/dev.yaml . && find . -name config.yaml -exec ./hub-tests/hub-tests -target $(basename {} ) \;
+      run: |
+        cp hub-tests/dev.yaml .
+        for i in $(find . -name config.yaml -print|tr '\n' ' ') ;
+        do
+         . /hub-tests/hub-tests -target $(basename $i) ;
+        done
       id: tests
       
