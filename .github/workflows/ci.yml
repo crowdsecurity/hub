@@ -29,7 +29,8 @@ jobs:
         mkdir -p config/hub
         touch config/simulation.yaml
         cp .index.json config/hub
-        cp -a hub-tests/config/patterns config/patterns
+        find hub-tests
+        cp -a hub-tests/config/patterns config
         for i in $(find . -name config.yaml -print|tr '\n' ' ') ;
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
