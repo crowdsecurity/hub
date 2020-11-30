@@ -37,8 +37,10 @@ jobs:
     - name: XUnit Viewer
       id: xunit-viewer
       uses: AutoModality/action-xunit-viewer@v1
+      if: always()
     - name: Attach the report
       uses: actions/upload-artifact@v1
+      if: always()
       with:
         name: ${{ steps.xunit-viewer.outputs.report-name }}
         path: ${{ steps.xunit-viewer.outputs.report-dir }}
