@@ -6,6 +6,8 @@ on:
 jobs:
   build-hub-tests:
     runs-on: ubuntu-latest
+    env:
+      RESULTS_PATH: .
     steps:
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
@@ -37,8 +39,6 @@ jobs:
         done
         set +x
         pwd
-        mkdir ../test-reports
-        mv output.xml ../test-reports/output.xml
       id: tests
     - name: XUnit Viewer
       id: xunit-viewer
