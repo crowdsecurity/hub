@@ -31,6 +31,7 @@ jobs:
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
+        pwd
         mkdir ../test-reports
         mv output.xml ../test-reports/output.xml
       id: tests
@@ -42,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: ${{ steps.xunit-viewer.outputs.report-name }}
+        name: test-reports
         path: ${{ steps.xunit-viewer.outputs.report-dir }}
 
 
