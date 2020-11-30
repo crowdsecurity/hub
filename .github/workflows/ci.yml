@@ -25,6 +25,8 @@ jobs:
     - name: run tests
       run: |
         cp hub-tests/dev.yaml .
+        mkdir config
+        touch config/simulation.yaml
         for i in $(find . -name config.yaml -print|tr '\n' ' ') ;
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
