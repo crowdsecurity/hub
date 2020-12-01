@@ -37,18 +37,15 @@ jobs:
         do
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
+        sudo apt-get install npm
+        sudo npm -i -g xunit-viewer
+        xunit-viewer -r output.xml
         set +x
-        pwd
       id: tests
-    - name: XUnit Viewer
-      id: xunit-viewer
-      uses: AutoModality/action-xunit-viewer@v1
-      if: always()
-    - name: Attach the report
-      uses: actions/upload-artifact@v1
-      if: always()
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2
       with:
-        name: test-reports
-        path: ${{ steps.xunit-viewer.outputs.report-dir }}
-
-        
+        target_branch: gh-pages
+        build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
