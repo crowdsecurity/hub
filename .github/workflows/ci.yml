@@ -38,7 +38,7 @@ jobs:
          ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
         done
         sudo apt-get install npm
-        sudo npm -i -g xunit-viewer
+        sudo npm i -g xunit-viewer
         xunit-viewer -r output.xml
         set +x
       id: tests
