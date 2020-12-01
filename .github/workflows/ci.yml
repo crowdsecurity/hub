@@ -45,10 +45,9 @@ jobs:
         sudo mv index.html /public
       id: tests
     - name: Deploy to GitHub Pages
-      uses: crazy-max/ghaction-github-pages@v2
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
-        target_branch: gh-pages
-        build_dir: public
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: public
+        ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         
