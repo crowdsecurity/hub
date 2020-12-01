@@ -33,10 +33,7 @@ jobs:
         cp .index.json config/hub
         cp -a hub-tests/config/patterns config
         set -x
-        for i in $(find . -path ./hub-tests -prune -o -name config.yaml -print|tr '\n' ' ') ;
-        do
-         ./hub-tests/hub-tests -target $(dirname $i) -junit output.xml ;
-        done
+         ./hub-tests/hub-tests -glob config.yaml -junit output.xml ;
         sudo apt-get install npm
         sudo npm i -g xunit-viewer
         xunit-viewer -r output.xml
