@@ -42,10 +42,10 @@ jobs:
         xunit-viewer -r output.xml
         set +x
       id: tests
-    # - name: Deploy to GitHub Pages
-    #   uses: crazy-max/ghaction-github-pages@v2
-    #   with:
-    #     target_branch: gh-pages
-    #     build_dir: public
-    #     env:
-    #       GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: public
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
