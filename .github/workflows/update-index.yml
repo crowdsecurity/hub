@@ -2,16 +2,12 @@ name: Update index
 
 on: 
   push:
-    branches:
-      - master
     paths:
       - 'scenarios/**.yaml'
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
   pull_request:
-    branches:
-      - master
     paths:
       - 'scenarios/**.yaml'
       - 'parsers/**.yaml'
@@ -41,5 +37,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: master
+        branch: ${{ github.ref }}
 

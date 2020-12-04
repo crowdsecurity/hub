@@ -7,7 +7,6 @@ filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404', '403', '4
 groupby: "evt.Meta.source_ip + '/' + evt.Parsed.target_fqdn"
 distinct: "evt.Meta.http_path"
 capacity: 10
-#debug: true
 reprocess: true
 leakspeed: "10s"
 blackhole: 5m
