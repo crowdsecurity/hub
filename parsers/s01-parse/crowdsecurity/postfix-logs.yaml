@@ -1,24 +1,61 @@
+# Copyright (c) 2014, 2015, Rudy Gevaert
+# Copyright (c) 2020 Crowdsec
+
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# Some of the groks used here are from https://github.com/rgevaert/grok-patterns/blob/master/grok.d/postfix_patterns
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'postfix/smtpd'"
 name: crowdsecurity/postfix-logs
 pattern_syntax:
   POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
-  POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO)'
+  POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO|HELO|RCPT)'
+  POSTFIX_ACTION: 'discard|dunno|filter|hold|ignore|info|prepend|redirect|replace|reject|warn'
+  RELAY: '(?:%{HOSTNAME:remote_host}(?:\[%{IP:remote_addr}\](?::[0-9]+(.[0-9]+)?)?)?)'
 description: "Parse postfix logs"
 nodes:
   - grok:
       apply_on: message
-      pattern: 'lost connection after %{POSTFIX_COMMAND:command} from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]'
+      pattern: 'lost connection after %{DATA:smtp_response} from %{RELAY}'
+      statics:
+        - meta: log_type_enh
+          value: spam-attempt
   - grok:
       apply_on: message
       pattern: 'warning: %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: SASL ((?i)LOGIN|PLAIN|(?:CRAM|DIGEST)-MD5) authentication failed:%{GREEDYDATA:message_failure}'
-
+      statics:
+        - meta: log_type_enh
+          value: spam-attempt
+  - grok:
+      apply_on: message
+      pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{GREEDYDATA:reason}'
+      statics:
+        - meta: action
+          expression: "evt.Parsed.action"        
 statics:
     - meta: service
       value: postfix
-    - meta: log_type
-      value: spam-attempt
     - meta: source_ip
       expression: "evt.Parsed.remote_addr"
     - meta: source_hostname
       expression: "evt.Parsed.remote_host"
+    - meta: log_type
+      value: postfix
+
