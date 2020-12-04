@@ -1,0 +1,73 @@
+[
+ {
+  "Line": "Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2",
+  "ParserResults": {
+   "s00-raw": {
+    "crowdsecurity/syslog-logs": {
+     "ExpectMode": 1,
+     "Stage": "s01-parse",
+     "Line": {
+      "Raw": "Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2",
+      "Src": "./parsers/s01-parse/crowdsecurity/.tests/sshd-logs/auth.log",
+      "Time": "0001-01-01T00:00:00Z",
+      "Labels": {
+       "type": "syslog"
+      },
+      "Process": true
+     },
+     "Parsed": {
+      "facility": "",
+      "logsource": "syslog",
+      "message": "Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2",
+      "pid": "8421",
+      "priority": "",
+      "program": "sshd",
+      "timestamp": "Nov 10 15:01:29",
+      "timestamp8601": ""
+     },
+     "Alert": {},
+     "Time": "0001-01-01T00:00:00Z",
+     "StrTime": "Nov 10 15:01:29"
+    }
+   },
+   "s01-parse": {
+    "crowdsecurity/sshd-logs": {
+     "ExpectMode": 1,
+     "Stage": "s01-parse",
+     "Line": {
+      "Raw": "Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2",
+      "Src": "./parsers/s01-parse/crowdsecurity/.tests/sshd-logs/auth.log",
+      "Time": "0001-01-01T00:00:00Z",
+      "Labels": {
+       "type": "syslog"
+      },
+      "Process": true
+     },
+     "Parsed": {
+      "facility": "",
+      "logsource": "syslog",
+      "message": "Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2",
+      "pid": "8421",
+      "priority": "",
+      "program": "sshd",
+      "sshd_client_ip": "1.1.1.1",
+      "sshd_invalid_user": "test_ftp",
+      "sshd_port": "38140",
+      "sshd_protocol": "ssh2",
+      "timestamp": "Nov 10 15:01:29",
+      "timestamp8601": ""
+     },
+     "Alert": {},
+     "Time": "0001-01-01T00:00:00Z",
+     "StrTime": "Nov 10 15:01:29",
+     "Meta": {
+      "log_type": "ssh_failed-auth",
+      "service": "ssh",
+      "source_ip": "1.1.1.1",
+      "target_user": "test_ftp"
+     }
+    }
+   }
+  }
+ }
+]
