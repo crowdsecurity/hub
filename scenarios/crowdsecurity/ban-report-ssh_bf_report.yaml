@@ -2,10 +2,9 @@ type: counter
 name: crowdsecurity/ban-reports-ssh_bf_report
 description: "Count unique ips performing ssh bruteforce"
 #debug: true
-filter: "evt.Overflow.Scenario == 'ssh_bruteforce'"
-distinct: "evt.Overflow.Source_ip"
+filter: "evt.Overflow.Alert.Scenario == 'ssh_bruteforce'"
+distinct: "evt.Overflow.Alert.Source.IP"
 capacity: -1
 duration: 10m
 labels:
   service: ssh
-
