@@ -21,6 +21,7 @@ jobs:
         git commit -m "Update exportedFields" exportedFields.json || exit 0
     - name: Push changes
       uses: ad-m/github-push-action@master
+      if: github.event_name == 'push'
       with:
         github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
         branch: ${{ github.ref }}
