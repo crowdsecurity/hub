@@ -1,0 +1,27 @@
+name: Update index
+
+on: 
+  push:
+    branches: [ master, wip_lapi ]
+  pull_request:
+    branches: [ master, wip_lapi ]
+
+jobs:
+  generate_taxonomy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: merge all results
+      run: |
+        jq -n 'reduce inputs as $s (.; (.[input_filename|rtrimstr("/results.json")]) += $s)' $(find . -name parser_results.json -printf "%p ") > exportedFields.json
+    - name: commit file 
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Update exportedFields" exportedFields.json || exit 0
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      if: github.event_name == 'push'
+      with:
+        github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        branch: ${{ github.ref }}

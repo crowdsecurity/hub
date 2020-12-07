@@ -1,0 +1,50 @@
+name: test-configurations
+on:
+  - push
+  - repository_dispatch
+  - pull_request_target
+jobs:
+  build-hub-tests:
+    runs-on: ubuntu-latest
+    env:
+      RESULTS_PATH: .
+    steps:
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: clone hub-tests
+      uses: actions/checkout@v2
+      with:
+        repository: crowdsecurity/hub-tests
+        ref: master
+        path: hub-tests
+    - name: build
+      run: cd hub-tests && go build && cd .. && find .
+    - name: run tests
+      run: |
+        cp hub-tests/dev.yaml .
+        ## ugly workarounds
+        mkdir -p config/hub
+        touch config/simulation.yaml
+        cp .index.json config/hub
+        cp -a hub-tests/config/patterns config
+        set -x
+         ./hub-tests/hub-tests -glob config.yaml -junit output.xml ;
+        sudo apt-get install npm
+        sudo npm i -g xunit-viewer
+        xunit-viewer -r output.xml
+        set +x
+        mkdir public
+        sudo mv index.html public
+      id: tests
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        BRANCH: gh-pages
+        FOLDER: public
+        ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+        

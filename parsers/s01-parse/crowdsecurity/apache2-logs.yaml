@@ -1,24 +1,74 @@
-#Apache access logs
+#Apache access/errors logs
 #debug: true
 filter: "evt.Parsed.program startsWith 'apache2'"
 onsuccess: next_stage
 name: crowdsecurity/apache2-logs
 description: "Parse Apache2 access and error logs"
 #log line can be prefixed by a target_fqdn
-grok:
-  pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
-  apply_on: message
-# these ones apply for both grok patterns
-statics:
-  - meta: log_type
-    value: http_access-log
-  - target: evt.StrTime
-    expression: evt.Parsed.timestamp
-  - meta: service
-    value: http
-  - meta: source_ip
-    expression: evt.Parsed.clientip
-  - meta: http_status
-    expression: evt.Parsed.response
-  - meta: http_path
-    expression: evt.Parsed.request
+nodes:
+  - grok:
+      pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}'
+      apply_on: message
+      # these ones apply for both grok patterns
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Parsed.timestamp
+        - meta: service
+          value: http
+        - meta: source_ip
+          expression: evt.Parsed.clientip
+        - meta: http_status
+          expression: evt.Parsed.response
+        - meta: http_path
+          expression: evt.Parsed.request
+    onsuccess: next_stage
+  - grok:
+      pattern: '%{HTTPD_ERRORLOG}'
+      apply_on: message
+    onsuccess: next_stage
+    pattern_syntax:
+      NOT_DOUBLE_POINT: '[^:]+'
+      NOT_DOUBLE_QUOTE: '[^"]+'    
+    nodes:
+      - filter: "evt.Parsed.module == 'auth_basic'"
+        onsuccess: next_stage
+        pattern_syntax:
+          EXTRACT_USER_AND_PATH: 'user %{NOT_DOUBLE_POINT:username}: authentication failure for "%{NOT_DOUBLE_QUOTE:target_uri}": Password Mismatch'
+        grok:
+          pattern: '%{EXTRACT_USER_AND_PATH}'
+          apply_on: message
+          # these ones apply for both grok patterns
+        statics:
+          - meta: username
+            expression: evt.Parsed.username
+          - meta: http_path
+            expression: evt.Parsed.target_uri
+          - meta: sub_type
+            value: "auth_fail"
+      - filter: "evt.Parsed.module == 'authz_core' && evt.Parsed.message contains 'client denied'"
+        onsuccess: next_stage
+        pattern_syntax:
+          EXTRACT_PATH: 'client denied by server configuration: %{GREEDYDATA:target_uri}'
+        grok:
+          pattern: '%{EXTRACT_PATH}'
+          apply_on: message
+        statics:
+          - meta: http_path
+            expression: evt.Parsed.target_uri
+          - meta: sub_type
+            value: "permission_denied"
+    statics:
+      - meta: log_type
+        value: http_error-log
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+      - meta: service
+        value: http
+      - meta: source_ip
+        expression: evt.Parsed.client
+      - meta: http_status
+        expression: evt.Parsed.response
+
+      
