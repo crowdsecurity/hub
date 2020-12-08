@@ -1,9 +1,9 @@
 name: test-configurations
 on:
-  push
-  repository_dispatch:
+  - push
+  - repository_dispatch:
     types: ['trigger_ci_hub']
-  pull_request_target
+  - pull_request_target
 jobs:
   build-hub-tests:
     runs-on: ubuntu-latest
