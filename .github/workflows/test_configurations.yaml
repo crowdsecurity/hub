@@ -1,7 +1,8 @@
 name: test-configurations
 on:
   - push
-  - repository_dispatch
+  - repository_dispatch:
+      types: ['trigger_ci_hub']
   - pull_request_target
 jobs:
   build-hub-tests:
@@ -33,7 +34,7 @@ jobs:
         cp .index.json config/hub
         cp -a hub-tests/config/patterns config
         set -x
-         ./hub-tests/hub-tests -glob config.yaml -junit output.xml ;
+         ./hub-tests/hub-tests -glob config.yaml -junit output.xml -overall ;
         sudo apt-get install npm
         sudo npm i -g xunit-viewer
         xunit-viewer -r output.xml
