@@ -32,6 +32,7 @@ jobs:
         touch config/simulation.yaml
         cp .index.json config/hub
         cp -a hub-tests/config/patterns config
+        mkdir data
         set -x
          ./hub-tests/hub-tests -glob config.yaml -junit output.xml -overall ;
         sudo apt-get install npm
