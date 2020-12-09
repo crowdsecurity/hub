@@ -1,0 +1,132 @@
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 5.5.8.5 - - [04/Jan/2020:07:25:02 +0000] "GET /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo HTTP/1.1" 404 522 "-" "Go-http-client/1.1"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-01T23:19:00.262113291+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "522"
+    http_referer: '-'
+    http_user_agent: Go-http-client/1.1
+    http_version: "1.1"
+    message: 5.5.8.5 - - [04/Jan/2020:07:25:02 +0000] "GET /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo HTTP/1.1" 404 522 "-" "Go-http-client/1.1"
+    method: GET
+    program: nginx
+    remote_addr: 5.5.8.5
+    remote_user: '-'
+    request: /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo
+    status: "404"
+    target_fqdn: ""
+    time_local: 04/Jan/2020:07:25:02 +0000
+  Time: 2020-12-01T23:19:00.262129175+01:00
+  StrTime: 04/Jan/2020:07:25:02 +0000
+  Process: true
+  Meta:
+    http_path: /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 5.5.8.5
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-01T23:19:00.263881872+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "550"
+    http_referer: '-'
+    http_user_agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+    http_version: "1.1"
+    message: 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    method: GET
+    program: nginx
+    remote_addr: 52.59.61.4
+    remote_user: '-'
+    request: /index.php/nous-contacter/
+    status: "500"
+    target_fqdn: ""
+    time_local: 04/Jan/2020:08:41:43 +0000
+  Time: 2020-12-01T23:19:00.264385615+01:00
+  StrTime: 04/Jan/2020:08:41:43 +0000
+  Process: true
+  Meta:
+    http_path: /index.php/nous-contacter/
+    http_status: "500"
+    log_type: http_access-log
+    service: http
+    source_ip: 52.59.61.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 195.54.160.135 - - [08/Jun/2020:08:04:43 +0000] "GET /solr/admin/info/system?wt=json HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+    time: 2020-12-01T23:18:58.885136572+01:00
+    Labels:
+      type: apache2
+    process: true
+  Parsed:
+    agent: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'
+    auth: '-'
+    bytes: "803"
+    clientip: 195.54.160.135
+    httpversion: "1.1"
+    ident: '-'
+    message: 195.54.160.135 - - [08/Jun/2020:08:04:43 +0000] "GET /solr/admin/info/system?wt=json HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    program: apache2
+    rawrequest: ""
+    referrer: '"-"'
+    request: /solr/admin/info/system?wt=json
+    response: "500"
+    target_fqdn: ""
+    timestamp: 08/Jun/2020:08:04:43 +0000
+    verb: GET
+  Time: 2020-12-01T23:18:58.885943039+01:00
+  StrTime: 08/Jun/2020:08:04:43 +0000
+  Process: true
+  Meta:
+    http_path: /solr/admin/info/system?wt=json
+    http_status: "500"
+    log_type: http_access-log
+    service: http
+    source_ip: 195.54.160.135
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: www.crowdsec.net 1.2.3.4 - - [08/Jun/2020:08:04:43 +0000] "GET /solr/admin/info/system?wt=json HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+    time: 2020-12-01T23:18:58.886407549+01:00
+    Labels:
+      type: apache2
+    process: true
+  Parsed:
+    agent: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'
+    auth: '-'
+    bytes: "803"
+    clientip: 1.2.3.4
+    httpversion: "1.1"
+    ident: '-'
+    message: www.crowdsec.net 1.2.3.4 - - [08/Jun/2020:08:04:43 +0000] "GET /solr/admin/info/system?wt=json HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    program: apache2
+    rawrequest: ""
+    referrer: '"-"'
+    request: /solr/admin/info/system?wt=json
+    response: "500"
+    target_fqdn: www.crowdsec.net
+    timestamp: 08/Jun/2020:08:04:43 +0000
+    verb: GET
+  Time: 2020-12-01T23:18:58.8875633+01:00
+  StrTime: 08/Jun/2020:08:04:43 +0000
+  Process: true
+  Meta:
+    http_path: /solr/admin/info/system?wt=json
+    http_status: "500"
+    log_type: http_access-log
+    service: http
+    source_ip: 1.2.3.4
