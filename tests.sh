@@ -14,11 +14,11 @@ init_tests() {
     git clone https://github.com/crowdsecurity/hub-tests.git
     cd hub-tests/ && go build && cd ..
     cp -r hub-tests/config/ .
-    mkdir config/hub && cp .index.json config/hub/
+    mkdir config/hub data && cp .index.json config/hub/
 }
 
 run_all_tests() {
-    ./hub-tests/hub-tests -glob config.yaml
+    ./hub-tests/hub-tests -glob config.yaml -junit output.xml -overall
 }
 
 run_single_test() {
