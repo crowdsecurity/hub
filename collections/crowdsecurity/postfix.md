@@ -9,7 +9,8 @@ the normal fail2ban postfix configuration although postcreen log
 management isn't included by default by fail2ban.
 
 The relevant `acquis.yaml` should be:
-```
+
+```yaml
 filenames:
   - /var/log/mail.log
 labels:
