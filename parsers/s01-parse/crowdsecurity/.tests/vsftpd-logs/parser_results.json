@@ -1,1 +1,59 @@
-[]
+[
+    {
+     "Line": "Mon Jun 8 12:08:53 2020 [pid 27244] [user] FAIL LOGIN: Client \"::ffff:93.24.101.89\"",
+     "ParserResults": {
+      "s00-raw": {
+       "crowdsecurity/non-syslog": {
+        "ExpectMode": 1,
+        "Stage": "s01-parse",
+        "Line": {
+         "Raw": "Mon Jun 8 12:08:53 2020 [pid 27244] [user] FAIL LOGIN: Client \"::ffff:93.24.101.89\"",
+         "Src": "./parsers/s01-parse/crowdsecurity/.tests/vsftpd-logs/vsftpd.log",
+         "Time": "0001-01-01T00:00:00Z",
+         "Labels": {
+          "type": "vsftpd"
+         },
+         "Process": true
+        },
+        "Parsed": {
+         "message": "Mon Jun 8 12:08:53 2020 [pid 27244] [user] FAIL LOGIN: Client \"::ffff:93.24.101.89\"",
+         "program": "vsftpd"
+        },
+        "Alert": {},
+        "Time": "0001-01-01T00:00:00Z"
+       }
+      },
+      "s01-parse": {
+       "vsftpd-logs": {
+        "ExpectMode": 1,
+        "Stage": "s01-parse",
+        "Line": {
+         "Raw": "Mon Jun 8 12:08:53 2020 [pid 27244] [user] FAIL LOGIN: Client \"::ffff:93.24.101.89\"",
+         "Src": "./parsers/s01-parse/crowdsecurity/.tests/vsftpd-logs/vsftpd.log",
+         "Time": "0001-01-01T00:00:00Z",
+         "Labels": {
+          "type": "vsftpd"
+         },
+         "Process": true
+        },
+        "Parsed": {
+         "message": "Mon Jun 8 12:08:53 2020 [pid 27244] [user] FAIL LOGIN: Client \"::ffff:93.24.101.89\"",
+         "program": "vsftpd",
+         "source_ip": "93.24.101.89",
+         "timestamp": "Mon Jun 8 12:08:53 2020",
+         "user": "user"
+        },
+        "Alert": {},
+        "Time": "0001-01-01T00:00:00Z",
+        "StrTime": "Mon Jun 8 12:08:53 2020",
+        "Meta": {
+         "log_type": "ftp_failed_auth",
+         "program": "vsftpd",
+         "source_ip": "93.24.101.89",
+         "user": "user"
+        }
+       }
+      }
+     }
+    }
+   ]
