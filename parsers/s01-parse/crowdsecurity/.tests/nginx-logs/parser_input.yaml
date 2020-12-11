@@ -1,0 +1,56 @@
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 5.5.8.5 - - [04/Jan/2020:07:25:02 +0000] "GET /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo HTTP/1.1" 404 522 "-" "Go-http-client/1.1"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-11T13:02:38.187710403+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 5.5.8.5 - - [04/Jan/2020:07:25:02 +0000] "GET /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo HTTP/1.1" 404 522 "-" "Go-http-client/1.1"
+    program: nginx
+  Time: 2020-12-11T13:02:38.187733387+01:00
+  Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 2.30.19.10 - - [04/Jan/2020:08:29:17 +0000] "GET / HTTP/1.1" 400 0 "-" "-"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-11T13:02:38.187790876+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 2.30.19.10 - - [04/Jan/2020:08:29:17 +0000] "GET / HTTP/1.1" 400 0 "-" "-"
+    program: nginx
+  Time: 2020-12-11T13:02:38.1879352+01:00
+  Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-11T13:02:38.188000715+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    program: nginx
+  Time: 2020-12-11T13:02:38.188078433+01:00
+  Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: www.mydomain.com 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-11T13:02:38.188137815+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: www.mydomain.com 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "GET /index.php/nous-contacter/ HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    program: nginx
+  Time: 2020-12-11T13:02:38.188226774+01:00
+  Process: true
