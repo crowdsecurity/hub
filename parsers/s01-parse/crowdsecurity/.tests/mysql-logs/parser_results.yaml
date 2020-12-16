@@ -1,0 +1,79 @@
+provisionalresults:
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/mysql-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/mysql-logs/mysql.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: mysql
+        process: true
+      Parsed:
+        message: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+        program: mysql
+        source_ip: 27.155.87.54
+        time: "2020-04-16T05:13:40.861934Z"
+        user: root
+      Meta:
+        log_type: mysql_failed_auth
+        source_ip: 27.155.87.54
+        user: root
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/mysql-logs/mysql.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: mysql
+        process: true
+      Parsed:
+        message: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+        program: mysql
+        source_ip: 27.155.87.54
+        time: "2020-04-16T05:13:40.861934Z"
+        user: root
+      Meta:
+        log_type: mysql_failed_auth
+        source_ip: 27.155.87.54
+        user: root
+- s00-raw: {}
+  s01-parse: {}
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/mysql-logs/mysql.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: mysql
+    process: true
+  Parsed:
+    message: 'Apr 16 05:13:40 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:40.861934Z 344 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: YES)'
+    program: mysql
+    source_ip: 27.155.87.54
+    time: "2020-04-16T05:13:40.861934Z"
+    user: root
+  Process: true
+  Meta:
+    log_type: mysql_failed_auth
+    source_ip: 27.155.87.54
+    user: root
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 'Apr 16 05:13:41 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:41.144260Z 345 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: NO)'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/mysql-logs/mysql.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: mysql
+    process: true
+  Parsed:
+    message: 'Apr 16 05:13:41 ip-172-31-36-243.ap-northeast-2.compute.internal mysql[2769]: 2020-04-16T05:13:41.144260Z 345 [Note] Access denied for user ''root''@''27.155.87.54'' (using password: NO)'
+    program: mysql
