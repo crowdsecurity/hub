@@ -1,0 +1,86 @@
+provisionalresults:
+- s00-raw:
+    "":
+      Stage: s01-parse
+      StrTime: 08/Jun/2020:06:49:01 +0000
+  s01-parse:
+    "":
+      Stage: s02-enrich
+      StrTime: 08/Jun/2020:06:49:01 +0000
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      Stage: s02-enrich
+      Enriched:
+        MarshaledTime: "2020-06-08T06:49:01Z"
+      StrTime: 08/Jun/2020:06:49:01 +0000
+      MarshaledTime: "2020-06-08T06:49:01Z"
+- s00-raw:
+    "":
+      Stage: s01-parse
+      StrTime: Jun 7 11:17:17
+  s01-parse:
+    "":
+      Stage: s02-enrich
+      StrTime: Jun 7 11:17:17
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      Stage: s02-enrich
+      Enriched:
+        MarshaledTime: "2020-06-07T11:17:17Z"
+      StrTime: Jun 7 11:17:17
+      MarshaledTime: "2020-06-07T11:17:17Z"
+- s00-raw:
+    "":
+      Stage: s01-parse
+      StrTime: Mon Jun 8 12:08:53 2020
+  s01-parse:
+    "":
+      Stage: s02-enrich
+      StrTime: Mon Jun 8 12:08:53 2020
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      Stage: s02-enrich
+      Enriched:
+        MarshaledTime: "2020-06-08T12:08:53Z"
+      StrTime: Mon Jun 8 12:08:53 2020
+      MarshaledTime: "2020-06-08T12:08:53Z"
+- s00-raw:
+    "":
+      Stage: s01-parse
+      StrTime: "2020-04-16T05:13:40.861934Z"
+  s01-parse:
+    "":
+      Stage: s02-enrich
+      StrTime: "2020-04-16T05:13:40.861934Z"
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      Stage: s02-enrich
+      Enriched:
+        MarshaledTime: "2020-04-16T05:13:40.861934Z"
+      StrTime: "2020-04-16T05:13:40.861934Z"
+      MarshaledTime: "2020-04-16T05:13:40.861934Z"
+finalresults:
+- Stage: s02-enrich
+  Enriched:
+    MarshaledTime: "2020-06-08T06:49:01Z"
+  StrTime: 08/Jun/2020:06:49:01 +0000
+  MarshaledTime: "2020-06-08T06:49:01Z"
+  Process: true
+- Stage: s02-enrich
+  Enriched:
+    MarshaledTime: "2020-06-07T11:17:17Z"
+  StrTime: Jun 7 11:17:17
+  MarshaledTime: "2020-06-07T11:17:17Z"
+  Process: true
+- Stage: s02-enrich
+  Enriched:
+    MarshaledTime: "2020-06-08T12:08:53Z"
+  StrTime: Mon Jun 8 12:08:53 2020
+  MarshaledTime: "2020-06-08T12:08:53Z"
+  Process: true
+- Stage: s02-enrich
+  Enriched:
+    MarshaledTime: "2020-04-16T05:13:40.861934Z"
+  StrTime: "2020-04-16T05:13:40.861934Z"
+  MarshaledTime: "2020-04-16T05:13:40.861934Z"
+  Process: true
