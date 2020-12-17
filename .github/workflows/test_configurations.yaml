@@ -19,11 +19,6 @@ jobs:
     - name: run tests
       run: |
         ./tests.sh -i
-        cd hub-tests
-        git stash
-        git checkout overhaul
-        go build
-        cd ..
         ./tests.sh --all
         sudo apt-get update && sudo apt-get install npm
         sudo npm i -g xunit-viewer
@@ -38,5 +33,4 @@ jobs:
         BRANCH: gh-pages
         FOLDER: public
         ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-
         
