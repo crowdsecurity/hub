@@ -1,0 +1,13 @@
+#configuration
+parser_results: parser_results.yaml
+bucket_input: bucket_input.yaml                
+bucket_results: bucket_result.yaml             
+postoverflow_input: po_input.yaml     
+index: "./config/hub/.index.json"
+configurations:      
+  parsers:
+  - crowdsecurity/iptables-logs
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/dateparse-enrich
+  scenarios:
+  - crowdsecurity/iptables-scan-multi_ports
