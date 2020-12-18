@@ -1,0 +1,95 @@
+provisionalresults:
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/postscreen-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Oct 25 04:24:59 test postfix/postscreen[22244]: PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/postscreen-logs/postscreen.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        count: "16"
+        facility: ""
+        logsource: syslog
+        message: 'PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+        message_attempt: EHLO 127.0.0.1\r\n
+        pid: "22244"
+        port: "41323"
+        pregreet: PREGREET
+        priority: ""
+        program: postfix/postscreen
+        remote_addr: 177.154.236.182
+        time_attempt: "2.6"
+        timestamp: Dec  7 23:23:36
+        timestamp8601: ""
+      StrTime: Dec  7 23:23:36
+      Meta:
+        pregreet: PREGREET
+        service: postscreen
+        source_ip: 177.154.236.182
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Oct 25 04:24:59 test postfix/postscreen[22244]: PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/postscreen-logs/postscreen.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        count: "16"
+        facility: ""
+        logsource: syslog
+        message: 'PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+        message_attempt: EHLO 127.0.0.1\r\n
+        pid: "22244"
+        port: "41323"
+        pregreet: PREGREET
+        priority: ""
+        program: postfix/postscreen
+        remote_addr: 177.154.236.182
+        time_attempt: "2.6"
+        timestamp: Dec  7 23:23:36
+        timestamp8601: ""
+      StrTime: Dec  7 23:23:36
+      Meta:
+        pregreet: PREGREET
+        service: postscreen
+        source_ip: 177.154.236.182
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Oct 25 04:24:59 test postfix/postscreen[22244]: PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/postscreen-logs/postscreen.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    count: "16"
+    facility: ""
+    logsource: syslog
+    message: 'PREGREET 16 after 2.6 from [177.154.236.182]:41323: EHLO 127.0.0.1\r\n'
+    message_attempt: EHLO 127.0.0.1\r\n
+    pid: "22244"
+    port: "41323"
+    pregreet: PREGREET
+    priority: ""
+    program: postfix/postscreen
+    remote_addr: 177.154.236.182
+    time_attempt: "2.6"
+    timestamp: Dec  7 23:23:36
+    timestamp8601: ""
+  StrTime: Dec  7 23:23:36
+  Process: true
+  Meta:
+    pregreet: PREGREET
+    service: postscreen
+    source_ip: 177.154.236.182
