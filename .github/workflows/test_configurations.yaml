@@ -28,6 +28,7 @@ jobs:
         sudo mv index.html public
       id: tests
     - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/master'
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         BRANCH: gh-pages
