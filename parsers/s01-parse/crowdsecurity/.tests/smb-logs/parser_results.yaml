@@ -1,0 +1,128 @@
+provisionalresults:
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/smb-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        ip_source: 14.181.129.111
+        logsource: syslog
+        message: 'Auth: [SMB2,(null)] user []\[hp] at [Fri, 18 Dec 2020 02:49:33.333790 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [] remote host [ipv4:14.181.129.111:62493] mapped to []\[hp]. local host [ipv4:172.18.0.3:445] #015'
+        pid: "8421"
+        priority: ""
+        program: smb
+        smb_domain: ""
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+        user: hp
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: smb_failed_auth
+        source_ip: 14.181.129.111
+        user: hp
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        ip_source: 14.181.129.111
+        logsource: syslog
+        message: 'Auth: [SMB2,(null)] user []\[hp] at [Fri, 18 Dec 2020 02:49:33.333790 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [] remote host [ipv4:14.181.129.111:62493] mapped to []\[hp]. local host [ipv4:172.18.0.3:445] #015'
+        pid: "8421"
+        priority: ""
+        program: smb
+        smb_domain: ""
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+        user: hp
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: smb_failed_auth
+        source_ip: 14.181.129.111
+        user: hp
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/smb-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        ip_source: 180.252.252.57
+        logsource: syslog
+        message: 'Auth: [SMB2,(null)] user [domainname]\[rcbiwx] at [Sat, 14 Nov 2020 06:52:41.882477 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [LOCALPCNAME] remote host [ipv4:180.252.252.57:55492] mapped to [domainname]\[rcbiwx]. local host [ipv4:172.18.0.3:445] #015'
+        pid: "8421"
+        priority: ""
+        program: smb
+        smb_domain: domainname
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+        user: rcbiwx
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: smb_failed_auth
+        source_ip: 180.252.252.57
+        user: rcbiwx
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        ip_source: 180.252.252.57
+        logsource: syslog
+        message: 'Auth: [SMB2,(null)] user [domainname]\[rcbiwx] at [Sat, 14 Nov 2020 06:52:41.882477 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [LOCALPCNAME] remote host [ipv4:180.252.252.57:55492] mapped to [domainname]\[rcbiwx]. local host [ipv4:172.18.0.3:445] #015'
+        pid: "8421"
+        priority: ""
+        program: smb
+        smb_domain: domainname
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+        user: rcbiwx
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: smb_failed_auth
+        source_ip: 180.252.252.57
+        user: rcbiwx
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    facility: ""
+    ip_source: 14.181.129.111
+    logsource: syslog
+    message: 'Auth: [SMB2,(null)] user []\[hp] at [Fri, 18 Dec 2020 02:49:33.333790 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [] remote host [ipv4:14.181.129.111:62493] mapped to []\[hp]. local host [ipv4:172.18.0.3:445] #015'
+    pid: "8421"
+    priority: ""
+    program: smb
+    smb_domain: ""
+    timestamp: Nov 10 15:01:29
+    timestamp8601: ""
+    user: hp
+  StrTime: Nov 10 15:01:29
+  Process: true
+  Meta:
+    log_type: smb_failed_auth
+    source_ip: 14.181.129.111
+    user: hp
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    facility: ""
+    ip_source: 180.252.252.57
+    logsource: syslog
+    message: 'Auth: [SMB2,(null)] user [domainname]\[rcbiwx] at [Sat, 14 Nov 2020 06:52:41.882477 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [LOCALPCNAME] remote host [ipv4:180.252.252.57:55492] mapped to [domainname]\[rcbiwx]. local host [ipv4:172.18.0.3:445] #015'
+    pid: "8421"
+    priority: ""
+    program: smb
+    smb_domain: domainname
+    timestamp: Nov 10 15:01:29
+    timestamp8601: ""
+    user: rcbiwx
+  StrTime: Nov 10 15:01:29
+  Process: true
+  Meta:
+    log_type: smb_failed_auth
+    source_ip: 180.252.252.57
+    user: rcbiwx
