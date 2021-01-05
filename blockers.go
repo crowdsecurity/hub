@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strings"
 
 	"github.com/google/go-github/github"
 )
@@ -84,7 +85,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	log.Printf("len(readme) : %d", len(content))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
 	/*get infos about latest release*/
-	release, _, err := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
+	release, _, _ := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
 	if release != nil {
 		item.LastVersion = *release.TagName
 		log.Printf("LastVersion : %s", item.LastVersion)
@@ -100,8 +101,17 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			}
 			item.DownloadCount += asset.GetDownloadCount()
 		}
+		/*get infos about prereleases*/
+	} else if releasesURL := repinfo.GetTagsURL(); !strings.HasSuffix(releasesURL, "tags") {
+		item.LastVersion = "prerelease"
+		item.DownloadURL = *repinfo.HTMLURL + "/tags"
+		item.DownloadCount = 0
+		log.Printf("Has only prereleases : %s", item.DownloadURL)
 	} else {
-		log.Fatalf("No release")
+		item.LastVersion = "no release"
+		item.DownloadURL = releasesURL
+		item.DownloadCount = 0
+		log.Printf("Has no release : %s", item.DownloadURL)
 	}
 	return item, nil
 }
