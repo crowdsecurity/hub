@@ -54,3 +54,17 @@
     program: apache2
   Time: 2020-12-11T12:43:47.855995358+01:00
   Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+    time: 2020-12-11T12:43:47.855054626+01:00
+    Labels:
+      type: apache2
+    process: true
+  Parsed:
+    message: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+    program: apache2
+  Time: 2020-12-11T12:43:47.855149953+01:00
+  Process: true

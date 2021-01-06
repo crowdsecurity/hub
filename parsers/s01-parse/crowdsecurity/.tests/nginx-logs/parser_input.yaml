@@ -54,3 +54,17 @@
     program: nginx
   Time: 2020-12-11T13:02:38.188226774+01:00
   Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: www.mydomain.com 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "POST /login.php HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2020-12-11T13:02:38.188137815+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: www.mydomain.com 52.59.61.4 - - [04/Jan/2020:08:41:43 +0000] "POST /login.php HTTP/1.1" 500 550 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+    program: nginx
+  Time: 2020-12-11T13:02:38.188226774+01:00
+  Process: true

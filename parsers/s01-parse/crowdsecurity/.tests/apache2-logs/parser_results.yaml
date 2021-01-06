@@ -275,6 +275,75 @@ provisionalresults:
         log_type: http_access-log
         service: http
         source_ip: 1.2.3.4
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/apache2-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: apache2
+        process: true
+      Parsed:
+        agent: '"-"'
+        auth: '-'
+        bytes: "803"
+        clientip: 93.43.209.58
+        httpversion: "1.0"
+        ident: '-'
+        message: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+        program: apache2
+        rawrequest: ""
+        referrer: '"-"'
+        request: /login
+        response: "500"
+        target_fqdn: ""
+        timestamp: 08/Jun/2020:06:49:01 +0000
+        verb: POST
+      StrTime: 08/Jun/2020:06:49:01 +0000
+      Meta:
+        http_path: /login
+        http_status: "500"
+        log_type: http_access-log
+        service: http
+        source_ip: 93.43.209.58
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: apache2
+        process: true
+      Parsed:
+        agent: '"-"'
+        auth: '-'
+        bytes: "803"
+        clientip: 93.43.209.58
+        httpversion: "1.0"
+        ident: '-'
+        message: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+        program: apache2
+        rawrequest: ""
+        referrer: '"-"'
+        request: /login
+        response: "500"
+        target_fqdn: ""
+        timestamp: 08/Jun/2020:06:49:01 +0000
+        verb: POST
+      StrTime: 08/Jun/2020:06:49:01 +0000
+      Meta:
+        http_path: /login
+        http_status: "500"
+        log_type: http_access-log
+        service: http
+        source_ip: 93.43.209.58
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
@@ -408,3 +477,36 @@ finalresults:
     log_type: http_access-log
     service: http
     source_ip: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: apache2
+    process: true
+  Parsed:
+    agent: '"-"'
+    auth: '-'
+    bytes: "803"
+    clientip: 93.43.209.58
+    httpversion: "1.0"
+    ident: '-'
+    message: 93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] "POST /login HTTP/1.0" 500 803 "-" "-"
+    program: apache2
+    rawrequest: ""
+    referrer: '"-"'
+    request: /login
+    response: "500"
+    target_fqdn: ""
+    timestamp: 08/Jun/2020:06:49:01 +0000
+    verb: POST
+  StrTime: 08/Jun/2020:06:49:01 +0000
+  Process: true
+  Meta:
+    http_path: /login
+    http_status: "500"
+    log_type: http_access-log
+    service: http
+    source_ip: 93.43.209.58
