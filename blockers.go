@@ -122,6 +122,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		} else {
 			item.LastVersion = "no release"
 			item.DownloadURL = *repinfo.HTMLURL + "/tags"
+			item.AssetURL = *repinfo.HTMLURL + "/tags"
 			item.DownloadCount = 0
 			log.Printf("Has no release : %s", item.DownloadURL)
 		}
