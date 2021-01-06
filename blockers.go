@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"strings"
 
 	"github.com/google/go-github/github"
 )
@@ -101,17 +100,31 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			}
 			item.DownloadCount += asset.GetDownloadCount()
 		}
-		/*get infos about prereleases*/
-	} else if releasesURL := repinfo.GetTagsURL(); !strings.HasSuffix(releasesURL, "tags") {
-		item.LastVersion = "prerelease"
-		item.DownloadURL = *repinfo.HTMLURL + "/tags"
-		item.DownloadCount = 0
-		log.Printf("Has only prereleases : %s", item.DownloadURL)
 	} else {
-		item.LastVersion = "no release"
-		item.DownloadURL = releasesURL
-		item.DownloadCount = 0
-		log.Printf("Has no release : %s", item.DownloadURL)
+		/*if has prerelease*/
+		releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
+		if err != nil {
+			log.Fatalf("Failed to fetch releases : %+v", err.Error())
+		}
+		if len(releases) > 0 {
+			/*get download count*/
+			for x, asset := range releases[0].Assets {
+				if x == 0 {
+					item.AssetURL = asset.GetBrowserDownloadURL()
+					log.Printf("AssetURL : %s", item.AssetURL)
+				}
+				item.DownloadCount += asset.GetDownloadCount()
+			}
+			item.DownloadURL = *releases[0].HTMLURL
+			item.LastVersion = *releases[0].TagName
+			log.Printf("Has only prereleases : %s", item.DownloadURL)
+			log.Printf("LastVersion : %s", item.LastVersion)
+		} else {
+			item.LastVersion = "no release"
+			item.DownloadURL = *repinfo.HTMLURL + "/tags"
+			item.DownloadCount = 0
+			log.Printf("Has no release : %s", item.DownloadURL)
+		}
 	}
 	return item, nil
 }
