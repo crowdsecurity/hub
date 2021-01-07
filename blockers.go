@@ -26,6 +26,7 @@ type ItemInfo struct {
 	LastVersion string `json:"version"`
 	DownloadURL string `json:"download_url"`
 	AssetURL    string `json:"asset_url"`
+	Status      string `json:"status"`
 }
 
 //DumpJSON dumps the list to a json file
@@ -100,6 +101,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			}
 			item.DownloadCount += asset.GetDownloadCount()
 		}
+		item.Status = "stable"
 	} else {
 		/*if has prerelease*/
 		releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
@@ -117,6 +119,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			}
 			item.DownloadURL = *releases[0].HTMLURL
 			item.LastVersion = *releases[0].TagName
+			item.Status = "unstable"
 			log.Printf("Has only prereleases : %s", item.DownloadURL)
 			log.Printf("LastVersion : %s", item.LastVersion)
 		} else {
@@ -124,6 +127,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			item.DownloadURL = *repinfo.HTMLURL + "/tags"
 			item.AssetURL = *repinfo.HTMLURL + "/tags"
 			item.DownloadCount = 0
+			item.Status = "dev"
 			log.Printf("Has no release : %s", item.DownloadURL)
 		}
 	}
