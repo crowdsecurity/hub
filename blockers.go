@@ -127,7 +127,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			item.DownloadURL = *repinfo.HTMLURL + "/tags"
 			item.AssetURL = *repinfo.HTMLURL + "/tags"
 			item.DownloadCount = 0
-			item.Status = "dev"
+			item.Status = "development"
 			log.Printf("Has no release : %s", item.DownloadURL)
 		}
 	}
