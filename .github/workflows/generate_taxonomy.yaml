@@ -11,9 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
     - name: merge all results
       run: |
-        jq -n 'reduce inputs as $s (.; (.[input_filename|rtrimstr("/results.json")]) += $s)' $(find . -name parser_results.json -printf "%p ") > exportedFields.json
+        cd .exportedField
+        go build exported
+        .exportedField/exported
     - name: commit file 
       run: |
         git config --local user.email "action@github.com"
