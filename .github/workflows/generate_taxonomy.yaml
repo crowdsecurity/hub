@@ -19,6 +19,7 @@ jobs:
     - name: merge all results
       run: |
         cd .exportedField
+        export GO111MODULE=on 
         go build exported
         .exportedField/exported
     - name: commit file 
