@@ -84,6 +84,25 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	}
 	log.Printf("len(readme) : %d", len(content))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
+
+	// Fetch nb downloads of all (pre-)releases
+	releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
+	if err != nil {
+		log.Fatalf("Failed to fetch releases : %+v", err.Error())
+	}
+	if len(releases) > 0 {
+		/*get download count*/
+		for _, release := range releases {
+			for x, asset := range release.Assets {
+				if x == 0 {
+					item.AssetURL = asset.GetBrowserDownloadURL()
+					log.Printf("AssetURL : %s", item.AssetURL)
+				}
+				item.DownloadCount += asset.GetDownloadCount()
+			}
+		}
+	}
+
 	/*get infos about latest release*/
 	release, _, _ := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
 	if release != nil {
@@ -92,15 +111,6 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		item.DownloadURL = release.GetHTMLURL()
 		log.Printf("DownloadURL : %s", item.DownloadURL)
 		log.Printf("len(assets) : %d", len(release.Assets))
-
-		/*get download count*/
-		for x, asset := range release.Assets {
-			if x == 0 {
-				item.AssetURL = asset.GetBrowserDownloadURL()
-				log.Printf("AssetURL : %s", item.AssetURL)
-			}
-			item.DownloadCount += asset.GetDownloadCount()
-		}
 		item.Status = "stable"
 	} else {
 		/*if has prerelease*/
@@ -109,14 +119,6 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 			log.Fatalf("Failed to fetch releases : %+v", err.Error())
 		}
 		if len(releases) > 0 {
-			/*get download count*/
-			for x, asset := range releases[0].Assets {
-				if x == 0 {
-					item.AssetURL = asset.GetBrowserDownloadURL()
-					log.Printf("AssetURL : %s", item.AssetURL)
-				}
-				item.DownloadCount += asset.GetDownloadCount()
-			}
 			item.DownloadURL = *releases[0].HTMLURL
 			item.LastVersion = *releases[0].TagName
 			item.Status = "unstable"
