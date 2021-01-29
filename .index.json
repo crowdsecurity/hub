@@ -49,6 +49,27 @@
     "crowdsecurity/http-backdoors-attempts"
    ]
   },
+  "crowdsecurity/dovecot": {
+   "path": "collections/crowdsecurity/dovecot.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7990a4b855273b5ceaa379d2979d796e070c96a398caeefbfa1933cc36f690be",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBkb3ZlY290CiAqIGRvdmVjb3QgbG9nIHBhcnNlcnMKICogZG92ZWNvdCBzY2VuYXJpbyBicnV0ZWZvcmNlIHNwYW0gYXR0ZW1wdAoKVGhpcyBjb2xsZWN0aW9uIG1vc3RseSBhaW1zIGF0IGdldHRpbmcgc2ltaWxhciBzcGFtIHByb3RlY3Rpb24gYXMKdGhlIG5vcm1hbCBmYWlsMmJhbiBkb3ZlY290IGNvbmZpZ3VyYXRpb24uCgpUaGUgcmVsZXZhbnQgYGFjcXVpcy55YW1sYCBzaG91bGQgYmU6CgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC92YXIvbG9nL21haWwubG9nCmxhYmVsczoKICB0eXBlOiBzeXNsb2cKYGBgCgoKPiBDb250cmlidXRpb24gYnkgaHR0cHM6Ly9naXRodWIuY29tL0x0U2ljaAo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvZG92ZWNvdC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvZG92ZWNvdC1zcGFtCmRlc2NyaXB0aW9uOiAiZG92ZWNvdCBzdXBwb3J0IDogcGFyc2VyIGFuZCBzcGFtbWVyIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gc3BhbQogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "dovecot support : parser and spammer detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/dovecot-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/dovecot-spam"
+   ]
+  },
   "crowdsecurity/iptables": {
    "path": "collections/crowdsecurity/iptables.yaml",
    "version": "0.1",
@@ -345,6 +366,21 @@
    },
    "long_description": "UGFyc2VzIHRpbWUgaW4gbG9ncyBhbmQgYWx0ZXIgdGhlIGV2ZW50IHRpbWUuCkl0IGlzIG1hbmRhdG9yeSB3aGVuIHVzaW5nIGNyb3dkd2F0Y2ggd2l0aCAnY29sZCcgbG9ncy4K",
    "content": "ZmlsdGVyOiAiZXZ0LlN0clRpbWUgIT0gJyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvZGF0ZXBhcnNlLWVucmljaAojZGVidWc6IHRydWUKI2l0J3MgYSBoYWNrIGxvbApzdGF0aWNzOgogIC0gbWV0aG9kOiBQYXJzZURhdGUKICAgIGV4cHJlc3Npb246IGV2dC5TdHJUaW1lCiAgLSB0YXJnZXQ6IE1hcnNoYWxlZFRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5FbnJpY2hlZC5NYXJzaGFsZWRUaW1l",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/dovecot-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/dovecot-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "3d30684b5d1ceea08ea743a2fa1697178d878bd87eb55e465432c000da162b42",
+     "deprecated": false
+    }
+   },
+   "content": "I2NvbnRyaWJ1dGlvbiBieSBAbHRzaWNoCm9uc3VjY2VzczogbmV4dF9zdGFnZQpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdkb3ZlY290JyIKbmFtZTogY3Jvd2RzZWN1cml0eS9kb3ZlY290LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBkb3ZlY290IGxvZ3MiCmdyb2s6CiAgcGF0dGVybjogIiV7V09SRDpwcm90b2NvbH0tbG9naW46ICV7REFUQTpkb3ZlY290X2xvZ2luX3Jlc3VsdH06IHVzZXI9PCV7REFUQTpkb3ZlY290X3VzZXJ9Pi4qLCByaXA9JXtJUDpkb3ZlY290X3JlbW90ZV9pcH0sIGxpcD0le0lQOmRvdmVjb3RfbG9jYWxfaXB9IgogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBkb3ZlY290X2xvZ3MKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLmRvdmVjb3RfcmVtb3RlX2lwIgo=",
+   "description": "Parse dovecot logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -719,6 +755,25 @@
    "author": "crowdsecurity",
    "labels": {
     "service": "ssh"
+   }
+  },
+  "crowdsecurity/dovecot-spam": {
+   "path": "scenarios/crowdsecurity/dovecot-spam.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "fc1429f0c8d5b1ba20660ac0725fe0b52bb0382efa746e9bd962d80bdf7c9310",
+     "deprecated": false
+    }
+   },
+   "long_description": "U3BhbSBkZXRlY3Rpb24gZm9yIGRvdmVjb3QgKGNhcGFjaXR5IG9mIDMgYW5kIGxlYWtzcGVlZCBvZiAzNjBzKQoKLSBhbGxvd3MgZmFpbCBhdXRoZW50aWNhdGlvbiBhdHRlbXB0IGV2ZXJ5IDYgbWludXRlcyB3aXRoIGEgYnVyc3Qgb2YgMwoKPiBDb250cmlidXRpb24gYnkgaHR0cHM6Ly9naXRodWIuY29tL0x0U2ljaAo=",
+   "content": "I2NvbnRyaWJ1dGlvbiBieSBAbHRzaWNoCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvZG92ZWNvdC1zcGFtCmRlc2NyaXB0aW9uOiAiZGV0ZWN0IGVycm9ycyBvbiBkb3ZlY290IgpkZWJ1ZzogZmFsc2UKIyByZXF1ZXN0IHdpdGggbG9naW4gIT0gTG9naW4KZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2RvdmVjb3RfbG9ncycgJiYgZXZ0LlBhcnNlZC5kb3ZlY290X2xvZ2luX3Jlc3VsdCAhPSAnTG9naW4nIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDMKbGVha3NwZWVkOiAiMzYwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBzY2FuCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "detect errors on dovecot",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "scan"
    }
   },
   "crowdsecurity/http-backdoors-attempts": {
