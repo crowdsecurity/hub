@@ -1,0 +1,89 @@
+provisionalresults:
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/dovecot-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_local_ip: 7.7.7.7
+        dovecot_login_result: Disconnected (auth failed, 1 attempts in 6 secs)
+        dovecot_remote_ip: 4.4.4.4
+        dovecot_user: toto@toto.com
+        facility: ""
+        logsource: syslog
+        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        protocol: imap
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 4.4.4.4
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_local_ip: 7.7.7.7
+        dovecot_login_result: Disconnected (auth failed, 1 attempts in 6 secs)
+        dovecot_remote_ip: 4.4.4.4
+        dovecot_user: toto@toto.com
+        facility: ""
+        logsource: syslog
+        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        protocol: imap
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 4.4.4.4
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    dovecot_local_ip: 7.7.7.7
+    dovecot_login_result: Disconnected (auth failed, 1 attempts in 6 secs)
+    dovecot_remote_ip: 4.4.4.4
+    dovecot_user: toto@toto.com
+    facility: ""
+    logsource: syslog
+    message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+    pid: "8421"
+    priority: ""
+    program: dovecot
+    protocol: imap
+    timestamp: Nov 10 15:01:29
+    timestamp8601: ""
+  StrTime: Nov 10 15:01:29
+  Process: true
+  Meta:
+    log_type: dovecot_logs
+    source_ip: 4.4.4.4
