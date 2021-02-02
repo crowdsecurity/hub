@@ -1,0 +1,12 @@
+#contributed by ltsich
+type: trigger
+name: ltsich/http-w00tw00t
+description: "detect w00tw00t"
+debug: false
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name contains 'w00tw00t.at.ISC.SANS.DFind'"
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: http
+ type: scan
+ remediation: true
