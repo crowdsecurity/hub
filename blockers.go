@@ -111,7 +111,11 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		item.DownloadURL = release.GetHTMLURL()
 		log.Printf("DownloadURL : %s", item.DownloadURL)
 		log.Printf("len(assets) : %d", len(release.Assets))
-		item.AssetURL = release.Assets[0].GetBrowserDownloadURL()
+		if len(release.Assets) > 0 {
+			item.AssetURL = release.Assets[0].GetBrowserDownloadURL()
+		} else {
+			item.AssetURL = *release.ZipballURL
+		}
 		item.Status = "stable"
 	} else {
 		/*if has prerelease*/
