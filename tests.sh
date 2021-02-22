@@ -12,8 +12,15 @@ usage() {
 }
 
 init_tests() {
-    git clone https://github.com/crowdsecurity/hub-tests.git
-    cd hub-tests/ && go build && cd ..
+    if [[ -n $1 ]];
+    then
+       BRANCH=$1
+       git clone --branch $BRANCH https://github.com/crowdsecurity/hub-tests.git 
+       cd hub-tests/ && go get -u github.com/crowdsecurity/crowdsec@$BRANCH || true &&  go build && cd ..
+    else
+       git clone  https://github.com/crowdsecurity/hub-tests.git
+       cd hub-tests/ &&  go build && cd ..
+    fi
     cp -r hub-tests/config/ .
     mkdir config/hub data && cp .index.json config/hub/
 }
@@ -59,7 +66,7 @@ do
     key="${1}"
     case ${key} in
     -i)
-        init_tests
+        init_tests ${2}
         exit 0
         ;;
     -g)
