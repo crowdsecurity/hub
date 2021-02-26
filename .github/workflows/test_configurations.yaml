@@ -16,6 +16,7 @@ jobs:
       uses: actions/checkout@v2
     - name: run tests on crowdsec master
       run: |
+        rm -rf hub-tests
         ./tests.sh -i master
         ./tests.sh --all
     - name: Find Crowdsec Latest Release Tag
@@ -26,6 +27,7 @@ jobs:
         excludes: prerelease, draft
     - name: run tests on last crowdsec tag
       run: |
+        rm -rf hub-tests
         ./tests.sh -i ${{ steps.latesttag.outputs.release }}
         ./tests.sh --all
     - name: generate results
