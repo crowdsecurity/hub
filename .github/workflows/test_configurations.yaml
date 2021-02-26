@@ -19,12 +19,13 @@ jobs:
         ./tests.sh -i master
         ./tests.sh --all
     - name: Find Crowdsec Latest Release Tag
+      id: latesttag
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: crowdsecurity/crowdsec
     - name: run tests on last crowdsec tag
       run: |
-        ./tests.sh i ${{ steps.timeseries.outputs.release }}
+        ./tests.sh i ${{ steps.latesttag.outputs.release }}
         ./tests.sh --all
     - name: generate results
       run: |
