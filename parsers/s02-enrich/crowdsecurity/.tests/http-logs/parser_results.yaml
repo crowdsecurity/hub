@@ -169,6 +169,49 @@ provisionalresults:
         log_type: http_access-log
         service: http
         source_ip: 1.2.3.4
+- s00-raw: {}
+  s01-parse: {}
+  s02-enrich:
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: www.crowdsec11.net 1.2.3.5 - - [08/Jun/2020:08:04:43 +0000] "GET /test/uppercase/extensions.JPG HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: apache2
+        process: true
+      Parsed:
+        agent: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'
+        auth: '-'
+        bytes: "803"
+        clientip: 1.2.3.5
+        file_dir: /test/uppercase/
+        file_ext: .JPG
+        file_frag: extensions
+        file_name: extensions.JPG
+        httpversion: "1.1"
+        ident: '-'
+        impact_completion: "true"
+        message: www.crowdsec11.net 1.2.3.5 - - [08/Jun/2020:08:04:43 +0000] "GET /test/uppercase/extensions.JPG HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+        program: apache2
+        rawrequest: ""
+        referrer: '"-"'
+        request: /test/uppercase/extensions.JPG
+        response: "500"
+        static_ressource: "true"
+        target_fqdn: www.crowdsec11.net
+        timestamp: 08/Jun/2020:08:04:43 +0000
+        verb: GET
+      StrTime: 08/Jun/2020:08:04:43 +0000
+      Meta:
+        http_args_len: "0"
+        http_path: /test/uppercase/extensions.JPG
+        http_status: "500"
+        log_type: http_access-log
+        service: http
+        source_ip: 1.2.3.5
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
@@ -328,3 +371,43 @@ finalresults:
     log_type: http_access-log
     service: http
     source_ip: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: www.crowdsec11.net 1.2.3.5 - - [08/Jun/2020:08:04:43 +0000] "GET /test/uppercase/extensions.JPG HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/apache2-logs/apache2.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: apache2
+    process: true
+  Parsed:
+    agent: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"'
+    auth: '-'
+    bytes: "803"
+    clientip: 1.2.3.5
+    file_dir: /test/uppercase/
+    file_ext: .JPG
+    file_frag: extensions
+    file_name: extensions.JPG
+    httpversion: "1.1"
+    ident: '-'
+    impact_completion: "true"
+    message: www.crowdsec11.net 1.2.3.5 - - [08/Jun/2020:08:04:43 +0000] "GET /test/uppercase/extensions.JPG HTTP/1.1" 500 803 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    program: apache2
+    rawrequest: ""
+    referrer: '"-"'
+    request: /test/uppercase/extensions.JPG
+    response: "500"
+    static_ressource: "true"
+    target_fqdn: www.crowdsec11.net
+    timestamp: 08/Jun/2020:08:04:43 +0000
+    verb: GET
+  StrTime: 08/Jun/2020:08:04:43 +0000
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /test/uppercase/extensions.JPG
+    http_status: "500"
+    log_type: http_access-log
+    service: http
+    source_ip: 1.2.3.5
