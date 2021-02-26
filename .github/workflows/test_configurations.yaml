@@ -16,11 +16,19 @@ jobs:
       uses: actions/checkout@v2
     - name: run tests on crowdsec master
       run: |
+        rm -rf hub-tests
         ./tests.sh -i master
         ./tests.sh --all
+    - name: Find Crowdsec Latest Release Tag
+      id: latesttag
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: crowdsecurity/crowdsec
+        excludes: prerelease, draft
     - name: run tests on last crowdsec tag
       run: |
-        ./tests.sh 
+        rm -rf hub-tests
+        ./tests.sh -i ${{ steps.latesttag.outputs.release }}
         ./tests.sh --all
     - name: generate results
       run: |
