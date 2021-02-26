@@ -23,9 +23,10 @@ jobs:
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: crowdsecurity/crowdsec
+        excludes: prerelease, draft
     - name: run tests on last crowdsec tag
       run: |
-        ./tests.sh i ${{ steps.latesttag.outputs.release }}
+        ./tests.sh -i ${{ steps.latesttag.outputs.release }}
         ./tests.sh --all
     - name: generate results
       run: |
