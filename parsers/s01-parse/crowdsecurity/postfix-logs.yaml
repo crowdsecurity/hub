@@ -22,7 +22,7 @@
 
 # Some of the groks used here are from https://github.com/rgevaert/grok-patterns/blob/master/grok.d/postfix_patterns
 onsuccess: next_stage
-filter: "evt.Parsed.program == 'postfix/smtpd'"
+filter: "evt.Parsed.program in ['postfix/smtpd','postfix/smtps/smtpd','postfix/submission/smtpd']"
 name: crowdsecurity/postfix-logs
 pattern_syntax:
   POSTFIX_HOSTNAME: '(%{HOSTNAME}|unknown)'
