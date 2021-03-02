@@ -4,13 +4,6 @@ provisionalresults:
     crowdsecurity/postfix-logs:
       ExpectMode: 1
       Stage: s02-enrich
-      Line:
-        Raw: 'Dec  7 23:23:36 mail postfix/smtpd[21281]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-        Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-        time: 0001-01-01T00:00:00Z
-        Labels:
-          type: syslog
-        process: true
       Parsed:
         facility: ""
         logsource: syslog
@@ -34,13 +27,6 @@ provisionalresults:
     "":
       ExpectMode: 1
       Stage: s02-enrich
-      Line:
-        Raw: 'Dec  7 23:23:36 mail postfix/smtpd[21281]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-        Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-        time: 0001-01-01T00:00:00Z
-        Labels:
-          type: syslog
-        process: true
       Parsed:
         facility: ""
         logsource: syslog
@@ -69,22 +55,15 @@ provisionalresults:
     crowdsecurity/postfix-logs:
       ExpectMode: 1
       Stage: s02-enrich
-      Line:
-        Raw: 'Dec  7 23:23:40 mail postfix/smtpd[21207]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-        Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-        time: 0001-01-01T00:00:00Z
-        Labels:
-          type: syslog
-        process: true
       Parsed:
         facility: ""
         logsource: syslog
-        message: 'warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
+        message: 'warning: unknown[45.142.120.93]: SASL LOGIN authentication failed: authentication failure'
         message_failure: ' authentication failure'
         pid: "21207"
         priority: ""
         program: postfix/smtpd
-        remote_addr: 45.142.120.90
+        remote_addr: 45.142.120.93
         remote_host: unknown
         timestamp: Dec  7 23:23:40
         timestamp8601: ""
@@ -94,27 +73,20 @@ provisionalresults:
         log_type_enh: spam-attempt
         service: postfix
         source_hostname: unknown
-        source_ip: 45.142.120.90
+        source_ip: 45.142.120.93
   s02-enrich:
     "":
       ExpectMode: 1
       Stage: s02-enrich
-      Line:
-        Raw: 'Dec  7 23:23:40 mail postfix/smtpd[21207]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-        Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-        time: 0001-01-01T00:00:00Z
-        Labels:
-          type: syslog
-        process: true
       Parsed:
         facility: ""
         logsource: syslog
-        message: 'warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
+        message: 'warning: unknown[45.142.120.93]: SASL LOGIN authentication failed: authentication failure'
         message_failure: ' authentication failure'
         pid: "21207"
         priority: ""
         program: postfix/smtpd
-        remote_addr: 45.142.120.90
+        remote_addr: 45.142.120.93
         remote_host: unknown
         timestamp: Dec  7 23:23:40
         timestamp8601: ""
@@ -124,21 +96,112 @@ provisionalresults:
         log_type_enh: spam-attempt
         service: postfix
         source_hostname: unknown
-        source_ip: 45.142.120.90
+        source_ip: 45.142.120.93
 - s00-raw: {}
   s01-parse: {}
 - s00-raw: {}
   s01-parse: {}
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/postfix-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'warning: unknown[45.142.120.96]: SASL LOGIN authentication failed:
+          authentication failure'
+        message_failure: ' authentication failure'
+        pid: "21260"
+        priority: ""
+        program: postfix/smtps/smtpd
+        remote_addr: 45.142.120.96
+        remote_host: unknown
+        timestamp: Dec  7 23:24:41
+        timestamp8601: ""
+      StrTime: Dec  7 23:24:41
+      Meta:
+        log_type: postfix
+        log_type_enh: spam-attempt
+        service: postfix
+        source_hostname: unknown
+        source_ip: 45.142.120.96
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'warning: unknown[45.142.120.96]: SASL LOGIN authentication failed:
+          authentication failure'
+        message_failure: ' authentication failure'
+        pid: "21260"
+        priority: ""
+        program: postfix/smtps/smtpd
+        remote_addr: 45.142.120.96
+        remote_host: unknown
+        timestamp: Dec  7 23:24:41
+        timestamp8601: ""
+      StrTime: Dec  7 23:24:41
+      Meta:
+        log_type: postfix
+        log_type_enh: spam-attempt
+        service: postfix
+        source_hostname: unknown
+        source_ip: 45.142.120.96
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/postfix-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'warning: unknown[45.142.120.97]: SASL LOGIN authentication failed:
+          authentication failure'
+        message_failure: ' authentication failure'
+        pid: "21260"
+        priority: ""
+        program: postfix/submission/smtpd
+        remote_addr: 45.142.120.97
+        remote_host: unknown
+        timestamp: Dec  7 23:25:41
+        timestamp8601: ""
+      StrTime: Dec  7 23:25:41
+      Meta:
+        log_type: postfix
+        log_type_enh: spam-attempt
+        service: postfix
+        source_hostname: unknown
+        source_ip: 45.142.120.97
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'warning: unknown[45.142.120.97]: SASL LOGIN authentication failed:
+          authentication failure'
+        message_failure: ' authentication failure'
+        pid: "21260"
+        priority: ""
+        program: postfix/submission/smtpd
+        remote_addr: 45.142.120.97
+        remote_host: unknown
+        timestamp: Dec  7 23:25:41
+        timestamp8601: ""
+      StrTime: Dec  7 23:25:41
+      Meta:
+        log_type: postfix
+        log_type_enh: spam-attempt
+        service: postfix
+        source_hostname: unknown
+        source_ip: 45.142.120.97
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
-  Line:
-    Raw: 'Dec  7 23:23:36 mail postfix/smtpd[21281]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
@@ -161,17 +224,10 @@ finalresults:
     source_ip: 45.142.120.90
 - ExpectMode: 1
   Stage: s01-parse
-  Line:
-    Raw: 'Dec  7 23:23:37 mail postfix/smtpd[21281]: disconnect from unknown[45.142.120.90] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
-    message: disconnect from unknown[45.142.120.90] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4
+    message: disconnect from unknown[45.142.120.91] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4
     pid: "21281"
     priority: ""
     program: postfix/smtpd
@@ -180,17 +236,10 @@ finalresults:
   StrTime: Dec  7 23:23:37
 - ExpectMode: 1
   Stage: s01-parse
-  Line:
-    Raw: 'Dec  7 23:23:38 mail postfix/smtpd[21367]: connect from unknown[45.142.120.90]'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
-    message: connect from unknown[45.142.120.90]
+    message: connect from unknown[45.142.120.92]
     pid: "21367"
     priority: ""
     program: postfix/smtpd
@@ -199,22 +248,15 @@ finalresults:
   StrTime: Dec  7 23:23:38
 - ExpectMode: 1
   Stage: s02-enrich
-  Line:
-    Raw: 'Dec  7 23:23:40 mail postfix/smtpd[21207]: warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
-    message: 'warning: unknown[45.142.120.90]: SASL LOGIN authentication failed: authentication failure'
+    message: 'warning: unknown[45.142.120.93]: SASL LOGIN authentication failed: authentication failure'
     message_failure: ' authentication failure'
     pid: "21207"
     priority: ""
     program: postfix/smtpd
-    remote_addr: 45.142.120.90
+    remote_addr: 45.142.120.93
     remote_host: unknown
     timestamp: Dec  7 23:23:40
     timestamp8601: ""
@@ -225,20 +267,13 @@ finalresults:
     log_type_enh: spam-attempt
     service: postfix
     source_hostname: unknown
-    source_ip: 45.142.120.90
+    source_ip: 45.142.120.93
 - ExpectMode: 1
   Stage: s01-parse
-  Line:
-    Raw: 'Dec  7 23:23:40 mail postfix/smtpd[21207]: disconnect from unknown[45.142.120.90] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
-    message: disconnect from unknown[45.142.120.90] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4
+    message: disconnect from unknown[45.142.120.94] ehlo=1 auth=0/1 rset=1 quit=1 commands=3/4
     pid: "21207"
     priority: ""
     program: postfix/smtpd
@@ -247,20 +282,59 @@ finalresults:
   StrTime: Dec  7 23:23:40
 - ExpectMode: 1
   Stage: s01-parse
-  Line:
-    Raw: 'Dec  7 23:23:41 mail postfix/smtpd[21260]: connect from unknown[45.142.120.90]'
-    Src: ./parsers/s01-parse/crowdsecurity/.tests/postfix-logs/postfix.log
-    time: 0001-01-01T00:00:00Z
-    Labels:
-      type: syslog
-    process: true
   Parsed:
     facility: ""
     logsource: syslog
-    message: connect from unknown[45.142.120.90]
+    message: connect from unknown[45.142.120.95]
     pid: "21260"
     priority: ""
     program: postfix/smtpd
     timestamp: Dec  7 23:23:41
     timestamp8601: ""
   StrTime: Dec  7 23:23:41
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    facility: ""
+    logsource: syslog
+    message: 'warning: unknown[45.142.120.96]: SASL LOGIN authentication failed: authentication
+      failure'
+    message_failure: ' authentication failure'
+    pid: "21260"
+    priority: ""
+    program: postfix/smtps/smtpd
+    remote_addr: 45.142.120.96
+    remote_host: unknown
+    timestamp: Dec  7 23:24:41
+    timestamp8601: ""
+  StrTime: Dec  7 23:24:41
+  Process: true
+  Meta:
+    log_type: postfix
+    log_type_enh: spam-attempt
+    service: postfix
+    source_hostname: unknown
+    source_ip: 45.142.120.96
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    facility: ""
+    logsource: syslog
+    message: 'warning: unknown[45.142.120.97]: SASL LOGIN authentication failed: authentication
+      failure'
+    message_failure: ' authentication failure'
+    pid: "21260"
+    priority: ""
+    program: postfix/submission/smtpd
+    remote_addr: 45.142.120.97
+    remote_host: unknown
+    timestamp: Dec  7 23:25:41
+    timestamp8601: ""
+  StrTime: Dec  7 23:25:41
+  Process: true
+  Meta:
+    log_type: postfix
+    log_type_enh: spam-attempt
+    service: postfix
+    source_hostname: unknown
+    source_ip: 45.142.120.97
