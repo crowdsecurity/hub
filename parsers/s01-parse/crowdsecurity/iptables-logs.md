@@ -1,4 +1,8 @@
-A parser for iptables `-j LOG` logs.
+A parser for iptables `-j LOG` logs :
+
+ - Only parse kernel messages containing `IN=`
+ - Skip lines if decisions is `ACCEPT`
+
 
 All logged packets are considered as DROPs.
 
