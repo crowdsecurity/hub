@@ -1,6 +1,20 @@
 name: Test Hub Configurations Items on Hub Changes
 on:
-  - push
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'scenarios/**.yaml'
+      - 'parsers/**.yaml'
+      - 'postoverflows/**.yaml'
+      - 'collections/**.yaml'
+  push:
+    branches: [ master ]
+    paths:
+      - 'scenarios/**.yaml'
+      - 'parsers/**.yaml'
+      - 'postoverflows/**.yaml'
+      - 'collections/**.yaml'
+
 jobs:
   build-hub-tests:
     runs-on: ubuntu-latest
