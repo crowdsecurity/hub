@@ -1,7 +1,7 @@
 # Zimbra brutforce
 type: leaky
 #debug: true
-name: fws/zimbra-bf
+name: firewallservices/zimbra-bf
 description: "Detect Zimbra bruteforce"
 filter: evt.Meta.log_type == 'zimbra_auth_fail'
 leakspeed: 30s
@@ -17,7 +17,7 @@ labels:
 # Zimbra user enumeration
 type: leaky
 #debug: true
-name: fws/zimbra-user-enum
+name: firewallservices/zimbra-user-enum
 description: "Detect Zimbra user enum bruteforce"
 filter: evt.Meta.log_type == 'zimbra_auth_fail'
 groupby: evt.Meta.source_ip
