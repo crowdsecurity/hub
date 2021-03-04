@@ -1,5 +1,12 @@
 name: Test Hub Configurations Items on Hub Changes
-on: 
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'scenarios/**.yaml'
+      - 'parsers/**.yaml'
+      - 'postoverflows/**.yaml'
+      - 'collections/**.yaml'
   push:
     branches: [ master ]
     paths:
