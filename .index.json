@@ -317,6 +317,27 @@
    "scenarios": [
     "crowdsecurity/http-bf-wordpress_bf"
    ]
+  },
+  "firewallservices/pf": {
+   "path": "collections/firewallservices/pf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e678a8791f07bea98bd53bce7b2b03ae15fd4d4b42788dd003b826b4f8170fac",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRldGVjdCBwb3J0IHNjYW4gb24gUGZTZW5zZSAvIEZyZWVCU0QK",
+   "content": "cGFyc2VyczoKICAtIGZpcmV3YWxsc2VydmljZXMvcGYtbG9ncwpzY2VuYXJpb3M6CiAgLSBmaXJld2FsbHNlcnZpY2VzL3BmLXNjYW4tbXVsdGlfcG9ydHMKZGVzY3JpcHRpb246ICJQYXJzZXIgYW5kIHNjZW5hcmlvIGZvciBQYWNrZXQgRmlsdGVyIGxvZ3MiCmF1dGhvcjogZmlyZXdhbGxzZXJ2aWNlcwp0YWdzOgogIC0gZmlyZXdhbGwKICAtIHBmc2Vuc2UKICAtIGZyZWVic2QKICAtIHBvcnRzY2FuCg==",
+   "description": "Parser and scenario for Packet Filter logs",
+   "author": "firewallservices",
+   "labels": null,
+   "parsers": [
+    "firewallservices/pf-logs"
+   ],
+   "scenarios": [
+    "firewallservices/pf-scan-multi_ports"
+   ]
   }
  },
  "parsers": {
@@ -666,6 +687,22 @@
    "content": "bmFtZTogY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3RzCmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IGV2ZW50cyBmcm9tIHByaXZhdGUgaXB2NCBhZGRyZXNzZXMiCndoaXRlbGlzdDoKICByZWFzb246ICJwcml2YXRlIGlwdjQgcmFuZ2VzIgogIGlwOiAKICAgIC0gIjEyNy4wLjAuMSIKICBjaWRyOgogICAgLSAiMTkyLjE2OC4wLjAvMTYiCiAgICAtICIxMC4wLjAuMC84IgogICAgLSAiMTcyLjE2LjAuMC8xMiIKICAjIGV4cHJlc3Npb246CiAgIyAgIC0gIidmb28uY29tJyBpbiBldnQuTWV0YS5zb3VyY2VfaXAucmV2ZXJzZSIgCgo=",
    "description": "Whitelist events from private ipv4 addresses",
    "author": "crowdsecurity",
+   "labels": null
+  },
+  "firewallservices/pf-logs": {
+   "path": "parsers/s01-parse/firewallservices/pf-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "bd2c35125dbd20a371884bc9541f1f6d2298215342576381854d209c270cdc0b",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhpcyB3aWxsIHBhcnNlIHlvdXIgcGFja2V0IGZpbHRlciBsb2dzLiBUZXN0ZWQgd2l0aCBQZlNlbnNlLCBzZW5kaW5nIGl0cyBsb2cgdG8gYSByZW1vdGUgc3lzbG9nIHNlcnZlciwgd2hlcmUgY3Jvd2RzZWMgY2FuIHBhcnNlIHRoZW0uCg==",
+   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdmaWx0ZXJsb2cnIG9yIGV2dC5QYXJzZWQubWVzc2FnZSBtYXRjaGVzICdeZmlsdGVybG9nOiciCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvcGYtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHBhY2tldCBmaWx0ZXIgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiAiJXtQRl9GSUxURVJMT0d9IgogIGFwcGx5X29uOiBtZXNzYWdlCi0tLQojZGVidWc6IHRydWUKZmlsdGVyOiAiZXZ0LlBhcnNlZC5hY3Rpb24gPT0gJ2Jsb2NrJyIKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9wZi1sb2dzLWRyb3AKb25zdWNjZXNzOiBuZXh0X3N0YWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHRjcAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogcGZfZHJvcAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3JjX2lwIgo=",
+   "description": "Parse packet filter logs",
+   "author": "firewallservices",
    "labels": null
   }
  },
@@ -1218,6 +1255,25 @@
     "remediation": "true",
     "service": "ftp",
     "type": "bruteforce"
+   }
+  },
+  "firewallservices/pf-scan-multi_ports": {
+   "path": "scenarios/firewallservices/pf-scan-multi_ports.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d650a9e64532d14a46dcf5bfc952b0a0eb1825efdb07a179069d9c7f8f185d78",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBhIHBvcnQgc2NhbiA6IGRldGVjdHMgaWYgYSBzaW5nbGUgSVAgYXR0ZW1wdHMgY29ubmVjdGlvbiB0byBtYW55IGRpZmZlcmVudCBwb3J0cy4KCkxlYWtzcGVlZCBvZiA1cywgY2FwYWNpdHkgb2YgMTUuCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9wZi1zY2FuLW11bHRpX3BvcnRzCmRlc2NyaXB0aW9uOiAiYmFuIElQcyB0aGF0IGFyZSBzY2FubmluZyB1cyIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3BmX2Ryb3AnICYmIGV2dC5NZXRhLnNlcnZpY2UgPT0gJ3RjcCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0LlBhcnNlZC5kc3RfcG9ydApjYXBhY2l0eTogMTUKbGVha3NwZWVkOiA1cwpibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiB0Y3AKICB0eXBlOiBzY2FuCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "ban IPs that are scanning us",
+   "author": "firewallservices",
+   "labels": {
+    "remediation": "true",
+    "service": "tcp",
+    "type": "scan"
    }
   },
   "ltsich/http-w00tw00t": {
