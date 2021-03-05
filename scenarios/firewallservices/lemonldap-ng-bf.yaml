@@ -1,7 +1,7 @@
 # Lemonldap::NG brutforce
 type: leaky
 #debug: true
-name: fws/lemonldap-ng-bf
+name: firewallservices/lemonldap-ng-bf
 description: "Detect Lemonldap::NG bruteforce"
 filter: evt.Meta.service == 'llng' and evt.Meta.log_type == 'llng_auth_fail'
 leakspeed: 30s
@@ -17,7 +17,7 @@ labels:
 # Lemonldap::NG user enumeration
 type: leaky
 #debug: true
-name: fws/lemonldap-ng-user-enum
+name: firewallservices/lemonldap-ng-user-enum
 description: "Detect Lemonldap::NG user enum bruteforce"
 filter: evt.Meta.service == 'llng' and evt.Meta.log_type == 'llng_auth_fail'
 groupby: evt.Meta.source_ip
