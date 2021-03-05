@@ -1,7 +1,7 @@
 provisionalresults:
 - s00-raw: {}
   s01-parse:
-    "":
+    firewallservices/zimbra-logs:
       ExpectMode: 1
       Stage: s02-enrich
       Parsed:
@@ -9,7 +9,19 @@ provisionalresults:
           [name=dani@zmtest.fws.fr;oip=192.168.7.101;port=52016;ua=ZimbraWebClient
           - GC88 (Linux);soapId=9fd8101;] SoapEngine - handler exception: authentication
           failed for [dani@zmtest.fws.fr], invalid password'
+        port: "7071"
         program: zimbra
+        proto: https
+        server: zmtest-web.fws.fr
+        src_ip: 192.168.7.101
+        time_local: 2021-03-03 19:26
+        user: dani@zmtest.fws.fr
+      StrTime: 2021-03-03 19:26
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.101
+        user: dani@zmtest.fws.fr
   s02-enrich:
     "":
       ExpectMode: 1
@@ -19,7 +31,152 @@ provisionalresults:
           [name=dani@zmtest.fws.fr;oip=192.168.7.101;port=52016;ua=ZimbraWebClient
           - GC88 (Linux);soapId=9fd8101;] SoapEngine - handler exception: authentication
           failed for [dani@zmtest.fws.fr], invalid password'
+        port: "7071"
         program: zimbra
+        proto: https
+        server: zmtest-web.fws.fr
+        src_ip: 192.168.7.101
+        time_local: 2021-03-03 19:26
+        user: dani@zmtest.fws.fr
+      StrTime: 2021-03-03 19:26
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.101
+        user: dani@zmtest.fws.fr
+- s00-raw: {}
+  s01-parse:
+    firewallservices/zimbra-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: '2021-03-03 19:51:53,762 INFO  [qtp93314457-324:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [oip=192.168.7.15;oport=57752;oproto=smtp;soapId=688cb579;] SoapEngine -
+          handler exception: authentication failed for [sebastien.bouttier], account
+          not found'
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:51
+        user: sebastien.bouttier
+      StrTime: 2021-03-03 19:51
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: sebastien.bouttier
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: '2021-03-03 19:51:53,762 INFO  [qtp93314457-324:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [oip=192.168.7.15;oport=57752;oproto=smtp;soapId=688cb579;] SoapEngine -
+          handler exception: authentication failed for [sebastien.bouttier], account
+          not found'
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:51
+        user: sebastien.bouttier
+      StrTime: 2021-03-03 19:51
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: sebastien.bouttier
+- s00-raw: {}
+  s01-parse:
+    firewallservices/zimbra-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: '2021-03-03 19:53:15,744 INFO  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [oip=192.168.7.15;oport=24304;oproto=smtp;soapId=688cb584;] SoapEngine -
+          handler exception: authentication failed for [coe@zmtest.fws.fr], account
+          not found'
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:53
+        user: coe@zmtest.fws.fr
+      StrTime: 2021-03-03 19:53
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: coe@zmtest.fws.fr
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: '2021-03-03 19:53:15,744 INFO  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [oip=192.168.7.15;oport=24304;oproto=smtp;soapId=688cb584;] SoapEngine -
+          handler exception: authentication failed for [coe@zmtest.fws.fr], account
+          not found'
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:53
+        user: coe@zmtest.fws.fr
+      StrTime: 2021-03-03 19:53
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: coe@zmtest.fws.fr
+- s00-raw: {}
+  s01-parse:
+    firewallservices/zimbra-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: 2021-03-03 19:53:06,536 WARN  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [name=contact@zmtest.fws.fr;oip=192.168.7.15;oport=41496;oproto=smtp;soapId=688cb582;]
+          SoapEngine - handler exception
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:53
+        user: contact@zmtest.fws.fr
+      StrTime: 2021-03-03 19:53
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: contact@zmtest.fws.fr
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        message: 2021-03-03 19:53:06,536 WARN  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+          [name=contact@zmtest.fws.fr;oip=192.168.7.15;oport=41496;oproto=smtp;soapId=688cb582;]
+          SoapEngine - handler exception
+        port: "7073"
+        program: zimbra
+        proto: smtp
+        server: store.zmtest.fws.fr
+        src_ip: 192.168.7.15
+        time_local: 2021-03-03 19:53
+        user: contact@zmtest.fws.fr
+      StrTime: 2021-03-03 19:53
+      Meta:
+        log_type: zimbra_auth_fail
+        service: zimbra
+        source_ip: 192.168.7.15
+        user: contact@zmtest.fws.fr
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
@@ -28,5 +185,77 @@ finalresults:
       [name=dani@zmtest.fws.fr;oip=192.168.7.101;port=52016;ua=ZimbraWebClient - GC88
       (Linux);soapId=9fd8101;] SoapEngine - handler exception: authentication failed
       for [dani@zmtest.fws.fr], invalid password'
+    port: "7071"
     program: zimbra
+    proto: https
+    server: zmtest-web.fws.fr
+    src_ip: 192.168.7.101
+    time_local: 2021-03-03 19:26
+    user: dani@zmtest.fws.fr
+  StrTime: 2021-03-03 19:26
   Process: true
+  Meta:
+    log_type: zimbra_auth_fail
+    service: zimbra
+    source_ip: 192.168.7.101
+    user: dani@zmtest.fws.fr
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    message: '2021-03-03 19:51:53,762 INFO  [qtp93314457-324:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+      [oip=192.168.7.15;oport=57752;oproto=smtp;soapId=688cb579;] SoapEngine - handler
+      exception: authentication failed for [sebastien.bouttier], account not found'
+    port: "7073"
+    program: zimbra
+    proto: smtp
+    server: store.zmtest.fws.fr
+    src_ip: 192.168.7.15
+    time_local: 2021-03-03 19:51
+    user: sebastien.bouttier
+  StrTime: 2021-03-03 19:51
+  Process: true
+  Meta:
+    log_type: zimbra_auth_fail
+    service: zimbra
+    source_ip: 192.168.7.15
+    user: sebastien.bouttier
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    message: '2021-03-03 19:53:15,744 INFO  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+      [oip=192.168.7.15;oport=24304;oproto=smtp;soapId=688cb584;] SoapEngine - handler
+      exception: authentication failed for [coe@zmtest.fws.fr], account not found'
+    port: "7073"
+    program: zimbra
+    proto: smtp
+    server: store.zmtest.fws.fr
+    src_ip: 192.168.7.15
+    time_local: 2021-03-03 19:53
+    user: coe@zmtest.fws.fr
+  StrTime: 2021-03-03 19:53
+  Process: true
+  Meta:
+    log_type: zimbra_auth_fail
+    service: zimbra
+    source_ip: 192.168.7.15
+    user: coe@zmtest.fws.fr
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    message: 2021-03-03 19:53:06,536 WARN  [qtp93314457-589:smtp://store.zmtest.fws.fr:7073/service/admin/soap/]
+      [name=contact@zmtest.fws.fr;oip=192.168.7.15;oport=41496;oproto=smtp;soapId=688cb582;]
+      SoapEngine - handler exception
+    port: "7073"
+    program: zimbra
+    proto: smtp
+    server: store.zmtest.fws.fr
+    src_ip: 192.168.7.15
+    time_local: 2021-03-03 19:53
+    user: contact@zmtest.fws.fr
+  StrTime: 2021-03-03 19:53
+  Process: true
+  Meta:
+    log_type: zimbra_auth_fail
+    service: zimbra
+    source_ip: 192.168.7.15
+    user: contact@zmtest.fws.fr
