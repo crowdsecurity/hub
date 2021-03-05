@@ -317,6 +317,27 @@
    "scenarios": [
     "crowdsecurity/http-bf-wordpress_bf"
    ]
+  },
+  "firewallservices/zimbra": {
+   "path": "collections/firewallservices/zimbra.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "23dcbf45a7677927d72361f7d0d0210763fd1e4bc019c276b98092966ab14b5c",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIHBhcnNlIFppbWJyYSdzIGxvZ3MgYW5kIGRldGVjdCBicnV0IGZvcmNlIG9uIHRoZSBmb2xsb3dpbmcgc2VydmljZXMKLSB3ZWIgYXV0aGVudGljYXRpb24gZm9ybQotIFNNVFAKLSBJTUFQCg==",
+   "content": "cGFyc2VyczoKICAtIGZpcmV3YWxsc2VydmljZXMvemltYnJhLWxvZ3MKc2NlbmFyaW9zOgogIC0gZmlyZXdhbGxzZXJ2aWNlcy96aW1icmEtYmYKZGVzY3JpcHRpb246ICJ6aW1icmEgc3VwcG9ydCA6IHBhcnNlciBhbmQgc3BhbW1lciBkZXRlY3Rpb24iCmF1dGhvcjogZmlyZXdhbGxzZXJ2aWNlcwp0YWdzOgogIC0gbGludXgKICAtIHNwYW0KICAtIGJydXRlZm9yY2UKICAtIHppbWJyYQo=",
+   "description": "zimbra support : parser and spammer detection",
+   "author": "firewallservices",
+   "labels": null,
+   "parsers": [
+    "firewallservices/zimbra-logs"
+   ],
+   "scenarios": [
+    "firewallservices/zimbra-bf"
+   ]
   }
  },
  "parsers": {
@@ -666,6 +687,22 @@
    "content": "bmFtZTogY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3RzCmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IGV2ZW50cyBmcm9tIHByaXZhdGUgaXB2NCBhZGRyZXNzZXMiCndoaXRlbGlzdDoKICByZWFzb246ICJwcml2YXRlIGlwdjQgcmFuZ2VzIgogIGlwOiAKICAgIC0gIjEyNy4wLjAuMSIKICBjaWRyOgogICAgLSAiMTkyLjE2OC4wLjAvMTYiCiAgICAtICIxMC4wLjAuMC84IgogICAgLSAiMTcyLjE2LjAuMC8xMiIKICAjIGV4cHJlc3Npb246CiAgIyAgIC0gIidmb28uY29tJyBpbiBldnQuTWV0YS5zb3VyY2VfaXAucmV2ZXJzZSIgCgo=",
    "description": "Whitelist events from private ipv4 addresses",
    "author": "crowdsecurity",
+   "labels": null
+  },
+  "firewallservices/zimbra-logs": {
+   "path": "parsers/s01-parse/firewallservices/zimbra-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "6f4c61d80bbe9a235f19effce373394a08e9cef9a733b8066dd5539c8332861e",
+     "deprecated": false
+    }
+   },
+   "long_description": "WmltYnJhIGZhaWxlZCBhdXRoZW50aWNhdGlvbiBwYXJzZXIuIFRvIHVzZSBpdCwgeW91IHNob3VsZCBhZGQgYW4gYWNxdWlzaXRpb24gbGlrZQpgYGAKLS0tCmZpbG5hbWVzOgogIC0gIi9vcHQvemltYnJhL2xvZy9tYWlsYm94LmxvZyIKbGFiZWxzOgogIHR5cGU6IHppbWJyYQpgYGAKTm90ZSB0aGF0IGlmIHlvdSBydW4gWmltYnJhIG9uIHNldmVyYWwgc2VydmVycyA6Ci0gQWNxdWlzaXRpb24gc2hvdWxkIGJlIGRvbmUgb24gdGhlIG1haWxib3ggc2VydmVycwotIFlvdSBzaG91bGQgc2V0IHppbWJyYU1haWxUcnVzdGVkSVAgdG8gdGhlIGxpc3Qgb2YgSVAgb2YgeW91ciBaaW1icmEgcHJveHkgdG8gZW5zdXJlIHRoZSBvcmlnaW5hbCBjbGllbnQgSVAgd2lsbCBhcHBlYXIgaW4gdGhlIGxvZ3MuIEZvciBleGFtcGxlOgpgYGAKem1wcm92IG1jZiAremltYnJhTWFpbFRydXN0ZWRJUCAxMC4zMC4xLjEzCmBgYAo=",
+   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ3ppbWJyYSciCm9uc3VjY2VzczogbmV4dF9zdGFnZQpkZWJ1ZzogdHJ1ZQpuYW1lOiBmaXJld2FsbHNlcnZpY2VzL3ppbWJyYS1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgemltYnJhIGF1dGhlbnRpY2F0aW9uIGZhaWx1cmVzIgpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICcle1RJTUVTVEFNUF9JU084NjAxOnRpbWVfbG9jYWx9OlswLTldKywuKiV7V09SRDpwcm90b306Ly8le0hPU1ROQU1FOnNlcnZlcn06JXtJTlQ6cG9ydH0vc2VydmljZS9hZG1pbi9zb2FwLyhBdXRoUmVxdWVzdCk/XF0gXFsuKm9pcD0le0lQOnNyY19pcH0uKlxdIFNvYXBFbmdpbmUgLSBoYW5kbGVyIGV4Y2VwdGlvbjogYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciBcWyV7TkdVU0VSOnVzZXJ9XF0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICBzdGF0aWNzOgogICAgICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lX2xvY2FsCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnJXtUSU1FU1RBTVBfSVNPODYwMTp0aW1lX2xvY2FsfTpbMC05XSssLiole1dPUkQ6cHJvdG99Oi8vJXtIT1NUTkFNRTpzZXJ2ZXJ9OiV7SU5UOnBvcnR9L3NlcnZpY2UvYWRtaW4vc29hcC8oQXV0aFJlcXVlc3QpP1xdIFxbLipuYW1lPSV7TkdVU0VSOnVzZXJ9LipvaXA9JXtJUDpzcmNfaXB9LipcXSBTb2FwRW5naW5lIC0gaGFuZGxlciBleGNlcHRpb24nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICBzdGF0aWNzOgogICAgICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lX2xvY2FsCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnJXtUSU1FU1RBTVBfSVNPODYwMTp0aW1lX2xvY2FsfTpbMC05XSssLipcWy4qb2lwPSV7SVA6c3JjX2lwfS4qXF0gaW1hcCAtIGF1dGhlbnRpY2F0aW9uIGZhaWxlZCBmb3IgXFsle05HVVNFUjp1c2VyfVxdJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgc3RhdGljczoKICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZV9sb2NhbApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IHppbWJyYQogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiB6aW1icmFfYXV0aF9mYWlsCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNyY19pcCIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXIiCg==",
+   "description": "Parse zimbra authentication failures",
+   "author": "firewallservices",
    "labels": null
   }
  },
@@ -1217,6 +1254,25 @@
    "labels": {
     "remediation": "true",
     "service": "ftp",
+    "type": "bruteforce"
+   }
+  },
+  "firewallservices/zimbra-bf": {
+   "path": "scenarios/firewallservices/zimbra-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "20cd0d65ecb94e81c785bbc8117d3cf12333bf0b32f600d14949be7ce21f3a4c",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHZhcmlvdXMgYXV0aGVudGljYXRpb24gZmFpbHVyZXMgb24gWmltYnJhCi0gT24gdGhlIHdlYiBsb2dpbiBwYWdlCi0gT24gdGhlIFNNVFAgc2VydmVyIChTTVRQUyBhbmQgU1VCTUlTU0lPTikKLSBPbiB0aGUgSU1BUCBzZXJ2ZXIKClRoaXMgc2NlbmFyaW8gdXNlcyB0d28gbGVha3kgYnVja2V0czoKLSBsZWFrc3BlZWQgb2YgMzBzLCBjYXBhY2l0eSBvZiA1IChwZXIgY2xpZW50IElQKQotIGxlYWtzcGVlZCBvZiAybSwgY2FwYWNpdHkgb2YgNSwgb24gdW5pcSB0YXJnZXQgdXNlciAocGVyIGNsaWVudCBJUCkK",
+   "content": "IyBaaW1icmEgYnJ1dGZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBmaXJld2FsbHNlcnZpY2VzL3ppbWJyYS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBaaW1icmEgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnemltYnJhX2F1dGhfZmFpbCcKbGVha3NwZWVkOiAzMHMKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiB6aW1icmEKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCiMgWmltYnJhIHVzZXIgZW51bWVyYXRpb24KdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvemltYnJhLXVzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBaaW1icmEgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3ppbWJyYV9hdXRoX2ZhaWwnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcgpsZWFrc3BlZWQ6IDJtCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IHppbWJyYQogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQoK",
+   "description": "Detect Zimbra bruteforce",
+   "author": "firewallservices",
+   "labels": {
+    "remediation": "true",
+    "service": "zimbra",
     "type": "bruteforce"
    }
   },
