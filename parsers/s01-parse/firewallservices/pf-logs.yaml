@@ -1,0 +1,18 @@
+filter: "evt.Parsed.program == 'filterlog' or evt.Parsed.message matches '^filterlog:'"
+name: firewallservices/pf-logs
+description: "Parse packet filter logs"
+grok:
+  pattern: "%{PF_FILTERLOG}"
+  apply_on: message
+---
+#debug: true
+filter: "evt.Parsed.action == 'block'"
+name: firewallservices/pf-logs-drop
+onsuccess: next_stage
+statics:
+    - meta: service
+      value: tcp
+    - meta: log_type
+      value: pf_drop
+    - meta: source_ip
+      expression: "evt.Parsed.src_ip"
