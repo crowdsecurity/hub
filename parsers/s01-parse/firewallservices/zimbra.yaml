@@ -5,14 +5,23 @@ name: firewallservices/zimbra-logs
 description: "Parse zimbra authentication failures"
 nodes:
   - grok:
-      pattern: '%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception: authentication failed for \[%{NGUSER:user}\]'
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception: authentication failed for \[%{NGUSER:user}\]'
       apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
   - grok:
-      pattern: '%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*name=%{NGUSER:user}.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception'
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*name=%{NGUSER:user}.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception'
       apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
   - grok:
-      pattern: '\[.*oip=%{IP:src_ip}.*\] imap - authentication failed for \[%{NGUSER:user}\]'
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*\[.*oip=%{IP:src_ip}.*\] imap - authentication failed for \[%{NGUSER:user}\]'
       apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
 statics:
   - meta: service
     value: zimbra
