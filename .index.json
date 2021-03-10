@@ -663,6 +663,22 @@
    "description": "Whitelist events from private ipv4 addresses",
    "author": "crowdsecurity",
    "labels": null
+  },
+  "firewallservices/lemonldap-ng": {
+   "path": "parsers/s01-parse/firewallservices/lemonldap-ng.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "de74f7d0d3241579c0e0bf4bab235fce19cd3b4371de281c2f21d86ab16c5ec2",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VzIExlbW9ubGRhcDo6TkcgbG9ncyBhbmQgZGV0ZWN0cyBmYWlsZWQgYXV0aGVudGljYXRpb24uIE9ubHkgd29ya2luZyBpZiB1c2luZyBhbiBMREFQIG9yIEFEIGF1dGhlbnRpY2F0aW9uIGJhY2tlbmQgZm9yIG5vdy4K",
+   "content": "aWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gaW4gWydMTE5HJywnbGVtb25sZGFwLW5nJ10iCm5hbWU6IGZpcmV3YWxsLXNlcnZpY2VzL2xlbW9ubGRhcC1uZy1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgTGVtb25sZGFwOjpORyBsb2dzIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKI2RlYnVnOiB0cnVlCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogKFxbd2FyblxdfExlbW9ubGRhcDo6TkcgOikgJXtVU0VSTkFNRTp1c2VyfSB3YXMgbm90IGZvdW5kIGluIExEQVAgZGlyZWN0b3J5IFwoJXtJUDpzcmNfaXB9XCkKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46IChcW3dhcm5cXXxMZW1vbmxkYXA6Ok5HIDopIEJhZCBwYXNzd29yZCBmb3IgJXtVU0VSTkFNRTp1c2VyfSBcKCV7SVA6c3JjX2lwfVwpCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBzZXJ2aWNlCiAgICB2YWx1ZTogbGxuZwogIC0gbWV0YTogdXNlcgogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlciIKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogbGxuZ19hdXRoX2ZhaWwKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3JjX2lwIgoK",
+   "description": "Parse Lemonldap::NG logs",
+   "author": "firewallservices",
+   "labels": null
   }
  },
  "postoverflows": {
@@ -1213,6 +1229,25 @@
    "labels": {
     "remediation": "true",
     "service": "ftp",
+    "type": "bruteforce"
+   }
+  },
+  "firewallservices/lemonldap-ng-bf": {
+   "path": "scenarios/firewallservices/lemonldap-ng-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "92ffa388cc0c79431a9014d6a384a84e7571d5e3445ff60d29792eb5d36307da",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBMZW1vbmxkYXA6Ok5HIGF1dGhlbnRpY2F0aW9ucyA6CgogLSBsZWFrc3BlZWQgb2YgMzBzLCBjYXBhY2l0eSBvZiA1IG9uIHNhbWUgdGFyZ2V0IHVzZXIKIC0gbGVha3NwZWVkIG9mIDJtLCBjYXBhY2l0eSBvZiA1IHVuaXF1ZSBkaXN0aW5jdCB1c2Vycwo=",
+   "content": "IyBMZW1vbmxkYXA6Ok5HIGJydXRmb3JjZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9sZW1vbmxkYXAtbmctYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgTGVtb25sZGFwOjpORyBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmxlYWtzcGVlZDogMzBzCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogbGxuZwogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bWVyYXRpb24KdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvbGVtb25sZGFwLW5nLXVzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcgpsZWFrc3BlZWQ6IDJtCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IGxsbmcKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detect Lemonldap::NG bruteforce",
+   "author": "firewallservices",
+   "labels": {
+    "remediation": "true",
+    "service": "llng",
     "type": "bruteforce"
    }
   },
