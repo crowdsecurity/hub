@@ -1,0 +1,33 @@
+filter: "evt.Parsed.program startsWith 'zimbra'"
+onsuccess: next_stage
+#debug: true
+name: firewallservices/zimbra-logs
+description: "Parse zimbra authentication failures"
+nodes:
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception: authentication failed for \[%{NGUSER:user}\]'
+      apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*%{WORD:proto}://%{HOSTNAME:server}:%{INT:port}/service/admin/soap/(AuthRequest)?\] \[.*name=%{NGUSER:user}.*oip=%{IP:src_ip}.*\] SoapEngine - handler exception'
+      apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:time_local}:[0-9]+,.*\[.*oip=%{IP:src_ip}.*\] imap - authentication failed for \[%{NGUSER:user}\]'
+      apply_on: message
+    statics:
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+statics:
+  - meta: service
+    value: zimbra
+  - meta: log_type
+    value: zimbra_auth_fail
+  - meta: source_ip
+    expression: "evt.Parsed.src_ip"
+  - meta: user
+    expression: "evt.Parsed.user"
