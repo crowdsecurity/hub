@@ -693,6 +693,22 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "firewallservices/lemonldap-ng": {
+   "path": "parsers/s01-parse/firewallservices/lemonldap-ng.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c83b26a572bdb7ea16dcc004729dff7977aa5293466fba834bb7e2d740526ec1",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VzIExlbW9ubGRhcDo6TkcgbG9ncyBhbmQgZGV0ZWN0cyBmYWlsZWQgYXV0aGVudGljYXRpb24uIE9ubHkgd29ya2luZyBpZiB1c2luZyBhbiBMREFQIG9yIEFEIGF1dGhlbnRpY2F0aW9uIGJhY2tlbmQgZm9yIG5vdy4K",
+   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIGluIFsnTExORycsJ2xlbW9ubGRhcC1uZyddIgpuYW1lOiBmaXJld2FsbC1zZXJ2aWNlcy9sZW1vbmxkYXAtbmctbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIExlbW9ubGRhcDo6TkcgbG9ncyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46IChcW3dhcm5cXXxMZW1vbmxkYXA6Ok5HIDopICV7VVNFUk5BTUU6dXNlcn0gd2FzIG5vdCBmb3VuZCBpbiBMREFQIGRpcmVjdG9yeSBcKCV7SVA6c3JjX2lwfVwpCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAoXFt3YXJuXF18TGVtb25sZGFwOjpORyA6KSBCYWQgcGFzc3dvcmQgZm9yICV7VVNFUk5BTUU6dXNlcn0gXCgle0lQOnNyY19pcH1cKQogICAgICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGxsbmcKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXIiCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGxsbmdfYXV0aF9mYWlsCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNyY19pcCIK",
+   "description": "Parse Lemonldap::NG logs",
+   "author": "firewallservices",
+   "labels": null
+  },
   "firewallservices/zimbra-logs": {
    "path": "parsers/s01-parse/firewallservices/zimbra-logs.yaml",
    "stage": "s01-parse",
@@ -1258,6 +1274,25 @@
    "labels": {
     "remediation": "true",
     "service": "ftp",
+    "type": "bruteforce"
+   }
+  },
+  "firewallservices/lemonldap-ng-bf": {
+   "path": "scenarios/firewallservices/lemonldap-ng-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "92ffa388cc0c79431a9014d6a384a84e7571d5e3445ff60d29792eb5d36307da",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBMZW1vbmxkYXA6Ok5HIGF1dGhlbnRpY2F0aW9ucyA6CgogLSBsZWFrc3BlZWQgb2YgMzBzLCBjYXBhY2l0eSBvZiA1IG9uIHNhbWUgdGFyZ2V0IHVzZXIKIC0gbGVha3NwZWVkIG9mIDJtLCBjYXBhY2l0eSBvZiA1IHVuaXF1ZSBkaXN0aW5jdCB1c2Vycwo=",
+   "content": "IyBMZW1vbmxkYXA6Ok5HIGJydXRmb3JjZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9sZW1vbmxkYXAtbmctYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgTGVtb25sZGFwOjpORyBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmxlYWtzcGVlZDogMzBzCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogbGxuZwogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bWVyYXRpb24KdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvbGVtb25sZGFwLW5nLXVzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcgpsZWFrc3BlZWQ6IDJtCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IGxsbmcKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detect Lemonldap::NG bruteforce",
+   "author": "firewallservices",
+   "labels": {
+    "remediation": "true",
+    "service": "llng",
     "type": "bruteforce"
    }
   },
