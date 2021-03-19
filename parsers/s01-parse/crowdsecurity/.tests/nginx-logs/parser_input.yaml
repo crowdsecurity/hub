@@ -68,3 +68,27 @@
     program: nginx
   Time: 2020-12-11T13:02:38.188226774+01:00
   Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: '2021/03/16 09:11:59 [error] 5669#5669: *4030 user "123" was not found in "/etc/nginx/.htpasswd", client: 22.22.22.22, server: dgu.site1.ru, request: "GET / HTTP/1.1", host: "dgu.site1.ru"'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 'user "123" was not found in "/etc/nginx/.htpasswd", client: 22.22.22.22, server: dgu.site1.ru, request: "GET / HTTP/1.1", host: "dgu.site1.ru"'
+    program: nginx
+  Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: '2021/03/16 09:12:00 [error] 5669#5669: *4030 user "user1": password mismatch, client: 22.22.22.22, server: dgu.site1.ru, request: "GET / HTTP/1.1", host: "dgu.site1.ru"'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 'user "user1": password mismatch, client: 22.22.22.22, server: dgu.site1.ru, request: "GET / HTTP/1.1", host: "dgu.site1.ru"'
+    program: nginx
+  Process: true
