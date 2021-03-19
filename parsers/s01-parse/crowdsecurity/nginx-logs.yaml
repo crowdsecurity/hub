@@ -21,6 +21,33 @@ nodes:
             value: http_error-log
           - target: evt.StrTime
             expression: evt.Parsed.time
+    pattern_syntax:
+      NOT_DOUBLE_QUOTE: '[^"]+'
+    nodes:
+      - filter: "evt.Parsed.message contains 'was not found in'"
+        debug: true
+        onsuccess: next_stage
+        pattern_syntax:
+          USER_NOT_FOUND: 'user "%{NOT_DOUBLE_QUOTE:username}" was not found in "%{NOT_DOUBLE_QUOTE}", client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+        grok:
+          pattern: '%{USER_NOT_FOUND}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+      - filter: "evt.Parsed.message contains 'password mismatch'"
+        debug: true
+        onsuccess: next_stage
+        pattern_syntax:
+          PASSWORD_MISMATCH: 'user "%{NOT_DOUBLE_QUOTE:username}": password mismatch, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+        grok:
+          pattern: '%{PASSWORD_MISMATCH}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+
+
 # these ones apply for both grok patterns
 statics:
   - meta: service
