@@ -245,15 +245,19 @@
   },
   "crowdsecurity/sshd": {
    "path": "collections/crowdsecurity/sshd.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "21159aeb87529efcf1a5033f720413d5321a6451bab679a999f7f01a7aa972b3",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "1e6dfcaea3dd65e230ec5c456879a566b0a9ada8fdb7703162dabe6f325bf20d",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBzc2hkIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBzc2ggcGFyc2VyCiAtIHNzaCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCiAKCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtZ2VuZXJpYy1iZi1iaXMKZGVzY3JpcHRpb246ICJzc2hkIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gc3NoCiAgLSBicnV0ZWZvcmNlCgo=",
    "description": "sshd support : parser and brute-force detection",
    "author": "crowdsecurity",
    "labels": null,
@@ -261,7 +265,8 @@
     "crowdsecurity/sshd-logs"
    ],
    "scenarios": [
-    "crowdsecurity/ssh-bf"
+    "crowdsecurity/ssh-bf",
+    "crowdsecurity/http-generic-bf-bis"
    ]
   },
   "crowdsecurity/vsftpd": {
@@ -960,6 +965,24 @@
    },
    "long_description": "QWxlcnQgd2hlbiBhIHNpbmdsZSBJUCB0aGF0IHRyeSB0byBicnV0ZWZvcmNlIGh0dHAgYmFzaWMgYXV0aC4KCkxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUuCg==",
    "content": "IyA0MDQgc2Nhbgp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWdlbmVyaWMtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgZ2VuZXJpYyBodHRwIGJydXRlIGZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5zZXJ2aWNlID09ICdodHRwJyAmJiBldnQuTWV0YS5zdWJfdHlwZSA9PSAnYXV0aF9mYWlsJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBiZgogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect generic http brute force",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "bf"
+   }
+  },
+  "crowdsecurity/http-generic-bf-bis": {
+   "path": "scenarios/crowdsecurity/http-generic-bf-bis.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "fd4b24acafb03042d5ba7744534afc8f1921117397ef8520a2fb614ba6a20a22",
+     "deprecated": false
+    }
+   },
+   "content": "IyA0MDQgc2Nhbgp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWdlbmVyaWMtYmYtYmlzCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGdlbmVyaWMgaHR0cCBicnV0ZSBmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnaHR0cCcgJiYgZXZ0Lk1ldGEuc3ViX3R5cGUgPT0gJ2F1dGhfZmFpbCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogNQpsZWFrc3BlZWQ6ICIxMHMiCmJsYWNraG9sZTogMW0KbGFiZWxzOgogc2VydmljZTogaHR0cAogdHlwZTogYmYKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
    "description": "Detect generic http brute force",
    "author": "crowdsecurity",
    "labels": {
