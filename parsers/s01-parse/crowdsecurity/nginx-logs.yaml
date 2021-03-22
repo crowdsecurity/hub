@@ -21,12 +21,12 @@ nodes:
           - target: evt.StrTime
             expression: evt.Parsed.time
     pattern_syntax:
-      NOT_DOUBLE_QUOTE: '[^"]+'
+      NO_DOUBLE_QUOTE: '[^"]+'
     onsuccess: next_stage
     nodes:
       - filter: "evt.Parsed.message contains 'was not found in'"
         pattern_syntax:
-          USER_NOT_FOUND: 'user "%{NOT_DOUBLE_QUOTE:username}" was not found in "%{NOT_DOUBLE_QUOTE}", client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+          USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}", client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
         grok:
           pattern: '%{USER_NOT_FOUND}'
           apply_on: message
@@ -37,7 +37,7 @@ nodes:
             expression: evt.Parsed.username
       - filter: "evt.Parsed.message contains 'password mismatch'"
         pattern_syntax:
-          PASSWORD_MISMATCH: 'user "%{NOT_DOUBLE_QUOTE:username}": password mismatch, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+          PASSWORD_MISMATCH: 'user "%{NO_DOUBLE_QUOTE:username}": password mismatch, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
         grok:
           pattern: '%{PASSWORD_MISMATCH}'
           apply_on: message
