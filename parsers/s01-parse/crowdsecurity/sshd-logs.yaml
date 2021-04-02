@@ -2,6 +2,8 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'sshd'"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
+pattern_syntax:
+  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP:source_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
 nodes:
   - grok:
       name: "SSHD_FAIL"
@@ -23,6 +25,12 @@ nodes:
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_USER_FAIL"
+      apply_on: message
+      statics:
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok: 
+      name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
         - meta: target_user
