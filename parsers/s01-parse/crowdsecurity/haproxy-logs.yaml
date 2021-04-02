@@ -1,0 +1,24 @@
+debug: true
+filter: "evt.Parsed.program startsWith 'haproxy'"
+onsuccess: next_stage
+name: crowdsecurity/haproxy-logs
+description: "Parse haproxy http logs"
+grok:
+  pattern: '%{HAPROXYHTTPBASE}'
+  apply_on: message
+  # these ones apply for both grok patterns
+statics:
+  - meta: log_type
+    value: http_access-log
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: evt.Parsed.client_ip
+  - meta: http_path
+    expression: evt.Parsed.http_request
+  - meta: http_status
+    expression: evt.Parsed.http_status_code
+  - parsed: request
+    expression: evt.Parsed.http_request
