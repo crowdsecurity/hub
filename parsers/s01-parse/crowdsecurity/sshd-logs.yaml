@@ -40,6 +40,8 @@ nodes:
       name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
 statics:
