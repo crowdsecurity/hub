@@ -10,6 +10,8 @@ nodes:
       name: "SSHD_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
@@ -22,24 +24,28 @@ nodes:
       name: "SSHD_INVALID_USER"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok: 
       name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
 statics:
     - meta: service
       value: ssh
-    - meta: log_type
-      value: ssh_failed-auth
     - meta: source_ip
       expression: "evt.Parsed.sshd_client_ip"
