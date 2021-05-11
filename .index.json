@@ -323,6 +323,28 @@
     "crowdsecurity/http-bf-wordpress_bf"
    ]
   },
+  "firewallservices/pf": {
+   "path": "collections/firewallservices/pf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e678a8791f07bea98bd53bce7b2b03ae15fd4d4b42788dd003b826b4f8170fac",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRldGVjdCBwb3J0IHNjYW4gb24gUGZTZW5zZSAvIEZyZWVCU0QK",
+   "content": "cGFyc2VyczoKICAtIGZpcmV3YWxsc2VydmljZXMvcGYtbG9ncwpzY2VuYXJpb3M6CiAgLSBmaXJld2FsbHNlcnZpY2VzL3BmLXNjYW4tbXVsdGlfcG9ydHMKZGVzY3JpcHRpb246ICJQYXJzZXIgYW5kIHNjZW5hcmlvIGZvciBQYWNrZXQgRmlsdGVyIGxvZ3MiCmF1dGhvcjogZmlyZXdhbGxzZXJ2aWNlcwp0YWdzOgogIC0gZmlyZXdhbGwKICAtIHBmc2Vuc2UKICAtIGZyZWVic2QKICAtIHBvcnRzY2FuCg==",
+   "description": "Parser and scenario for Packet Filter logs",
+   "author": "firewallservices",
+   "labels": null,
+   "parsers": [
+    "firewallservices/pf-logs"
+   ],
+   "scenarios": [
+    "firewallservices/pf-scan-multi_ports"
+       ]
+ },
+{
   "firewallservices/zimbra": {
    "path": "collections/firewallservices/zimbra.yaml",
    "version": "0.1",
@@ -730,35 +752,19 @@
    "author": "crowdsecurity",
    "labels": null
   },
-  "firewallservices/lemonldap-ng": {
-   "path": "parsers/s01-parse/firewallservices/lemonldap-ng.yaml",
+  "firewallservices/pf-logs": {
+   "path": "parsers/s01-parse/firewallservices/pf-logs.yaml",
    "stage": "s01-parse",
    "version": "0.1",
    "versions": {
     "0.1": {
-     "digest": "c83b26a572bdb7ea16dcc004729dff7977aa5293466fba834bb7e2d740526ec1",
+     "digest": "bd2c35125dbd20a371884bc9541f1f6d2298215342576381854d209c270cdc0b",
      "deprecated": false
     }
    },
-   "long_description": "UGFyc2VzIExlbW9ubGRhcDo6TkcgbG9ncyBhbmQgZGV0ZWN0cyBmYWlsZWQgYXV0aGVudGljYXRpb24uIE9ubHkgd29ya2luZyBpZiB1c2luZyBhbiBMREFQIG9yIEFEIGF1dGhlbnRpY2F0aW9uIGJhY2tlbmQgZm9yIG5vdy4K",
-   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIGluIFsnTExORycsJ2xlbW9ubGRhcC1uZyddIgpuYW1lOiBmaXJld2FsbC1zZXJ2aWNlcy9sZW1vbmxkYXAtbmctbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIExlbW9ubGRhcDo6TkcgbG9ncyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46IChcW3dhcm5cXXxMZW1vbmxkYXA6Ok5HIDopICV7VVNFUk5BTUU6dXNlcn0gd2FzIG5vdCBmb3VuZCBpbiBMREFQIGRpcmVjdG9yeSBcKCV7SVA6c3JjX2lwfVwpCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAoXFt3YXJuXF18TGVtb25sZGFwOjpORyA6KSBCYWQgcGFzc3dvcmQgZm9yICV7VVNFUk5BTUU6dXNlcn0gXCgle0lQOnNyY19pcH1cKQogICAgICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGxsbmcKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXIiCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGxsbmdfYXV0aF9mYWlsCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNyY19pcCIK",
-   "description": "Parse Lemonldap::NG logs",
-   "author": "firewallservices",
-   "labels": null
-  },
-  "firewallservices/zimbra-logs": {
-   "path": "parsers/s01-parse/firewallservices/zimbra-logs.yaml",
-   "stage": "s01-parse",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "f01fc443e18d03cc336c4a8a6cbf7afc47e0faba7b07129f58f802415fc8a394",
-     "deprecated": false
-    }
-   },
-   "long_description": "WmltYnJhIGZhaWxlZCBhdXRoZW50aWNhdGlvbiBwYXJzZXIuIFRvIHVzZSBpdCwgeW91IHNob3VsZCBhZGQgYW4gYWNxdWlzaXRpb24gbGlrZQpgYGAKLS0tCmZpbG5hbWVzOgogIC0gIi9vcHQvemltYnJhL2xvZy9tYWlsYm94LmxvZyIKbGFiZWxzOgogIHR5cGU6IHppbWJyYQpgYGAKTm90ZSB0aGF0IGlmIHlvdSBydW4gWmltYnJhIG9uIHNldmVyYWwgc2VydmVycyA6Ci0gQWNxdWlzaXRpb24gc2hvdWxkIGJlIGRvbmUgb24gdGhlIG1haWxib3ggc2VydmVycwotIFlvdSBzaG91bGQgc2V0IHppbWJyYU1haWxUcnVzdGVkSVAgdG8gdGhlIGxpc3Qgb2YgSVAgb2YgeW91ciBaaW1icmEgcHJveHkgdG8gZW5zdXJlIHRoZSBvcmlnaW5hbCBjbGllbnQgSVAgd2lsbCBhcHBlYXIgaW4gdGhlIGxvZ3MuIEZvciBleGFtcGxlOgpgYGAKem1wcm92IG1jZiAremltYnJhTWFpbFRydXN0ZWRJUCAxMC4zMC4xLjEzCmBgYAo=",
-   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ3ppbWJyYSciCm9uc3VjY2VzczogbmV4dF9zdGFnZQojZGVidWc6IHRydWUKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy96aW1icmEtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHppbWJyYSBhdXRoZW50aWNhdGlvbiBmYWlsdXJlcyIKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnJXtUSU1FU1RBTVBfSVNPODYwMTp0aW1lX2xvY2FsfTpbMC05XSssLiole1dPUkQ6cHJvdG99Oi8vJXtIT1NUTkFNRTpzZXJ2ZXJ9OiV7SU5UOnBvcnR9L3NlcnZpY2UvYWRtaW4vc29hcC8oQXV0aFJlcXVlc3QpP1xdIFxbLipvaXA9JXtJUDpzcmNfaXB9LipcXSBTb2FwRW5naW5lIC0gaGFuZGxlciBleGNlcHRpb246IGF1dGhlbnRpY2F0aW9uIGZhaWxlZCBmb3IgXFsle05HVVNFUjp1c2VyfVxdJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgc3RhdGljczoKICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZV9sb2NhbAogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJyV7VElNRVNUQU1QX0lTTzg2MDE6dGltZV9sb2NhbH06WzAtOV0rLC4qJXtXT1JEOnByb3RvfTovLyV7SE9TVE5BTUU6c2VydmVyfTole0lOVDpwb3J0fS9zZXJ2aWNlL2FkbWluL3NvYXAvKEF1dGhSZXF1ZXN0KT9cXSBcWy4qbmFtZT0le05HVVNFUjp1c2VyfS4qb2lwPSV7SVA6c3JjX2lwfS4qXF0gU29hcEVuZ2luZSAtIGhhbmRsZXIgZXhjZXB0aW9uJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgc3RhdGljczoKICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZV9sb2NhbAogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJyV7VElNRVNUQU1QX0lTTzg2MDE6dGltZV9sb2NhbH06WzAtOV0rLC4qXFsuKm9pcD0le0lQOnNyY19pcH0uKlxdIGltYXAgLSBhdXRoZW50aWNhdGlvbiBmYWlsZWQgZm9yIFxbJXtOR1VTRVI6dXNlcn1cXScKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgIHN0YXRpY3M6CiAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVfbG9jYWwKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiB6aW1icmEKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogemltYnJhX2F1dGhfZmFpbAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zcmNfaXAiCiAgLSBtZXRhOiB1c2VyCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC51c2VyIgo=",
-   "description": "Parse zimbra authentication failures",
+   "long_description": "VGhpcyB3aWxsIHBhcnNlIHlvdXIgcGFja2V0IGZpbHRlciBsb2dzLiBUZXN0ZWQgd2l0aCBQZlNlbnNlLCBzZW5kaW5nIGl0cyBsb2cgdG8gYSByZW1vdGUgc3lzbG9nIHNlcnZlciwgd2hlcmUgY3Jvd2RzZWMgY2FuIHBhcnNlIHRoZW0uCg==",
+   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdmaWx0ZXJsb2cnIG9yIGV2dC5QYXJzZWQubWVzc2FnZSBtYXRjaGVzICdeZmlsdGVybG9nOiciCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvcGYtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHBhY2tldCBmaWx0ZXIgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiAiJXtQRl9GSUxURVJMT0d9IgogIGFwcGx5X29uOiBtZXNzYWdlCi0tLQojZGVidWc6IHRydWUKZmlsdGVyOiAiZXZ0LlBhcnNlZC5hY3Rpb24gPT0gJ2Jsb2NrJyIKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9wZi1sb2dzLWRyb3AKb25zdWNjZXNzOiBuZXh0X3N0YWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHRjcAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogcGZfZHJvcAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3JjX2lwIgo=",
+   "description": "Parse packet filter logs",
    "author": "firewallservices",
    "labels": null
   }
@@ -1297,42 +1303,24 @@
     "type": "bruteforce"
    }
   },
-  "firewallservices/lemonldap-ng-bf": {
-   "path": "scenarios/firewallservices/lemonldap-ng-bf.yaml",
+  "firewallservices/pf-scan-multi_ports": {
+   "path": "scenarios/firewallservices/pf-scan-multi_ports.yaml",
    "version": "0.1",
    "versions": {
     "0.1": {
-     "digest": "92ffa388cc0c79431a9014d6a384a84e7571d5e3445ff60d29792eb5d36307da",
+     "digest": "d650a9e64532d14a46dcf5bfc952b0a0eb1825efdb07a179069d9c7f8f185d78",
      "deprecated": false
     }
    },
-   "long_description": "RGV0ZWN0IGZhaWxlZCBMZW1vbmxkYXA6Ok5HIGF1dGhlbnRpY2F0aW9ucyA6CgogLSBsZWFrc3BlZWQgb2YgMzBzLCBjYXBhY2l0eSBvZiA1IG9uIHNhbWUgdGFyZ2V0IHVzZXIKIC0gbGVha3NwZWVkIG9mIDJtLCBjYXBhY2l0eSBvZiA1IHVuaXF1ZSBkaXN0aW5jdCB1c2Vycwo=",
-   "content": "IyBMZW1vbmxkYXA6Ok5HIGJydXRmb3JjZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9sZW1vbmxkYXAtbmctYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgTGVtb25sZGFwOjpORyBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmxlYWtzcGVlZDogMzBzCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogbGxuZwogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bWVyYXRpb24KdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvbGVtb25sZGFwLW5nLXVzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBMZW1vbmxkYXA6Ok5HIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLnNlcnZpY2UgPT0gJ2xsbmcnIGFuZCBldnQuTWV0YS5sb2dfdHlwZSA9PSAnbGxuZ19hdXRoX2ZhaWwnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcgpsZWFrc3BlZWQ6IDJtCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IGxsbmcKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKCg==",
-   "description": "Detect Lemonldap::NG bruteforce",
+   "long_description": "RGV0ZWN0cyBhIHBvcnQgc2NhbiA6IGRldGVjdHMgaWYgYSBzaW5nbGUgSVAgYXR0ZW1wdHMgY29ubmVjdGlvbiB0byBtYW55IGRpZmZlcmVudCBwb3J0cy4KCkxlYWtzcGVlZCBvZiA1cywgY2FwYWNpdHkgb2YgMTUuCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogZmlyZXdhbGxzZXJ2aWNlcy9wZi1zY2FuLW11bHRpX3BvcnRzCmRlc2NyaXB0aW9uOiAiYmFuIElQcyB0aGF0IGFyZSBzY2FubmluZyB1cyIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3BmX2Ryb3AnICYmIGV2dC5NZXRhLnNlcnZpY2UgPT0gJ3RjcCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0LlBhcnNlZC5kc3RfcG9ydApjYXBhY2l0eTogMTUKbGVha3NwZWVkOiA1cwpibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiB0Y3AKICB0eXBlOiBzY2FuCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "ban IPs that are scanning us",
    "author": "firewallservices",
    "labels": {
     "remediation": "true",
-    "service": "llng",
-    "type": "bruteforce"
-   }
-  },
-  "firewallservices/zimbra-bf": {
-   "path": "scenarios/firewallservices/zimbra-bf.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "20cd0d65ecb94e81c785bbc8117d3cf12333bf0b32f600d14949be7ce21f3a4c",
-     "deprecated": false
-    }
-   },
-   "long_description": "RGV0ZWN0IHZhcmlvdXMgYXV0aGVudGljYXRpb24gZmFpbHVyZXMgb24gWmltYnJhCi0gT24gdGhlIHdlYiBsb2dpbiBwYWdlCi0gT24gdGhlIFNNVFAgc2VydmVyIChTTVRQUyBhbmQgU1VCTUlTU0lPTikKLSBPbiB0aGUgSU1BUCBzZXJ2ZXIKClRoaXMgc2NlbmFyaW8gdXNlcyB0d28gbGVha3kgYnVja2V0czoKLSBsZWFrc3BlZWQgb2YgMzBzLCBjYXBhY2l0eSBvZiA1IChwZXIgY2xpZW50IElQKQotIGxlYWtzcGVlZCBvZiAybSwgY2FwYWNpdHkgb2YgNSwgb24gdW5pcSB0YXJnZXQgdXNlciAocGVyIGNsaWVudCBJUCkK",
-   "content": "IyBaaW1icmEgYnJ1dGZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBmaXJld2FsbHNlcnZpY2VzL3ppbWJyYS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBaaW1icmEgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnemltYnJhX2F1dGhfZmFpbCcKbGVha3NwZWVkOiAzMHMKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiB6aW1icmEKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCiMgWmltYnJhIHVzZXIgZW51bWVyYXRpb24KdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGZpcmV3YWxsc2VydmljZXMvemltYnJhLXVzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBaaW1icmEgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3ppbWJyYV9hdXRoX2ZhaWwnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcgpsZWFrc3BlZWQ6IDJtCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IHppbWJyYQogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQoK",
-   "description": "Detect Zimbra bruteforce",
-   "author": "firewallservices",
-   "labels": {
-    "remediation": "true",
-    "service": "zimbra",
-    "type": "bruteforce"
+    "service": "tcp",
+    "type": "scan"
+
    }
   },
   "ltsich/http-w00tw00t": {
