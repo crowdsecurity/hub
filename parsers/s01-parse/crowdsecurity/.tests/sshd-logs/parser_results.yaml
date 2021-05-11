@@ -5,7 +5,8 @@ provisionalresults:
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2'
+        Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp
+          from 1.1.1.1 port 38140 ssh2'
         Src: ./parsers/s01-parse/crowdsecurity/.tests/sshd-logs/auth.log
         time: 0001-01-01T00:00:00Z
         Labels:
@@ -14,7 +15,8 @@ provisionalresults:
       Parsed:
         facility: ""
         logsource: syslog
-        message: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2
+        message: Failed password for invalid user test_ftp from 1.1.1.1 port 38140
+          ssh2
         pid: "8421"
         priority: ""
         program: sshd
@@ -35,7 +37,8 @@ provisionalresults:
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2'
+        Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp
+          from 1.1.1.1 port 38140 ssh2'
         Src: ./parsers/s01-parse/crowdsecurity/.tests/sshd-logs/auth.log
         time: 0001-01-01T00:00:00Z
         Labels:
@@ -44,7 +47,8 @@ provisionalresults:
       Parsed:
         facility: ""
         logsource: syslog
-        message: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2
+        message: Failed password for invalid user test_ftp from 1.1.1.1 port 38140
+          ssh2
         pid: "8421"
         priority: ""
         program: sshd
@@ -60,11 +64,67 @@ provisionalresults:
         service: ssh
         source_ip: 1.1.1.1
         target_user: test_ftp
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/sshd-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar  5 20:24:14 testhost sshd[455340]: pam_unix(sshd:auth): authentication
+          failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=178.200.1.1 user=root'
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0
+          tty=ssh ruser= rhost=178.200.1.1 user=root'
+        pid: "455340"
+        priority: ""
+        program: sshd
+        source_ip: 178.200.1.1
+        sshd_invalid_user: ""
+        timestamp: Mar  5 20:24:14
+        timestamp8601: ""
+      StrTime: Mar  5 20:24:14
+      Meta:
+        log_type: ssh_failed-auth
+        service: ssh
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar  5 20:24:14 testhost sshd[455340]: pam_unix(sshd:auth): authentication
+          failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=178.200.1.1 user=root'
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 'pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0
+          tty=ssh ruser= rhost=178.200.1.1 user=root'
+        pid: "455340"
+        priority: ""
+        program: sshd
+        source_ip: 178.200.1.1
+        sshd_invalid_user: ""
+        timestamp: Mar  5 20:24:14
+        timestamp8601: ""
+      StrTime: Mar  5 20:24:14
+      Meta:
+        log_type: ssh_failed-auth
+        service: ssh
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
-    Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp from 1.1.1.1 port 38140 ssh2'
+    Raw: 'Nov 10 15:01:29 host sshd[8421]: Failed password for invalid user test_ftp
+      from 1.1.1.1 port 38140 ssh2'
     Src: ./parsers/s01-parse/crowdsecurity/.tests/sshd-logs/auth.log
     time: 0001-01-01T00:00:00Z
     Labels:
@@ -90,3 +150,29 @@ finalresults:
     service: ssh
     source_ip: 1.1.1.1
     target_user: test_ftp
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar  5 20:24:14 testhost sshd[455340]: pam_unix(sshd:auth): authentication
+      failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=178.200.1.1 user=root'
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    facility: ""
+    logsource: syslog
+    message: 'pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh
+      ruser= rhost=178.200.1.1 user=root'
+    pid: "455340"
+    priority: ""
+    program: sshd
+    source_ip: 178.200.1.1
+    sshd_invalid_user: ""
+    timestamp: Mar  5 20:24:14
+    timestamp8601: ""
+  StrTime: Mar  5 20:24:14
+  Process: true
+  Meta:
+    log_type: ssh_failed-auth
+    service: ssh

@@ -1,0 +1,21 @@
+filter: "evt.Parsed.program in ['LLNG','lemonldap-ng']"
+name: firewall-services/lemonldap-ng-logs
+description: "Parse Lemonldap::NG logs"
+onsuccess: next_stage
+#debug: true
+nodes:
+  - grok:
+      pattern: (\[warn\]|Lemonldap::NG :) %{USERNAME:user} was not found in LDAP directory \(%{IP:src_ip}\)
+      apply_on: message
+  - grok:
+      pattern: (\[warn\]|Lemonldap::NG :) Bad password for %{USERNAME:user} \(%{IP:src_ip}\)
+      apply_on: message
+statics:
+  - meta: service
+    value: llng
+  - meta: user
+    expression: "evt.Parsed.user"
+  - meta: log_type
+    value: llng_auth_fail
+  - meta: source_ip
+    expression: "evt.Parsed.src_ip"

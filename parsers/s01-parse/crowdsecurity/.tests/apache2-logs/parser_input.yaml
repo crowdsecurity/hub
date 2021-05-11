@@ -68,3 +68,11 @@
     program: apache2
   Time: 2020-12-11T12:43:47.855149953+01:00
   Process: true
+#add tests without UA/referer
+- ExpectMode: 1
+  Stage: s01-parse
+  Parsed:
+    message: 116.203.1.1 - - [05/Mar/2021:09:01:38 +0100] "GET /test/lists/sip_30d.txt HTTP/1.0" 200 1513
+    program: apache2
+  Time: 2020-12-11T12:43:47.855149953+01:00
+  Process: true

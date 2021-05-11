@@ -19,3 +19,23 @@
   Time: 2020-12-11T13:05:46.765680868+01:00
   StrTime: Nov 10 15:01:29
   Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: "Mar  5 20:24:14 testhost sshd[455340]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=178.200.1.1 user=root"
+    time: 2020-12-11T13:05:46.765615945+01:00
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    facility: ""
+    logsource: syslog
+    message: "pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=178.200.1.1 user=root"
+    pid: "455340"
+    priority: ""
+    program: sshd
+    timestamp: Mar  5 20:24:14
+    timestamp8601: ""
+  Time: 2020-12-11T13:05:46.765680868+01:00
+  StrTime: Mar  5 20:24:14
+  Process: true

@@ -2,11 +2,16 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'sshd'"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
+pattern_syntax:
+  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP:source_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
+  SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP:sshd_client_ip} port \d+'
 nodes:
   - grok:
       name: "SSHD_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
@@ -16,21 +21,31 @@ nodes:
       name: "SSHD_BAD_VERSION"
       apply_on: message
   - grok:
-      name: "SSHD_INVAL_USER"
+      name: "SSHD_INVALID_USER"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
       statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok: 
+      name: "SSHD_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
 statics:
     - meta: service
       value: ssh
-    - meta: log_type
-      value: ssh_failed-auth
     - meta: source_ip
       expression: "evt.Parsed.sshd_client_ip"

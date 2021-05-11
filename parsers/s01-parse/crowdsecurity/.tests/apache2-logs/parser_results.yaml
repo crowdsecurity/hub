@@ -344,6 +344,63 @@ provisionalresults:
         log_type: http_access-log
         service: http
         source_ip: 93.43.209.58
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/apache2-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        auth: '-'
+        bytes: "1513"
+        clientip: 116.203.1.1
+        http_user_agent: ""
+        httpversion: "1.0"
+        ident: '-'
+        message: 116.203.1.1 - - [05/Mar/2021:09:01:38 +0100] "GET /test/lists/sip_30d.txt
+          HTTP/1.0" 200 1513
+        program: apache2
+        rawrequest: ""
+        referrer: ""
+        request: /test/lists/sip_30d.txt
+        response: "200"
+        target_fqdn: ""
+        timestamp: 05/Mar/2021:09:01:38 +0100
+        verb: GET
+      StrTime: 05/Mar/2021:09:01:38 +0100
+      Meta:
+        http_path: /test/lists/sip_30d.txt
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 116.203.1.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Parsed:
+        auth: '-'
+        bytes: "1513"
+        clientip: 116.203.1.1
+        http_user_agent: ""
+        httpversion: "1.0"
+        ident: '-'
+        message: 116.203.1.1 - - [05/Mar/2021:09:01:38 +0100] "GET /test/lists/sip_30d.txt
+          HTTP/1.0" 200 1513
+        program: apache2
+        rawrequest: ""
+        referrer: ""
+        request: /test/lists/sip_30d.txt
+        response: "200"
+        target_fqdn: ""
+        timestamp: 05/Mar/2021:09:01:38 +0100
+        verb: GET
+      StrTime: 05/Mar/2021:09:01:38 +0100
+      Meta:
+        http_path: /test/lists/sip_30d.txt
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 116.203.1.1
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
@@ -510,3 +567,30 @@ finalresults:
     log_type: http_access-log
     service: http
     source_ip: 93.43.209.58
+- ExpectMode: 1
+  Stage: s02-enrich
+  Parsed:
+    auth: '-'
+    bytes: "1513"
+    clientip: 116.203.1.1
+    http_user_agent: ""
+    httpversion: "1.0"
+    ident: '-'
+    message: 116.203.1.1 - - [05/Mar/2021:09:01:38 +0100] "GET /test/lists/sip_30d.txt
+      HTTP/1.0" 200 1513
+    program: apache2
+    rawrequest: ""
+    referrer: ""
+    request: /test/lists/sip_30d.txt
+    response: "200"
+    target_fqdn: ""
+    timestamp: 05/Mar/2021:09:01:38 +0100
+    verb: GET
+  StrTime: 05/Mar/2021:09:01:38 +0100
+  Process: true
+  Meta:
+    http_path: /test/lists/sip_30d.txt
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 116.203.1.1

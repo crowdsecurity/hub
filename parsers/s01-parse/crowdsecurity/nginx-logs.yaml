@@ -1,6 +1,5 @@
 filter: "evt.Parsed.program startsWith 'nginx'"
 onsuccess: next_stage
-#debug: true
 name: crowdsecurity/nginx-logs
 description: "Parse nginx access and error logs"
 nodes:
@@ -21,7 +20,33 @@ nodes:
             value: http_error-log
           - target: evt.StrTime
             expression: evt.Parsed.time
-# these ones apply for both grok patterns
+    pattern_syntax:
+      NO_DOUBLE_QUOTE: '[^"]+'
+    onsuccess: next_stage
+    nodes:
+      - filter: "evt.Parsed.message contains 'was not found in'"
+        pattern_syntax:
+          USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}", client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+        grok:
+          pattern: '%{USER_NOT_FOUND}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.username
+      - filter: "evt.Parsed.message contains 'password mismatch'"
+        pattern_syntax:
+          PASSWORD_MISMATCH: 'user "%{NO_DOUBLE_QUOTE:username}": password mismatch, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+        grok:
+          pattern: '%{PASSWORD_MISMATCH}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.username
+    # these ones apply for both grok patterns
 statics:
   - meta: service
     value: http
@@ -31,3 +56,9 @@ statics:
     expression: "evt.Parsed.status"
   - meta: http_path
     expression: "evt.Parsed.request"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: target_fqdn
+    expression: "evt.Parsed.target_fqdn"
