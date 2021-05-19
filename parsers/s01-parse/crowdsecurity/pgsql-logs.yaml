@@ -9,7 +9,8 @@ nodes:
       apply_on: message
   - grok:
     #aws aurora
-      pattern: '%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL: %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
+    #%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL: password authentication failed for user "%{USERNAME:pgsql_target_user}"
+      pattern: '%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
       apply_on: message
 statics:
   - meta: log_type
