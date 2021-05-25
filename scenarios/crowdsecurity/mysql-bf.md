@@ -1,3 +1,3 @@
-Detect seveal failed mysql authentications.
+Detect several failed mysql authentications.
 
-leakspeed of 10s, capacity of 3
+leakspeed of 10s, capacity of 5

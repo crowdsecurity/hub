@@ -1,0 +1,25 @@
+onsuccess: next_stage
+name: crowdsecurity/pgsql-logs
+description: "Parse PgSQL logs"
+filter: "evt.Parsed.program == 'postgres'"
+nodes:
+  - grok:
+    #pgsql 12
+      pattern: '%{DATESTAMP:timestamp} %{WORD:zone} \[%{INT:PID}\] %{IP:source_ip} %{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname} FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
+      apply_on: message
+  - grok:
+    #aws aurora
+    #%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL: password authentication failed for user "%{USERNAME:pgsql_target_user}"
+      pattern: '%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
+      apply_on: message
+statics:
+  - meta: log_type
+    value: pgsql_failed_auth
+  - meta: auth_method
+    expression: "evt.Parsed.auth_method"
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: user
+    expression: "evt.Parsed.pgsql_target_user"
+  - meta: db
+    expression: "evt.Parsed.pgsql_dbname"
