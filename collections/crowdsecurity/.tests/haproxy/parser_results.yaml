@@ -1,0 +1,4841 @@
+provisionalresults:
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810]
+          fe-verify~ maskurl/dns 0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810] fe-verify~ maskurl/dns
+          0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:37
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810]
+          fe-verify~ maskurl/dns 0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:36.810
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "0"
+        bytes_read: "14557"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "14223"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "36.8"
+        haproxy_time: "06:56:36.8"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810] fe-verify~ maskurl/dns
+          0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "1"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "319"
+        time_duration: "321"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:36 -0000
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810]
+          fe-verify~ maskurl/dns 0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:36.810
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "0"
+        bytes_read: "14557"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "14223"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "36.8"
+        haproxy_time: "06:56:36.8"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810] fe-verify~ maskurl/dns
+          0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "1"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "319"
+        time_duration: "321"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:36Z"
+      StrTime: 12/Mar/2021:06:56:36 -0000
+      MarshaledTime: "2021-03-12T06:56:36Z"
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140]
+          fe-verify~ maskurl/dns 0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140] fe-verify~ maskurl/dns
+          0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:37
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140]
+          fe-verify~ maskurl/dns 0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.140
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "0"
+        bytes_read: "15207"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "58461"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.1"
+        haproxy_time: "06:56:37.1"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140] fe-verify~ maskurl/dns
+          0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "1"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "146"
+        time_duration: "148"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140]
+          fe-verify~ maskurl/dns 0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.140
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "0"
+        bytes_read: "15207"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "58461"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.1"
+        haproxy_time: "06:56:37.1"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140] fe-verify~ maskurl/dns
+          0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "1"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "146"
+        time_duration: "148"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567]
+          fe-verify~ maskurl/dns 0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567] fe-verify~ maskurl/dns
+          0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:37
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567]
+          fe-verify~ maskurl/dns 0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.567
+        actconn: "14"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "2"
+        bytes_read: "14562"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "60924"
+        facility: ""
+        feconn: "14"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "7"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.5"
+        haproxy_time: "06:56:37.5"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567] fe-verify~ maskurl/dns
+          0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "3"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "163"
+        time_duration: "165"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567]
+          fe-verify~ maskurl/dns 0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.567
+        actconn: "14"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "2"
+        bytes_read: "14562"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "60924"
+        facility: ""
+        feconn: "14"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "7"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.5"
+        haproxy_time: "06:56:37.5"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567] fe-verify~ maskurl/dns
+          0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "3"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "163"
+        time_duration: "165"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441]
+          fe-verify~ maskurl/dns 0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441] fe-verify~ maskurl/dns
+          0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:37
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441]
+          fe-verify~ maskurl/dns 0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.441
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "20605"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "6460"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "1"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.4"
+        haproxy_time: "06:56:37.4"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441] fe-verify~ maskurl/dns
+          0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "482"
+        time_duration: "484"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441]
+          fe-verify~ maskurl/dns 0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.441
+        actconn: "13"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "20605"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "6460"
+        facility: ""
+        feconn: "13"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "1"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.4"
+        haproxy_time: "06:56:37.4"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441] fe-verify~ maskurl/dns
+          0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "482"
+        time_duration: "484"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:37
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0
+          "GET / HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /
+        http_status_code: "200"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0 "GET / HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /
+        http_status: "200"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x1 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x1 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x1 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x1
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x1 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x1
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x1
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x1 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x1
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x1 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x1
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x1
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x1 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x1
+        file_name: x1
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x1
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x1 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x1
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x1
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x11 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x11 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x11 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x11
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x11 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x11
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x11
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x11 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x11
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x11 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x11
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x11
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x11 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x11
+        file_name: x11
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x11
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x11 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x11
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x11
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x12 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x12 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x12 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x12
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x12 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x12
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x12
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x12 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x12
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x12 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x12
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x12
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x12 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x12
+        file_name: x12
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x12
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x12 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x12
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x12
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x13 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x13 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x13 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x13
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x13 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x13
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x13
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x13 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x13
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x13 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x13
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x13
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x13 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x13
+        file_name: x13
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x13
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x13 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x13
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x13
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x14 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x14 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x14 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x14
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x14 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x14
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x14
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x14 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x14
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x14 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x14
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x14
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x14 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x14
+        file_name: x14
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x14
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x14 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x14
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x14
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x15 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x15 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x15 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x15
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x15 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x15
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x15
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x15 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x15
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x15 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x15
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x15
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x15 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x15
+        file_name: x15
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x15
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x15 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x15
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x15
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x16 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x16 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x16 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x16
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x16 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x16
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x16
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x16 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x16
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x16 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x16
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x16
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x16 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x16
+        file_name: x16
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x16
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x16 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x16
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x16
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x17 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x17 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x17 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x17
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x17 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x17
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x17
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x17 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x17
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x17 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x17
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x17
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x17 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x17
+        file_name: x17
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x17
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x17 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x17
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x17
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x18 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x18 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x18 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x18
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x18 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x18
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x18
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x18 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x18
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x18 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x18
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x18
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x18 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x18
+        file_name: x18
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x18
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x18 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x18
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x18
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x19 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x19 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x19 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x19
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x19 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x19
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x19
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x19 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x19
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x19 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x19
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x19
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x19 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x19
+        file_name: x19
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x19
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x19 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x19
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x19
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+- s00-raw:
+    crowdsecurity/syslog-logs:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x110 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        facility: ""
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x110 HTTP/1.1"
+        pid: "23481"
+        priority: ""
+        program: haproxy
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: Mar 12 06:56:38
+  s01-parse:
+    crowdsecurity/haproxy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x110 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x110
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x110 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x110
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      Meta:
+        http_path: /x110
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x110 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x110
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x110 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x110
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_path: /x110
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+    crowdsecurity/http-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+          fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0
+          "GET /x110 HTTP/1.1"'
+        Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        accept_date: 12/Mar/2021:06:56:37.690
+        actconn: "12"
+        backend_name: maskurl
+        backend_queue: "0"
+        beconn: "1"
+        bytes_read: "23104"
+        captured_request_cookie: '-'
+        captured_request_headers: ""
+        captured_response_cookie: '-'
+        captured_response_headers: ""
+        client_ip: 22.118.26.10
+        client_port: "12599"
+        facility: ""
+        feconn: "12"
+        file_dir: /
+        file_ext: ""
+        file_frag: x110
+        file_name: x110
+        frontend_name: fe-verify~
+        haproxy_hour: "06"
+        haproxy_milliseconds: "0"
+        haproxy_minute: "56"
+        haproxy_month: Mar
+        haproxy_monthday: "12"
+        haproxy_second: "37.6"
+        haproxy_time: "06:56:37.6"
+        haproxy_year: "2021"
+        http_host: ""
+        http_proto: ""
+        http_request: /x110
+        http_status_code: "404"
+        http_user: ""
+        http_verb: GET
+        http_version: "1.1"
+        impact_completion: "false"
+        logsource: syslog
+        message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+          0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x110 HTTP/1.1"
+        pid: "23481"
+        port: ""
+        priority: ""
+        program: haproxy
+        request: /x110
+        retries: "0"
+        server_name: dns
+        srv_queue: "0"
+        srvconn: "2"
+        static_ressource: "false"
+        termination_state: '----'
+        time_backend_connect: "1"
+        time_backend_response: "414"
+        time_duration: "416"
+        time_queue: "0"
+        time_request: "0"
+        timestamp: Mar 12 06:56:38
+        timestamp8601: ""
+      Enriched:
+        MarshaledTime: "2021-03-12T06:56:37Z"
+      StrTime: 12/Mar/2021:06:56:37 -0000
+      MarshaledTime: "2021-03-12T06:56:37Z"
+      Meta:
+        http_args_len: "0"
+        http_path: /x110
+        http_status: "404"
+        log_type: http_access-log
+        service: http
+        source_ip: 22.118.26.10
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810]
+      fe-verify~ maskurl/dns 0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0 "GET
+      / HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:36.810
+    actconn: "13"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "0"
+    bytes_read: "14557"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "14223"
+    facility: ""
+    feconn: "13"
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "36.8"
+    haproxy_time: "06:56:36.8"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /
+    http_status_code: "200"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "true"
+    logsource: syslog
+    message: 22.118.26.10:14223 [12/Mar/2021:06:56:36.810] fe-verify~ maskurl/dns
+      0/0/1/319/321 200 14557 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "1"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "319"
+    time_duration: "321"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:37
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:36Z"
+  StrTime: 12/Mar/2021:06:56:36 -0000
+  MarshaledTime: "2021-03-12T06:56:36Z"
+  Process: true
+  Meta:
+    http_path: /
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140]
+      fe-verify~ maskurl/dns 0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0 "GET
+      / HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.140
+    actconn: "13"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "0"
+    bytes_read: "15207"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "58461"
+    facility: ""
+    feconn: "13"
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.1"
+    haproxy_time: "06:56:37.1"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /
+    http_status_code: "200"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "true"
+    logsource: syslog
+    message: 22.118.26.10:58461 [12/Mar/2021:06:56:37.140] fe-verify~ maskurl/dns
+      0/0/1/146/148 200 15207 - - ---- 13/13/0/1/0 0/0 "GET / HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "1"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "146"
+    time_duration: "148"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:37
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_path: /
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567]
+      fe-verify~ maskurl/dns 0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0 "GET
+      / HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.567
+    actconn: "14"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "2"
+    bytes_read: "14562"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "60924"
+    facility: ""
+    feconn: "14"
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "7"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.5"
+    haproxy_time: "06:56:37.5"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /
+    http_status_code: "200"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "true"
+    logsource: syslog
+    message: 22.118.26.10:60924 [12/Mar/2021:06:56:37.567] fe-verify~ maskurl/dns
+      0/0/1/163/165 200 14562 - - ---- 14/14/2/3/0 0/0 "GET / HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "3"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "163"
+    time_duration: "165"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:37
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_path: /
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:37 ec2-proxy haproxy[23481]: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441]
+      fe-verify~ maskurl/dns 0/0/1/482/484 200 20605 - - ---- 13/13/1/2/0 0/0 "GET
+      / HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.441
+    actconn: "13"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "20605"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "6460"
+    facility: ""
+    feconn: "13"
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "1"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.4"
+    haproxy_time: "06:56:37.4"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /
+    http_status_code: "200"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "true"
+    logsource: syslog
+    message: 22.118.26.10:6460 [12/Mar/2021:06:56:37.441] fe-verify~ maskurl/dns 0/0/1/482/484
+      200 20605 - - ---- 13/13/1/2/0 0/0 "GET / HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "482"
+    time_duration: "484"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:37
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_path: /
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      / HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /
+    http_status_code: "200"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "true"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 200 23104 - - ---- 12/12/1/2/0 0/0 "GET / HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_path: /
+    http_status: "200"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x1 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x1
+    file_name: x1
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x1
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x1 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x1
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x1
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x11 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x11
+    file_name: x11
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x11
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x11 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x11
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x11
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x12 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x12
+    file_name: x12
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x12
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x12 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x12
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x12
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x13 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x13
+    file_name: x13
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x13
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x13 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x13
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x13
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x14 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x14
+    file_name: x14
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x14
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x14 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x14
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x14
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x15 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x15
+    file_name: x15
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x15
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x15 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x15
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x15
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x16 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x16
+    file_name: x16
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x16
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x16 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x16
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x16
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x17 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x17
+    file_name: x17
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x17
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x17 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x17
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x17
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x18 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x18
+    file_name: x18
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x18
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x18 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x18
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x18
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x19 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x19
+    file_name: x19
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x19
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x19 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x19
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x19
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Mar 12 06:56:38 ec2-proxy haproxy[23481]: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690]
+      fe-verify~ maskurl/dns 0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET
+      /x110 HTTP/1.1"'
+    Src: ./collections/crowdsecurity/.tests/haproxy/haproxy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    accept_date: 12/Mar/2021:06:56:37.690
+    actconn: "12"
+    backend_name: maskurl
+    backend_queue: "0"
+    beconn: "1"
+    bytes_read: "23104"
+    captured_request_cookie: '-'
+    captured_request_headers: ""
+    captured_response_cookie: '-'
+    captured_response_headers: ""
+    client_ip: 22.118.26.10
+    client_port: "12599"
+    facility: ""
+    feconn: "12"
+    file_dir: /
+    file_ext: ""
+    file_frag: x110
+    file_name: x110
+    frontend_name: fe-verify~
+    haproxy_hour: "06"
+    haproxy_milliseconds: "0"
+    haproxy_minute: "56"
+    haproxy_month: Mar
+    haproxy_monthday: "12"
+    haproxy_second: "37.6"
+    haproxy_time: "06:56:37.6"
+    haproxy_year: "2021"
+    http_host: ""
+    http_proto: ""
+    http_request: /x110
+    http_status_code: "404"
+    http_user: ""
+    http_verb: GET
+    http_version: "1.1"
+    impact_completion: "false"
+    logsource: syslog
+    message: 22.118.26.10:12599 [12/Mar/2021:06:56:37.690] fe-verify~ maskurl/dns
+      0/0/1/414/416 404 23104 - - ---- 12/12/1/2/0 0/0 "GET /x110 HTTP/1.1"
+    pid: "23481"
+    port: ""
+    priority: ""
+    program: haproxy
+    request: /x110
+    retries: "0"
+    server_name: dns
+    srv_queue: "0"
+    srvconn: "2"
+    static_ressource: "false"
+    termination_state: '----'
+    time_backend_connect: "1"
+    time_backend_response: "414"
+    time_duration: "416"
+    time_queue: "0"
+    time_request: "0"
+    timestamp: Mar 12 06:56:38
+    timestamp8601: ""
+  Enriched:
+    MarshaledTime: "2021-03-12T06:56:37Z"
+  StrTime: 12/Mar/2021:06:56:37 -0000
+  MarshaledTime: "2021-03-12T06:56:37Z"
+  Process: true
+  Meta:
+    http_args_len: "0"
+    http_path: /x110
+    http_status: "404"
+    log_type: http_access-log
+    service: http
+    source_ip: 22.118.26.10
