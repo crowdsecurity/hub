@@ -259,65 +259,66 @@ finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
-    Raw: 22.118.26.10:10285 [12/Mar/2021:06:56:28.088] fe-verify~ maskurl/dns 0/0/0/1263/1264
-      200 20602 - - ---- 19/19/3/4/0 0/0 "GET / HTTP/1.1"
+    Raw: 'Jan 14 12:48:57 localhost haproxy[39918]: 117.136.40.129:14853 [14/Jan/2015:12:48:57.127]
+      https-in~ xx_server_https/xxx_node_8002 170/0/0/3/173 200 739 - - --NN 0/0/0/0/0
+      0/0 "GET /xxx/xxx HTTP/1.1"'
     Src: haproxy.log
     time: 0001-01-01T00:00:00Z
     Labels:
       type: haproxy
     process: false
   Parsed:
-    accept_date: 12/Mar/2021:06:56:28.088
-    actconn: "19"
-    backend_name: maskurl
+    accept_date: 14/Jan/2015:12:48:57.127
+    actconn: "0"
+    backend_name: xx_server_https
     backend_queue: "0"
-    beconn: "3"
-    bytes_read: "20602"
+    beconn: "0"
+    bytes_read: "739"
     captured_request_cookie: '-'
     captured_request_headers: ""
     captured_response_cookie: '-'
     captured_response_headers: ""
-    client_ip: 22.118.26.10
-    client_port: "10285"
-    feconn: "19"
-    frontend_name: fe-verify~
-    haproxy_hour: "06"
-    haproxy_milliseconds: "8"
-    haproxy_minute: "56"
-    haproxy_month: Mar
-    haproxy_monthday: "12"
-    haproxy_second: "28.0"
-    haproxy_time: "06:56:28.0"
-    haproxy_year: "2021"
+    client_ip: 117.136.40.129
+    client_port: "14853"
+    feconn: "0"
+    frontend_name: https-in~
+    haproxy_hour: "12"
+    haproxy_milliseconds: "7"
+    haproxy_minute: "48"
+    haproxy_month: Jan
+    haproxy_monthday: "14"
+    haproxy_second: "57.1"
+    haproxy_time: "12:48:57.1"
+    haproxy_year: "2015"
     http_host: ""
     http_proto: ""
-    http_request: /
+    http_request: /xxx/xxx
     http_status_code: "200"
     http_user: ""
     http_verb: GET
     http_version: "1.1"
-    message: 22.118.26.10:10285 [12/Mar/2021:06:56:28.088] fe-verify~ maskurl/dns
-      0/0/0/1263/1264 200 20602 - - ---- 19/19/3/4/0 0/0 "GET / HTTP/1.1"
+    message: 117.136.40.129:14853 [14/Jan/2015:12:48:57.127] https-in~ xx_server_https/xxx_node_8002
+      170/0/0/3/173 200 739 - - --NN 0/0/0/0/0 0/0 "GET /xxx/xxx HTTP/1.1"
     port: ""
     program: haproxy
-    request: /
+    request: /xxx/xxx
     retries: "0"
-    server_name: dns
+    server_name: xxx_node_8002
     srv_queue: "0"
-    srvconn: "4"
-    termination_state: '----'
+    srvconn: "0"
+    termination_state: --NN
     time_backend_connect: "0"
-    time_backend_response: "1263"
-    time_duration: "1264"
+    time_backend_response: "3"
+    time_duration: "173"
     time_queue: "0"
-    time_request: "0"
+    time_request: "170"
   Process: true
   Meta:
-    http_path: /
+    http_path: /xxx/xxx
     http_status: "200"
     log_type: http_access-log
     service: http
-    source_ip: 22.118.26.10
+    source_ip: 117.136.40.129
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
