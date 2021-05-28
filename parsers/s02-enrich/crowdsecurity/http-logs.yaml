@@ -1,5 +1,5 @@
 filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
-description: "Parse more Specifically HTTP logs, such as HTTP Code, HTTP path, HTTP args and if its a static ressource"
+description: "Parse more Specifically HTTP logs, such as HTTP Code, HTTP path, HTTP args and if its a static resource"
 name: crowdsecurity/http-logs
 pattern_syntax:
   DIR: "^.*/"
@@ -10,7 +10,7 @@ nodes:
      - parsed: "impact_completion"
        # the value of a field can as well be determined as the result of an expression
        expression: "evt.Meta.http_status in ['404', '403', '502'] ? 'false' : 'true'"
-     - target: evt.Parsed.static_ressource
+     - target: evt.Parsed.static_resource
        value: 'false'
   # let's split the path?query if possible
   - grok:
@@ -29,5 +29,5 @@ nodes:
           expression: "len(evt.Parsed.http_args)"
         - parsed: file_name
           expression: evt.Parsed.file_frag + evt.Parsed.file_ext
-        - parsed: static_ressource
+        - parsed: static_resource
           expression: "Upper(evt.Parsed.file_ext) in ['.JPG', '.CSS', '.JS', '.JPEG', '.PNG', '.SVG', '.MAP', '.ICO', '.OTF', '.GIF', '.MP3', '.MP4', '.WOFF', '.WOFF2', '.TTF', '.OTF', '.EOT', '.WEBP', '.WAV'] ? 'true' : 'false'"
