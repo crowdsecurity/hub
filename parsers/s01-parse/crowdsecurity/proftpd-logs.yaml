@@ -1,0 +1,26 @@
+onsuccess: next_stage
+name: proftpd-logs
+description: "Parse proftpd logs"
+filter: "evt.Parsed.program == 'proftpd'"
+#debug: true
+pattern_syntax:
+#2021-05-28 18:08:01,124 mantis proftpd[498625] mantis (192.168.1.142[192.168.1.142]): USER asd: no such user found from 192.168.1.142 [192.168.1.142] to ::ffff:192.168.1.23:21
+#2021-05-28 18:08:34,399 mantis proftpd[498819] mantis (192.168.1.142[192.168.1.142]): USER seb (Login failed): Incorrect password
+  PROFTPD_AUTH_FAIL: '%{TIMESTAMP:timestamp} %{HOSTNAME:hostname} proftpd[%{POSINT}] %{HOSTNAME:hostname} (%{IPORHOST}[%{IP:source_ip}]: USER %{USERNAME:username} (Login failed): Incorrect password'
+  PROFTPD_BAD_USER: '%{TIMESTAMP:timestamp} %{HOSTNAME:hostname} proftpd[%{POSINT}] %{HOSTNAME:hostname} (%{IPORHOST}[%{IP:source_ip}]): USER %{USERNAME:username} no such user found from %{IPORHOST} [%{IPORHOST}] to %{IPORHOST}:%{POSINT:port}'
+grok:
+  - pattern: "%{PROFTPD_AUTH_FAIL}"
+    apply_on: message
+  - pattern: "%{PROFTPD_BAD_USER}"
+    apply_on: message
+statics:
+    - meta: program
+      value: proftpd
+    - meta: log_type
+      value: ftp_failed_auth
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: user
+      expression: "evt.Parsed.user"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
