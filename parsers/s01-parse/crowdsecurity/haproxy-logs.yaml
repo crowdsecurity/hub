@@ -1,0 +1,23 @@
+filter: "evt.Parsed.program startsWith 'haproxy'"
+onsuccess: next_stage
+name: crowdsecurity/haproxy-logs
+description: "Parse haproxy http logs"
+grok:
+  pattern: '%{IP:client_ip}:%{INT:client_port} \[%{HAPROXYDATE:accept_date}\] %{NOTSPACE:frontend_name} %{NOTSPACE:backend_name}/%{NOTSPACE:server_name} %{INT:time_request}/%{INT:time_queue}/%{INT:time_backend_connect}/%{INT:time_backend_response}/%{NOTSPACE:time_duration} %{INT:http_status_code} %{NOTSPACE:bytes_read} %{DATA:captured_request_cookie} %{DATA:captured_response_cookie} %{NOTSPACE:termination_state} %{INT:actconn}/%{INT:feconn}/%{INT:beconn}/%{INT:srvconn}/%{NOTSPACE:retries} %{INT:srv_queue}/%{INT:backend_queue} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:http_verb} (%{URIPROTO:http_proto}://)?(?:%{USER:http_user}(?::[^@]*)?@)?(?:%{URIHOST:http_host})?(?:%{URIPATHPARAM:http_request})?( HTTP/%{NUMBER:http_version})?))?"'
+  apply_on: message
+statics:
+  - meta: log_type
+    value: http_access-log
+    #HAPROXYDATE format is unknown to dateparse, let convert it to a format we know to parse
+  - target: evt.StrTime
+    expression: evt.Parsed.haproxy_monthday + '/' + evt.Parsed.haproxy_month   + '/' + evt.Parsed.haproxy_year  + ':' +   evt.Parsed.haproxy_hour + ':' + evt.Parsed.haproxy_minute + ':' +  evt.Parsed.haproxy_second[0:2] + ' -0000'
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: evt.Parsed.client_ip
+  - meta: http_path
+    expression: evt.Parsed.http_request
+  - meta: http_status
+    expression: evt.Parsed.http_status_code
+  - parsed: request
+    expression: evt.Parsed.http_request

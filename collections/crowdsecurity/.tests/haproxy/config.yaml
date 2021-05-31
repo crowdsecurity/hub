@@ -1,0 +1,15 @@
+#configuration
+acquisition_file: acquis.yaml
+parser_results: parser_results.yaml
+bucket_results: bucket_result.yaml             
+#postoverflow_input: po_input.yaml
+index: "./config/hub/.index.json"
+configurations:      
+  parsers:
+  - crowdsecurity/haproxy-logs
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/http-logs
+  - crowdsecurity/dateparse-enrich
+  scenarios:
+  - crowdsecurity/http-probing
+
