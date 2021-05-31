@@ -243,6 +243,27 @@
     "crowdsecurity/postfix-spam"
    ]
   },
+  "crowdsecurity/proftpd": {
+   "path": "collections/crowdsecurity/proftpd.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "1a1f06b66c485ee4c7a56f0852c164ef91cff79bd53a6a21d73254f094063b30",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBQcm9GVFBkIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgotIFByb0ZUUGQgcGFyc2VyOiBgY3Jvd2RzZWN1cml0eS9wcm9mdHBkLWxvZ3NgCi0gYnJ1dGVmb3JjZSBzY2VuYXJpbyA6IGBjcm93ZHNlY3VyaXR5L3Byb2Z0cGQtYmZg",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcHJvZnRwZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvcHJvZnRwZC1iZgpkZXNjcmlwdGlvbjogInByb2Z0cGQgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gZnRwCiAgLSBicnV0ZWZvcmNlCg==",
+   "description": "proftpd support : logs and brute-force scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/proftpd-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/proftpd-bf"
+   ]
+  },
   "crowdsecurity/sshd": {
    "path": "collections/crowdsecurity/sshd.yaml",
    "version": "0.1",
@@ -623,15 +644,19 @@
   "crowdsecurity/proftpd-logs": {
    "path": "parsers/s01-parse/crowdsecurity/proftpd-logs.yaml",
    "stage": "s01-parse",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "3c5554fa827a5b62fcac2483f4012e215a8be8108332a945378ed3df56a5cdfb",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "2c2a22ed81c8325b5290e86b2fe334c704152f37649a40e2903176d4b00591c8",
+     "deprecated": false
     }
    },
    "long_description": "RlRQIChbUHJvRlRQRF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUHJvRlRQRCkpIGF1dGhlbnRpY2F0aW9uIGZhaWwgJiB1c2VyIGVudW1lcmF0aW9uIHBhcnNlci4=",
-   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IHByb2Z0cGQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHByb2Z0cGQgbG9ncyIKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdwcm9mdHBkJyIKI2RlYnVnOiB0cnVlCnBhdHRlcm5fc3ludGF4OgojMjAyMS0wNS0yOCAxODowODowMSwxMjQgbWFudGlzIHByb2Z0cGRbNDk4NjI1XSBtYW50aXMgKDE5Mi4xNjguMS4xNDJbMTkyLjE2OC4xLjE0Ml0pOiBVU0VSIGFzZDogbm8gc3VjaCB1c2VyIGZvdW5kIGZyb20gMTkyLjE2OC4xLjE0MiBbMTkyLjE2OC4xLjE0Ml0gdG8gOjpmZmZmOjE5Mi4xNjguMS4yMzoyMQojMjAyMS0wNS0yOCAxODowODozNCwzOTkgbWFudGlzIHByb2Z0cGRbNDk4ODE5XSBtYW50aXMgKDE5Mi4xNjguMS4xNDJbMTkyLjE2OC4xLjE0Ml0pOiBVU0VSIHNlYiAoTG9naW4gZmFpbGVkKTogSW5jb3JyZWN0IHBhc3N3b3JkCiAgUFJPRlRQRF9BVVRIX0ZBSUw6ICcle1RJTUVTVEFNUDp0aW1lc3RhbXB9ICV7SE9TVE5BTUU6aG9zdG5hbWV9IHByb2Z0cGRbJXtQT1NJTlR9XSAle0hPU1ROQU1FOmhvc3RuYW1lfSAoJXtJUE9SSE9TVH1bJXtJUDpzb3VyY2VfaXB9XTogVVNFUiAle1VTRVJOQU1FOnVzZXJuYW1lfSAoTG9naW4gZmFpbGVkKTogSW5jb3JyZWN0IHBhc3N3b3JkJwogIFBST0ZUUERfQkFEX1VTRVI6ICcle1RJTUVTVEFNUDp0aW1lc3RhbXB9ICV7SE9TVE5BTUU6aG9zdG5hbWV9IHByb2Z0cGRbJXtQT1NJTlR9XSAle0hPU1ROQU1FOmhvc3RuYW1lfSAoJXtJUE9SSE9TVH1bJXtJUDpzb3VyY2VfaXB9XSk6IFVTRVIgJXtVU0VSTkFNRTp1c2VybmFtZX0gbm8gc3VjaCB1c2VyIGZvdW5kIGZyb20gJXtJUE9SSE9TVH0gWyV7SVBPUkhPU1R9XSB0byAle0lQT1JIT1NUfTole1BPU0lOVDpwb3J0fScKZ3JvazoKICAtIHBhdHRlcm46ICIle1BST0ZUUERfQVVUSF9GQUlMfSIKICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBwYXR0ZXJuOiAiJXtQUk9GVFBEX0JBRF9VU0VSfSIKICAgIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHByb2dyYW0KICAgICAgdmFsdWU6IHByb2Z0cGQKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IGZ0cF9mYWlsZWRfYXV0aAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc291cmNlX2lwIgogICAgLSBtZXRhOiB1c2VyCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXIiCiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXA=",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IHByb2Z0cGQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHByb2Z0cGQgbG9ncyIKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdwcm9mdHBkJyIKZGVidWc6IHRydWUKcGF0dGVybl9zeW50YXg6CiMyMDIxLTA1LTI4IDE4OjA4OjAxLDEyNCBtYW50aXMgcHJvZnRwZFs0OTg2MjVdIG1hbnRpcyAoMTkyLjE2OC4xLjE0MlsxOTIuMTY4LjEuMTQyXSk6IFVTRVIgYXNkOiBubyBzdWNoIHVzZXIgZm91bmQgZnJvbSAxOTIuMTY4LjEuMTQyIFsxOTIuMTY4LjEuMTQyXSB0byA6OmZmZmY6MTkyLjE2OC4xLjIzOjIxCiMyMDIxLTA1LTI4IDE4OjA4OjM0LDM5OSBtYW50aXMgcHJvZnRwZFs0OTg4MTldIG1hbnRpcyAoMTkyLjE2OC4xLjE0MlsxOTIuMTY4LjEuMTQyXSk6IFVTRVIgc2ViIChMb2dpbiBmYWlsZWQpOiBJbmNvcnJlY3QgcGFzc3dvcmQKICBQUk9GVFBEX0FVVEhfRkFJTDogJyV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSAle0hPU1ROQU1FOmhvc3RuYW1lfSBwcm9mdHBkXFsle0RBVEF9XF0gJXtIT1NUTkFNRTpob3N0bmFtZX0gXCgle0lQT1JIT1NUfVxbJXtJUDpzb3VyY2VfaXB9XF1cKTogVVNFUiAle1VTRVJOQU1FOnVzZXJuYW1lfSBcKExvZ2luIGZhaWxlZFwpOiBJbmNvcnJlY3QgcGFzc3dvcmQnCiAgUFJPRlRQRF9CQURfVVNFUjogJyV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSAle0hPU1ROQU1FOmhvc3RuYW1lfSBwcm9mdHBkXFsle0RBVEF9XF0gJXtIT1NUTkFNRTpob3N0bmFtZX0gXCgle0lQT1JIT1NUfVxbJXtJUDpzb3VyY2VfaXB9XF1cKTogVVNFUiAle1VTRVJOQU1FOnVzZXJuYW1lfTogbm8gc3VjaCB1c2VyIGZvdW5kIGZyb20gJXtJUE9SSE9TVH0gXFsle0lQT1JIT1NUfVxdIHRvICV7SVBPUkhPU1R9OiV7REFUQTpwb3J0fScKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAiJXtQUk9GVFBEX0FVVEhfRkFJTH0iCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAiJXtQUk9GVFBEX0JBRF9VU0VSfSIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogcHJvZ3JhbQogICAgICB2YWx1ZTogcHJvZnRwZAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogZnRwX2ZhaWxlZF9hdXRoCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgICAtIG1ldGE6IHVzZXIKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlcm5hbWUiCiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXA=",
    "description": "Parse proftpd logs",
    "author": "crowdsecurity",
    "labels": null
@@ -1223,6 +1248,25 @@
    "labels": {
     "remediation": "true",
     "service": "postfix",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/proftpd-bf": {
+   "path": "scenarios/crowdsecurity/proftpd-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "edc55c71870271d1168cd19ad06cf4d8f1a1fbd9067db435f66c2456e22919c7",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBwcm9mdHBkIGF1dGhlbnRpY2F0aW9ucyA6CgogLSBsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiA1IG9uIHNhbWUgdGFyZ2V0IHVzZXIKIC0gbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNSB1bmlxdWUgZGlzdGluY3QgdXNlcnMKIAo=",
+   "content": "IyBmdHAgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3Byb2Z0cGQtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgcHJvZnRwZCBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnZnRwX2ZhaWxlZF9hdXRoJyIKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogc2VydmljZTogZnRwCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBwcm9mdHBkIHVzZXItZW51bQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3Byb2Z0cGQtYmZfdXNlci1lbnVtCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHByb2Z0cGQgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2Z0cF9mYWlsZWRfYXV0aCcKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS50YXJnZXRfdXNlcgpsZWFrc3BlZWQ6IDEwcwpjYXBhY2l0eTogNQpibGFja2hvbGU6IDFtCmxhYmVsczoKIHNlcnZpY2U6IGZ0cAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detect proftpd bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "ftp",
     "type": "bruteforce"
    }
   },
