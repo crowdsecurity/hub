@@ -7,9 +7,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
+	"time"
 
 	"github.com/google/go-github/github"
+	"github.com/pkg/errors"
 )
+
+type npmAPIDownloadResponse struct {
+	Downloads int `json:"downloads"`
+}
 
 type ItemInfo struct {
 	//Source info (crafted by humans)
@@ -27,6 +34,37 @@ type ItemInfo struct {
 	DownloadURL string `json:"download_url"`
 	AssetURL    string `json:"asset_url"`
 	Status      string `json:"status"`
+}
+
+func fetchExpressBouncerDownload() (int, error) {
+	now := time.Now()
+	nowFmt := fmt.Sprintf("%d-%d-%d", now.Year(), now.Month(), now.Day())
+	bouncerFirstReleaseDate := "2021-01-01"
+	url := fmt.Sprintf("https://api.npmjs.org/downloads/point/%s:%s/@crowdsec/express-bouncer", bouncerFirstReleaseDate, nowFmt)
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return 0, errors.Wrapf(err, "creating request to fetch downloads from NPM API")
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return 0, errors.Wrapf(err, "doing request to fetch downloads from NPM API")
+	}
+	if resp.Body != nil {
+		defer resp.Body.Close()
+	}
+
+	body, readErr := ioutil.ReadAll(resp.Body)
+	if readErr != nil {
+		return 0, errors.Wrapf(err, "reading body while fetching downloads from NPM API")
+	}
+	npmResp := npmAPIDownloadResponse{}
+	if err := json.Unmarshal(body, &npmResp); err != nil {
+		return 0, errors.Wrapf(err, "unmarshaling body while fetching downloads from NPM API")
+	}
+
+	return npmResp.Downloads, nil
 }
 
 //DumpJSON dumps the list to a json file
@@ -101,6 +139,13 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 				item.DownloadCount += asset.GetDownloadCount()
 			}
 		}
+	}
+	if item.Name == "cs-express-bouncer" {
+		nbDownload, err := fetchExpressBouncerDownload()
+		if err != nil {
+			return item, err
+		}
+		item.DownloadCount += nbDownload
 	}
 
 	/*get infos about latest release*/
