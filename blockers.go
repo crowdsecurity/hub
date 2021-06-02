@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	npmAPIMaxDurationMonth = 6 // in month
+	npmAPIMaxDurationMonth = 17 // in month
 )
 
 var (
