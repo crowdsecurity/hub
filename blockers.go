@@ -51,9 +51,10 @@ func fetchExpressBouncerDownload() (int, error) {
 	if err != nil {
 		return 0, errors.Wrapf(err, "doing request to fetch downloads from NPM API")
 	}
-	if resp.Body != nil {
-		defer resp.Body.Close()
+	if resp.Body == nil {
+		return 0, fmt.Errorf("response from NPM API is empty")
 	}
+	defer resp.Body.Close()
 
 	body, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil {
