@@ -15,11 +15,11 @@ import (
 )
 
 const (
-	npmAPIMaxDurationMonth = 17 // in month
+	npmAPIMaxDurationMonth = 17
 )
 
 var (
-	expressBouncerReleaseDateTime = time.Date(2020, 01, 01, 0, 0, 0, 0, time.UTC)
+	expressBouncerReleaseDateTime = time.Date(2021, 01, 01, 0, 0, 0, 0, time.UTC)
 )
 
 type npmAPIDownloadResponse struct {
