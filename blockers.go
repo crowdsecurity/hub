@@ -14,6 +14,14 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	npmAPIMaxDurationMonth = 6 // in month
+)
+
+var (
+	expressBouncerReleaseDateTime = time.Date(2020, 01, 01, 0, 0, 0, 0, time.UTC)
+)
+
 type npmAPIDownloadResponse struct {
 	Downloads int `json:"downloads"`
 }
@@ -36,11 +44,8 @@ type ItemInfo struct {
 	Status      string `json:"status"`
 }
 
-func fetchExpressBouncerDownload() (int, error) {
-	now := time.Now()
-	nowFmt := fmt.Sprintf("%d-%d-%d", now.Year(), now.Month(), now.Day())
-	bouncerFirstReleaseDate := "2021-01-01"
-	url := fmt.Sprintf("https://api.npmjs.org/downloads/point/%s:%s/@crowdsec/express-bouncer", bouncerFirstReleaseDate, nowFmt)
+func fetchExpressBouncerDownloadFromDate(startDate time.Time, endDate time.Time) (int, error) {
+	url := fmt.Sprintf("https://api.npmjs.org/downloads/point/%s:%s/@crowdsec/express-bouncer", fmt.Sprintf("%d-%d-%d", startDate.Year(), startDate.Month(), startDate.Day()), fmt.Sprintf("%d-%d-%d", endDate.Year(), endDate.Month(), endDate.Day()))
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -66,6 +71,35 @@ func fetchExpressBouncerDownload() (int, error) {
 	}
 
 	return npmResp.Downloads, nil
+}
+
+func fetchExpressBouncerDownload() (int, error) {
+	var totalDownload int
+	startDate := expressBouncerReleaseDateTime
+	endDate := startDate.AddDate(0, npmAPIMaxDurationMonth, 0)
+
+	now := time.Now()
+
+	for {
+		if endDate.After(now) {
+			nbDownload, err := fetchExpressBouncerDownloadFromDate(startDate, now)
+			if err != nil {
+				return 0, err
+			}
+			totalDownload += nbDownload
+			break
+		}
+		nbDownload, err := fetchExpressBouncerDownloadFromDate(startDate, endDate)
+		if err != nil {
+			return 0, err
+		}
+		totalDownload += nbDownload
+		startDate = endDate
+		endDate = startDate.AddDate(0, npmAPIMaxDurationMonth, 0)
+
+	}
+
+	return totalDownload, nil
 }
 
 //DumpJSON dumps the list to a json file
