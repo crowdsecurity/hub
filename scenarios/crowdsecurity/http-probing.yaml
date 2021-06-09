@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/http-probing
 description: "Detect site scanning/probing from a single ip"
-filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404', '403', '400'] && evt.Parsed.static_ressource == 'false'"
+filter: "evt.Meta.service == 'http' && evt.Meta.http_status in ['404', '403', '400'] && evt.Parsed.static_resource == 'false'"
 groupby: "evt.Meta.source_ip + '/' + evt.Parsed.target_fqdn"
 distinct: "evt.Meta.http_path"
 capacity: 10

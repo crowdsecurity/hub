@@ -19,7 +19,7 @@ init_tests() {
        cd hub-tests/ && go get -u github.com/crowdsecurity/crowdsec@$BRANCH || true &&  go build && cd ..
     else
        git clone  https://github.com/crowdsecurity/hub-tests.git
-       cd hub-tests/ &&  go build && cd ..
+       cd hub-tests/ && go get . && go build && cd ..
     fi
     cp -r hub-tests/config/ .
     mkdir config/hub data && cp .index.json config/hub/
