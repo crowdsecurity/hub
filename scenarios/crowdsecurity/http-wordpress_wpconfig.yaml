@@ -1,0 +1,14 @@
+type: leaky
+name: crowdsecurity/http-wordpress_wpconfig
+description: "detect wordpress probing : variations around wp-config.php by wpscan"
+debug: false
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name contains 'wp-config.php'"
+groupby: evt.Meta.source_ip
+distinct: evt.Parsed.file_name
+capacity: 5
+leakspeed: "10s"
+blackhole: 5m
+labels:
+ service: http
+ type: bruteforce
+ remediation: true
