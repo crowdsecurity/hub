@@ -349,20 +349,25 @@
   },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "14f428b1d171a092d703478a891db27aaf83a3f6ba99199a3be4a64d193d718d",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "502dde075615e4b98edc705b43d3c3d52de6c0d4e62340b91ab5e8676c916668",
+     "deprecated": false
     }
    },
-   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBicnV0ZWZvcmNlIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCg==",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgpkZXNjcmlwdGlvbjogIndvcmRwcmVzcyA6IGJydXRlZm9yY2UgZGV0ZWN0aW9uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3b3JkcHJlc3MKICAtIGJydXRlZm9yY2UKCg==",
-   "description": "wordpress : bruteforce detection",
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBicnV0ZWZvcmNlIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAtIHdwLWNvbmZpZy5waHAgcHJvYmluZwoK",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwpkZXNjcmlwdGlvbjogIndvcmRwcmVzcyA6IHdwLWNvbmZpZyBwcm9iaW5nIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3b3JkcHJlc3MKICAtIGJydXRlZm9yY2UKCg==",
+   "description": "wordpress : wp-config probing",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
-    "crowdsecurity/http-bf-wordpress_bf"
+    "crowdsecurity/http-bf-wordpress_bf",
+    "crowdsecurity/http-wordpress_wpconfig"
    ]
   },
   "firewallservices/lemonldap-ng": {
@@ -1244,6 +1249,25 @@
     "remediation": "true",
     "service": "http",
     "type": "sqli_probing"
+   }
+  },
+  "crowdsecurity/http-wordpress_wpconfig": {
+   "path": "scenarios/crowdsecurity/http-wordpress_wpconfig.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "ff3876c1f9828052ba633264920100aa49402ab3e41a9cb73d28853d248a6d98",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBwcm9iaW5nIHRvIGZpbmQgYWx0ZXJuYXRlIHdwLWNvbmZpZyBmaWxlLCBzdWNoIGFzIGRvbmUgYnkgd3BzY2FuLgoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNQoK",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwpkZXNjcmlwdGlvbjogImRldGVjdCB3b3JkcHJlc3MgcHJvYmluZyA6IHZhcmlhdGlvbnMgYXJvdW5kIHdwLWNvbmZpZy5waHAgYnkgd3BzY2FuIgpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2h0dHBfYWNjZXNzLWxvZycgJiYgZXZ0LlBhcnNlZC5maWxlX25hbWUgY29udGFpbnMgJ3dwLWNvbmZpZy5waHAnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5QYXJzZWQuZmlsZV9uYW1lCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "detect wordpress probing : variations around wp-config.php by wpscan",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/http-xss-probing": {
