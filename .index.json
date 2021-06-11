@@ -349,7 +349,7 @@
   },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "14f428b1d171a092d703478a891db27aaf83a3f6ba99199a3be4a64d193d718d",
@@ -358,16 +358,21 @@
     "0.2": {
      "digest": "502dde075615e4b98edc705b43d3c3d52de6c0d4e62340b91ab5e8676c916668",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "b66816ac0734bb771fafad667f26f4ba115d26ea2e42e8c6069a648afa8d738a",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBicnV0ZWZvcmNlIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAtIHdwLWNvbmZpZy5waHAgcHJvYmluZwoK",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwpkZXNjcmlwdGlvbjogIndvcmRwcmVzcyA6IHdwLWNvbmZpZyBwcm9iaW5nIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3b3JkcHJlc3MKICAtIGJydXRlZm9yY2UKCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwogIC0gbHRzaWNoL2h0dHAtd29yZHByZXNzX2luc3RhbGxfc2NhbgpkZXNjcmlwdGlvbjogIndvcmRwcmVzcyA6IHdwLWNvbmZpZyBwcm9iaW5nIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSB3b3JkcHJlc3MKICAtIGJydXRlZm9yY2UKCg==",
    "description": "wordpress : wp-config probing",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
     "crowdsecurity/http-bf-wordpress_bf",
-    "crowdsecurity/http-wordpress_wpconfig"
+    "crowdsecurity/http-wordpress_wpconfig",
+    "ltsich/http-wordpress_install_scan"
    ]
   },
   "firewallservices/lemonldap-ng": {
@@ -1567,6 +1572,25 @@
    "long_description": "dHJpZ2dlciBzY2VuYXJpbyB0byBkZXRlY3QgdzAwdHcwMHQgcGF0dGVybiB1c2VkIGJ5IGh0dHAgdnVsbmVyYWJpbGl0eSBzY2FubmVyLCBzZWUgW3RoaXMgcmVzc291cmNlXShodHRwczovL2lzYy5zYW5zLmVkdS9mb3J1bXMvZGlhcnkvdzAwdHcwMHQvOTAwLykKCj4gQ29udHJpYnV0ZWQgYnkgaHR0cHM6Ly9naXRodWIuY29tL0x0U2ljaAo=",
    "content": "I2NvbnRyaWJ1dGVkIGJ5IGx0c2ljaAp0eXBlOiB0cmlnZ2VyCm5hbWU6IGx0c2ljaC9odHRwLXcwMHR3MDB0CmRlc2NyaXB0aW9uOiAiZGV0ZWN0IHcwMHR3MDB0IgpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2h0dHBfYWNjZXNzLWxvZycgJiYgZXZ0LlBhcnNlZC5maWxlX25hbWUgY29udGFpbnMgJ3cwMHR3MDB0LmF0LklTQy5TQU5TLkRGaW5kJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaHR0cAogdHlwZTogc2NhbgogcmVtZWRpYXRpb246IHRydWUK",
    "description": "detect w00tw00t",
+   "author": "ltsich",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "scan"
+   }
+  },
+  "ltsich/http-wordpress_install_scan": {
+   "path": "scenarios/ltsich/http-wordpress_install_scan.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8de8d76a9c096edf6dde02b34f1cbd7debea2502a4a5468d4788e2c2e2407678",
+     "deprecated": false
+    }
+   },
+   "long_description": "VGhpcyBzY2VuYXJpbyBhbGxvd3MgdG8gZGV0ZWN0IGF0dGFja2VycyBwcm9iaW5nIGZvciB1bmluc3RhbGxlZCB3b3JkcHJlc3MgdmlhIGBzZXR1cC1jb25maWcucGhwYAo=",
+   "content": "dHlwZTogbGVha3kKbmFtZTogbHRzaWNoL2h0dHAtd29yZHByZXNzX2luc3RhbGxfc2NhbgpkZXNjcmlwdGlvbjogImRldGVjdCBzY2FuIGZvciB3b3JkcHJlc3MgaW5zdGFsbCIKZGVidWc6IGZhbHNlCiMgc2NhbiBvbiB1bmluc3RhbGxlZCB3b3JkcHJlc3MKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2h0dHBfYWNjZXNzLWxvZycgJiYgZXZ0LlBhcnNlZC5maWxlX25hbWUgPT0gJ3NldHVwLWNvbmZpZy5waHAnICYmIGV2dC5QYXJzZWQuaHR0cF9hcmdzID09ICdzdGVwPTAnICYmIGV2dC5QYXJzZWQuZmlsZV9kaXIgY29udGFpbnMgJ3dwLWFkbWluJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiAzCmxlYWtzcGVlZDogIjMwMHMiCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaHR0cAogdHlwZTogc2NhbgogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "detect scan for wordpress install",
    "author": "ltsich",
    "labels": {
     "remediation": "true",
