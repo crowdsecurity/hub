@@ -1,0 +1,14 @@
+type: leaky
+name: ltsich/http-wordpress_install_scan
+description: "detect scan for wordpress install"
+debug: false
+# scan on uninstalled wordpress
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'setup-config.php' && evt.Parsed.http_args == 'step=0' && evt.Parsed.file_dir contains 'wp-admin'"
+groupby: evt.Meta.source_ip
+capacity: 3
+leakspeed: "300s"
+blackhole: 5m
+labels:
+ service: http
+ type: scan
+ remediation: true
