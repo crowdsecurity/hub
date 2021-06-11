@@ -1,0 +1,1478 @@
+provisionalresults:
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "644"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "644"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66490"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66490"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "664"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wordpress/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wordpress/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "664"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wordpress/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wordpress/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66538"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wordpress/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wordpress/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66538"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wordpress/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wordpress/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "650"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wp/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wp/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "650"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //wp/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //wp/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66510"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wp/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wp/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66510"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /wp/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /wp/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //blog/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //blog/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //blog/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: //blog/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66343"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /blog/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /blog/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66343"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /blog/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:36 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:36 +0200
+      Meta:
+        http_path: /blog/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //test/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: //test/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //test/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: //test/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66370"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /test/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: /test/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66370"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /test/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: /test/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //site/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: //site/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "654"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: //site/wp-admin/setup-config.php?step=0
+        status: "301"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: //site/wp-admin/setup-config.php?step=0
+        http_status: "301"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+  s01-parse:
+    crowdsecurity/nginx-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66370"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /site/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: /site/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: nginx
+        process: true
+      Parsed:
+        body_bytes_sent: "66370"
+        http_referer: '-'
+        http_user_agent: python-requests/2.25.1
+        http_version: "1.1"
+        message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+          HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+        program: nginx
+        remote_addr: 164.132.177.1
+        remote_user: '-'
+        request: /site/wp-admin/setup-config.php?step=0
+        status: "404"
+        target_fqdn: ""
+        time_local: 01/Jun/2021:17:26:37 +0200
+        verb: GET
+      StrTime: 01/Jun/2021:17:26:37 +0200
+      Meta:
+        http_path: /site/wp-admin/setup-config.php?step=0
+        http_status: "404"
+        http_user_agent: python-requests/2.25.1
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 164.132.177.1
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "644"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 644 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: //wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66490"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66490 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: /wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "664"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wordpress/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 664 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //wordpress/wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: //wordpress/wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66538"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wordpress/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66538 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /wordpress/wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: /wordpress/wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "650"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //wp/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 650 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //wp/wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: //wp/wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66510"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /wp/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66510 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /wp/wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: /wp/wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "654"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET //blog/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //blog/wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: //blog/wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66343"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:36 +0200] "GET /blog/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66343 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /blog/wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:36 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:36 +0200
+  Process: true
+  Meta:
+    http_path: /blog/wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "654"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //test/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //test/wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:37 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:37 +0200
+  Process: true
+  Meta:
+    http_path: //test/wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66370"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /test/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /test/wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:37 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:37 +0200
+  Process: true
+  Meta:
+    http_path: /test/wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "654"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET //site/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 301 654 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: //site/wp-admin/setup-config.php?step=0
+    status: "301"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:37 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:37 +0200
+  Process: true
+  Meta:
+    http_path: //site/wp-admin/setup-config.php?step=0
+    http_status: "301"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+    Src: ./scenarios/ltsich/.tests/http-wordpress_install_scan/nginx.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    body_bytes_sent: "66370"
+    http_referer: '-'
+    http_user_agent: python-requests/2.25.1
+    http_version: "1.1"
+    message: '164.132.177.1 - - [01/Jun/2021:17:26:37 +0200] "GET /site/wp-admin/setup-config.php?step=0
+      HTTP/1.1" 404 66370 "-" "python-requests/2.25.1" '
+    program: nginx
+    remote_addr: 164.132.177.1
+    remote_user: '-'
+    request: /site/wp-admin/setup-config.php?step=0
+    status: "404"
+    target_fqdn: ""
+    time_local: 01/Jun/2021:17:26:37 +0200
+    verb: GET
+  StrTime: 01/Jun/2021:17:26:37 +0200
+  Process: true
+  Meta:
+    http_path: /site/wp-admin/setup-config.php?step=0
+    http_status: "404"
+    http_user_agent: python-requests/2.25.1
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 164.132.177.1
