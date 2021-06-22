@@ -1,6 +1,6 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'cpanel'"
-name: crowdsecurity/cpanel-login_logs
+name: crowdsecurity/cpanel-logs
 description: "Parse Cpanel logs"
 grok: 
   pattern: '\[%{DATA:date}\] info \[cpaneld\] %{IP:remote_addr} - %{NOTSPACE:username} "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
