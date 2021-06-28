@@ -63,6 +63,27 @@
     "crowdsecurity/http-generic-bf"
    ]
   },
+  "crowdsecurity/cpanel": {
+   "path": "collections/crowdsecurity/cpanel.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "708cb00f74feff6b8bc5109ba0dea0ed646229adbbb2174288ea7bd185b31e53",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBjcGFuZWwuIENvbnRhaW5zOgogKiBjcGFuZWwgbG9nIHBhcnNlcgogKiBjcGFuZWwgc2NlbmFyaW8gdG8gZGV0ZWN0IGJydXRlZm9yY2UKClRoZSByZWxldmFudCBgYWNxdWlzLnlhbWxgIHNob3VsZCBiZToKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL2hvbWUvPHVzZXJuYW1lPi9sb2dzL2NwYW5lbC9sb2dpbl9sb2cKbGFiZWxzOgogIHR5cGU6IGNwYW5lbApgYGAK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9jcGFuZWwtYmYKZGVzY3JpcHRpb246ICJjcGFuZWwgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGVmb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGNwYW5lbAogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "cpanel support : parser and bruteforce detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/cpanel-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/cpanel-bf"
+   ]
+  },
   "crowdsecurity/dovecot": {
    "path": "collections/crowdsecurity/dovecot.yaml",
    "version": "0.1",
@@ -478,6 +499,22 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNvd3JpZS1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgY293cmllIGhvbmV5cG90cyBsb2dzIgpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2Nvd3JpZSciCmdyb2s6CiAgbmFtZTogIkNPV1JJRV9ORVdfQ08iCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGVsbmV0CiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiB0ZWxuZXRfbmV3X3Nlc3Npb24KICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAgIC0gbWV0YTogZGVzdF9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5kZXN0X2lwIgogICAgLSBtZXRhOiBkZXN0X3BvcnQKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZGVzdF9wb3J0IgogICAgLSBwYXJzZWQ6ICJ0ZWxuZXRfc2Vzc2lvbiIKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudGVsbmV0X3Nlc3Npb24i",
    "description": "Parse cowrie honeypots logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/cpanel-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/cpanel-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "1ff320cb8be4b2ed7e02f2614277d32fcfe8ee60058f6480bb3ab4ff53125ae0",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBjcGFuZWwgbG9ncy4g",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnY3BhbmVsJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9jcGFuZWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIENwYW5lbCBsb2dzIgpncm9rOiAKICBwYXR0ZXJuOiAnXFsle0RBVEE6ZGF0ZX1cXSBpbmZvIFxbY3BhbmVsZFxdICV7SVA6cmVtb3RlX2FkZHJ9IC0gJXtOT1RTUEFDRTp1c2VybmFtZX0gIiV7V09SRDp2ZXJifSAle1VSSVBBVEhQQVJBTTpyZXF1ZXN0fSBIVFRQLyV7TlVNQkVSOmh0dHBfdmVyc2lvbn0iIEZBSUxFRCBMT0dJTiBjcGFuZWxkOiBicnV0ZSBmb3JjZSBhdHRlbXB0IFwodXNlciAle0RBVEF9XCkgaGFzIGxvY2tlZCBvdXQgSVAgJXtJUH0nCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogYXV0aF9iZl9sb2cgIAogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGh0dHAKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQucmVtb3RlX2FkZHIiCiAgLSBtZXRhOiBodHRwX3BhdGgKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlcXVlc3QiCiAgLSBtZXRhOiBodHRwX3ZlcmIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnZlcmIi",
+   "description": "Parse Cpanel logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -1020,6 +1057,25 @@
    "author": "crowdsecurity",
    "labels": {
     "remediation": "true"
+   }
+  },
+  "crowdsecurity/cpanel-bf": {
+   "path": "scenarios/crowdsecurity/cpanel-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "120b1820b330939330df55df5da536cbe0885c9df11a2a0986fe80197be68981",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIGF0dGVtcHRzIGluIGNwYW5lbCBsb2dpbi4g",
+   "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2NwYW5lbC1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBicnV0ZWZvcmNlIG9uIGNwYW5lbCBsb2dpbiIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2F1dGhfYmZfbG9nJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IGNwYW5lbAogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQoK",
+   "description": "Detect bruteforce on cpanel login",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "cpanel",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/dovecot-spam": {
