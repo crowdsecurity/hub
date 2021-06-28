@@ -1,0 +1,11 @@
+type: trigger
+name: crowdsecurity/cpanel-bf
+description: "Detect bruteforce on cpanel login"
+filter: "evt.Meta.log_type == 'auth_bf_log'"
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: cpanel
+  type: bruteforce
+  remediation: true
+
