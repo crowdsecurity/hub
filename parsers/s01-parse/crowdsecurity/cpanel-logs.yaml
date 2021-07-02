@@ -2,12 +2,23 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'cpanel'"
 name: crowdsecurity/cpanel-logs
 description: "Parse Cpanel logs"
-grok: 
-  pattern: '\[%{DATA:date}\] info \[cpaneld\] %{IP:remote_addr} - %{NOTSPACE:username} "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
-  apply_on: message
+pattern_syntax:
+  NO_DOUBLE_QUOTE: '[^"]+'
+nodes:
+  - grok: 
+      pattern: '\[%{DATA:date}\] info \[cpaneld\] %{IP:remote_addr} - %{NOTSPACE:username} "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_log
+  - grok: 
+      pattern: '%{IP:remote_addr} - - \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:http_resp_code} %{INT:request_body_length} "%{URI:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+      
 statics:
-  - meta: log_type
-    value: auth_bf_log  
   - meta: service
     value: http
   - meta: source_ip
