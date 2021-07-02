@@ -12,7 +12,7 @@ nodes:
         - meta: log_type
           value: auth_bf_log
   - grok: 
-      pattern: '%{IP:remote_addr} - - \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:http_resp_code} %{INT:request_body_length} "%{URI:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
+      pattern: '%{IP:remote_addr} - - \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:status} %{INT:request_body_length} "%{URI:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
       apply_on: message
       statics:
         - meta: log_type
@@ -27,3 +27,7 @@ statics:
     expression: "evt.Parsed.request"
   - meta: http_verb
     expression: "evt.Parsed.verb"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: http_status
+    expression: "evt.Parsed.status"
