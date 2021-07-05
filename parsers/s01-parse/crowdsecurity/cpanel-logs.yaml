@@ -11,13 +11,18 @@ nodes:
       statics:
         - meta: log_type
           value: auth_bf_log
-  - grok: 
-      pattern: '%{IP:remote_addr} - - \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:status} %{INT:request_body_length} "%{URI:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
+  - grok: # without user
+      pattern: '%{IP:remote_addr} - - \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:status} %{INT:request_body_length} "%{NOTSPACE:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
       apply_on: message
       statics:
         - meta: log_type
           value: http_access-log
-      
+  - grok:
+      pattern: '%{IP:remote_addr} - %{NOTSPACE:username} \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:status} %{INT:request_body_length} "%{NOTSPACE:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:remote_user}" "%{NO_DOUBLE_QUOTE}" %{NUMBER:body_bytes_sent}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
 statics:
   - meta: service
     value: http

@@ -1,0 +1,326 @@
+provisionalresults:
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/cpanel-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+          HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2086"
+        http_referer: '-'
+        http_user_agent: '-'
+        http_version: "1.0"
+        message: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+          HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+        program: cpanel
+        remote_addr: 127.0.0.1
+        remote_user: '-'
+        request: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+        http_status: "200"
+        http_user_agent: '-'
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 127.0.0.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+          HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2086"
+        http_referer: '-'
+        http_user_agent: '-'
+        http_version: "1.0"
+        message: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+          HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+        program: cpanel
+        remote_addr: 127.0.0.1
+        remote_user: '-'
+        request: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+        http_status: "200"
+        http_user_agent: '-'
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 127.0.0.1
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/cpanel-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 82.3.78.225 - - [06/08/2021:15:15:38 -0000] "GET /cPanel_magic_revision_1621000758/unprotected/cpanel/images/icon-username.png
+          HTTP/1.1" 200 0 "https://92.205.25.46:2083/cPanel_magic_revision_1621001331/unprotected/cpanel/style_v2_optimized.css"
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+          Gecko) Chrome/90.0.4430.212 Safari/537.36" "-" "-" 2083
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2083"
+        http_referer: '-'
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_version: "1.1"
+        message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow
+          HTTP/1.1" 200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+        program: cpanel
+        remote_addr: 103.139.170.232
+        remote_user: '-'
+        request: /etc/shadow
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /etc/shadow
+        http_status: "200"
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 103.139.170.232
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 82.3.78.225 - - [06/08/2021:15:15:38 -0000] "GET /cPanel_magic_revision_1621000758/unprotected/cpanel/images/icon-username.png
+          HTTP/1.1" 200 0 "https://92.205.25.46:2083/cPanel_magic_revision_1621001331/unprotected/cpanel/style_v2_optimized.css"
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+          Gecko) Chrome/90.0.4430.212 Safari/537.36" "-" "-" 2083
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2083"
+        http_referer: '-'
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_version: "1.1"
+        message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow
+          HTTP/1.1" 200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+        program: cpanel
+        remote_addr: 103.139.170.232
+        remote_user: '-'
+        request: /etc/shadow
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /etc/shadow
+        http_status: "200"
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 103.139.170.232
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/cpanel-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2083"
+        http_referer: '-'
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_version: "1.1"
+        message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow
+          HTTP/1.1" 200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+        program: cpanel
+        remote_addr: 103.139.170.232
+        remote_user: '-'
+        request: /etc/shadow
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /etc/shadow
+        http_status: "200"
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 103.139.170.232
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: cpanel
+        process: true
+      Parsed:
+        body_bytes_sent: "2083"
+        http_referer: '-'
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_version: "1.1"
+        message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow
+          HTTP/1.1" 200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+        program: cpanel
+        remote_addr: 103.139.170.232
+        remote_user: '-'
+        request: /etc/shadow
+        request_body_length: "0"
+        status: "200"
+        verb: GET
+      Meta:
+        http_path: /etc/shadow
+        http_status: "200"
+        http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/91.0.4472.114 Safari/537.36
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 103.139.170.232
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+      HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: cpanel
+    process: true
+  Parsed:
+    body_bytes_sent: "2086"
+    http_referer: '-'
+    http_user_agent: '-'
+    http_version: "1.0"
+    message: 127.0.0.1 - - [06/10/2021:11:19:31 -0000] "GET /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+      HTTP/1.0" 200 0 "-" "-" "-" "-" 2086
+    program: cpanel
+    remote_addr: 127.0.0.1
+    remote_user: '-'
+    request: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+    request_body_length: "0"
+    status: "200"
+    verb: GET
+  Process: true
+  Meta:
+    http_path: /.__cpanel__service__check__./serviceauth?sendkey=__HIDDEN__&version=1.2
+    http_status: "200"
+    http_user_agent: '-'
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 127.0.0.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 82.3.78.225 - - [06/08/2021:15:15:38 -0000] "GET /cPanel_magic_revision_1621000758/unprotected/cpanel/images/icon-username.png
+      HTTP/1.1" 200 0 "https://92.205.25.46:2083/cPanel_magic_revision_1621001331/unprotected/cpanel/style_v2_optimized.css"
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/90.0.4430.212 Safari/537.36" "-" "-" 2083
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: cpanel
+    process: true
+  Parsed:
+    body_bytes_sent: "2083"
+    http_referer: '-'
+    http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/91.0.4472.114 Safari/537.36
+    http_version: "1.1"
+    message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow HTTP/1.1"
+      200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+    program: cpanel
+    remote_addr: 103.139.170.232
+    remote_user: '-'
+    request: /etc/shadow
+    request_body_length: "0"
+    status: "200"
+    verb: GET
+  Process: true
+  Meta:
+    http_path: /etc/shadow
+    http_status: "200"
+    http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/91.0.4472.114 Safari/537.36
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 103.139.170.232
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/cpanel-logs/cpanel.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: cpanel
+    process: true
+  Parsed:
+    body_bytes_sent: "2083"
+    http_referer: '-'
+    http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/91.0.4472.114 Safari/537.36
+    http_version: "1.1"
+    message: 103.139.170.232 - - [07/05/2021:13:11:25 -0000] "GET /etc/shadow HTTP/1.1"
+      200 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)
+      Chrome/91.0.4472.114 Safari/537.36" "-" "-" 2083
+    program: cpanel
+    remote_addr: 103.139.170.232
+    remote_user: '-'
+    request: /etc/shadow
+    request_body_length: "0"
+    status: "200"
+    verb: GET
+  Process: true
+  Meta:
+    http_path: /etc/shadow
+    http_status: "200"
+    http_user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/91.0.4472.114 Safari/537.36
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 103.139.170.232
