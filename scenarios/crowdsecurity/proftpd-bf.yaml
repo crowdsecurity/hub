@@ -1,0 +1,13 @@
+type: leaky
+#debug: true
+name: crowdsecurity/proftpd-bf
+description: "Detect proftpd bruteforce"
+filter: evt.Meta.log_type == 'proftpd_failed_auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: proftpd
+ type: bruteforce
+ remediation: true

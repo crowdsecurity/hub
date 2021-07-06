@@ -1,0 +1,1 @@
+FTP (proftpd) authentication fail parser.

@@ -1,0 +1,21 @@
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/proftpd-logs
+filter: evt.Parsed.program == 'proftpd'
+description: "Parse proftpd logs"
+pattern_syntax:
+  PROFTPD_AUTH_FAIL: '%{MONTH:timestamp} %{MONTHDAY:timestamp} %{HOUR:timestamp}:%{MINUTE:timestamp}:%{SECOND:timestamp}.*\(%{DATA}\).*authentication %{WORD:auth}.*uid=%{WORD:UID}.*euid=%{WORD:EUID}.*tty=%{GREEDYDATA:TTY}.*ruser=%{GREEDYDATA:ruser}.*rhost=%{GREEDYDATA:source_ip}.*user=%{GREEDYDATA:user}'
+grok:
+  pattern: "%{PROFTPD_AUTH_FAIL}"
+  apply_on: message
+statics:
+    - meta: program
+      value: proftpd
+    - meta: log_type
+      value: proftpd_failed_auth
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: user
+      expression: "evt.Parsed.user"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
