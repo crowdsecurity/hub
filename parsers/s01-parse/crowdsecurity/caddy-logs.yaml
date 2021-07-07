@@ -1,0 +1,21 @@
+filter: "evt.Parsed.program startsWith 'caddy'"
+onsuccess: next_stage
+# debug: true
+name: crowdsecurity/caddy-logs
+description: "Parse caddy logs"
+grok:
+  pattern: '%{NOTSPACE} %{NOTSPACE} %{NOTSPACE} \[%{HTTPDATE:timestamp}\]%{DATA}'
+  expression: JsonExtract(evt.Line.Raw, "common_log")
+statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: source_ip
+    expression: JsonExtract(evt.Line.Raw, "request.remote_addr")
+  - meta: http_status
+    expression: JsonExtract(evt.Line.Raw, "request.method")
+  - meta: http_path
+    expression: JsonExtract(evt.Line.Raw, "request.uri")
+  - meta: http_user_agent
+    value: JsonExtract(evt.Line.Raw, "request.headers.User-Agent")
+  - meta: log_type
+    value: http_access-log
