@@ -182,7 +182,19 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 						AssetURL:    *releaseAsset.URL,
 					})
 				}
-				log.Printf("Got %d assets", len(release.Assets))
+				if len(release.Assets) == 0 {
+					item.Assets = append(item.Assets, Asset{
+						Name:        "Tarball",
+						DownloadURL: *release.TarballURL,
+						AssetURL:    *release.TarballURL,
+					})
+					item.Assets = append(item.Assets, Asset{
+						Name:        "Zipball",
+						DownloadURL: *release.ZipballURL,
+						AssetURL:    *release.ZipballURL,
+					})
+				}
+				log.Printf("Got %d assets", len(item.Assets))
 				break
 			}
 		}
@@ -200,7 +212,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 						AssetURL:    *releaseAsset.URL,
 					})
 				}
-				log.Printf("Got %d assets", len(release.Assets))
+				log.Printf("Got %d assets", len(item.Assets))
 				break
 			}
 		}
