@@ -32,16 +32,20 @@ type ItemInfo struct {
 	Owner string `json:"author"`
 	Logo  string `json:"logo"`
 	//Main infos about repo
-	URL           string `json:"url"`
-	Description   string `json:"description"`
-	Stargazers    int    `json:"stars"`
-	DownloadCount int    `json:"downloads"`
-	ReadmeContent string `json:"readme_content"`
-	//Infos about last downloadable version
-	LastVersion string `json:"version"`
+	URL           string  `json:"url"`
+	Description   string  `json:"description"`
+	Stargazers    int     `json:"stars"`
+	DownloadCount int     `json:"downloads"`
+	ReadmeContent string  `json:"readme_content"`
+	Status        string  `json:"status"`
+	LastVersion   string  `json:"version"`
+	Assets        []Asset `json:"assets"`
+}
+
+type Asset struct {
+	Name        string `json:"name"`
 	DownloadURL string `json:"download_url"`
 	AssetURL    string `json:"asset_url"`
-	Status      string `json:"status"`
 }
 
 func fetchExpressBouncerDownloadFromDate(startDate time.Time, endDate time.Time) (int, error) {
@@ -158,22 +162,64 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	log.Printf("len(readme) : %d", len(content))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
 
-	// Fetch nb downloads of all (pre-)releases
 	releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
 	if err != nil {
 		log.Fatalf("Failed to fetch releases : %+v", err.Error())
 	}
 	if len(releases) > 0 {
-		/*get download count*/
+		/*get latest release assets*/
+		gotLatestRelease := false
 		for _, release := range releases {
-			for x, asset := range release.Assets {
-				if x == 0 {
-					item.AssetURL = asset.GetBrowserDownloadURL()
-					log.Printf("AssetURL : %s", item.AssetURL)
+			if !*release.Prerelease {
+				gotLatestRelease = true
+				item.Status = "stable"
+				item.LastVersion = *release.TagName
+				log.Printf("LastVersion : %s", item.LastVersion)
+				for _, releaseAsset := range release.Assets {
+					item.Assets = append(item.Assets, Asset{
+						Name:        *releaseAsset.Name,
+						DownloadURL: *releaseAsset.BrowserDownloadURL,
+						AssetURL:    *releaseAsset.URL,
+					})
 				}
-				item.DownloadCount += asset.GetDownloadCount()
+				log.Printf("Got %d assets", len(release.Assets))
+				break
 			}
 		}
+		/*get latest prerelease assets (if no release)*/
+		if !gotLatestRelease {
+			for _, release := range releases {
+				gotLatestRelease = true
+				item.LastVersion = "unstable"
+				item.LastVersion = *release.TagName
+				log.Printf("LastVersion : %s", item.LastVersion)
+				for _, releaseAsset := range release.Assets {
+					item.Assets = append(item.Assets, Asset{
+						Name:        *releaseAsset.Name,
+						DownloadURL: *releaseAsset.BrowserDownloadURL,
+						AssetURL:    *releaseAsset.URL,
+					})
+				}
+				log.Printf("Got %d assets", len(release.Assets))
+				break
+			}
+		}
+		// count downloads
+		for _, release := range releases {
+			for _, releaseAsset := range release.Assets {
+				item.DownloadCount += *releaseAsset.DownloadCount
+			}
+		}
+	} else {
+		item.LastVersion = "no release"
+		item.DownloadCount = 0
+		item.Status = "development"
+		item.Assets = append(item.Assets, Asset{
+			Name:        "no release",
+			DownloadURL: *repinfo.HTMLURL + "/tags",
+			AssetURL:    *repinfo.HTMLURL + "/tags",
+		})
+		log.Printf("Has no release : %s", item.Assets[0].AssetURL)
 	}
 	if item.Name == "cs-express-bouncer" {
 		nbDownload, err := fetchExpressBouncerDownload()
@@ -183,40 +229,5 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		item.DownloadCount += nbDownload
 	}
 
-	/*get infos about latest release*/
-	release, _, _ := client.Repositories.GetLatestRelease(context.Background(), item.Owner, item.Name)
-	if release != nil {
-		item.LastVersion = *release.TagName
-		log.Printf("LastVersion : %s", item.LastVersion)
-		item.DownloadURL = release.GetHTMLURL()
-		log.Printf("DownloadURL : %s", item.DownloadURL)
-		log.Printf("len(assets) : %d", len(release.Assets))
-		if len(release.Assets) > 0 {
-			item.AssetURL = release.Assets[0].GetBrowserDownloadURL()
-		} else {
-			item.AssetURL = *release.ZipballURL
-		}
-		item.Status = "stable"
-	} else {
-		/*if has prerelease*/
-		releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
-		if err != nil {
-			log.Fatalf("Failed to fetch releases : %+v", err.Error())
-		}
-		if len(releases) > 0 {
-			item.DownloadURL = *releases[0].HTMLURL
-			item.LastVersion = *releases[0].TagName
-			item.Status = "unstable"
-			log.Printf("Has only prereleases : %s", item.DownloadURL)
-			log.Printf("LastVersion : %s", item.LastVersion)
-		} else {
-			item.LastVersion = "no release"
-			item.DownloadURL = *repinfo.HTMLURL + "/tags"
-			item.AssetURL = *repinfo.HTMLURL + "/tags"
-			item.DownloadCount = 0
-			item.Status = "development"
-			log.Printf("Has no release : %s", item.DownloadURL)
-		}
-	}
 	return item, nil
 }
