@@ -184,12 +184,12 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 				}
 				if len(release.Assets) == 0 {
 					item.Assets = append(item.Assets, Asset{
-						Name:        "Tarball",
+						Name:        "Tarball (source code)",
 						DownloadURL: *release.TarballURL,
 						AssetURL:    *release.TarballURL,
 					})
 					item.Assets = append(item.Assets, Asset{
-						Name:        "Zipball",
+						Name:        "Zipball (source code)",
 						DownloadURL: *release.ZipballURL,
 						AssetURL:    *release.ZipballURL,
 					})
