@@ -202,7 +202,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		if !gotLatestRelease {
 			for _, release := range releases {
 				gotLatestRelease = true
-				item.LastVersion = "unstable"
+				item.Status = "unstable"
 				item.LastVersion = *release.TagName
 				log.Printf("LastVersion : %s", item.LastVersion)
 				for _, releaseAsset := range release.Assets {
