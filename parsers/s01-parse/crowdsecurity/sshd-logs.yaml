@@ -3,7 +3,7 @@ filter: "evt.Parsed.program == 'sshd'"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
 pattern_syntax:
-  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP:source_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
+  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP:sshd_client_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP:sshd_client_ip}( port \d+)?'
 nodes:
   - grok:
