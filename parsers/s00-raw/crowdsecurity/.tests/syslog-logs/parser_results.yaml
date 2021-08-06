@@ -1,15 +1,26 @@
 provisionalresults:
 - s00-raw:
-    crowdsecurity/non-syslog:
+    crowdsecurity/syslog-logs:
       ExpectMode: 1
       Stage: s01-parse
       Line:
         Raw: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
+        facility: ""
+        logsource: syslog
+        message: Anacron 2.3 started on 2020-12-09
+        pid: "60105"
+        priority: ""
+        program: anacron
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
   s01-parse:
     "":
       ExpectMode: 1
@@ -18,9 +29,20 @@ provisionalresults:
         Raw: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
+        facility: ""
+        logsource: syslog
+        message: Anacron 2.3 started on 2020-12-09
+        pid: "60105"
+        priority: ""
+        program: anacron
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
   s02-enrich:
     "":
       ExpectMode: 1
@@ -29,20 +51,42 @@ provisionalresults:
         Raw: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
+        facility: ""
+        logsource: syslog
+        message: Anacron 2.3 started on 2020-12-09
+        pid: "60105"
+        priority: ""
+        program: anacron
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
 - s00-raw:
-    crowdsecurity/non-syslog:
+    crowdsecurity/syslog-logs:
       ExpectMode: 1
       Stage: s01-parse
       Line:
         Raw: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'anacron.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
   s01-parse:
     "":
       ExpectMode: 1
@@ -51,9 +95,20 @@ provisionalresults:
         Raw: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'anacron.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
   s02-enrich:
     "":
       ExpectMode: 1
@@ -62,108 +117,227 @@ provisionalresults:
         Raw: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'anacron.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:32:28
+        timestamp8601: ""
+      StrTime: Dec  9 15:32:28
 - s00-raw:
-    crowdsecurity/non-syslog:
+    crowdsecurity/syslog-logs:
       ExpectMode: 1
       Stage: s01-parse
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263]
+          manager: NetworkManager state is now CONNECTED_SITE'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        facility: ""
+        logsource: syslog
+        message: '<info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        pid: "1028"
+        priority: ""
+        program: NetworkManager
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
   s01-parse:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263]
+          manager: NetworkManager state is now CONNECTED_SITE'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        facility: ""
+        logsource: syslog
+        message: '<info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        pid: "1028"
+        priority: ""
+        program: NetworkManager
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
   s02-enrich:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263]
+          manager: NetworkManager state is now CONNECTED_SITE'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        facility: ""
+        logsource: syslog
+        message: '<info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+        pid: "1028"
+        priority: ""
+        program: NetworkManager
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
 - s00-raw:
-    crowdsecurity/non-syslog:
+    crowdsecurity/syslog-logs:
       ExpectMode: 1
       Stage: s01-parse
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher
+          Service...'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        facility: ""
+        logsource: syslog
+        message: Starting Network Manager Script Dispatcher Service...
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
   s01-parse:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher
+          Service...'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        facility: ""
+        logsource: syslog
+        message: Starting Network Manager Script Dispatcher Service...
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
   s02-enrich:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher
+          Service...'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+        facility: ""
+        logsource: syslog
+        message: Starting Network Manager Script Dispatcher Service...
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:20
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:20
 - s00-raw:
-    crowdsecurity/non-syslog:
+    crowdsecurity/syslog-logs:
       ExpectMode: 1
       Stage: s01-parse
       Line:
-        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service:
+          Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'NetworkManager-dispatcher.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:33
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:33
   s01-parse:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service:
+          Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'NetworkManager-dispatcher.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:33
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:33
   s02-enrich:
     "":
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service:
+          Succeeded.'
         Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
         time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
         process: true
+        Module: file
       Parsed:
-        message: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+        facility: ""
+        logsource: syslog
+        message: 'NetworkManager-dispatcher.service: Succeeded.'
+        pid: "1"
+        priority: ""
+        program: systemd
+        timestamp: Dec  9 15:40:33
+        timestamp8601: ""
+      StrTime: Dec  9 15:40:33
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
@@ -171,9 +345,20 @@ finalresults:
     Raw: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
     Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
     time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
     process: true
+    Module: file
   Parsed:
-    message: 'Dec  9 15:32:28 ghoua anacron[60105]: Anacron 2.3 started on 2020-12-09'
+    facility: ""
+    logsource: syslog
+    message: Anacron 2.3 started on 2020-12-09
+    pid: "60105"
+    priority: ""
+    program: anacron
+    timestamp: Dec  9 15:32:28
+    timestamp8601: ""
+  StrTime: Dec  9 15:32:28
   Process: true
 - ExpectMode: 1
   Stage: s02-enrich
@@ -181,29 +366,64 @@ finalresults:
     Raw: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
     Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
     time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
     process: true
+    Module: file
   Parsed:
-    message: 'Dec  9 15:32:28 ghoua systemd[1]: anacron.service: Succeeded.'
+    facility: ""
+    logsource: syslog
+    message: 'anacron.service: Succeeded.'
+    pid: "1"
+    priority: ""
+    program: systemd
+    timestamp: Dec  9 15:32:28
+    timestamp8601: ""
+  StrTime: Dec  9 15:32:28
   Process: true
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
-    Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+    Raw: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager:
+      NetworkManager state is now CONNECTED_SITE'
     Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
     time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
     process: true
+    Module: file
   Parsed:
-    message: 'Dec  9 15:40:20 ghoua NetworkManager[1028]: <info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+    facility: ""
+    logsource: syslog
+    message: '<info>  [1607524820.0263] manager: NetworkManager state is now CONNECTED_SITE'
+    pid: "1028"
+    priority: ""
+    program: NetworkManager
+    timestamp: Dec  9 15:40:20
+    timestamp8601: ""
+  StrTime: Dec  9 15:40:20
   Process: true
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
-    Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+    Raw: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher
+      Service...'
     Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
     time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
     process: true
+    Module: file
   Parsed:
-    message: 'Dec  9 15:40:20 ghoua systemd[1]: Starting Network Manager Script Dispatcher Service...'
+    facility: ""
+    logsource: syslog
+    message: Starting Network Manager Script Dispatcher Service...
+    pid: "1"
+    priority: ""
+    program: systemd
+    timestamp: Dec  9 15:40:20
+    timestamp8601: ""
+  StrTime: Dec  9 15:40:20
   Process: true
 - ExpectMode: 1
   Stage: s02-enrich
@@ -211,7 +431,18 @@ finalresults:
     Raw: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
     Src: ./parsers/s00-raw/crowdsecurity/.tests/syslog-logs/syslog.log
     time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
     process: true
+    Module: file
   Parsed:
-    message: 'Dec  9 15:40:33 ghoua systemd[1]: NetworkManager-dispatcher.service: Succeeded.'
+    facility: ""
+    logsource: syslog
+    message: 'NetworkManager-dispatcher.service: Succeeded.'
+    pid: "1"
+    priority: ""
+    program: systemd
+    timestamp: Dec  9 15:40:33
+    timestamp8601: ""
+  StrTime: Dec  9 15:40:33
   Process: true
