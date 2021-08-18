@@ -16,10 +16,6 @@ statics:
     expression: evt.Parsed.timestamp
   - target: evt.StrTime
     expression: evt.Parsed.timestamp8601
-  - meta: datasource_path
-    expression: evt.Line.Src
-  - meta: datasource_type
-    expression: evt.Line.Module
 ---
 #if it's not syslog, the type is the progname
 filter: "evt.Line.Labels.type != 'syslog'"
@@ -31,8 +27,4 @@ statics:
     expression: evt.Line.Raw
   - parsed: program
     expression: evt.Line.Labels.type
-  - meta: datasource_path
-    expression: evt.Line.Src
-  - meta: datasource_type
-    expression: evt.Line.Module
 ---
