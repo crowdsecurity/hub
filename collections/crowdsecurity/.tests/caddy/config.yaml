@@ -2,7 +2,7 @@
 acquisition_file: acquis.yaml
 parser_results: parser_results.yaml
 bucket_results: bucket_result.yaml             
-#postoverflow_input: po_input.yaml
+postoverflow_input: po_input.yaml
 index: "./config/hub/.index.json"
 configurations:      
   parsers:
@@ -11,7 +11,4 @@ configurations:
   - crowdsecurity/dateparse-enrich
   - crowdsecurity/http-logs
   scenarios:
-  - crowdsecurity/http-crawl-non_statics
-  - crowdsecurity/http-probing
-  - crowdsecurity/http-bad-user-agent
-  - crowdsecurity/http-path-traversal-probing
+  - crowdsecurity/http-generic-bf

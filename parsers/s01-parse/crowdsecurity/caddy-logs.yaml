@@ -34,4 +34,4 @@ statics:
   - meta: target_fqdn
     expression: JsonExtract(evt.Line.Raw, "request.host")
   - meta: sub_type
-    expression: "JsonExtract(evt.Line.Raw, 'request.status') == '401' && JsonExtract(evt.Line.Raw, 'request.headers.Authorization') startsWith 'Basic ' ? 'auth_fail' : ''"
+    expression: "JsonExtract(evt.Line.Raw, 'status') == '401' && JsonExtract(evt.Line.Raw, 'request.headers.Authorization[0]') startsWith 'Basic ' ? 'auth_fail' : ''"
