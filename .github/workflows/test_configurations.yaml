@@ -37,7 +37,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: run tests on pull request
-      if: github.ref =! 'refs/heads/master'
+      if: github.ref != 'refs/heads/master'
       run: |
         rm -rf hub-tests
         ./tests.sh -i ${{ steps.extract_branch.outputs.branch }}
