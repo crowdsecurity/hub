@@ -38,14 +38,12 @@ jobs:
         ./tests.sh -i master
         ./tests.sh --all
     - name: Find Crowdsec Latest Release Tag
-      if: github.ref == 'refs/heads/master'
       id: latesttag
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: crowdsecurity/crowdsec
         excludes: prerelease, draft
     - name: run tests on last crowdsec tag
-      if: github.ref == 'refs/heads/master'
       run: |
         rm -rf hub-tests
         ./tests.sh -i ${{ steps.latesttag.outputs.release }}
