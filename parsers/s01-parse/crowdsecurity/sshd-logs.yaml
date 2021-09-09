@@ -3,8 +3,12 @@ filter: "evt.Parsed.program == 'sshd'"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
 pattern_syntax:
-  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP:sshd_client_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
-  SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP:sshd_client_ip}( port \d+)?'
+# The IP grok pattern that ships with crowdsec is buggy and does not capture the last digit of an IP if it is the last thing it matches, and the last octet starts with a 2
+# https://github.com/crowdsecurity/crowdsec/issues/938
+  IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+  IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
+  SSHD_AUTH_FAIL: 'pam_unix\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
+  SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
 nodes:
   - grok:
       name: "SSHD_FAIL"
