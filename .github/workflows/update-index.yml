@@ -55,7 +55,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.CF_AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-1
     - name: Get branch name
-      run: echo "version=${GITHUB_REF#ref/heads/}" >> $GITHUB_ENV
+      run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
     - name: Get changed files
       run: |
         changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
