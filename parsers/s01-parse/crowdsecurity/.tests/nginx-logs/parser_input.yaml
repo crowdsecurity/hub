@@ -92,3 +92,17 @@
     message: 'user "user1": password mismatch, client: 22.22.22.22, server: dgu.site1.ru, request: "GET / HTTP/1.1", host: "dgu.site1.ru"'
     program: nginx
   Process: true
+- ExpectMode: 1
+  Stage: s01-parse
+  Line:
+    Raw: 172.18.0.1 - foo [18/Aug/2021:10:28:42 +0000] "GET /totolol42 HTTP/1.1" 200 13 "-" "curl/7.68.0" 124 0.001 [default-helloworld-helloworld-chart-5678] [] 10.244.0.15:5678 13 0.000 200 fcd78ac27a58ea14de362bc1a109acfa
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/nginx-logs/nginx.log
+    time: 2021-08-18T10:28:42.188137815+01:00
+    Labels:
+      type: nginx
+    process: true
+  Parsed:
+    message: 172.18.0.1 - foo [18/Aug/2021:10:28:42 +0000] "GET /totolol42 HTTP/1.1" 200 13 "-" "curl/7.68.0" 124 0.001 [default-helloworld-helloworld-chart-5678] [] 10.244.0.15:5678 13 0.000 200 fcd78ac27a58ea14de362bc1a109acfa
+    program: nginx
+  Time: 2021-08-18T10:28:42.188137815+01:00
+  Process: true

@@ -1,0 +1,12 @@
+#If it's docker, we are going to extract log line from it
+filter: "evt.Line.Labels.type == 'docker'"
+onsuccess: next_stage
+name: crowdsecurity/docker-logs
+description: docker json logs parser
+statics:
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Line.Raw, "time")
+  - parsed: message
+    expression: JsonExtractUnescape(evt.Line.Raw, "log")
+  - parsed: program
+    expression: evt.Line.Labels.program
