@@ -27,3 +27,15 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
+  invalidate-cache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.CF_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.CF_AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+    - name: Invalidate cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/master/blockers.json"
