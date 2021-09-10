@@ -37,3 +37,30 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
 
+  invalidate-cache:
+    runs-on: ubuntu-latest
+    #Only invalidate cache on master or vX branches
+    #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
+    #We should avoid naming dev branches with something starting with v :D 
+    if: |
+        startsWith('refs/heads/v', github.ref) || github.ref == "refs/heads/master"
+    steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.CF_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.CF_AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+    - name: Get branch name
+      run: echo "version=${GITHUB_REF#ref/heads/}" >> $GITHUB_ENV
+    - name: Get changed files
+      run: |
+        changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
+        echo "changed_files=${changed_files}" >> $GITHUB_ENV
+    - name: Invalidate cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/.index.json"
+        IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
+        for i in "${FILE[@]}"; do
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/$i"
+        done

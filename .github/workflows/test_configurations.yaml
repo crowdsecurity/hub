@@ -7,6 +7,8 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
+      - './github/workflows/**.yaml'
+      - './github/workflows/**.yml'
   push:
     branches: [ master ]
     paths:
@@ -14,6 +16,8 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
+      - './github/workflows/**.yaml'
+      - './github/workflows/**.yml'
 
 jobs:
   build-hub-tests:
@@ -28,7 +32,7 @@ jobs:
       id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-    - name: run tests on crowdsec master
+    - name: run tests
       run: |
         rm -rf hub-tests
         ./tests.sh -i master
@@ -45,6 +49,7 @@ jobs:
         ./tests.sh -i ${{ steps.latesttag.outputs.release }}
         ./tests.sh --all
     - name: generate results
+      if: github.ref == 'refs/heads/master'
       run: |
         sudo apt-get update && sudo apt-get install nodejs-dev node-gyp libssl1.0-dev && sudo apt-get install npm
         sudo npm i -g xunit-viewer

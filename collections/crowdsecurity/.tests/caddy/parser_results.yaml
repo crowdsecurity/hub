@@ -1,0 +1,3002 @@
+provisionalresults:
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+          / HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+          +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000]
+          \"GET / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+          dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+          - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+          realm=\"restricted\""]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+- s00-raw:
+    crowdsecurity/non-syslog:
+      ExpectMode: 1
+      Stage: s01-parse
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        message: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+  s01-parse:
+    crowdsecurity/caddy-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+  s02-enrich:
+    crowdsecurity/dateparse-enrich:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: caddy
+        process: true
+        Module: file
+      Parsed:
+        http_user_agent: curl/7.68.0
+        message: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+          request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+          dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - -
+          [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+          realm=\"restricted\""],"Server":["Caddy"]}}'
+        program: caddy
+        remote_addr: 4.3.2.1
+        timestamp: 20/Aug/2021:14:38:15 +0000
+      Enriched:
+        MarshaledTime: "2021-08-20T14:38:15Z"
+      StrTime: 20/Aug/2021:14:38:15 +0000
+      MarshaledTime: "2021-08-20T14:38:15Z"
+      Meta:
+        datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+        datasource_type: file
+        http_path: /
+        http_status: "401"
+        http_user_agent: curl/7.68.0
+        http_verb: GET
+        log_type: http_access-log
+        service: http
+        source_ip: 4.3.2.1
+        sub_type: auth_fail
+        target_fqdn: 1.2.3.4
+finalresults:
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET /
+      HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.021685,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56466","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE6"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET /
+      HTTP/1.1\" 401 0","duration":1.454630671,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.0488262,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56468","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDI6"],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048845,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.0802214,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56470","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDM6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000072965,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.1047845,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56472","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDQ6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073988,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.1277888,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56474","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDU6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000069514,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.1531997,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56476","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDY6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000045596,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.178097,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56478","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDc6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073199,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.2042072,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56480","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDg6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000071197,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.2284892,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56482","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDk6"],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000048071,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.2521052,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56484","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEwOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006208,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+      / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.2770648,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56486","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDExOg=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+      / HTTP/1.1\" 401 0","duration":0.000052192,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.3031821,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56488","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEyOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000050552,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.3306925,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56490","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDEzOg=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000055182,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.3563068,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56492","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE0Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000073157,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.3790708,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56494","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE1Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00007271,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+      / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.404682,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56496","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"User-Agent":["curl/7.68.0"],"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE2Og=="]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \"GET
+      / HTTP/1.1\" 401 0","duration":0.000048384,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.4275782,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56498","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE3Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000053963,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.450833,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56500","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Authorization":["Basic
+      dGVzdDE4Og=="],"User-Agent":["curl/7.68.0"],"Accept":["*/*"]}},"common_log":"4.3.2.1
+      - - [20/Aug/2021:14:38:15 +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00006384,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.47368,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56502","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDE5Og=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.000047112,"size":0,"status":401,"resp_headers":{"Server":["Caddy"],"Www-Authenticate":["Basic
+      realm=\"restricted\""]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    Src: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: caddy
+    process: true
+    Module: file
+  Parsed:
+    http_user_agent: curl/7.68.0
+    impact_completion: "true"
+    message: '{"level":"error","ts":1629470295.4980552,"logger":"http.log.access.log0","msg":"handled
+      request","request":{"remote_addr":"4.3.2.1:56504","proto":"HTTP/1.1","method":"GET","host":"1.2.3.4","uri":"/","headers":{"Accept":["*/*"],"Authorization":["Basic
+      dGVzdDIwOg=="],"User-Agent":["curl/7.68.0"]}},"common_log":"4.3.2.1 - - [20/Aug/2021:14:38:15
+      +0000] \"GET / HTTP/1.1\" 401 0","duration":0.00004843,"size":0,"status":401,"resp_headers":{"Www-Authenticate":["Basic
+      realm=\"restricted\""],"Server":["Caddy"]}}'
+    program: caddy
+    remote_addr: 4.3.2.1
+    static_ressource: "false"
+    timestamp: 20/Aug/2021:14:38:15 +0000
+  Enriched:
+    MarshaledTime: "2021-08-20T14:38:15Z"
+  StrTime: 20/Aug/2021:14:38:15 +0000
+  MarshaledTime: "2021-08-20T14:38:15Z"
+  Process: true
+  Meta:
+    datasource_path: ./collections/crowdsecurity/.tests/caddy/caddy.log
+    datasource_type: file
+    http_path: /
+    http_status: "401"
+    http_user_agent: curl/7.68.0
+    http_verb: GET
+    log_type: http_access-log
+    service: http
+    source_ip: 4.3.2.1
+    sub_type: auth_fail
+    target_fqdn: 1.2.3.4
