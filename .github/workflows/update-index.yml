@@ -11,6 +11,7 @@ on:
       - 'parsers/**.md'
       - 'postoverflows/**.md'
       - 'collections/**.md'
+      - '.github/workflows/update-index.yml'
 
 jobs:
   build:
@@ -43,7 +44,7 @@ jobs:
     #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
     #We should avoid naming dev branches with something starting with v :D 
     if: |
-        startsWith('refs/heads/v', github.ref) || github.ref == "refs/heads/master"
+        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
