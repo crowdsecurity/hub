@@ -4,9 +4,13 @@ debug: false
 filter: "evt.Parsed.program == 'dovecot'"
 name: crowdsecurity/dovecot-logs
 description: "Parse dovecot logs"
-grok:
-  pattern: "%{WORD:protocol}-login: %{DATA:dovecot_login_result}: user=<%{DATA:dovecot_user}>.*, rip=%{IP:dovecot_remote_ip}, lip=%{IP:dovecot_local_ip}"
-  apply_on: message
+nodes:
+  - grok:
+      pattern: "%{WORD:protocol}-login: %{DATA:dovecot_login_result}: user=<%{DATA:dovecot_user}>.*, rip=%{IP:dovecot_remote_ip}, lip=%{IP:dovecot_local_ip}"
+      apply_on: message
+  - grok:
+      pattern: "auth-worker\\(%{INT}\\): pam\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip},?%{DATA}\\): (%{DATA}: )?%{DATA:dovecot_login_result}$"
+      apply_on: message
 statics:
     - meta: log_type
       value: dovecot_logs
