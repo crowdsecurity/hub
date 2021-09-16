@@ -5,7 +5,9 @@ provisionalresults:
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected
+          (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN,
+          rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
         Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
         time: 0001-01-01T00:00:00Z
         Labels:
@@ -18,7 +20,8 @@ provisionalresults:
         dovecot_user: toto@toto.com
         facility: ""
         logsource: syslog
-        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>,
+          method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
         pid: "8421"
         priority: ""
         program: dovecot
@@ -34,7 +37,9 @@ provisionalresults:
       ExpectMode: 1
       Stage: s02-enrich
       Line:
-        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected
+          (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN,
+          rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
         Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
         time: 0001-01-01T00:00:00Z
         Labels:
@@ -47,7 +52,8 @@ provisionalresults:
         dovecot_user: toto@toto.com
         facility: ""
         logsource: syslog
-        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+        message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>,
+          method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
         pid: "8421"
         priority: ""
         program: dovecot
@@ -58,11 +64,129 @@ provisionalresults:
       Meta:
         log_type: dovecot_logs
         source_ip: 4.4.4.4
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/dovecot-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Sep 8 07:16:29 canyon dovecot: auth-worker(24058): pam(toto,1.1.1.1,<youpi>):
+          pam_authenticate() failed: Authentication failure (password mismatch?)'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_login_result: Authentication failure (password mismatch?)
+        dovecot_remote_ip: 1.1.1.1
+        dovecot_user: toto
+        facility: ""
+        logsource: syslog
+        message: 'auth-worker(24058): pam(toto,1.1.1.1,<youpi>): pam_authenticate()
+          failed: Authentication failure (password mismatch?)'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 1.1.1.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Sep 8 07:16:29 canyon dovecot: auth-worker(24058): pam(toto,1.1.1.1,<youpi>):
+          pam_authenticate() failed: Authentication failure (password mismatch?)'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_login_result: Authentication failure (password mismatch?)
+        dovecot_remote_ip: 1.1.1.1
+        dovecot_user: toto
+        facility: ""
+        logsource: syslog
+        message: 'auth-worker(24058): pam(toto,1.1.1.1,<youpi>): pam_authenticate()
+          failed: Authentication failure (password mismatch?)'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 1.1.1.1
+- s00-raw: {}
+  s01-parse:
+    crowdsecurity/dovecot-logs:
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Sep 8 07:46:51 canyon dovecot: auth-worker(24544): pam(toto,1.1.1.1):
+          unknown user'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_login_result: unknown user
+        dovecot_remote_ip: 1.1.1.1
+        dovecot_user: toto
+        facility: ""
+        logsource: syslog
+        message: 'auth-worker(24544): pam(toto,1.1.1.1): unknown user'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 1.1.1.1
+  s02-enrich:
+    "":
+      ExpectMode: 1
+      Stage: s02-enrich
+      Line:
+        Raw: 'Sep 8 07:46:51 canyon dovecot: auth-worker(24544): pam(toto,1.1.1.1):
+          unknown user'
+        Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+        time: 0001-01-01T00:00:00Z
+        Labels:
+          type: syslog
+        process: true
+      Parsed:
+        dovecot_login_result: unknown user
+        dovecot_remote_ip: 1.1.1.1
+        dovecot_user: toto
+        facility: ""
+        logsource: syslog
+        message: 'auth-worker(24544): pam(toto,1.1.1.1): unknown user'
+        pid: "8421"
+        priority: ""
+        program: dovecot
+        timestamp: Nov 10 15:01:29
+        timestamp8601: ""
+      StrTime: Nov 10 15:01:29
+      Meta:
+        log_type: dovecot_logs
+        source_ip: 1.1.1.1
 finalresults:
 - ExpectMode: 1
   Stage: s02-enrich
   Line:
-    Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+    Raw: 'Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth
+      failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4,
+      lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
     Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
     time: 0001-01-01T00:00:00Z
     Labels:
@@ -75,7 +199,8 @@ finalresults:
     dovecot_user: toto@toto.com
     facility: ""
     logsource: syslog
-    message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
+    message: 'imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>,
+      method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>'
     pid: "8421"
     priority: ""
     program: dovecot
@@ -87,3 +212,58 @@ finalresults:
   Meta:
     log_type: dovecot_logs
     source_ip: 4.4.4.4
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Sep 8 07:16:29 canyon dovecot: auth-worker(24058): pam(toto,1.1.1.1,<youpi>):
+      pam_authenticate() failed: Authentication failure (password mismatch?)'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    dovecot_login_result: Authentication failure (password mismatch?)
+    dovecot_remote_ip: 1.1.1.1
+    dovecot_user: toto
+    facility: ""
+    logsource: syslog
+    message: 'auth-worker(24058): pam(toto,1.1.1.1,<youpi>): pam_authenticate() failed:
+      Authentication failure (password mismatch?)'
+    pid: "8421"
+    priority: ""
+    program: dovecot
+    timestamp: Nov 10 15:01:29
+    timestamp8601: ""
+  StrTime: Nov 10 15:01:29
+  Process: true
+  Meta:
+    log_type: dovecot_logs
+    source_ip: 1.1.1.1
+- ExpectMode: 1
+  Stage: s02-enrich
+  Line:
+    Raw: 'Sep 8 07:46:51 canyon dovecot: auth-worker(24544): pam(toto,1.1.1.1): unknown
+      user'
+    Src: ./parsers/s01-parse/crowdsecurity/.tests/dovecot-logs/mail.info
+    time: 0001-01-01T00:00:00Z
+    Labels:
+      type: syslog
+    process: true
+  Parsed:
+    dovecot_login_result: unknown user
+    dovecot_remote_ip: 1.1.1.1
+    dovecot_user: toto
+    facility: ""
+    logsource: syslog
+    message: 'auth-worker(24544): pam(toto,1.1.1.1): unknown user'
+    pid: "8421"
+    priority: ""
+    program: dovecot
+    timestamp: Nov 10 15:01:29
+    timestamp8601: ""
+  StrTime: Nov 10 15:01:29
+  Process: true
+  Meta:
+    log_type: dovecot_logs
+    source_ip: 1.1.1.1
