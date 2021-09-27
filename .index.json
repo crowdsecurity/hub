@@ -329,15 +329,19 @@
   },
   "crowdsecurity/sshd": {
    "path": "collections/crowdsecurity/sshd.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "21159aeb87529efcf1a5033f720413d5321a6451bab679a999f7f01a7aa972b3",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "72f6329808fafbb42da52cc6476a6e794d0a1ae5b3847e0060cf23593dd40352",
+     "deprecated": false
     }
    },
-   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBzc2hkIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBzc2ggcGFyc2VyCiAtIHNzaCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCiAKCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBzc2hkIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBzc2ggcGFyc2VyCiAtIHNzaCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCiAtIHNzaCAnc2xvdycgYnJ1dGVmb3JjZSAmIGVudW1lcmF0aW9uIGRldGVjdGlvbgogCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
    "description": "sshd support : parser and brute-force detection",
    "author": "crowdsecurity",
    "labels": null,
@@ -345,7 +349,8 @@
     "crowdsecurity/sshd-logs"
    ],
    "scenarios": [
-    "crowdsecurity/ssh-bf"
+    "crowdsecurity/ssh-bf",
+    "crowdsecurity/ssh-slow-bf"
    ]
   },
   "crowdsecurity/vsftpd": {
@@ -1614,6 +1619,28 @@
    "long_description": "RGV0ZWN0IGZhaWxlZCBzc2ggYXV0aGVudGljYXRpb25zIDoKCiAtIGxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiA1IHVuaXF1ZSBkaXN0aW5jdCB1c2VycwogCg==",
    "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NzaC1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzc2ggYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9mYWlsZWQtYXV0aCciCmxlYWtzcGVlZDogIjEwcyIKcmVmZXJlbmNlczoKICAtIGh0dHA6Ly93aWtpcGVkaWEuY29tL3NzaC1iZi1pcy1iYWQKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKIHNlcnZpY2U6IHNzaAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKLS0tCiMgc3NoIHVzZXItZW51bQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NzaC1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdzc2hfZmFpbGVkLWF1dGgnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudGFyZ2V0X3VzZXIKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBzc2gKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCgo=",
    "description": "Detect ssh bruteforce",
+   "author": "crowdsecurity",
+   "references": [
+    "http://wikipedia.com/ssh-bf-is-bad"
+   ],
+   "labels": {
+    "remediation": "true",
+    "service": "ssh",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/ssh-slow-bf": {
+   "path": "scenarios/crowdsecurity/ssh-slow-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "1b910bf7af59dab8dfbba8a735aafb3e4871d1237b29d56f53d7c0eece0381cf",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHNsb3cgc3NoIGJydXRlZm9yY2UgYXV0aGVudGljYXRpb25zIDoKCiAtIGxlYWtzcGVlZCBvZiA2MHMsIGNhcGFjaXR5IG9mIDYgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgNjBzLCBjYXBhY2l0eSBvZiA2IHVuaXF1ZSBkaXN0aW5jdCB1c2VycwogCg==",
+   "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHNsb3cgc3NoIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdzc2hfZmFpbGVkLWF1dGgnIgpsZWFrc3BlZWQ6ICI2MHMiCnJlZmVyZW5jZXM6CiAgLSBodHRwOi8vd2lraXBlZGlhLmNvbS9zc2gtYmYtaXMtYmFkCmNhcGFjaXR5OiA2Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiBzZXJ2aWNlOiBzc2gKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQojIHNzaCB1c2VyLWVudW0KdHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9zc2gtc2xvdy1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3Qgc2xvdyBzc2ggdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9mYWlsZWQtYXV0aCcKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS50YXJnZXRfdXNlcgpsZWFrc3BlZWQ6IDYwcwpjYXBhY2l0eTogNgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHNlcnZpY2U6IHNzaAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detect slow ssh bruteforce",
    "author": "crowdsecurity",
    "references": [
     "http://wikipedia.com/ssh-bf-is-bad"
