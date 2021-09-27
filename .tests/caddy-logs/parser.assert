@@ -1,0 +1,23 @@
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"level\":\"error\",\"ts\":1629470295.021685,\"logger\":\"http.log.access.log0\",\"msg\":\"handled request\",\"request\":{\"remote_addr\":\"4.3.2.1:56466\",\"proto\":\"HTTP/1.1\",\"method\":\"GET\",\"host\":\"1.2.3.4\",\"uri\":\"/\",\"headers\":{\"User-Agent\":[\"curl/7.68.0\"],\"Accept\":[\"*/*\"]}},\"common_log\":\"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \\\"GET / HTTP/1.1\\\" 401 0\",\"duration\":1.454630671,\"size\":0,\"status\":401,\"resp_headers\":{\"Server\":[\"Caddy\"],\"Www-Authenticate\":[\"Basic realm=\\\"restricted\\\"\"]}}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "caddy"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "caddy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["timestamp"] == "20/Aug/2021:14:38:15 +0000"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["http_user_agent"] == "curl/7.68.0"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["message"] == "{\"level\":\"error\",\"ts\":1629470295.021685,\"logger\":\"http.log.access.log0\",\"msg\":\"handled request\",\"request\":{\"remote_addr\":\"4.3.2.1:56466\",\"proto\":\"HTTP/1.1\",\"method\":\"GET\",\"host\":\"1.2.3.4\",\"uri\":\"/\",\"headers\":{\"User-Agent\":[\"curl/7.68.0\"],\"Accept\":[\"*/*\"]}},\"common_log\":\"4.3.2.1 - - [20/Aug/2021:14:38:15 +0000] \\\"GET / HTTP/1.1\\\" 401 0\",\"duration\":1.454630671,\"size\":0,\"status\":401,\"resp_headers\":{\"Server\":[\"Caddy\"],\"Www-Authenticate\":[\"Basic realm=\\\"restricted\\\"\"]}}"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["program"] == "caddy"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["remote_addr"] == "4.3.2.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["http_status"] == "401"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["http_user_agent"] == "curl/7.68.0"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["target_fqdn"] == "1.2.3.4"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["source_ip"] == "4.3.2.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["datasource_path"] == "caddy-logs.log"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["http_path"] == "/"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["log_type"] == "http_access-log"
+
