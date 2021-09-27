@@ -1,0 +1,27 @@
+filter: "evt.Parsed.program startsWith 'iis'"
+onsuccess: next_stage
+name: crowdsecurity/iis-logs
+description: "Parse iis access"
+nodes:
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:log_timestamp} %{IPORHOST:site} %{WORD:method} %{URIPATH:page} %{NOTSPACE:querystring} %{NUMBER:port} %{NOTSPACE:username} %{IPORHOST:clienthost} %{NOTSPACE:useragent} %{NOTSPACE:referer} %{NUMBER:response} %{NUMBER:subresponse} %{NUMBER:scstatus} %{NUMBER:timetaken:int}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Parsed.log_timestamp
+    onsuccess: next_stage
+statics:
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Parsed.clienthost"
+  - meta: http_status
+    expression: "evt.Parsed.scstatus"
+  - meta: http_path
+    expression: "evt.Parsed.page"
+  - meta: http_verb
+    expression: "evt.Parsed.method"
+  - meta: http_user_agent
+    expression: "evt.Parsed.useragent"
