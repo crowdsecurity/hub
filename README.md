@@ -56,8 +56,11 @@ What is relevant here is that every test is composed of :
 
  - A log file and it's associated type (same `type` as seen in acquis `labels:type`)
  - A configuration specifying which parsers and/or scenarios must be enabled for the test
- - A *ultimately* a list of assertions that must be run against the parsers and/or scenarios output
+ - A *ultimately* list of assertions that must be run against the parsers and/or scenarios output
 
+Note: You can provide the parsers and scenarios you want in your test with `--parsers` and `--scenarios` (you can provide multiple parsers and scenarios)
+
+If you want to test only a scenario, you can specify (`--ignore-parsers`) or set the `ignore_parsers` to `true` in the config.yaml
 
 2. Configure your test
 
@@ -121,7 +124,7 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Meta["source_ip"] == "
 ...
 ```
 
-As our parser.assert is empty, the tool is generating some "suggested" asserts for us.
+As our `parser.assert` is empty, the tool is generating some "suggested" asserts for us.
 Your careful eye will keep only the ones relevant to the parser you're testing :
 
 
