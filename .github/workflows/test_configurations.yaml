@@ -1,4 +1,4 @@
-name: Test Hub Configurations Items on Hub Changes
+name: HubTest
 on:
   pull_request:
     branches: [ master ]
@@ -32,6 +32,10 @@ jobs:
       id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
+    - name: "Force machineid"
+      run: |
+          sudo chmod +w /etc/machine-id
+          echo githubciXXXXXXXXXXXXXXXXXXXXXXXX | sudo tee /etc/machine-id
     - name: run tests
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
