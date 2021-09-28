@@ -1,3 +1,4 @@
+len(results["s01-parse"]["crowdsecurity/pgsql-logs"]) == 6
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-09-28 09:22:18.536 UTC [147] 1.2.3.4 i_dont_exist@postgres FATAL:  password authentication failed for user \"i_dont_exist\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "postgres"
