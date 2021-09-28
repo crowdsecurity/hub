@@ -1,3 +1,5 @@
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
+len(results["s01-parse"]["crowdsecurity/apache2-logs"]) == 6
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Evt.Parsed["httpversion"] == "1.0"
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Evt.Parsed["auth"] == "-"
