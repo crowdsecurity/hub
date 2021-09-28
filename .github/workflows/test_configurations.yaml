@@ -20,7 +20,7 @@ on:
       - './github/workflows/**.yml'
 
 jobs:
-  build-hub-tests:
+  run-hub-tests:
     runs-on: ubuntu-latest
     env:
       RESULTS_PATH: .
@@ -36,12 +36,12 @@ jobs:
       run: |
           sudo chmod +w /etc/machine-id
           echo githubciXXXXXXXXXXXXXXXXXXXXXXXX | sudo tee /etc/machine-id
-    - name: run tests
+    - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
         cd crowdsec/
         git checkout hub_tests
-        sudo ./wizard.sh --unattented
+        sudo ./wizard.sh --unattended
     - name: run tests on last crowdsec tag
       run: |
         cscli hubtest run --all
