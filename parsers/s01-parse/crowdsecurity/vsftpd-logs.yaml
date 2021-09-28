@@ -5,9 +5,14 @@ filter: "evt.Parsed.program == 'vsftpd'"
 #debug: true
 pattern_syntax:
   FTP_AUTH_FAIL: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "(::ffff:)?%{IP:source_ip}"'
-grok:
-  pattern: "%{FTP_AUTH_FAIL}"
-  apply_on: message
+  FTP_DENIED_USER: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FTP response: Client "(::ffff:)?%{IP:source_ip}", "530 Permission denied."'
+nodes:
+  - grok:
+      pattern: "%{FTP_AUTH_FAIL}"
+      apply_on: message
+  - grok:
+      pattern: "%{FTP_DENIED_USER}"
+      apply_on: message
 statics:
     - meta: program
       value: vsftpd
