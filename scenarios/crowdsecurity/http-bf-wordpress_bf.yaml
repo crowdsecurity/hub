@@ -6,7 +6,7 @@ debug: false
 filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'wp-login.php' && evt.Parsed.verb == 'POST'"
 groupby: evt.Meta.source_ip
 capacity: 5
-leakspeed: 2m
+leakspeed: 10s
 blackhole: 5m
 labels:
  service: http
