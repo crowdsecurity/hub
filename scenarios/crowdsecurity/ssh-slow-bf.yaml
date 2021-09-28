@@ -6,7 +6,7 @@ filter: "evt.Meta.log_type == 'ssh_failed-auth'"
 leakspeed: "60s"
 references:
   - http://wikipedia.com/ssh-bf-is-bad
-capacity: 6
+capacity: 10
 groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
@@ -23,7 +23,7 @@ filter: evt.Meta.log_type == 'ssh_failed-auth'
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 leakspeed: 60s
-capacity: 6
+capacity: 10
 blackhole: 1m
 labels:
  service: ssh
