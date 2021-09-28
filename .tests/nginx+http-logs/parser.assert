@@ -1,3 +1,5 @@
+len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 5
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 5
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["http_version"] == "1.1"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["message"] == "5.5.8.5 - - [04/Jan/2020:07:25:02 +0000] \"GET /.well-known/acme-challenge/FMuukC2JOJ5HKmLBujjE_BkDo HTTP/1.1\" 404 522 \"-\" \"Go-http-client/1.1\""
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["program"] == "nginx"
