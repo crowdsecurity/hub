@@ -1,0 +1,27 @@
+len(results) == 1
+"127.0.0.1" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["127.0.0.1"].IP == "127.0.0.1"
+results[0].Overflow.Sources["127.0.0.1"].Range == ""
+results[0].Overflow.Sources["127.0.0.1"].GetScope() == "Ip"
+results[0].Overflow.Sources["127.0.0.1"].GetValue() == "127.0.0.1"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "nginx-bad-user-agent.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("http_path") == "/"
+results[0].Overflow.Alert.Events[0].GetMeta("http_status") == "200"
+results[0].Overflow.Alert.Events[0].GetMeta("http_user_agent") == "Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:Port Check)"
+results[0].Overflow.Alert.Events[0].GetMeta("http_verb") == "HEAD"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "http_access-log"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "http"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "127.0.0.1"
+results[0].Overflow.Alert.Events[1].GetMeta("datasource_path") == "nginx-bad-user-agent.log"
+results[0].Overflow.Alert.Events[1].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[1].GetMeta("http_path") == "/"
+results[0].Overflow.Alert.Events[1].GetMeta("http_status") == "200"
+results[0].Overflow.Alert.Events[1].GetMeta("http_user_agent") == "Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:getinfo)"
+results[0].Overflow.Alert.Events[1].GetMeta("http_verb") == "GET"
+results[0].Overflow.Alert.Events[1].GetMeta("log_type") == "http_access-log"
+results[0].Overflow.Alert.Events[1].GetMeta("service") == "http"
+results[0].Overflow.Alert.Events[1].GetMeta("source_ip") == "127.0.0.1"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/http-bad-user-agent"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 2
