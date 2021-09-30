@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/sshd-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- crowdsecurity/ssh-slow-bf
+#we put this one on purpose : we want only to trigger the slow-bf
+- crowdsecurity/ssh-bf 
+ostoverflows:
+- ""
+log_file: ssh-slow-bf.log
+log_type: syslog
+ignore_parsers: true
