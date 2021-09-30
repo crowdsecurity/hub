@@ -27,3 +27,7 @@ statics:
     value: modsecurity
   - meta: source_ip
     expression: evt.Parsed.sourcehost
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: rule_id
+    expression: evt.Parsed.ruleid
