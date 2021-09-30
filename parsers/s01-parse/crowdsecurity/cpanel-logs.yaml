@@ -11,6 +11,8 @@ nodes:
       statics:
         - meta: log_type
           value: auth_bf_log
+        - target: evt.StrTime
+          expression: evt.Parsed.date
   - grok: # see https://docs.cpanel.net/knowledge-base/cpanel-product/the-cpanel-log-files/
       pattern: '%{IP:remote_addr} - %{NOTSPACE:username} \[%{DATE}:%{TIME} %{ISO8601_TIMEZONE}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" %{INT:status} %{INT:request_body_length} "%{NOTSPACE:http_referer}" "%{NO_DOUBLE_QUOTE:http_user_agent}" "%{NO_DOUBLE_QUOTE:auth_method}" "%{NO_DOUBLE_QUOTE:x_forwarded_for}" %{NUMBER:server_port}'
       apply_on: message
