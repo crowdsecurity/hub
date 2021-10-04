@@ -46,7 +46,6 @@ jobs:
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
         cd crowdsec/
-        git checkout hub_tests
         BUILD_VERSION=${{ steps.keydb.outputs.release }} make release
         cd crowdsec-${{ steps.keydb.outputs.release }}
         sudo ./wizard.sh --unattended
