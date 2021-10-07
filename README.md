@@ -4,8 +4,8 @@
 </p>
 </br>
 <p align="center">
-<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/a473458a57da096789e79c4538b432ceeac2d853/hub_parsers_badge.json">
-<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/a473458a57da096789e79c4538b432ceeac2d853/hub_scenarios_badge.json">
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_parsers_badge.json">
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_scenarios_badge.json">
 </p>
 
 <p align="center">
