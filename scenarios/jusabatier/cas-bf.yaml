@@ -1,0 +1,31 @@
+# cas bruteforce
+type: leaky
+name: jusabatier/cas-bf
+description: "Detect CAS bruteforce"
+filter: "evt.Meta.log_type == 'cas_failed-auth'"
+leakspeed: "10s"
+references:
+  - http://wikipedia.com/cas-bf-is-bad
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: cas
+ type: bruteforce
+ remediation: true
+---
+# cas user-enum
+type: leaky
+name: jusabatier/cas-bf_user-enum
+description: "Detect CAS user enum bruteforce"
+filter: evt.Meta.log_type == 'cas_failed-auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+ service: cas
+ type: bruteforce
+ remediation: true
