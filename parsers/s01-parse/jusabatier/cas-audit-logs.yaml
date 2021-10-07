@@ -1,0 +1,25 @@
+onsuccess: next_stage
+debug: true
+filter: "evt.Parsed.program == 'cas'"
+name: jusabatier/cas-audit-logs
+description: "Parse CAS Audits logs"
+pattern_syntax:
+# The IP grok pattern that ships with crowdsec is buggy and does not capture the last digit of an IP if it is the last thing it matches, and the last octet starts with a 2
+# https://github.com/crowdsecurity/crowdsec/issues/938
+  IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+  IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
+  CAS_AUTH_FAIL: '^%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} \[%{DATA:threadname}\] - (.*)\|CAS\|(.*)\|AUTHENTICATION_FAILED\|%{USERNAME:cas_invalid_user}\|%{IP_WORKAROUND:cas_client_ip}\|(.*)$'
+nodes:
+  - grok: 
+      name: "CAS_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: cas_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.cas_invalid_user"
+statics:
+    - meta: service
+      value: cas
+    - meta: source_ip
+      expression: "evt.Parsed.cas_client_ip"
