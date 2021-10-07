@@ -1,4 +1,23 @@
 
+<p align="center">
+<img src="https://github.com/crowdsecurity/hub/blob/update_readme/assets/crowdsec_logo.png" alt="CrowdSec" title="CrowdSec" width="400" height="260"/>
+</p>
+</br>
+</br>
+</br>
+<p align="center">
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/a473458a57da096789e79c4538b432ceeac2d853/hub_parsers_badge.json">
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/a473458a57da096789e79c4538b432ceeac2d853/hub_scenarios_badge.json">
+</p>
+
+<p align="center">
+:books: <a href="https://doc.crowdsec.net">Documentation</a>
+:diamond_shape_with_a_dot_inside: <a href="https://hub.crowdsec.net">Configuration Hub</a>
+:speech_balloon: <a href="https://discourse.crowdsec.net">Discourse (Forum)</a>
+:speech_balloon: <a href="https://gitter.im/crowdsec-project/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link">Gitter (Live chat)</a>
+</p>
+
+
 > CrowdSec Hub for parsers, enrichers and scenarios.
 
 # Foreword
