@@ -54,8 +54,8 @@ jobs:
         cscli hubtest run --all --clean
         echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        echo "PARSERS_COV_NUMBER=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2 | tr -d '%')"
-        echo "SCENARIOS_COV_NUMBER=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2 | tr -d '%')"
+        echo "PARSERS_COV_NUMBER=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')"
+        echo "SCENARIOS_COV_NUMBER=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')"
         echo "PARSER_BADGE_COLOR=$(if [ "$PARSERS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
         echo "SCENARIO_BADGE_COLOR=$(if [ "$SCENARIOS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
     - name: Create Parsers badge
