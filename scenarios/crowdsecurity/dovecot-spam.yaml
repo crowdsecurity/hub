@@ -3,8 +3,7 @@ type: leaky
 name: crowdsecurity/dovecot-spam
 description: "detect errors on dovecot"
 debug: false
-# request with login != Login
-filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Parsed.dovecot_login_result != 'Login'"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
 groupby: evt.Meta.source_ip
 capacity: 3
 leakspeed: "360s"
