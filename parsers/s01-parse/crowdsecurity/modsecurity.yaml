@@ -4,7 +4,7 @@ name: crowdsecurity/modsecurity
 #debug: true
 description: A parser for modsecurity WAF
 pattern_syntax:
-  MODSECPREFIX2: "%{APACHEERRORPREFIX} ModSecurity: %{NOTSPACE:modsecseverity}\\. %{GREEDYDATA:modsecmessage}"
+  MODSECPREFIX2: "%{APACHEERRORPREFIX} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
   MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
   MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
