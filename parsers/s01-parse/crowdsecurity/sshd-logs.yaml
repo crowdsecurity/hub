@@ -8,6 +8,7 @@ pattern_syntax:
   IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
   SSHD_AUTH_FAIL: 'pam_(unix|sss)\(sshd:auth\): authentication failure; logname= uid=(\d+)? euid=(\d+)? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip} (\s)?user=%{USERNAME:sshd_invalid_user}'
+  SSHD_MAGIC_VALUE_FAILED: 'pam_(unix|sss)\(sshd:auth\): Magic value check failed \(\d*\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip}( port \d+)'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
 nodes:
   - grok:
@@ -42,6 +43,14 @@ nodes:
           expression: "evt.Parsed.sshd_invalid_user"
   - grok: 
       name: "SSHD_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok: 
+      name: "SSHD_MAGIC_VALUE_FAILED"
       apply_on: message
       statics:
         - meta: log_type
