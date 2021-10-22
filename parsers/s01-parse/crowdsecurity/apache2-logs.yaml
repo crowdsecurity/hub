@@ -48,7 +48,6 @@ nodes:
           - meta: sub_type
             value: "auth_fail"
       - filter: "evt.Parsed.module == 'core' && evt.Parsed.message contains 'Invalid URI'"
-        debug: true
         onsuccess: next_stage
         pattern_syntax:
           EXTRACT_URIVERB: 'Invalid URI in request %{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})'
