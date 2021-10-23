@@ -47,6 +47,18 @@ nodes:
             expression: evt.Parsed.target_uri
           - meta: sub_type
             value: "auth_fail"
+      - filter: "evt.Parsed.module == 'core' && evt.Parsed.message contains 'Invalid URI'"
+        onsuccess: next_stage
+        pattern_syntax:
+          EXTRACT_URIVERB: 'Invalid URI in request %{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})'
+        grok:
+          pattern: '%{EXTRACT_URIVERB}'
+          apply_on: message
+        statics:
+          - meta: http_path
+            expression: evt.Parsed.request
+          - meta: sub_type
+            value: "invalid_uri"
       - filter: "evt.Parsed.module == 'authz_core' && evt.Parsed.message contains 'client denied'"
         onsuccess: next_stage
         pattern_syntax:

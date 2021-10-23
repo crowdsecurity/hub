@@ -1,4 +1,4 @@
-name: Test Hub Configurations Items on Hub Changes
+name: HubTest
 on:
   pull_request:
     branches: [ master ]
@@ -7,8 +7,8 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - './github/workflows/**.yaml'
-      - './github/workflows/**.yml'
+      - '.github/workflows/**.yaml'
+      - '.github/workflows/**.yml'
   push:
     branches: [ master ]
     paths:
@@ -16,53 +16,66 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - './github/workflows/**.yaml'
-      - './github/workflows/**.yml'
+      - '.github/workflows/**.yaml'
+      - '.github/workflows/**.yml'
 
 jobs:
-  build-hub-tests:
+  run-hub-tests:
     runs-on: ubuntu-latest
     env:
       RESULTS_PATH: .
     steps:
-    - name: Set up Go 1.13
+    - name: Set up Go 1.16
       uses: actions/setup-go@v1
       with:
-        go-version: 1.13
+        go-version: 1.16
       id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-    - name: run tests
+    - name: "Force machineid"
       run: |
-        rm -rf hub-tests
-        ./tests.sh -i master
-        ./tests.sh --all
-    - name: Find Crowdsec Latest Release Tag
-      id: latesttag
+          sudo chmod +w /etc/machine-id
+          echo githubciXXXXXXXXXXXXXXXXXXXXXXXX | sudo tee /etc/machine-id
+    - id: keydb
       uses: pozetroninc/github-action-get-latest-release@master
       with:
-        repository: crowdsecurity/crowdsec
-        excludes: prerelease, draft
+        owner: crowdsecurity
+        repo: crowdsec
+        excludes: draft
+    - name: Install CrowdSec
+      run: |
+        git clone https://github.com/crowdsecurity/crowdsec.git
+        cd crowdsec/
+        BUILD_VERSION=${{ steps.keydb.outputs.release }} make release
+        cd crowdsec-${{ steps.keydb.outputs.release }}
+        sudo ./wizard.sh --unattended
     - name: run tests on last crowdsec tag
       run: |
-        rm -rf hub-tests
-        ./tests.sh -i ${{ steps.latesttag.outputs.release }}
-        ./tests.sh --all
-    - name: generate results
-      if: github.ref == 'refs/heads/master'
-      run: |
-        sudo apt-get update && sudo apt-get install nodejs-dev node-gyp libssl1.0-dev && sudo apt-get install npm
-        sudo npm i -g xunit-viewer
-        xunit-viewer -r output.xml
-        set +x
-        mkdir public
-        sudo mv index.html public
-      id: tests
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/master'
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+        cscli hubtest run --all --clean
+        echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
+        echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV
+        PARSERS_COV_NUMBER=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
+        SCENARIOS_COV_NUMBER=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
+        echo "PARSER_BADGE_COLOR=$(if [ "$PARSERS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
+        echo "SCENARIO_BADGE_COLOR=$(if [ "$SCENARIOS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
+    - name: Create Parsers badge
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      if: ${{ github.ref == 'refs/heads/master' }}
       with:
-        BRANCH: gh-pages
-        FOLDER: public
-        ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-        
+        auth: ${{ secrets.GIST_BADGES_SECRET }}
+        gistID: ${{ secrets.GIST_BADGES_ID }}
+        filename: hub_parsers_badge.json
+        label: Hub Parsers
+        message: ${{ env.PARSERS_COV }}
+        color: ${{ env.SCENARIO_BADGE_COLOR }}
+    - name: Create Scenarios badge
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      if: ${{ github.ref == 'refs/heads/master' }}
+      with:
+        auth: ${{ secrets.GIST_BADGES_SECRET }}
+        gistID: ${{ secrets.GIST_BADGES_ID }}
+        filename: hub_scenarios_badge.json
+        label: Hub Scenarios
+        message: ${{ env.SCENARIOS_COV }}
+        color: ${{ env.SCENARIO_BADGE_COLOR }}
+

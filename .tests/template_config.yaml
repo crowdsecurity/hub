@@ -1,0 +1,47 @@
+common:
+  daemonize: false
+  pid_dir: ./runtime
+  log_media: file
+  log_level: info
+  log_dir: ./runtime/log/
+  working_dir: .
+config_paths:
+  config_dir: ./runtime/
+  data_dir: ./runtime/data/
+  simulation_path: ./runtime/simulation.yaml
+  hub_dir: ./runtime/hub/
+  index_path: ./runtime/hub/.index.json
+  notification_dir: ./runtime/notifications/
+  plugin_dir: /usr/local/lib/crowdsec/plugins/
+crowdsec_service:
+  parser_routines: 1
+cscli:
+  output: human
+db_config:
+  log_level: info
+  type: sqlite
+  db_path: ./runtime/data/crowdsec.db
+  #user: 
+  #password:
+  #db_name:
+  #host:
+  #port:
+  flush:
+    max_items: 5000
+    max_age: 7d
+plugin_config:
+  user: nobody # plugin process would be ran on behalf of this user
+  group: nogroup # plugin process would be ran on behalf of this group
+api:
+  client:
+    insecure_skip_verify: false
+    credentials_path: ./runtime/local_api_credentials.yaml
+  server:
+    log_level: info
+    listen_uri: 127.0.0.1:8181
+    profiles_path: ./runtime/profiles.yaml
+prometheus:
+  enabled: true
+  level: full
+  listen_addr: 127.0.0.1
+  listen_port: 6060

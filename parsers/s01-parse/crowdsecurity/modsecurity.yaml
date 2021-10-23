@@ -3,11 +3,32 @@ filter: evt.Parsed.program == 'modsecurity'
 name: crowdsecurity/modsecurity
 #debug: true
 description: A parser for modsecurity WAF
+pattern_syntax:
+  APACHEERRORPREFIX2: "\\[%{APACHEERRORTIME:timestamp}\\] \\[%{NOTSPACE:apacheseverity}\\] (\\[pid %{INT}(:tid %{INT})?\\] )?\\[client %{IPORHOST:sourcehost}(:%{INT:source_port})?\\] (\\[client %{IPORHOST}\\])?"
+  MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
+  MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
+  MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
+  MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
+  MODSECRULEID2: "\\[id \"%{DATA:ruleid}\"\\]"
+  MODSECRULEREV2: "\\[rev \"%{DATA:rulerev}\"\\]"
+  MODSECRULEMSG2: "\\[msg \"%{DATA:rulemessage}\"\\]"
+  MODSECRULEDATA2: "\\[data \"%{DATA:ruledata}\"\\]"
+  MODSECRULESEVERITY2: "\\[severity \"%{DATA:ruleseverity}\"\\]"
+  MODSECRULEVERS2: "\\[ver \"[^\"]+\"\\]"
+  MODSECRULETAGS2: "(?:\\[tag \"%{DATA:ruletag0}\"\\] )?(?:\\[tag \"%{DATA:ruletag1}\"\\] )?(?:\\[tag \"%{DATA:ruletag2}\"\\] )?(?:\\[tag \"%{DATA:ruletag3}\"\\] )?(?:\\[tag \"%{DATA:ruletag4}\"\\] )?(?:\\[tag \"%{DATA:ruletag5}\"\\] )?(?:\\[tag \"%{DATA:ruletag6}\"\\] )?(?:\\[tag \"%{DATA:ruletag7}\"\\] )?(?:\\[tag \"%{DATA:ruletag8}\"\\] )?(?:\\[tag \"%{DATA:ruletag9}\"\\] )?(?:\\[tag \"%{DATA}\"\\] )*"
+  MODSECHOSTNAME2: "\\[hostname ['\"]%{DATA:targethost}[\"']\\]"
+  MODSECURI2: "\\[uri [\"']%{DATA:targeturi}[\"']\\]"
+  MODSECUID2: "\\[unique_id \"%{DATA:uniqueid}\"\\]"
+  MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
 grok:
-  name: MODSECAPACHEERROR
+  name: MODSECAPACHEERROR2
   apply_on: message
 statics:
   - meta: log_type
     value: modsecurity
   - meta: source_ip
     expression: evt.Parsed.sourcehost
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: rule_id
+    expression: evt.Parsed.ruleid
