@@ -1,0 +1,10 @@
+type: trigger
+#debug: true
+name: crowdsecurity/modsecurity_nginx
+description: "Web exploitation via modsecurity alerts in the nginx error logs"
+filter: "evt.Meta.log_type == 'http_error-log' && evt.Meta.modsec_err == 'TRUE'"
+labels:
+  type: web_attack
+  service: http
+  remediation: true
+  scope: ip
