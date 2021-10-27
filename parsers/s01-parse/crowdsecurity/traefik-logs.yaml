@@ -1,0 +1,59 @@
+# debug: true
+filter: "evt.Parsed.program startsWith 'traefik'"
+# onsuccess: next_stage
+pattern_syntax:
+  TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
+  TRAEFIK_SERVER_URL: '(%{URI}|\-)'
+  # for json just use TIMESTAMP_ISO8601
+name: crowdsecurity/traefik-logs
+description: "Parse Traefik access logs"
+
+nodes:
+  - grok: # CLF parser
+      pattern: '%{NGINXACCESS} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
+      apply_on: message
+  - grok:
+      pattern: '%{IPORHOST:remote_addr}'
+      expression: JsonExtract(evt.Line.Raw, "ClientAddr")
+  - grok:
+      pattern: '%{USERNAME:remote_user}'
+      expression: JsonExtract(evt.Line.Raw, "ClientUsername")
+  - grok:
+      pattern: '%{NUMBER:body_bytes_sent}'
+      expression: JsonExtract(evt.Line.Raw, "DownstreamContentSize")
+  - grok:
+      pattern: '%{NUMBER:request_duration_in_ms}'
+      expression: JsonExtract(evt.Line.Raw, "Duration")
+  - grok:
+      pattern: '%{TRAEFIK_ROUTER:traefik_router_name}'
+      expression: JsonExtract(evt.Line.Raw, "RouterName")
+  - grok:
+      pattern: '%{GREEDYDATA:timestamp}:'
+      expression: JsonExtract(evt.Line.Raw, "time")
+  - grok:
+      pattern: '%{WORD:method}:'
+      expression: JsonExtract(evt.Line.Raw, "RequestMethod")
+  - grok:
+      pattern: '%{URIPATHPARAM:request}:'
+      expression: JsonExtract(evt.Line.Raw, "RequestPath")
+  - grok:
+      pattern: 'HTTP/%{NUMBER:http_version}'
+      expression: JsonExtract(evt.Line.Raw, "RequestProtocol")
+  - grok:
+      pattern: '%{NUMBER:status}'
+      expression: JsonExtract(evt.Line.Raw, "DownstreamStatus")
+  - statics:
+    - meta: service
+      value: traefik
+    - meta: user
+      expression: "evt.Parsed.remote_user"
+    - meta: source_ip
+      expression: "evt.Parsed.remote_addr"
+
+  - filter: "evt.Parsed.status startsWith '4'" # 4XX status code (like 404, 401, etc.) -> invalid URI
+    onsuccess: next_stage
+    statics:
+      - meta: log_type
+        value: traefik_invalid_uri
+
+
