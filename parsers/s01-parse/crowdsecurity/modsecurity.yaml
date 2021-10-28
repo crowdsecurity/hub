@@ -5,7 +5,10 @@ name: crowdsecurity/modsecurity
 description: A parser for modsecurity WAF
 pattern_syntax:
   APACHEERRORPREFIX2: "\\[%{APACHEERRORTIME:timestamp}\\] \\[%{NOTSPACE:apacheseverity}\\] (\\[pid %{INT}(:tid %{INT})?\\] )?\\[client %{IPORHOST:sourcehost}(:%{INT:source_port})?\\] (\\[client %{IPORHOST}\\])?"
+  NGINXERRORPREFIX: "%{NGINXERRTIME:time} \\[%{LOGLEVEL:loglevel}\\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\\*%{NONNEGINT:cid} )?"
+  MODSECNGINXPREFIX: "%{NGINXERRORPREFIX} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
+  MODSECNGINXPREFIX: "ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
   MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
   MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
@@ -20,15 +23,32 @@ pattern_syntax:
   MODSECURI2: "\\[uri [\"']%{DATA:targeturi}[\"']\\]"
   MODSECUID2: "\\[unique_id \"%{DATA:uniqueid}\"\\]"
   MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
-grok:
-  name: MODSECAPACHEERROR2
-  apply_on: message
-statics:
-  - meta: log_type
-    value: modsecurity
-  - meta: source_ip
-    expression: evt.Parsed.sourcehost
-  - target: evt.StrTime
-    expression: evt.Parsed.timestamp
-  - meta: rule_id
-    expression: evt.Parsed.ruleid
+  MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
+
+
+nodes:
+  - grok:
+      name: MODSECAPACHEERROR2
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: modsecurity
+        - meta: source_ip
+          expression: evt.Parsed.sourcehost
+        - target: evt.StrTime
+          expression: evt.Parsed.timestamp
+        - meta: rule_id
+          expression: evt.Parsed.ruleid
+  - grok:
+      pattern: MODSECNGINXERROR
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: modsecurity
+        - meta: source_ip
+          expression: evt.Parsed.sourcehost
+        - target: evt.StrTime
+          expression: evt.Parsed.timestamp
+        - meta: rule_id
+          expression: evt.Parsed.ruleid
+

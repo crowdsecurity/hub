@@ -2,7 +2,8 @@ type: trigger
 #debug: true
 name: crowdsecurity/modsecurity
 description: "Web exploitation via modsecurity"
-filter: evt.Parsed.ruleseverity == 'CRITICAL'
+#modsec for nginx only logs the numerical value of the severity
+filter: evt.Parsed.ruleseverity == 'CRITICAL' or evt.Parsed.ruleseverity == '2'
 blackhole: 2m
 labels:
   type: web_attack
