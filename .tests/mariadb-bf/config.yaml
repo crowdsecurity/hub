@@ -1,9 +1,11 @@
 parsers:
 - crowdsecurity/syslog-logs
-- crowdsecurity/dateparse-enrich
 - ./parsers/s01-parse/crowdsecurity/mariadb-logs.yaml
+- crowdsecurity/dateparse-enrich
 scenarios:
 - ./scenarios/crowdsecurity/mariadb-bf.yaml
+postoverflows:
+- ""
 log_file: mariadb-bf.log
 log_type: mariadb
 ignore_parsers: true
