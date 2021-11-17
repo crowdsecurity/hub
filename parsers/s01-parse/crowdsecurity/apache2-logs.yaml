@@ -7,7 +7,7 @@ description: "Parse Apache2 access and error logs"
 #log line can be prefixed by a target_fqdn
 nodes:
   - grok:
-      pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG}( %{QS:referrer} %{QS:http_user_agent})?'
+      pattern: '(%{IPORHOST:target_fqdn} )?%{COMMONAPACHELOG}( "%{NOTDQUOTE:referrer}" "%{NOTDQUOTE:http_user_agent}")?'
       apply_on: message
       # these ones apply for both grok patterns
       statics:
