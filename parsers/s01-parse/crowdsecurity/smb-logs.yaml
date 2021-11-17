@@ -2,9 +2,21 @@ onsuccess: next_stage
 name: crowdsecurity/smb-logs
 filter: evt.Parsed.program == 'smb'
 description: "Parse SMB logs"
-grok:
-  name: "SMB_AUTH_FAIL"
-  apply_on: message
+pattern_syntax:
+  SMB_BAD_PASSWORD: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_WRONG_PASSWORD\\]%{GREEDYDATA} remote host \\[ipv4:%{IP:ip_source}"
+nodes:
+ - grok:
+    name: "SMB_AUTH_FAIL"
+    apply_on: message
+    statics:
+      - meta: subtype
+        value: smb_bad_user
+ - grok:
+    name: "SMB_BAD_PASSWORD"
+    apply_on: message
+    statics:
+      - meta: subtype
+        value: smb_bad_password
 statics:
   - meta: log_type
     value: smb_failed_auth

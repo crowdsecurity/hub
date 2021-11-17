@@ -3,10 +3,10 @@ name: firewallservices/pf-logs
 description: "Parse packet filter logs"
 format: 2.0
 pattern_syntax:
-  PF_UDP_DATA: '%{INT:src_port},%{INT:dest_port},%{INT:data_length}'
+  PF_UDP_DATA: '%{INT:src_port},%{INT:dst_port},%{INT:data_length}'
   PF_TCP_DATA: '%{PF_UDP_DATA},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{DATA:tcp_options}'
   PF_PROTOCOL_DATA: '(%{PF_TCP_DATA}|%{PF_UDP_DATA})'
-  PF_IP_DATA: '%{INT:length},%{IP:src_ip},%{IP:dest_ip},'
+  PF_IP_DATA: '%{INT:length},%{IP:src_ip},%{IP:dst_ip},'
   PF_IPv4_DATA: '%{BASE16NUM:ip4_tos},,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{WORD:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto},'
   PF_IPv6_DATA: '%{BASE16NUM:ip6_class},%{DATA:ip6_flow_label},%{INT:ip6_hop_limit},%{WORD:ip6_proto},%{INT:ip6_proto_id},'
   PF_IP_SPECIFIC_DATA: '(%{PF_IPv4_DATA}|%{PF_IPv6_DATA})'

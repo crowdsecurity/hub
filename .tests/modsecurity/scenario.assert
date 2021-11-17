@@ -1,0 +1,14 @@
+len(results) == 1
+"::1" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["::1"].IP == "::1"
+results[0].Overflow.Sources["::1"].Range == ""
+results[0].Overflow.Sources["::1"].GetScope() == "Ip"
+results[0].Overflow.Sources["::1"].GetValue() == "::1"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "modsecurity.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "modsecurity"
+results[0].Overflow.Alert.Events[0].GetMeta("rule_id") == "930100"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "::1"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/modsecurity"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1

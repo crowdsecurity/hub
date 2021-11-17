@@ -1,0 +1,26 @@
+len(results) == 3
+len(results["s01-parse"]["crowdsecurity/smb-logs"]) == 2
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[root] at [Thu, 14 Oct 2021 15:24:12.023984 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [MANTIS] remote host [ipv4:172.17.0.1:44890] mapped to [WORKGROUP]\\[root]. local host [ipv4:172.17.0.2:445] "
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["program"] == "smb"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["smb_domain"] == "WORKGROUP"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["user"] == "root"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["ip_source"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["log_type"] == "smb_failed_auth"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["source_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["subtype"] == "smb_bad_user"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["user"] == "root"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_path"] == "smb-logs.log"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["ip_source"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[administrator] at [Thu, 14 Oct 2021 15:24:16.248504 UTC] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [MANTIS] remote host [ipv4:172.17.0.1:44896] mapped to [WORKGROUP]\\[administrator]. local host [ipv4:172.17.0.2:445] "
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["program"] == "smb"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["smb_domain"] == "WORKGROUP"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["user"] == "administrator"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["datasource_path"] == "smb-logs.log"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["log_type"] == "smb_failed_auth"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["source_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["subtype"] == "smb_bad_password"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["user"] == "administrator"

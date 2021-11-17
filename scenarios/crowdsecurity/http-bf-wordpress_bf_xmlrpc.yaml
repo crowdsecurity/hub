@@ -1,0 +1,14 @@
+type: leaky
+name: crowdsecurity/http-bf-wordpress_bf_xmlrpc
+description: "detect wordpress bruteforce on xmlrpc"
+debug: false
+# XMLRPC always returns 200
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'xmlrpc.php' && evt.Parsed.verb == 'POST'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 2m
+blackhole: 5m
+labels:
+ service: http
+ type: bruteforce
+ remediation: true

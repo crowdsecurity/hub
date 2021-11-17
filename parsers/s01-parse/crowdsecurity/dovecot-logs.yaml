@@ -6,13 +6,15 @@ name: crowdsecurity/dovecot-logs
 description: "Parse dovecot logs"
 nodes:
   - grok:
-      pattern: "%{WORD:protocol}-login: %{DATA:dovecot_login_result}: user=<%{DATA:dovecot_user}>.*, rip=%{IP:dovecot_remote_ip}, lip=%{IP:dovecot_local_ip}"
+      pattern: "%{WORD:protocol}-login: %{DATA:dovecot_login_message}: user=<%{DATA:dovecot_user}>.*, rip=%{IP:dovecot_remote_ip}, lip=%{IP:dovecot_local_ip}"
       apply_on: message
   - grok:
-      pattern: "auth-worker\\(%{INT}\\): pam\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip},?%{DATA}\\): (%{DATA}: )?%{DATA:dovecot_login_result}$"
+      pattern: "auth-worker\\(%{INT}\\): pam\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip},?%{DATA}\\): (%{DATA}: )?%{DATA:dovecot_login_message}$"
       apply_on: message
 statics:
     - meta: log_type
       value: dovecot_logs
     - meta: source_ip
       expression: "evt.Parsed.dovecot_remote_ip"
+    - meta: dovecot_login_result
+      expression: "any(['Authentication failure', 'password mismatch', 'auth failed', 'unknown user'], {evt.Parsed.dovecot_login_message contains #}) ? 'auth_failed' : ''"

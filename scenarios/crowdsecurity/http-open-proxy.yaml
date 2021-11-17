@@ -1,0 +1,10 @@
+type: trigger
+name: crowdsecurity/http-open-proxy
+description: "Detect scan for open proxy"
+#apache returns 405, nginx 400
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_status in ['400','405'] && evt.Parsed.verb == 'CONNECT'"
+blackhole: 2m
+labels:
+ service: http
+ type: scan
+ remediation: true
