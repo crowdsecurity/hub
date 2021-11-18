@@ -1,0 +1,16 @@
+len(results) == 1
+"82.64.145.141" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["82.64.145.141"].IP == "82.64.145.141"
+results[0].Overflow.Sources["82.64.145.141"].Range == ""
+results[0].Overflow.Sources["82.64.145.141"].GetScope() == "Ip"
+results[0].Overflow.Sources["82.64.145.141"].GetValue() == "82.64.145.141"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "modsecurity-nginx.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "modsecurity"
+results[0].Overflow.Alert.Events[0].GetMeta("modsec_message") == "Path Traversal Attack (/../)"
+results[0].Overflow.Alert.Events[0].GetMeta("modsec_ruledata") == "Matched Data: /../ found within REQUEST_URI_RAW: /?foo=../../../../../../../../etc/passwd"
+results[0].Overflow.Alert.Events[0].GetMeta("rule_id") == "930100"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "82.64.145.141"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/modsecurity"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
