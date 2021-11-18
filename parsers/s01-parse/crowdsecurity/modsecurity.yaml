@@ -1,14 +1,14 @@
 onsuccess: next_stage
 filter: evt.Parsed.program == 'modsecurity'
 name: crowdsecurity/modsecurity
-#debug: true
+debug: true
 description: A parser for modsecurity WAF
 pattern_syntax:
   APACHEERRORPREFIX2: "\\[%{APACHEERRORTIME:timestamp}\\] \\[%{NOTSPACE:apacheseverity}\\] (\\[pid %{INT}(:tid %{INT})?\\] )?\\[client %{IPORHOST:sourcehost}(:%{INT:source_port})?\\] (\\[client %{IPORHOST}\\])?"
   NGINXERRORPREFIX: "%{NGINXERRTIME:time} \\[%{LOGLEVEL:loglevel}\\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\\*%{NONNEGINT:cid} )?"
-  MODSECNGINXPREFIX: "%{NGINXERRORPREFIX} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
+  NGINXERRORSUFFIX: "client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: \"%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}\", host: \"%{IPORHOST}\""
+  MODSECNGINXPREFIX: "%{NGINXERRORPREFIX}ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
-  MODSECNGINXPREFIX: "ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
   MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
   MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
@@ -17,14 +17,16 @@ pattern_syntax:
   MODSECRULEMSG2: "\\[msg \"%{DATA:rulemessage}\"\\]"
   MODSECRULEDATA2: "\\[data \"%{DATA:ruledata}\"\\]"
   MODSECRULESEVERITY2: "\\[severity \"%{DATA:ruleseverity}\"\\]"
-  MODSECRULEVERS2: "\\[ver \"[^\"]+\"\\]"
+  MODSECRULEMATURITY: "\\[maturity \"%{DATA:maturity}\"\\]"
+  MODSECRULEACCURACY: "\\[accuracy \"%{DATA:accuracy}\"\\]"
+  MODSECRULEVERS2: "\\[ver \"%{DATA:version}\"\\]"
   MODSECRULETAGS2: "(?:\\[tag \"%{DATA:ruletag0}\"\\] )?(?:\\[tag \"%{DATA:ruletag1}\"\\] )?(?:\\[tag \"%{DATA:ruletag2}\"\\] )?(?:\\[tag \"%{DATA:ruletag3}\"\\] )?(?:\\[tag \"%{DATA:ruletag4}\"\\] )?(?:\\[tag \"%{DATA:ruletag5}\"\\] )?(?:\\[tag \"%{DATA:ruletag6}\"\\] )?(?:\\[tag \"%{DATA:ruletag7}\"\\] )?(?:\\[tag \"%{DATA:ruletag8}\"\\] )?(?:\\[tag \"%{DATA:ruletag9}\"\\] )?(?:\\[tag \"%{DATA}\"\\] )*"
   MODSECHOSTNAME2: "\\[hostname ['\"]%{DATA:targethost}[\"']\\]"
   MODSECURI2: "\\[uri [\"']%{DATA:targeturi}[\"']\\]"
   MODSECUID2: "\\[unique_id \"%{DATA:uniqueid}\"\\]"
+  MODSECREF2: "\\[ref \"%{DATA:ref}\"\\]"
   MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
-  MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
-
+  MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?(?:%{MODSECRULEMATURITY} )?(?:%{MODSECRULEACCURACY} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2} %{MODSECREF2}, %{NGINXERRORSUFFIX}"
 
 nodes:
   - grok:
@@ -39,16 +41,24 @@ nodes:
           expression: evt.Parsed.timestamp
         - meta: rule_id
           expression: evt.Parsed.ruleid
+        - meta: modsec_message
+          expression: evt.Parsed.rulemessage
+        - meta: modsec_ruledata
+          expression: evt.Parsed.ruledata
   - grok:
-      pattern: MODSECNGINXERROR
+      name: MODSECNGINXERROR
       apply_on: message
       statics:
         - meta: log_type
           value: modsecurity
         - meta: source_ip
-          expression: evt.Parsed.sourcehost
+          expression: evt.Parsed.remote_addr
         - target: evt.StrTime
-          expression: evt.Parsed.timestamp
+          expression: evt.Parsed.time
         - meta: rule_id
           expression: evt.Parsed.ruleid
+        - meta: modsec_message
+          expression: evt.Parsed.rulemessage
+        - meta: modsec_ruledata
+          expression: evt.Parsed.ruledata
 
