@@ -6,7 +6,7 @@ Need to :
 
 Sample log4j config : 
 
-```
+```xml
 [...]
         <RollingFile name="auditlogfile" fileName="${baseDir}/cas_audit.log" append="true"
                      filePattern="${baseDir}/cas_audit-%d{yyyy-MM-dd-HH}-%i.log">
