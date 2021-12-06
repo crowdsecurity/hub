@@ -13,7 +13,7 @@ nodes:
           expression: evt.Parsed.time_local
   - grok:
         # and this one the error log
-        pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}'
+        pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
         apply_on: message
         statics:
           - meta: log_type
@@ -26,7 +26,7 @@ nodes:
     nodes:
       - filter: "evt.Parsed.message contains 'was not found in'"
         pattern_syntax:
-          USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}", client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+          USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}"'
         grok:
           pattern: '%{USER_NOT_FOUND}'
           apply_on: message
@@ -37,7 +37,7 @@ nodes:
             expression: evt.Parsed.username
       - filter: "evt.Parsed.message contains 'password mismatch'"
         pattern_syntax:
-          PASSWORD_MISMATCH: 'user "%{NO_DOUBLE_QUOTE:username}": password mismatch, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
+          PASSWORD_MISMATCH: 'user "%{NO_DOUBLE_QUOTE:username}": password mismatch'
         grok:
           pattern: '%{PASSWORD_MISMATCH}'
           apply_on: message
