@@ -131,6 +131,27 @@
     "crowdsecurity/dovecot-spam"
    ]
   },
+  "crowdsecurity/fastly": {
+   "path": "collections/crowdsecurity/fastly.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "6bac9453d3b274fc310b558fe41672ff09ac910463e3bea982b4f14cb3a7bf61",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBmYXN0bHkgYWdhaW5zdCBjb21tb24gaHR0cCBhdHRhY2tzIDoKIC0gZmFzdGx5IGRlZmF1bHQgbG9nIGZvcm1hdCBwYXJzZXIKIC0gYmFzZSBodHRwIHNjZW5hcmlvcyAoY3Jhd2wsIDQwNCBzY2FuLCBiZiBldGMuKQoKICoqTWFuZGF0b3J5KiogWW91IG5lZWQgdG8gYWRkIHRob3NlIGxhYmVscyBvbiB0aGUgYWNxdWlzaXRpb246CmBgYApsYWJlbHM6CiAgdHlwZTogc3lzbG9nCiAgZXh0ZXJuYWxfZm9ybWF0OiBmYXN0bHkKYGBg",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvZmFzdGx5LWxvZ3MKY29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtaHR0cC1zY2VuYXJpb3MKZGVzY3JpcHRpb246ICJmYXN0bHkgc3VwcG9ydCA6IHBhcnNlciBhbmQgZ2VuZXJpYyBodHRwIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBmYXN0bHkKICAtIGh0dHAKICAtIGNyYXdsCiAgLSBzY2Fu",
+   "description": "fastly support : parser and generic http scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/fastly-logs"
+   ],
+   "collections": [
+    "crowdsecurity/base-http-scenarios"
+   ]
+  },
   "crowdsecurity/haproxy": {
    "path": "collections/crowdsecurity/haproxy.yaml",
    "version": "0.1",
@@ -688,6 +709,22 @@
    },
    "content": "I2NvbnRyaWJ1dGlvbiBieSBAbHRzaWNoCm9uc3VjY2VzczogbmV4dF9zdGFnZQpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdkb3ZlY290JyIKbmFtZTogY3Jvd2RzZWN1cml0eS9kb3ZlY290LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBkb3ZlY290IGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIiV7V09SRDpwcm90b2NvbH0tbG9naW46ICV7REFUQTpkb3ZlY290X2xvZ2luX21lc3NhZ2V9OiB1c2VyPTwle0RBVEE6ZG92ZWNvdF91c2VyfT4uKiwgcmlwPSV7SVA6ZG92ZWNvdF9yZW1vdGVfaXB9LCBsaXA9JXtJUDpkb3ZlY290X2xvY2FsX2lwfSIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICJhdXRoLXdvcmtlclxcKCV7SU5UfVxcKTogcGFtXFwoJXtEQVRBOmRvdmVjb3RfdXNlcn0sJXtJUDpkb3ZlY290X3JlbW90ZV9pcH0sPyV7REFUQX1cXCk6ICgle0RBVEF9OiApPyV7REFUQTpkb3ZlY290X2xvZ2luX21lc3NhZ2V9JCIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IGRvdmVjb3RfbG9ncwogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZG92ZWNvdF9yZW1vdGVfaXAiCiAgICAtIG1ldGE6IGRvdmVjb3RfbG9naW5fcmVzdWx0CiAgICAgIGV4cHJlc3Npb246ICJhbnkoWydBdXRoZW50aWNhdGlvbiBmYWlsdXJlJywgJ3Bhc3N3b3JkIG1pc21hdGNoJywgJ2F1dGggZmFpbGVkJywgJ3Vua25vd24gdXNlciddLCB7ZXZ0LlBhcnNlZC5kb3ZlY290X2xvZ2luX21lc3NhZ2UgY29udGFpbnMgI30pID8gJ2F1dGhfZmFpbGVkJyA6ICcnIgo=",
    "description": "Parse dovecot logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/fastly-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/fastly-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8d1cbf3514b3e7f0ff31ab725befdfdd8d2393392450f407937b80456b168b5a",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBmYXN0bHkgbG9ncyB3aXRoIGRlZmF1bHQgZm9ybWF0IFsoc2VlIGZhc2x0eSBkb2N1bWVudGF0aW9uKV0oaHR0cHM6Ly9kb2NzLmZhc3RseS5jb20vZW4vZ3VpZGVzL2ludGVncmF0aW9ucyNfbG9nZ2luZy1lbmRwb2ludHMpCgoqKk1hbmRhdG9yeSoqIFlvdSBuZWVkIHRvIGFkZCB0aG9zZSBsYWJlbHMgb24gdGhlIGFjcXVpc2l0aW9uOgpgYGAKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwogIGV4dGVybmFsX2Zvcm1hdDogZmFzdGx5CmBgYA==",
+   "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTGFiZWxzLmV4dGVybmFsX2Zvcm1hdCA9PSAnZmFzdGx5JyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L2Zhc3RseS1sb2dzCmRlc2NyaXB0aW9uOiBmYXN0bHkgbG9ncyBwYXJzZXIKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBodHRwCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGh0dHBfYWNjZXNzLWxvZwogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5tZXNzYWdlLCAidGltZXN0YW1wIikKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5tZXNzYWdlLCAiY2xpZW50X2lwIikKICAtIHRhcmdldDogZXZ0LlBhcnNlZC5yZXF1ZXN0CiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJ1cmwiKQogIC0gbWV0YTogaHR0cF9wYXRoCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJ1cmwiKQogIC0gbWV0YTogdmVyYgogICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5tZXNzYWdlLCAicmVxdWVzdF9tZXRob2QiKQogIC0gcGFyc2VkOiBodHRwX3JlZmVyZXIKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlcXVlc3RfcmVmZXJlciIpCiAgLSBwYXJzZWQ6IGh0dHBfdXNlcl9hZ2VudAogICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5tZXNzYWdlLCAicmVxdWVzdF91c2VyX2FnZW50IikKICAtIG1ldGE6IGh0dHBfc3RhdHVzCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJyZXNwb25zZV9zdGF0dXMiKQogIC0gcGFyc2VkOiBib2R5X2J5dGVzX3NlbnQKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlc3BvbnNlX2JvZHlfc2l6ZSIp",
+   "description": "fastly logs parser",
    "author": "crowdsecurity",
    "labels": null
   },

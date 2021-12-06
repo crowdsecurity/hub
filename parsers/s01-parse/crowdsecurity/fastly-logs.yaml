@@ -1,0 +1,28 @@
+filter: "evt.Line.Labels.external_format == 'fastly'"
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/fastly-logs
+description: fastly logs parser
+statics:
+  - meta: service
+    value: http
+  - meta: log_type
+    value: http_access-log
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp")
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "client_ip")
+  - target: evt.Parsed.request
+    expression: JsonExtract(evt.Parsed.message, "url")
+  - meta: http_path
+    expression: JsonExtract(evt.Parsed.message, "url")
+  - meta: verb
+    expression: JsonExtract(evt.Parsed.message, "request_method")
+  - parsed: http_referer
+    expression: JsonExtract(evt.Parsed.message, "request_referer")
+  - parsed: http_user_agent
+    expression: JsonExtract(evt.Parsed.message, "request_user_agent")
+  - meta: http_status
+    expression: JsonExtract(evt.Parsed.message, "response_status")
+  - parsed: body_bytes_sent
+    expression: JsonExtract(evt.Parsed.message, "response_body_size")
