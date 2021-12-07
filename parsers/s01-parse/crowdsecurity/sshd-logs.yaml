@@ -40,6 +40,8 @@ nodes:
       statics:
         - meta: log_type
           value: ssh_failed-auth
+        - meta: extra_log_type
+          value: ssh_bad_banner
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
