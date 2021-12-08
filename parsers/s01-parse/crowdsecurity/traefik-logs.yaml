@@ -18,8 +18,17 @@ nodes:
           pattern: '%{IPORHOST:remote_addr}'
           expression: JsonExtract(evt.Parsed.message, "ClientAddr")
       - grok:
-          pattern: '%{USERNAME:remote_user}'
-          expression: JsonExtract(evt.Parsed.message, "ClientUsername")
+          pattern: '%{IPORHOST:dest_addr}'
+          expression: JsonExtract(evt.Parsed.message, "ClientAddr")
+      - grok:
+          pattern: '%{IPORHOST:request_addr}'
+          expression: JsonExtract(evt.Parsed.message, "RequestAddr")
+      - grok:
+          pattern: '%{USERNAME:service_addr}'
+          expression: JsonExtract(evt.Parsed.message, "ServiceAddr")
+      - grok:
+          pattern: '%{USERNAME:http_user_agent}'
+          expression: JsonExtract(evt.Parsed.message, "request_User-Agent")
       - grok:
           pattern: '%{NUMBER:body_bytes_sent}'
           expression: JsonExtract(evt.Parsed.message, "DownstreamContentSize")
