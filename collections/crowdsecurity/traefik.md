@@ -1,4 +1,6 @@
-A collection to defend traefik against common attacks (currently only directory enumeration over HTTP/S):
+> Co-authored with (https://github.com/gmelodie)
+
+A collection to defend traefik against common attacks:
  - traefik parser (supports CLF and JSON)
- - directory enumeration scenario
+ - base http scenarios (crawl, 404 scan, bf)
 

@@ -1,12 +1,12 @@
-debug: true
+# co-authored with gmelodie (https://github.com/gmelodie)
+name: crowdsecurity/traefik-logs
+description: "Parse Traefik access logs"
 filter: "evt.Parsed.program startsWith 'traefik'"
+#debug: true
 onsuccess: next_stage
 pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
-name: crowdsecurity/traefik-logs
-description: "Parse Traefik access logs"
-
 nodes:
   - grok: # CLF parser
       pattern: '%{NGINXACCESS} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
