@@ -1,0 +1,11 @@
+type: trigger
+format: 2.0
+name: crowdsecurity/vmware-vcenter-vmsa-2021-0027
+description: "Detect VMSA-2021-0027 exploitation attemps"
+filter: |
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] && evt.Meta.http_path matches '/ui/vcav-bootstrap/rest/vcav-providers/provider-logo\\?url=(file|http)'
+groupby: "evt.Meta.source_ip"
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
