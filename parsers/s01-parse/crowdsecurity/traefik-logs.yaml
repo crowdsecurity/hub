@@ -42,7 +42,7 @@ nodes:
           pattern: '%{GREEDYDATA:time_local}'
           expression: JsonExtract(evt.Parsed.message, "time")
       - grok:
-          pattern: '%{GREEDYDATA:method}'
+          pattern: '%{GREEDYDATA:verb}'
           expression: JsonExtract(evt.Parsed.message, "RequestMethod")
       - grok:
           pattern: '%{GREEDYDATA:request}'

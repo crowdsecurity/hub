@@ -1,0 +1,16 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/traefik-logs.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+scenarios:
+- crowdsecurity/http-bad-user-agent
+- crowdsecurity/http-probing
+- crowdsecurity/http-path-traversal-probing
+- crowdsecurity/http-open-proxy
+postoverflows:
+- ""
+log_file: traefik_base-http-scenario.log
+log_type: traefik
+labels: {}
+ignore_parsers: true
