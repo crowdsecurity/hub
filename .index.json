@@ -216,6 +216,24 @@
     "crowdsecurity/iptables-scan-multi_ports"
    ]
   },
+  "crowdsecurity/known_exploit_cve": {
+   "path": "collections/crowdsecurity/known_exploit_cve.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7485e58be9669d2efeba2560f4427b48ae1a7387fed965493309cb86bfcb200e",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBrbm93biBDVkU6CiAtIENWRS0yMDIxLTQzNzk4",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9ncmFmYW5hLWN2ZS0yMDIxLTQzNzk4CmRlc2NyaXB0aW9uOiAibW9kc2VjdXJpdHkgc3VwcG9ydCA6IG1vZHNlY3VyaXR5IHBhcnNlciBhbmQgc2NlbmFyaW8iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHdlYgogIC0gd2Fm",
+   "description": "modsecurity support : modsecurity parser and scenario",
+   "author": "crowdsecurity",
+   "labels": null,
+   "scenarios": [
+    "crowdsecurity/grafana-cve-2021-43798"
+   ]
+  },
   "crowdsecurity/linux": {
    "path": "collections/crowdsecurity/linux.yaml",
    "version": "0.2",
@@ -1475,6 +1493,24 @@
    "labels": {
     "remediation": "true",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/grafana-cve-2021-43798": {
+   "path": "scenarios/crowdsecurity/grafana-cve-2021-43798.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "38e2367afa09fce19313601b205c7ef60ff0dcda0d5a5fbfe162d391998727cf",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBDVkUtMjAyMS00Mzc5OAo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2dyYWZhbmEtY3ZlLTIwMjEtNDM3OTgKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMjEtNDM3OTggZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgKFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgbWF0Y2hlcyAnL1BVQkxJQy9QTFVHSU5TL1teL10rLy4uL1suL10rLycKICAgIG9yCiAgICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIG1hdGNoZXMgJy9QVUJMSUMvUExVR0lOUy9bXi9dKy8lMkUlMkUvWyUyRS9dKy8nKQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect cve-2021-43798 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
    }
   },
   "crowdsecurity/http-backdoors-attempts": {
