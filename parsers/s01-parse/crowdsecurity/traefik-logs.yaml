@@ -44,11 +44,19 @@ nodes:
       expression: JsonExtract(evt.Line.Raw, "DownstreamStatus")
   - statics:
     - meta: service
-      value: traefik
+      value: http
+    - meta: http_status
+      expression: evt.Parsed.status
+    - meta: http_path
+      expression: evt.Parsed.request
     - meta: user
       expression: "evt.Parsed.remote_user"
     - meta: source_ip
       expression: "evt.Parsed.remote_addr"
+    - meta: log_type
+      value: http_access-log
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
 
   - filter: "evt.Parsed.status startsWith '4'" # 4XX status code (like 404, 401, etc.) -> invalid URI
     onsuccess: next_stage
