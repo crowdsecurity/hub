@@ -218,20 +218,25 @@
   },
   "crowdsecurity/known_exploit_cve": {
    "path": "collections/crowdsecurity/known_exploit_cve.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "7485e58be9669d2efeba2560f4427b48ae1a7387fed965493309cb86bfcb200e",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "efd91b9162c7c570597a8aa97ddaa9618a741f792c6758e9be4cb1595d0245c9",
+     "deprecated": false
     }
    },
-   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBrbm93biBDVkU6CiAtIENWRS0yMDIxLTQzNzk4",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9ncmFmYW5hLWN2ZS0yMDIxLTQzNzk4CmRlc2NyaXB0aW9uOiAibW9kc2VjdXJpdHkgc3VwcG9ydCA6IG1vZHNlY3VyaXR5IHBhcnNlciBhbmQgc2NlbmFyaW8iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHdlYgogIC0gd2Fm",
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBrbm93biBDVkU6CiAtIENWRS0yMDIxLTQzNzk4CiAtIFZNU0EtMjAyMS0wMDI3",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9ncmFmYW5hLWN2ZS0yMDIxLTQzNzk4CiAgLSBjcm93ZHNlY3VyaXR5L3Ztd2FyZS12Y2VudGVyLXZtc2EtMjAyMS0wMDI3CmRlc2NyaXB0aW9uOiAibW9kc2VjdXJpdHkgc3VwcG9ydCA6IG1vZHNlY3VyaXR5IHBhcnNlciBhbmQgc2NlbmFyaW8iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHdlYgogIC0gd2Fm",
    "description": "modsecurity support : modsecurity parser and scenario",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
-    "crowdsecurity/grafana-cve-2021-43798"
+    "crowdsecurity/grafana-cve-2021-43798",
+    "crowdsecurity/vmware-vcenter-vmsa-2021-0027"
    ]
   },
   "crowdsecurity/linux": {
@@ -2063,6 +2068,24 @@
     "remediation": "true",
     "service": "telnet",
     "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/vmware-vcenter-vmsa-2021-0027": {
+   "path": "scenarios/crowdsecurity/vmware-vcenter-vmsa-2021-0027.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4d497542fa056c82b0089b7849ce686544b8ae9775f6dffddd6ac5074ec5964b",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBWTVNBLTIwMjEtMDAyNwoKUmVmOiBodHRwczovL3d3dy52bXdhcmUuY29tL3NlY3VyaXR5L2Fkdmlzb3JpZXMvVk1TQS0yMDIxLTAwMjcuaHRtbAo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L3Ztd2FyZS12Y2VudGVyLXZtc2EtMjAyMS0wMDI3CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFZNU0EtMjAyMS0wMDI3IGV4cGxvaXRhdGlvbiBhdHRlbXBzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZycsICdodHRwX2Vycm9yLWxvZyddICYmIGV2dC5NZXRhLmh0dHBfcGF0aCBtYXRjaGVzICcvdWkvdmNhdi1ib290c3RyYXAvcmVzdC92Y2F2LXByb3ZpZGVycy9wcm92aWRlci1sb2dvXFw/dXJsPShmaWxlfGh0dHApJwpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect VMSA-2021-0027 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
    }
   },
   "crowdsecurity/vsftpd-bf": {
