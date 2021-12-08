@@ -1,7 +1,6 @@
 #If it's syslog, we are going to extract progname from it
 filter: "evt.Line.Labels.type == 'syslog'"
 onsuccess: next_stage
-debug: true
 name: crowdsecurity/syslog-logs
 grok:
   #this is a named regular expression. grok patterns can be kept into separate files for readability
