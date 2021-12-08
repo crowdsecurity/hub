@@ -3,8 +3,6 @@ filter: "evt.Parsed.program == 'sudo'"
 name: crowdsecurity/pam-logs
 debug: true
 description: "Parse pam logs"
-#Dec  7 14:53:04 vskub1master01p sudo: pam_tally2(sudo:auth): user jdrouvroy (4001) tally 6, deny 5
-#Dec  7 14:52:59 vskub1master01p sudo: pam_unix(sudo:auth): authentication failure; logname=jdrouvroy uid=4001 euid=0 tty=/dev/pts/12 ruser=jdrouvroy rhost=  user=jdrouvroy
 nodes:
   - grok: 
       pattern: 'pam_tally2\(sudo:auth\): user %{NOTSPACE:username} \(%{NUMBER:uid}\) tally \d, deny \d'
