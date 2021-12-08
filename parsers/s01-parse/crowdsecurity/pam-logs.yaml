@@ -1,0 +1,25 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'sudo'"
+name: crowdsecurity/pam-logs
+debug: true
+description: "Parse pam logs"
+#Dec  7 14:53:04 vskub1master01p sudo: pam_tally2(sudo:auth): user jdrouvroy (4001) tally 6, deny 5
+#Dec  7 14:52:59 vskub1master01p sudo: pam_unix(sudo:auth): authentication failure; logname=jdrouvroy uid=4001 euid=0 tty=/dev/pts/12 ruser=jdrouvroy rhost=  user=jdrouvroy
+nodes:
+  - grok: 
+      pattern: 'pam_tally2\(sudo:auth\): user %{NOTSPACE:username} \(%{NUMBER:uid}\) tally \d, deny \d'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pam_user_lock
+  - grok:
+      pattern: 'pam_unix\(sudo:auth\): authentication failure; logname=%{NOTSPACE:logname} uid=%{NUMBER:uid} euid=%{NUMBER:euid} tty=%{NOTSPACE:tty} ruser=%{NOTSPACE:ruser} rhost=%{GREEDYDATA:rhost}  user=%{NOTSPACE:username}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pam_failed_auth
+statics:
+  - meta: service
+    value: pam
+  - meta: username
+    expression: "evt.Parsed.username"
