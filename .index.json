@@ -175,7 +175,7 @@
   },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
-   "version": "0.2",
+   "version": "0.5",
    "versions": {
     "0.1": {
      "digest": "30748e051a470c1bc91506ae63e8784cd054564f90ccc23eb655823fc30e3019",
@@ -184,15 +184,32 @@
     "0.2": {
      "digest": "bc244c864674e59cd36ec4781bb85b5f94f77562a28a65e6bb64da789cf97379",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "8a33f5787f19100add139f53ae98978a2c265badaf99b09365a47d686baeb5b2",
+     "deprecated": false
+    },
+    "0.4": {
+     "digest": "f5a38fc37ff6a5aa80a1411fe75ba27d9691ebf3da96b6d169d2fecc052fb528",
+     "deprecated": false
+    },
+    "0.5": {
+     "digest": "f9be2b19b2c12d4b0d4fc10de95b3138c4ae19ccaa04975d1e6a242e1fc2abf4",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIG9mIGh0dHAgc3BlY2lmaWMgQ1ZFcyA6CgogLSBbY3ZlLTIwMjEtNDE3NzNdKGh0dHBzOi8vY3ZlLmNpcmNsLmx1L2N2ZS9DVkUtMjAyMS00MTc3MykKIC0gW2N2ZS0yMDIxLTQyMDEzXShodHRwczovL2N2ZS5jaXJjbC5sdS9jdmUvQ1ZFLTIwMjEtNDIwMTMpCgo=",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwogIC0gY3Jvd2RzZWN1cml0eS9mb3J0aW5ldC1jdmUtMjAxOC0xMzM3OQogIC0gY3Jvd2RzZWN1cml0eS9wdWxzZS1zZWN1cmUtc3NsdnBuLWN2ZS0yMDE5LTExNTEwCiAgLSBjcm93ZHNlY3VyaXR5L2Y1LWJpZy1pcC1jdmUtMjAyMC01OTAyCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2ViCiAgLSBleHBsb2l0CiAgLSBjdmUKICAtIGh0dHAK",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
     "crowdsecurity/http-cve-2021-41773",
-    "crowdsecurity/http-cve-2021-42013"
+    "crowdsecurity/http-cve-2021-42013",
+    "crowdsecurity/grafana-cve-2021-43798",
+    "crowdsecurity/vmware-vcenter-vmsa-2021-0027",
+    "crowdsecurity/fortinet-cve-2018-13379",
+    "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510",
+    "crowdsecurity/f5-big-ip-cve-2020-5902"
    ]
   },
   "crowdsecurity/iptables": {
@@ -1477,6 +1494,62 @@
     "type": "scan"
    }
   },
+  "crowdsecurity/f5-big-ip-cve-2020-5902": {
+   "path": "scenarios/crowdsecurity/f5-big-ip-cve-2020-5902.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "04def871dad424adf0227232c8b22acab9938901a879dca070b58e2389039326",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2Y1LWJpZy1pcC1jdmUtMjAyMC01OTAyCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGN2ZS0yMDIwLTU5MDIgZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgKAogICAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBtYXRjaGVzIFVwcGVyKCcvdG11aS9sb2dpbi5qc3AvLi47L3RtdWkvW14uXSsuanNwXFw/KGZpbGVOYW1lfGNvbW1hbmR8ZGlyZWN0b3J5UGF0aHx0YWJJZCk9JykKICAgIG9yCiAgICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIG1hdGNoZXMgVXBwZXIoJy90bXVpL2xvZ2luLmpzcC8lMkUlMkU7L3RtdWkvW14uXSsuanNwXFw/KGZpbGVOYW1lfGNvbW1hbmR8ZGlyZWN0b3J5UGF0aHx0YWJJZCk9JykKICAgICkKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiAybQpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect cve-2020-5902 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
+   }
+  },
+  "crowdsecurity/fortinet-cve-2018-13379": {
+   "path": "scenarios/crowdsecurity/fortinet-cve-2018-13379.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "c966840446a481f46237df14963224a106cd15e8b7c72dc903de1ae098dbb58d",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "a7952444f7fc5d039bc415c5e56baa8243badd1bcc4013e8d8e52bc6c2e1a431",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2ZvcnRpbmV0LWN2ZS0yMDE4LTEzMzc5CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGN2ZS0yMDE4LTEzMzc5IGV4cGxvaXRhdGlvbiBhdHRlbXBzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdIGFuZCAKICAgIFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgY29udGFpbnMgVXBwZXIoJy9yZW1vdGUvZmd0X2xhbmc/bGFuZz0vLi4vLi4vLi4vLi4vLy8vLy8vLy8vZGV2L2NtZGIvc3NsdnBuX3dlYnNlc3Npb24nKQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect cve-2018-13379 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
+   }
+  },
+  "crowdsecurity/grafana-cve-2021-43798": {
+   "path": "scenarios/crowdsecurity/grafana-cve-2021-43798.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "38e2367afa09fce19313601b205c7ef60ff0dcda0d5a5fbfe162d391998727cf",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBDVkUtMjAyMS00Mzc5OAo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2dyYWZhbmEtY3ZlLTIwMjEtNDM3OTgKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMjEtNDM3OTggZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgKFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgbWF0Y2hlcyAnL1BVQkxJQy9QTFVHSU5TL1teL10rLy4uL1suL10rLycKICAgIG9yCiAgICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIG1hdGNoZXMgJy9QVUJMSUMvUExVR0lOUy9bXi9dKy8lMkUlMkUvWyUyRS9dKy8nKQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect cve-2021-43798 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/http-backdoors-attempts": {
    "path": "scenarios/crowdsecurity/http-backdoors-attempts.yaml",
    "version": "0.2",
@@ -1943,6 +2016,27 @@
     "type": "bruteforce"
    }
   },
+  "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510": {
+   "path": "scenarios/crowdsecurity/pulse-secure-sslvpn-cve-2019-11510.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "bab1d5aa6ee0f6677d73c70438324006f4ed0780de90891a8586030319dc1d08",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "9226dd76fd3e818b3a6d4a1770437e1a41a2014e082cde2a788244b50fb83889",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L3B1bHNlLXNlY3VyZS1zc2x2cG4tY3ZlLTIwMTktMTE1MTAKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMTktMTE1MTAgZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgKFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgbWF0Y2hlcyBVcHBlcignL2RhbmEtbmEvLi4vZGFuYS9odG1sNWFjYy9ndWFjYW1vbGUvLi4vLi4vLi4vLi4vLi4vLi4vLi4vW14/XStcXD8vZGFuYS9odG1sNWFjYy9ndWFjYW1vbGUvJykKICAgIG9yCiAgICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIG1hdGNoZXMgVXBwZXIoJy9kYW5hLW5hLyUyRSUyRS9kYW5hL2h0bWw1YWNjL2d1YWNhbW9sZS8lMkUlMkUvJTJFJTJFLyUyRSUyRS8lMkUlMkUvJTJFJTJFLyUyRSUyRS8lMkUlMkUvW14/XStcXD8vZGFuYS9odG1sNWFjYy9ndWFjYW1vbGUvJykpCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect cve-2019-11510 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/smb-bf": {
    "path": "scenarios/crowdsecurity/smb-bf.yaml",
    "version": "0.1",
@@ -2027,6 +2121,24 @@
     "remediation": "true",
     "service": "telnet",
     "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/vmware-vcenter-vmsa-2021-0027": {
+   "path": "scenarios/crowdsecurity/vmware-vcenter-vmsa-2021-0027.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4d497542fa056c82b0089b7849ce686544b8ae9775f6dffddd6ac5074ec5964b",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBWTVNBLTIwMjEtMDAyNwoKUmVmOiBodHRwczovL3d3dy52bXdhcmUuY29tL3NlY3VyaXR5L2Fkdmlzb3JpZXMvVk1TQS0yMDIxLTAwMjcuaHRtbAo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L3Ztd2FyZS12Y2VudGVyLXZtc2EtMjAyMS0wMDI3CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFZNU0EtMjAyMS0wMDI3IGV4cGxvaXRhdGlvbiBhdHRlbXBzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZycsICdodHRwX2Vycm9yLWxvZyddICYmIGV2dC5NZXRhLmh0dHBfcGF0aCBtYXRjaGVzICcvdWkvdmNhdi1ib290c3RyYXAvcmVzdC92Y2F2LXByb3ZpZGVycy9wcm92aWRlci1sb2dvXFw/dXJsPShmaWxlfGh0dHApJwpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect VMSA-2021-0027 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
    }
   },
   "crowdsecurity/vsftpd-bf": {
