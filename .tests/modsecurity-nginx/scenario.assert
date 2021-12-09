@@ -1,4 +1,4 @@
-len(results) == 1
+len(results) == 2
 "82.64.145.141" in results[0].Overflow.GetSources()
 results[0].Overflow.Sources["82.64.145.141"].IP == "82.64.145.141"
 results[0].Overflow.Sources["82.64.145.141"].Range == ""
@@ -14,3 +14,18 @@ results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "82.64.145.141"
 results[0].Overflow.Alert.GetScenario() == "crowdsecurity/modsecurity"
 results[0].Overflow.Alert.Remediation == true
 results[0].Overflow.Alert.GetEventsCount() == 1
+"143.198.55.184" in results[1].Overflow.GetSources()
+results[1].Overflow.Sources["143.198.55.184"].IP == "143.198.55.184"
+results[1].Overflow.Sources["143.198.55.184"].Range == ""
+results[1].Overflow.Sources["143.198.55.184"].GetScope() == "Ip"
+results[1].Overflow.Sources["143.198.55.184"].GetValue() == "143.198.55.184"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_path") == "modsecurity-nginx.log"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[1].Overflow.Alert.Events[0].GetMeta("log_type") == "modsecurity"
+results[1].Overflow.Alert.Events[0].GetMeta("modsec_message") == "Inbound Anomaly Score Exceeded (Total Score: 8)"
+results[1].Overflow.Alert.Events[0].GetMeta("rule_id") == "949110"
+results[1].Overflow.Alert.Events[0].GetMeta("source_ip") == "143.198.55.184"
+results[1].Overflow.Alert.GetScenario() == "crowdsecurity/modsecurity"
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 1
+
