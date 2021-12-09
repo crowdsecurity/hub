@@ -175,7 +175,7 @@
   },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
-   "version": "0.3",
+   "version": "0.4",
    "versions": {
     "0.1": {
      "digest": "30748e051a470c1bc91506ae63e8784cd054564f90ccc23eb655823fc30e3019",
@@ -188,17 +188,23 @@
     "0.3": {
      "digest": "8a33f5787f19100add139f53ae98978a2c265badaf99b09365a47d686baeb5b2",
      "deprecated": false
+    },
+    "0.4": {
+     "digest": "f5a38fc37ff6a5aa80a1411fe75ba27d9691ebf3da96b6d169d2fecc052fb528",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIG9mIGh0dHAgc3BlY2lmaWMgQ1ZFcyA6CgogLSBbY3ZlLTIwMjEtNDE3NzNdKGh0dHBzOi8vY3ZlLmNpcmNsLmx1L2N2ZS9DVkUtMjAyMS00MTc3MykKIC0gW2N2ZS0yMDIxLTQyMDEzXShodHRwczovL2N2ZS5jaXJjbC5sdS9jdmUvQ1ZFLTIwMjEtNDIwMTMpCgo=",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIHdlYgogIC0gZXhwbG9pdAogIC0gY3ZlCiAgLSBodHRwCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwogIC0gY3Jvd2RzZWN1cml0eS9mb3J0aW5ldC1jdmUtMjAxOC0xMzM3OQogIC0gY3Jvd2RzZWN1cml0eS9wdWxzZS1zZWN1cmUtc3NsdnBuLWN2ZS0yMDE5LTExNTEwCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2ViCiAgLSBleHBsb2l0CiAgLSBjdmUKICAtIGh0dHAK",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
     "crowdsecurity/http-cve-2021-41773",
     "crowdsecurity/http-cve-2021-42013",
     "crowdsecurity/grafana-cve-2021-43798",
-    "crowdsecurity/vmware-vcenter-vmsa-2021-0027"
+    "crowdsecurity/vmware-vcenter-vmsa-2021-0027",
+    "crowdsecurity/fortinet-cve-2018-13379",
+    "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510"
    ]
   },
   "crowdsecurity/iptables": {
@@ -1485,14 +1491,18 @@
   },
   "crowdsecurity/fortinet-cve-2018-13379": {
    "path": "scenarios/crowdsecurity/fortinet-cve-2018-13379.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "c966840446a481f46237df14963224a106cd15e8b7c72dc903de1ae098dbb58d",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "a7952444f7fc5d039bc415c5e56baa8243badd1bcc4013e8d8e52bc6c2e1a431",
+     "deprecated": false
     }
    },
-   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2dyYWZhbmEtY3ZlLTIwMTgtMTMzNzkKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMTgtMTMzNzkgZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBjb250YWlucyBVcHBlcignL3JlbW90ZS9mZ3RfbGFuZz9sYW5nPS8uLi8uLi8uLi8uLi8vLy8vLy8vLy9kZXYvY21kYi9zc2x2cG5fd2Vic2Vzc2lvbicpCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2ZvcnRpbmV0LWN2ZS0yMDE4LTEzMzc5CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGN2ZS0yMDE4LTEzMzc5IGV4cGxvaXRhdGlvbiBhdHRlbXBzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdIGFuZCAKICAgIFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgY29udGFpbnMgVXBwZXIoJy9yZW1vdGUvZmd0X2xhbmc/bGFuZz0vLi4vLi4vLi4vLi4vLy8vLy8vLy8vZGV2L2NtZGIvc3NsdnBuX3dlYnNlc3Npb24nKQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
    "description": "Detect cve-2018-13379 exploitation attemps",
    "author": "crowdsecurity",
    "labels": {
@@ -1982,6 +1992,23 @@
     "remediation": "true",
     "service": "postfix",
     "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510": {
+   "path": "scenarios/crowdsecurity/pulse-secure-sslvpn-cve-2019-11510.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "bab1d5aa6ee0f6677d73c70438324006f4ed0780de90891a8586030319dc1d08",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L3B1bHNlLXNlY3VyZS1zc2x2cG4tY3ZlLTIwMTktMTE1MTAKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMTktMTE1MTAgZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBtYXRjaGVzIFVwcGVyKCcvZGFuYS1uYS8uLi9kYW5hL2h0bWw1YWNjL2d1YWNhbW9sZS8uLi8uLi8uLi8uLi8uLi8uLi8uLi9bXj9dK1xcPy9kYW5hL2h0bWw1YWNjL2d1YWNhbW9sZS8nKQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDJtCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect cve-2019-11510 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
    }
   },
   "crowdsecurity/smb-bf": {
