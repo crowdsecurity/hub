@@ -175,7 +175,7 @@
   },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "30748e051a470c1bc91506ae63e8784cd054564f90ccc23eb655823fc30e3019",
@@ -184,15 +184,21 @@
     "0.2": {
      "digest": "bc244c864674e59cd36ec4781bb85b5f94f77562a28a65e6bb64da789cf97379",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "8a33f5787f19100add139f53ae98978a2c265badaf99b09365a47d686baeb5b2",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIG9mIGh0dHAgc3BlY2lmaWMgQ1ZFcyA6CgogLSBbY3ZlLTIwMjEtNDE3NzNdKGh0dHBzOi8vY3ZlLmNpcmNsLmx1L2N2ZS9DVkUtMjAyMS00MTc3MykKIC0gW2N2ZS0yMDIxLTQyMDEzXShodHRwczovL2N2ZS5jaXJjbC5sdS9jdmUvQ1ZFLTIwMjEtNDIwMTMpCgo=",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIHdlYgogIC0gZXhwbG9pdAogIC0gY3ZlCiAgLSBodHRwCg==",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
     "crowdsecurity/http-cve-2021-41773",
-    "crowdsecurity/http-cve-2021-42013"
+    "crowdsecurity/http-cve-2021-42013",
+    "crowdsecurity/grafana-cve-2021-43798",
+    "crowdsecurity/vmware-vcenter-vmsa-2021-0027"
    ]
   },
   "crowdsecurity/iptables": {
@@ -214,29 +220,6 @@
    ],
    "scenarios": [
     "crowdsecurity/iptables-scan-multi_ports"
-   ]
-  },
-  "crowdsecurity/known_exploit_cve": {
-   "path": "collections/crowdsecurity/known_exploit_cve.yaml",
-   "version": "0.2",
-   "versions": {
-    "0.1": {
-     "digest": "7485e58be9669d2efeba2560f4427b48ae1a7387fed965493309cb86bfcb200e",
-     "deprecated": false
-    },
-    "0.2": {
-     "digest": "efd91b9162c7c570597a8aa97ddaa9618a741f792c6758e9be4cb1595d0245c9",
-     "deprecated": false
-    }
-   },
-   "long_description": "RGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBrbm93biBDVkU6CiAtIENWRS0yMDIxLTQzNzk4CiAtIFZNU0EtMjAyMS0wMDI3",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9ncmFmYW5hLWN2ZS0yMDIxLTQzNzk4CiAgLSBjcm93ZHNlY3VyaXR5L3Ztd2FyZS12Y2VudGVyLXZtc2EtMjAyMS0wMDI3CmRlc2NyaXB0aW9uOiAibW9kc2VjdXJpdHkgc3VwcG9ydCA6IG1vZHNlY3VyaXR5IHBhcnNlciBhbmQgc2NlbmFyaW8iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHdlYgogIC0gd2Fm",
-   "description": "modsecurity support : modsecurity parser and scenario",
-   "author": "crowdsecurity",
-   "labels": null,
-   "scenarios": [
-    "crowdsecurity/grafana-cve-2021-43798",
-    "crowdsecurity/vmware-vcenter-vmsa-2021-0027"
    ]
   },
   "crowdsecurity/linux": {
@@ -1498,6 +1481,23 @@
    "labels": {
     "remediation": "true",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/fortinet-cve-2018-13379": {
+   "path": "scenarios/crowdsecurity/fortinet-cve-2018-13379.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c966840446a481f46237df14963224a106cd15e8b7c72dc903de1ae098dbb58d",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApuYW1lOiBjcm93ZHNlY3VyaXR5L2dyYWZhbmEtY3ZlLTIwMTgtMTMzNzkKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMTgtMTMzNzkgZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBjb250YWlucyBVcHBlcignL3JlbW90ZS9mZ3RfbGFuZz9sYW5nPS8uLi8uLi8uLi8uLi8vLy8vLy8vLy9kZXYvY21kYi9zc2x2cG5fd2Vic2Vzc2lvbicpCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect cve-2018-13379 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
    }
   },
   "crowdsecurity/grafana-cve-2021-43798": {
