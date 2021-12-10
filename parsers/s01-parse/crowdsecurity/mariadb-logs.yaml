@@ -1,0 +1,18 @@
+onsuccess: next_stage
+name: crowdsecurity/mariadb-logs
+description: "Parse MariaDB logs"
+filter: "evt.Parsed.program == 'mariadb'"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+grok:
+  pattern: "%{DATE_YMD:date}  %{TIME:time} %{NUMBER:thread_id} \\[Warning\\] Access denied for user '%{DATA:user}'@'%{IP:source_ip}' \\(using password: %{WORD:using_password}\\)"
+  apply_on: message
+statics:
+  - target: evt.StrTime
+    expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
+  - meta: log_type
+    value: "mariadb_failed_auth"
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: user
+    expression: "evt.Parsed.user"
