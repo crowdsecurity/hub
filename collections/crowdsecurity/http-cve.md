@@ -9,3 +9,6 @@ A collection of http specific CVEs :
  - [CVE-2018-20062](https://cve.circl.lu/cve/CVE-2018-20062)
  - [CVE-2021-44228](https://cve.circl.lu/cve/CVE-2021-44228)
  - [VMSA-2021-0027](https://www.vmware.com/security/advisories/VMSA-2021-0027.html)
+
+
+:warning: This collection is _not_ a WAF and this scenario does _not_ aims at replacing a WAF.
