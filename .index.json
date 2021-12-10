@@ -260,6 +260,27 @@
     "crowdsecurity/sshd"
    ]
   },
+  "crowdsecurity/mariadb": {
+   "path": "collections/crowdsecurity/mariadb.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "88ec0daef18bbbce68c6ae2c0593cf152973221efb630a745f7cbb34feb80ff8",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBtYXJpYWRiIHNlcnZpY2UgOgogLSBtYXJpYWRiIGxvZ3MgcGFyc2VyCiAtIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiA=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvbWFyaWFkYi1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvbWFyaWFkYi1iZgpkZXNjcmlwdGlvbjogIm1hcmlhZGIgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gbWFyaWFkYgogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "mariadb support : logs and brute-force scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/mariadb-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/mariadb-bf"
+   ]
+  },
   "crowdsecurity/modsecurity": {
    "path": "collections/crowdsecurity/modsecurity.yaml",
    "version": "0.1",
@@ -870,6 +891,22 @@
    "long_description": "QSBwYXJzZXIgZm9yIGlwdGFibGVzIGAtaiBMT0dgIGxvZ3MgOgoKIC0gT25seSBwYXJzZSBrZXJuZWwgbWVzc2FnZXMgY29udGFpbmluZyBgSU49YAogLSBTa2lwIGxpbmVzIGlmIGRlY2lzaW9ucyBpcyBgQUNDRVBUYAogLSBBbGwgbG9nZ2VkIHBhY2tldHMgYXJlIGNvbnNpZGVyZWQgYXMgRFJPUHMuCgpUbyBtYWtlIHRoaXMgcGFyc2VyIHJlbGV2YW50LCB5b3Ugc2hvdWxkIGhhdmUgYSBgaXB0YWJsZXMgLUEgSU5QVVQgIC1tIHN0YXRlIC0tc3RhdGUgTkVXIC1qIExPR2Agb3Igc2ltaWxhciBpbnRvIHlvdXIgY29uZmlndXJhdGlvbi4gVGhpcyBvbmUgd2lsbCBsb2cgYWxsIG5ldyBjb25uZWN0aW9ucywgc3VjY2Vzc2Z1bCBvciBub3QuCgo=",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tlcm5lbCcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnSU49JyBhbmQgbm90IChldnQuUGFyc2VkLm1lc3NhZ2UgY29udGFpbnMgJ0FDQ0VQVCcpIgpuYW1lOiBjcm93ZHNlY3VyaXR5L2lwdGFibGVzLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBpcHRhYmxlcyBkcm9wIGxvZ3MiCmdyb2s6CiAgcGF0dGVybjogSU49JXtXT1JEOmludF9ldGh9IChPVVQ9ICk/TUFDPSV7SVB9OiV7TUFDfSBTUkM9JXtJUDpzcmNfaXB9IERTVD0le0lQOmRzdF9pcH0gTEVOPSV7SU5UOmxlbmd0aH0uKlBST1RPPSV7V09SRDpwcm90b30gU1BUPSV7SU5UOnNyY19wb3J0fSBEUFQ9JXtJTlQ6ZHN0X3BvcnR9CiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGNwCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBpcHRhYmxlc19kcm9wCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zcmNfaXAiCgo=",
    "description": "Parse iptables drop logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/mariadb-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/mariadb-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "98468759d771f3db2dfdf795ac2794c9b56c01d6d46e98a1a81913309bedc74f",
+     "deprecated": false
+    }
+   },
+   "long_description": "TWFyaWFkYiBhdXRoZW50aWNhdGlvbiBmYWlsdXJlIHBhcnNlci4K",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbWFyaWFkYi1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgTWFyaWFEQiBsb2dzIgpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ21hcmlhZGInIgpwYXR0ZXJuX3N5bnRheDoKICBEQVRFX1lNRDogIiV7WUVBUjp5ZWFyfS0le01PTlRITlVNOm1vbnRofS0le01PTlRIREFZOmRheX0iCmdyb2s6CiAgcGF0dGVybjogIiV7REFURV9ZTUQ6ZGF0ZX0gICV7VElNRTp0aW1lfSAle05VTUJFUjp0aHJlYWRfaWR9IFxcW1dhcm5pbmdcXF0gQWNjZXNzIGRlbmllZCBmb3IgdXNlciAnJXtEQVRBOnVzZXJ9J0AnJXtJUDpzb3VyY2VfaXB9JyBcXCh1c2luZyBwYXNzd29yZDogJXtXT1JEOnVzaW5nX3Bhc3N3b3JkfVxcKSIKICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZGF0ZSArICcgJyArIGV2dC5QYXJzZWQudGltZSIKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogIm1hcmlhZGJfZmFpbGVkX2F1dGgiCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXIi",
+   "description": "Parse MariaDB logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -1903,6 +1940,25 @@
     "remediation": "true",
     "service": "tcp",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/mariadb-bf": {
+   "path": "scenarios/crowdsecurity/mariadb-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c6daa770b5ac5f153e6b5bc0c2eb8e50f90373e1802bea40724ebe6037a15ab4",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHNldmVyYWwgZmFpbGVkIG1hcmlhZGIgYXV0aGVudGljYXRpb25zLgoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNQo=",
+   "content": "IyBtYXJpYWRiIGJydXRlZm9yY2UKdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbWFyaWFkYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBtYXJpYWRiIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ21hcmlhZGJfZmFpbGVkX2F1dGgnCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogbWFyaWFkYgogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect mariadb bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "mariadb",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/modsecurity": {
