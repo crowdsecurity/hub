@@ -11,4 +11,4 @@ A collection of http specific CVEs :
  - [VMSA-2021-0027](https://www.vmware.com/security/advisories/VMSA-2021-0027.html)
 
 
-:warning: This collection is _not_ a WAF and this scenario does _not_ aims at replacing a WAF.
+:warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
