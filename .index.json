@@ -175,7 +175,7 @@
   },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
-   "version": "0.6",
+   "version": "0.7",
    "versions": {
     "0.1": {
      "digest": "30748e051a470c1bc91506ae63e8784cd054564f90ccc23eb655823fc30e3019",
@@ -200,10 +200,14 @@
     "0.6": {
      "digest": "d385131b7c0763a6fe71d6544599e69d79e6ff97c92b2b253470b9b1632bb71a",
      "deprecated": false
+    },
+    "0.7": {
+     "digest": "33d997a205be7dad55f5fadb1b56da3cd7a22b6333037af83132a948a6cc063f",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIG9mIGh0dHAgc3BlY2lmaWMgQ1ZFcyA6CgogLSBbY3ZlLTIwMjEtNDE3NzNdKGh0dHBzOi8vY3ZlLmNpcmNsLmx1L2N2ZS9DVkUtMjAyMS00MTc3MykKIC0gW2N2ZS0yMDIxLTQyMDEzXShodHRwczovL2N2ZS5jaXJjbC5sdS9jdmUvQ1ZFLTIwMjEtNDIwMTMpCgo=",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwogIC0gY3Jvd2RzZWN1cml0eS9mb3J0aW5ldC1jdmUtMjAxOC0xMzM3OQogIC0gY3Jvd2RzZWN1cml0eS9wdWxzZS1zZWN1cmUtc3NsdnBuLWN2ZS0yMDE5LTExNTEwCiAgLSBjcm93ZHNlY3VyaXR5L2Y1LWJpZy1pcC1jdmUtMjAyMC01OTAyCiAgLSBjcm93ZHNlY3VyaXR5L3RoaW5rcGhwLWN2ZS0yMDE4LTIwMDYyCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2ViCiAgLSBleHBsb2l0CiAgLSBjdmUKICAtIGh0dHAK",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZS0yMDIxLTQxNzczCiAgLSBjcm93ZHNlY3VyaXR5L2h0dHAtY3ZlLTIwMjEtNDIwMTMKICAtIGNyb3dkc2VjdXJpdHkvZ3JhZmFuYS1jdmUtMjAyMS00Mzc5OAogIC0gY3Jvd2RzZWN1cml0eS92bXdhcmUtdmNlbnRlci12bXNhLTIwMjEtMDAyNwogIC0gY3Jvd2RzZWN1cml0eS9mb3J0aW5ldC1jdmUtMjAxOC0xMzM3OQogIC0gY3Jvd2RzZWN1cml0eS9wdWxzZS1zZWN1cmUtc3NsdnBuLWN2ZS0yMDE5LTExNTEwCiAgLSBjcm93ZHNlY3VyaXR5L2Y1LWJpZy1pcC1jdmUtMjAyMC01OTAyCiAgLSBjcm93ZHNlY3VyaXR5L3RoaW5rcGhwLWN2ZS0yMDE4LTIwMDYyCiAgLSBjcm93ZHNlY3VyaXR5L2FwYWNoZV9sb2c0ajJfY3ZlLTIwMjEtNDQyMjgKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSB3ZWIKICAtIGV4cGxvaXQKICAtIGN2ZQogIC0gaHR0cAo=",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
@@ -214,7 +218,8 @@
     "crowdsecurity/fortinet-cve-2018-13379",
     "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510",
     "crowdsecurity/f5-big-ip-cve-2020-5902",
-    "crowdsecurity/thinkphp-cve-2018-20062"
+    "crowdsecurity/thinkphp-cve-2018-20062",
+    "crowdsecurity/apache_log4j2_cve-2021-44228"
    ]
   },
   "crowdsecurity/iptables": {
@@ -1474,6 +1479,23 @@
   }
  },
  "scenarios": {
+  "crowdsecurity/apache_log4j2_cve-2021-44228": {
+   "path": "scenarios/crowdsecurity/apache_log4j2_cve-2021-44228.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7ee4024160a62e888d7db882eb4ed100de915716b91be09cef64390381babfb9",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMApkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L2FwYWNoZV9sb2c0ajJfY3ZlLTIwMjEtNDQyMjgKZGVzY3JpcHRpb246ICJEZXRlY3QgY3ZlLTIwMjEtNDQyMjggZXhwbG9pdGF0aW9uIGF0dGVtcHMiCmZpbHRlcjogfAogIGV2dC5NZXRhLmxvZ190eXBlIGluIFsiaHR0cF9hY2Nlc3MtbG9nIiwgImh0dHBfZXJyb3ItbG9nIl0gYW5kIAogICgKICAgIFVwcGVyKGV2dC5NZXRhLmh0dHBfcGF0aCkgY29udGFpbnMgVXBwZXIoJyR7am5kaTonKQogIG9yCiAgICBVcHBlcihldnQuUGFyc2VkLmh0dHBfdXNlcl9hZ2VudCkgY29udGFpbnMgVXBwZXIoJyR7am5kaTonKQogICkKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiAybQpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect cve-2021-44228 exploitation attemps",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/ban-defcon-drop_range": {
    "path": "scenarios/crowdsecurity/ban-defcon-drop_range.yaml",
    "version": "0.2",
