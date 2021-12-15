@@ -1,0 +1,23 @@
+onsuccess: next_stage
+name: proftpd-logs
+description: "Parse proftpd logs"
+filter: "evt.Parsed.program == 'proftpd'"
+pattern_syntax:
+  PROFTPD_AUTH_FAIL: '%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME:hostname} proftpd\[%{DATA}\] %{HOSTNAME:hostname} \(%{IPORHOST}\[%{IP:source_ip}\]\): USER %{USERNAME:username} \(Login failed\): Incorrect password'
+  PROFTPD_BAD_USER: '%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME:hostname} proftpd\[%{DATA}\] %{HOSTNAME:hostname} \(%{IPORHOST}\[%{IP:source_ip}\]\): USER %{USERNAME:username}: no such user found from %{IPORHOST} \[%{IPORHOST}\] to %{IPORHOST}:%{DATA:port}'
+nodes:
+  - grok:
+      pattern: "%{PROFTPD_AUTH_FAIL}"
+      apply_on: message
+  - grok:
+      pattern: "%{PROFTPD_BAD_USER}"
+      apply_on: message
+statics:
+    - meta: log_type
+      value: ftp_failed_auth
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: target_user
+      expression: "evt.Parsed.username"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp 
