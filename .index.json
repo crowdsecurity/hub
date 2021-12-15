@@ -428,6 +428,28 @@
     "crowdsecurity/postfix-spam"
    ]
   },
+  "crowdsecurity/proftpd": {
+   "path": "collections/crowdsecurity/proftpd.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "6f98f64784109c356578bf50c7b296c5936bddfd5a206f25d39f92f504ea04ad",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBwcm9mdHBkIGFnYWluc3QgY29tbW9uIGF0dGFja3M6CiAtIHByb2Z0cGQgcGFyc2VyCiAtIGRldGVjdCBicnV0ZWZvcmNlCiAtIGRldGVjdCB1c2VyIGVudW1lcmF0aW9uCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcHJvZnRwZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvcHJvZnRwZC1iZgogIC0gY3Jvd2RzZWN1cml0eS9wcm9mdHBkLWJmX3VzZXItZW51bQpkZXNjcmlwdGlvbjogInByb2Z0cGQgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGUtZm9yY2UvdXNlciBlbnVtZXJhdGlvbiBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHByb2Z0cGQKICAtIGJydXRlZm9yY2UKCg==",
+   "description": "proftpd support : parser and brute-force/user enumeration detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/proftpd-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/proftpd-bf",
+    "crowdsecurity/proftpd-bf_user-enum"
+   ]
+  },
   "crowdsecurity/sshd": {
    "path": "collections/crowdsecurity/sshd.yaml",
    "version": "0.2",
@@ -1143,6 +1165,22 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGZpeC9wb3N0c2NyZWVuJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9wb3N0c2NyZWVuLWxvZ3MKcGF0dGVybl9zeW50YXg6CiAgUE9TVFNDUkVFTl9QUkVHUkVFVDogJ1BSRUdSRUVUJwogIFBPU1RTQ1JFRU5fUFJFR1JFRVRfVElNRV9BVFRFTVBUOiAnXGQrLlxkKycKZGVzY3JpcHRpb246ICJQYXJzZSBwb3N0c2NyZWVuIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgcGF0dGVybjogJyV7UE9TVFNDUkVFTl9QUkVHUkVFVDpwcmVncmVldH0gJXtJTlQ6Y291bnR9IGFmdGVyICV7UE9TVFNDUkVFTl9QUkVHUkVFVF9USU1FX0FUVEVNUFQ6dGltZV9hdHRlbXB0fSBmcm9tIFxbJXtJUDpyZW1vdGVfYWRkcn1cXTole0lOVDpwb3J0fTogJXtHUkVFRFlEQVRBOm1lc3NhZ2VfYXR0ZW1wdH0nCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHBvc3RzY3JlZW4KICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlbW90ZV9hZGRyIgogICAgLSBtZXRhOiBwcmVncmVldAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5wcmVncmVldCIKCgo=",
    "description": "Parse postscreen logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/proftpd-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/proftpd-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f00e26a5fd74f57bab31f930d23cca9c2ede7cc480cb34c7a6aef5a87baf0ca0",
+     "deprecated": false
+    }
+   },
+   "long_description": "RlRQIChbUHJvRlRQRF0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUHJvRlRQRCkpIHdpbGwgbW9zdGx5IHBhcnNlIGF1dGhlbnRpY2F0aW9uIGZhaWwu",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IHByb2Z0cGQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHByb2Z0cGQgbG9ncyIKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdwcm9mdHBkJyIKcGF0dGVybl9zeW50YXg6CiAgUFJPRlRQRF9BVVRIX0ZBSUw6ICcle1RJTUVTVEFNUF9JU084NjAxOnRpbWVzdGFtcH0gJXtIT1NUTkFNRTpob3N0bmFtZX0gcHJvZnRwZFxbJXtEQVRBfVxdICV7SE9TVE5BTUU6aG9zdG5hbWV9IFwoJXtJUE9SSE9TVH1cWyV7SVA6c291cmNlX2lwfVxdXCk6IFVTRVIgJXtVU0VSTkFNRTp1c2VybmFtZX0gXChMb2dpbiBmYWlsZWRcKTogSW5jb3JyZWN0IHBhc3N3b3JkJwogIFBST0ZUUERfQkFEX1VTRVI6ICcle1RJTUVTVEFNUF9JU084NjAxOnRpbWVzdGFtcH0gJXtIT1NUTkFNRTpob3N0bmFtZX0gcHJvZnRwZFxbJXtEQVRBfVxdICV7SE9TVE5BTUU6aG9zdG5hbWV9IFwoJXtJUE9SSE9TVH1cWyV7SVA6c291cmNlX2lwfVxdXCk6IFVTRVIgJXtVU0VSTkFNRTp1c2VybmFtZX06IG5vIHN1Y2ggdXNlciBmb3VuZCBmcm9tICV7SVBPUkhPU1R9IFxbJXtJUE9SSE9TVH1cXSB0byAle0lQT1JIT1NUfTole0RBVEE6cG9ydH0nCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIiV7UFJPRlRQRF9BVVRIX0ZBSUx9IgogICAgICBhcHBseV9vbjogbWVzc2FnZQogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIiV7UFJPRlRQRF9CQURfVVNFUn0iCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBmdHBfZmFpbGVkX2F1dGgKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAgIC0gbWV0YTogdGFyZ2V0X3VzZXIKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlcm5hbWUiCiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXAg",
+   "description": "Parse proftpd logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2146,6 +2184,43 @@
    "labels": {
     "remediation": "true",
     "service": "postfix",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/proftpd-bf": {
+   "path": "scenarios/crowdsecurity/proftpd-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f241fba9f1ffeb3cdf376bb7cfee0ecf804ba5d8709cfb5defbc973a11c751a5",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBwcm9mdHBkIGF1dGhlbnRpY2F0aW9ucyA6CgogLSBsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiA1IG9uIHNhbWUgdGFyZ2V0IHVzZXI=",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9wcm9mdHBkLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHByb2Z0cGQgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2Z0cF9mYWlsZWRfYXV0aCciCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKIHNlcnZpY2U6IGZ0cAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detect proftpd bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "ftp",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/proftpd-bf_user-enum": {
+   "path": "scenarios/crowdsecurity/proftpd-bf_user-enum.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7e3b3f8d050805afce54785fe1e9eba40a6a040faf9e19e8ba40d466c3b14814",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9wcm9mdHBkLWJmX3VzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBwcm9mdHBkIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdmdHBfZmFpbGVkX2F1dGgnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudGFyZ2V0X3VzZXIKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBmdHAKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVl",
+   "description": "Detect proftpd user enum bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "ftp",
     "type": "bruteforce"
    }
   },
