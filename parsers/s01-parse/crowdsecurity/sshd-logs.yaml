@@ -10,6 +10,7 @@ pattern_syntax:
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
   SSHD_AUTH_FAIL: 'pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
 nodes:
   - grok:
       name: "SSHD_FAIL"
@@ -33,6 +34,14 @@ nodes:
           value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_INVALID_BANNER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: extra_log_type
+          value: ssh_bad_banner
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
