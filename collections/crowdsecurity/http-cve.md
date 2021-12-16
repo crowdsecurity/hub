@@ -13,3 +13,6 @@ A collection of http specific CVEs :
 
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
+
+As such, an attacker might be able to bypass those signatures.
+
