@@ -3,12 +3,12 @@ len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-11-09  5:13:12 8 [Warning] Access denied for user 'example-user'@'172.17.0.1' (using password: YES)"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "mariadb"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2021-11-09  5:13:13 8 [Warning] Access denied for user 'example-user'@'172.17.0.1' (using password: NO)"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "mariadb"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
@@ -26,7 +26,7 @@ results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["source_ip"] ==
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["thread_id"] == "8"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["time"] == "5:13:12"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["day"] == "09"
-results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Meta["log_type"] == "mariadb_failed_auth"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Meta["source_ip"] == "172.17.0.1"
@@ -45,7 +45,7 @@ results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Parsed["user"] == "exa
 results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Parsed["using_password"] == "NO"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["user"] == "example-user"
-results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][1].Evt.Meta["log_type"] == "mariadb_failed_auth"
 len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
@@ -62,7 +62,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["thread_id
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["day"] == "09"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["month"] == "11"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "example-user"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "mariadb_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "172.17.0.1"
@@ -80,7 +80,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["thread_id"] == "8"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["time"] == "5:13:13"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "example-user"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "mariadb-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == ".tests/mariadb-logs/mariadb-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "mariadb_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "172.17.0.1"

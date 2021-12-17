@@ -3,7 +3,7 @@ len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "cas"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-10-11 09:01:35,116 INFO [org.apereo.inspektr.audit.support.Slf4jLoggingAuditTrailManager] - Mon Oct 11 09:01:35 CEST 2021|CAS|Supplied credentials: [UsernamePasswordCredential(username=john.doe, source=null, customFields={})]|AUTHENTICATION_FAILED|john.doe|1.1.1.1|2.2.2.2"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "apereo-cas-audit-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == ".tests/apereo-cas-audit-logs/apereo-cas-audit-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
@@ -19,7 +19,7 @@ results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["threadna
 results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["service"] == "cas"
 results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["target_user"] == "john.doe"
-results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["datasource_path"] == "apereo-cas-audit-logs.log"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["datasource_path"] == ".tests/apereo-cas-audit-logs/apereo-cas-audit-logs.log"
 results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["log_type"] == "cas_failed-auth"
 len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
@@ -35,6 +35,6 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] 
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "cas"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "john.doe"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "apereo-cas-audit-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == ".tests/apereo-cas-audit-logs/apereo-cas-audit-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2021-10-11T09:01:35Z"

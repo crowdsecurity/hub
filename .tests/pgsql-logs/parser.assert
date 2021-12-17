@@ -2,13 +2,13 @@ len(results["s01-parse"]["crowdsecurity/pgsql-logs"]) == 6
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-09-28 09:22:18.536 UTC [147] 1.2.3.4 i_dont_exist@postgres FATAL:  password authentication failed for user \"i_dont_exist\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "postgres"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "pgsql-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == ".tests/pgsql-logs/pgsql-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2021-09-28 09:22:19.536 UTC:1.2.3.4(5432):i_dont_exist@postgres:[127]:FATAL:  password authentication failed for user \"i_dont_exist\""
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "postgres"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "pgsql-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == ".tests/pgsql-logs/pgsql-logs.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Success == true
@@ -26,7 +26,7 @@ results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["log_type"] == "pgs
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["user"] == "i_dont_exist"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["auth_method"] == "password"
-results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["datasource_path"] == "pgsql-logs.log"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["datasource_path"] == ".tests/pgsql-logs/pgsql-logs.log"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["db"] == "postgres"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Success == true
@@ -42,7 +42,7 @@ results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Parsed["pgsql_dbname"] =
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Parsed["pgsql_target_user"] == "i_dont_exist"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Parsed["pid"] == "127"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["auth_method"] == "password"
-results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["datasource_path"] == "pgsql-logs.log"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["datasource_path"] == ".tests/pgsql-logs/pgsql-logs.log"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["db"] == "postgres"
 results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Evt.Meta["log_type"] == "pgsql_failed_auth"
