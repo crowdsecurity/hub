@@ -1,17 +1,17 @@
 common:
   daemonize: false
-  pid_dir: ./runtime
+  pid_dir: {{.RuntimeDir}}
   log_media: file
   log_level: info
-  log_dir: ./runtime/log/
+  log_dir: {{.RuntimeDir}}/log/
   working_dir: .
 config_paths:
-  config_dir: ./runtime/
-  data_dir: ./runtime/data/
-  simulation_path: ./runtime/simulation.yaml
-  hub_dir: ./runtime/hub/
-  index_path: ./runtime/hub/.index.json
-  notification_dir: ./runtime/notifications/
+  config_dir: {{.RuntimeDir}}/
+  data_dir: {{.RuntimeDir}}/data/
+  simulation_path: {{.RuntimeDir}}/simulation.yaml
+  hub_dir: {{.RuntimeDir}}/hub/
+  index_path: {{.RuntimeDir}}/hub/.index.json
+  notification_dir: {{.RuntimeDir}}/notifications/
   plugin_dir: /usr/local/lib/crowdsec/plugins/
 crowdsec_service:
   parser_routines: 1
@@ -20,7 +20,7 @@ cscli:
 db_config:
   log_level: info
   type: sqlite
-  db_path: ./runtime/data/crowdsec.db
+  db_path: {{.RuntimeDir}}/data/crowdsec.db
   #user: 
   #password:
   #db_name:
@@ -35,11 +35,11 @@ plugin_config:
 api:
   client:
     insecure_skip_verify: false
-    credentials_path: ./runtime/local_api_credentials.yaml
+    credentials_path: {{.RuntimeDir}}/local_api_credentials.yaml
   server:
     log_level: info
-    listen_uri: 127.0.0.1:8181
-    profiles_path: ./runtime/profiles.yaml
+    listen_uri: 127.0.0.1:{{.Port}}
+    profiles_path: {{.RuntimeDir}}/profiles.yaml
 prometheus:
   enabled: true
   level: full
