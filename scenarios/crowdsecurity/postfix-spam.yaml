@@ -12,7 +12,7 @@ blackhole: 1m
 reprocess: false
 labels:
  type: pop3/imap:bruteforce
- label: Postfix SPAM
+ label: Postfix Bruteforce
  remediation: true
 ---
 # postfix spam
@@ -27,7 +27,7 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: false
 labels:
- type: postscreen:bruteforce
+ type: smtp:bruteforce
  label: PostScreen RBL
  remediation: true
 
