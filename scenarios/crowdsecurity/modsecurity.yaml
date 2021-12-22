@@ -6,7 +6,7 @@ description: "Web exploitation via modsecurity"
 filter: evt.Meta.log_type == 'modsecurity' && (evt.Parsed.ruleseverity == 'CRITICAL' || evt.Parsed.ruleseverity == '2')
 blackhole: 2m
 labels:
-  type: web_attack
-  service: http
+  type: http:exploit
+  label: ModSecurity CRS 
   remediation: true
   scope: ip

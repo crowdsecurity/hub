@@ -11,8 +11,8 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: ssh
- type: bruteforce
+ type: ssh:bruteforce
+ label: SSH Slow Bruteforce
  remediation: true
 ---
 # ssh user-enum
@@ -26,7 +26,7 @@ leakspeed: 60s
 capacity: 10
 blackhole: 1m
 labels:
- service: ssh
- type: bruteforce
+ type: ssh:bruteforce
+ label: SSH Slow User Enumeration
  remediation: true
 

@@ -5,7 +5,7 @@ filter: "evt.Meta.log_type == 'auth_bf_log'"
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
-  service: cpanel
-  type: bruteforce
+  type: http:bruteforce
+  label: cPanel Bruteforce
   remediation: true
 
