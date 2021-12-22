@@ -1,0 +1,13 @@
+type: leaky
+name: crowdsecurity/asterisk_user_enum
+description: "Detect asterisk user enum bruteforce"
+filter: evt.Meta.log_type == 'asterisk_failed_auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: asterisk
+  type: bruteforce
+  remediation: true

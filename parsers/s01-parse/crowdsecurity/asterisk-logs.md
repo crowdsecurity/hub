@@ -1,0 +1,1 @@
+Parser for asterisk logs (parse only failed authentication logs for the moment).
