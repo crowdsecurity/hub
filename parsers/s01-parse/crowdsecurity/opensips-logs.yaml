@@ -1,0 +1,33 @@
+#Dec 21 23:00:12 [11] INVITE request from IP 42.42.42.42
+#Dec 21 23:00:12 [11] Unknown SIP request from IP 42.42.42.42
+#Dec 21 23:00:12 [11] Bad SIP request from IP 42.42.42.42
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'opensips'"
+name: crowdsecurity/opensips-logs
+description: "Parse HP opensips logs"
+nodes:
+  - grok:
+      pattern: '%{SYSLOGTIMESTAMP:timestamp} \[%{NUMBER}\] %{WORD:sip_method} request from IP %{IPORHOST:source_ip}'
+      apply_on: message
+      statics:
+        - meta: sip_method
+          expression: evt.Parsed.sip_method
+  - grok:
+      pattern: '%{SYSLOGTIMESTAMP:timestamp} \[%{NUMBER}\] Unknown SIP request from IP %{IPORHOST:source_ip}'
+      apply_on: message
+      statics:
+        - meta: sip_method
+          value: unknown
+  - grok:
+      pattern: '%{SYSLOGTIMESTAMP:timestamp} \[%{NUMBER}\] Bad SIP request from IP %{IPORHOST:source_ip}'
+      apply_on: message
+      statics:
+        - meta: sip_method
+          value: unknown
+statics:
+  - meta: service
+    value: opensips
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp

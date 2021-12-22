@@ -1,0 +1,88 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] INVITE request from IP 42.42.42.42"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "opensips"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Unknown SIP request from IP 42.42.42.42"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "opensips"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Bad SIP request from IP 42.42.42.42"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "opensips"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["crowdsecurity/opensips-logs"]) == 3
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] INVITE request from IP 42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Parsed["program"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Parsed["sip_method"] == "INVITE"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Meta["service"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Meta["sip_method"] == "INVITE"
+results["s01-parse"]["crowdsecurity/opensips-logs"][0].Evt.Meta["source_ip"] == "42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Unknown SIP request from IP 42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Parsed["program"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Meta["service"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Meta["sip_method"] == "unknown"
+results["s01-parse"]["crowdsecurity/opensips-logs"][1].Evt.Meta["source_ip"] == "42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Bad SIP request from IP 42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Parsed["program"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Meta["service"] == "opensips"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Meta["sip_method"] == "unknown"
+results["s01-parse"]["crowdsecurity/opensips-logs"][2].Evt.Meta["source_ip"] == "42.42.42.42"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] INVITE request from IP 42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sip_method"] == "INVITE"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["sip_method"] == "INVITE"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2021-12-21T23:00:12Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Unknown SIP request from IP 42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["sip_method"] == "unknown"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2021-12-21T23:00:12Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "Dec 21 23:00:12"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "Dec 21 23:00:12 [11] Bad SIP request from IP 42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["sip_method"] == "unknown"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "42.42.42.42"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "opensips-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "opensips"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2021-12-21T23:00:12Z"

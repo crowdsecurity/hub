@@ -1,0 +1,11 @@
+# mysql bruteforce
+type: trigger
+#debug: true
+name: crowdsecurity/opensips-request
+description: "Trigger on any request made to opensips"
+filter: evt.Meta.service == 'opensips'
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: opensips
+ remediation: true
