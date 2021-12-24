@@ -8,8 +8,6 @@ statics:
     value: http
   - meta: log_type
     value: http_access-log
-  - target: evt.StrTime
-    expression: JsonExtract(evt.Parsed.message, "timestamp")
   - meta: source_ip
     expression: JsonExtract(evt.Parsed.message, "client_ip")
   - target: evt.Parsed.request
