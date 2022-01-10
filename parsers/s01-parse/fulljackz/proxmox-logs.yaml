@@ -4,8 +4,8 @@ description: "Parse proxmox logs for bruteforce attempts"
 filter: "evt.Parsed.program == 'pvedaemon'"
 onsuccess: next_stage
 pattern_syntax:
-  PVE_AUTH_FAIL: 'authentication failure; rhost=%{IPV6:client_ip6}:%{IPV4:client_ip4} user=%{USERNAME:source_user}@%{WORD:realm} msg=Authentication failure'
-  PVE_NOSU_USER: 'authentication failure; rhost=%{IPV6:client_ip6}:%{IPV4:client_ip4} user=%{USERNAME:source_user}@%{WORD:realm} msg=no such user'
+  PVE_AUTH_FAIL: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=Authentication failure'
+  PVE_NOSU_USER: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=no such user'
 nodes:
   - grok:
       name: "PVE_AUTH_FAIL"
@@ -27,4 +27,4 @@ statics:
     - meta: service
       value: pvedaemon
     - meta: source_ip
-      expression: "evt.Parsed.client_ip4"
+      expression: "evt.Parsed.client_ip"
