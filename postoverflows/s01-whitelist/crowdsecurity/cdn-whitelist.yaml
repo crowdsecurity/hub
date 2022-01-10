@@ -3,8 +3,12 @@ description: "Whitelist CDN providers"
 whitelist:
   reason: "CDN provider"
   expression: 
-    - "any(File('cloudflare_ips.txt'), { IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
+    - "any(File('cloudflare_ips.txt'),{ IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
+    - "any(File('fastly_ips.txt'),{ IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
 data:
   - source_url: https://www.cloudflare.com/ips-v4
-    dest_file: cloudflare_ips.txt
+    dest_file: crowdsecurity/cloudflare_ips.txt
+    type: string
+  - source_url: https://api.fastly.com/public-ip-list
+    dest_file: crowdsecurity/fastly_ips.txt
     type: string

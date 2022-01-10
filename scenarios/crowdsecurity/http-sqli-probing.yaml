@@ -4,7 +4,7 @@ format: 2.0
 name: crowdsecurity/http-sqli-probbing-detection
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/sqli_probe_patterns.txt
-    dest_file: sqli_probe_patterns.txt
+    dest_file: crowdsecurity/sqli_probe_patterns.txt
     type: string
 description: "A scenario that detects SQL injection probing with minimal false positives"
 filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && any(File('sqli_probe_patterns.txt'), {Upper(evt.Parsed.http_args) contains Upper(#)})"

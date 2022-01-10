@@ -6,7 +6,7 @@ description: "Detect bad user-agents"
 filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && any(File("bad_user_agents.txt"), {evt.Parsed.http_user_agent matches "\\b"+#+"\\b"})'
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/bad_user_agents.txt
-    dest_file: bad_user_agents.txt
+    dest_file: crowdsecurity/bad_user_agents.txt
     type: string
 capacity: 1
 leakspeed: 1m
