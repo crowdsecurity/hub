@@ -1,0 +1,14 @@
+# Pureftpd authent bruteforce
+type: leaky
+name: fulljackz/pureftpd-bf
+description: "Detect pureftpd bruteforce"
+filter: "evt.Meta.log_type == 'pftpd_failed-auth'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: 'pureftpd'
+ type: bruteforce
+ remediation: true

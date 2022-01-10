@@ -1,0 +1,21 @@
+#debug: true
+name: fulljackz/pureftpd-logs
+description: "Parse pureftpd logs for bruteforce attempts"
+filter: "evt.Parsed.program == 'pure-ftpd'"
+onsuccess: next_stage
+pattern_syntax:
+  PFTPD_AUTH_FAIL: '\(?@%{IP:client_ip}\) \[WARNING\] Authentication failed for user \[%{WORD:user}\]'
+nodes:
+  - grok:
+      name: "PFTPD_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pftpd_failed-auth
+        - meta: source_user
+          expression: "evt.Parsed.user"
+statics:
+    - meta: service
+      value: pureftpd
+    - meta: source_ip
+      expression: "evt.Parsed.client_ip"
