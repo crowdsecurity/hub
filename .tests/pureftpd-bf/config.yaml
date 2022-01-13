@@ -1,11 +1,12 @@
 parsers:
+- fulljackz/pureftpd-logs
 - crowdsecurity/syslog-logs
-- parsers/s01-parse/fulljackz/pureftpd-logs.yaml
+- crowdsecurity/dateparse-enrich
 scenarios:
-- ""
+- fulljackz/pureftpd-bf
 postoverflows:
 - ""
-log_file: pureftpd-logs.log
+log_file: pureftpd-bf.log
 log_type: syslog
 labels: {}
 ignore_parsers: false
