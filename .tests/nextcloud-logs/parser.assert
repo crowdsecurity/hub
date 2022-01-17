@@ -1,0 +1,66 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":2,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"no app in context\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Login failed: foo (Remote IP: 2001:db8::d71)\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "Nextcloud"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":1,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"core\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Bruteforce attempt from \\\"2001:db8::d71\\\" detected for action \\\"login\\\".\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "Nextcloud"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["crowdsecurity/nextcloud-logs"]) == 2
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Parsed["program"] == "Nextcloud"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Parsed["source_ip"] == "2001:db8::d71"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Parsed["target_user"] == "foo"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":2,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"no app in context\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Login failed: foo (Remote IP: 2001:db8::d71)\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["log_type"] == "nextcloud_failed_auth"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["service"] == "nextcloud"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["source_ip"] == "2001:db8::d71"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][0].Evt.Meta["target_user"] == "foo"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Parsed["action"] == "login"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":1,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"core\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Bruteforce attempt from \\\"2001:db8::d71\\\" detected for action \\\"login\\\".\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Parsed["program"] == "Nextcloud"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Parsed["source_ip"] == "2001:db8::d71"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["log_type"] == "nextcloud_bruteforce_attempt"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["service"] == "nextcloud"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["source_ip"] == "2001:db8::d71"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["action"] == "login"
+results["s01-parse"]["crowdsecurity/nextcloud-logs"][1].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":2,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"no app in context\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Login failed: foo (Remote IP: 2001:db8::d71)\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "Nextcloud"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "2001:db8::d71"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_user"] == "foo"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-01-16T15:42:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "foo"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "nextcloud_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "nextcloud"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "2001:db8::d71"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-01-16T15:42:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["action"] == "login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "{\"reqId\":\"U1rsiIxFtovEqTt77CJN\",\"level\":1,\"time\":\"2022-01-16T15:42:37+00:00\",\"remoteAddr\":\"2001:db8::d71\",\"user\":\"--\",\"app\":\"core\",\"method\":\"POST\",\"url\":\"/login\",\"message\":\"Bruteforce attempt from \\\"2001:db8::d71\\\" detected for action \\\"login\\\".\",\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0\",\"version\":\"23.0.0.10\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "Nextcloud"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "2001:db8::d71"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["action"] == "login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "nextcloud-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "nextcloud_bruteforce_attempt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "nextcloud"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "2001:db8::d71"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2022-01-16T15:42:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-01-16T15:42:37Z"
+len(results["success"][""]) == 0
