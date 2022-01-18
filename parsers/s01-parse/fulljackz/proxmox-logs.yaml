@@ -1,0 +1,30 @@
+#debug: true
+name: fulljackz/proxmox-logs
+description: "Parse proxmox logs for bruteforce attempts"
+filter: "evt.Parsed.program == 'pvedaemon'"
+onsuccess: next_stage
+pattern_syntax:
+  PVE_AUTH_FAIL: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=Authentication failure'
+  PVE_NOSU_USER: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=no such user'
+nodes:
+  - grok:
+      name: "PVE_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pve_failed-auth
+        - meta: source_user
+          expression: "evt.Parsed.source_user"
+  - grok:
+      name: "PVE_NOSU_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pve_nosuch-user
+        - meta: source_user
+          expression: "evt.Parsed.source_user"
+statics:
+    - meta: service
+      value: pvedaemon
+    - meta: source_ip
+      expression: "evt.Parsed.client_ip"
