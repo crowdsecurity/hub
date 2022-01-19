@@ -1,0 +1,14 @@
+# opnsense web auth bruteforce
+type: leaky
+#debug: true
+name: crowdsecurity/opnsense-web-bf
+description: "Detect bruteforce on opnsense web interface"
+filter: evt.Meta.log_type == 'opnsense-web-failed-auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: opnsense-web-auth
+ type: bruteforce
+ remediation: true
