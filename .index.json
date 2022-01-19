@@ -1199,6 +1199,21 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/opnsense-web-auth": {
+   "path": "parsers/s01-parse/crowdsecurity/opnsense-web-auth.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "bd12d3d039f64c4e3a53854be76c771112512cb00c98ddc920f06590f67514c8",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnYXVkaXQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLXdlYi1hdXRoCmRlc2NyaXB0aW9uOiAiUGFyc2UgT1BOU2Vuc2Ugd2ViIGF1dGggbG9ncyIKIy9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICd0b3RvJyBmcm9tIDEuMi4zLjQKZ3JvazogCiAgcGF0dGVybjogIi9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICcle1VTRVJOQU1FOnVzZXJuYW1lfScgZnJvbSAle0lQT1JIT1NUOnNvdXJjZV9pcH0iCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBvcG5zZW5zZS13ZWItYXV0aAogIC0gbWV0YTogdXNlcm5hbWUKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXJuYW1lIgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNvdXJjZV9pcAogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiBvcG5zZW5zZS13ZWItZmFpbGVkLWF1dGgK",
+   "description": "Parse OPNSense web auth logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/pam-logs": {
    "path": "parsers/s01-parse/crowdsecurity/pam-logs.yaml",
    "stage": "s01-parse",
@@ -2326,6 +2341,24 @@
     "remediation": "true",
     "service": "http",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/opnsense-web-bf": {
+   "path": "scenarios/crowdsecurity/opnsense-web-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "5bbc7aad2c12d9225887b450176f294c00398e8ced6c908cdd93c83b6cbd418d",
+     "deprecated": false
+    }
+   },
+   "content": "IyBvcG5zZW5zZSB3ZWIgYXV0aCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLXdlYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBicnV0ZWZvcmNlIG9uIG9wbnNlbnNlIHdlYiBpbnRlcmZhY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ29wbnNlbnNlLXdlYi1mYWlsZWQtYXV0aCcKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBvcG5zZW5zZS13ZWItYXV0aAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect bruteforce on opnsense web interface",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "opnsense-web-auth",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/pgsql-bf": {
