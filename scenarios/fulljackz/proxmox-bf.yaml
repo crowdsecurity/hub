@@ -17,7 +17,7 @@ labels:
 type: leaky
 name: fulljackz/proxmox-bf-user-enum
 description: "Detect proxmox wrong username"
-filter: "evt.Meta.log_type == 'pve_nosuch-user'"
+filter: "evt.Meta.log_type == 'pve_failed-auth'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
