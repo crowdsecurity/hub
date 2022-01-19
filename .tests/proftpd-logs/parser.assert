@@ -1,8 +1,8 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-05-28 18:08:01,124 mantis proftpd[498625] mantis (192.168.1.142[192.168.1.142]): USER asd: no such user found from 192.168.1.142 [192.168.1.142] to ::ffff:192.168.1.23:21"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "proftpd"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-05-28 18:08:01,124 mantis proftpd[498625] mantis (192.168.1.142[192.168.1.142]): USER asd: no such user found from 192.168.1.142 [192.168.1.142] to ::ffff:192.168.1.23:21"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "proftpd-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
@@ -10,22 +10,34 @@ results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2021
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "proftpd"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "proftpd-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "Jan  7 18:26:02 amazing-ishizaka proftpd[80283]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER sdf: no such user found from 1.1.1.1 [1.1.1.1] to 172.31.39.97:21"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "proftpd"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "Jan  7 18:26:52 amazing-ishizaka proftpd[80686]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER unruffled-feynman (Login failed): Incorrect password"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "proftpd"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
-len(results["s01-parse"]["proftpd-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+len(results["s01-parse"]["proftpd-logs"]) == 4
 results["s01-parse"]["proftpd-logs"][0].Success == true
+results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["hostname"] == "mantis"
 results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["message"] == "2021-05-28 18:08:01,124 mantis proftpd[498625] mantis (192.168.1.142[192.168.1.142]): USER asd: no such user found from 192.168.1.142 [192.168.1.142] to ::ffff:192.168.1.23:21"
 results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["program"] == "proftpd"
 results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["source_ip"] == "192.168.1.142"
 results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["timestamp"] == "2021-05-28 18:08:01,124"
 results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["username"] == "asd"
-results["s01-parse"]["proftpd-logs"][0].Evt.Parsed["hostname"] == "mantis"
+results["s01-parse"]["proftpd-logs"][0].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s01-parse"]["proftpd-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["proftpd-logs"][0].Evt.Meta["log_type"] == "ftp_failed_auth"
 results["s01-parse"]["proftpd-logs"][0].Evt.Meta["source_ip"] == "192.168.1.142"
 results["s01-parse"]["proftpd-logs"][0].Evt.Meta["target_user"] == "asd"
-results["s01-parse"]["proftpd-logs"][0].Evt.Meta["datasource_path"] == "proftpd-logs.log"
-results["s01-parse"]["proftpd-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["proftpd-logs"][1].Success == true
 results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["timestamp"] == "2021-05-28 18:08:34,399"
 results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["username"] == "seb"
@@ -33,12 +45,36 @@ results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["hostname"] == "mantis"
 results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["message"] == "2021-05-28 18:08:34,399 mantis proftpd[498819] mantis (192.168.1.142[192.168.1.142]): USER seb (Login failed): Incorrect password"
 results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["program"] == "proftpd"
 results["s01-parse"]["proftpd-logs"][1].Evt.Parsed["source_ip"] == "192.168.1.142"
-results["s01-parse"]["proftpd-logs"][1].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["proftpd-logs"][1].Evt.Meta["log_type"] == "ftp_failed_auth"
 results["s01-parse"]["proftpd-logs"][1].Evt.Meta["source_ip"] == "192.168.1.142"
 results["s01-parse"]["proftpd-logs"][1].Evt.Meta["target_user"] == "seb"
 results["s01-parse"]["proftpd-logs"][1].Evt.Meta["datasource_path"] == "proftpd-logs.log"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s01-parse"]["proftpd-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["proftpd-logs"][1].Evt.Meta["log_type"] == "ftp_failed_auth"
+results["s01-parse"]["proftpd-logs"][2].Success == true
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["program"] == "proftpd"
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["timestamp"] == "Jan  7 18:26:02"
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["username"] == "sdf"
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["hostname"] == "172.31.39.97"
+results["s01-parse"]["proftpd-logs"][2].Evt.Parsed["message"] == "Jan  7 18:26:02 amazing-ishizaka proftpd[80283]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER sdf: no such user found from 1.1.1.1 [1.1.1.1] to 172.31.39.97:21"
+results["s01-parse"]["proftpd-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["proftpd-logs"][2].Evt.Meta["log_type"] == "ftp_failed_auth"
+results["s01-parse"]["proftpd-logs"][2].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["proftpd-logs"][2].Evt.Meta["target_user"] == "sdf"
+results["s01-parse"]["proftpd-logs"][2].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s01-parse"]["proftpd-logs"][3].Success == true
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["timestamp"] == "Jan  7 18:26:52"
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["username"] == "unruffled-feynman"
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["hostname"] == "172.31.39.97"
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["message"] == "Jan  7 18:26:52 amazing-ishizaka proftpd[80686]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER unruffled-feynman (Login failed): Incorrect password"
+results["s01-parse"]["proftpd-logs"][3].Evt.Parsed["program"] == "proftpd"
+results["s01-parse"]["proftpd-logs"][3].Evt.Meta["log_type"] == "ftp_failed_auth"
+results["s01-parse"]["proftpd-logs"][3].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["proftpd-logs"][3].Evt.Meta["target_user"] == "unruffled-feynman"
+results["s01-parse"]["proftpd-logs"][3].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s01-parse"]["proftpd-logs"][3].Evt.Meta["datasource_type"] == "file"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["hostname"] == "mantis"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2021-05-28 18:08:01,124 mantis proftpd[498625] mantis (192.168.1.142[192.168.1.142]): USER asd: no such user found from 192.168.1.142 [192.168.1.142] to ::ffff:192.168.1.23:21"
@@ -46,11 +82,12 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "192.168.1.142"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2021-05-28 18:08:01,124"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "asd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "ftp_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.142"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "asd"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "proftpd-logs.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2021-05-28T18:08:01.124Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2021-05-28T18:08:01.124Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "seb"
@@ -59,9 +96,38 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "proftpd"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "192.168.1.142"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2021-05-28 18:08:34,399"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "seb"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "proftpd-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "ftp_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.142"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "seb"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2021-05-28T18:08:34.399Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2021-05-28T18:08:34.399Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "Jan  7 18:26:02"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["username"] == "sdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["hostname"] == "172.31.39.97"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "Jan  7 18:26:02 amazing-ishizaka proftpd[80283]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER sdf: no such user found from 1.1.1.1 [1.1.1.1] to 172.31.39.97:21"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "proftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_user"] == "sdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2022-01-07T18:26:02Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "ftp_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2022-01-07T18:26:02Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["hostname"] == "172.31.39.97"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "Jan  7 18:26:52 amazing-ishizaka proftpd[80686]: 172.31.39.97 (1.1.1.1[1.1.1.1]) - USER unruffled-feynman (Login failed): Incorrect password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "proftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "Jan  7 18:26:52"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["username"] == "unruffled-feynman"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["target_user"] == "unruffled-feynman"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2022-01-07T18:26:52Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "proftpd-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "ftp_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2022-01-07T18:26:52Z"
