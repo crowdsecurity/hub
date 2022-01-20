@@ -1,4 +1,4 @@
-**core package for opnsense**
+## Core collection of OPNSense
 
 This is currently a placeholder, installed by the OPNSense plugin.
 
