@@ -10,7 +10,7 @@ Example acquisition for this collection :
 
 ```yaml
 filenames:
-  - <TBD>
+  - /var/log/postgresql/*.log
 labels:
   type: postgres
 ```
