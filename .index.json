@@ -428,20 +428,46 @@
   },
   "crowdsecurity/opnsense": {
    "path": "collections/crowdsecurity/opnsense.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "2e389ca4cda774d45d19657579cee7bd735b62147875f333b8cd072ed4b91a04",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "bfac0c94acc89565c80ed1be59b655d8ba718b0b0097bf9da378ee4f24a4d02d",
+     "deprecated": false
     }
    },
-   "long_description": "Kipjb3JlIHBhY2thZ2UgZm9yIG9wbnNlbnNlKioKClRoaXMgaXMgY3VycmVudGx5IGEgcGxhY2Vob2xkZXIsIGluc3RhbGxlZCBieSB0aGUgT1BOU2Vuc2UgcGx1Z2luLgoKSXQgZGVwZW5kcyBvbiB0aGUgZnJlZWJzZCBjb2xsZWN0aW9uIGFuZCB3aWxsIGFkZCBzdXBwb3J0IGZvciBPUE5TZW5zZS1zcGVjaWZpYyBhcHBsaWNhdGlvbnMgb3IgbG9nIGZvcm1hdHMuCg==",
-   "content": "Y29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L2ZyZWVic2QKZGVzY3JpcHRpb246ICJjb3JlIG9wbnNlbnNlIHN1cHBvcnQiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gZnJlZWJzZAo=",
+   "long_description": "IyMgT1BOU2Vuc2UgY29sbGVjdGlvbgoKVGhpcyBPUE5TZW5zZSBjb2xsZWN0aW9uIHN1cHBvcnRzIDoKIC0gc3NoIHBhcnNlcnMgJiBicnV0ZWZvcmNlIGRldGVjdGlvbgogLSB3ZWIgYXV0aGVudGljYXRpb24gYnJ1dGVmb3JjZSBkZXRlY3Rpb24K",
+   "content": "Y29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L2ZyZWVic2QKICAtIGNyb3dkc2VjdXJpdHkvb3Buc2Vuc2Utd2ViLWF1dGgKZGVzY3JpcHRpb246ICJjb3JlIG9wbnNlbnNlIHN1cHBvcnQiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gZnJlZWJzZAo=",
    "description": "core opnsense support",
    "author": "crowdsecurity",
    "labels": null,
    "collections": [
-    "crowdsecurity/freebsd"
+    "crowdsecurity/freebsd",
+    "crowdsecurity/opnsense-web-auth"
+   ]
+  },
+  "crowdsecurity/opnsense-web-auth": {
+   "path": "collections/crowdsecurity/opnsense-web-auth.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "a8f8e564b3f65fbfdef3bdf8c4f7090ed735982709b96177904315cd31ea0484",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIGF1dGhlbnRpY2F0aW9uIGNvbGxlY3Rpb24KClN1cHBvcnQgdG8gZGV0ZWN0IGJydXRlZm9yY2Ugb24gdGhlIE9QTlNlbnNlIHdlYiBwb3J0YWwK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvb3Buc2Vuc2Utd2ViLWF1dGgKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9vcG5zZW5zZS13ZWItYmYKZGVzY3JpcHRpb246ICJPUE5TZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gc3VwcG9ydCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBGcmVlQlNECiAgLSBPUE5TZW5zZQogIC0gYnJ1dGVmb3JjZQogIC0gc2NhbgoKCg==",
+   "description": "OPNSense web authentication support",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/opnsense-web-auth"
+   ],
+   "scenarios": [
+    "crowdsecurity/opnsense-web-bf"
    ]
   },
   "crowdsecurity/pgsql": {
@@ -1209,6 +1235,7 @@
      "deprecated": false
     }
    },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIGF1dGhlbnRpY2F0aW9uIHBhcnNlcgoKQSBwYXJzZXIgZm9yIG9wbnNlbnNlIHdlYiBhdXRoZW50aWNhdGlvbiAoZmFpbGVkKSBsb2dzLgpUaG9zZSBsb2dzIGFyZSB1c3VhbGx5IHByZXNlbnQgaW4gYCAvdmFyL2xvZy9hdWRpdC9sYXRlc3QubG9nYC4KCg==",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnYXVkaXQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLXdlYi1hdXRoCmRlc2NyaXB0aW9uOiAiUGFyc2UgT1BOU2Vuc2Ugd2ViIGF1dGggbG9ncyIKIy9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICd0b3RvJyBmcm9tIDEuMi4zLjQKZ3JvazogCiAgcGF0dGVybjogIi9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICcle1VTRVJOQU1FOnVzZXJuYW1lfScgZnJvbSAle0lQT1JIT1NUOnNvdXJjZV9pcH0iCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBvcG5zZW5zZS13ZWItYXV0aAogIC0gbWV0YTogdXNlcm5hbWUKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXJuYW1lIgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNvdXJjZV9pcAogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiBvcG5zZW5zZS13ZWItZmFpbGVkLWF1dGgK",
    "description": "Parse OPNSense web auth logs",
    "author": "crowdsecurity",
@@ -2352,6 +2379,7 @@
      "deprecated": false
     }
    },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIHBvcnRhbCBicnV0ZWZvcmNlIGRldGVjdGlvbgoKRGV0ZWN0cyBicnV0ZWZvcmNlIGF0dGVtcHRzIG9uIHRoZSBPUE5TZW5zZSB3ZWIgcG9ydGFsIDoKIC0gbW9yZSB0aGFuIDUgYXR0ZW1wdHMKIC0gMTAgc2Vjb25kcyBiZXR3ZWVuIGVhY2gKCgo=",
    "content": "IyBvcG5zZW5zZSB3ZWIgYXV0aCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLXdlYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBicnV0ZWZvcmNlIG9uIG9wbnNlbnNlIHdlYiBpbnRlcmZhY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ29wbnNlbnNlLXdlYi1mYWlsZWQtYXV0aCcKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBvcG5zZW5zZS13ZWItYXV0aAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
    "description": "Detect bruteforce on opnsense web interface",
    "author": "crowdsecurity",
