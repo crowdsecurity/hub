@@ -1,5 +1,5 @@
-## Core collection of OPNSense
+## OPNSense collection
 
-This is currently a placeholder, installed by the OPNSense plugin.
-
-It depends on the freebsd collection and will add support for OPNSense-specific applications or log formats.
+This OPNSense collection supports :
+ - ssh parsers & bruteforce detection
+ - web authentication bruteforce detection

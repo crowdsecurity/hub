@@ -428,10 +428,18 @@
   },
   "crowdsecurity/opnsense": {
    "path": "collections/crowdsecurity/opnsense.yaml",
-   "version": "0.1",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "2e389ca4cda774d45d19657579cee7bd735b62147875f333b8cd072ed4b91a04",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "bfac0c94acc89565c80ed1be59b655d8ba718b0b0097bf9da378ee4f24a4d02d",
+     "deprecated": false
+    },
+    "0.3": {
+     "digest": "754157043e75342b8d6f4e0ae195657027473055072f7d22720d557a2f2e1c0d",
      "deprecated": false
     }
    },
@@ -441,7 +449,29 @@
    "author": "crowdsecurity",
    "labels": null,
    "collections": [
-    "crowdsecurity/freebsd"
+    "crowdsecurity/freebsd",
+    "crowdsecurity/opnsense-gui"
+   ]
+  },
+  "crowdsecurity/opnsense-gui": {
+   "path": "collections/crowdsecurity/opnsense-gui.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "91be3b0655e3de8a1c82787dadf1521c1ad1489e5798b5b9e2cdf3df0fc7cd1d",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIGF1dGhlbnRpY2F0aW9uIGNvbGxlY3Rpb24KClN1cHBvcnQgdG8gZGV0ZWN0IGJydXRlZm9yY2Ugb24gdGhlIE9QTlNlbnNlIHdlYiBwb3J0YWwK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvb3Buc2Vuc2UtZ3VpLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9vcG5zZW5zZS1ndWktYmYKZGVzY3JpcHRpb246ICJPUE5TZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gc3VwcG9ydCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBmcmVlYnNkCiAgLSBvcG5zZW5zZQogIC0gYnJ1dGVmb3JjZQogIC0gc2NhbgoKCg==",
+   "description": "OPNSense web authentication support",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/opnsense-gui-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/opnsense-gui-bf"
    ]
   },
   "crowdsecurity/pgsql": {
@@ -1220,6 +1250,22 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/opnsense-gui-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/opnsense-gui-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "1a93083832b2ef50845cbf1fd056ab1b680e6f524d17892bc8f6cb72cfe87935",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIGF1dGhlbnRpY2F0aW9uIHBhcnNlcgoKQSBwYXJzZXIgZm9yIG9wbnNlbnNlIHdlYiBhdXRoZW50aWNhdGlvbiAoZmFpbGVkKSBsb2dzLgpUaG9zZSBsb2dzIGFyZSB1c3VhbGx5IHByZXNlbnQgaW4gYCAvdmFyL2xvZy9hdWRpdC9sYXRlc3QubG9nYC4KCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnYXVkaXQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLWd1aS1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgT1BOU2Vuc2Ugd2ViIGF1dGggbG9ncyIKIy9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICd0b3RvJyBmcm9tIDEuMi4zLjQKZ3JvazogCiAgcGF0dGVybjogIi9pbmRleC5waHA6IFdlYiBHVUkgYXV0aGVudGljYXRpb24gZXJyb3IgZm9yICcle1VTRVJOQU1FOnVzZXJuYW1lfScgZnJvbSAle0lQT1JIT1NUOnNvdXJjZV9pcH0iCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBvcG5zZW5zZS1ndWkKICAtIG1ldGE6IHVzZXJuYW1lCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC51c2VybmFtZSIKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5zb3VyY2VfaXAKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogb3Buc2Vuc2UtZ3VpLWZhaWxlZC1hdXRoCg==",
+   "description": "Parse OPNSense web auth logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/pam-logs": {
    "path": "parsers/s01-parse/crowdsecurity/pam-logs.yaml",
    "stage": "s01-parse",
@@ -1428,7 +1474,7 @@
   "crowdsecurity/syslog-logs": {
    "path": "parsers/s00-raw/crowdsecurity/syslog-logs.yaml",
    "stage": "s00-raw",
-   "version": "0.7",
+   "version": "0.8",
    "versions": {
     "0.1": {
      "digest": "44e8cfbf528dcd70c6cc329df1b963f6861668796c706cc79050b0907a85540e",
@@ -1457,10 +1503,14 @@
     "0.7": {
      "digest": "8d15b6ab76aea4f785a05f31ba84a92e96c1cd3a2644e7a63d98feebd16e1995",
      "deprecated": false
+    },
+    "0.8": {
+     "digest": "d637382a9f927a4d8101cfc8d42b39cd83d1327e074cc5c48c0a8827fedec6d5",
+     "deprecated": false
     }
    },
    "long_description": "IyBTeXNsb2cgcGFyc2VyCgpUaGlzIGlzIGEgZ2VuZXJpYyBsaW51eCBzeXNsb2cgcGFyc2VyIHdpdGggdGltZS1zdXBwb3J0LgpBZGQgYGRhdGFzb3VyY2VfdHlwZWAgYW5kIGBkYXRhc291cmNlX3BhdGhgIHNvdXJjZSBhbmQgZGF0YXNvdXJjZSB0eXBlIGluIHRoZSBgTWV0YWDCoG9iamVjdC4K",
-   "content": "I0lmIGl0J3Mgc3lzbG9nLCB3ZSBhcmUgZ29pbmcgdG8gZXh0cmFjdCBwcm9nbmFtZSBmcm9tIGl0CmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlID09ICdzeXNsb2cnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9zeXNsb2ctbG9ncwpncm9rOgogICN0aGlzIGlzIGEgbmFtZWQgcmVndWxhciBleHByZXNzaW9uLiBncm9rIHBhdHRlcm5zIGNhbiBiZSBrZXB0IGludG8gc2VwYXJhdGUgZmlsZXMgZm9yIHJlYWRhYmlsaXR5CiAgbmFtZTogIlNZU0xPR0xJTkUiIAogICNUaGlzIGlzIHRoZSBmaWVsZCBvZiB0aGUgYEV2ZW50YCB0byB3aGljaCB0aGUgcmVnZXhwIHNob3VsZCBiZSBhcHBsaWVkCiAgYXBwbHlfb246IExpbmUuUmF3CiNpZiB0aGUgbm9kZSB3YXMgc3VjY2Vzc2Z1bGwsIHN0YXRpY3Mgd2lsbCBiZSBhcHBsaWVkLgpzdGF0aWNzOgogIC0gbWV0YTogbWFjaGluZQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5sb2dzb3VyY2UKICAtIHBhcnNlZDogImxvZ3NvdXJjZSIKICAgIHZhbHVlOiAic3lzbG9nIgojIHN5c2xvZyBkYXRlIGNhbiBiZSBpbiB0d28gZGlmZmVyZW50IGZpZWxkcyAob25lIG9mIGh0ZSBhc3NpZ25tZW50IHdpbGwgZmFpbCkKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZXN0YW1wCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcDg2MDEKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQotLS0KI2lmIGl0J3Mgbm90IHN5c2xvZywgdGhlIHR5cGUgaXMgdGhlIHByb2duYW1lCmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlICE9ICdzeXNsb2cnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9ub24tc3lzbG9nCiNkZWJ1ZzogdHJ1ZQpzdGF0aWNzOgogIC0gcGFyc2VkOiBtZXNzYWdlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5SYXcKICAtIHBhcnNlZDogcHJvZ3JhbQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuTGFiZWxzLnR5cGUKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQoK",
+   "content": "I0lmIGl0J3Mgc3lzbG9nLCB3ZSBhcmUgZ29pbmcgdG8gZXh0cmFjdCBwcm9nbmFtZSBmcm9tIGl0CmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlID09ICdzeXNsb2cnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKcGF0dGVybl9zeW50YXg6CiAgUkFXX1NZU0xPR19QUkVGSVg6ICdePCV7TlVNQkVSOnN0dWZmMX0+JXtOVU1CRVI6c3R1ZmYyfSAle1NZU0xPR0JBU0UyfSAle0RBVEE6cHJvZ3JhbX0gJXtOVU1CRVI6cGlkfScKICBSQVdfU1lTTE9HX01FVEE6ICdcW21ldGEgc2VxdWVuY2VJZD0iJXtOT1REUVVPVEU6c2VxX2lkfSJcXScKbmFtZTogY3Jvd2RzZWN1cml0eS9zeXNsb2ctbG9ncwpub2RlczoKICAtIGdyb2s6CiAgICAgICN0aGlzIGlzIGEgbmFtZWQgcmVndWxhciBleHByZXNzaW9uLiBncm9rIHBhdHRlcm5zIGNhbiBiZSBrZXB0IGludG8gc2VwYXJhdGUgZmlsZXMgZm9yIHJlYWRhYmlsaXR5CiAgICAgIHBhdHRlcm46ICJeJXtTWVNMT0dMSU5FfSIgCiAgICAgICNUaGlzIGlzIHRoZSBmaWVsZCBvZiB0aGUgYEV2ZW50YCB0byB3aGljaCB0aGUgcmVnZXhwIHNob3VsZCBiZSBhcHBsaWVkCiAgICAgIGFwcGx5X29uOiBMaW5lLlJhdwogIC0gZ3JvazoKICAgICAgI2Egc2Vjb25kIHBhdHRlcm4gZm9yIHVucGFyc2VkIHN5c2xvZyBsaW5lcywgYXMgc2F3IGluIG9wbnNlbnNlCiAgICAgIHBhdHRlcm46ICcle1JBV19TWVNMT0dfUFJFRklYfSAtICV7UkFXX1NZU0xPR19NRVRBfSAle0dSRUVEWURBVEE6bWVzc2FnZX0nCiAgICAgIGFwcGx5X29uOiBMaW5lLlJhdwojaWYgdGhlIG5vZGUgd2FzIHN1Y2Nlc3NmdWxsLCBzdGF0aWNzIHdpbGwgYmUgYXBwbGllZC4Kc3RhdGljczoKICAtIG1ldGE6IG1hY2hpbmUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQubG9nc291cmNlCiAgLSBwYXJzZWQ6ICJsb2dzb3VyY2UiCiAgICB2YWx1ZTogInN5c2xvZyIKIyBzeXNsb2cgZGF0ZSBjYW4gYmUgaW4gdHdvIGRpZmZlcmVudCBmaWVsZHMgKG9uZSBvZiBodGUgYXNzaWdubWVudCB3aWxsIGZhaWwpCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcAogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXA4NjAxCiAgLSBtZXRhOiBkYXRhc291cmNlX3BhdGgKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLlNyYwogIC0gbWV0YTogZGF0YXNvdXJjZV90eXBlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5Nb2R1bGUKLS0tCiNpZiBpdCdzIG5vdCBzeXNsb2csIHRoZSB0eXBlIGlzIHRoZSBwcm9nbmFtZQpmaWx0ZXI6ICJldnQuTGluZS5MYWJlbHMudHlwZSAhPSAnc3lzbG9nJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbm9uLXN5c2xvZwojZGVidWc6IHRydWUKc3RhdGljczoKICAtIHBhcnNlZDogbWVzc2FnZQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuUmF3CiAgLSBwYXJzZWQ6IHByb2dyYW0KICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLkxhYmVscy50eXBlCiAgLSBtZXRhOiBkYXRhc291cmNlX3BhdGgKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLlNyYwogIC0gbWV0YTogZGF0YXNvdXJjZV90eXBlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5Nb2R1bGUKCg==",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2359,6 +2409,25 @@
     "remediation": "true",
     "service": "http",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/opnsense-gui-bf": {
+   "path": "scenarios/crowdsecurity/opnsense-gui-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "15f0d4f03f1e18a8cd5d95467a13e86ebfd717354f53ba02b4d165e6537965bf",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgT1BOU2Vuc2Ugd2ViIHBvcnRhbCBicnV0ZWZvcmNlIGRldGVjdGlvbgoKRGV0ZWN0cyBicnV0ZWZvcmNlIGF0dGVtcHRzIG9uIHRoZSBPUE5TZW5zZSB3ZWIgcG9ydGFsIDoKIC0gbW9yZSB0aGFuIDUgYXR0ZW1wdHMKIC0gMTAgc2Vjb25kcyBiZXR3ZWVuIGVhY2gKCgo=",
+   "content": "IyBvcG5zZW5zZSB3ZWIgYXV0aCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L29wbnNlbnNlLXdlYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBicnV0ZWZvcmNlIG9uIG9wbnNlbnNlIHdlYiBpbnRlcmZhY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ29wbnNlbnNlLWd1aS1mYWlsZWQtYXV0aCcKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiBvcG5zZW5zZS1ndWktYXV0aAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect bruteforce on opnsense web interface",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "opnsense-gui-auth",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/pgsql-bf": {

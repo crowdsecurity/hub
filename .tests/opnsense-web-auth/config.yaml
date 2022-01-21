@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/opnsense-gui-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/opnsense-gui-bf.yaml
+postoverflows:
+- ""
+log_file: opnsense-web-auth.log
+log_type: syslog
+labels: {}
+ignore_parsers: false
