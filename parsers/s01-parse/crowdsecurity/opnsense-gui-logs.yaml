@@ -1,6 +1,6 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'audit'"
-name: crowdsecurity/opnsense-web-auth
+name: crowdsecurity/opnsense-gui-logs
 description: "Parse OPNSense web auth logs"
 #/index.php: Web GUI authentication error for 'toto' from 1.2.3.4
 grok: 
@@ -8,10 +8,10 @@ grok:
   apply_on: message
 statics:
   - meta: service
-    value: opnsense-web-auth
+    value: opnsense-gui
   - meta: username
     expression: "evt.Parsed.username"
   - meta: source_ip
     expression: evt.Parsed.source_ip
   - meta: log_type
-    value: opnsense-web-failed-auth
+    value: opnsense-gui-failed-auth
