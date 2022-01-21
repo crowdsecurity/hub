@@ -12,9 +12,9 @@ Example acquisition for this collection :
 
 ```yaml
 filenames:
-  - <TBD>
+  - /var/log/proftpd/*.log
 labels:
-  type: proftpd
+  type: syslog
 ```
 
 

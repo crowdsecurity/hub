@@ -12,7 +12,7 @@ Example acquisition for this collection :
 ```yaml
 filenames:
   - /var/log/apache2/*.log
-  - <TBD>
+  - /var/log/nginx/*.log
 labels:
   type: modsecurity
 ```
