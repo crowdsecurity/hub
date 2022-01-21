@@ -1,8 +1,12 @@
+## Cpanel collection
+
 A collection for cpanel. Contains:
  * cpanel log parser
  * cpanel scenario to detect bruteforce
 
-The relevant `acquis.yaml` should be:
+## Acquisition template
+
+Example acquisition for this collection :
 
 ```yaml
 filenames:
@@ -10,3 +14,9 @@ filenames:
 labels:
   type: cpanel
 ```
+
+
+notes :
+ -  If you are using `syslog`, set type to `syslog` instead
+ -  Depending on your distribution/OS, paths to log files might change
+ -  Only relevant if you are manually installing collection

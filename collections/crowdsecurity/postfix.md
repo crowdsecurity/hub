@@ -1,3 +1,5 @@
+## Postfix collection
+
 A collection for postfix
  * postfix log parsers
  * postscreen log parser
@@ -8,7 +10,10 @@ This collection mostly aims at getting a similar spam protection as
 the normal fail2ban postfix configuration although postcreen log
 management isn't included by default by fail2ban.
 
-The relevant `acquis.yaml` should be:
+
+## Acquisition template
+
+Example acquisition for this collection :
 
 ```yaml
 filenames:
@@ -16,3 +21,9 @@ filenames:
 labels:
   type: syslog
 ```
+
+
+notes :
+ -  If you are using `syslog`, set type to `syslog` instead
+ -  Depending on your distribution/OS, paths to log files might change
+ -  Only relevant if you are manually installing collection
