@@ -1,6 +1,6 @@
 ---
 type: leaky
-name: crowsecurity/nextcloud-bf
+name: crowdsecurity/nextcloud-bf
 description: "Detect Nextcloud bruteforce"
 filter: "evt.Meta.log_type in ['nextcloud_failed_auth', 'nextcloud_bruteforce_attempt']"
 leakspeed: "1m"
@@ -17,7 +17,7 @@ labels:
   remediation: true
 ---
 type: leaky
-name: crowsecurity/nextcloud-bf_user_enum
+name: crowdsecurity/nextcloud-bf_user_enum
 description: "Detect Nextcloud user enum bruteforce"
 filter: "evt.Meta.log_type == 'nextcloud_failed_auth'"
 leakspeed: "1m"
