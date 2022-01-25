@@ -1,0 +1,14 @@
+# windows auth bruteforce
+type: leaky
+name: crowdsecurity/windows-bf
+description: "Detect windows auth bruteforce"
+filter: "evt.Meta.log_type == 'windows_failed_auth'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: windows
+ type: bruteforce
+ remediation: true

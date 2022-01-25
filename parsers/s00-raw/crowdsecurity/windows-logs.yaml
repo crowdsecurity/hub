@@ -1,0 +1,29 @@
+filter: "evt.Line.Module == 'wineventlog'"
+onsuccess: next_stage
+name: crowdsecurity/windows-eventlog
+debug: true
+statics:
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
+  - target: evt.StrTime
+    #We need XMLGetAttributeValue because etree does not support getting an attribute value (or at least, i didn't manage to make the correct query)
+    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/TimeCreated", "SystemTime")
+  - parsed: Channel
+    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Channel")
+  - parsed: EventID
+    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
+---
+filter: "evt.Line.Module != 'wineventlog'"
+onsuccess: next_stage
+name: crowdsecurity/windows-non-eventlog
+statics:
+  - parsed: message
+    expression: evt.Line.Raw
+  - parsed: program
+    expression: evt.Line.Labels.type
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
