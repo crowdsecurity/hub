@@ -1586,6 +1586,34 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/windows-auth": {
+   "path": "parsers/s01-parse/crowdsecurity/windows-auth.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "deprecated": false
+    }
+   },
+   "content": "",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/windows-logs": {
+   "path": "parsers/s00-raw/crowdsecurity/windows-logs.yaml",
+   "stage": "s00-raw",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f51a9f48a321f6935c44515ee8ec312d7771a6ced5bf63d9ab8dede2a3b77e9d",
+     "deprecated": false
+    }
+   },
+   "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTW9kdWxlID09ICd3aW5ldmVudGxvZyciCm9uc3VjY2VzczogbmV4dF9zdGFnZQpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtZXZlbnRsb2cKZGVidWc6IHRydWUKc3RhdGljczoKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgI1dlIG5lZWQgWE1MR2V0QXR0cmlidXRlVmFsdWUgYmVjYXVzZSBldHJlZSBkb2VzIG5vdCBzdXBwb3J0IGdldHRpbmcgYW4gYXR0cmlidXRlIHZhbHVlIChvciBhdCBsZWFzdCwgaSBkaWRuJ3QgbWFuYWdlIHRvIG1ha2UgdGhlIGNvcnJlY3QgcXVlcnkpCiAgICBleHByZXNzaW9uOiBYTUxHZXRBdHRyaWJ1dGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvU3lzdGVtWzFdL1RpbWVDcmVhdGVkIiwgIlN5c3RlbVRpbWUiKQogIC0gcGFyc2VkOiBDaGFubmVsCiAgICBleHByZXNzaW9uOiBYTUxHZXROb2RlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L1N5c3RlbVsxXS9DaGFubmVsIikKICAtIHBhcnNlZDogRXZlbnRJRAogICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9TeXN0ZW1bMV0vRXZlbnRJRCIpCi0tLQpmaWx0ZXI6ICJldnQuTGluZS5Nb2R1bGUgIT0gJ3dpbmV2ZW50bG9nJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvd2luZG93cy1ub24tZXZlbnRsb2cKc3RhdGljczoKICAtIHBhcnNlZDogbWVzc2FnZQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuUmF3CiAgLSBwYXJzZWQ6IHByb2dyYW0KICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLkxhYmVscy50eXBlCiAgLSBtZXRhOiBkYXRhc291cmNlX3BhdGgKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLlNyYwogIC0gbWV0YTogZGF0YXNvdXJjZV90eXBlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5Nb2R1bGUK",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "firewallservices/lemonldap-ng": {
    "path": "parsers/s01-parse/firewallservices/lemonldap-ng.yaml",
    "stage": "s01-parse",
@@ -2678,6 +2706,24 @@
    "labels": {
     "remediation": "true",
     "service": "ftp",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/windows-bf": {
+   "path": "scenarios/crowdsecurity/windows-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "8bab4995597e6a72e87131cd681ed6023c90cc805c3ee824bfbce1725e67fdd8",
+     "deprecated": false
+    }
+   },
+   "content": "IyB3aW5kb3dzIGF1dGggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtYmYKZGVzY3JpcHRpb246ICJEZXRlY3Qgd2luZG93cyBhdXRoIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICd3aW5kb3dzX2ZhaWxlZF9hdXRoJyIKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogc2VydmljZTogd2luZG93cwogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect windows auth bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "windows",
     "type": "bruteforce"
    }
   },
