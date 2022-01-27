@@ -4,7 +4,7 @@ This collection aims at detecting (when possible) local privilege escalation att
 
  - CVE-2021-4034 : Detect exploitation of pkexec vulnerability
 
-:warning: Those scenarios are very likely to be bypassed by smart attackers, do not rely solely on them :warning:
+:warning: Please note those scenarios are detection only, and are very likely to be bypassed by smart attackers, do not rely solely on them :warning:
 
 ## Acquisition template
 
