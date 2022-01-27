@@ -1,0 +1,15 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'pkexec'"
+name: crowdsecurity/pkexec-logs
+description: "Parse pkexec logs specifically for CVE-2021-4034"
+pattern_syntax:
+  PWNKIT_XPL: '%{DATA:user}: The value for the SHELL variable was not found the /etc/shells file'
+grok:
+  name: "PWNKIT_XPL"
+  apply_on: message
+statics:
+  - meta: log_type
+    value: CVE-2021-4034-xpl
+  - meta: target_user
+    expression: "evt.Parsed.user"
