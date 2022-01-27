@@ -320,6 +320,30 @@
     "crowdsecurity/sshd"
    ]
   },
+  "crowdsecurity/linux-lpe": {
+   "path": "collections/crowdsecurity/linux-lpe.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "a68ef0b517c988b50b3cdc0d84702b2f70e621d29378b9782b2e037bf6663458",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgTG9jYWwgUHJpdmlsZWdlIEVzY2FsYXRpb24gRGV0ZWN0aW9uCgpUaGlzIGNvbGxlY3Rpb24gYWltcyBhdCBkZXRlY3RpbmcgKHdoZW4gcG9zc2libGUpIGxvY2FsIHByaXZpbGVnZSBlc2NhbGF0aW9uIGF0dGFja3MuCgogLSBDVkUtMjAyMS00MDM0IDogRGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBwa2V4ZWMgdnVsbmVyYWJpbGl0eQo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmNvbGxlY3Rpb25zOgogIC0gY3Jvd2RzZWN1cml0eS9saW51eApkZXNjcmlwdGlvbjogIkxpbnV4IExvY2FsIFByaXZpbGVnZSBFc2NhbGF0aW9uIGNvbGxlY3Rpb24gOiBkZXRlY3QgdHJpdmlhbCBMUEVzIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBwcml2c2VjCiAgLSBscGUKCgo=",
+   "description": "Linux Local Privilege Escalation collection : detect trivial LPEs",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/pkexec-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/CVE-2021-4034"
+   ],
+   "collections": [
+    "crowdsecurity/linux"
+   ]
+  },
   "crowdsecurity/mariadb": {
    "path": "collections/crowdsecurity/mariadb.yaml",
    "version": "0.1",
@@ -1355,6 +1379,21 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/pkexec-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/pkexec-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "3b8e30530f69f776d327b5710653a496245949ca6dde84d16357f433b7303a25",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ3BrZXhlYyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBwa2V4ZWMgbG9ncyBzcGVjaWZpY2FsbHkgZm9yIENWRS0yMDIxLTQwMzQiCnBhdHRlcm5fc3ludGF4OgogIFBXTktJVF9YUEw6ICcle0RBVEE6dXNlcn06IFRoZSB2YWx1ZSBmb3IgdGhlIFNIRUxMIHZhcmlhYmxlIHdhcyBub3QgZm91bmQgdGhlIC9ldGMvc2hlbGxzIGZpbGUnCmdyb2s6CiAgbmFtZTogIlBXTktJVF9YUEwiCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogQ1ZFLTIwMjEtNDAzNC14cGwKICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC51c2VyIgo=",
+   "description": "Parse pkexec logs specifically for CVE-2021-4034",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/postfix-logs": {
    "path": "parsers/s01-parse/crowdsecurity/postfix-logs.yaml",
    "stage": "s01-parse",
@@ -1803,6 +1842,23 @@
   }
  },
  "scenarios": {
+  "crowdsecurity/CVE-2021-4034": {
+   "path": "scenarios/crowdsecurity/CVE-2021-4034.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f08340e4247cfd2c44fb2db26dcb752aacbcfb483dc7da686af8e793b5a32d0f",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgQ1ZFLTIwMjEtNDAzNAoKRGV0ZWN0cyBleHBsb2l0IG9mIENWRS0yMDIxLTQwMzQgYHBrZXhlY2AgdnVsbmVyYWJpbGl0eS4KCjp3YXJuaW5nOiBTbWFydCBhdHRhY2tlcnMgY2FuIGV4cGxvaXQgdGhpcyB2dWxuZXJhYmlsaXR5IHdpdGhvdXQgbGV0dGluZyB0cmFjZXMgaW4gbG9ncwoK",
+   "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IENWRS0yMDIxLTQwMzQgZXhwbG9pdHMiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ0NWRS0yMDIxLTQwMzQteHBsJwpncm91cGJ5OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHR5cGU6IHByaXZlc2MKc2NvcGU6CiAgdHlwZTogc3lzdGVtX2FjY291bnQKICBleHByZXNzaW9uOiBldnQuTWV0YS50YXJnZXRfdXNlcgo=",
+   "description": "Detect CVE-2021-4034 exploits",
+   "author": "crowdsecurity",
+   "labels": {
+    "type": "privesc"
+   }
+  },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
    "path": "scenarios/crowdsecurity/apache_log4j2_cve-2021-44228.yaml",
    "version": "0.4",
