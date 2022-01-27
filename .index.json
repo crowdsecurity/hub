@@ -631,6 +631,30 @@
     "crowdsecurity/rdns"
    ]
   },
+  "crowdsecurity/windows": {
+   "path": "collections/crowdsecurity/windows.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "dca4187a260a723cfc7d47246cccfadab4249adca84f9e8b0cff7727f4503ae9",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgV2luZG93cyBjb2xsZWN0aW9uCgpUaGlzIGNvbGxlY3Rpb24gaW5zdGFsbHMgYSBwYXJzZXIgZm9yIHdpbmRvd3MgZXZlbnQgbG9ncyArIGZsYXQgZmlsZSwgYW5kIGEgcGFyc2VyL3NjZW5hcmlvIGZvciBhdXRoIGJydXRlZm9yY2UK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtYXV0aAogIC0gY3Jvd2RzZWN1cml0eS9nZW9pcC1lbnJpY2gKICAtIGNyb3dkc2VjdXJpdHkvZGF0ZXBhcnNlLWVucmljaApzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtYmYKZGVzY3JpcHRpb246ICJjb3JlIHdpbmRvd3Mgc3VwcG9ydCA6IHdpbmRvd3MgZXZlbnQgbG9nICsgYmYgZGV0ZWN0aW9uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIHdpbmRvd3MKCg==",
+   "description": "core windows support : windows event log + bf detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/windows-logs",
+    "crowdsecurity/windows-auth",
+    "crowdsecurity/geoip-enrich",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "crowdsecurity/windows-bf"
+   ]
+  },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
    "version": "0.3",
@@ -1589,14 +1613,19 @@
   "crowdsecurity/windows-auth": {
    "path": "parsers/s01-parse/crowdsecurity/windows-auth.yaml",
    "stage": "s01-parse",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "c0e604a0512e61cdd102c9ebc9267c3e546712f05b75a912695808a45e08dc51",
+     "deprecated": false
     }
    },
-   "content": "",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLkNoYW5uZWwgPT0gJ1NlY3VyaXR5JyAmJiBldnQuUGFyc2VkLkV2ZW50SUQgPT0gJzQ2MjUnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtYXV0aApkZXNjcmlwdGlvbjogIlBhcnNlIHdpbmRvd3MgYXV0aGVudGljYXRpb24gZmFpbHVyZSBldmVudHMgKGlkIDQ2MjUpIgpzdGF0aWNzOgogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9FdmVudERhdGFbMV0vRGF0YVtATmFtZT0nSXBBZGRyZXNzJ10iKQogICAgLSBtZXRhOiB1c2VybmFtZQogICAgICBleHByZXNzaW9uOiBYTUxHZXROb2RlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L0V2ZW50RGF0YVsxXS9EYXRhW0BOYW1lPSdUYXJnZXRVc2VyTmFtZSddIikKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IHdpbmRvd3NfZmFpbGVkX2F1dGg=",
+   "description": "Parse windows authentication failure events (id 4625)",
    "author": "crowdsecurity",
    "labels": null
   },
