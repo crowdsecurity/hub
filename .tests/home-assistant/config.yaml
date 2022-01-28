@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/home-assistant-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/home-assistant-bf.yaml
+postoverflows:
+- ""
+log_file: home-assistant-logs.log
+log_type: home-assistant
+labels: {}
+ignore_parsers: false

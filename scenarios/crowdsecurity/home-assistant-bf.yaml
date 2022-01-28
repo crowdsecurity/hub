@@ -1,0 +1,14 @@
+# home-assistant bruteforce
+type: leaky
+debug: true
+name: crowdsecurity/home-assistant-bf
+description: "Detect Home Assistant bruteforce"
+filter: evt.Meta.log_type == 'home-assistant_failed_auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: home-assistant
+ type: bruteforce
+ remediation: true
