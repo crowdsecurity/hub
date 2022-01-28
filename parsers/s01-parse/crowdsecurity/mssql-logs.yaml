@@ -1,0 +1,36 @@
+onsuccess: next_stage
+name: crowdsecurity/mssql-logs
+description: "Parse mssql logs"
+filter: "evt.Parsed.Channel == 'Application' && evt.Parsed.Source == 'MSSQLSERVER' && evt.Parsed.EventID == '18456'"
+nodes:
+  - grok:
+      pattern: "Reason: Password did not match that for the login provided\\."
+      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[2]")
+    nodes:
+      - grok:
+          pattern: "\\[CLIENT: %{IP:source_ip}\\]"
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[3]")
+          statics:
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+    statics:
+      - meta: subtype
+        value: bad_password
+  - grok:
+      pattern: "Reason: Could not find a login matching the name provided\\."
+      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[2]")
+    nodes:
+      - grok:
+          pattern: "\\[CLIENT: %{IP:source_ip}\\]"
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[3]")
+          statics:
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+    statics:
+      - meta: subtype
+        value: bad_user
+statics:
+  - meta: log_type
+    value: mssql_failed_auth
+  - meta: user
+    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[1]")
