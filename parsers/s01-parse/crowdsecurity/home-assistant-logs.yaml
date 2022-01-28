@@ -1,0 +1,22 @@
+onsuccess: next_stage
+name: crowdsecurity/home-assistant-logs
+description: "Parse Home Assistant logs"
+filter: "evt.Parsed.program == 'home-assistant'"
+pattern_syntax:
+  TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
+nodes:
+  - grok:
+      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{WORD:source_rdns} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: home-assistant_failed_auth
+statics:
+  - target: StrTime
+    expression: "evt.Parsed.time"
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: source_rdns
+    expression: "evt.Parsed.source_rdns"
