@@ -1,7 +1,6 @@
 filter: "evt.Line.Module == 'wineventlog'"
 onsuccess: next_stage
 name: crowdsecurity/windows-eventlog
-debug: true
 statics:
   - meta: datasource_path
     expression: evt.Line.Src
@@ -14,6 +13,8 @@ statics:
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Channel")
   - parsed: EventID
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
+  - parsed: Source
+    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Provider", "Name")
 ---
 filter: "evt.Line.Module != 'wineventlog'"
 onsuccess: next_stage
