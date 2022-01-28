@@ -1,0 +1,19 @@
+filter: "evt.Line.Labels.type == 'containerd'"
+onsuccess: next_stage
+name: crowdsecurity/cri-logs
+description: CRI logging format parser
+nodes:
+  - grok:
+      pattern: "^%{TIMESTAMP_ISO8601:cri_timestamp} %{WORD:stream} %{WORD:logtag} %{GREEDYDATA:message}"
+      apply_on: Line.Raw
+statics:
+  - parsed: "logsource"
+    value: "cri"
+  - target: evt.StrTime
+    expression: evt.Parsed.cri_timestamp
+  - parsed: program
+    expression: evt.Line.Labels.program
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
