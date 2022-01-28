@@ -362,6 +362,27 @@
     "crowdsecurity/modsecurity"
    ]
   },
+  "crowdsecurity/mssql": {
+   "path": "collections/crowdsecurity/mssql.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "109bf56d5781fca733b958588338370d2196a2c3e490eccb94c56df6341a3ba8",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgTVNTUUwgQ29sbGVjdGlvbgoKQSBjb2xsZWN0aW9uIGZvciBNU1NRTCA6CiAtIG1zc3FsIGxvZ3MgcGFyc2VyCiAtIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAKICMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbApzb3VyY2U6IHdpbmV2ZW50bG9nCmV2ZW50X2NoYW5uZWw6IEFwcGxpY2F0aW9uCmV2ZW50X2lkczoKIC0gMTg0NTYKZXZlbnRfbGV2ZWw6IGluZm9ybWF0aW9uCmxhYmVsczoKIHR5cGU6IGV2ZW50bG9nCmBgYAoKbm90ZXM6CiAtICBZb3UgbmVlZCB0byBlbmFibGUgZmFpbGVkIGxvZ2luIGxvZ3MgKHdoaWNoIHNob3VsZCBiZSBvbiBieSBkZWZhdWx0KQ==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvbXNzcWwtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L21zc3FsLWJmCmRlc2NyaXB0aW9uOiAibXNzcWwgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSB3aW5kb3dzCiAgLSBtc3NxbAogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "mssql support : logs and brute-force scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/mssql-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/mssql-bf"
+   ]
+  },
   "crowdsecurity/mysql": {
    "path": "collections/crowdsecurity/mysql.yaml",
    "version": "0.1",
@@ -1183,6 +1204,21 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/mssql-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/mssql-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "9c99578104a9158ada41bb8dd920575a83d494e6f6e2d166eb5773fb4d7023b1",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbXNzcWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIG1zc3FsIGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQuQ2hhbm5lbCA9PSAnQXBwbGljYXRpb24nICYmIGV2dC5QYXJzZWQuU291cmNlID09ICdNU1NRTFNFUlZFUicgJiYgZXZ0LlBhcnNlZC5FdmVudElEID09ICcxODQ1NiciCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIlJlYXNvbjogUGFzc3dvcmQgZGlkIG5vdCBtYXRjaCB0aGF0IGZvciB0aGUgbG9naW4gcHJvdmlkZWRcXC4iCiAgICAgIGV4cHJlc3Npb246IFhNTEdldE5vZGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvRXZlbnREYXRhWzFdL0RhdGFbMl0iKQogICAgbm9kZXM6CiAgICAgIC0gZ3JvazoKICAgICAgICAgIHBhdHRlcm46ICJcXFtDTElFTlQ6ICV7SVA6c291cmNlX2lwfVxcXSIKICAgICAgICAgIGV4cHJlc3Npb246IFhNTEdldE5vZGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvRXZlbnREYXRhWzFdL0RhdGFbM10iKQogICAgICAgICAgc3RhdGljczoKICAgICAgICAgICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNvdXJjZV9pcAogICAgc3RhdGljczoKICAgICAgLSBtZXRhOiBzdWJ0eXBlCiAgICAgICAgdmFsdWU6IGJhZF9wYXNzd29yZAogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIlJlYXNvbjogQ291bGQgbm90IGZpbmQgYSBsb2dpbiBtYXRjaGluZyB0aGUgbmFtZSBwcm92aWRlZFxcLiIKICAgICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9FdmVudERhdGFbMV0vRGF0YVsyXSIpCiAgICBub2RlczoKICAgICAgLSBncm9rOgogICAgICAgICAgcGF0dGVybjogIlxcW0NMSUVOVDogJXtJUDpzb3VyY2VfaXB9XFxdIgogICAgICAgICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9FdmVudERhdGFbMV0vRGF0YVszXSIpCiAgICAgICAgICBzdGF0aWNzOgogICAgICAgICAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlX2lwCiAgICBzdGF0aWNzOgogICAgICAtIG1ldGE6IHN1YnR5cGUKICAgICAgICB2YWx1ZTogYmFkX3VzZXIKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogbXNzcWxfZmFpbGVkX2F1dGgKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246IFhNTEdldE5vZGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvRXZlbnREYXRhWzFdL0RhdGFbMV0iKQ==",
+   "description": "Parse mssql logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/mysql-logs": {
    "path": "parsers/s01-parse/crowdsecurity/mysql-logs.yaml",
    "stage": "s01-parse",
@@ -1632,14 +1668,18 @@
   "crowdsecurity/windows-logs": {
    "path": "parsers/s00-raw/crowdsecurity/windows-logs.yaml",
    "stage": "s00-raw",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "f51a9f48a321f6935c44515ee8ec312d7771a6ced5bf63d9ab8dede2a3b77e9d",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "65d086df4579e371213259dffdf4ff22b27a107a4200327b0b86b5605fed4d43",
+     "deprecated": false
     }
    },
-   "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTW9kdWxlID09ICd3aW5ldmVudGxvZyciCm9uc3VjY2VzczogbmV4dF9zdGFnZQpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtZXZlbnRsb2cKZGVidWc6IHRydWUKc3RhdGljczoKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgI1dlIG5lZWQgWE1MR2V0QXR0cmlidXRlVmFsdWUgYmVjYXVzZSBldHJlZSBkb2VzIG5vdCBzdXBwb3J0IGdldHRpbmcgYW4gYXR0cmlidXRlIHZhbHVlIChvciBhdCBsZWFzdCwgaSBkaWRuJ3QgbWFuYWdlIHRvIG1ha2UgdGhlIGNvcnJlY3QgcXVlcnkpCiAgICBleHByZXNzaW9uOiBYTUxHZXRBdHRyaWJ1dGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvU3lzdGVtWzFdL1RpbWVDcmVhdGVkIiwgIlN5c3RlbVRpbWUiKQogIC0gcGFyc2VkOiBDaGFubmVsCiAgICBleHByZXNzaW9uOiBYTUxHZXROb2RlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L1N5c3RlbVsxXS9DaGFubmVsIikKICAtIHBhcnNlZDogRXZlbnRJRAogICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9TeXN0ZW1bMV0vRXZlbnRJRCIpCi0tLQpmaWx0ZXI6ICJldnQuTGluZS5Nb2R1bGUgIT0gJ3dpbmV2ZW50bG9nJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvd2luZG93cy1ub24tZXZlbnRsb2cKc3RhdGljczoKICAtIHBhcnNlZDogbWVzc2FnZQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuUmF3CiAgLSBwYXJzZWQ6IHByb2dyYW0KICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLkxhYmVscy50eXBlCiAgLSBtZXRhOiBkYXRhc291cmNlX3BhdGgKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLlNyYwogIC0gbWV0YTogZGF0YXNvdXJjZV90eXBlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5Nb2R1bGUK",
+   "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTW9kdWxlID09ICd3aW5ldmVudGxvZyciCm9uc3VjY2VzczogbmV4dF9zdGFnZQpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtZXZlbnRsb2cKc3RhdGljczoKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgI1dlIG5lZWQgWE1MR2V0QXR0cmlidXRlVmFsdWUgYmVjYXVzZSBldHJlZSBkb2VzIG5vdCBzdXBwb3J0IGdldHRpbmcgYW4gYXR0cmlidXRlIHZhbHVlIChvciBhdCBsZWFzdCwgaSBkaWRuJ3QgbWFuYWdlIHRvIG1ha2UgdGhlIGNvcnJlY3QgcXVlcnkpCiAgICBleHByZXNzaW9uOiBYTUxHZXRBdHRyaWJ1dGVWYWx1ZShldnQuTGluZS5SYXcsICIvRXZlbnQvU3lzdGVtWzFdL1RpbWVDcmVhdGVkIiwgIlN5c3RlbVRpbWUiKQogIC0gcGFyc2VkOiBDaGFubmVsCiAgICBleHByZXNzaW9uOiBYTUxHZXROb2RlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L1N5c3RlbVsxXS9DaGFubmVsIikKICAtIHBhcnNlZDogRXZlbnRJRAogICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9TeXN0ZW1bMV0vRXZlbnRJRCIpCiAgLSBwYXJzZWQ6IFNvdXJjZQogICAgZXhwcmVzc2lvbjogWE1MR2V0QXR0cmlidXRlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L1N5c3RlbVsxXS9Qcm92aWRlciIsICJOYW1lIikKLS0tCmZpbHRlcjogImV2dC5MaW5lLk1vZHVsZSAhPSAnd2luZXZlbnRsb2cnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS93aW5kb3dzLW5vbi1ldmVudGxvZwpzdGF0aWNzOgogIC0gcGFyc2VkOiBtZXNzYWdlCiAgICBleHByZXNzaW9uOiBldnQuTGluZS5SYXcKICAtIHBhcnNlZDogcHJvZ3JhbQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuTGFiZWxzLnR5cGUKICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQo=",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2428,6 +2468,24 @@
     "scope": "ip",
     "service": "http",
     "type": "web_attack"
+   }
+  },
+  "crowdsecurity/mssql-bf": {
+   "path": "scenarios/crowdsecurity/mssql-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "be8f99681f224e5176015815d11bf01b0e0012ceb24bbb264786f503d9146d81",
+     "deprecated": false
+    }
+   },
+   "content": "IyBteXNxbCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L21zc3FsLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG1zc3FsIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ21zc3FsX2ZhaWxlZF9hdXRoJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IG1zc3FsCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect mssql bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "mssql",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/mysql-bf": {
