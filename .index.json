@@ -218,6 +218,26 @@
     "crowdsecurity/base-http-scenarios"
    ]
   },
+  "crowdsecurity/home-assistant": {
+   "path": "collections/crowdsecurity/home-assistant.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4af5665511aa35371d1abf2007505863c4e166a1637a51a47c5f7db49f2bdf76",
+     "deprecated": false
+    }
+   },
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2hvbWUtYXNzaXN0YW50LWJmCmRlc2NyaXB0aW9uOiAiSG9tZSBhc3Npc3RhbnQgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGhvbWUtYXNzaXN0YW50CiAgLSBicnV0ZWZvcmNlCg==",
+   "description": "Home assistant support : logs and brute-force scenario",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/home-assistant-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/home-assistant-bf"
+   ]
+  },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
    "version": "0.8",
@@ -1053,6 +1073,22 @@
    },
    "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ2hhcHJveHknIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9oYXByb3h5LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBoYXByb3h5IGh0dHAgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiAnJXtJUDpjbGllbnRfaXB9OiV7SU5UOmNsaWVudF9wb3J0fSBcWyV7SEFQUk9YWURBVEU6YWNjZXB0X2RhdGV9XF0gJXtOT1RTUEFDRTpmcm9udGVuZF9uYW1lfSAle05PVFNQQUNFOmJhY2tlbmRfbmFtZX0vJXtOT1RTUEFDRTpzZXJ2ZXJfbmFtZX0gJXtJTlQ6dGltZV9yZXF1ZXN0fS8le0lOVDp0aW1lX3F1ZXVlfS8le0lOVDp0aW1lX2JhY2tlbmRfY29ubmVjdH0vJXtJTlQ6dGltZV9iYWNrZW5kX3Jlc3BvbnNlfS8le05PVFNQQUNFOnRpbWVfZHVyYXRpb259ICV7SU5UOmh0dHBfc3RhdHVzX2NvZGV9ICV7Tk9UU1BBQ0U6Ynl0ZXNfcmVhZH0gJXtEQVRBOmNhcHR1cmVkX3JlcXVlc3RfY29va2llfSAle0RBVEE6Y2FwdHVyZWRfcmVzcG9uc2VfY29va2llfSAle05PVFNQQUNFOnRlcm1pbmF0aW9uX3N0YXRlfSAle0lOVDphY3Rjb25ufS8le0lOVDpmZWNvbm59LyV7SU5UOmJlY29ubn0vJXtJTlQ6c3J2Y29ubn0vJXtOT1RTUEFDRTpyZXRyaWVzfSAle0lOVDpzcnZfcXVldWV9LyV7SU5UOmJhY2tlbmRfcXVldWV9IChceyV7SEFQUk9YWUNBUFRVUkVEUkVRVUVTVEhFQURFUlN9XH0pPyggKT8oXHsle0hBUFJPWFlDQVBUVVJFRFJFU1BPTlNFSEVBREVSU31cfSk/KCApPyIoPEJBRFJFUT58KCV7V09SRDpodHRwX3ZlcmJ9ICgle1VSSVBST1RPOmh0dHBfcHJvdG99Oi8vKT8oPzole1VTRVI6aHR0cF91c2VyfSg/OjpbXkBdKik/QCk/KD86JXtVUklIT1NUOmh0dHBfaG9zdH0pPyg/OiV7VVJJUEFUSFBBUkFNOmh0dHBfcmVxdWVzdH0pPyggSFRUUC8le05VTUJFUjpodHRwX3ZlcnNpb259KT8pKT8iJwogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGh0dHBfYWNjZXNzLWxvZwogICAgI0hBUFJPWFlEQVRFIGZvcm1hdCBpcyB1bmtub3duIHRvIGRhdGVwYXJzZSwgbGV0IGNvbnZlcnQgaXQgdG8gYSBmb3JtYXQgd2Uga25vdyB0byBwYXJzZQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5oYXByb3h5X21vbnRoZGF5ICsgJy8nICsgZXZ0LlBhcnNlZC5oYXByb3h5X21vbnRoICAgKyAnLycgKyBldnQuUGFyc2VkLmhhcHJveHlfeWVhciAgKyAnOicgKyAgIGV2dC5QYXJzZWQuaGFwcm94eV9ob3VyICsgJzonICsgZXZ0LlBhcnNlZC5oYXByb3h5X21pbnV0ZSArICc6JyArICBldnQuUGFyc2VkLmhhcHJveHlfc2Vjb25kWzA6Ml0gKyAnIC0wMDAwJwogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGh0dHAKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5jbGllbnRfaXAKICAtIG1ldGE6IGh0dHBfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5odHRwX3JlcXVlc3QKICAtIG1ldGE6IGh0dHBfc3RhdHVzCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmh0dHBfc3RhdHVzX2NvZGUKICAtIHBhcnNlZDogcmVxdWVzdAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5odHRwX3JlcXVlc3QK",
    "description": "Parse haproxy http logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/home-assistant-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/home-assistant-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4963cadd8ae936d9104861b383d215a94aed622b1db481a3fe79ea9e7db359bf",
+     "deprecated": false
+    }
+   },
+   "long_description": "SG9tZSBhc3Npc3RhbnQgYXV0aGVudGljYXRpb24gZmFpbHVyZSBwYXJzZXIuCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIEhvbWUgQXNzaXN0YW50IGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnaG9tZS1hc3Npc3RhbnQnIgpwYXR0ZXJuX3N5bnRheDoKICBUSU1FU1RBTVA6ICcle1lFQVJ9LSV7TU9OVEhOVU19LSV7TU9OVEhEQVl9ICV7SE9VUn06JXtNSU5VVEV9OiV7U0VDT05EfScKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAiJXtUSU1FU1RBTVA6dGltZX0gV0FSTklORyBcXCgle0RBVEE6dGhyZWFkTmFtZX1cXCkgXFxbaG9tZWFzc2lzdGFudC5jb21wb25lbnRzLmh0dHAuYmFuXFxdIExvZ2luIGF0dGVtcHQgb3IgcmVxdWVzdCB3aXRoIGludmFsaWQgYXV0aGVudGljYXRpb24gZnJvbSAle1dPUkQ6c291cmNlX3JkbnN9IFxcKCV7SVBPUkhPU1Q6c291cmNlX2lwfVxcKS4gXFwoJXtHUkVFRFlEQVRBOmh0dHBfdXNlcl9hZ2VudH1cXCkiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGhvbWUtYXNzaXN0YW50X2ZhaWxlZF9hdXRoCnN0YXRpY3M6CiAgLSB0YXJnZXQ6IFN0clRpbWUKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnRpbWUiCiAgLSBtZXRhOiBzZXJ2aWNlCiAgICB2YWx1ZTogaHR0cAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgLSBtZXRhOiBzb3VyY2VfcmRucwogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc291cmNlX3JkbnMi",
+   "description": "Parse Home Assistant logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -1989,6 +2025,25 @@
    "labels": {
     "remediation": "true",
     "type": "exploit"
+   }
+  },
+  "crowdsecurity/home-assistant-bf": {
+   "path": "scenarios/crowdsecurity/home-assistant-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7e155354a1558caba3896dc0af3ad311db2e4df90ea20d7809c288fd080b0356",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHNldmVyYWwgZmFpbGVkIEhvbWUgYXNzaXN0YW50IGF1dGhlbnRpY2F0aW9ucy4KCmxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUK",
+   "content": "IyBob21lLWFzc2lzdGFudCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CmRlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgSG9tZSBBc3Npc3RhbnQgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnaG9tZS1hc3Npc3RhbnRfZmFpbGVkX2F1dGgnCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaG9tZS1hc3Npc3RhbnQKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVl",
+   "description": "Detect Home Assistant bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "home-assistant",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/http-backdoors-attempts": {
