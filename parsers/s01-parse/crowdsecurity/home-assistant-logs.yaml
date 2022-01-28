@@ -6,7 +6,7 @@ pattern_syntax:
   TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
 nodes:
   - grok:
-      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{WORD:invalid_user} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
+      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{WORD:target_machine} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
       apply_on: message
       statics:
         - meta: log_type
@@ -18,5 +18,5 @@ statics:
     value: http
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
-  - meta: user
-    expression: "evt.Parsed.invalid_user"
+  - meta: target_machine
+    expression: "evt.Parsed.target_machine"
