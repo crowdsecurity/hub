@@ -22,7 +22,7 @@ labels:
 Example acquisition for this collection if you log to windows events:
 ```yaml
 source: wineventlog
-event_channel: Microsoft-Windows-IIS-Logging/Logs
+event_channel: Microsoft-IIS-Logging/Logs
 event_ids:
  - 6200
 event_level: information
