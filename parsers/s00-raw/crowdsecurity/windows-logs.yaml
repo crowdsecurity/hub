@@ -15,6 +15,8 @@ statics:
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
   - parsed: Source
     expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Provider", "Name")
+  - parsed: program
+    expression: evt.Line.Labels.type
 ---
 filter: "evt.Line.Module != 'wineventlog'"
 onsuccess: next_stage
@@ -28,3 +30,4 @@ statics:
     expression: evt.Line.Src
   - meta: datasource_type
     expression: evt.Line.Module
+
