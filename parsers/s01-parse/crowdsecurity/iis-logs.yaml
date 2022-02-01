@@ -1,0 +1,47 @@
+filter: "evt.Parsed.program == 'iis'"
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/iis-logs
+description: "Parse IIS access logs"
+nodes:
+  #W3C logs can come from the event log
+  - filter: "evt.Meta.datasource_type == 'wineventlog' and evt.Parsed.EventID == '6200'"
+    statics:
+        - meta: source_ip
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='c-ip']") 
+        - meta: http_status
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='sc-status']")
+        - meta: http_path
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-uri-stem']")
+        - target: evt.Parsed.http_args
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-uri-query']")
+        - meta: http_verb
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-method']")
+        - meta: http_user_agent
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='csUser-Agent']")
+        - meta: target_fqdn
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='s-sitename']") #not a FQDN, but close enough ?
+        - target: evt.StrTime
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='date']") + " " + XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='time']")
+  - filter: "evt.Parsed.datasource_type != 'wineventlog'"
+    grok:
+      pattern: "%{TIMESTAMP_ISO8601:date} %{IP:client_ip} %{WORD:http_method} %{DATA:http_path} %{DATA:http_args} %{INT} %{DATA:remote_user} %{IP:remote_addr} %{DATA:user_agent} %{DATA:referer} %{INT:status} %{INT:substatus} %{INT:win32_status} %{INT:duration}"
+      apply_on: message
+    statics:
+      - target: evt.StrTime
+        expression: evt.Parsed.date
+      - meta: source_ip
+        expression: evt.Parsed.client_ip
+      - meta: http_status
+        expression: evt.Parsed.status
+      - meta: http_path
+        expression: evt.Parsed.http_path
+      - meta: http_user_agent
+        expression: evt.Parsed.user_agent
+      - meta: http_verb
+        expression: evt.Parsed.method
+statics:
+  - meta: service
+    value: http
+  - meta: log_type
+    value: http_access-log
