@@ -218,6 +218,26 @@
     "crowdsecurity/base-http-scenarios"
    ]
   },
+  "crowdsecurity/home-assistant": {
+   "path": "collections/crowdsecurity/home-assistant.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4af5665511aa35371d1abf2007505863c4e166a1637a51a47c5f7db49f2bdf76",
+     "deprecated": false
+    }
+   },
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2hvbWUtYXNzaXN0YW50LWJmCmRlc2NyaXB0aW9uOiAiSG9tZSBhc3Npc3RhbnQgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGhvbWUtYXNzaXN0YW50CiAgLSBicnV0ZWZvcmNlCg==",
+   "description": "Home assistant support : logs and brute-force scenario",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/home-assistant-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/home-assistant-bf"
+   ]
+  },
   "crowdsecurity/http-cve": {
    "path": "collections/crowdsecurity/http-cve.yaml",
    "version": "0.8",
@@ -339,6 +359,30 @@
    ],
    "collections": [
     "crowdsecurity/sshd"
+   ]
+  },
+  "crowdsecurity/linux-lpe": {
+   "path": "collections/crowdsecurity/linux-lpe.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "a68ef0b517c988b50b3cdc0d84702b2f70e621d29378b9782b2e037bf6663458",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgTG9jYWwgUHJpdmlsZWdlIEVzY2FsYXRpb24gRGV0ZWN0aW9uCgpUaGlzIGNvbGxlY3Rpb24gYWltcyBhdCBkZXRlY3RpbmcgKHdoZW4gcG9zc2libGUpIGxvY2FsIHByaXZpbGVnZSBlc2NhbGF0aW9uIGF0dGFja3MuCgogLSBDVkUtMjAyMS00MDM0IDogRGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBwa2V4ZWMgdnVsbmVyYWJpbGl0eQoKOndhcm5pbmc6IFBsZWFzZSBub3RlIHRob3NlIHNjZW5hcmlvcyBhcmUgZGV0ZWN0aW9uIG9ubHksIGFuZCBhcmUgdmVyeSBsaWtlbHkgdG8gYmUgYnlwYXNzZWQgYnkgc21hcnQgYXR0YWNrZXJzLCBkbyBub3QgcmVseSBzb2xlbHkgb24gdGhlbSA6d2FybmluZzoKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbApmaWxlbmFtZXM6CiAgLSAvdmFyL2xvZy9hdXRoLmxvZwpsYWJlbHM6CiAgdHlwZTogc3lzbG9nCmBgYAoKbm90ZXMgOgogLSAgRGVwZW5kaW5nIG9uIHlvdXIgZGlzdHJpYnV0aW9uL09TLCBwYXRocyB0byBsb2cgZmlsZXMgbWlnaHQgY2hhbmdlCiAtICBPbmx5IHJlbGV2YW50IGlmIHlvdSBhcmUgbWFudWFsbHkgaW5zdGFsbGluZyBjb2xsZWN0aW9uCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmNvbGxlY3Rpb25zOgogIC0gY3Jvd2RzZWN1cml0eS9saW51eApkZXNjcmlwdGlvbjogIkxpbnV4IExvY2FsIFByaXZpbGVnZSBFc2NhbGF0aW9uIGNvbGxlY3Rpb24gOiBkZXRlY3QgdHJpdmlhbCBMUEVzIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBwcml2c2VjCiAgLSBscGUKCgo=",
+   "description": "Linux Local Privilege Escalation collection : detect trivial LPEs",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/pkexec-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/CVE-2021-4034"
+   ],
+   "collections": [
+    "crowdsecurity/linux"
    ]
   },
   "crowdsecurity/mariadb": {
@@ -463,6 +507,27 @@
    "labels": null,
    "parsers": [
     "crowdsecurity/nginx-logs"
+   ],
+   "collections": [
+    "crowdsecurity/base-http-scenarios"
+   ]
+  },
+  "crowdsecurity/nginx-proxy-manager": {
+   "path": "collections/crowdsecurity/nginx-proxy-manager.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "fcde72227c4fc913f5472fff55e041aef913a0a4a0143f0ad8ef29bdc2e4e7f9",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgTmdpbnggUHJveHkgTWFuYWdlciBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gdG8gZGVmZW5kIG5naW54IGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBbTmdpbnggUHJveHkgTWFuYWdlcl0oaHR0cHM6Ly9naXRodWIuY29tL05naW54UHJveHlNYW5hZ2VyL25naW54LXByb3h5LW1hbmFnZXIpIHBhcnNlcgogLSBiYXNlIGh0dHAgc2NlbmFyaW9zIChjcmF3bCwgNDA0IHNjYW4sIGJmKQoKIyMgQWNxdWlzaXRpb24gdGVtcGxhdGUKCkV4YW1wbGUgYWNxdWlzaXRpb24gZm9yIHRoaXMgY29sbGVjdGlvbiA6CgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIH4vZGF0YS9sb2dzLyoubG9nCmxhYmVsczoKICB0eXBlOiBuZ2lueC1wcm94eS1tYW5hZ2VyCmBgYAoKCm5vdGVzIDoKIC0gIElmIHlvdSBhcmUgdXNpbmcgYHN5c2xvZ2AsIHNldCB0eXBlIHRvIGBzeXNsb2dgIGluc3RlYWQKIC0gIERlcGVuZGluZyBvbiB5b3VyIGNvbmZpZ3VyYXRpb24sIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gIE9ubHkgcmVsZXZhbnQgaWYgeW91IGFyZSBtYW51YWxseSBpbnN0YWxsaW5nIGNvbGxlY3Rpb24=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvbmdpbngtcHJveHktbWFuYWdlci1sb2dzCmNvbGxlY3Rpb25zOgogIC0gY3Jvd2RzZWN1cml0eS9iYXNlLWh0dHAtc2NlbmFyaW9zCmRlc2NyaXB0aW9uOiAiTmdpbnggUHJveHkgTWFuYWdlciBzdXBwb3J0IDogcGFyc2VyIGFuZCBnZW5lcmljIGh0dHAgc2NlbmFyaW9zIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBuZ2lueAogIC0gbmdpbngtcHJveHkKICAtIGNyYXdsCiAgLSBzY2Fu",
+   "description": "Nginx Proxy Manager support : parser and generic http scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/nginx-proxy-manager-logs"
    ],
    "collections": [
     "crowdsecurity/base-http-scenarios"
@@ -993,6 +1058,22 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/cri-logs": {
+   "path": "parsers/s00-raw/crowdsecurity/cri-logs.yaml",
+   "stage": "s00-raw",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "3818208420042396bc2ed0d75dee43d6651c5979b351642128d11ce8360f7347",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBDUkkgbG9nIGZvcm1hdCBwYXJzZXIKClRoaXMgaXMgdGhlIGRlZmF1bHQgQ1JJIGxvZ3MgZm9ybWF0IHBhcnNlci4KSXQgd29ya3Mgb24ga3ViZXJuZXRlcyB1c2luZyBjb250YWluZXJkLgoKIyMgcmVxdWlyZW1lbnRzCgpXaGVuIHVzaW5nIHRoaXMgcGFyc2VyLCB5b3UgbmVlZCB0byBzcGVjaWZ5IGluIHlvdXIgYGFjcXVpcy55YW1sYCB0eXBlIGFuZCBwcm9ncmFtLiBTbyB5b3VyIGxvZyB3aWxsIGJlIGV4dHJhY3RlZCBhbmQgdGhlbiBzZW50IHRvIHRoZSBwcm9wZXIgbmV4dCBwYXJzZXIgdXNpbmcgdGhlIHByb2dyYW0ga2V5LgoKZXhhbXBsZTogCgpgYGB5YW1sCmxhYmVsczoKIHR5cGU6IGNvbnRhaW5lcmQKIHByb2dyYW06IG5naW54CmBgYAo=",
+   "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTGFiZWxzLnR5cGUgPT0gJ2NvbnRhaW5lcmQnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9jcmktbG9ncwpkZXNjcmlwdGlvbjogQ1JJIGxvZ2dpbmcgZm9ybWF0IHBhcnNlcgpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICJeJXtUSU1FU1RBTVBfSVNPODYwMTpjcmlfdGltZXN0YW1wfSAle1dPUkQ6c3RyZWFtfSAle1dPUkQ6bG9ndGFnfSAle0dSRUVEWURBVEE6bWVzc2FnZX0iCiAgICAgIGFwcGx5X29uOiBMaW5lLlJhdwpzdGF0aWNzOgogIC0gcGFyc2VkOiAibG9nc291cmNlIgogICAgdmFsdWU6ICJjcmkiCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmNyaV90aW1lc3RhbXAKICAtIHBhcnNlZDogcHJvZ3JhbQogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuTGFiZWxzLnByb2dyYW0KICAtIG1ldGE6IGRhdGFzb3VyY2VfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuU3JjCiAgLSBtZXRhOiBkYXRhc291cmNlX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLk1vZHVsZQ==",
+   "description": "CRI logging format parser",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/dateparse-enrich": {
    "path": "parsers/s02-enrich/crowdsecurity/dateparse-enrich.yaml",
    "stage": "s02-enrich",
@@ -1119,6 +1200,22 @@
    },
    "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ2hhcHJveHknIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogY3Jvd2RzZWN1cml0eS9oYXByb3h5LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBoYXByb3h5IGh0dHAgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiAnJXtJUDpjbGllbnRfaXB9OiV7SU5UOmNsaWVudF9wb3J0fSBcWyV7SEFQUk9YWURBVEU6YWNjZXB0X2RhdGV9XF0gJXtOT1RTUEFDRTpmcm9udGVuZF9uYW1lfSAle05PVFNQQUNFOmJhY2tlbmRfbmFtZX0vJXtOT1RTUEFDRTpzZXJ2ZXJfbmFtZX0gJXtJTlQ6dGltZV9yZXF1ZXN0fS8le0lOVDp0aW1lX3F1ZXVlfS8le0lOVDp0aW1lX2JhY2tlbmRfY29ubmVjdH0vJXtJTlQ6dGltZV9iYWNrZW5kX3Jlc3BvbnNlfS8le05PVFNQQUNFOnRpbWVfZHVyYXRpb259ICV7SU5UOmh0dHBfc3RhdHVzX2NvZGV9ICV7Tk9UU1BBQ0U6Ynl0ZXNfcmVhZH0gJXtEQVRBOmNhcHR1cmVkX3JlcXVlc3RfY29va2llfSAle0RBVEE6Y2FwdHVyZWRfcmVzcG9uc2VfY29va2llfSAle05PVFNQQUNFOnRlcm1pbmF0aW9uX3N0YXRlfSAle0lOVDphY3Rjb25ufS8le0lOVDpmZWNvbm59LyV7SU5UOmJlY29ubn0vJXtJTlQ6c3J2Y29ubn0vJXtOT1RTUEFDRTpyZXRyaWVzfSAle0lOVDpzcnZfcXVldWV9LyV7SU5UOmJhY2tlbmRfcXVldWV9IChceyV7SEFQUk9YWUNBUFRVUkVEUkVRVUVTVEhFQURFUlN9XH0pPyggKT8oXHsle0hBUFJPWFlDQVBUVVJFRFJFU1BPTlNFSEVBREVSU31cfSk/KCApPyIoPEJBRFJFUT58KCV7V09SRDpodHRwX3ZlcmJ9ICgle1VSSVBST1RPOmh0dHBfcHJvdG99Oi8vKT8oPzole1VTRVI6aHR0cF91c2VyfSg/OjpbXkBdKik/QCk/KD86JXtVUklIT1NUOmh0dHBfaG9zdH0pPyg/OiV7VVJJUEFUSFBBUkFNOmh0dHBfcmVxdWVzdH0pPyggSFRUUC8le05VTUJFUjpodHRwX3ZlcnNpb259KT8pKT8iJwogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGh0dHBfYWNjZXNzLWxvZwogICAgI0hBUFJPWFlEQVRFIGZvcm1hdCBpcyB1bmtub3duIHRvIGRhdGVwYXJzZSwgbGV0IGNvbnZlcnQgaXQgdG8gYSBmb3JtYXQgd2Uga25vdyB0byBwYXJzZQogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5oYXByb3h5X21vbnRoZGF5ICsgJy8nICsgZXZ0LlBhcnNlZC5oYXByb3h5X21vbnRoICAgKyAnLycgKyBldnQuUGFyc2VkLmhhcHJveHlfeWVhciAgKyAnOicgKyAgIGV2dC5QYXJzZWQuaGFwcm94eV9ob3VyICsgJzonICsgZXZ0LlBhcnNlZC5oYXByb3h5X21pbnV0ZSArICc6JyArICBldnQuUGFyc2VkLmhhcHJveHlfc2Vjb25kWzA6Ml0gKyAnIC0wMDAwJwogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGh0dHAKICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5jbGllbnRfaXAKICAtIG1ldGE6IGh0dHBfcGF0aAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5odHRwX3JlcXVlc3QKICAtIG1ldGE6IGh0dHBfc3RhdHVzCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmh0dHBfc3RhdHVzX2NvZGUKICAtIHBhcnNlZDogcmVxdWVzdAogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5odHRwX3JlcXVlc3QK",
    "description": "Parse haproxy http logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/home-assistant-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/home-assistant-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4963cadd8ae936d9104861b383d215a94aed622b1db481a3fe79ea9e7db359bf",
+     "deprecated": false
+    }
+   },
+   "long_description": "SG9tZSBhc3Npc3RhbnQgYXV0aGVudGljYXRpb24gZmFpbHVyZSBwYXJzZXIuCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIEhvbWUgQXNzaXN0YW50IGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnaG9tZS1hc3Npc3RhbnQnIgpwYXR0ZXJuX3N5bnRheDoKICBUSU1FU1RBTVA6ICcle1lFQVJ9LSV7TU9OVEhOVU19LSV7TU9OVEhEQVl9ICV7SE9VUn06JXtNSU5VVEV9OiV7U0VDT05EfScKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAiJXtUSU1FU1RBTVA6dGltZX0gV0FSTklORyBcXCgle0RBVEE6dGhyZWFkTmFtZX1cXCkgXFxbaG9tZWFzc2lzdGFudC5jb21wb25lbnRzLmh0dHAuYmFuXFxdIExvZ2luIGF0dGVtcHQgb3IgcmVxdWVzdCB3aXRoIGludmFsaWQgYXV0aGVudGljYXRpb24gZnJvbSAle1dPUkQ6c291cmNlX3JkbnN9IFxcKCV7SVBPUkhPU1Q6c291cmNlX2lwfVxcKS4gXFwoJXtHUkVFRFlEQVRBOmh0dHBfdXNlcl9hZ2VudH1cXCkiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGhvbWUtYXNzaXN0YW50X2ZhaWxlZF9hdXRoCnN0YXRpY3M6CiAgLSB0YXJnZXQ6IFN0clRpbWUKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnRpbWUiCiAgLSBtZXRhOiBzZXJ2aWNlCiAgICB2YWx1ZTogaHR0cAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgLSBtZXRhOiBzb3VyY2VfcmRucwogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc291cmNlX3JkbnMi",
+   "description": "Parse Home Assistant logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -1368,6 +1465,22 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/nginx-proxy-manager-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/nginx-proxy-manager-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d3537478fca875fdaccc3d5591ec3ce3f6fbeb5283737aca3b12d322bd8abfd7",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBnZW5lcmljIHBhcnNlciBmb3IgW05naW54IFByb3h5IE1hbmFnZXJdKGh0dHBzOi8vZ2l0aHViLmNvbS9OZ2lueFByb3h5TWFuYWdlci9uZ2lueC1wcm94eS1tYW5hZ2VyKSwgc3VwcG9ydCBib3RoIFthY2Nlc3MgYW5kIGVycm9yIGxvZ3NdKGh0dHBzOi8vZ2l0aHViLmNvbS9OZ2lueFByb3h5TWFuYWdlci9uZ2lueC1wcm94eS1tYW5hZ2VyL2Jsb2IvZGV2ZWxvcC9kb2NrZXIvcm9vdGZzL2V0Yy9uZ2lueC9uZ2lueC5jb25mI0w0NikuCgo=",
+   "content": "IwpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gc3RhcnRzV2l0aCAnbmdpbngtcHJveHktbWFuYWdlciciCm9uc3VjY2VzczogbmV4dF9zdGFnZQpuYW1lOiBjcm93ZHNlY3VyaXR5L25naW54LXByb3h5LW1hbmFnZXItbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIE5naW54IFByb3h5IE1hbmFnZXIgYWNjZXNzIGFuZCBlcnJvciBsb2dzIgpub2RlczoKICAjIEZvciBQcm94eSBob3N0cyBsb2dzCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXFsle0hUVFBEQVRFOnRpbWVfbG9jYWx9XF0oICV7REFUQTp1cHN0cmVhbV9jYWNoZV9zdGF0dXN9ICV7TlVNQkVSOnVwc3RyZWFtX3N0YXR1c30pPyAle05VTUJFUjpzdGF0dXN9IC0gJXtXT1JEOnZlcmJ9ICV7V09SRDpzY2hlbWV9ICV7SVBPUkhPU1Q6dGFyZ2V0X2ZxZG59IFwiJXtOT1REUVVPVEU6cmVxdWVzdH1cIiBcW0NsaWVudCAle0lQT1JIT1NUOnJlbW90ZV9hZGRyfVxdIFxbTGVuZ3RoICV7TlVNQkVSOmJvZHlfYnl0ZXNfc2VudH1cXSBcW0d6aXAgJXtEQVRBOmd6aXBfcmF0aW99XF0oIFxbU2VudC10byAle0lQT1JIT1NUOnRhcmdldF9zZXJ2ZXJ9XF0pPyBcIiV7Tk9URFFVT1RFOmh0dHBfdXNlcl9hZ2VudH1cIiBcIiV7Tk9URFFVT1RFOmh0dHBfcmVmZXJlcn1cIicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogaHR0cF9hY2Nlc3MtbG9nCiAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVfbG9jYWwKICAjIEZvciBEZWZhdWx0IGhvc3QgbG9ncwogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJygle0lQT1JIT1NUOnRhcmdldF9mcWRufSApPyV7SVBPUkhPU1Q6cmVtb3RlX2FkZHJ9IC0gKCV7TkdVU0VSOnJlbW90ZV91c2VyfSk/IFxbJXtIVFRQREFURTp0aW1lX2xvY2FsfVxdICIle1dPUkQ6dmVyYn0gJXtEQVRBOnJlcXVlc3R9IEhUVFAvJXtOVU1CRVI6aHR0cF92ZXJzaW9ufSIgJXtOVU1CRVI6c3RhdHVzfSAle05VTUJFUjpib2R5X2J5dGVzX3NlbnR9ICIle05PVERRVU9URTpodHRwX3JlZmVyZXJ9IiAiJXtOT1REUVVPVEU6aHR0cF91c2VyX2FnZW50fSIoICV7TlVNQkVSOnJlcXVlc3RfbGVuZ3RofSAle05VTUJFUjpyZXF1ZXN0X3RpbWV9IFxbJXtEQVRBOnByb3h5X3Vwc3RyZWFtX25hbWV9XF0gXFsle0RBVEE6cHJveHlfYWx0ZXJuYXRpdmVfdXBzdHJlYW1fbmFtZX1cXSk/JwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiBodHRwX2FjY2Vzcy1sb2cKICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZV9sb2NhbAogICMgYW5kIHRoaXMgb25lIHRoZSBlcnJvciBsb2cKICAtIGdyb2s6CiAgICAgICAgcGF0dGVybjogJygle0lQT1JIT1NUOnRhcmdldF9mcWRufSApPyV7TkdJTlhFUlJUSU1FOnRpbWV9IFxbJXtMT0dMRVZFTDpsb2dsZXZlbH1cXSAle05PTk5FR0lOVDpwaWR9IyV7Tk9OTkVHSU5UOnRpZH06IChcKiV7Tk9OTkVHSU5UOmNpZH0gKT8le0dSRUVEWURBVEE6bWVzc2FnZX0sIGNsaWVudDogJXtJUE9SSE9TVDpyZW1vdGVfYWRkcn0sIHNlcnZlcjogJXtJUE9SSE9TVDp0YXJnZXRfZnFkbn0sIHJlcXVlc3Q6ICIle1dPUkQ6dmVyYn0gJXtVUklQQVRIUEFSQU06cmVxdWVzdH0gSFRUUC8le05VTUJFUjpodHRwX3ZlcnNpb259IiwgaG9zdDogIiV7SVBPUkhPU1R9IicKICAgICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICAgIHN0YXRpY3M6CiAgICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICAgIHZhbHVlOiBodHRwX2Vycm9yLWxvZwogICAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZQogICAgcGF0dGVybl9zeW50YXg6CiAgICAgIE5PX0RPVUJMRV9RVU9URTogJ1teIl0rJwogICAgb25zdWNjZXNzOiBuZXh0X3N0YWdlCiAgICBub2RlczoKICAgICAgLSBmaWx0ZXI6ICJldnQuUGFyc2VkLm1lc3NhZ2UgY29udGFpbnMgJ3dhcyBub3QgZm91bmQgaW4nIgogICAgICAgIHBhdHRlcm5fc3ludGF4OgogICAgICAgICAgVVNFUl9OT1RfRk9VTkQ6ICd1c2VyICIle05PX0RPVUJMRV9RVU9URTp1c2VybmFtZX0iIHdhcyBub3QgZm91bmQgaW4gIiV7Tk9fRE9VQkxFX1FVT1RFfSInCiAgICAgICAgZ3JvazoKICAgICAgICAgIHBhdHRlcm46ICcle1VTRVJfTk9UX0ZPVU5EfScKICAgICAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgICAgc3RhdGljczoKICAgICAgICAgIC0gbWV0YTogc3ViX3R5cGUKICAgICAgICAgICAgdmFsdWU6ICJhdXRoX2ZhaWwiCiAgICAgICAgICAtIG1ldGE6IHVzZXJuYW1lCiAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudXNlcm5hbWUKICAgICAgLSBmaWx0ZXI6ICJldnQuUGFyc2VkLm1lc3NhZ2UgY29udGFpbnMgJ3Bhc3N3b3JkIG1pc21hdGNoJyIKICAgICAgICBwYXR0ZXJuX3N5bnRheDoKICAgICAgICAgIFBBU1NXT1JEX01JU01BVENIOiAndXNlciAiJXtOT19ET1VCTEVfUVVPVEU6dXNlcm5hbWV9IjogcGFzc3dvcmQgbWlzbWF0Y2gnCiAgICAgICAgZ3JvazoKICAgICAgICAgIHBhdHRlcm46ICcle1BBU1NXT1JEX01JU01BVENIfScKICAgICAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgICAgc3RhdGljczoKICAgICAgICAgIC0gbWV0YTogc3ViX3R5cGUKICAgICAgICAgICAgdmFsdWU6ICJhdXRoX2ZhaWwiCiAgICAgICAgICAtIG1ldGE6IHVzZXJuYW1lCiAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudXNlcm5hbWUKIyB0aGVzZSBvbmVzIGFwcGx5IGZvciBib3RoIGdyb2sgcGF0dGVybnMKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBodHRwCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlbW90ZV9hZGRyIgogIC0gbWV0YTogaHR0cF9zdGF0dXMKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnN0YXR1cyIKICAtIG1ldGE6IGh0dHBfcGF0aAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQucmVxdWVzdCIKICAtIG1ldGE6IGh0dHBfdmVyYgogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudmVyYiIKICAtIG1ldGE6IGh0dHBfdXNlcl9hZ2VudAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuaHR0cF91c2VyX2FnZW50IgogIC0gbWV0YTogdGFyZ2V0X2ZxZG4KICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnRhcmdldF9mcWRuIgo=",
+   "description": "Parse Nginx Proxy Manager access and error logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/opnsense-gui-logs": {
    "path": "parsers/s01-parse/crowdsecurity/opnsense-gui-logs.yaml",
    "stage": "s01-parse",
@@ -1433,6 +1546,21 @@
    "long_description": "UG9zdGdyZVNRTCBmYWlsIGF1dGhlbnRpY2F0aW9uIHBhcnNlci4KCgoqKndhcm5pbmcqKiA6IEJ5IGRlZmF1bHQgKGF0IGxlYXN0IG9uIGRlYmlhbiB3aXRoIHBnc3FsIDEyKSwgcG9zdGdyZVNRTCBsb2dzIGRvIG5vdCBjb250YWluIHRoZSBzb3VyY2UgSVAsIGFuZCBgbG9nX2xpbmVfcHJlZml4YCBuZWVkcyB0byBiZSBlZGl0ZWQgdG8gY29udGFpbiBgJWhgICh0aGUgcmVtb3RlIGhvc3QpLiBUaGlzIHBhcnNlciBhc3N1bWVzIHRoZSBgbG9nX2xpbmVfcHJlZml4YCBpcyAgYCVtIFslcF0gJWglcSAldUAlZCBgIChpbnN0ZWFkIG9mIHRoZSBkZWZhdWx0IGAlbSBbJXBdICVxJXVAJWQgYCkKClBsZWFzZSBub3RlIHRoYXQgdGhlIHBhcnNlciBpZ25vcmVzIHRoZSB0aW1lem9uZSB3cml0dGVuIGJ5IHBvc3RncmVzLgo=",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGdzcWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIFBnU1FMIGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGdyZXMnIgpub2RlczoKICAtIGdyb2s6CiAgICAjcGdzcWwgMTIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9IFxbJXtJTlQ6UElEfVxdICV7SVA6c291cmNlX2lwfSAle1VTRVJOQU1FOnBnc3FsX3VzZXJ9QCV7R1JFRURZREFUQTpwZ3NxbF9kYm5hbWV9IEZBVEFMOiAgJXtXT1JEOmF1dGhfbWV0aG9kfSBhdXRoZW50aWNhdGlvbiBmYWlsZWQgZm9yIHVzZXIgIiV7VVNFUk5BTUU6cGdzcWxfdGFyZ2V0X3VzZXJ9IicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAjYXdzIGF1cm9yYQogICAgIyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogcGFzc3dvcmQgYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogICV7V09SRDphdXRoX21ldGhvZH0gYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSInCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IHBnc3FsX2ZhaWxlZF9hdXRoCiAgLSBtZXRhOiBhdXRoX21ldGhvZAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuYXV0aF9tZXRob2QiCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnBnc3FsX3RhcmdldF91c2VyIgogIC0gbWV0YTogZGIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnBnc3FsX2RibmFtZSIKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZXN0YW1w",
    "description": "Parse PgSQL logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/pkexec-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/pkexec-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "3b8e30530f69f776d327b5710653a496245949ca6dde84d16357f433b7303a25",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ3BrZXhlYyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBwa2V4ZWMgbG9ncyBzcGVjaWZpY2FsbHkgZm9yIENWRS0yMDIxLTQwMzQiCnBhdHRlcm5fc3ludGF4OgogIFBXTktJVF9YUEw6ICcle0RBVEE6dXNlcn06IFRoZSB2YWx1ZSBmb3IgdGhlIFNIRUxMIHZhcmlhYmxlIHdhcyBub3QgZm91bmQgdGhlIC9ldGMvc2hlbGxzIGZpbGUnCmdyb2s6CiAgbmFtZTogIlBXTktJVF9YUEwiCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogQ1ZFLTIwMjEtNDAzNC14cGwKICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC51c2VyIgo=",
+   "description": "Parse pkexec logs specifically for CVE-2021-4034",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -1941,6 +2069,23 @@
   }
  },
  "scenarios": {
+  "crowdsecurity/CVE-2021-4034": {
+   "path": "scenarios/crowdsecurity/CVE-2021-4034.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f08340e4247cfd2c44fb2db26dcb752aacbcfb483dc7da686af8e793b5a32d0f",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgQ1ZFLTIwMjEtNDAzNAoKRGV0ZWN0cyBleHBsb2l0IG9mIENWRS0yMDIxLTQwMzQgYHBrZXhlY2AgdnVsbmVyYWJpbGl0eS4KCjp3YXJuaW5nOiBTbWFydCBhdHRhY2tlcnMgY2FuIGV4cGxvaXQgdGhpcyB2dWxuZXJhYmlsaXR5IHdpdGhvdXQgbGV0dGluZyB0cmFjZXMgaW4gbG9ncwoK",
+   "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IENWRS0yMDIxLTQwMzQgZXhwbG9pdHMiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ0NWRS0yMDIxLTQwMzQteHBsJwpncm91cGJ5OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHR5cGU6IHByaXZlc2MKc2NvcGU6CiAgdHlwZTogc3lzdGVtX2FjY291bnQKICBleHByZXNzaW9uOiBldnQuTWV0YS50YXJnZXRfdXNlcgo=",
+   "description": "Detect CVE-2021-4034 exploits",
+   "author": "crowdsecurity",
+   "labels": {
+    "type": "privesc"
+   }
+  },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
    "path": "scenarios/crowdsecurity/apache_log4j2_cve-2021-44228.yaml",
    "version": "0.4",
@@ -2127,6 +2272,25 @@
    "labels": {
     "remediation": "true",
     "type": "exploit"
+   }
+  },
+  "crowdsecurity/home-assistant-bf": {
+   "path": "scenarios/crowdsecurity/home-assistant-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7e155354a1558caba3896dc0af3ad311db2e4df90ea20d7809c288fd080b0356",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IHNldmVyYWwgZmFpbGVkIEhvbWUgYXNzaXN0YW50IGF1dGhlbnRpY2F0aW9ucy4KCmxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUK",
+   "content": "IyBob21lLWFzc2lzdGFudCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CmRlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaG9tZS1hc3Npc3RhbnQtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgSG9tZSBBc3Npc3RhbnQgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnaG9tZS1hc3Npc3RhbnRfZmFpbGVkX2F1dGgnCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaG9tZS1hc3Npc3RhbnQKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVl",
+   "description": "Detect Home Assistant bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "home-assistant",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/http-backdoors-attempts": {
