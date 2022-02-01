@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/sshd-logs.yaml
+scenarios:
+- crowdsecurity/ssh-bf
+postoverflows:
+- ""
+log_file: sshd-invalid-bf.log
+log_type: syslog
+labels: {}
+ignore_parsers: false
