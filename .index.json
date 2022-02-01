@@ -676,6 +676,27 @@
     "crowdsecurity/windows-bf"
    ]
   },
+  "crowdsecurity/windows-firewall": {
+   "path": "collections/crowdsecurity/windows-firewall.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "597b15292d86f2aa7df95cc09fb9dc2f7d29aa541727f9704faa1095068889b2",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgV2luZG93cyBmaXJld2FsbCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gZm9yIHBvcnRzY2FuIGRldGVjdGlvbiB2aWEgd2luZG93cyBmaXJld2FsbCBsb2dzIDoKIC0gV2luZG93cyBmaXJld2FsbCBsb2dzIHBhcnNlcgogLSBtdWx0aSBwb3J0IHNjYW4gZGV0ZWN0aW9uCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gQzpcXFdpbmRvd3NcXFN5c3RlbTMyXFxMb2dGaWxlc1xcRmlyZXdhbGxcXHBmaXJld2FsbC5sb2cKbGFiZWxzOgogIHR5cGU6IHdpbmRvd3MtZmlyZXdhbGwKYGBgCgpub3RlcyA6CiAtIFRoaXMgY29sbGVjdGlvbiB1c2VzIHRoZSBgY3Jvd2RzZWN1cml0eS9pcHRhYmxlcy1zY2FuLW11bHRpX3BvcnRzYCBzY2VuYXJpbyBiZWNhdXNlIHdlIGFyZSBiYWQgYXQgbmFtaW5nIDopIAogLSBCZWNhdXNlIFdpbmRvd3MgZW5hYmxlcyBzdGVhbHRoIG1vZGUgYnkgZGVmYXVsdCwgb25seSBzY2FuIHRhcmdldGVkIHRvIHBvcnQgdGhhdCBoYXZlIGEgbGlzdGVuZXJzIHdpbGwgYmUgbG9nZ2VkLCBzbyB3ZSB3aWxsIHByb2JhYmx5IG1pc3Mgc29tZSBhdHRhY2tzICh3ZSBkbyBOT1QgcmVjb21tYW5kIGRpc2FibGluZyBzdGVhbHRoIG1vZGUpIAo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1maXJld2FsbC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaXB0YWJsZXMtc2Nhbi1tdWx0aV9wb3J0cwpkZXNjcmlwdGlvbjogIndpbmRvd3MgZmlyZXdhbGwgc3VwcG9ydCA6IGxvZ3MgYW5kIHBvcnQtc2NhbnMgZGV0ZWN0aW9uIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSB3aW5kb3dzCiAgLSBwb3J0c2NhbgoK",
+   "description": "windows firewall support : logs and port-scans detection scenarios",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/windows-firewall-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/iptables-scan-multi_ports"
+   ]
+  },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
    "version": "0.3",
@@ -1662,6 +1683,22 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLkNoYW5uZWwgPT0gJ1NlY3VyaXR5JyAmJiBldnQuUGFyc2VkLkV2ZW50SUQgPT0gJzQ2MjUnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L3dpbmRvd3MtYXV0aApkZXNjcmlwdGlvbjogIlBhcnNlIHdpbmRvd3MgYXV0aGVudGljYXRpb24gZmFpbHVyZSBldmVudHMgKGlkIDQ2MjUpIgpzdGF0aWNzOgogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogWE1MR2V0Tm9kZVZhbHVlKGV2dC5MaW5lLlJhdywgIi9FdmVudC9FdmVudERhdGFbMV0vRGF0YVtATmFtZT0nSXBBZGRyZXNzJ10iKQogICAgLSBtZXRhOiB1c2VybmFtZQogICAgICBleHByZXNzaW9uOiBYTUxHZXROb2RlVmFsdWUoZXZ0LkxpbmUuUmF3LCAiL0V2ZW50L0V2ZW50RGF0YVsxXS9EYXRhW0BOYW1lPSdUYXJnZXRVc2VyTmFtZSddIikKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IHdpbmRvd3NfZmFpbGVkX2F1dGg=",
    "description": "Parse windows authentication failure events (id 4625)",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/windows-firewall-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/windows-firewall-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "a093e7fccc9ca714c70284b7f2898a1e2c785b565fbdc63778960c07306ecf7f",
+     "deprecated": false
+    }
+   },
+   "long_description": "CkEgcGFyc2VyIGZvciB3aW5kb3dzIGZpcmV3YWxsIGxvZ3MuCgpUaGlzIG9ubHkgaGFuZGxlcyBsb2dzIHRoYXQgY29udGFpbnMgYm90aCBgRFJPUGAgYW5kIGBSRUNFSVZFYCB0byBhdm9pZCBmYWxzZSBwb3NpdGl2ZXMgZm9yIG91dGdvaW5nIHRyYWZmaWMgb3IgbG9nZ2luZyBmb3Igc3VjY2Vzc2Z1bCBjb25uZWN0aW9ucy4KCllvdSBuZWVkIHRvIGVuYWJsZSBsb2dnaW5nIGZvciBkcm9wcGVkIHBhY2tldHMgKG9mZiBieSBkZWZhdWx0KTogaHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvd2luZG93cy9zZWN1cml0eS90aHJlYXQtcHJvdGVjdGlvbi93aW5kb3dzLWZpcmV3YWxsL2NvbmZpZ3VyZS10aGUtd2luZG93cy1maXJld2FsbC1sb2cKCkZvcm1hdCBpczoKYGBgCiNGaWVsZHM6IGRhdGUgdGltZSBhY3Rpb24gcHJvdG9jb2wgc3JjLWlwIGRzdC1pcCBzcmMtcG9ydCBkc3QtcG9ydCBzaXplIHRjcGZsYWdzIHRjcHN5biB0Y3BhY2sgdGNwd2luIGljbXB0eXBlIGljbXBjb2RlIGluZm8gcGF0aCBwaWQKMjAyMi0wMS0zMSAxMjoyNDo1MSBEUk9QIFRDUCAxOTIuMTY4LjkuMTYzIDE5Mi4xNjguOS4yMTIgNjM2MTkgNDQ1IDY0IFMgMTAzMTM2NTg1NSAwIDY1NTM1IC0gLSAtIFJFQ0VJVkUgNApgYGA=",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnd2luZG93cy1maXJld2FsbCcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnIERST1AgVENQICcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnIFJFQ0VJVkUgJyIKbmFtZTogY3Jvd2RzZWN1cml0eS93aW5kb3dzLWZpcmV3YWxsLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSB3aW5kb3dzIGZpcmV3YWxsIGRyb3AgbG9ncyIKZ3JvazoKICBwYXR0ZXJuOiAiJXtUSU1FU1RBTVBfSVNPODYwMTpkYXRlfSBEUk9QIFRDUCAle0lQOnNyY19pcH0gJXtJUDpkc3RfaXB9ICV7SU5UOnNyY19wb3J0fSAle0lOVDpkc3RfcG9ydH0gJXtJTlQ6c2l6ZX0gJXtXT1JEOmZsYWdzfSAle0lOVDp0Y3BzeW59ICV7SU5UOnRjcGFja30gJXtJTlQ6d2luZG93fSAtIC0gLSBSRUNFSVZFICV7SU5UOnBpZH0iIAogIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IHRjcAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogaXB0YWJsZXNfZHJvcAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3JjX2lwIgogICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuZGF0ZQoK",
+   "description": "Parse windows firewall drop logs",
    "author": "crowdsecurity",
    "labels": null
   },
