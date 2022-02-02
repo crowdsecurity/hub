@@ -491,6 +491,27 @@
     "crowdsecurity/naxsi-exploit-vpatch"
    ]
   },
+  "crowdsecurity/nextcloud": {
+   "path": "collections/crowdsecurity/nextcloud.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "970735016eb78b0d0c722d7ed426b0edc1efd603547bf8cd5d68c57484e7a855",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBbTmV4dGNsb3VkXShodHRwczovL25leHRjbG91ZC5jb20pIGluc3RhbmNlIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBOZXh0Y2xvdWQgcGFyc2VyCiAtIE5leHRjbG91ZCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKCiBFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbAotLS0KZmlsZW5hbWVzOgogLSAvdmFyL3d3dy9uZXh0Y2xvdWQvZGF0YS9uZXh0Y2xvdWQubG9nCmxhYmVsczoKICB0eXBlOiBOZXh0Y2xvdWQKYGBgCgpgYGB5YW1sCi0tLQpzb3VyY2U6IGpvdXJuYWxjdGwKam91cm5hbGN0bF9maWx0ZXI6CiAgLSAiU1lTTE9HX0lERU5USUZFUj1OZXh0Y2xvdWQiCmxhYmVsczoKICB0eXBlOiBOZXh0Y2xvdWQKYGBgCi0gVXNlIHRoZSBmaWxlbmFtZSB2ZXJzaW9uIGlmIHlvdSBoYXZlIHRoZSBkZWZhdWx0IFtzZXR0aW5nXShodHRwczovL2RvY3MubmV4dGNsb3VkLmNvbS9zZXJ2ZXIvc3RhYmxlL2FkbWluX21hbnVhbC9jb25maWd1cmF0aW9uX3NlcnZlci9jb25maWdfc2FtcGxlX3BocF9wYXJhbWV0ZXJzLmh0bWw/aGlnaGxpZ2h0PWxvZ2xldmVsI2xvZ2dpbmcpIG9mIGxvZ2dpbmcgdG8gZmlsZQotIFVzZSB0aGUgam91cm5hbGN0bCB2ZXJzaW9uIGlmIHlvdSBhcmUgc2VuZGluZyBsb2dzIHRvIHN5c2xvZyBvciBzeXN0ZW1kIGFuZCByZWFkIHRoZSBsb2dzIGZyb20gam91cm5hbGQK",
+   "content": "LS0tCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmCmRlc2NyaXB0aW9uOiAiTmV4dGNsb3VkIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBIw6V2YXJkIE1vZW4KdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZWZvcmNlCiAgLSBuZXh0Y2xvdWQK",
+   "description": "Nextcloud support : parser and brute-force detection",
+   "author": "Håvard Moen",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/nextcloud-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/nextcloud-bf"
+   ]
+  },
   "crowdsecurity/nginx": {
    "path": "collections/crowdsecurity/nginx.yaml",
    "version": "0.1",
@@ -1410,6 +1431,22 @@
    },
    "content": "I2xldCdzIHRyeSB0byBwb3N0LXByb2Nlc3MgbmdpbnggZXJyb3IgbG9nIHRvIGhhdmUgbmF4c2kgcGF0dGVybgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnaHR0cF9lcnJvci1sb2cnICYmIGV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnbmdpbngnIgpkZXNjcmlwdGlvbjogIkVucmljaCBsb2dzIGlmIGl0cyBmcm9tIE5BWFNJIgpuYW1lOiBjcm93ZHNlY3VyaXR5L25heHNpLWxvZ3MKZ3JvazoKICBuYW1lOiAiTkFYU0lfRVhMT0ciCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIHRhcmdldDogZXZ0Lk1ldGEubG9nX3R5cGUKICAgIHZhbHVlOiB3YWZfbmF4c2ktbG9nCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLm5heHNpX3NyY19pcCIKICAtIG1ldGE6IGh0dHBfcGF0aAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuaHR0cF9wYXRoIgogIC0gbWV0YTogZGVzdF9pcAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudGFyZ2V0X2lwIg==",
    "description": "Enrich logs if its from NAXSI",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/nextcloud-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/nextcloud-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "072ff18cde784aedbe88ded5742860fcdf5000c3b56f10ca4d5fc2ec0b8166d7",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBbTmV4dGNsb3VkXShodHRwczovL25leHRjbG91ZC5jb20vKSBsb2dzCgpJZiB5b3UgaGF2ZSB0aGUgZGVmYXVsdCBbc2V0dGluZ10oaHR0cHM6Ly9kb2NzLm5leHRjbG91ZC5jb20vc2VydmVyL3N0YWJsZS9hZG1pbl9tYW51YWwvY29uZmlndXJhdGlvbl9zZXJ2ZXIvY29uZmlnX3NhbXBsZV9waHBfcGFyYW1ldGVycy5odG1sP2hpZ2hsaWdodD1sb2dsZXZlbCNsb2dnaW5nKQpvZiBsb2dnaW5nIHRvIGZpbGUsIHlvdSBuZWVkIHRvIGFkZCBpbiBhY3F1aXNpdGlvbiAoY2hhbmdlIGZpbGVuYW1lIHRvIHlvdXIgbG9nIGZpbGUgbG9jYXRpb24pOgoKYGBgeWFtbAotLS0KZmlsZW5hbWVzOgogLSAvdmFyL3d3dy9uZXh0Y2xvdWQvZGF0YS9uZXh0Y2xvdWQubG9nCmxhYmVsczoKICB0eXBlOiBOZXh0Y2xvdWQKYGBgCgpJZiB5b3UgYXJlIHNlbmRpbmcgbG9ncyB0byBzeXNsb2cgb3Igc3lzdGVtZCBhbmQgcmVhZCBmcm9tIGpvdXJuYWxkLCBhZGQ6CmBgYHlhbWwKLS0tCnNvdXJjZTogam91cm5hbGN0bApqb3VybmFsY3RsX2ZpbHRlcjoKICAtICJTWVNMT0dfSURFTlRJRkVSPU5leHRjbG91ZCIKbGFiZWxzOgogIHR5cGU6IE5leHRjbG91ZApgYGAK",
+   "content": "LS0tCm9uc3VjY2VzczogbmV4dF9zdGFnZQpmaWx0ZXI6ICJVcHBlcihldnQuUGFyc2VkLnByb2dyYW0pID09ICdORVhUQ0xPVUQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgbmV4dGNsb3VkIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJ0xvZ2luIGZhaWxlZDogJXtVU0VSTkFNRTp0YXJnZXRfdXNlcn0gXChSZW1vdGUgSVA6ICV7SVA6c291cmNlX2lwfVwpJwogICAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJtZXNzYWdlIikKICAgIHN0YXRpY3M6CiAgICAgIC0gbWV0YTogdGFyZ2V0X3VzZXIKICAgICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC50YXJnZXRfdXNlciIKICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgIHZhbHVlOiBuZXh0Y2xvdWRfZmFpbGVkX2F1dGgKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICdCcnV0ZWZvcmNlIGF0dGVtcHQgZnJvbSBcXD8iJXtJUDpzb3VyY2VfaXB9XFw/IiBkZXRlY3RlZCBmb3IgYWN0aW9uIFxcPyIle0RBVEE6YWN0aW9ufVxcPyInCiAgICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgIm1lc3NhZ2UiKQogICAgc3RhdGljczoKICAgICAgLSBtZXRhOiBhY3Rpb24KICAgICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5hY3Rpb24iCiAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICB2YWx1ZTogbmV4dGNsb3VkX2JydXRlZm9yY2VfYXR0ZW1wdApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IG5leHRjbG91ZAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJ0aW1lIikK",
+   "description": "Parse nextcloud logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2770,6 +2807,25 @@
     "remediation": "true",
     "service": "http",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/nextcloud-bf": {
+   "path": "scenarios/crowdsecurity/nextcloud-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "4a6b24a95d286e48aec8eb59fa5fc17686a724be3c7860df538a7eafdb613f97",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIG9uIFtOZXh0Y2xvdWRdKGh0dHBzOi8vbmV4dGNsb3VkLmNvbSkgaW5zdGFuY2UuCgogLSBsZWFrc3BlZWQgb2YgMW0sIGNhcGFjaXR5IG9mIDUgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgMW0sIGNhcGFjaXR5IG9mIDUgdW5pcXVlIGRpc3RpbmN0IHVzZXJzCg==",
+   "content": "LS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IE5leHRjbG91ZCBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ25leHRjbG91ZF9mYWlsZWRfYXV0aCcsICduZXh0Y2xvdWRfYnJ1dGVmb3JjZV9hdHRlbXB0J10iCmxlYWtzcGVlZDogIjFtIgpjYXBhY2l0eTogNQojIGlmIHdlIGhhdmUgYnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGVuYWJsZWQgaW4gbmV4dGNsb3VkLCB0aGUgc2FtZSBsb2dpbiBhdHRlbXB0CiMgY2FuIGxvZyAjIGJvdGggbG9naW4gZmFpbHVyZSBhbmQgYnJ1dGVmb3JjZSBhdHRlbXB0IGF0IHRoZSBzYW1lIHRpbWUsIHNvCiMga2VlcCB0aGVtIGluIHNlcGVyYXRlIGJ1Y2tldHMKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwICsgJy0tJyArIGV2dC5NZXRhLmxvZ190eXBlCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBuZXh0Y2xvdWQKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmX3VzZXJfZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBOZXh0Y2xvdWQgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICduZXh0Y2xvdWRfZmFpbGVkX2F1dGgnIgpsZWFrc3BlZWQ6ICIxbSIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDVtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogbmV4dGNsb3VkCiAgdHlwZTogYnJ1dGVmb3JjZQogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect Nextcloud bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "nextcloud",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/opnsense-gui-bf": {
