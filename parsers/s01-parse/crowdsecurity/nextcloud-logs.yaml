@@ -1,0 +1,29 @@
+---
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'NEXTCLOUD'"
+name: crowdsecurity/nextcloud-logs
+description: "Parse nextcloud logs"
+nodes:
+  - grok:
+      pattern: 'Login failed: %{USERNAME:target_user} \(Remote IP: %{IP:source_ip}\)'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: target_user
+        expression: "evt.Parsed.target_user"
+      - meta: log_type
+        value: nextcloud_failed_auth
+  - grok:
+      pattern: 'Bruteforce attempt from \\?"%{IP:source_ip}\\?" detected for action \\?"%{DATA:action}\\?"'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: action
+        expression: "evt.Parsed.action"
+      - meta: log_type
+        value: nextcloud_bruteforce_attempt
+statics:
+  - meta: service
+    value: nextcloud
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "time")

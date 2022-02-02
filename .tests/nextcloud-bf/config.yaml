@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/nextcloud-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/nextcloud-bf.yaml
+postoverflows:
+- ""
+log_file: nextcloud-bf.log
+log_type: Nextcloud
+labels: {}
+ignore_parsers: true
