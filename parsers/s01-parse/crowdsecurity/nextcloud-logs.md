@@ -16,7 +16,7 @@ If you are sending logs to syslog or systemd and read from journald, add:
 ---
 source: journalctl
 journalctl_filter:
-  - "SYSLOG_IDENTIFER=Nextcloud"
+  - "SYSLOG_IDENTIFIER=Nextcloud"
 labels:
-  type: Nextcloud
+  type: syslog
 ```
