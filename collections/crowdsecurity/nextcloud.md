@@ -2,6 +2,8 @@ A collection to defend [Nextcloud](https://nextcloud.com) instance against commo
  - Nextcloud parser
  - Nextcloud bruteforce & enumeration detection
 
+> Contributed by Håvard Moen
+
 ## Acquisition template
 
 
