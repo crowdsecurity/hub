@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/vaultwarden-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/vaultwarden-bf.yaml
+postoverflows:
+- ""
+log_file: vaultwarden-bf.log
+log_type: Vaultwarden
+labels: {}
+ignore_parsers: true
