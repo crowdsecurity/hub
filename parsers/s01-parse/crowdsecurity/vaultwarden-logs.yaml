@@ -1,0 +1,23 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'VAULTWARDEN'"
+name: crowdsecurity/vaultwarden-logs
+description: "Parse vaultwarden logs"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+nodes:
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::identity\]\[ERROR\] Username or password is incorrect\. Try again\. IP: %{IP:source_ip}\. Username: %{EMAILADDRESS:username}\.$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_auth
+
+statics:
+    - meta: service
+      value: vaultwarden
+    - meta: username
+      expression: evt.Parsed.username
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
