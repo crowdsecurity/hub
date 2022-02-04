@@ -3,7 +3,6 @@ module main
 go 1.13
 
 require (
-	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/antonmedv/expr v1.9.0 // indirect
 	github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
