@@ -21,9 +21,9 @@ labels:
 ---
 source: journalctl
 journalctl_filter:
-  - "SYSLOG_IDENTIFER=Nextcloud"
+  - "SYSLOG_IDENTIFIER=Nextcloud"
 labels:
-  type: Nextcloud
+  type: syslog
 ```
 - Use the filename version if you have the default [setting](https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=loglevel#logging) of logging to file
 - Use the journalctl version if you are sending logs to syslog or systemd and read the logs from journald
