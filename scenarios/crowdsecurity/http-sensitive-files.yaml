@@ -3,7 +3,7 @@ format: 2.0
 #debug: true
 name: crowdsecurity/http-sensitive-files
 description: "Detect attempt to access to sensitive files (.log, .db ..) or folders (.git)"
-filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] and any(File("sensitive_data.txt"), { evt.Parsed.request endsWith #})'
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] and any(File("crowdsecurity/sensitive_data.txt"), { evt.Parsed.request endsWith #})'
 groupby: "evt.Meta.source_ip"
 distinct: evt.Parsed.request
 data:
