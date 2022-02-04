@@ -5,12 +5,18 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/crowdsecurity/crowdsec/pkg/cwhub"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/crowdsecurity/crowdsec/pkg/cwhub"
 )
+
+type dataFileConfig struct {
+	SourceURL string `yaml:"source_url"`
+	DestFile  string `yaml:"dest_file"`
+}
 
 type typeInfo struct {
 	Path            string                 `json:"path"`
@@ -38,6 +44,7 @@ type fileInfo struct {
 	PostOverflows []string          `yaml:"postoverflows,omitempty"`
 	Scenarios     []string          `yaml:"scenarios,omitempty"`
 	Collections   []string          `yaml:"collections,omitempty"`
+	Data          []dataFileConfig  `yaml:"data,omitempty"`
 }
 
 type versionInfo struct {
@@ -57,7 +64,12 @@ var types = []string{
 	"scenarios",
 	"postoverflows",
 	"collections",
+	"data_files",
 }
+
+var skipDataFiles bool
+
+// var dataFileConfigs = make([]dataFileConfig, 0)
 
 func getSHA256(filepath string) (string, error) {
 	/* Digest of file */
@@ -89,10 +101,11 @@ func main() {
 	flag.StringVar(&outFile, "output", ".index.json", "File to output index")
 	flag.BoolVar(&generate, "generate", false, "File to output index")
 	flag.StringVar(&inputFile, "input", ".index.json", "File to read index from")
+	flag.BoolVar(&skipDataFiles, "no-data-files", false, "Don't Download data files")
 	flag.Parse()
 
 	if target == "all" || target == "configs" {
-		if generate == true {
+		if generate {
 			for _, t := range types {
 				configType, err := generateIndex(t)
 				if err != nil {
@@ -110,7 +123,6 @@ func main() {
 				updateIndex(t, idx, tmpIdx)
 			}
 		}
-
 		json, err := json.MarshalIndent(idx, "", " ")
 		if err != nil {
 			panic(err)

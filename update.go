@@ -24,8 +24,14 @@ func updateIndex(configType string, idx map[string]map[string]typeInfo, tmpIdx m
 	idx[configType] = make(map[string]typeInfo)
 
 	err := filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
-		if strings.HasSuffix(path, ".yaml") {
-			files = append(files, path)
+		if configType == "data_files" || strings.HasSuffix(path, ".yaml") {
+			fileInfo, err := os.Stat(path)
+			if err != nil {
+				return err
+			}
+			if !fileInfo.IsDir() {
+				files = append(files, path)
+			}
 		}
 		return nil
 	})
