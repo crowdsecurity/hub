@@ -7,7 +7,7 @@ data:
     dest_file: crowdsecurity/xss_probe_patterns.txt
     type: string
 description: "A scenario that detects XSS probing with minimal false positives"
-filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && any(File('xss_probe_patterns.txt'), {Upper(evt.Parsed.http_args) contains Upper(#)})"
+filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && any(File('crowdsecurity/xss_probe_patterns.txt'), {Upper(evt.Parsed.http_args) contains Upper(#)})"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: 1s

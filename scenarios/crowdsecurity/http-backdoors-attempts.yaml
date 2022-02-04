@@ -2,7 +2,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/http-backdoors-attempts
 description: "Detect attempt to common backdoors"
-filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] and any(File("backdoors.txt"), { evt.Parsed.request contains #})'
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] and any(File("crowdsecurity/backdoors.txt"), { evt.Parsed.request contains #})'
 groupby: "evt.Meta.source_ip"
 distinct: evt.Parsed.request
 data:

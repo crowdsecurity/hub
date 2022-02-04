@@ -7,7 +7,7 @@ data:
     dest_file: crowdsecurity/sqli_probe_patterns.txt
     type: string
 description: "A scenario that detects SQL injection probing with minimal false positives"
-filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && any(File('sqli_probe_patterns.txt'), {Upper(evt.Parsed.http_args) contains Upper(#)})"
+filter: "evt.Meta.log_type in ['http_access-log', 'http_error-log'] && any(File('crowdsecurity/sqli_probe_patterns.txt'), {Upper(evt.Parsed.http_args) contains Upper(#)})"
 groupby: evt.Meta.source_ip
 capacity: 10
 leakspeed: 1s
