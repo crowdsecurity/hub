@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/vaultwarden-bf
 description: "Detect vaultwarden bruteforce"
-filter: "evt.Meta.log_type == 'vaultwarden_failed_auth'"
+filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_totp']"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip

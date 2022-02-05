@@ -11,12 +11,24 @@ nodes:
       statics:
         - meta: log_type
           value: vaultwarden_failed_auth
+        - meta: username
+          expression: evt.Parsed.username
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::admin\]\[ERROR\] Invalid admin token. IP: %{IP:source_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_admin_auth
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::core::two_factor::authenticator\]\[ERROR\] Invalid TOTP code! Server time: %{DATE_YMD:server_date} %{TIME:server_time} %{TZ:server_tz} IP: %{IP:source_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_totp
 
 statics:
     - meta: service
       value: vaultwarden
-    - meta: username
-      expression: evt.Parsed.username
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
     - target: evt.StrTime

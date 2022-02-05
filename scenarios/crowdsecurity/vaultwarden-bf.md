@@ -1,5 +1,5 @@
 Detect failed vaultwarden authentications:
 
- - leakspeed of 1m, capacity of 5 on same target user
- - leakspeed of 1m, capacity of 5 unique distinct users
+ - leakspeed of 1m, capacity of 5 on source ip
+ - leakspeed of 1m, capacity of 5 on source ip and unique distinct users
  
