@@ -7,7 +7,7 @@ filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && RegexpInF
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/change_bad_user_agent_list_to_regex/web/bad_user_agents.regex.txt
     dest_file: bad_user_agents.regex.txt
-    type: re
+    type: regexp
 capacity: 1
 leakspeed: 1m
 groupby: "evt.Meta.source_ip"
