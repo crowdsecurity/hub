@@ -23,7 +23,7 @@ labels:
 FROM gotify/server
 ENTRYPOINT /bin/bash -c '/app/gotify-app | tee /app/data/gotify.log'
 ```
-- Build the image `sudo docker built -t <TAG NAME>`
+- Build the image `sudo docker build -t <TAG NAME>`
 - Example `<TAG NAME>` - server/gotify:logger
 - Now make a docker-compose file to use the image, the log file will end up in the `gotify_data` directory
 ```docker

@@ -1,14 +1,14 @@
-filter: '1 == 1'
-#filter: evt.Parsed.program == "gotify"
+filter: evt.Parsed.program == "gotify"
 #debug: true
 onsuccess: next_stage
-name: baudneo/gotify-logs
-description: A parser for Gotify server
-
+name: gotify_parser
+description: parser for Gotify server
 pattern_syntax:
-  GOTIFY_DATE: %{YEAR}/%{MONTHNUM}/%{NUMBER}\s[\-]\s%{TIME}
-  GOTIFY_SEPERATOR: %{SPACE}\|%{SPACE}
-  GOTIFY_401: ^\[GIN\]%{SPACE}%{GOTIFY_DATE}%{GOTIFY_SEPERATOR}401%{GOTIFY_SEPERATOR}%{DATA:request_time_took}%{GOTIFY_SEPERATOR}%{IP:source_ip}%{GOTIFY_SEPERATOR}%{WORD:request_type}%{SPACE}\"%{DATA:endpoint}\"
+#  GOTIFY_DATE: %{YEAR}/%{MONTHNUM}/%{NUMBER}\s[\-]\s%{TIME}  ## Grok patterns cause FATAL error for crowdsec
+#  GOTIFY_SEPERATOR: %{SPACE}\|%{SPACE}  ## Grok patterns cause FATAL error for crowdsec
+  GOTIFY_DATE: \d*/\d*/\d*\s[\-]\s.*
+  GOTIFY_SEPERATOR: \s*\|\s*
+  GOTIFY_401: ^\[GIN\]\s*%{GOTIFY_DATE}%{GOTIFY_SEPERATOR}401%{GOTIFY_SEPERATOR}%{DATA:request_time_took}%{GOTIFY_SEPERATOR}%{IP:source_ip}%{GOTIFY_SEPERATOR}%{WORD:request_type}\s*\"%{DATA:endpoint}\"
 nodes:
   - grok:
       name: "GOTIFY_401"
@@ -17,6 +17,7 @@ nodes:
         - meta: log_type
           value: gotify_failed_auth
 
+
 statics:
-  - meta: source_ip
-    expression: evt.Parsed.source_ip
+  - meta: srcIP
+    expression: evt.Parsed.srcIP
