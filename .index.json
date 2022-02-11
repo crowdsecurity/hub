@@ -385,6 +385,29 @@
     "crowdsecurity/linux"
    ]
   },
+  "crowdsecurity/magento": {
+   "path": "collections/crowdsecurity/magento.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "07f2a7f91cae877c0f0e3bf16b68b187820b006a6241b8774962127b6189fce8",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgT1BOU2Vuc2UgY29sbGVjdGlvbgoKVGhpcyBNYWdlbnRvIGNvbGxlY3Rpb24gc3VwcG9ydHMgOgogLSBQYXJzZXIgZm9yIHRoZSBDcm93ZFNlYyBNYWdlbnRvIEV4dGVuc2lvbgogLSBXZWIgYXV0aGVudGljYXRpb24gYnJ1dGVmb3JjZSBkZXRlY3Rpb24KCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci93d3cvaHRtbC9tYWdlbnRvMi92YXIvbG9nL2Nyb3dkc2VjLWV2ZW50cy5sb2cKbGFiZWxzOgogIHR5cGU6IG1hZ2VudG8tZXh0ZW5zaW9uCmBgYAoKbm90ZXMgOgogLSAgSWYgeW91IGFyZSB1c2luZyBgc3lzbG9nYCwgc2V0IHR5cGUgdG8gYHN5c2xvZ2AgaW5zdGVhZAogLSAgRGVwZW5kaW5nIG9uIHlvdXIgZGlzdHJpYnV0aW9uL09TLCBwYXRocyB0byBsb2cgZmlsZXMgbWlnaHQgY2hhbmdlCiAtICBPbmx5IHJlbGV2YW50IGlmIHlvdSBhcmUgbWFudWFsbHkgaW5zdGFsbGluZyBjb2xsZWN0aW9uCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvbWFnZW50by1leHRlbnNpb24tbG9ncwogIC0gY3Jvd2RzZWN1cml0eS9kYXRlcGFyc2UtZW5yaWNoCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1tYWdlbnRvLWJmCmRlc2NyaXB0aW9uOiAiTWFnZW50byBjb2xsZWN0aW9uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIG1hZ2VudG8KICAtIGh0dHAKCg==",
+   "description": "Magento collection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "crowdsecurity/magento-extension-logs",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "crowdsecurity/http-magento-bf"
+   ]
+  },
   "crowdsecurity/mariadb": {
    "path": "collections/crowdsecurity/mariadb.yaml",
    "version": "0.1",
@@ -1329,6 +1352,22 @@
    "long_description": "QSBwYXJzZXIgZm9yIGlwdGFibGVzIGAtaiBMT0dgIGxvZ3MgOgoKIC0gT25seSBwYXJzZSBrZXJuZWwgbWVzc2FnZXMgY29udGFpbmluZyBgSU49YAogLSBTa2lwIGxpbmVzIGlmIGRlY2lzaW9ucyBpcyBgQUNDRVBUYAogLSBBbGwgbG9nZ2VkIHBhY2tldHMgYXJlIGNvbnNpZGVyZWQgYXMgRFJPUHMuCgpUbyBtYWtlIHRoaXMgcGFyc2VyIHJlbGV2YW50LCB5b3Ugc2hvdWxkIGhhdmUgYSBgaXB0YWJsZXMgLUEgSU5QVVQgIC1tIHN0YXRlIC0tc3RhdGUgTkVXIC1qIExPR2Agb3Igc2ltaWxhciBpbnRvIHlvdXIgY29uZmlndXJhdGlvbi4gVGhpcyBvbmUgd2lsbCBsb2cgYWxsIG5ldyBjb25uZWN0aW9ucywgc3VjY2Vzc2Z1bCBvciBub3QuCgo=",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tlcm5lbCcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnSU49JyBhbmQgbm90IChldnQuUGFyc2VkLm1lc3NhZ2UgY29udGFpbnMgJ0FDQ0VQVCcpIgpuYW1lOiBjcm93ZHNlY3VyaXR5L2lwdGFibGVzLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBpcHRhYmxlcyBkcm9wIGxvZ3MiCmdyb2s6CiAgcGF0dGVybjogSU49JXtXT1JEOmludF9ldGh9IChPVVQ9ICk/TUFDPSV7SVB9OiV7TUFDfSBTUkM9JXtJUDpzcmNfaXB9IERTVD0le0lQOmRzdF9pcH0gTEVOPSV7SU5UOmxlbmd0aH0uKlBST1RPPSV7V09SRDpwcm90b30gU1BUPSV7SU5UOnNyY19wb3J0fSBEUFQ9JXtJTlQ6ZHN0X3BvcnR9CiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogdGNwCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBpcHRhYmxlc19kcm9wCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zcmNfaXAiCgo=",
    "description": "Parse iptables drop logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/magento-extension-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/magento-extension-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "14462ab2a582ecf9be26402de41b9a253e997b93a39c1aa1cfb22abf3740f808",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciB0aGUgQ3Jvd2RTZWMgTWFnZW50byBFeHRlbnNpb24u",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ21hZ2VudG8tZXh0ZW5zaW9uJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9tYWdlbnRvLWV4dGVuc2lvbi1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgQ3Jvd2RTZWMgTWFnZW50byBleHRlbnNpb24gbG9ncyIKcGF0dGVybl9zeW50YXg6CiAgSEVBREVSOiAnXFsle0RBVEE6dGltZXN0YW1wfVxdIGNyb3dkc2VjLWV2ZW50c1wuW146XSs6ICAle0dSRUVEWURBVEE6bGluZX0gXFtcXScKbm9kZXM6CiAgLSBncm9rOgogICAgICBuYW1lOiAiSEVBREVSIgogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gdGFyZ2V0OiBTdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcApzdGF0aWNzOgogICAgLSBtZXRhOiBzZXJ2aWNlCiAgICAgIHZhbHVlOiBtYWdlbnRvCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubGluZSwgInR5cGUiKQogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5saW5lLCAiaXAiKQogICAgLSBtZXRhOiB4X2ZvcndhcmRlZF9mb3IKICAgICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5saW5lLCAieC1mb3J3YXJkZWQtZm9yLWlwIikKICAgIC0gbWV0YTogYm91bmNlcl9hZ2VudAogICAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLmxpbmUsICJib3VuY2VyX2FnZW50IikKICAgIC0gbWV0YTogY3VzdG9tZXJfaWQKICAgICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5saW5lLCAiY3VzdG9tZXJfaWQiKQogICAgLSBtZXRhOiBwYXltZW50X21ldGhvZAogICAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLmxpbmUsICJwYXltZW50X21ldGhvZCIpCiAgICAtIG1ldGE6IG9yZGVyX2lkCiAgICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubGluZSwgIm9yZGVyX2lkIikKICAgIC0gbWV0YTogcHJvZHVjdF9pZAogICAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLmxpbmUsICJwcm9kdWN0X2lkIikKICAgIC0gbWV0YTogcXVvdGVfaWQKICAgICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5saW5lLCAicXVvdGVfaWQiKQ==",
+   "description": "Parse CrowdSec Magento extension logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2527,6 +2566,26 @@
     "remediation": "true",
     "service": "http",
     "type": "bf"
+   }
+  },
+  "crowdsecurity/http-magento-bf": {
+   "path": "scenarios/crowdsecurity/http-magento-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "a77e4cb9a813ac8bad557138f3b20abaa67d8210768fcb350fb3efcc58c1dfc1",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIG9uIE1hZ2VudG8gQWRtaW4gcGFnZS4KCmxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUKCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLW1hZ2VudG8tYmYKZGVidWc6IHRydWUKZGVzY3JpcHRpb246ICJkZXRlY3QgTWFnZW50byBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnQURNSU5fTE9HSU5fRkFJTEVEJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogMTBzCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaHR0cAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKIGFwcGxpY2F0aW9uOiBtYWdlbnRvCg==",
+   "description": "detect Magento bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "application": "magento",
+    "remediation": "true",
+    "service": "http",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/http-open-proxy": {
