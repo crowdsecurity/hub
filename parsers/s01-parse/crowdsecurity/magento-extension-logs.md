@@ -1,0 +1,1 @@
+Parser for the CrowdSec Magento Extension.
