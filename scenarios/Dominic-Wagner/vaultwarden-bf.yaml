@@ -1,6 +1,6 @@
 # vaultwarden bruteforce
 type: leaky
-name: crowdsecurity/vaultwarden-bf
+name: Dominic-Wagner/vaultwarden-bf
 description: "Detect vaultwarden bruteforce"
 filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_totp']"
 leakspeed: 1m
@@ -15,7 +15,7 @@ labels:
 ---
 # vaultwarden user-enum
 type: leaky
-name: crowdsecurity/vaultwarden-bf_user-enum
+name: Dominic-Wagner/vaultwarden-bf_user-enum
 description: "Detect vaultwarden user enum bruteforce"
 filter: evt.Meta.log_type == 'vaultwarden_failed_auth'
 groupby: evt.Meta.source_ip
