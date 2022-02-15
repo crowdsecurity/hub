@@ -1,0 +1,14 @@
+# Synology DSM auth.log bruteforce
+type: leaky
+name: crowdsecurity/synology-dsm-bf
+description: "Detect Synology DSM web auth bruteforce"
+filter: "evt.Meta.log_type == 'synology-dsm_failed_auth'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: synology-dsm
+ type: bruteforce
+ remediation: true
