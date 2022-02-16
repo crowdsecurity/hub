@@ -838,7 +838,7 @@
   },
   "crowdsecurity/wordpress": {
    "path": "collections/crowdsecurity/wordpress.yaml",
-   "version": "0.3",
+   "version": "0.4",
    "versions": {
     "0.1": {
      "digest": "14f428b1d171a092d703478a891db27aaf83a3f6ba99199a3be4a64d193d718d",
@@ -851,16 +851,21 @@
     "0.3": {
      "digest": "c342ae222954a731b60b7c72548fe876de791b3722088ae57cee09d2b2fd7028",
      "deprecated": false
+    },
+    "0.4": {
+     "digest": "f45c1bb9daec2f8a81e125f75033a3a0198f4eb36c342985f831c77a3057f1bd",
+     "deprecated": false
     }
    },
-   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBicnV0ZWZvcmNlIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAtIHdwLWNvbmZpZy5waHAgcHJvYmluZwoK",
-   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwpkZXNjcmlwdGlvbjogIndvcmRwcmVzczogQnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGFuZCBjb25maWcgcHJvYmluZyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gd29yZHByZXNzCiAgLSBicnV0ZWZvcmNlCgo=",
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCB3b3JkcHJlc3MgYWdhaW5zdCBjb21tb25zIHNjYW5uZXIgYmVoYXZpb3JzIDoKIC0gd3AtbG9naW4ucGhwIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAtIHdwLWNvbmZpZy5waHAgcHJvYmluZwogLSBhdXRob3IgZW51bWVyYXRpb24KCg==",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWJmLXdvcmRwcmVzc19iZgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc193cGNvbmZpZwogIC0gY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc191c2VyLWVudW0KZGVzY3JpcHRpb246ICJ3b3JkcHJlc3M6IEJydXRlZm9yY2UgcHJvdGVjdGlvbiBhbmQgY29uZmlnIHByb2JpbmciCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHdvcmRwcmVzcwogIC0gYnJ1dGVmb3JjZQoK",
    "description": "wordpress: Bruteforce protection and config probing",
    "author": "crowdsecurity",
    "labels": null,
    "scenarios": [
     "crowdsecurity/http-bf-wordpress_bf",
-    "crowdsecurity/http-wordpress_wpconfig"
+    "crowdsecurity/http-wordpress_wpconfig",
+    "crowdsecurity/http-wordpress_user-enum"
    ]
   },
   "firewallservices/lemonldap-ng": {
@@ -2721,6 +2726,25 @@
     "remediation": "true",
     "service": "http",
     "type": "sqli_probing"
+   }
+  },
+  "crowdsecurity/http-wordpress_user-enum": {
+   "path": "scenarios/crowdsecurity/http-wordpress_user-enum.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b3d23b71ecb4434773e907675a1c117a97acaeeb18a9d57062bded417f18b646",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBwcm9iaW5nIHRvIGVudW1lcmF0ZSB3b3JkcHJlc3MgYXV0aG9ycyA6IGAvP2F1dGhvcj1YWGAKCmxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUKCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLXdvcmRwcmVzc191c2VyLWVudW0KZGVzY3JpcHRpb246ICJkZXRlY3Qgd29yZHByZXNzIHByb2JpbmcgOiBhdXRob3JzIGVudW1lcmF0aW9uIgpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2h0dHBfYWNjZXNzLWxvZycgJiYgVXBwZXIoZXZ0LlBhcnNlZC5odHRwX2FyZ3MpIGNvbnRhaW5zICdBVVRIT1I9JyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuUGFyc2VkLmh0dHBfYXJncwpjYXBhY2l0eTogNQpsZWFrc3BlZWQ6ICIxMHMiCmJsYWNraG9sZTogNW0KbGFiZWxzOgogc2VydmljZTogaHR0cAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "detect wordpress probing : authors enumeration",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "http",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/http-wordpress_wpconfig": {
