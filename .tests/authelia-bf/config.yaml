@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/lepresidente/authelia-logs.yaml
+scenarios:
+- ./scenarios/lepresidente/authelia-bf.yaml
+postoverflows:
+- ""
+log_file: authelia-bf.log
+log_type: authelia
+labels: {}
+ignore_parsers: true
