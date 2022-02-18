@@ -1,0 +1,14 @@
+# emby bruteforce
+type: leaky
+name: LePresidente/ombi-bf
+description: "Detect Ombi bruteforce"
+filter: "evt.Meta.log_type == 'ombi_auth_failed'"
+leakspeed: 1m
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+ service: ombi
+ type: bruteforce
+ remediation: true
