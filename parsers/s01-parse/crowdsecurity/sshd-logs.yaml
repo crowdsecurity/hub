@@ -13,7 +13,7 @@ pattern_syntax:
   SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
   SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection closed by authenticating user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
-  SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from authenticating user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
+  SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
 nodes:
   - grok:
       name: "SSHD_FAIL"

@@ -104,15 +104,23 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 	if configType == "collections" {
 		if len(fInfo.Parsers) > 0 {
 			ti.Parsers = fInfo.Parsers
+		} else {
+			ti.Parsers = nil
 		}
 		if len(fInfo.PostOverflows) > 0 {
 			ti.PostOverflows = fInfo.PostOverflows
+		} else {
+			ti.PostOverflows = nil
 		}
 		if len(fInfo.Scenarios) > 0 {
 			ti.Scenarios = fInfo.Scenarios
+		} else {
+			ti.Scenarios = nil
 		}
 		if len(fInfo.Collections) > 0 {
 			ti.Collections = fInfo.Collections
+		} else {
+			ti.Collections = nil
 		}
 	}
 
