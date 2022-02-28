@@ -1,0 +1,27 @@
+onsuccess: next_stage
+filter: "evt.Line.Labels.type == 'endlessh'"
+name: crowdsecurity/endlessh-logs
+description: "Parse Endlessh logs"
+pattern_syntax:
+  ENDLESSH_ACCEPT_V4: "%{TIMESTAMP_ISO8601:timestamp} ACCEPT host=::ffff:%{IPV4:source_ip} "
+  ENDLESSH_ACCEPT_V6: "%{TIMESTAMP_ISO8601:timestamp} ACCEPT host=%{IPV6:source_ip} "
+nodes:
+  - grok:
+      name: "ENDLESSH_ACCEPT_V4"
+      apply_on: Line.Raw
+      statics:
+        - meta: log_type
+          value: endlessh_accept
+  - grok:
+      name: "ENDLESSH_ACCEPT_V6"
+      apply_on: Line.Raw
+      statics:
+        - meta: log_type
+          value: endlessh_accept
+statics:
+  - meta: service
+    value: endlessh
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
