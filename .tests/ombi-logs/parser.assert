@@ -1,0 +1,11 @@
+len(results["s01-parse"]["LePresidente/ombi-logs"]) == 1
+results["s01-parse"]["LePresidente/ombi-logs"][0].Success == true
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["timestamp"] == "2022-02-11 14:07:54.110"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["message"] == "2022-02-11 14:07:54.110 +02:00 [Warning] Failed login attempt by IP: 1.1.1.1"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["program"] == "ombi"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["log_type"] == "ombi_auth_failed"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["service"] == "ombi"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_path"] == "ombi-logs.log"
