@@ -153,6 +153,28 @@
     "crowdsecurity/dovecot-spam"
    ]
   },
+  "crowdsecurity/endlessh": {
+   "path": "collections/crowdsecurity/endlessh.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "43b070a6e5c49f66dc970d4a8cc8fb37cef90c5da5aa6276c012e343ba06f0e5",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRW5kbGVzc2ggY29sbGVjdGlvbgoKQSBjb2xsZWN0aW9uIGZvciBbRW5kbGVzc2hdKGh0dHBzOi8vZ2l0aHViLmNvbS9za2VldG8vZW5kbGVzc2gpCiAqIGxvZyBwYXJzZXIKICogYnJ1dGUtZm9yY2Ugc2NlbmFyaW8KCj4gQ29udHJpYnV0aW9uIGJ5IGh0dHBzOi8vZ2l0aHViLmNvbS9iYW14MjMKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb246CgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC92YXIvbG9nL2VuZGxlc3NoLmxvZwpsYWJlbHM6CiAgdHlwZTogZW5kbGVzc2gKYGBgCgpZb3UgbmVlZCB0byBjb25maWd1cmUgRW5kbGVzc2ggdG8gd3JpdGUgbG9ncyB0byB0aGlzIHBhdGguCkkuZS4gYnkgaGF2aW5nIHRoaXMgbGluZSBpbiBgL3Vzci9saWIvc3lzdGVtZC9zeXN0ZW0vZW5kbGVzc2guc2VydmljZWA6CgpgYGAKU3RhbmRhcmRPdXRwdXQ9ZmlsZTovdmFyL2xvZy9lbmRsZXNzaC5sb2cKYGBgCg==",
+   "content": "I3RoZSBsaXN0IG9mIHBhcnNlcnMgaXQgY29udGFpbnMKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtbG9ncwogIC0gY3Jvd2RzZWN1cml0eS9kYXRlcGFyc2UtZW5yaWNoCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtYmYKZGVzY3JpcHRpb246ICJlbmRsZXNzaCBzdXBwb3J0IDogbG9ncyBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gc3NoCiAgLSBlbmRsZXNzaAogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "endlessh support : logs parser and brute-force detection",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/endlessh-logs",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "crowdsecurity/endlessh-bf"
+   ]
+  },
   "crowdsecurity/fastly": {
    "path": "collections/crowdsecurity/fastly.yaml",
    "version": "0.1",
@@ -1200,6 +1222,21 @@
    },
    "content": "I2NvbnRyaWJ1dGlvbiBieSBAbHRzaWNoCm9uc3VjY2VzczogbmV4dF9zdGFnZQpkZWJ1ZzogZmFsc2UKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdkb3ZlY290JyIKbmFtZTogY3Jvd2RzZWN1cml0eS9kb3ZlY290LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBkb3ZlY290IGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogIiV7V09SRDpwcm90b2NvbH0tbG9naW46ICV7REFUQTpkb3ZlY290X2xvZ2luX21lc3NhZ2V9OiB1c2VyPTwle0RBVEE6ZG92ZWNvdF91c2VyfT4uKiwgcmlwPSV7SVA6ZG92ZWNvdF9yZW1vdGVfaXB9LCBsaXA9JXtJUDpkb3ZlY290X2xvY2FsX2lwfSIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICJhdXRoLXdvcmtlclxcKCV7SU5UfVxcKTogcGFtXFwoJXtEQVRBOmRvdmVjb3RfdXNlcn0sJXtJUDpkb3ZlY290X3JlbW90ZV9pcH0sPyV7REFUQX1cXCk6ICgle0RBVEF9OiApPyV7REFUQTpkb3ZlY290X2xvZ2luX21lc3NhZ2V9JCIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgdmFsdWU6IGRvdmVjb3RfbG9ncwogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZG92ZWNvdF9yZW1vdGVfaXAiCiAgICAtIG1ldGE6IGRvdmVjb3RfbG9naW5fcmVzdWx0CiAgICAgIGV4cHJlc3Npb246ICJhbnkoWydBdXRoZW50aWNhdGlvbiBmYWlsdXJlJywgJ3Bhc3N3b3JkIG1pc21hdGNoJywgJ2F1dGggZmFpbGVkJywgJ3Vua25vd24gdXNlciddLCB7ZXZ0LlBhcnNlZC5kb3ZlY290X2xvZ2luX21lc3NhZ2UgY29udGFpbnMgI30pID8gJ2F1dGhfZmFpbGVkJyA6ICcnIgo=",
    "description": "Parse dovecot logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/endlessh-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/endlessh-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "dc1affad319badddf95ad1a16bf633b6fd70ed02db0e490dc0540eef47576f2a",
+     "deprecated": false
+    }
+   },
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlID09ICdlbmRsZXNzaCciCm5hbWU6IGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIEVuZGxlc3NoIGxvZ3MiCnBhdHRlcm5fc3ludGF4OgogIEVORExFU1NIX0FDQ0VQVF9WNDogIiV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSBBQ0NFUFQgaG9zdD06OmZmZmY6JXtJUFY0OnNvdXJjZV9pcH0gIgogIEVORExFU1NIX0FDQ0VQVF9WNjogIiV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSBBQ0NFUFQgaG9zdD0le0lQVjY6c291cmNlX2lwfSAiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogIkVORExFU1NIX0FDQ0VQVF9WNCIKICAgICAgYXBwbHlfb246IExpbmUuUmF3CiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGVuZGxlc3NoX2FjY2VwdAogIC0gZ3JvazoKICAgICAgbmFtZTogIkVORExFU1NIX0FDQ0VQVF9WNiIKICAgICAgYXBwbHlfb246IExpbmUuUmF3CiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGVuZGxlc3NoX2FjY2VwdApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGVuZGxlc3NoCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCg==",
+   "description": "Parse Endlessh logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -2358,6 +2395,27 @@
    "labels": {
     "remediation": "true",
     "type": "scan"
+   }
+  },
+  "crowdsecurity/endlessh-bf": {
+   "path": "scenarios/crowdsecurity/endlessh-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "2113a6f5e8e2d675581e93d4bcf546526d0bd22aaa35ecafdd041d95e3f3422d",
+     "deprecated": false
+    }
+   },
+   "content": "IyBlbmRsZXNzaCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU1NIIGJydXRlZm9yY2UgY2F1Z2h0IGJ5IEVuZGxlc3NoIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnZW5kbGVzc2hfYWNjZXB0JyIKbGVha3NwZWVkOiAiNW0iCnJlZmVyZW5jZXM6CiAgLSBodHRwOi8vd2lraXBlZGlhLmNvbS9zc2gtYmYtaXMtYmFkCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDEyMG0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBlbmRsZXNzaAogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect SSH bruteforce caught by Endlessh",
+   "author": "crowdsecurity",
+   "references": [
+    "http://wikipedia.com/ssh-bf-is-bad"
+   ],
+   "labels": {
+    "remediation": "true",
+    "service": "endlessh",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/f5-big-ip-cve-2020-5902": {
