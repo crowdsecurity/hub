@@ -1,3 +1,18 @@
+# loging bruteforce
+type: leaky
+name: baudneo/zoneminder-bf
+description: "Detect ZoneMinder bruteforce"
+filter: "evt.Meta.log_type == 'zm_failed_auth'"
+groupby: "evt.Meta.source_ip"
+capacity: 4
+leakspeed: "10s"
+blackhole: 1m
+labels:
+ service: zoneminder
+ type: bruteforce
+ remediation: true
+---
+# loging bruteforce
 type: leaky
 name: baudneo/zoneminder-bf
 description: "Detect ZoneMinder bruteforce"

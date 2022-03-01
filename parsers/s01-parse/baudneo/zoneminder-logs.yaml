@@ -1,12 +1,12 @@
 #filter: '1 == 1'  # For hub tests
-filter: "evt.Parsed.program == 'zoneminder-web_php'"   # Production
+filter: "evt.Parsed.program == 'zoneminder'"   # Production
 #debug: true
 onsuccess: next_stage
-name: baudneo/zoneminder-web_php
+name: baudneo/zoneminder-logs
 description: A parser for zoneminder web_php.log (Logins to DB/Web)
 pattern_syntax:
-  ZM_BADUSER: ^%{DATE}[- ]%{TIME}\s(%{WORD})\[.*\[(%{IP:source_ip})\]\s\[Could not retrieve user %{DATA:username} details\]
-  ZM_BADPASSWORD: ^%{DATE}[- ]%{TIME}\s(%{WORD})\[.*\[(%{IP:source_ip})\]\s\[Login denied for user \"%{DATA:username}\"\]
+  ZM_BADUSER: ^%{DATESTAMP:timestamp}\[.*\[(%{IP:source_ip})\]\s\[Could not retrieve user %{DATA:username} details\]
+  ZM_BADPASSWORD: ^%{DATESTAMP:timestamp}\s(%{WORD})\[.*\[(%{IP:source_ip})\]\s\[Login denied for user \"%{DATA:username}\"\]
 # 01/06/22 09:26:15.117434 web_php[258].ERR [99.1.1.1] [Could not retrieve user testuser details] at /usr/share/zoneminder/www/includes/auth.php line 313
 # 01/06/22 09:27:39.843338 web_php[688].ERR [99.1.1.1] [Login denied for user "validuser"] at /usr/share/zoneminder/www/includes/auth.php line 313
 
@@ -33,3 +33,5 @@ statics:
     expression: evt.Parsed.source_ip
   - meta: username
     expression: evt.Parsed.username
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
