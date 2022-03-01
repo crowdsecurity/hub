@@ -1,5 +1,50 @@
 {
  "collections": {
+  "baudneo/gotify": {
+   "path": "collections/baudneo/gotify.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "9d3c0d0e2271d560f5aa45601cca9dd1d4f5722e7f1ca8198f21acc1231bca34",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRldGVjdCBicnV0ZWZvcmNlIGF0dGVtcHRzIG9uIEdvdGlmeSBzZXJ2ZXIu",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGJhdWRuZW8vZ290aWZ5LWxvZ3MKc2NlbmFyaW9zOgogIC0gYmF1ZG5lby9nb3RpZnktYmYKZGVzY3JpcHRpb246ICJHb3RpZnkgYnJ1dGVmb3JjZSBsb2dpbiBwcm90ZWN0aW9uIgphdXRob3I6IGJhdWRuZW8KdGFnczoKICAtIEdvdGlmeQogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "Gotify bruteforce login protection",
+   "author": "baudneo",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "baudneo/gotify-logs"
+   ],
+   "scenarios": [
+    "baudneo/gotify-bf"
+   ]
+  },
+  "baudneo/zoneminder": {
+   "path": "collections/baudneo/zoneminder.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "2ea1b2b8b5b7f1f6fe3c23300c08f0e6df8afea45ad94cb4cf6af36cdf489174",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRldGVjdCBicnV0ZWZvcmNlIGxvZ2lucyBvbiBab25lTWluZGVyLg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGJhdWRuZW8vem9uZW1pbmRlci1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L2RhdGVwYXJzZS1lbnJpY2gKc2NlbmFyaW9zOgogIC0gYmF1ZG5lby96b25lbWluZGVyLWJmCmRlc2NyaXB0aW9uOiAiWm9uZU1pbmRlciBicnV0ZWZvcmNlIGxvZ2luIHByb3RlY3Rpb24iCmF1dGhvcjogYmF1ZG5lbwp0YWdzOgogIC0gWm9uZU1pbmRlcgogIC0gYnJ1dGVmb3JjZQo=",
+   "description": "ZoneMinder bruteforce login protection",
+   "author": "baudneo",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "baudneo/zoneminder-logs",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "baudneo/zoneminder-bf"
+   ]
+  },
   "crowdsecurity/apache2": {
    "path": "collections/crowdsecurity/apache2.yaml",
    "version": "0.1",
@@ -1008,6 +1053,38 @@
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogIlVwcGVyKGV2dC5QYXJzZWQucHJvZ3JhbSkgPT0gJ1ZBVUxUV0FSREVOJyIKbmFtZTogRG9taW5pYy1XYWduZXIvdmF1bHR3YXJkZW4tbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHZhdWx0d2FyZGVuIGxvZ3MiCnBhdHRlcm5fc3ludGF4OgogIERBVEVfWU1EOiAiJXtZRUFSOnllYXJ9LSV7TU9OVEhOVU06bW9udGh9LSV7TU9OVEhEQVk6ZGF5fSIKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXlxbJXtEQVRFX1lNRDpkYXRlfSAle1RJTUU6dGltZX1cXVxbdmF1bHR3YXJkZW46OmFwaTo6aWRlbnRpdHlcXVxbRVJST1JcXSBVc2VybmFtZSBvciBwYXNzd29yZCBpcyBpbmNvcnJlY3RcLiBUcnkgYWdhaW5cLiBJUDogJXtJUDpzb3VyY2VfaXB9XC4gVXNlcm5hbWU6ICV7RU1BSUxBRERSRVNTOnVzZXJuYW1lfVwuJCcKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogdmF1bHR3YXJkZW5fZmFpbGVkX2F1dGgKICAgICAgICAtIG1ldGE6IHVzZXJuYW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXlxbJXtEQVRFX1lNRDpkYXRlfSAle1RJTUU6dGltZX1cXVxbdmF1bHR3YXJkZW46OmFwaTo6YWRtaW5cXVxbRVJST1JcXSBJbnZhbGlkIGFkbWluIHRva2VuLiBJUDogJXtJUDpzb3VyY2VfaXB9JwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiB2YXVsdHdhcmRlbl9mYWlsZWRfYWRtaW5fYXV0aAogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJ15cWyV7REFURV9ZTUQ6ZGF0ZX0gJXtUSU1FOnRpbWV9XF1cW3ZhdWx0d2FyZGVuOjphcGk6OmNvcmU6OnR3b19mYWN0b3I6OmF1dGhlbnRpY2F0b3JcXVxbRVJST1JcXSBJbnZhbGlkIFRPVFAgY29kZSEgU2VydmVyIHRpbWU6ICV7REFURV9ZTUQ6c2VydmVyX2RhdGV9ICV7VElNRTpzZXJ2ZXJfdGltZX0gJXtUWjpzZXJ2ZXJfdHp9IElQOiAle0lQOnNvdXJjZV9pcH0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHZhdWx0d2FyZGVuX2ZhaWxlZF90b3RwCgpzdGF0aWNzOgogICAgLSBtZXRhOiBzZXJ2aWNlCiAgICAgIHZhbHVlOiB2YXVsdHdhcmRlbgogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc291cmNlX2lwIgogICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLmRhdGUgKyAnICcgKyBldnQuUGFyc2VkLnRpbWUiCg==",
    "description": "Parse vaultwarden logs",
    "author": "Dominic-Wagner",
+   "labels": null
+  },
+  "baudneo/gotify-logs": {
+   "path": "parsers/s01-parse/baudneo/gotify-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "1204b51db6a9aed8772b0f39bb694fbb237e72ec9bceed33aeeb9fc4055bae88",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBEZXNjcmlwdGlvbgpBIHBhcnNlciB0aGF0IHdpbGwgc2VhcmNoIGZvciB1bmF1dGhvcml6ZWQgKDQwMSkgc3RhdHVzIGNvZGUgaW4gYSBsb2cgZmlsZSB0aGF0IGdvdGlmeSBpcyBvdXRwdXR0aW5nIGl0cyBzdGRvdXQgdG8uIApGcm9tIHRlc3RpbmcgaXQgc2VlbXMgZ290aWZ5IHJldHVybnMgYSA0MDEgZm9yIHVua25vd24gdXNlciwgYmFkIHBhc3N3b3JkLCBhbmQgaW5jb3JyZWN0IHRva2Vucy4gVGhlcmUgaXMgbm8gd2F5IHRvIApkZXRlcm1pbmUgd2hpY2ggaXMgd2hpY2ggc28gdGhpcyBwYXJzZXIgd2lsbCBvbmx5IHNlYXJjaCBmb3IgNDAxIHN0YXR1cyBjb2RlLgoKIyBIT1cgVE8gSU5TVEFMTCBQUk9QRVJMWQotIFJFUVVJUkVEIC0gZXhhbXBsZSBgYWNxdWlzLnlhbWxgIGVudHJ5IC0gVGhlIGB0eXBlYCAqKk1VU1QqKiBiZSBleGFjdGx5IGFzIHNob3duIGhlcmUgb3IgdGhlIHBhcnNlciB3aWxsIG5ldmVyIGJlIHN1Y2Nlc3NmdWwuCgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC9wYXRoL3RvL2dvdGlmeS5sb2cKbGFiZWxzOgogIHR5cGU6IGdvdGlmeQpgYGAKOmV4Y2xhbWF0aW9uOiBUaGUgYHR5cGVgICoqTVVTVCoqIGJlIGBnb3RpZnlgIDpleGNsYW1hdGlvbjoKCiMgU3RhdGljcwotIFRoZSBJUCBpcyB0aGUgb25seSBkYXRhIGdyYWJiZWQgZnJvbSB0aGUgbG9nIGFuZCBpcyBzdG9yZWQgaW4gYGV2dC5QYXJzZWQuc291cmNlX2lwYCBhbmQgYGV2dC5NZXRhLnNvdXJjZV9pcGAKCiMgSG93IHRvIC0gSGF2ZSBHb3RpZnkgKERvY2tlcikgbG9nIHRvIGEgZmlsZQotIFlvdSBtdXN0IGNyZWF0ZSB5b3VyIG93biBgRG9ja2VyZmlsZWAgYW5kIHRoZW4gYnVpbGQgaXQuIEV4YW1wbGUgRG9ja2VyZmlsZSBhcyBmb2xsb3dzLgpgYGBEb2NrZXJmaWxlCkZST00gZ290aWZ5L3NlcnZlcgpFTlRSWVBPSU5UIC9iaW4vYmFzaCAtYyAnL2FwcC9nb3RpZnktYXBwIHwgdGVlIC9hcHAvZGF0YS9nb3RpZnkubG9nJwpgYGAKLSBCdWlsZCB0aGUgaW1hZ2UgYHN1ZG8gZG9ja2VyIGJ1aWxkIC10IDxUQUcgTkFNRT5gCi0gRXhhbXBsZSBgPFRBRyBOQU1FPmAgLSBzZXJ2ZXIvZ290aWZ5OmxvZ2dlcgotIE5vdyBtYWtlIGEgZG9ja2VyLWNvbXBvc2UgZmlsZSB0byB1c2UgdGhlIGltYWdlLCB0aGUgbG9nIGZpbGUgd2lsbCBlbmQgdXAgaW4gdGhlIGBnb3RpZnlfZGF0YWAgZGlyZWN0b3J5CmBgYGRvY2tlcgogIGdvdGlmeToKICAgIGltYWdlOiBnb3RpZnkvc2VydmVyOmxvZ2dlcgogICAgY29udGFpbmVyX25hbWU6IGdvdGlmeQogICAgcmVzdGFydDogYWx3YXlzCiAgICBwb3J0czoKICAgICAgLSA4MDgwOjgwCiAgICB2b2x1bWVzOgogICAgICAtICIuL2dvdGlmeV9kYXRhOi9hcHAvZGF0YSIKCmBgYAo=",
+   "content": "I2ZpbHRlcjogJzEgPT0gMScgICMgRm9yIGh1YiB0ZXN0cwpmaWx0ZXI6IGV2dC5QYXJzZWQucHJvZ3JhbSA9PSAiZ290aWZ5IiAgIyBQcm9kdWN0aW9uCiNkZWJ1ZzogdHJ1ZQpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogYmF1ZG5lby9nb3RpZnktbG9ncwpkZXNjcmlwdGlvbjogcGFyc2VyIGZvciBHb3RpZnkgc2VydmVyCnBhdHRlcm5fc3ludGF4OgogIEdPVElGWV9EQVRFOiAnJXtZRUFSfS8le01PTlRITlVNfS8le05VTUJFUn0le1NQQUNFfVstXSV7U1BBQ0V9JXtUSU1FfScKICBHT1RJRllfU0VQRVJBVE9SOiAnJXtTUEFDRX1cfCV7U1BBQ0V9JwogICMgIEdPVElGWV9EQVRFOiBcZCovXGQqL1xkKlxzW1wtXVxzLioKICAjICBHT1RJRllfU0VQRVJBVE9SOiBccypcfFxzKgogIEdPVElGWV80MDE6ICdeXFtHSU5cXVxzKiV7R09USUZZX0RBVEU6dGltZXN0YW1wfSV7R09USUZZX1NFUEVSQVRPUn00MDEle0dPVElGWV9TRVBFUkFUT1J9JXtEQVRBOnJlcXVlc3RfdGltZV90b29rfSV7R09USUZZX1NFUEVSQVRPUn0le0lQOnNvdXJjZV9pcH0le0dPVElGWV9TRVBFUkFUT1J9JXtXT1JEOnJlcXVlc3RfdHlwZX0le1NQQUNFfSIle0RBVEE6ZW5kcG9pbnR9IicKbm9kZXM6CiAgLSBncm9rOgogICAgICBuYW1lOiAiR09USUZZXzQwMSIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogZ290aWZ5X2ZhaWxlZF9hdXRoCiAgICAgICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcAoKCnN0YXRpY3M6CiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlX2lwCg==",
+   "description": "parser for Gotify server",
+   "author": "baudneo",
+   "labels": null
+  },
+  "baudneo/zoneminder-logs": {
+   "path": "parsers/s01-parse/baudneo/zoneminder-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "751e351ed7f14a9c029dfb90847c9d97e57b783820abedf08b6e17df4f4bdda5",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBEZXNjcmlwdGlvbgpBIHBhcnNlciB0aGF0IHNlYXJjaGVzIGZvciB1bmtub3duIHVzZXIgYW5kIGluY29ycmVjdCBwYXNzd29yZCBsb2dpbnMgdG8gWm9uZU1pbmRlciBieSB1c2luZyBgd2ViX3BocC5sb2dgIGFzIGEgZGF0YSBzb3VyY2UuCgojIEhPVyBUTyBJTlNUQUxMIFBST1BFUkxZCi0gUkVRVUlSRUQgLSBleGFtcGxlIGBhY3F1aXMueWFtbGAgZW50cnkgLSB0aGUgYHR5cGVgIG11c3QgYmUgZXhhY3RseSBhcyBzaG93biBoZXJlIG9yIHRoZSBwYXJzZXIgd2lsbCBuZXZlciBiZSBzdWNjZXNzZnVsLgoqKipUaGUgbG9nIHBhdGggaXMgdGhlIGRlZmF1bHQgcGF0aCBvbiBhIGRlYmlhbiBiYXNlZCBkaXN0cm8sIGNoYW5nZSB0byBwb2ludCB0b3dhcmRzIHdoZXJlIHlvdXIgWm9uZU1pbmRlciBgd2ViX3BocC5sb2dgIGlzKioqCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvem0vd2ViX3BocC5sb2cKbGFiZWxzOgogIHR5cGU6IHpvbmVtaW5kZXIKYGBgCjpleGNsYW1hdGlvbjogVGhlIGB0eXBlYCAqKk1VU1QqKiBiZSBgem9uZW1pbmRlcmAgOmV4Y2xhbWF0aW9uOgoKIyBTdGF0aWNzCi0gSVAgaXMgbG9nZ2VkIGFzIGBldnQuUGFyc2VkLnNvdXJjZV9pcGAgYW5kIGBldnQuTWV0YS5zb3VyY2VfaXBgCi0gVXNlcm5hbWUgaXMgbG9nZ2VkIGFzIGBldnQuUGFyc2VkLnVzZXJuYW1lYCBhbmQgYGV2dC5NZXRhLnVzZXJuYW1lYAo=",
+   "content": "I2ZpbHRlcjogJzEgPT0gMScgICMgRm9yIGh1YiB0ZXN0cwpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ3pvbmVtaW5kZXInIiAgICMgUHJvZHVjdGlvbgojZGVidWc6IHRydWUKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGJhdWRuZW8vem9uZW1pbmRlci1sb2dzCmRlc2NyaXB0aW9uOiBBIHBhcnNlciBmb3Igem9uZW1pbmRlciB3ZWJfcGhwLmxvZyAoTG9naW5zIHRvIERCL1dlYikKcGF0dGVybl9zeW50YXg6CiAgWk1fQkFEVVNFUjogXiV7REFURVNUQU1QOnRpbWVzdGFtcH1cWy4qXFsoJXtJUDpzb3VyY2VfaXB9KVxdXHNcW0NvdWxkIG5vdCByZXRyaWV2ZSB1c2VyICV7REFUQTp1c2VybmFtZX0gZGV0YWlsc1xdCiAgWk1fQkFEUEFTU1dPUkQ6IF4le0RBVEVTVEFNUDp0aW1lc3RhbXB9XHMoJXtXT1JEfSlcWy4qXFsoJXtJUDpzb3VyY2VfaXB9KVxdXHNcW0xvZ2luIGRlbmllZCBmb3IgdXNlciBcIiV7REFUQTp1c2VybmFtZX1cIlxdCiMgMDEvMDYvMjIgMDk6MjY6MTUuMTE3NDM0IHdlYl9waHBbMjU4XS5FUlIgWzk5LjEuMS4xXSBbQ291bGQgbm90IHJldHJpZXZlIHVzZXIgdGVzdHVzZXIgZGV0YWlsc10gYXQgL3Vzci9zaGFyZS96b25lbWluZGVyL3d3dy9pbmNsdWRlcy9hdXRoLnBocCBsaW5lIDMxMwojIDAxLzA2LzIyIDA5OjI3OjM5Ljg0MzMzOCB3ZWJfcGhwWzY4OF0uRVJSIFs5OS4xLjEuMV0gW0xvZ2luIGRlbmllZCBmb3IgdXNlciAidmFsaWR1c2VyIl0gYXQgL3Vzci9zaGFyZS96b25lbWluZGVyL3d3dy9pbmNsdWRlcy9hdXRoLnBocCBsaW5lIDMxMwoKbm9kZXM6CiAgLSBncm9rOgogICAgICBuYW1lOiAiWk1fQkFEUEFTU1dPUkQiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHptX2ZhaWxlZF9hdXRoCiAgICAgICAgLSBtZXRhOiBsb2dfc3VidHlwZQogICAgICAgICAgdmFsdWU6IHptX2JhZF9wYXNzd29yZAogIC0gZ3JvazoKICAgICAgbmFtZTogIlpNX0JBRFVTRVIiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHptX2ZhaWxlZF9hdXRoCiAgICAgICAgLSBtZXRhOiBsb2dfc3VidHlwZQogICAgICAgICAgdmFsdWU6IHptX2JhZF91c2VyCgpzdGF0aWNzOgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNvdXJjZV9pcAogIC0gbWV0YTogdXNlcm5hbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudXNlcm5hbWUKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZXN0YW1wCg==",
+   "description": "A parser for zoneminder web_php.log (Logins to DB/Web)",
+   "author": "baudneo",
    "labels": null
   },
   "crowdsecurity/apache2-logs": {
@@ -2211,6 +2288,44 @@
     "type": "bruteforce"
    }
   },
+  "baudneo/gotify-bf": {
+   "path": "scenarios/baudneo/gotify-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "584f3cea147a6aca903f87b63d43bade9da0449c23b90efb26de9fa798d06fdb",
+     "deprecated": false
+    }
+   },
+   "long_description": "QnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGZvciBHb3RpZnkgc2VydmVyLiAKCkxlYWsgc3BlZWQgb2YgMTAgc2Vjb25kcyB3aXRoIGEgY2FwYWNpdHkgb2YgNC4=",
+   "content": "dHlwZTogbGVha3kKbmFtZTogYmF1ZG5lby9nb3RpZnktYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgID09ICdnb3RpZnlfZmFpbGVkX2F1dGgnIgpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpjYXBhY2l0eTogNApsZWFrc3BlZWQ6ICIxMHMiCmJsYWNraG9sZTogMW0KbGFiZWxzOgogc2VydmljZTogZ290aWZ5CiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQ==",
+   "description": "Detect bruteforce",
+   "author": "baudneo",
+   "labels": {
+    "remediation": "true",
+    "service": "gotify",
+    "type": "bruteforce"
+   }
+  },
+  "baudneo/zoneminder-bf": {
+   "path": "scenarios/baudneo/zoneminder-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e9f684e423f410a77e213c4c468af14d57cd9ac28941f46f0dd357bd655b8f0c",
+     "deprecated": false
+    }
+   },
+   "long_description": "QnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGZvciBab25lTWluZGVyLgoKTGVhayBzcGVlZCBvZiAxMCBzZWNvbmRzIHdpdGggYSBjYXBhY2l0eSBvZiA0Lg==",
+   "content": "IyBsb2dpbmcgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBiYXVkbmVvL3pvbmVtaW5kZXItYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgWm9uZU1pbmRlciBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnem1fZmFpbGVkX2F1dGgnIgpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpjYXBhY2l0eTogNApsZWFrc3BlZWQ6ICIxMHMiCmJsYWNraG9sZTogMW0KbGFiZWxzOgogc2VydmljZTogem9uZW1pbmRlcgogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKLS0tCiMgbG9naW5nIGJydXRlZm9yY2UKdHlwZTogbGVha3kKbmFtZTogYmF1ZG5lby96b25lbWluZGVyLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFpvbmVNaW5kZXIgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3ptX2ZhaWxlZF9hdXRoJyIKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKZGlzdGluY3Q6ICJldnQuTWV0YS51c2VybmFtZSIKY2FwYWNpdHk6IDQKbGVha3NwZWVkOiAiMTBzIgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHNlcnZpY2U6IHpvbmVtaW5kZXIKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect ZoneMinder bruteforce",
+   "author": "baudneo",
+   "labels": {
+    "remediation": "true",
+    "service": "zoneminder",
+    "type": "bruteforce"
+   }
+  },
   "crowdsecurity/CVE-2021-4034": {
    "path": "scenarios/crowdsecurity/CVE-2021-4034.yaml",
    "version": "0.1",
@@ -2220,7 +2335,7 @@
      "deprecated": false
     }
    },
-   "long_description": "IyMgQ1ZFLTIwMjEtNDAzNAoKRGV0ZWN0cyBleHBsb2l0IG9mIENWRS0yMDIxLTQwMzQgYHBrZXhlY2AgdnVsbmVyYWJpbGl0eS4KCjp3YXJuaW5nOiBTbWFydCBhdHRhY2tlcnMgY2FuIGV4cGxvaXQgdGhpcyB2dWxuZXJhYmlsaXR5IHdpdGhvdXQgbGV0dGluZyB0cmFjZXMgaW4gbG9ncwoK",
+   "long_description": "IyMgQ1ZFLTIwMjEtNDAzNAoKRGV0ZWN0cyBleHBsb2l0IG9mIENWRS0yMDIxLTQwMzQgYHBrZXhlY2AgdnVsbmVyYWJpbGl0eS4KCjp3YXJuaW5nOiBTbWFydCBhdHRhY2tlcnMgY2FuIGV4cGxvaXQgdGhpcyB2dWxuZXJhYmlsaXR5IHdpdGhvdXQgbGVhdmluZyB0cmFjZXMgaW4gbG9ncwoK",
    "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IENWRS0yMDIxLTQwMzQgZXhwbG9pdHMiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ0NWRS0yMDIxLTQwMzQteHBsJwpncm91cGJ5OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHR5cGU6IHByaXZlc2MKc2NvcGU6CiAgdHlwZTogc3lzdGVtX2FjY291bnQKICBleHByZXNzaW9uOiBldnQuTWV0YS50YXJnZXRfdXNlcgo=",
    "description": "Detect CVE-2021-4034 exploits",
    "author": "crowdsecurity",
