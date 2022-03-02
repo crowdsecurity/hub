@@ -8,9 +8,9 @@ A parser that searches for unknown user and incorrect password logins to ZoneMin
 filenames:
   - /var/log/zm/web_php.log
 labels:
-  type: zoneminder-web_php
+  type: zoneminder
 ```
-:exclamation: The `type` **MUST** be `zoneminder-web_php` :exclamation:
+:exclamation: The `type` **MUST** be `zoneminder` :exclamation:
 
 # Statics
 - IP is logged as `evt.Parsed.source_ip` and `evt.Meta.source_ip`
