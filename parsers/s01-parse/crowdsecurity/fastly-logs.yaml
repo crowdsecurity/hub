@@ -1,15 +1,18 @@
 filter: "evt.Line.Labels.external_format == 'fastly'"
 onsuccess: next_stage
-#debug: true
+debug: true
 name: crowdsecurity/fastly-logs
 description: fastly logs parser
+grok:
+  pattern: "%{GREEDYDATA:fastly_timestamp}\\+[0-9]+"
+  expression: JsonExtract(evt.Parsed.message, "timestamp")
 statics:
   - meta: service
     value: http
   - meta: log_type
     value: http_access-log
   - target: evt.StrTime
-    expression: JsonExtract(evt.Parsed.message, "timestamp")
+    expression: evt.Parsed.fastly_timestamp + ".00Z"
   - meta: source_ip
     expression: JsonExtract(evt.Parsed.message, "client_ip")
   - target: evt.Parsed.request
