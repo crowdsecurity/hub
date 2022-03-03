@@ -27,6 +27,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 	pathSplit := strings.Split(filepath, "/")
 	//generate doc path ?
 	pdocpath := strings.Replace(filepath, ".yaml", ".md", 1)
+	pdocpath = strings.Replace(pdocpath, ".yml", ".md", 1)
 
 	if pathSplit[0] != configType {
 		return "", fmt.Errorf("invalid filepath (doesn't start with scenarios) : %s", filepath)
@@ -175,7 +176,7 @@ func generateIndex(configType string) (map[string]typeInfo, error) {
 	folder := path.Join("./", configType)
 
 	err := filepath.Walk(folder, func(path string, info os.FileInfo, err error) error {
-		if strings.HasSuffix(path, ".yaml") {
+		if strings.HasSuffix(path, ".yaml") || strings.HasSuffix(path, ".yml") {
 			files = append(files, path)
 		}
 		return nil
