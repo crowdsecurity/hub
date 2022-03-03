@@ -3,11 +3,18 @@ onsuccess: next_stage
 #debug: true
 name: crowdsecurity/fastly-logs
 description: fastly logs parser
+pattern_syntax:
+  DOUBLE_NUM: "[0-9]{2}"
+grok:
+  pattern: "%{GREEDYDATA:fastly_timestamp}\\+%{DOUBLE_NUM:tz_part1}%{DOUBLE_NUM:tz_part2}"
+  expression: JsonExtract(evt.Parsed.message, "timestamp")
 statics:
   - meta: service
     value: http
   - meta: log_type
     value: http_access-log
+  - target: evt.StrTime
+    expression: evt.Parsed.fastly_timestamp + ".00+" + evt.Parsed.tz_part1 + ":" + evt.Parsed.tz_part2
   - meta: source_ip
     expression: JsonExtract(evt.Parsed.message, "client_ip")
   - target: evt.Parsed.request
@@ -19,6 +26,8 @@ statics:
   - parsed: http_referer
     expression: JsonExtract(evt.Parsed.message, "request_referer")
   - parsed: http_user_agent
+    expression: JsonExtract(evt.Parsed.message, "request_user_agent")
+  - meta: http_user_agent
     expression: JsonExtract(evt.Parsed.message, "request_user_agent")
   - meta: http_status
     expression: JsonExtract(evt.Parsed.message, "response_status")
