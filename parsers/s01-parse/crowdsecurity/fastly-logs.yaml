@@ -8,6 +8,8 @@ statics:
     value: http
   - meta: log_type
     value: http_access-log
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp")
   - meta: source_ip
     expression: JsonExtract(evt.Parsed.message, "client_ip")
   - target: evt.Parsed.request
@@ -19,6 +21,8 @@ statics:
   - parsed: http_referer
     expression: JsonExtract(evt.Parsed.message, "request_referer")
   - parsed: http_user_agent
+    expression: JsonExtract(evt.Parsed.message, "request_user_agent")
+  - meta: http_user_agent
     expression: JsonExtract(evt.Parsed.message, "request_user_agent")
   - meta: http_status
     expression: JsonExtract(evt.Parsed.message, "response_status")
