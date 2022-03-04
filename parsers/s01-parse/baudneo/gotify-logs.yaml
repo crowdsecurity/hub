@@ -1,0 +1,22 @@
+#filter: '1 == 1'  # For hub tests
+filter: evt.Parsed.program == "gotify"  # Production
+#debug: true
+onsuccess: next_stage
+name: baudneo/gotify-logs
+description: parser for Gotify server
+pattern_syntax:
+  GOTIFY_SEPERATOR: '%{SPACE}\|%{SPACE}'
+  GOTIFY_401: '^\[GIN\]\s*%{YEAR:year}/%{MONTHNUM:month}/%{NUMBER:day}%{SPACE}[-]%{SPACE}%{TIME:time}%{GOTIFY_SEPERATOR}401%{GOTIFY_SEPERATOR}%{DATA:request_time_took}%{GOTIFY_SEPERATOR}%{IP:source_ip}%{GOTIFY_SEPERATOR}%{WORD:request_type}%{SPACE}"%{DATA:endpoint}"'
+nodes:
+  - grok:
+      name: "GOTIFY_401"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: gotify_failed_auth
+        - target: StrTime
+          expression: |-
+            evt.Parsed.year+ "/" + evt.Parsed.month + "/" + evt.Parsed.day + " " + evt.Parsed.time
+statics:
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
