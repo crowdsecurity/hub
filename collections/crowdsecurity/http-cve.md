@@ -13,8 +13,8 @@ A collection of http specific CVEs:
 
 With contributions from PatientSky:
 
- - [PHPUnit testing framework for PHP – Remote Code Execution](https://cve.circl.lu/cve/CVE-2017-9841)
  - [Hadoop YARN ResourceManager - Command Execution](https://www.exploit-db.com/exploits/45025)
+ - [PHPUnit testing framework for PHP – Remote Code Execution](https://cve.circl.lu/cve/CVE-2017-9841)
  - [Apache Solr – Directory traversal vulnerability](https://cve.circl.lu/cve/CVE-2013-6397)
  - [Sonatype Nexus Repository Manager – Remote Code Execution](https://cve.circl.lu/cve/CVE-2019-7238)
  - [Wireless IP Camera (P2P) WIFICAM - Remote Code Execution](https://www.exploit-db.com/exploits/43142)
