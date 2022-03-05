@@ -31,6 +31,20 @@ nodes:
           expression: evt.Parsed.asterisk_session_id
         - meta: asterisk_service
           expression: evt.Parsed.asterisk_service
+  - grok:
+      pattern: '\[%{DATA:timestamp}\] SECURITY\[%{NUMBER}\].* SecurityEvent="InvalidPassword",EventTV="%{DATA:event_timestamp}",Severity="Error",Service="%{NOTDQUOTE:asterisk_service}",EventVersion="%{NUMBER}",AccountID="%{USERNAME:username}",SessionID="%{NOTDQUOTE:asterisk_session_id}",LocalAddress="IPV%{NUMBER}/(UDP|TCP)/%{IPORHOST:target_ip}/%{NUMBER:target_port}",RemoteAddress="IPV%{NUMBER}/(UDP|TCP)/%{IPORHOST:source_ip}/%{NUMBER:source_port}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: asterisk_failed_auth
+        - target: evt.StrTime
+          expression: evt.Parsed.timestamp
+        - meta: target_user
+          expression: evt.Parsed.username
+        - meta: session_id
+          expression: evt.Parsed.asterisk_session_id
+        - meta: asterisk_service
+          expression: evt.Parsed.asterisk_service
 statics:
     - meta: service
       value: asterisk
