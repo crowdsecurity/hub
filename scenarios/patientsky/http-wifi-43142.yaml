@@ -1,0 +1,18 @@
+---
+type: trigger
+format: 2.0
+#debug: true
+name: patientsky/http-wifi-43142
+description: "Wireless IP Camera (P2P) WIFICAM - Remote Code Execution"
+filter: |
+  evt.Meta.log_type in ["http_access-log", "http_error-log"] and
+  evt.Parsed.verb == "GET" and
+  Lower(evt.Meta.http_path) contains "/ftptest.cgi?loginuse=&loginpas="
+groupby: "evt.Meta.source_ip"
+blackhole: 2m
+labels:
+  type: scan
+  remediation: true
+
+
+# Add placeholders, ignores for loginuse, loginpass ?

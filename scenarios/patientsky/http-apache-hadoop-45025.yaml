@@ -6,7 +6,7 @@ name: patientsky/http-apache-hadoop-45025
 description: "Hadoop YARN ResourceManager - Command Execution"
 filter: |
   evt.Meta.log_type in ["http_access-log", "http_error-log"] and
-  evt.Parsed.verb == 'POST' and
+  evt.Parsed.verb == "POST" and
   Lower(evt.Meta.http_path) contains "/ws/v1/cluster/apps/new-application"
 groupby: "evt.Meta.source_ip"
 blackhole: 2m
