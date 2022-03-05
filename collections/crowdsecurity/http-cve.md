@@ -18,6 +18,7 @@ With contributions from PatientSky:
  - [Apache Solr – Directory traversal vulnerability](https://cve.circl.lu/cve/CVE-2013-6397)
  - [Sonatype Nexus Repository Manager – Remote Code Execution](https://cve.circl.lu/cve/CVE-2019-7238)
  - [Wireless IP Camera (P2P) WIFICAM - Remote Code Execution](https://www.exploit-db.com/exploits/43142)
+ - [Remote Code Execution vulnerability in Laravel](https://pentest-tools.com/blog/exploit-rce-vulnerability-laravel-cve-2021-3129)
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
 
