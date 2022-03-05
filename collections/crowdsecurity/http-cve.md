@@ -1,4 +1,4 @@
-A collection of http specific CVEs :
+A collection of http specific CVEs:
 
  - [Apache CVE-2021-41773](https://cve.circl.lu/cve/CVE-2021-41773)
  - [Apache CVE-2021-42013](https://cve.circl.lu/cve/CVE-2021-42013)
@@ -11,8 +11,13 @@ A collection of http specific CVEs :
  - [VMware VMSA-2021-0027](https://www.vmware.com/security/advisories/VMSA-2021-0027.html)
  - [Atlassian Jira CVE-2021-26086](https://cve.circl.lu/cve/CVE-2021-26086)
 
+With contributions from PatientSky:
+
+ - [PHPUnit testing framework for PHP – Remote Code Execution](https://cve.circl.lu/cve/CVE-2017-9841)
+ - [Hadoop YARN ResourceManager - Command Execution](https://www.exploit-db.com/exploits/45025)
+ - [Apache Solr – Directory traversal vulnerability](https://cve.circl.lu/cve/CVE-2013-6397)
+ - [Sonatype Nexus Repository Manager – Remote Code Execution](https://cve.circl.lu/cve/CVE-2019-7238)
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
 
 As such, an attacker might be able to bypass those signatures.
-
