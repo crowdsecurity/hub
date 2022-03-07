@@ -2,6 +2,7 @@ onsuccess: next_stage
 #debug: false
 name: LePresidente/ombi-logs
 description: "Parse ombi logs"
+filter: "evt.Parsed.program startsWith 'ombi'"
 nodes:
   - grok:
       pattern: '%{TIMESTAMP_ISO8601:timestamp}.*?Failed login attempt by IP: %{IP:source_ip}'
