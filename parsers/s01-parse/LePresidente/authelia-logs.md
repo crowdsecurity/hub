@@ -5,5 +5,5 @@ Parser for [Authelia](https://www.authelia.com) Logs.
 filenames:
  - /var/log/Authelia.log
 labels:
-  type: authelia
+  type: Authelia
 ```

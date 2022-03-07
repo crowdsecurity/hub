@@ -12,5 +12,5 @@ If using LOG_FILE environment variable:
 filenames:
  - /var/log/Authelia.log
 labels:
-  type: authelia
+  type: Authelia
 ```
