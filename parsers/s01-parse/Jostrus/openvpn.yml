@@ -1,0 +1,38 @@
+filter: "evt.Line.Labels.type == 'openvpn'"
+debug: true
+onsuccess: next_stage
+name: crowdsecurity/openvpn
+description: "Parse openvpn logs"
+pattern_syntax:
+  OPENVPN_TLS_AUTH_ERROR: '%{IPV4:source_ip}:\d{4,5} TLS Auth Error'
+  OPENVPN_TLS_ERROR: 'TLS Error: tls-crypt unwrapping failed [AF_INET]%{IPV4:openvpn_source_ip}:\d{4,5}'
+  OPENVPN_TLS_ERROR_INCOMING_PACKET: 'TLS Error: incoming packet authentication failed from \[AF_INET\]%{IPV4:openvpn_source_ip}:\d{4,5}'
+  OPENVPN_CONNECTION_RESET: '%{IPV4:openvpn_source_ip}:\d{4,5} Connection reset, restarting'
+  OPENVPN_TLS_HANDSHAKE_FAILED: '%{IPV4:openvpn_source_ip}:\d{4,5} TLS Error: TLS handshake failed'
+  OPENVPN_VERIFY_ERROR: '%{IPV4:openvpn_source_ip}:\d{4,5} VERIFY ERROR'
+nodes:
+  - grok:
+      name: "OPENVPN_TLS_AUTH_ERROR"
+      apply_on: Line.Raw
+  - grok:
+      name: "OPENVPN_TLS_ERROR"
+      apply_on: Line.Raw
+  - grok:
+      name: "OPENVPN_TLS_ERROR_INCOMING_PACKET"
+      apply_on: Line.Raw
+  - grok:
+      name: "OPENVPN_CONNECTION_RESET"
+      apply_on: Line.Raw
+  - grok:
+      name: "OPENVPN_TLS_HANDSHAKE_FAILED"
+      apply_on: Line.Raw
+  - grok:
+      name: "OPENVPN_VERIFY_ERROR"
+      apply_on: Line.Raw
+statics:
+  - meta: service
+    value: openvpn
+  - meta: source_ip
+    expression: "evt.Parsed.openvpn_source_ip"
+  - meta: log_type
+    value: openvpn_bruteforce
