@@ -1,0 +1,14 @@
+# openvpn bruteforce
+type: leaky
+name: openvpn
+description: "Detect openvpn bruteforce"
+filter: "evt.Meta.log_type == 'openvpn_bruteforce'"
+leakspeed: "15m"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 10m
+reprocess: true
+labels:
+ service: openvpn
+ type: bruteforce
+ remediation: true
