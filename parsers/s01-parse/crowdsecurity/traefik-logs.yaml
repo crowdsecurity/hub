@@ -7,10 +7,10 @@ onsuccess: next_stage
 pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
-  NGINXACCESS: '%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
+  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
 nodes:
   - grok: # CLF parser
-      pattern: '%{NGINXACCESS} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
+      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
     onsuccess: next_stage
   - grok:
