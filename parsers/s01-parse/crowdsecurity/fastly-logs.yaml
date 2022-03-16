@@ -21,6 +21,8 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "url")
   - meta: http_path
     expression: JsonExtract(evt.Parsed.message, "url")
+  - parsed: verb
+    expression: JsonExtract(evt.Parsed.message, "request_method")
   - meta: verb
     expression: JsonExtract(evt.Parsed.message, "request_method")
   - parsed: http_referer
