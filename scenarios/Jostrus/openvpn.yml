@@ -2,7 +2,7 @@
 type: leaky
 name: Jostrus/openvpn
 description: "Detect openvpn bruteforce"
-filter: "evt.Meta.log_type == 'openvpn_bruteforce'"
+filter: "evt.Meta.log_type == 'auth_failed'"
 leakspeed: "15m"
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -10,5 +10,5 @@ blackhole: 10m
 reprocess: true
 labels:
  service: openvpn
- type: bruteforce
+ type: auth_failed
  remediation: true
