@@ -27,6 +27,8 @@ statics:
     expression: JsonExtract(evt.Line.Raw, "status")
   - meta: http_path
     expression: JsonExtract(evt.Line.Raw, "request.uri")
+  - parsed: verb
+    expression: JsonExtract(evt.Line.Raw, "request.method")
   - meta: http_verb
     expression: JsonExtract(evt.Line.Raw, "request.method")
   - meta: http_user_agent
