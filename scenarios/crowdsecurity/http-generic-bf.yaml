@@ -12,3 +12,18 @@ labels:
  service: http
  type: bf
  remediation: true
+---
+# Generic 401 Authorization Errors
+type: leaky
+#debug: true
+name: LePresidente/http-generic-401-bf
+description: "Detect generic 401 Authorization error brute force"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '401'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: "10s"
+blackhole: 1m
+labels:
+ service: http
+ type: bf
+ remediation: true
