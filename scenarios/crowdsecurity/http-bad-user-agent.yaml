@@ -3,11 +3,11 @@ format: 2.0
 #debug: true
 name: crowdsecurity/http-bad-user-agent
 description: "Detect bad user-agents"
-filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && any(File("bad_user_agents.txt"), {evt.Parsed.http_user_agent matches "\\b"+#+"\\b"})'
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && RegexpInFile(evt.Parsed.http_user_agent, "bad_user_agents.regex.txt")'
 data:
-  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/bad_user_agents.txt
-    dest_file: bad_user_agents.txt
-    type: string
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/bad_user_agents.regex.txt
+    dest_file: bad_user_agents.regex.txt
+    type: regexp
 capacity: 1
 leakspeed: 1m
 groupby: "evt.Meta.source_ip"

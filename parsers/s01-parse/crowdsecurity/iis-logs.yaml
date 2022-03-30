@@ -15,6 +15,8 @@ nodes:
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-uri-stem']")
         - target: evt.Parsed.http_args
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-uri-query']")
+        - parsed: verb
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-method']")
         - meta: http_verb
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-method']")
         - meta: http_user_agent
@@ -39,6 +41,8 @@ nodes:
       - meta: http_user_agent
         expression: evt.Parsed.user_agent
       - meta: http_verb
+        expression: evt.Parsed.method
+      - parsed: verb
         expression: evt.Parsed.method
 statics:
   - meta: service

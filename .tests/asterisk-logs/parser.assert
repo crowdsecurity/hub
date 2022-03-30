@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[Dec 21 12:56:59] SECURITY[77]: res_security_log.c:114 security_event_stasis_cb: SecurityEvent=\"InvalidAccountID\",EventTV=\"2021-12-21T12:56:59.192+0000\",Severity=\"Error\",Service=\"PJSIP\",EventVersion=\"1\",AccountID=\"6001\",SessionID=\"2kOigHiNhyip1cGGyzdgMkqKV9a0F_G7kVfGdCUA12qsTwyHlQox1T7LSWAX\",LocalAddress=\"IPV4/UDP/172.17.0.2/5060\",RemoteAddress=\"IPV4/UDP/172.17.0.1/55287\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "asterisk"
@@ -10,10 +10,16 @@ results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[Dec
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "asterisk"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "asterisk-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == '[Mar  6 08:44:27] SECURITY[1310] res_security_log.c: SecurityEvent="InvalidPassword",EventTV="2022-03-06T08:44:27.151+1100",Severity="Error",Service="SIP",EventVersion="2",AccountID="6001",SessionID="0x7fa52803a000",LocalAddress="IPV4/UDP/172.17.0.2/5060",RemoteAddress="IPV4/UDP/172.17.0.1/56433",Challenge="62790d2c",ReceivedChallenge="62790d2c",ReceivedHash="c3b9d05b8f36265eb89edee60aad693a"'
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "asterisk"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "asterisk-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
-len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 3
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["message"] == "[Dec 21 12:56:59] SECURITY[77]: res_security_log.c:114 security_event_stasis_cb: SecurityEvent=\"InvalidAccountID\",EventTV=\"2021-12-21T12:56:59.192+0000\",Severity=\"Error\",Service=\"PJSIP\",EventVersion=\"1\",AccountID=\"6001\",SessionID=\"2kOigHiNhyip1cGGyzdgMkqKV9a0F_G7kVfGdCUA12qsTwyHlQox1T7LSWAX\",LocalAddress=\"IPV4/UDP/172.17.0.2/5060\",RemoteAddress=\"IPV4/UDP/172.17.0.1/55287\""
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["source_ip"] == "172.17.0.1"
@@ -54,7 +60,27 @@ results["s01-parse"]["crowdsecurity/asterisk-logs"][1].Evt.Meta["datasource_type
 results["s01-parse"]["crowdsecurity/asterisk-logs"][1].Evt.Meta["log_type"] == "asterisk_failed_auth"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][1].Evt.Meta["service"] == "asterisk"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][1].Evt.Meta["session_id"] == "2kOigHiNhyip1cGGyzdgMkqKV9a0F_G7kVfGdCUA12qsTwyHlQox1T7LSWAX"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["username"] == "6001"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["asterisk_session_id"] == "0x7fa52803a000"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["program"] == "asterisk"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["timestamp"] == "Mar  6 08:44:27"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["source_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["source_port"] == "56433"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["target_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["target_port"] == "5060"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["asterisk_service"] == "SIP"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["event_timestamp"][4:] == "-03-06T08:44:27.151+1100"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Parsed["message"] == '[Mar  6 08:44:27] SECURITY[1310] res_security_log.c: SecurityEvent="InvalidPassword",EventTV="2022-03-06T08:44:27.151+1100",Severity="Error",Service="SIP",EventVersion="2",AccountID="6001",SessionID="0x7fa52803a000",LocalAddress="IPV4/UDP/172.17.0.2/5060",RemoteAddress="IPV4/UDP/172.17.0.1/56433",Challenge="62790d2c",ReceivedChallenge="62790d2c",ReceivedHash="c3b9d05b8f36265eb89edee60aad693a"'
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["source_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["target_user"] == "6001"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["asterisk_service"] == "SIP"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["datasource_path"] == "asterisk-logs.log"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["log_type"] == "asterisk_failed_auth"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["service"] == "asterisk"
+results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["session_id"] == "0x7fa52803a000"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_port"] == "55287"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_ip"] == "172.17.0.2"
@@ -97,3 +123,25 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "asterisk_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"][4:] == "-12-21T12:57:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == '[Mar  6 08:44:27] SECURITY[1310] res_security_log.c: SecurityEvent="InvalidPassword",EventTV="2022-03-06T08:44:27.151+1100",Severity="Error",Service="SIP",EventVersion="2",AccountID="6001",SessionID="0x7fa52803a000",LocalAddress="IPV4/UDP/172.17.0.2/5060",RemoteAddress="IPV4/UDP/172.17.0.1/56433",Challenge="62790d2c",ReceivedChallenge="62790d2c",ReceivedHash="c3b9d05b8f36265eb89edee60aad693a"'
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["target_port"] == "5060"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["asterisk_service"] == "SIP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["event_timestamp"][4:] == "-03-06T08:44:27.151+1100"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "asterisk"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_port"] == "56433"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["target_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "Mar  6 08:44:27"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["username"] == "6001"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["asterisk_session_id"] == "0x7fa52803a000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "asterisk"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["session_id"] == "0x7fa52803a000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_user"] == "6001"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["asterisk_service"] == "SIP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "asterisk-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "asterisk_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"][4:] == "-03-06T08:44:27Z"
+
