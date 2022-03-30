@@ -12,5 +12,5 @@ If using LOG_FILE environment variable:
 filenames:
  - /var/log/embyserver.txt
 labels:
-  type: Emby
+  type: emby
 ```

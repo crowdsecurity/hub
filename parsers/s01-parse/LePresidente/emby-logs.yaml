@@ -2,11 +2,12 @@ onsuccess: next_stage
 #debug: false
 name: LePresidente/emby-logs
 description: "Parse emby logs"
+filter: "evt.Parsed.program == 'emby'"
 pattern_syntax:
   DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
   - grok:
-      pattern: '^AUTH-ERROR: %{IP:source_ip} - Invalid username or password entered\.$'
+      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*?AUTH-ERROR: %{IP:source_ip} - Invalid username or password entered\.$'
       apply_on: message
       statics:
         - meta: log_type
@@ -17,3 +18,5 @@ statics:
       value: emby
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
