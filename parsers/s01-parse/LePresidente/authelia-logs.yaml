@@ -32,17 +32,17 @@ nodes:
   - grok:
     nodes:
       - grok:
-          pattern: 'Unsuccessful (1FA|Duo|TOTP) authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
+          pattern: Unsuccessful (1FA|Duo|TOTP) authentication attempt by user '(%{EMAILADDRESS:email}|%{USERNAME:username})'
           expression: JsonExtract(evt.Parsed.message, "msg")
+        statics:
+          - meta: log_type
+            value: authelia_failed_json_auth
       - grok:
           pattern: '%{IP:remote_ip}'
           expression: JsonExtract(evt.Parsed.message, "remote_ip")
       - grok: 
           pattern: '%{RFC3339:timestamp}'
           expression: JsonExtract(evt.Parsed.message, "time")
-    statics:
-      - meta: log_type
-        value: authelia_failed_json_auth
 
 statics:
     - meta: service
