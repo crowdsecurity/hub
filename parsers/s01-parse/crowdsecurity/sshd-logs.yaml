@@ -9,7 +9,7 @@ pattern_syntax:
   IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
   SSHD_AUTH_FAIL: 'pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
-  SSHD_MAGIC_VALUE_FAILED: 'pam_(unix|sss)\(sshd:auth\): Magic value check failed \(\d*\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip}( port \d+)'
+  SSHD_MAGIC_VALUE_FAILED: 'Magic value check failed \(\d+\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip} port \d+'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
   SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
   SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection closed by authenticating user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
