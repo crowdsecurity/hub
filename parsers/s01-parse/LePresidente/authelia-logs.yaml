@@ -31,7 +31,7 @@ nodes:
   - grok:
     nodes:
       - grok:
-          pattern: authentication attempt by user '(%{EMAILADDRESS:email}|%{USERNAME:username})'
+          pattern: Unsuccessful (1FA|Duo|TOTP) authentication attempt by user '(%{EMAILADDRESS:email}|%{USERNAME:username})'
           expression: JsonExtract(evt.Parsed.message, "msg")
       - grok:
           pattern: '%{IP:remote_ip}'
