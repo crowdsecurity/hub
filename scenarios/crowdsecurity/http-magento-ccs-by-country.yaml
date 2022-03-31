@@ -2,7 +2,7 @@ type: leaky
 name: crowdsecurity/http-magento-ccs-by-country
 debug: true
 description: "Detect distributed credit card stuffing from same country"
-filter: "evt.Meta.log_type == 'PAYMENT_FAILED'"
+filter: "evt.Meta.log_type == 'PAYMENT_FAILED' and evt.Meta.IsoCode != '' "
 groupby: evt.Meta.IsoCode
 distinct: evt.Meta.source_ip
 capacity: 10
