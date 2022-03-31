@@ -1,7 +1,7 @@
-## OPNSense collection
+## Magento collection
 
 This Magento collection supports :
- - Parser for the CrowdSec Magento Extension
+ - Parser for the [CrowdSec Magento Extension](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-magento-bouncer)
  - Web authentication bruteforce detection
 
 

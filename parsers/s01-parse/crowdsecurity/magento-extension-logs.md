@@ -1,1 +1,1 @@
-Parser for the CrowdSec Magento Extension.
+Parser for the [CrowdSec Magento Extension](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-magento-bouncer).
