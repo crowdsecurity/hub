@@ -3,6 +3,8 @@
 This Magento collection supports :
  - Parser for the [CrowdSec Magento Extension](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-magento-bouncer)
  - Web authentication bruteforce detection
+ - Credit card stuffing detection from a single IP
+ - Distributed Credit card stuffing from same country
 
 
 ## Acquisition template
