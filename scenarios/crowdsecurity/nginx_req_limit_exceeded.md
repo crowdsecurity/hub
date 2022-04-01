@@ -1,0 +1,1 @@
+Detects IPs which violate nginx's user set request limit.
