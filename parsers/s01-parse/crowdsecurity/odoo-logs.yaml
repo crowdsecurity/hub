@@ -1,0 +1,19 @@
+onsuccess: next_stage
+name: crowdsecurity/odoo-logs
+description: "Parse Odoo logs"
+filter: "evt.Parsed.program == 'odoo'"
+nodes:
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:timestamp} %{INT:PID} INFO %{DATA:db_name} odoo.addons.base.models.res_users: Login failed for db:%{DATA} login:%{DATA:user} from %{IP:source_ip}'
+      apply_on: message
+statics:
+  - meta: log_type
+    value: odoo_failed_auth
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: user
+    expression: "evt.Parsed.user"
+  - meta: db
+    expression: "evt.Parsed.db_name"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
