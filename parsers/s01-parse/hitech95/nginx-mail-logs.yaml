@@ -1,0 +1,52 @@
+filter: "evt.Parsed.program startsWith 'nginx'"
+onsuccess: next_stage
+name: hitech95/nginx-mail-logs
+description: "Parse Nginx Mail logs"
+pattern_syntax:
+  NO_DOUBLE_QUOTE: '[^"]+'
+nodes:
+  - grok:
+      pattern: '%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?client %{IPORHOST:remote_addr}:%{POSINT:remote_port} connected to %{IPORHOST:dest_ip}:%{POSINT:dest_port}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: "mail_new_session"
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+  - grok:
+      pattern: '%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:dest_ip}:%{POSINT:dest_port}(, login: "%{NO_DOUBLE_QUOTE:username}")?(, upstream: %{IPORHOST:proxy_ip}:%{POSINT:proxy_port})?'
+      apply_on: message
+    filter: "evt.Parsed.message contains 'client '"
+    statics:
+      - target: evt.StrTime
+        expression: evt.Parsed.time
+      - meta: username
+        expression: evt.Parsed.username
+      - meta: log_type
+        value: "mail_auth"
+    nodes:
+      - filter: "evt.Parsed.message contains 'logged in'"
+        statics:
+          - meta: sub_type
+            value: "auth_success"
+      - filter: "evt.Parsed.message contains 'login failed'"
+        pattern_syntax:
+          MAIL_HTTP_AUTH: 'client login failed: "%{NO_DOUBLE_QUOTE:auth_result}" while'
+        grok:
+          pattern: '%{MAIL_HTTP_AUTH}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: auth_result
+            expression: evt.Parsed.auth_result
+# these ones apply for both grok patterns
+statics:
+  - meta: service
+    value: mail
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: dest_ip
+    expression: "evt.Parsed.dest_ip"
+  - meta: dest_port
+    expression: "evt.Parsed.dest_port"
