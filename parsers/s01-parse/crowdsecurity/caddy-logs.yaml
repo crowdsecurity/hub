@@ -3,13 +3,15 @@ onsuccess: next_stage
 # debug: true
 name: crowdsecurity/caddy-logs
 description: "Parse caddy logs"
+pattern_syntax:
+  CUSTOMDATE: '[0-3]\d %{MONTH} %{YEAR} %{TIME}'
 nodes:
   - nodes:
     - grok:
         pattern: '%{NOTSPACE} %{NOTSPACE} %{NOTSPACE} \[%{HTTPDATE:timestamp}\]%{DATA}'
         expression: JsonExtract(evt.Line.Raw, "common_log")
     - grok:
-        pattern: '\["%{DATA:timestamp}\"]'
+        pattern: '\[.*, %{CUSTOMDATE:timestamp} .*\"]'
         expression: JsonExtract(evt.Line.Raw, "resp_headers.Date")
     - grok:
         pattern: '%{IPORHOST:remote_addr}:%{NUMBER}'
