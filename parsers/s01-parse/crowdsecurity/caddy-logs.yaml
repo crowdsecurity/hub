@@ -9,8 +9,14 @@ nodes:
         pattern: '%{NOTSPACE} %{NOTSPACE} %{NOTSPACE} \[%{HTTPDATE:timestamp}\]%{DATA}'
         expression: JsonExtract(evt.Line.Raw, "common_log")
     - grok:
+        pattern: '\["%{DATA:timestamp}\"]'
+        expression: JsonExtract(evt.Line.Raw, "resp_headers.Date")
+    - grok:
         pattern: '%{IPORHOST:remote_addr}:%{NUMBER}'
         expression: JsonExtract(evt.Line.Raw, "request.remote_addr")
+    - grok:
+        pattern: '%{IPORHOST:remote_ip}'
+        expression: JsonExtract(evt.Line.Raw, "request.remote_ip")
     - grok:
         pattern: '\["%{NOTDQUOTE:http_user_agent}\"]'
         expression: JsonExtract(evt.Line.Raw, "request.headers.User-Agent")
@@ -23,6 +29,8 @@ statics:
     expression: evt.Parsed.timestamp
   - meta: source_ip
     expression: evt.Parsed.remote_addr
+  - meta: source_ip
+    expression: evt.Parsed.remote_ip
   - meta: http_status
     expression: JsonExtract(evt.Line.Raw, "status")
   - meta: http_path
