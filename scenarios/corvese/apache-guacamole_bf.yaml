@@ -1,0 +1,12 @@
+type: leaky
+name: corvese/apache-guacamole_bf
+description: "Detect Apache Guacamole user bruteforce"
+filter: evt.Meta.log_type == 'apache-guacamole_failed_auth'
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: apache-guacamole
+  type: bruteforce
+  remediation: true

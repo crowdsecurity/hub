@@ -1,0 +1,18 @@
+name: corvese/apache-guacamole-logs
+description: "Parses Apache Guacamole logs"
+filter: "evt.Parsed.program == 'apache-guacamole'"
+onsuccess: next_stage
+nodes:
+  - grok:
+      pattern: '%{HOUR:hour}:%{MINUTE:minute}:%{SECOND:second}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{USERNAME:username}" failed'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: apache-guacamole_failed_auth
+        - meta: target_user
+          expression: evt.Parsed.username
+statics:
+    - meta: service
+      value: apache-guacamole
+    - meta: source_ip
+      expression: evt.Parsed.source_ip

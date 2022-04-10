@@ -1,0 +1,1 @@
+Defends against a single user's account being bruteforced
