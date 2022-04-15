@@ -6,7 +6,7 @@ description: "Parse Nginx Proxy Manager access and error logs"
 nodes:
   # For Proxy hosts logs
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\]( %{DATA:upstream_cache_status} %{NUMBER:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{IPORHOST:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
+      pattern: '\[%{HTTPDATE:time_local}\]( %{DATA:upstream_cache_status} %{DATA:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{IPORHOST:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
       apply_on: message
       statics:
         - meta: log_type
