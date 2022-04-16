@@ -1,26 +1,15 @@
 onsuccess: next_stage
-filter: "evt.Parsed.program == 'gitlab'"
+filter: "Upper(evt.Parsed.program) == 'GITLAB'"
 name: timokoessler/gitlab-logs
 description: "Parse GitLab Logs"
-pattern_syntax:
-  GITLAB_FAILED_PASSWORD: ^{"method":"POST","path":("\/users\/sign_in"|"\/users\/auth\/ldapmain\/callback").*("status":0|"action":"failure").*"time":"%{TIMESTAMP_ISO8601:timestamp}".*{"login":"%{USERNAME:username}".*"remote_ip":"%{IP:source_ip}".*
-  GITLAB_FAILED_TOTP: ^{"method":"POST","path":"\/users\/sign_in".*"status":200.*"time":"%{TIMESTAMP_ISO8601:timestamp}".*"otp_attempt":"\[FILTERED\]".*"remote_ip":"%{IP:source_ip}".*
 nodes:
-  - grok:
-      name: "GITLAB_FAILED_PASSWORD"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: gitlab_failed_password
-        - meta: username
-          expression: evt.Parsed.username
-  - grok:
-      name: "GITLAB_FAILED_TOTP"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: gitlab_failed_totp
-
+  - nodes:
+      - grok:
+          pattern: '%{IP:source_ip}'
+          expression: JsonExtract(evt.Parsed.message, "remote_ip")
+      - grok: 
+          pattern: '%{RFC3339:timestamp}'
+          expression: JsonExtract(evt.Parsed.message, "time")
 statics:
     - meta: service
       value: gitlab
@@ -28,3 +17,7 @@ statics:
       expression: "evt.Parsed.source_ip"
     - target: evt.StrTime
       expression: "evt.Parsed.timestamp"
+    - meta: log_type
+      expression: "(JsonExtract(evt.Parsed.message, 'method') == 'POST' && (JsonExtract(evt.Parsed.message, 'path') in ['/users/sign_in', '/users/auth/ldapmain/callback'])) ? ((JsonExtract(evt.Parsed.message, 'status') == '0' || JsonExtract(evt.Parsed.message, 'action') == 'failure') ? 'gitlab_failed_password': (JsonExtract(evt.Parsed.message, 'status') == '200' && (JsonExtract(evt.Parsed.message, 'params') contains 'otp_attempt')) ? 'gitlab_failed_totp' : '') : ''"
+    - meta: username
+      expression: "(evt.Meta.log_type == 'gitlab_failed_password') ? (JsonExtract(evt.Parsed.message, 'params[1].value.login')) : ''"
