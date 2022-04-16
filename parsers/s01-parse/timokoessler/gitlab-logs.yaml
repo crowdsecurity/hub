@@ -1,0 +1,30 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'gitlab'"
+name: timokoessler/gitlab-logs
+description: "Parse GitLab Logs"
+pattern_syntax:
+  GITLAB_FAILED_PASSWORD: ^{"method":"POST","path":("\/users\/sign_in"|"\/users\/auth\/ldapmain\/callback").*("status":0|"action":"failure").*"time":"%{TIMESTAMP_ISO8601:timestamp}".*{"login":"%{USERNAME:username}".*"remote_ip":"%{IP:source_ip}".*
+  GITLAB_FAILED_TOTP: ^{"method":"POST","path":"\/users\/sign_in".*"status":200.*"time":"%{TIMESTAMP_ISO8601:timestamp}".*"otp_attempt":"\[FILTERED\]".*"remote_ip":"%{IP:source_ip}".*
+nodes:
+  - grok:
+      name: "GITLAB_FAILED_PASSWORD"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: gitlab_failed_password
+        - meta: username
+          expression: evt.Parsed.username
+  - grok:
+      name: "GITLAB_FAILED_TOTP"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: gitlab_failed_totp
+
+statics:
+    - meta: service
+      value: gitlab
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
