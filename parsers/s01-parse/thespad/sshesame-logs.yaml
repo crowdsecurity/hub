@@ -1,0 +1,43 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'sshesame'"
+name: thespad/sshesame-logs
+description: "Parse sshesame logs"
+pattern_syntax:
+  SSHESAME_TIMESTAMP: '%{DATE_X} %{TIME}'
+  SSHESAME_LOGIN_PASSWD: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] authentication for user "%{USERNAME:sshesame_user}" with password "%{GREEDYDATA:sshesame_password}" accepted'
+  SSHESAME_LOGIN_PUBKEY: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] authentication for user "%{USERNAME:sshesame_user}" with public key "%{GREEDYDATA:sshesame_pubkey}" accepted'
+  SSHESAME_CMD: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] \[channel \d+\] command "%{GREEDYDATA:sshesame_cmd}" requested'
+nodes:
+  - grok:
+      name: "SSHESAME_LOGIN_PASSWD"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sshesame_login
+        - meta: target_user
+          expression: "evt.Parsed.sshesame_user"
+  - grok:
+      name: "SSHESAME_LOGIN_PUBKEY"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sshesame_login
+        - meta: target_user
+          expression: "evt.Parsed.sshesame_user"          
+  - grok:
+      name: "SSHESAME_CMD"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sshesame_cmd
+statics:
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
+    - meta: service
+      value: sshesame
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: username
+      expression: "evt.Parsed.sshesame_user"
+    - meta: command
+      expression: "evt.Parsed.sshesame_cmd"

