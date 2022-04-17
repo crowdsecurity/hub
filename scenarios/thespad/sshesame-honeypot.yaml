@@ -3,8 +3,8 @@ type: leaky
 name: thespad/sshesame-bf
 description: "Detect sshesame bruteforce"
 filter: "evt.Meta.log_type == 'sshesame_login'"
-leakspeed: "10s"
-capacity: 5
+leakspeed: "20m"
+capacity: 3
 groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
