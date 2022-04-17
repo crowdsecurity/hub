@@ -16,7 +16,7 @@ labels:
   type: sshesame
 ```
 
-notes :
+## Notes
 
-* The parser expects log timestamps to be enabled
+* The parser expects sshesame log timestamps to be enabled
 * The command scenario will immediately overflow on any command received from a remote client
