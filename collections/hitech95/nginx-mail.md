@@ -4,7 +4,7 @@ A collection for Nginx mail proxy
  * Nginx Mail core module log parsers
  * Nginx Mail auth module scenario bruteforce spam attempt
 
-It raccomanded to have the `crowdsecurity/nginx` collection installed!
+It is recommended having the `crowdsecurity/nginx` collection installed!
 
 > Contribution by https://github.com/hitech95
 
