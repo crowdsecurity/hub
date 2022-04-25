@@ -1,0 +1,26 @@
+# sshesame bruteforce
+type: leaky
+name: thespad/sshesame-bf
+description: "Detect sshesame bruteforce"
+filter: "evt.Meta.log_type == 'sshesame_login'"
+leakspeed: "30m"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: sshesame
+  type: bruteforce
+  remediation: true
+---
+# sshesame commands
+type: trigger
+name: thespad/sshesame-cmd
+description: "Detect sshesame commands"
+filter: "evt.Meta.log_type == 'sshesame_cmd'"
+capacity: 0
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: sshesame
+  type: command
+  remediation: true
