@@ -1241,6 +1241,28 @@
     "jusabatier/apereo-cas-bf",
     "jusabatier/apereo-cas-slow-bf"
    ]
+  },
+  "thespad/sshesame": {
+   "path": "collections/thespad/sshesame.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "761e58fae8abf3b8093560273f10dfca4f6681a01ba7e5a41b869b39b10dbfef",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBzc2hlc2FtZSBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gdG8gcGFyc2Ugc3NoZXNhbWUgaG9uZXlwb3QgbG9ncy4KCiogc3NoZXNhbWUgbG9nIHBhcnNlcgoqIHNzaGVzYW1lIGxvZ2luIGFuZCBjb21tYW5kIHNjZW5hcmlvcwoKIyMgQWNxdWlzaXRpb24gdGVtcGxhdGUKCkV4YW1wbGUgYWNxdWlzaXRpb24gZm9yIHRoaXMgY29sbGVjdGlvbjoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvc3NoZXNhbWUubG9nCmxhYmVsczoKICB0eXBlOiBzc2hlc2FtZQpgYGAKCiMjIE5vdGVzCgoqIFRoZSBwYXJzZXIgZXhwZWN0cyBzc2hlc2FtZSBsb2cgdGltZXN0YW1wcyB0byBiZSBlbmFibGVkCiogVGhlIGNvbW1hbmQgc2NlbmFyaW8gd2lsbCBpbW1lZGlhdGVseSBvdmVyZmxvdyBvbiBhbnkgY29tbWFuZCByZWNlaXZlZCBmcm9tIGEgcmVtb3RlIGNsaWVudAo=",
+   "content": "cGFyc2VyczoKICAtIHRoZXNwYWQvc3NoZXNhbWUtbG9ncwogIC0gY3Jvd2RzZWN1cml0eS9kYXRlcGFyc2UtZW5yaWNoCnNjZW5hcmlvczoKICAtIHRoZXNwYWQvc3NoZXNhbWUtaG9uZXlwb3QKZGVzY3JpcHRpb246ICJDb2xsZWN0aW9uIGZvciBzc2hlc2FtZSBTU0ggaG9uZXlwb3QiCmF1dGhvcjogdGhlc3BhZAp0YWdzOgogIC0gc3NoZXNhbWUKICAtIHNzaAo=",
+   "description": "Collection for sshesame SSH honeypot",
+   "author": "thespad",
+   "labels": null,
+   "parsers": [
+    "thespad/sshesame-logs",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "thespad/sshesame-honeypot"
+   ]
   }
  },
  "parsers": {
@@ -2595,6 +2617,22 @@
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2NhcyciCm5hbWU6IGp1c2FiYXRpZXIvYXBlcmVvLWNhcy1hdWRpdC1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgYXBlcmVvIENBUyBBdWRpdHMgbG9ncyIKcGF0dGVybl9zeW50YXg6CiMgVGhlIElQIGdyb2sgcGF0dGVybiB0aGF0IHNoaXBzIHdpdGggY3Jvd2RzZWMgaXMgYnVnZ3kgYW5kIGRvZXMgbm90IGNhcHR1cmUgdGhlIGxhc3QgZGlnaXQgb2YgYW4gSVAgaWYgaXQgaXMgdGhlIGxhc3QgdGhpbmcgaXQgbWF0Y2hlcywgYW5kIHRoZSBsYXN0IG9jdGV0IHN0YXJ0cyB3aXRoIGEgMgojIGh0dHBzOi8vZ2l0aHViLmNvbS9jcm93ZHNlY3VyaXR5L2Nyb3dkc2VjL2lzc3Vlcy85MzgKICBJUHY0X1dPUktBUk9VTkQ6ICg/Oig/OjI1WzAtNV18MlswLTRdWzAtOV18WzAxXT9bMC05XVswLTldPylcLil7M30oPzoyNVswLTVdfDJbMC00XVswLTldfFswMV0/WzAtOV1bMC05XT8pCiAgSVBfV09SS0FST1VORDogKD86JXtJUFY2fXwle0lQdjRfV09SS0FST1VORH0pCiAgU0VDT05EX1dPUktBUk9VTkQ6ICcoPzpbMC01XT9bMC05XXw2MCk/JwogIFRJTUVTVEFNUF9XT1JLQVJPVU5EOiAnJXtZRUFSfS0le01PTlRITlVNfS0le01PTlRIREFZfVtUIF0le0hPVVJ9Oj8le01JTlVURX0oPzo6PyV7U0VDT05EX1dPUktBUk9VTkR9KT8le0lTTzg2MDFfVElNRVpPTkV9PycKICBDQVNfQVVUSF9GQUlMOiAnXiV7VElNRVNUQU1QX1dPUktBUk9VTkQ6dGltZX0oPzosXGQrKT8gJXtMT0dMRVZFTDpsb2dsZXZlbH0gXFsle0RBVEE6dGhyZWFkbmFtZX1cXSAtICguKilcfENBU1x8KC4qKVx8QVVUSEVOVElDQVRJT05fRkFJTEVEXHwle1VTRVJOQU1FOmNhc19pbnZhbGlkX3VzZXJ9XHwle0lQX1dPUktBUk9VTkQ6Y2FzX2NsaWVudF9pcH1cfCguKikkJwpub2RlczoKICAtIGdyb2s6IAogICAgICBuYW1lOiAiQ0FTX0FVVEhfRkFJTCIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogY2FzX2ZhaWxlZC1hdXRoCiAgICAgICAgLSBtZXRhOiB0YXJnZXRfdXNlcgogICAgICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuY2FzX2ludmFsaWRfdXNlciIKICAgICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZQpzdGF0aWNzOgogICAgLSBtZXRhOiBzZXJ2aWNlCiAgICAgIHZhbHVlOiBjYXMKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLmNhc19jbGllbnRfaXAiCg==",
    "description": "Parse apereo CAS Audits logs",
    "author": "jusabatier",
+   "labels": null
+  },
+  "thespad/sshesame-logs": {
+   "path": "parsers/s01-parse/thespad/sshesame-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7c778f2e6a003de5859de6bbbc91d549c7225c7e4b0b8c229f4e2ce7fecf088a",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBzc2hlc2FtZSBwYXJzZXIKCkEgcGFyc2VyIGZvciBbc3NoZXNhbWVdKGh0dHBzOi8vZ2l0aHViLmNvbS9qYWtzaS9zc2hlc2FtZS8pIGhvbmV5cG90IGxvZ3MuCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvc3NoZXNhbWUubG9nCmxhYmVsczoKICB0eXBlOiBzc2hlc2FtZQpgYGAK",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnc3NoZXNhbWUnIgpuYW1lOiB0aGVzcGFkL3NzaGVzYW1lLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBzc2hlc2FtZSBsb2dzIgpwYXR0ZXJuX3N5bnRheDoKICBTU0hFU0FNRV9USU1FU1RBTVA6ICcle0RBVEVfWH0gJXtUSU1FfScKICBTU0hFU0FNRV9MT0dJTl9QQVNTV0Q6ICcle1NTSEVTQU1FX1RJTUVTVEFNUDp0aW1lc3RhbXB9IFxbJXtJUDpzb3VyY2VfaXB9OlxkK1xdIGF1dGhlbnRpY2F0aW9uIGZvciB1c2VyICIle1VTRVJOQU1FOnNzaGVzYW1lX3VzZXJ9IiB3aXRoIHBhc3N3b3JkICIle0dSRUVEWURBVEE6c3NoZXNhbWVfcGFzc3dvcmR9IiBhY2NlcHRlZCcKICBTU0hFU0FNRV9MT0dJTl9QVUJLRVk6ICcle1NTSEVTQU1FX1RJTUVTVEFNUDp0aW1lc3RhbXB9IFxbJXtJUDpzb3VyY2VfaXB9OlxkK1xdIGF1dGhlbnRpY2F0aW9uIGZvciB1c2VyICIle1VTRVJOQU1FOnNzaGVzYW1lX3VzZXJ9IiB3aXRoIHB1YmxpYyBrZXkgIiV7R1JFRURZREFUQTpzc2hlc2FtZV9wdWJrZXl9IiBhY2NlcHRlZCcKICBTU0hFU0FNRV9DTUQ6ICcle1NTSEVTQU1FX1RJTUVTVEFNUDp0aW1lc3RhbXB9IFxbJXtJUDpzb3VyY2VfaXB9OlxkK1xdIFxbY2hhbm5lbCBcZCtcXSBjb21tYW5kICIle0dSRUVEWURBVEE6c3NoZXNhbWVfY21kfSIgcmVxdWVzdGVkJwpub2RlczoKICAtIGdyb2s6CiAgICAgIG5hbWU6ICJTU0hFU0FNRV9MT0dJTl9QQVNTV0QiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHNzaGVzYW1lX2xvZ2luCiAgICAgICAgLSBtZXRhOiB0YXJnZXRfdXNlcgogICAgICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3NoZXNhbWVfdXNlciIKICAtIGdyb2s6CiAgICAgIG5hbWU6ICJTU0hFU0FNRV9MT0dJTl9QVUJLRVkiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHNzaGVzYW1lX2xvZ2luCiAgICAgICAgLSBtZXRhOiB0YXJnZXRfdXNlcgogICAgICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3NoZXNhbWVfdXNlciIKICAtIGdyb2s6CiAgICAgIG5hbWU6ICJTU0hFU0FNRV9DTUQiCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHNzaGVzYW1lX2NtZApzdGF0aWNzOgogICAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnRpbWVzdGFtcCIKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogc3NoZXNhbWUKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAgIC0gbWV0YTogdXNlcm5hbWUKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuc3NoZXNhbWVfdXNlciIKICAgIC0gbWV0YTogY29tbWFuZAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zc2hlc2FtZV9jbWQiCg==",
+   "description": "Parse sshesame logs",
+   "author": "thespad",
    "labels": null
   }
  },
@@ -4180,6 +4218,25 @@
     "remediation": "true",
     "service": "http",
     "type": "scan"
+   }
+  },
+  "thespad/sshesame-honeypot": {
+   "path": "scenarios/thespad/sshesame-honeypot.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "0818e9e2be666b4e6315050b7fa96f82dc47b6010c07704370738875842c160b",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBzc2hlc2FtZSBzY2VuYXJpb3MKClNjZW5hcmlvcyBmb3IgW3NzaGVzYW1lXShodHRwczovL2dpdGh1Yi5jb20vamFrc2kvc3NoZXNhbWUvKSBob25leXBvdCBsb2dzLgoKIyMgU2NlbmFyaW8gc2V0dXAKCiogQWxsIGxvZ2luIGV2ZW50czogbGVha3NwZWVkIG9mIDMwbSwgY2FwYWNpdHkgb2YgMwoqIEFueSBjb21tYW5kcyBzZW50IGJ5IGNsaWVudHMgYXMgcGFydCBvZiBhIGNvbm5lY3Rpb24gYXR0ZW1wdCB3aWxsIGltbWVkaWF0ZWx5IG92ZXJmbG93Cg==",
+   "content": "IyBzc2hlc2FtZSBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IHRoZXNwYWQvc3NoZXNhbWUtYmYKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2xvZ2luJyIKbGVha3NwZWVkOiAiMzBtIgpjYXBhY2l0eTogMwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoZXNhbWUKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCiMgc3NoZXNhbWUgY29tbWFuZHMKdHlwZTogdHJpZ2dlcgpuYW1lOiB0aGVzcGFkL3NzaGVzYW1lLWNtZApkZXNjcmlwdGlvbjogIkRldGVjdCBzc2hlc2FtZSBjb21tYW5kcyIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2NtZCciCmNhcGFjaXR5OiAwCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBzc2hlc2FtZQogIHR5cGU6IGNvbW1hbmQKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect sshesame bruteforce",
+   "author": "thespad",
+   "labels": {
+    "remediation": "true",
+    "service": "sshesame",
+    "type": "bruteforce"
    }
   }
  }
