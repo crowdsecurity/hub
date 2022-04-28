@@ -22,3 +22,6 @@ notes :
  -  If you are using `syslog`, set type to `syslog` instead
  -  Depending on your distribution/OS, paths to log files might change
  -  Only relevant if you are manually installing collection
+
+
+[Here is the documentation](https://github.com/crowdsecurity/cs-magento-bouncer/blob/main/doc/USER_GUIDE.md#events) to enable `Event Logging` in your Magento Bouncer.

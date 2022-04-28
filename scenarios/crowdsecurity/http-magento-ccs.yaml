@@ -5,7 +5,7 @@ description: "Detect credit card stuffing from a single IP"
 filter: "evt.Meta.log_type == 'PAYMENT_FAILED'"
 groupby: evt.Meta.source_ip
 capacity: 3
-leakspeed: 20s
+leakspeed: 30s
 blackhole: 5m
 labels:
  service: http
