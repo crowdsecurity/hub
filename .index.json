@@ -344,6 +344,31 @@
     "crowdsecurity/endlessh-bf"
    ]
   },
+  "crowdsecurity/exchange": {
+   "path": "collections/crowdsecurity/exchange.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "95cf2f72de900427c545793800c465716508b4e2953bdc0024b8d757fbbed8df",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRXhjaGFuZ2UgY29sbGVjdGlvbgoKQSBjb2xsZWN0aW9uIGZvciBNaWNyb3NvZnQgRXhjaGFuZ2U6CiAtIERldGVjdCBicnV0ZWZvcmNlIG9uIGFuIE9XQSBpbnN0YW5jZQogLSBEZXRlY3QgYnJ1dGVmb3JjZSBvbiB0aGUgU01UUCBzZXJ2aWNlIG9mIEV4Y2hhbmdlCgpOb3RlOgogLSBUaGlzIGNvbGxlY3Rpb24gd2lsbCByZWFkIHRoZSBleGNoYW5nZSB0cmFuc3BvcnQgbG9ncywgd2hpY2ggYXJlIG5vdCB3cml0dGVuIHRvIGRpc2sgaW4gcmVhbCB0aW1lLiBJbiBvcmRlciB0byBhdm9pZCBmYWxzZSBwb3NpdGl2ZSBpbiBsb3cgdHJhZmZpYyBlbnZpcm9ubWVudCwgc2V0IHRoZSBgdXNlX3RpbWVfbWFjaGluZWAgcGFyYW1ldGVyIHRvIGB0cnVlYC4KCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb246CgpgYGB5YW1sCnVzZV90aW1lX21hY2hpbmU6IHRydWUgI1Byb2Nlc3MgbG9ncyBhcyBpZiB3ZSB3ZXJlIHJlcGxheWluZyB0aGVtIHRvIGdldCB0aGUgdGltZXN0YW1wIGZyb20gdGhlIApmaWxlbmFtZXM6CiAgLSBDOlxQcm9ncmFtIEZpbGVzXE1pY3Jvc29mdFxFeGNoYW5nZSBTZXJ2ZXJcVjE1XFRyYW5zcG9ydFJvbGVzXExvZ3NcRnJvbnRFbmRcUHJvdG9jb2xMb2dcU210cFJlY2VpdmVcKi5MT0cKbGFiZWxzOgogIHR5cGU6IGV4Y2hhbmdlLXNtdHAKLS0tCiNPV0EgZmFpbGVkIGF0dGVtcHRzIGFyZSBsb2dnZWQgaW4gdGhlIHNhbWUgd2F5IGFzIFJEUCBhdXRoIApzb3VyY2U6IHdpbmV2ZW50bG9nCmV2ZW50X2NoYW5uZWw6IFNlY3VyaXR5CmV2ZW50X2lkczoKIC0gNDYyNQpldmVudF9sZXZlbDogaW5mb3JtYXRpb24KbGFiZWxzOgogdHlwZTogZXZlbnRsb2cKYGBg",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvZXhjaGFuZ2Utc210cC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvZXhjaGFuZ2UtYmYKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1iZgpjb2xsZWN0aW9uczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cwpkZXNjcmlwdGlvbjogIkV4Y2hhbmdlIHN1cHBvcnQgOiBCcnV0ZWZvcmNlIGRldGVjdGlvbiAiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2luZG93cwogIC0gaWlzCiAgLSBleGNoYW5nZQogIC0gYnJ1dGVmb3JjZQoK",
+   "description": "Exchange support : Bruteforce detection ",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/exchange-smtp-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/exchange-bf",
+    "crowdsecurity/windows-bf"
+   ],
+   "collections": [
+    "crowdsecurity/windows"
+   ]
+  },
   "crowdsecurity/fastly": {
    "path": "collections/crowdsecurity/fastly.yaml",
    "version": "0.1",
@@ -1607,6 +1632,21 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5MaW5lLkxhYmVscy50eXBlID09ICdlbmRsZXNzaCciCm5hbWU6IGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIEVuZGxlc3NoIGxvZ3MiCnBhdHRlcm5fc3ludGF4OgogIEVORExFU1NIX0FDQ0VQVF9WNDogIiV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSBBQ0NFUFQgaG9zdD06OmZmZmY6JXtJUFY0OnNvdXJjZV9pcH0gIgogIEVORExFU1NIX0FDQ0VQVF9WNjogIiV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSBBQ0NFUFQgaG9zdD0le0lQVjY6c291cmNlX2lwfSAiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogIkVORExFU1NIX0FDQ0VQVF9WNCIKICAgICAgYXBwbHlfb246IExpbmUuUmF3CiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGVuZGxlc3NoX2FjY2VwdAogIC0gZ3JvazoKICAgICAgbmFtZTogIkVORExFU1NIX0FDQ0VQVF9WNiIKICAgICAgYXBwbHlfb246IExpbmUuUmF3CiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGVuZGxlc3NoX2FjY2VwdApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGVuZGxlc3NoCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCg==",
    "description": "Parse Endlessh logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/exchange-smtp-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/exchange-smtp-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "158fe6b19f9cc5b900de750c43522a86e68691156e489e1922b7c89e6f9300fe",
+     "deprecated": false
+    }
+   },
+   "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdleGNoYW5nZS1zbXRwJyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L2V4Y2hhbmdlLXNtdHAtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIGV4Y2hhbmdlIFNNVFAgbG9ncyIKIzIwMjItMDQtMjhUMTM6MjQ6NTAuMjAwWixFWENIQU5HRS0xXERlZmF1bHQgRnJvbnRlbmQgRVhDSEFOR0UtMSwwOERBMjhBOUFGNjcxMjY3LDE1LDE5Mi4xNjguOS4yNDE6MjUsMTkyLjE2OC45LjIxMjoyODY1Nyw+LDUzNSA1LjcuMyBBdXRoZW50aWNhdGlvbiB1bnN1Y2Nlc3NmdWwsCmdyb2s6CiAgcGF0dGVybjogIiV7VElNRVNUQU1QX0lTTzg2MDE6ZGF0ZX0sJXtEQVRBOmNvbm5lY3Rvcl9pZH0sJXtEQVRBOnNlc3Npb25faWR9LCV7SU5UOnNlcXVlbmNlX251bWJlcn0sJXtJUE9SSE9TVDpzZXJ2ZXJfaXB9OiV7SU5UOnNlcnZlcl9wb3J0fSwle0lQT1JIT1NUOmNsaWVudF9pcH06JXtJTlQ6Y2xpZW50X3BvcnR9LCV7REFUQTpldmVudH0sJXtJTlQ6c210cF9jb2RlfSBbXiBdKyAle0RBVEE6c210cF9tZXNzYWdlfSwiCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuZGF0ZQogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmNsaWVudF9pcAogIC0gbWV0YTogc210cF9tZXNzYWdlCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNtdHBfbWVzc2FnZQogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGV4Y2hhbmdlCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IHNtdHA=",
+   "description": "Parse exchange SMTP logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -3019,6 +3059,24 @@
    "labels": {
     "remediation": "true",
     "service": "endlessh",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/exchange-bf": {
+   "path": "scenarios/crowdsecurity/exchange-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7900671abf67cdc000b2dd68d0da35a0960e07f4ac3505fdd4d78f929c29a238",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9leGNoYW5nZS1zbXRwLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGV4Y2hhbmdlIFNNVFAgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5zZXJ2aWNlID09ICdleGNoYW5nZScgJiYgZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NtdHAnICYmIGV2dC5NZXRhLnNtdHBfbWVzc2FnZSA9PSAnQXV0aGVudGljYXRpb24gdW5zdWNjZXNzZnVsJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogZXhjaGFuZ2UKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect exchange SMTP bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "exchange",
     "type": "bruteforce"
    }
   },
