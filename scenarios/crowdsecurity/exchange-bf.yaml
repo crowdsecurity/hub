@@ -1,0 +1,12 @@
+type: leaky
+name: crowdsecurity/exchange-smtp-bf
+description: "Detect exchange SMTP bruteforce"
+filter: evt.Meta.service == 'exchange' && evt.Meta.log_type == 'smtp' && evt.Meta.smtp_message == 'Authentication unsuccessful'
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: exchange
+  type: bruteforce
+  remediation: true

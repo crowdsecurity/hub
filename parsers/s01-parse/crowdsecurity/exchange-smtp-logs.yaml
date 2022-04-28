@@ -1,0 +1,20 @@
+filter: "evt.Parsed.program == 'exchange-smtp'"
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/exchange-smtp-logs
+description: "Parse exchange SMTP logs"
+#2022-04-28T13:24:50.200Z,EXCHANGE-1\Default Frontend EXCHANGE-1,08DA28A9AF671267,15,192.168.9.241:25,192.168.9.212:28657,>,535 5.7.3 Authentication unsuccessful,
+grok:
+  pattern: "%{TIMESTAMP_ISO8601:date},%{DATA:connector_id},%{DATA:session_id},%{INT:sequence_number},%{IPORHOST:server_ip}:%{INT:server_port},%{IPORHOST:client_ip}:%{INT:client_port},%{DATA:event},%{INT:smtp_code} [^ ]+ %{DATA:smtp_message},"
+  apply_on: message
+statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.date
+  - meta: source_ip
+    expression: evt.Parsed.client_ip
+  - meta: smtp_message
+    expression: evt.Parsed.smtp_message
+  - meta: service
+    value: exchange
+  - meta: log_type
+    value: smtp
