@@ -14,7 +14,7 @@ Example acquisition for this collection :
 filenames:
   - /var/log/proftpd/*.log
 labels:
-  type: syslog
+  type: proftpd
 ```
 
 
