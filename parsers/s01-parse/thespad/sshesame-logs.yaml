@@ -7,6 +7,7 @@ pattern_syntax:
   SSHESAME_LOGIN_PASSWD: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] authentication for user "%{USERNAME:sshesame_user}" with password "%{GREEDYDATA:sshesame_password}" accepted'
   SSHESAME_LOGIN_PUBKEY: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] authentication for user "%{USERNAME:sshesame_user}" with public key "%{GREEDYDATA:sshesame_pubkey}" accepted'
   SSHESAME_CMD: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] \[channel \d+\] command "%{GREEDYDATA:sshesame_cmd}" requested'
+  SSHESAME_INPUT: '%{SSHESAME_TIMESTAMP:timestamp} \[%{IP:source_ip}:\d+\] \[channel \d+\] input: "%{GREEDYDATA:sshesame_input}"'
 nodes:
   - grok:
       name: "SSHESAME_LOGIN_PASSWD"
@@ -30,6 +31,12 @@ nodes:
       statics:
         - meta: log_type
           value: sshesame_cmd
+  - grok:
+      name: "SSHESAME_INPUT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sshesame_input          
 statics:
     - target: evt.StrTime
       expression: "evt.Parsed.timestamp"
@@ -41,3 +48,5 @@ statics:
       expression: "evt.Parsed.sshesame_user"
     - meta: command
       expression: "evt.Parsed.sshesame_cmd"
+    - meta: input
+      expression: "evt.Parsed.sshesame_input"
