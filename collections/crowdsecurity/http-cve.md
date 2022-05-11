@@ -6,6 +6,7 @@ A collection of http specific CVEs :
  - [Fortinet CVE-2018-13379](https://cve.circl.lu/cve/CVE-2018-13379)
  - [Pulse Secure CVE-2019-11510](https://cve.circl.lu/cve/CVE-2019-11510)
  - [F5 BIG-IP CVE-2020-5902](https://cve.circl.lu/cve/CVE-2020-5902)
+ - [F5 Big-IP CVE-2022-1388](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1388)
  - [ThinkPHP CVE-2018-20062](https://cve.circl.lu/cve/CVE-2018-20062)
  - [Apache Log4j2 CVE-2021-44228](https://cve.circl.lu/cve/CVE-2021-44228)
  - [VMware VMSA-2021-0027](https://www.vmware.com/security/advisories/VMSA-2021-0027.html)
