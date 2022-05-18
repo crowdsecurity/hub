@@ -1,8 +1,8 @@
 Zimbra failed authentication parser. To use it, you should add an acquisition like
 ```yaml
 ---
-filnames:
-  - "/opt/zimbra/log/mailbox.log"
+filenames:
+  - /opt/zimbra/log/mailbox.log
 labels:
   type: zimbra
 ```

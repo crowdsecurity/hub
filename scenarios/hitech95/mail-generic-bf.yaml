@@ -1,0 +1,30 @@
+# Global brouteforce
+type: leaky
+#debug: true
+name: hitech95/email-generic-bf
+description: "Detect generic email brute force"
+filter: "evt.Meta.log_type == 'mail_auth' && evt.Meta.sub_type == 'auth_fail'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: "10s"
+blackhole: 1m
+labels:
+ service: email
+ type: bf
+ remediation: true
+---
+# Per user brouteforce
+type: leaky
+#debug: true
+name: hitech95/email-user-bf
+description: "Detect specific user email brute force"
+filter: "evt.Meta.log_type == 'mail_auth' && evt.Meta.sub_type == 'auth_fail'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+capacity: 3
+leakspeed: "30s"
+blackhole: 1m
+labels:
+ service: email
+ type: bf
+ remediation: true

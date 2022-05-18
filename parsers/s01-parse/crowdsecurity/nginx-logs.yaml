@@ -46,6 +46,10 @@ nodes:
             value: "auth_fail"
           - meta: username
             expression: evt.Parsed.username
+      - filter: "evt.Parsed.message contains 'limiting requests, excess'"
+        statics:
+          - meta: sub_type
+            value: "req_limit_exceeded"
     # these ones apply for both grok patterns
 statics:
   - meta: service
