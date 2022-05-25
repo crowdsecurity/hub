@@ -1,0 +1,17 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'dropbear'"
+name: crowdsecurity/dropbear-logs
+description: "Parse dropbear logs"
+nodes:
+  - grok: 
+      pattern: "Bad PAM password attempt for '%{DATA:user}' from %{IP:source_ip}:%{INT:port}"
+      apply_on: message
+statics:
+  - meta: service
+    value: dropbear
+  - meta: target_user
+    expression: evt.Parsed.user
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: log_type
+    value: ssh_failed-auth
