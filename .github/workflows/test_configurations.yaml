@@ -40,7 +40,7 @@ jobs:
       uses: actions/checkout@v2
     - name: run tests on last crowdsec tag
       run: |
-        mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/ && cd /hub/
+        mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
         cscli hubtest run --all --clean
         echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV
