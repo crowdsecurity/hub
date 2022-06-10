@@ -1,0 +1,15 @@
+onsuccess: next_stage
+filter: "evt.Parsed.message contains '-IN' and not (evt.Parsed.message contains 'ACCEPT')"
+debug: false
+name: aderumier/proxmox-iptables-logs
+description: "Parse proxmox iptables drop logs"
+grok:
+  pattern: "^%{NOTSPACE:vmid} %{NOTSPACE:loglevel} %{WORD:int_eth}-IN %{HTTPDATE:logdate} (policy )?%{NOTSPACE:action}: IN=%{DATA:iface} OUT=%{DATA:oface}?PHYSIN=%{DATA:physin}? PHYSOUT=%{DATA:physout}? MAC=%{MAC:dst_mac}:%{MAC}%{NOTSPACE} SRC=%{IP:src_ip} DST=%{IP:dst_ip} LEN=%{INT:data_length}( TOS=0x%{BASE16NUM:tos})?( PREC=0x%{BASE16NUM:prec})?( TC=%{INT})?( FLOWLBL=%{INT})?( HOPLIMIT=%{INT:ttl})?( TTL=%{INT:ttl})?( ID=%{INT:id})?( %{WORD})? PROTO=%{NOTSPACE:proto}( SPT=%{INT:src_port})?( DPT=%{INT:dst_port})?( LEN=%{INT:data_length})?( SEQ=%{INT})?( ACK=%{INT:ack})?( WINDOW=%{INT})?( %{WORD:tcp_flags})?"
+  apply_on: message
+statics:
+    - meta: service
+      value: tcp
+    - meta: log_type
+      value: iptables_drop
+    - meta: source_ip
+      expression: "evt.Parsed.src_ip"
