@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/windows-logs
+- crowdsecurity/windows-auth
+- crowdsecurity/dateparse-enrich
+scenarios:
+- crowdsecurity/windows-bf
+postoverflows:
+- ""
+log_file: windows-bf.log
+log_type: wineventlog
+labels: {}
+ignore_parsers: true
+override_statics:
+ - target: evt.Line.Module
+   value: wineventlog
+
