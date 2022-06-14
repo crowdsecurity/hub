@@ -3,7 +3,7 @@ type: leaky
 name: timokoessler/uptime-kuma-bf
 description: "Detect Uptime Kuma bruteforce"
 filter: "evt.Meta.log_type in ['uptime_kuma_failed_password', 'uptime_kuma_failed_totp']"
-leakspeed: "30s"
+leakspeed: "15s"
 capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 1m
@@ -18,7 +18,7 @@ type: leaky
 name: timokoessler/uptime-kuma-bf_user-enum
 description: "Detect Uptime Kuma user enum bruteforce"
 filter: "evt.Meta.log_type in ['uptime_kuma_failed_password', 'uptime_kuma_failed_totp']"
-leakspeed: "60s"
+leakspeed: "30s"
 capacity: 5
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.username
