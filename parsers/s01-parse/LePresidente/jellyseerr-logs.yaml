@@ -1,0 +1,30 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/jellyseerr-logs
+description: "Parse jellyseerr logs"
+filter: "evt.Parsed.program == 'jellyseerr'"
+pattern_syntax:
+  CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+nodes:
+  - grok:
+      pattern: '%{RFC3339:timestamp}.*Failed sign-in attempt using invalid Overseerr password.*{"ip":"::ffff:%{IP:source_ip}","email":"%{CUSTOMUSER:username}"}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: jellyseerr_failed_auth
+  - grok:
+      pattern: '%{RFC3339:timestamp}.*Failed login attempt from user with incorrect.*credentials {"account":{"ip":"::ffff:%{IP:source_ip}","email":"%{CUSTOMUSER:username}","password":"__REDACTED__"}}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: jellyseerr_failed_auth
+
+statics:
+    - meta: service
+      value: jellyseerr
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: user
+      expression: "evt.Parsed.username"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
