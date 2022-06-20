@@ -7,7 +7,7 @@ pattern_syntax:
   CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
 nodes:
   - grok:
-      pattern: '%{RFC3339:timestamp}.*Failed sign-in attempt using invalid Overseerr password.*{"ip":"::ffff:%{IP:source_ip}","email":"%{CUSTOMUSER:username}"}'
+      pattern: '%{RFC3339:timestamp}.*Failed sign-in attempt using invalid .* password.*{"ip":"::ffff:%{IP:source_ip}","email":"%{CUSTOMUSER:username}"}'
       apply_on: message
       statics:
         - meta: log_type
