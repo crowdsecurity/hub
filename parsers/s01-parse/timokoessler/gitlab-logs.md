@@ -1,4 +1,4 @@
-Parser for [GitLab](https://about.gitlab.com) Logs. Tested with the Omnibus package v14.9.
+Parser for [GitLab](https://about.gitlab.com) Logs. Tested with the Omnibus package v14 and v15.
 
 Example acquisition for a log file:
 ```yaml

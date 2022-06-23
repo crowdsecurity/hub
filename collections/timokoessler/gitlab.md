@@ -2,7 +2,7 @@ A collection to defend your [GitLab](https://about.gitlab.com) Web UI against co
  - GitLab parser
  - GitLab brute-force & enumeration detection
 
-Tested with the Omnibus package v14.9.
+Tested with the Omnibus package v14 and v15.
 
 ## Acquisition template
 

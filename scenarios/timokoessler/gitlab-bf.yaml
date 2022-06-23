@@ -3,7 +3,7 @@ type: leaky
 name: timokoessler/gitlab-bf
 description: "Detect gitlab bruteforce"
 filter: "evt.Meta.log_type in ['gitlab_failed_password', 'gitlab_failed_totp']"
-leakspeed: "30s"
+leakspeed: "20s"
 capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 1m
@@ -18,7 +18,7 @@ type: leaky
 name: timokoessler/gitlab-bf_user-enum
 description: "Detect gitlab user enum bruteforce"
 filter: "evt.Meta.log_type == 'gitlab_failed_password'"
-leakspeed: "60s"
+leakspeed: "40s"
 capacity: 5
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.username
