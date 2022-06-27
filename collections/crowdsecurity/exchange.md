@@ -18,7 +18,19 @@ filenames:
 labels:
   type: exchange-smtp
 ---
-#OWA failed attempts are logged in the same way as RDP auth 
+use_time_machine: true #Process logs as if we were replaying them to get the timestamp from the 
+filenames:
+  - C:\Program Files\Microsoft\Exchange Server\V15\Logging\Imap4\*.LOG
+labels:
+  type: exchange-imap
+---
+use_time_machine: true #Process logs as if we were replaying them to get the timestamp from the 
+filenames:
+  - C:\Program Files\Microsoft\Exchange Server\V15\Logging\Pop3\*.LOG
+labels:
+  type: exchange-pop
+---
+#OWA failed attempts are logged in the same way as RDP failed auth 
 source: wineventlog
 event_channel: Security
 event_ids:
