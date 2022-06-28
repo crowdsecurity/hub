@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+#- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/klausagnoletti/opnsense-openvpn-logs.yaml 
+scenarios:
+- ./scenarios/klausagnoletti/opnsense-openvpn-bf.yaml
+postoverflows:
+- ""
+log_file: opnsense-openvpn-bf.log
+log_type: opnsense-openvpn
+labels: {}
+ignore_parsers: true

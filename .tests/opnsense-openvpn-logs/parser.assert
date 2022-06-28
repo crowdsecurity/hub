@@ -1,0 +1,69 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-06-15T14:32:31+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"83\"] 10.40.60.189:43707 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2022-06-15T14:32:33+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"103\"] 10.73.35.172:41836 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2022-06-15T14:32:37+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"123\"] 192.168.35.139:54399 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["klausagnoletti/opnsense-openvpn"]) == 3
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Success == true
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["pid"] == "93830"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["service"] == "openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["source_ip"] == "10.40.60.189"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["timestamp"] == "2022-06-15T14:32:31+02:00"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["logsource_hostname"] == "fw.agnoletti.net"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["message"] == "2022-06-15T14:32:31+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"83\"] 10.40.60.189:43707 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Parsed["meta_seq_id"] == "83"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Meta["source_ip"] == "10.40.60.189"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Meta["log_type"] == "openvpn_auth_failed"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][0].Evt.Meta["service"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Success == true
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["meta_seq_id"] == "103"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["pid"] == "93830"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["service"] == "openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["source_ip"] == "10.73.35.172"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["timestamp"] == "2022-06-15T14:32:33+02:00"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["logsource_hostname"] == "fw.agnoletti.net"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Parsed["message"] == "2022-06-15T14:32:33+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"103\"] 10.73.35.172:41836 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Meta["log_type"] == "openvpn_auth_failed"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Meta["service"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Meta["source_ip"] == "10.73.35.172"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Success == true
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["logsource_hostname"] == "fw.agnoletti.net"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["message"] == "2022-06-15T14:32:37+02:00 fw.agnoletti.net openvpn 93830 - [meta sequenceId=\"123\"] 192.168.35.139:54399 TLS Auth Error: Auth Username/Password verification failed for peer"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["meta_seq_id"] == "123"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["pid"] == "93830"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["program"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["service"] == "openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["source_ip"] == "192.168.35.139"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Parsed["timestamp"] == "2022-06-15T14:32:37+02:00"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Meta["datasource_path"] == "opnsense-openvpn-logs.log"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Meta["log_type"] == "openvpn_auth_failed"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Meta["service"] == "opnsense-openvpn"
+results["s01-parse"]["klausagnoletti/opnsense-openvpn"][2].Evt.Meta["source_ip"] == "192.168.35.139"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == false
+len(results["success"][""]) == 0

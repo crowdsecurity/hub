@@ -1,0 +1,15 @@
+# openvpn bruteforce
+type: leaky
+debug: true
+name: klausagnoletti/opnsense-openvpn
+description: "Detect OpenVPN bruteforce on OPNsense"
+filter: "evt.Meta.log_type == 'openvpn_auth_failed'"
+leakspeed: "15m"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 10m
+reprocess: true
+labels:
+ service: opnsense-openvpn
+ type: bruteforce
+ remediation: true
