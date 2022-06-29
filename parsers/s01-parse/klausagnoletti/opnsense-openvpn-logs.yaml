@@ -4,7 +4,7 @@ onsuccess: next_stage
 name: klausagnoletti/opnsense-openvpn
 description: "Simple parser for OpenVPN logs from OPNsense"
 pattern_syntax:
-  OPENVPN_AUTHFAILED: '%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME:logsource_hostname} %{DATA:service} %{DATA:pid} - \[meta sequenceId="%{INT:meta_seq_id}"\] %{IP:source_ip}:\d{4,5} TLS Auth Error\: Auth Username/Password verification failed for peer'
+  OPENVPN_AUTHFAILED: '%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME:logsource_hostname} %{DATA:service} %{DATA:pid} - \[meta sequenceId="%{INT:meta_seq_id}"\] %{IP:source_ip}:%{INT:source_port} TLS Auth Error\: Auth Username/Password verification failed for peer'
 nodes:
   - grok:
       name: "OPENVPN_AUTHFAILED"
