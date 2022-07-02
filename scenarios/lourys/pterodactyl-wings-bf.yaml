@@ -1,0 +1,50 @@
+####################
+## Invalid format ##
+####################
+type: leaky
+name: lourys/pterodactyl-wings-bf
+description: "Detect invalid_format ssh bruteforce"
+filter: "evt.Meta.log_type == 'invalid_format'"
+leakspeed: "15s"
+references:
+  - http://wikipedia.com/ssh-bf-is-bad
+capacity: 1
+groupby: evt.Meta.source_ip
+blackhole: 15m
+reprocess: true
+labels:
+ service: pterodactyl
+ type: bruteforce
+ remediation: true
+---
+type: leaky
+name: lourys/pterodactyl-wings-bf
+description: "Detect invalid_format ssh user enum bruteforce"
+filter: evt.Meta.log_type == 'invalid_format'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 15s
+capacity: 1
+blackhole: 15m
+labels:
+ service: pterodactyl
+ type: bruteforce
+ remediation: true
+
+###############################
+## Invalid username/password ##
+###############################
+---
+type: leaky
+name: lourys/pterodactyl-wings-bf
+description: "Detect invalid_username_or_password ssh bruteforce"
+filter: evt.Meta.log_type == 'invalid_username_or_password'
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+ service: pterodactyl
+ type: bruteforce
+ remediation: true
+
