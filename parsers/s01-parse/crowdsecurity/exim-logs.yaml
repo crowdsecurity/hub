@@ -1,0 +1,111 @@
+onsuccess: next_stage
+debug: true
+filter: "evt.Parsed.program == 'exim'"
+name: crowdsecurity/exim-logs
+description: "Parse exim logs"
+pattern_syntax:
+  NO_DOUBLE_QUOTE: '[^"]+'
+  NO_GREATER: '[^>]+'
+  NO_END_BRACKET: '[^\]]+'
+  NO_END_PAR: '[^\)]+'
+  NOSPACE: '[^ ]+'
+  DATE_T: '[0-9-]+ [0-9:]+'
+  EXIM_HEADER: '%{DATE_T:date} dovecot_(login|plain)'
+nodes:
+  - grok:
+      pattern: '%{EXIM_HEADER} authenticator failed for \(\[%{NO_END_BRACKET:target_ip}\]\) \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port}: %{INT} Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_failed
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok:
+      pattern: '%{EXIM_HEADER} authenticator failed for \(%{NO_END_PAR:target_dns}\) \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port}: %{INT} Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_failed
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok:
+      pattern: '%{EXIM_HEADER} authenticator failed for %{NOSPACE:target_dns} \(\[%{NO_END_BRACKET:target_ip}\]\) \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port}: %{INT} Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_failed
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok:
+      pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} F=<%{NO_GREATER:source_user}> rejected RCPT <%{NO_GREATER:target_user}>: "JunkMail rejected - %{NOSPACE} \[%{NO_END_BRACKET}\]:%{INT} is in an RBL: %{NO_DOUBLE_QUOTE:rbl_url}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: rbl_url
+          expression: evt.Parsed.rbl_url
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} X=%{NOSPACE:tls_cipher} CV=%{NOSPACE} F=<%{NO_GREATER:source_user}> rejected RCPT <%{NO_GREATER:target_user}>: No Such User Here'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_failed
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} temporarily rejected connection in "%{NO_DOUBLE_QUOTE:acl}" ACL: "Host is ratelimited \(%{NO_END_PAR:rate_limit}\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} sender verify fail for <%{NO_GREATER:source_user}>: The mail server does not recognize %{NOSPACE} as a valid sender.'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} X=%{NOSPACE:tls_cipher} CV=%{NOSPACE} F=<%{NO_GREATER:source_user}> rejected RCPT <%{NO_GREATER:target_user}>: Sender verify failed'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+statics:
+  - meta: service
+    value: mail
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: target_ip
+    expression: "evt.Parsed.target_ip"
+  - meta: target_dns
+    expression: "evt.Parsed.target_dns"
+  - meta: username
+    expression: "evt.Parsed.target_user"
