@@ -98,6 +98,20 @@ nodes:
           expression: evt.Parsed.source_user
         - meta: source_dns
           expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{DATE_T:date} H=\(%{NO_END_PAR:source_dns}\) \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} X=%{NOSPACE:tls_cipher} CV=%{NOSPACE} F=<%{NO_GREATER:source_user}> rejected RCPT <%{NO_GREATER:target_user}>: SMTP AUTH is required for message submission on port %{INT:target_port}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+        - meta: target_port
+          expression: "evt.Parsed.target_port"
 statics:
   - meta: service
     value: mail
