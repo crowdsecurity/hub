@@ -1,0 +1,26 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'suricata'"
+debug: true
+name: crowdsecurity/suricata-logs
+description: "Parse suricata logs"
+pattern_syntax:
+  SURICATA_MARKER: '\[\*\*\]'
+  SURICATA_DATE: '%{DATE_US:date}-%{TIME:time}'
+  SURICATA_RULE_ID: '\[%{NUMBER:smth1}:%{NUMBER:rule_id}:%{NUMBER:smth2}\]'
+grok: 
+  pattern: '%{SURICATA_DATE}  %{SURICATA_MARKER} %{SURICATA_RULE_ID} %{DATA:alert_message} %{SURICATA_MARKER} \[Classification: %{DATA:suricata_classification}\] \[Priority: %{NUMBER:suricata_priority}\] \{%{DATA:suricata_protocol}\} %{IP:source_ip}:%{NUMBER:source_port} \-> %{IP:dest_ip}:%{NUMBER:dest_port}'
+  apply_on: message
+statics:
+  - meta: service
+    value: suricata
+  - meta: log_type
+    value: suricata_alert_log
+      #we build back RFC3339 format
+  - target: evt.Parsed.suricata_timestamp
+    expression: evt.Parsed.date + ' ' + evt.Parsed.time
+  - target: evt.StrTime
+    expression: evt.Parsed.date + ' ' + evt.Parsed.time
+  - meta: suricata_rule_id
+    expression: evt.Parsed.rule_id
+  - meta: source_ip
+    expression: evt.Parsed.source_ip

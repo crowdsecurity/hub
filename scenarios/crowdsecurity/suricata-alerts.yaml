@@ -1,0 +1,82 @@
+# for emerging threats exploits : kill on sight
+type: trigger
+name: crowdsecurity/suricata-exploits-ET
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert_log' && evt.Parsed.alert_message startsWith 'ET EXPLOIT'"
+groupby: evt.Meta.source_ip
+references:
+ - http://rules.emergingthreats.net/
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
+ remediation: true
+---
+# for emerging threats scan : let's wait for three *distinct* signatures
+type: leaky
+capacity: 2
+leakspeed: 20s
+distinct: evt.Parsed.rule_id
+name: crowdsecurity/suricata-scan-ET
+references:
+ - http://rules.emergingthreats.net/
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert_log' && evt.Parsed.alert_message startsWith 'ET SCAN'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
+---
+# for emerging threats WEB_SERVER : let's wait for three *distinct* signatures
+type: leaky
+capacity: 2
+leakspeed: 20s
+distinct: evt.Parsed.rule_id
+name: crowdsecurity/suricata-web-ET
+references:
+ - http://rules.emergingthreats.net/
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert_log' && evt.Parsed.alert_message startsWith 'ET WEB_SERVER'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
+---
+# for info ... beware of FPs
+type: leaky
+capacity: 5
+leakspeed: 20s
+distinct: evt.Parsed.rule_id
+name: crowdsecurity/suricata-web-ET
+references:
+ - http://rules.emergingthreats.net/
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert_log' && evt.Parsed.alert_message startsWith 'ET INFO'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
+---
+# and finally our catch-all :)
+type: leaky
+capacity: 9
+leakspeed: 20s
+distinct: evt.Parsed.rule_id
+name: crowdsecurity/suricata-generic
+references:
+ - http://rules.emergingthreats.net/
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert_log'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
