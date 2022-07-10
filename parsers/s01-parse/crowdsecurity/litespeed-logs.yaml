@@ -1,0 +1,51 @@
+filter: "evt.Parsed.program == 'litespeed'"
+onsuccess: next_stage
+name: crowdsecurity/litespeed-logs
+description: "Parse litespeed access and error logs"
+nodes:
+  - grok:
+      #access log
+      pattern: '%{IPORHOST:remote_addr} - (%{NGUSER:remote_user})? \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+  - grok:
+      #user not found or bad password for HTTP auth
+      pattern: "%{TIMESTAMP_ISO8601:time} \\[%{DATA:log_level}\\] \\[%{NONNEGINT:pid}\\] \\[%{IPORHOST:remote_addr}:%{DATA:misc}#%{DATA:vhost}\\] User '%{NGUSER:username}' failed to authenticate\\."
+      apply_on: message
+      statics:
+        - meta: sub_type
+          value: "auth_fail"
+        - meta: username
+          expression: evt.Parsed.username
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+  - grok:
+      #admin UI auth fail
+      pattern: "%{TIMESTAMP_ISO8601:time} \\[%{DATA:log_level}\\] \\[%{NONNEGINT:pid}\\] \\[%{IPORHOST:remote_addr}:%{DATA:misc}#%{DATA:vhost}\\] \\[%{WORD}\\] \\[%{DATA}\\] Failed Login Attempt - username:%{DATA:username} ip:%{IP:client_ip} url:%{DATA:url}"
+      apply_on: message
+      statics:
+        - meta: sub_type
+          value: "litespeed_admin_auth_fail"
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+        - meta: username
+          expression: evt.Parsed.username
+statics:
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: http_status
+    expression: "evt.Parsed.status"
+  - meta: http_path
+    expression: "evt.Parsed.request"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: target_fqdn
+    expression: "evt.Parsed.target_fqdn"
