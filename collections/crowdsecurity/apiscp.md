@@ -45,6 +45,8 @@ labels:
   type: vsftpd
 ```
 
+You can also monitor all the created `Nexus` by replacing `/var/log/` by `<site_name>/var/log/`.
+
 
 notes :
  -  If you are using `syslog`, set type to `syslog` instead
