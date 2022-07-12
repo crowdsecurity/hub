@@ -45,7 +45,7 @@ labels:
   type: vsftpd
 ```
 
-You can also monitor all the created `Nexus` by replacing `/var/log/` by `<site_name>/var/log/`.
+You can also monitor all the created `Nexus` by replacing `/var/log/` by `/home/virtual/<site_name>/var/log/`.
 
 
 notes :
