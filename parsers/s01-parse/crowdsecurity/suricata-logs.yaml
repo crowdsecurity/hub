@@ -1,6 +1,5 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'suricata-fastlogs'"
-debug: true
 name: crowdsecurity/suricata-fastlogs
 description: "Parse suricata fast.log"
 pattern_syntax:
@@ -35,6 +34,12 @@ filter: |
 debug: true
 name: crowdsecurity/suricata-evelogs
 description: "Parse suricata eve.json logs"
+pattern_syntax:
+  SURICATA_EVE_TS: '%{TIMESTAMP_ISO8601:time}'
+nodes:
+  - grok:
+      pattern: '%{SURICATA_EVE_TS:time}\+%{INT}'
+      expression: JsonExtract(evt.Parsed.message, "timestamp")
 statics:
   - meta: service
     value: suricata
@@ -43,7 +48,7 @@ statics:
   - meta: sub_log_type
     value: suricata_alert_eve_json
   - target: evt.StrTime
-    expression: JsonExtract(evt.Parsed.message, "timestamp")
+    expression: evt.Parsed.time + 'Z'
   - target: evt.Meta.suricata_flow_id
     expression: JsonExtract(evt.Parsed.message, "flow_id")
   - target: evt.Meta.source_ip
