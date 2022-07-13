@@ -1,0 +1,28 @@
+# for max (1) priority : kill on sight
+type: trigger
+name: crowdsecurity/suricata-major-severity
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert' && evt.Parsed.proto == 'TCP' && evt.Meta.suricata_rule_severity == '1'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
+ remediation: true
+---
+# for lower (2) priority : wait for >=3 different signatures being triggered
+# we intentionally avoid scenarios on priority 3 and such that are too sensitive to false positives
+type: leaky
+capacity: 2
+leakspeed: 20s
+distinct: evt.Meta.suricata_alert_signature_id
+name: crowdsecurity/suricata-high-medium-severity
+description: "Detect exploit attempts via emerging threat rules"
+filter: "evt.Meta.log_type == 'suricata_alert' && evt.Parsed.proto == 'TCP' && evt.Meta.suricata_rule_severity == '2'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: suricata
+ type: exploit
