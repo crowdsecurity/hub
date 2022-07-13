@@ -31,7 +31,6 @@ statics:
 onsuccess: next_stage
 filter: |
   evt.Parsed.program == "suricata-evelogs" && JsonExtract(evt.Parsed.message, "event_type") == "alert"
-debug: true
 name: crowdsecurity/suricata-evelogs
 description: "Parse suricata eve.json logs"
 pattern_syntax:
