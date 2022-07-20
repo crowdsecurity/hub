@@ -6,6 +6,9 @@ nodes:
   - grok: 
       pattern: "Bad PAM password attempt for '%{DATA:user}' from %{IP:source_ip}:%{INT:port}"
       apply_on: message
+  - grok: 
+      pattern: "Login attempt for nonexistent user from %{IP:source_ip}:%{INT:port}"
+      apply_on: message
 statics:
   - meta: service
     value: dropbear
