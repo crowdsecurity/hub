@@ -1,0 +1,21 @@
+filter: "evt.Parsed.program == 'exchange-pop'"
+onsuccess: next_stage
+#debug: true
+name: crowdsecurity/exchange-pop-logs
+description: "Parse exchange POP logs"
+#dateTime,sessionId,seqNumber,sIp,cIp,user,duration,rqsize,rpsize,command,parameters,context,puid
+#2022-06-20T00:03:48.531Z,0000000000001E86,1,192.168.9.241:995,192.168.9.212:33526,testuser,171,21,69,auth, PLAIN,"R=""-ERR Authentication failure: unknown user name or bad password."";Msg=""AuthFailed:LogonDenied,User: testuser"";ErrMsg=AuthFailed:LogonDenied",
+grok:
+  pattern: "%{TIMESTAMP_ISO8601:date},%{DATA:session_id},%{INT:sequence_number},%{IPORHOST:server_ip}:%{INT:server_port},%{IPORHOST:client_ip}:%{INT:client_port},%{DATA:username},%{INT:duration},%{INT:rqsize},%{INT:rpsize},%{WORD:command},%{DATA:parameters},%{DATA}AuthFailed:LogonDenied\",%{DATA:puid}?"
+  apply_on: message
+statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.date
+  - meta: source_ip
+    expression: evt.Parsed.client_ip
+  - meta: service
+    value: exchange
+  - meta: log_type
+    value: pop
+  - meta: sub_type
+    value: auth_fail

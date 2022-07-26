@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/odoo-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/odoo-bf_user-enum.yaml
+postoverflows:
+- ""
+log_file: odoo.log
+log_type: odoo
+labels: {}
+ignore_parsers: false

@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/windows-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ""
+postoverflows:
+- ""
+log_file: windows-logs.log
+log_type: wineventlog
+labels: {}
+ignore_parsers: false
+override_statics:
+ - target: evt.Line.Module
+   value: wineventlog

@@ -1,0 +1,70 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'suricata-fastlogs'"
+name: crowdsecurity/suricata-fastlogs
+description: "Parse suricata fast.log"
+pattern_syntax:
+  SURICATA_MARKER: '\[\*\*\]'
+  SURICATA_DATE: '%{DATE_US:date}-%{TIME:time}'
+  SURICATA_RULE_ID: '\[%{NUMBER:suricata_rule_severity}:%{NUMBER:rule_id}:%{NUMBER:suricata_alert_signature_rev}\]'
+grok: 
+  pattern: '%{SURICATA_DATE}  %{SURICATA_MARKER} %{SURICATA_RULE_ID} %{DATA:suricata_alert_signature} %{SURICATA_MARKER} \[Classification: %{DATA:suricata_classification}\] \[Priority: %{NUMBER:suricata_priority}\] \{%{DATA:proto}\} %{IP:source_ip}:%{NUMBER:source_port} \-> %{IP:dest_ip}:%{NUMBER:dest_port}'
+  apply_on: message
+statics:
+  - meta: service
+    value: suricata
+  - meta: log_type
+    value: suricata_alert
+  - meta: sub_log_type
+    value: suricata_alert_fast_log
+      #we build back RFC3339 format
+  - target: evt.Parsed.suricata_timestamp
+    expression: evt.Parsed.date + ' ' + evt.Parsed.time
+  - target: evt.StrTime
+    expression: evt.Parsed.date + ' ' + evt.Parsed.time
+  - meta: suricata_alert_signature_id
+    expression: evt.Parsed.rule_id
+  - meta: suricata_rule_severity
+    expression: evt.Parsed.suricata_rule_severity
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+---
+onsuccess: next_stage
+filter: |
+  evt.Parsed.program == "suricata-evelogs" && JsonExtract(evt.Parsed.message, "event_type") == "alert"
+name: crowdsecurity/suricata-evelogs
+description: "Parse suricata eve.json logs"
+pattern_syntax:
+  SURICATA_EVE_TS: '%{TIMESTAMP_ISO8601:time}'
+nodes:
+  - grok:
+      pattern: '%{SURICATA_EVE_TS:time}\+%{INT}'
+      expression: JsonExtract(evt.Parsed.message, "timestamp")
+statics:
+  - meta: service
+    value: suricata
+  - meta: log_type
+    value: suricata_alert
+  - meta: sub_log_type
+    value: suricata_alert_eve_json
+  - target: evt.StrTime
+    expression: evt.Parsed.time + 'Z'
+  - target: evt.Meta.suricata_flow_id
+    expression: JsonExtract(evt.Parsed.message, "flow_id")
+  - target: evt.Meta.source_ip
+    expression: JsonExtract(evt.Parsed.message, "src_ip")
+  - target: evt.Parsed.dest_ip
+    expression: JsonExtract(evt.Parsed.message, "dest_ip")
+  - target: evt.Parsed.dest_port
+    expression: JsonExtract(evt.Parsed.message, "dest_port")
+  - target: evt.Parsed.proto
+    expression: JsonExtract(evt.Parsed.message, "proto")
+  - target: evt.Meta.suricata_alert_signature_id
+    expression: JsonExtract(evt.Parsed.message, "alert.signature_id")
+  - target: evt.Parsed.suricata_alert_signature_rev
+    expression: JsonExtract(evt.Parsed.message, "alert.rev")
+  - target: evt.Parsed.suricata_alert_signature
+    expression: JsonExtract(evt.Parsed.message, "alert.signature")
+  - target: evt.Meta.suricata_rule_severity
+    expression: JsonExtract(evt.Parsed.message, "alert.severity")
+
+

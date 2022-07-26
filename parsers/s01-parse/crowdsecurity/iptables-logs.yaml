@@ -4,7 +4,7 @@ filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'IN=' an
 name: crowdsecurity/iptables-logs
 description: "Parse iptables drop logs"
 grok:
-  pattern: IN=%{WORD:int_eth} (OUT= )?MAC=%{IP}:%{MAC} SRC=%{IP:src_ip} DST=%{IP:dst_ip} LEN=%{INT:length}.*PROTO=%{WORD:proto} SPT=%{INT:src_port} DPT=%{INT:dst_port}
+  pattern: IN=%{DATA:int_eth} (OUT= )?MAC=%{IP}:%{MAC} SRC=%{IP:src_ip} DST=%{IP:dst_ip} LEN=%{INT:length}.*PROTO=%{WORD:proto} SPT=%{INT:src_port} DPT=%{INT:dst_port}
   apply_on: message
 statics:
     - meta: service

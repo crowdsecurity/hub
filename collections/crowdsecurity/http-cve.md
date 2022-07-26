@@ -10,6 +10,8 @@ A collection of http specific CVEs :
  - [Apache Log4j2 CVE-2021-44228](https://cve.circl.lu/cve/CVE-2021-44228)
  - [VMware VMSA-2021-0027](https://www.vmware.com/security/advisories/VMSA-2021-0027.html)
  - [Atlassian Jira CVE-2021-26086](https://cve.circl.lu/cve/CVE-2021-26086)
+ - [Spring4Shell CVE-2022-22965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22965)
+ - [VMware CVE-2022-22954](https://www.vmware.com/security/advisories/VMSA-2022-0011.html)
 
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
