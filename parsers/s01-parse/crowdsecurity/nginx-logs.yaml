@@ -13,7 +13,7 @@ nodes:
           expression: evt.Parsed.time_local
   - grok:
       # and this one the error log
-      pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}(:%{NONNEGINT})?"'
+      pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: "%{WORD:verb} %{NOTSPACE:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}(:%{NONNEGINT})?"'
       apply_on: message
       statics:
         - meta: log_type
