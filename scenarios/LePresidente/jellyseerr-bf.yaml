@@ -1,0 +1,29 @@
+# jellyseerr BF scan
+name: LePresidente/jellyseerr-bf
+description: "Detect jellyseerr bruteforce"
+filter: "evt.Meta.log_type == 'jellyseerr_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: jellyseerr
+  type: bruteforce
+  remediation: true
+---
+# jellyseerr user-enum
+type: leaky
+name:  LePresidente/jellyseerr-bf_user-enum
+description: "Detect jellyseerr user enum bruteforce"
+filter: "evt.Meta.log_type == 'jellyseerr_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+ service: jellyseerr
+ type: bruteforce
+ remediation: true
