@@ -9,13 +9,13 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: invalid_format
+          value: pterodactly_wings_invalid_format
   - grok:
       pattern: '^WARN: \[%{DATA:time}\] failed to validate user credentials \(invalid username or password\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} subsystem=sftp username=%{USERNAME:username}$'
       apply_on: message
       statics:
         - meta: log_type
-          value: invalid_username_or_password
+          value: pterodactly_wings_invalid_username_or_password
 statics:
     - meta: service
       value: pterodactyl
