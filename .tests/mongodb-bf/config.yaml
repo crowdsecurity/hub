@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/timokoessler/mongodb-logs.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/timokoessler/mongodb-bf.yaml
+postoverflows:
+- ""
+log_file: mongodb-bf.log
+log_type: mongodb
+labels: {}
+ignore_parsers: true
+override_statics: []
