@@ -1,0 +1,20 @@
+filter: "evt.Parsed.program == 'opnsense-openvpn'"
+debug: true
+onsuccess: next_stage
+name: testklaus/opnsense-openvpn
+description: "Simple parser for OpenVPN logs from OPNsense"
+pattern_syntax:
+  OPENVPN_AUTHFAILED: '%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME:logsource_hostname} %{DATA:service} %{DATA:pid} - \[meta sequenceId="%{INT:meta_seq_id}"\] %{IP:source_ip}:%{INT} TLS Auth Error\: Auth Username/Password verification failed for peer'
+nodes:
+  - grok:
+      name: "OPENVPN_AUTHFAILED"
+      apply_on: Line.Raw
+statics:
+  - meta: service
+    value: opnsense-openvpn
+  - meta: log_type
+    value: openvpn_auth_failed
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
