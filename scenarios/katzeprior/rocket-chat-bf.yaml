@@ -1,0 +1,12 @@
+type: leaky
+name: katzeprior/rocket-chat-bf
+description: "Detect rocket.chat bruteforce"
+filter: "evt.Meta.log_type == 'rocket_chat_auth_failed'"
+groupby: evt.Meta.source_ip
+leakspeed: "10s"
+capacity: 5
+blackhole: 1m
+labels:
+ service: rocketchat
+ type: bruteforce
+ remediation: true
