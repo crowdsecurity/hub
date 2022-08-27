@@ -7,11 +7,19 @@ Make sure to enable the following settings under settings->account->Login Logs
 
 If rocket.chat is behind more than 1 proxy, make sure to configure `HTTP_FORWARDED_COUNT` correctly accourding to the [docs](https://docs.rocket.chat/quick-start/environment-configuration/configuring-ssl-reverse-proxy).
 
-Example acquisition for Journalctl:
+Also so the right [timezone](https://docs.rocket.chat/guides/administration/admin-panel/settings/general#timezone) for rocket.chat.
+
+Example acquisition for Journalctl and Docker:
 ```yaml
 ---
 journalctl_filter:
  - SYSLOG_IDENTIFER=rocketchat
+labels:
+  type: rocketchat
+---
+source: docker
+container_name:
+ - my_container_name
 labels:
   type: rocketchat
 ```

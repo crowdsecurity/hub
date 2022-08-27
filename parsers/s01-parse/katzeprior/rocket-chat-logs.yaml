@@ -3,7 +3,7 @@ onsuccess: next_stage
 name: katzeprior/rocket-chat
 description: "Parser for rocket-chat"
 pattern_syntax:
-  ROCKET_CHAT_AUTHFAILED: '%{SYSLOGTIMESTAMP:timestamp} %{IPORHOST:hostname} rocketchat\[%{INT}\]: {"level":%{INT},"time":"%{TIMESTAMP_ISO8601}","pid":%{INT},"hostname":"%{HOSTNAME}","name":"%{DATA}","msg":"Failed login detected - Username\[%{USERNAME}\] ClientAddress\[%{IP:source_ip}\]'
+  ROCKET_CHAT_AUTHFAILED: '{"level":%{INT},"time":"%{TIMESTAMP_ISO8601:timestamp}","pid":%{INT},"hostname":"%{HOSTNAME}","name":"%{DATA}","msg":"Failed login detected - Username\[%{USERNAME}\] ClientAddress\[%{IP:source_ip}\]'
 nodes:
   - grok:
       name: "ROCKET_CHAT_AUTHFAILED"
