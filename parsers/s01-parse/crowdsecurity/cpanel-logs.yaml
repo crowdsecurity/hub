@@ -3,10 +3,51 @@ filter: "evt.Parsed.program == 'cpanel'"
 name: crowdsecurity/cpanel-logs
 description: "Parse Cpanel logs"
 pattern_syntax:
-  NO_DOUBLE_QUOTE: '[^"]+'       
+  NO_DOUBLE_QUOTE: '[^"]+'
+  CPANEL_HEADER: \[%{DATA:date} \+[0-9]+\] info \[(cpaneld|whostmgrd)\] %{IP:remote_addr} - %{NOTSPACE:username} "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}"
 nodes:
   - grok: 
-      pattern: '\[%{DATA:date}\] info \[cpaneld\] %{IP:remote_addr} - %{NOTSPACE:username} "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}" FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok: 
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: brute force attempt \(user %{DATA:target_user}\) has locked out IP %{IP}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_log
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok: 
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: invalid cpanel user %{DATA:target_user}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_log
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok: 
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: %{DATA:target_user} login is not permitted to cpaneld'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_log
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok: 
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN whostmgrd: login attempt to whm by a non-reseller/root'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: auth_bf_log
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok: 
+      pattern: '%{CPANEL_HEADER} FAILED LOGIN whostmgrd: user password incorrect'
       apply_on: message
       statics:
         - meta: log_type

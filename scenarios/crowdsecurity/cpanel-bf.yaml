@@ -1,5 +1,7 @@
-type: trigger
+type: leaky
 name: crowdsecurity/cpanel-bf
+capacity: 5
+leakspeed: 10s
 description: "Detect bruteforce on cpanel login"
 filter: "evt.Meta.log_type == 'auth_bf_log'"
 groupby: evt.Meta.source_ip
