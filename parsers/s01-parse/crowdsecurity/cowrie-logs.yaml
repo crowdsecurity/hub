@@ -18,3 +18,13 @@ statics:
       expression: "evt.Parsed.dest_port"
     - parsed: "telnet_session"
       expression: "evt.Parsed.telnet_session"
+---
+onsuccess: next_stage
+name: cowrie-json-logs
+description: "Parse cowrie honeypot json logs"
+filter: "evt.Parsed.program == 'cowrie_json'"
+statics:
+  - meta: service
+    expression: JsonExtract(evt.Parsed.Message, "protocol") #either ssh or telnet
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.Message, "src_ip")
