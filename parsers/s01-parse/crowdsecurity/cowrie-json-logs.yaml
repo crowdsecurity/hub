@@ -1,0 +1,18 @@
+onsuccess: next_stage
+name: crowdsecurity/cowrie-json-logs
+description: "Parse cowrie honeypot json logs"
+filter: 'evt.Parsed.program == "cowrie_json" && ((JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.success")'
+statics:
+  - target: evt.Meta.service
+    expression: JsonExtract(evt.Parsed.message, "protocol") #either ssh or telnet
+  - target: evt.Meta.source_ip
+    expression: JsonExtract(evt.Parsed.message, "src_ip")
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp")
+  - target: evt.Meta.session
+    expression: JsonExtract(evt.Parsed.message, "session")
+  - meta: log_type
+    expression: JsonExtract(evt.Parsed.message, "protocol")+_failed-auth
+  - target: evt.Meta.target_user
+    expression: JsonExtract(evt.Parsed.message, "username")
+      
