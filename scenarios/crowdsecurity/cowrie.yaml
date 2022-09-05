@@ -1,0 +1,13 @@
+# ssh bruteforce
+type: leaky
+name: crowdsecurity/cowrie
+description: "Detect ssh bruteforce"
+filter: "evt.Meta.log_type == 'cowrie_connect' && evt.Meta.log_type == 'cowrie_login'"
+leakspeed: "60s"
+capacity: 1
+groupby: evt.Meta.session
+reprocess: true
+labels:
+ service: ssh
+ remediation: false
+
