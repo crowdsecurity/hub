@@ -1,19 +1,30 @@
+# For more information see
+# https://github.com/opnsense/ports/blob/master/opnsense/filterlog/files/description.txt
+# and
+# https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html
 filter: "evt.Parsed.program == 'filterlog' or evt.Parsed.message matches '^filterlog:'"
 name: firewallservices/pf-logs
 description: "Parse packet filter logs"
 format: 2.0
 pattern_syntax:
-  PF_UDP_DATA: '%{INT:src_port},%{INT:dst_port},%{INT:data_length}'
-  PF_TCP_DATA: '%{PF_UDP_DATA},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{DATA:tcp_options}'
-  PF_PROTOCOL_DATA: '(%{PF_TCP_DATA}|%{PF_UDP_DATA})'
-  PF_IP_DATA: '%{INT:length},%{IP:src_ip},%{IP:dst_ip},'
-  PF_IPv4_DATA: '%{BASE16NUM:ip4_tos},,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{WORD:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto},'
-  PF_IPv6_DATA: '%{BASE16NUM:ip6_class},%{DATA:ip6_flow_label},%{INT:ip6_hop_limit},%{WORD:ip6_proto},%{INT:ip6_proto_id},'
-  PF_IP_SPECIFIC_DATA: '(%{PF_IPv4_DATA}|%{PF_IPv6_DATA})'
-  PF_LOG_DATA: '%{INT:rule},(%{INT:sub_rule})?,,%{INT:tracker},%{DATA:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},%{INT:ip_ver},'
-  PF_FILTERLOG: '%{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}'
+  # rulenr, subrulenr, anchorname, label | "0", interface, reason, action, dir
+  PF_BASE: '%{INT:rule},(%{INT:sub_rule})?,(%{WORD:anchorname})?,(%{WORD:tracker}| 0),%{WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction}'
+
+  # tos, ecn, ttl, id, offset, flags, protonum, protoname, length, src, dst
+  PF_IPV4_DATA: '%{BASE16NUM:ip4_tos},(%{INT:ip4_ecn})?,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{WORD:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto}'
+  # class, flow, hoplimit, protoname, protonum
+  PF_IPV6_DATA: '%{BASE16NUM:ip6_class},%{BASE16NUM:ip6_flow_label},%{INT:ip6_hop_limit},%{WORD:ip6_proto},%{INT:ip6_proto_id}'
+  # ipversion, ..., length, src, dst
+  PF_IP: '%{INT:ip_ver},(%{PF_IPV4_DATA}|%{PF_IPV6_DATA}),%{INT:length},%{IP:src_ip},%{IP:dst_ip}'
+
+  # srcport, dstport, datalen
+  PF_UDP_DATA: '%{POSINT:src_port},%{POSINT:dst_port},%{INT:data_length}'
+  # srcport, dstport, datalen, flags, seq, ack, window, urg, options
+  PF_TCP_DATA: '%{WORD:tcp_flags},%{INT:sequence_number},(?:%{INT:ack_number})?,%{INT:tcp_window},(%{DATA:urg_data})?,%{GREEDYDATA:tcp_options}'
+  # both protocols start with the same three values
+  PF_PROTOCOL: '%{PF_UDP_DATA}(,%{PF_TCP_DATA})?'
 grok:
-  pattern: "%{PF_FILTERLOG}"
+  pattern: "%{PF_BASE},%{PF_IP},%{PF_PROTOCOL}"
   apply_on: message
 statics:
   - meta: log_type

@@ -1,4 +1,4 @@
-len(results["s01-parse"]["firewallservices/pf-logs"]) == 3
+len(results["s01-parse"]["firewallservices/pf-logs"]) == 8
 results["s01-parse"]["firewallservices/pf-logs"][0].Success == true
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["ip4_flags"] == "none"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["ip4_ttl"] == "64"
@@ -84,7 +84,7 @@ results["s01-parse"]["firewallservices/pf-logs"][2].Evt.Parsed["logsource"] == "
 results["s01-parse"]["firewallservices/pf-logs"][2].Evt.Meta["datasource_path"] == "pf-logs.log"
 results["s01-parse"]["firewallservices/pf-logs"][2].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["firewallservices/pf-logs"][2].Evt.Meta["log_type"] == "pf"
-len(results["s01-parse"]["firewallservices/pf-logs-drop"]) == 3
+len(results["s01-parse"]["firewallservices/pf-logs-drop"]) == 8
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Success == true
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["reason"] == "match"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["dst_port"] == "22"
