@@ -1,0 +1,14 @@
+onsuccess: next_stage
+name: crowdsecurity/cowrie-second-stage
+filter: "evt.GetType() == 'overflow' && (evt.Overflow.Alert.GetScenario() == 'crowdsecurity/cowrie')"
+statics:
+  - meta: source_ip
+    expression: evt.Overflow.Alert.Source.IP
+  - meta: target_user
+    expression: evt.GetMeta("target_user")
+  - meta: session
+    expression: evt.GetMeta("session")
+  - meta: service
+    expression: evt.GetMeta("service")
+  - meta: log_type
+    expression: evt.GetMeta("service") + "_failed-auth"

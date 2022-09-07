@@ -1,7 +1,7 @@
 onsuccess: next_stage
 name: crowdsecurity/cowrie-json-logs-login
 description: "Parse cowrie honeypot json logs"
-filter: 'evt.Parsed.program == "cowrie_json" && ((JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.success")'
+filter: 'evt.Parsed.program == "cowrie_json" && (JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.success")'
 statics:
   - target: evt.Meta.source_ip
     expression: JsonExtract(evt.Parsed.message, "src_ip")
@@ -18,7 +18,7 @@ statics:
 onsuccess: next_stage
 name: crowdsecurity/cowrie-json-logs-connect
 description: "Parse cowrie honeypot json logs"
-filter: 'evt.Parsed.program == "cowrie_json" && ((JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "event_id") == "cowrie.login.success")'
+filter: 'evt.Parsed.program == "cowrie_json" && (JsonExtract(evt.Parsed.message, "eventid") == "cowrie.session.connect")'
 statics:
   - target: evt.Meta.source_ip
     expression: JsonExtract(evt.Parsed.message, "src_ip")
@@ -30,12 +30,3 @@ statics:
     value: cowrie_connect
   - target: evt.Meta.service
     expression: JsonExtract(evt.Parsed.message, "protocol") #either ssh or telnet
-
-
----
-onsuccess: next_stage
-name: crowdsecurity/cowrie-second-stage
-filter: 'evt.type == 1'
-statics:
-  - meta: source_ip
-    expression: evt.Overflow.Alert.Source.IP
