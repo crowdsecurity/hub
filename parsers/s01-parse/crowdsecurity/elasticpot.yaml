@@ -1,7 +1,7 @@
 onsuccess: next_stage
 name: crowdsecurity/elasticpot
 description: "Parse elsticpot honeypot json logs"
-filter: 'evt.Parsed.program == "cowrie_json" && (JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.success")'
+filter: 'evt.Parsed.program == "elasticpot"'
 statics:
   - target: evt.Meta.source_ip
     expression: JsonExtract(evt.Parsed.message, "src_ip")
