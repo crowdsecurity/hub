@@ -2,7 +2,7 @@ onsuccess: next_stage
 debug: true
 name: crowdsecurity/citrixhoneypot
 description: "Parse citrixhoneypot honeypot json logs"
-filter: 'evt.Parsed.program == "citrixhoneypot" && JsonExtract(evt.Parsed.message,"levelname") == "CRITICAL"'
+filter: 'evt.Parsed.program == "citrixhoneypot"'
 pattern_syntax:
   IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
@@ -17,4 +17,5 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "asctime")
   - meta: log_type
     value: citrixhoneypot
-    
+  - meta: levelname
+    expression: JsonExtract(evt.Parsed.message,"levelname")
