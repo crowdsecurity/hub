@@ -1,0 +1,12 @@
+type: leaky
+name: crowdsecurity/elsticspot
+description: "detect recon/attack on elasticsearch"
+debug: false
+filter: "evt.Meta.log_type == 'elasticsearch'"
+groupby: evt.Meta.source_ip
+capacity: 3
+leakspeed: "60s"
+blackhole: 5m
+labels:
+ type: scan
+ remediation: true

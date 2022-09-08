@@ -1,0 +1,20 @@
+onsuccess: next_stage
+name: crowdsecurity/elasticpot
+description: "Parse elsticpot honeypot json logs"
+filter: 'evt.Parsed.program == "cowrie_json" && (JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.failed" || JsonExtract(evt.Parsed.message, "eventid") == "cowrie.login.success")'
+statics:
+  - target: evt.Meta.source_ip
+    expression: JsonExtract(evt.Parsed.message, "src_ip")
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp")
+  - target: evt.Meta.session
+    expression: JsonExtract(evt.Parsed.message, "session")
+  - target: evt.Meta.target_user
+    expression: JsonExtract(evt.Parsed.message, "username")
+  - target: evt.Meta.port
+    expression: JsonExtract(evt.Parsed.message, "dst_port")
+  - target: evt.Meta.user_agent
+    expression: JsonExtract(evt.Parsed.message, "user_agent")
+  - meta: log_type
+    value: elasticsearch
+    
