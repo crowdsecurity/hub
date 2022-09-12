@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/tanner.yaml
+scenarios:
+- ./scenarios/crowdsecurity/tanner.yaml
+
+postoverflows:
+- ""
+log_file: tanner-scenario.log
+log_type: tanner
+labels: {}
+ignore_parsers: true
+override_statics: []
