@@ -1,0 +1,10 @@
+type: trigger
+#requires at least 2.0 because it's using the 'data' section and the 'Upper' expr helper
+format: 2.0
+name: crowdsecurity/tanner
+description: "A scenario to take care of tanner findings"
+filter: "evt.Meta.log_type == 'http_error-log' && evt.Meta.sub_log_type == 'tanner' && evt.Meta.detection_type in ['xss', 'sqli', 'rfi', 'lfi', 'cmd_exec', 'php_code_injection', 'crlf', 'php_object_injection', 'xxe', 'template_injection']"
+groupby: evt.Meta.source_ip
+labels:
+  service: http
+  remediation: true
