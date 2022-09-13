@@ -1,0 +1,33 @@
+#debug: true
+onsuccess: next_stage
+name: crowdsecurity/tanner
+description: "Parse tanner logs trying to make it compatible with common http"
+#log line can be prefixed by a target_fqdn
+filter: 'evt.Parsed.program == "tanner"'
+      # these ones apply for both grok patterns
+statics:
+  - meta: log_type
+    value: http_error-log # seems like an authoritative stuff, but it keeps compat with other http server
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp") + 'Z'
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "peer.ip")
+  - meta: http_status
+    expression: JsonExtract(evt.Parsed.message, "status")
+  - meta: http_path
+    expression: JsonExtract(evt.Parsed.message, "path")
+  - meta: http_verb
+    expression: JsonExtract(evt.Parsed.message, "method")
+  - meta: http_user_agent
+    expression: JsonExtract(evt.Parsed.message, "headers.user_agent")
+  - meta: target_fqdn
+    expression: JsonExtract(evt.Parsed.message, "headers.host")
+  - meta: sub_log_type
+    value: tanner
+  - meta: detection_type
+    expression: JsonExtract(evt.Parsed.message, "response_msg.response.message.detection.name")
+  - meta: payload
+    expression: JsonExtract(evt.Parsed.message, "response_msg.response.message.detection.payload.value")
+          

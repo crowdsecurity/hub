@@ -1,0 +1,12 @@
+# citrixhoneypot
+type: trigger
+name: crowdsecurity/citrixhoneypot
+description: "Detect CVE-2019-19781 exploitation"
+filter: "evt.Meta.log_type == 'citrixhoneypot' && evt.Meta.levelname == 'CRITICAL'"
+leakspeed: "30m"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: citrix
+  type: exploit
+  remediation: true
