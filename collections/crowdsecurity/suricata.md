@@ -16,7 +16,8 @@ Note: Tested with Suricata 6
 Example acquisition for this collection :
 
 ```yaml
-filename: /var/log/suricata/eve.json
+filenames:
+ - /var/log/suricata/eve.json
 labels:
   type: suricata-evelogs
 ```
@@ -24,7 +25,8 @@ labels:
 **or**
 
 ```yaml
-filename: /var/log/suricata/fast.log
+filenames:
+ - /var/log/suricata/fast.log
 labels:
   type: suricata-fastlogs
 ```
