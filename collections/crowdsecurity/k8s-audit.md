@@ -48,7 +48,7 @@ format: |
   {{end -}}
 
 
-webhook: https://hooks.slack.com/services/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
+webhook: <WEBHOOK_URL>
 ```
 
 More informations about the notification system can be found in [our documentation](https://docs.crowdsec.net/docs/next/notification_plugins/intro)
