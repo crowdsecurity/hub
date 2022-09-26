@@ -1,0 +1,14 @@
+type: trigger
+name: crowdsecurity/k8s-audit-privileged-pod-creation
+description: "Detect privileged pod creation"
+filter: |
+  evt.Meta.log_type == 'k8s-audit' &&
+  evt.Unmarshaled.Verb == 'create' &&
+  evt.Unmarshaled.ObjectRef?.Resource == 'pods' &&
+  evt.Unmarshaled.RequestObject != nil &&
+  evt.Unmarshaled.RequestObject.spec != nil &&
+  any(evt.Unmarshaled.RequestObject.spec.containers, { .securityContext != nil && .securityContext.privileged == true })
+labels:
+ service: k8s
+ type: privileged-pod
+ notification: true

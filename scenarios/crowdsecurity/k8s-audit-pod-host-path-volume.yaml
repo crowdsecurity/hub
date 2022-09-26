@@ -1,0 +1,13 @@
+type: trigger
+name: crowdsecurity/k8s-audit-pod-host-path-volume
+description: "Detect pods mounting a sensitive host folder"
+filter: |
+  evt.Meta.log_type == 'k8s-audit' &&
+  evt.Unmarshaled.ObjectRef?.Resource == 'pods' &&
+  evt.Unmarshaled.RequestObject != nil &&
+  evt.Unmarshaled.RequestObject.spec != nil &&
+  any(evt.Unmarshaled.RequestObject.spec.volumes, { .hostPath != nil && .hostPath.path in ["/proc", "/var/run/docker.sock", "/", "/etc", "/root", "/var/run/crio/crio.sock", "/home/admin", "/var/lib/kubelet", "/var/lib/kubelet/pki", "/etc/kubernetes", "/etc/kubernetes/manifests"] })
+labels:
+  service: k8s
+  type: pod-host-path
+  notification: true

@@ -1,0 +1,11 @@
+type: trigger
+name: crowdsecurity/k8s-audit-pod-exec
+description: "Detect execution (via kubectl exec) in pods"
+filter: |
+  evt.Meta.log_type == 'k8s-audit' &&
+  evt.Unmarshaled.ObjectRef?.Resource == 'pods' &&
+  evt.Unmarshaled.ObjectRef?.Subresource == 'exec'
+labels:
+ service: k8s
+ type: exec-into-pod
+ notification: true

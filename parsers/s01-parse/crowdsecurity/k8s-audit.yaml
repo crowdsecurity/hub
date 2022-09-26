@@ -1,0 +1,19 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'k8s-audit'"
+name: crowdsecurity/k8s-audit
+description: "Parse Kubernetes audit logs"
+statics:
+  - method: UnmarshalJSON
+    expression: evt.Line.Raw
+  - meta: user
+    expression: evt.Unmarshaled.User.username
+  - meta: source_ip
+    expression: evt.Unmarshaled.SourceIPs[0]
+  - meta: namespace
+    expression: evt.Unmarshaled.ObjectRef.Namespace
+  - meta: resource_name
+    expression: evt.Unmarshaled.ObjectRef.Name
+  - meta: kind
+    expression: evt.Unmarshaled.RequestObject?.kind
+  - meta: log_type
+    value: k8s-audit
