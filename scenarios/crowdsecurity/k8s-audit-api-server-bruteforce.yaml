@@ -1,5 +1,5 @@
 type: leaky
-name: crowdsecurity/k8s-api-server-bruteforce
+name: crowdsecurity/k8s-audit-api-server-bruteforce
 description: "Detect bruteforce attempts against K8S API server"
 filter: "evt.Meta.log_type == 'k8s-audit' && evt.Unmarshaled.ResponseStatus.code in [401, 403]"
 leakspeed: "10s"
