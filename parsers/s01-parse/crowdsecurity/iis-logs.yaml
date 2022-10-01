@@ -27,7 +27,7 @@ nodes:
         - target: evt.StrTime
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='date']") + " " + XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='time']")
         - target: evt.Parsed.request
-          expression: evt.Meta.http_path + '?' + evt.Meta.http_args
+          expression: evt.Meta.http_path + '?' + evt.Parsed.http_args
   - filter: "evt.Parsed.datasource_type != 'wineventlog'"
     grok:
       pattern: "%{TIMESTAMP_ISO8601:date} %{IP:server_ip} %{WORD:http_method} %{DATA:http_path} %{DATA:http_args} %{INT} %{DATA:remote_user} %{IP:client_ip} %{DATA:user_agent} %{DATA:referer} %{INT:status} %{INT:substatus} %{INT:win32_status} %{INT:duration}"
@@ -47,6 +47,9 @@ nodes:
         expression: evt.Parsed.method
       - parsed: verb
         expression: evt.Parsed.method
+      - target: evt.Parsed.request
+        expression: evt.Meta.http_path + '?' + evt.Parsed.http_args
+
 statics:
   - meta: service
     value: http
