@@ -10,3 +10,4 @@ filenames:
 labels:
   type: syslog
 ---
+```
