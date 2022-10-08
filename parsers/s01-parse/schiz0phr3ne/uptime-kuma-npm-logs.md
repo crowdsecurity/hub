@@ -1,4 +1,4 @@
-Parser for [Uptime Kuma](https://github.com/louislam/uptime-kuma) ogs when runned with `npm` (logs are in `syslog`).
+Parser for [Uptime Kuma](https://github.com/louislam/uptime-kuma) logs when runned with `npm` (logs are in `syslog`).
 
 **Uptime Kuma version 1.15.0 or higher is required.**
 
