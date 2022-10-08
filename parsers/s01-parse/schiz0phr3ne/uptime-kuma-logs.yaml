@@ -1,0 +1,27 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'npm'"
+name: timokoessler/uptime-kuma-logs
+description: "Parse Uptime Kuma Logs"
+nodes:
+  - grok:
+      pattern: '^%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username}\. IP=%{IP:source_ip}$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: uptime_kuma_failed_password
+  - grok:
+      pattern: '^%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Invalid token provided for user %{DATA:username}\. IP=%{IP:source_ip}$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: uptime_kuma_failed_totp
+
+statics:
+    - meta: service
+      value: uptime-kuma
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
+    - meta: username
+      expression: evt.Parsed.username
