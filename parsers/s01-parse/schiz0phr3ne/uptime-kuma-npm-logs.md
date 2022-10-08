@@ -2,7 +2,7 @@ Parser for [Uptime Kuma](https://github.com/louislam/uptime-kuma) logs when runn
 
 **Uptime Kuma version 1.15.0 or higher is required.**
 
-Example acquisition for Docker:
+Example acquisition:
 ```yaml
 ---
 filenames:
