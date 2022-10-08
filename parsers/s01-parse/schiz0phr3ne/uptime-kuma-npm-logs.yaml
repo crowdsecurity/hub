@@ -1,7 +1,7 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program == 'npm'"
-name: timokoessler/uptime-kuma-logs
-description: "Parse Uptime Kuma Logs"
+name: schiz0phr3ne/uptime-kuma-npm-logs
+description: "Parse Uptime Kuma logs when runned directly with `npm` (logs are in `syslog`)"
 nodes:
   - grok:
       pattern: '^%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username}\. IP=%{IP:source_ip}$'
