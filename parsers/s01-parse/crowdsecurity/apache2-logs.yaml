@@ -41,7 +41,7 @@ nodes:
       - filter: "evt.Parsed.module == 'auth_basic'"
         onsuccess: next_stage
         pattern_syntax:
-          EXTRACT_USER_AND_PATH: 'user %{DATA:username}?( not found)?(:) ?(|authentication failure for) ("%{DATA:target_uri}"|%{GREEDYDATA:target_uri})'
+          EXTRACT_USER_AND_PATH: 'user %{NOT_DOUBLE_POINT:username}: authentication failure for "%{NOT_DOUBLE_QUOTE:target_uri}": Password Mismatch'
         grok:
           pattern: '%{EXTRACT_USER_AND_PATH}'
           apply_on: message
