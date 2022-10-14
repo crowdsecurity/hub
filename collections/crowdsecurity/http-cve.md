@@ -13,6 +13,7 @@ A collection of http specific CVEs :
  - [Spring4Shell CVE-2022-22965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22965)
  - [VMware CVE-2022-22954](https://www.vmware.com/security/advisories/VMSA-2022-0011.html)
  - [GLPI CVE-2022-35914](https://nvd.nist.gov/vuln/detail/CVE-2022-35914)
+ - [Fortinet CVE-2022-40684](https://www.horizon3.ai/fortios-fortiproxy-and-fortiswitchmanager-authentication-bypass-technical-deep-dive-cve-2022-40684/)
 
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
