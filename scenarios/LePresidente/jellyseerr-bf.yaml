@@ -10,17 +10,12 @@ capacity: 5
 blackhole: 1m
 labels:
   service: jellyseerr
-  behavior: "http:bruteforce"
-  spoofable: 0
-  confidence: 3
-  classification:
-    - attack.T1110
-  label: "Jellyseerr Bruteforce"
+  type: bruteforce
   remediation: true
 ---
 # jellyseerr user-enum
 type: leaky
-name: LePresidente/jellyseerr-bf_user-enum
+name:  LePresidente/jellyseerr-bf_user-enum
 description: "Detect jellyseerr user enum bruteforce"
 filter: "evt.Meta.log_type == 'jellyseerr_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -29,12 +24,6 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
-  service: jellyseerr
-  behavior: "http:bruteforce"
-  spoofable: 0
-  confidence: 3
-  classification:
-    - attack.T1589
-    - attack.T1110
-  label: "Jellyseerr User Enumeration"
-  remediation: true
+ service: jellyseerr
+ type: bruteforce
+ remediation: true

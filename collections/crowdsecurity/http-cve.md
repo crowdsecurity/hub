@@ -18,21 +18,8 @@ Works with [apache2](https://hub.crowdsec.net/author/crowdsecurity/collections/a
  - [Atlassian Jira CVE-2021-26086](https://cve.circl.lu/cve/CVE-2021-26086)
  - [Spring4Shell CVE-2022-22965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22965)
  - [VMware CVE-2022-22954](https://www.vmware.com/security/advisories/VMSA-2022-0011.html)
- - [Zimbra CVE-2022-37042](https://nvd.nist.gov/vuln/detail/CVE-2022-37042)
- - [Microsoft Exchange CVE-2022-41082](https://nvd.nist.gov/vuln/detail/CVE-2022-41082)
  - [GLPI CVE-2022-35914](https://nvd.nist.gov/vuln/detail/CVE-2022-35914)
  - [Fortinet CVE-2022-40684](https://www.horizon3.ai/fortios-fortiproxy-and-fortiswitchmanager-authentication-bypass-technical-deep-dive-cve-2022-40684/)
- - [Confluence CVE-2022-26134](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-26134)
- - [Text4Shell CVE-2022-42889](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42889)
- - [Ghost CMS CVE-2022-41697](https://nvd.nist.gov/vuln/detail/CVE-2022-41697)
- - [Cacti CVE-2022-46169](https://nvd.nist.gov/vuln/detail/CVE-2022-46169)
- - [Centos Web Panel 7 CVE-2022-44877](https://nvd.nist.gov/vuln/detail/CVE-2022-44877)
- - [Telerik UI CVE-2019-18935](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-18935)
- - [Netgear DGN1000 / DGN2200 Remote Command Execution](https://www.exploit-db.com/exploits/25978)
- - [Confluence CVE-2023-22515](https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html)
- - [Confluence CVE-2023-22518](https://confluence.atlassian.com/pages/viewpage.action?pageId=1311473907)
- - [Owncloud CVE-2023-49103](https://nvd.nist.gov/vuln/detail/CVE-2023-49103)
-
 
 
 
