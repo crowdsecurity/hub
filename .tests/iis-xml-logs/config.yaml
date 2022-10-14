@@ -1,0 +1,18 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/iis-logs.yaml
+- crowdsecurity/windows-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+scenarios:
+- ""
+postoverflows:
+- ""
+log_file: iis-logs.log
+log_type: iis
+labels: {}
+ignore_parsers: false
+override_statics:
+ - target: evt.Line.Module
+   value: wineventlog
+ - target: evt.Parsed.EventID
+   value: "6200"

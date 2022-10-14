@@ -13,6 +13,7 @@ Example acquisition for this collection :
 ```yaml
 filenames:
   - /var/log/asterisk/*.log
+labels:
   type: asterisk
 ```
 
