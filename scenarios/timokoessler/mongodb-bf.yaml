@@ -1,0 +1,46 @@
+# mongodb bruteforce
+type: leaky
+name: timokoessler/mongodb-bf
+description: "Detect mongodb bruteforce"
+filter: "evt.Meta.log_type == 'mongodb_failed_auth'"
+leakspeed: "20s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: mongodb
+  type: bruteforce
+  remediation: true
+---
+# mongodb user enum bruteforce
+type: leaky
+name: timokoessler/mongodb-bf_user-enum
+description: "Detect mongodb user enum bruteforce"
+filter: "evt.Meta.log_type == 'mongodb_failed_auth'"
+leakspeed: "40s"
+capacity: 5
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+blackhole: 1m
+reprocess: true
+labels:
+  service: mongodb
+  type: bruteforce
+  remediation: true
+---
+# mongodb authentication database enum bruteforce
+type: leaky
+name: timokoessler/mongodb-bf_auth-db-enum
+description: "Detect mongodb authentication database enum bruteforce"
+filter: "evt.Meta.log_type == 'mongodb_failed_auth'"
+leakspeed: "40s"
+capacity: 5
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.authentication_database
+blackhole: 1m
+reprocess: true
+labels:
+  service: mongodb
+  type: bruteforce
+  remediation: true

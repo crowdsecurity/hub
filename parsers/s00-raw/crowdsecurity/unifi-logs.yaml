@@ -1,0 +1,23 @@
+filter: "evt.Line.Labels.type == 'unifi'"
+onsuccess: next_stage
+pattern_syntax:
+  SYSLOGBASE_UNIFI: '(?:%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp8601}) (?:%{SYSLOGFACILITY} )?%{DATA:logsource}+(?: %{SYSLOGPROG}:|)'
+  SYSLOGLINE_UNIFI: '%{SYSLOGBASE_UNIFI} %{GREEDYDATA:message}'
+name: crowdsecurity/unifi-logs
+nodes:
+  - grok:
+      pattern: "^%{SYSLOGLINE_UNIFI}"
+      apply_on: Line.Raw
+statics:
+  - meta: machine
+    expression: evt.Parsed.logsource
+  - parsed: "logsource"
+    value: "syslog"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp8601
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
