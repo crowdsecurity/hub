@@ -1,0 +1,15 @@
+type: leaky
+name: crowdsecurity/http-magento-ccs-by-as
+debug: true
+description: "Detect distributed credit card stuffing from same AS"
+filter: "evt.Meta.log_type == 'PAYMENT_FAILED' and evt.Meta.ASNNumber != '' "
+groupby: evt.Meta.ASNNumber
+distinct: evt.Meta.source_ip
+capacity: 10
+leakspeed: 30s
+blackhole: 5m
+labels:
+ service: http
+ type: scan
+ remediation: true
+ application: magento

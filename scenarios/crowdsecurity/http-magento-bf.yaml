@@ -1,0 +1,14 @@
+type: leaky
+name: crowdsecurity/http-magento-bf
+debug: true
+description: "detect Magento bruteforce"
+filter: "evt.Meta.log_type == 'ADMIN_LOGIN_FAILED'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 10s
+blackhole: 5m
+labels:
+ service: http
+ type: bruteforce
+ remediation: true
+ application: magento
