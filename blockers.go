@@ -8,10 +8,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/google/go-github/github"
 	"github.com/pkg/errors"
+	"golang.org/x/oauth2"
 )
 
 const (
@@ -136,6 +138,16 @@ func LoadJSON(file string) ([]ItemInfo, error) {
 func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	/*Configure client with auth*/
 	client := github.NewClient(nil)
+	githubToken := os.Getenv("GH_TOKEN")
+	if githubToken != "" {
+		log.Printf("GH_TOKEN env found, using it")
+		ctx := context.Background()
+		ts := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: "... your access token ..."},
+		)
+		tc := oauth2.NewClient(ctx, ts)
+		client = github.NewClient(tc)
+	}
 	/*get main infos about repo*/
 	log.Printf("updating %s/%s", item.Owner, item.Name)
 	repinfo, _, err := client.Repositories.Get(context.Background(), item.Owner, item.Name)
