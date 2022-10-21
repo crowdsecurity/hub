@@ -15,6 +15,10 @@ statics:
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
   - parsed: Source
     expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Provider", "Name")
+  - parsed: Computer
+    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Computer")
+  - parsed: UserSID
+    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Security", "UserID")
   - parsed: program
     expression: evt.Line.Labels.type
 ---

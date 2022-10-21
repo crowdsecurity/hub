@@ -1,0 +1,35 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'VAULTWARDEN'"
+name: Dominic-Wagner/vaultwarden-logs
+description: "Parse vaultwarden logs"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+nodes:
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::identity\]\[ERROR\] Username or password is incorrect\. Try again\. IP: %{IP:source_ip}\. Username: %{EMAILADDRESS:username}\.$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_auth
+        - meta: username
+          expression: evt.Parsed.username
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::admin\]\[ERROR\] Invalid admin token. IP: %{IP:source_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_admin_auth
+  - grok:
+      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::core::two_factor::authenticator\]\[ERROR\] Invalid TOTP code! Server time: %{DATE_YMD:server_date} %{TIME:server_time} %{TZ:server_tz} IP: %{IP:source_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_totp
+
+statics:
+    - meta: service
+      value: vaultwarden
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"

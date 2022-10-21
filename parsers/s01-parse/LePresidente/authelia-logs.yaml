@@ -1,0 +1,57 @@
+onsuccess: next_stage
+debug: false
+name: LePresidente/authelia-logs
+filter: "evt.Parsed.program == 'authelia'"
+description: "Parse Authelia logs"
+pattern_syntax:  
+  AUTHELIA_BAD_AUTH: 'Unsuccessful 1FA authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
+  AUTHELIA_BAD_DUO: 'Unsuccessful Duo authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
+  AUTHELIA_BAD_TOTP: 'Unsuccessful TOTP authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
+  AUTHELIA_CLF_BADAUTH: '^time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_AUTH}.*?remote_ip=%{IP:remote_ip}'
+  AUTHELIA_CLF_DUO: '^time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_DUO}.*?remote_ip=%{IP:remote_ip}'
+  AUTHELIA_CLF_TOTP: '^time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_TOTP}.*?remote_ip=%{IP:remote_ip}'
+nodes:
+  - grok:
+      name: "AUTHELIA_CLF_BADAUTH"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: authelia_failed_clf_auth 
+  - grok:
+      name: "AUTHELIA_CLF_DUO"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: authelia_failed_clf_auth 
+  - grok:
+      name: "AUTHELIA_CLF_TOTP"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: authelia_failed_clf_auth 
+  - grok:
+    nodes:
+      - grok:
+          pattern: Unsuccessful (1FA|Duo|TOTP) authentication attempt by user '(%{EMAILADDRESS:email}|%{USERNAME:username})'
+          expression: JsonExtract(evt.Parsed.message, "msg")
+        statics:
+          - meta: log_type
+            value: authelia_failed_json_auth
+      - grok:
+          pattern: '%{IP:remote_ip}'
+          expression: JsonExtract(evt.Parsed.message, "remote_ip")
+      - grok: 
+          pattern: '%{RFC3339:timestamp}'
+          expression: JsonExtract(evt.Parsed.message, "time")
+
+statics:
+    - meta: service
+      value: authelia
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: user
+      expression: "evt.Parsed.email"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: "evt.Parsed.remote_ip"

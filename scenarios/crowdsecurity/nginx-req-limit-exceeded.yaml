@@ -1,0 +1,13 @@
+type: leaky
+#debug: true
+name: crowdsecurity/nginx-req-limit-exceeded
+description: "Detects IPs which violate nginx's user set request limit."
+filter: evt.Meta.sub_type == 'req_limit_exceeded'
+leakspeed: "60s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: nginx
+ type: bruteforce
+ remediation: true

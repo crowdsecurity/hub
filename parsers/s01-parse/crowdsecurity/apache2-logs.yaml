@@ -23,6 +23,12 @@ nodes:
           expression: evt.Parsed.response
         - meta: http_path
           expression: evt.Parsed.request
+        - meta: http_verb
+          expression: "evt.Parsed.verb"
+        - meta: http_user_agent
+          expression: "evt.Parsed.http_user_agent"
+        - meta: target_fqdn
+          expression: "evt.Parsed.target_fqdn"
     onsuccess: next_stage
   - grok:
       pattern: '%{HTTPD_ERRORLOG}'

@@ -11,6 +11,9 @@ nodes:
   - grok:
       pattern: "auth-worker\\(%{INT}\\): pam\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip},?%{DATA}\\): (%{DATA}: )?%{DATA:dovecot_login_message}$"
       apply_on: message
+  - grok:
+      pattern: "auth-worker\\(%{INT}\\): conn unix:auth-worker \\(pid=%{INT},uid=%{INT}\\): auth-worker<%{INT}>: pam\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip},?%{DATA}\\): (%{DATA}: )?%{DATA:dovecot_login_message}$"
+      apply_on: message
 statics:
     - meta: log_type
       value: dovecot_logs

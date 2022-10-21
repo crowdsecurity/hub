@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+- crowdsecurity/nginx-logs
+scenarios:
+- ./scenarios/crowdsecurity/http-wordpress_user-enum.yaml
+postoverflows:
+- ""
+log_file: http-wordpress_user-enum.log
+log_type: nginx
+labels: {}
+ignore_parsers: true

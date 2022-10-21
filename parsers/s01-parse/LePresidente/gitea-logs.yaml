@@ -1,0 +1,26 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/gitea-logs
+filter: "evt.Parsed.program == 'gitea'"
+description: "Parse gitea logs"
+pattern_syntax:
+  CUSTOMDATE: "%{DATE_X} %{TIME}"
+nodes:
+  - grok:
+      pattern: '^%{CUSTOMDATE:timestamp}.*?Failed authentication attempt for (%{EMAILADDRESS:email}|%{USERNAME:username}) from %{IP:remote_ip}:%{NUMBER:remote_port}: user does not exist'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: gitea_failed_auth
+
+statics:
+    - meta: service
+      value: gitea
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: user
+      expression: "evt.Parsed.email"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: "evt.Parsed.remote_ip"

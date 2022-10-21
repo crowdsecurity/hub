@@ -1,0 +1,28 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'MONGODB'"
+name: timokoessler/mongodb-logs
+description: "Parse MongoDB logs"
+nodes:
+  - filter: |
+     JsonExtract(evt.Parsed.message, "c") == 'ACCESS' &&
+     JsonExtract(evt.Parsed.message, "msg") == 'Authentication failed'
+    statics:
+      - meta: log_type
+        value: "mongodb_failed_auth"
+    grok:
+      pattern: '%{IPORHOST:remote_addr}'
+      expression: JsonExtract(evt.Parsed.message, "attr.remote")
+
+statics:
+  - meta: service
+    value: mongodb
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - parsed: timestamp
+    expression: JsonExtract(evt.Parsed.message, "t.$date")
+  - target: evt.StrTime
+    expression: "evt.Parsed.timestamp"
+  - meta: username
+    expression: JsonExtract(evt.Parsed.message, "attr.principalName")
+  - meta: authentication_database
+    expression: JsonExtract(evt.Parsed.message, "attr.authenticationDatabase")

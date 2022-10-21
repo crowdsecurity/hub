@@ -7,9 +7,11 @@ onsuccess: next_stage
 pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
+  NUMBER_MINUS: '[0-9-]+'
+  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
 nodes:
   - grok: # CLF parser
-      pattern: '%{NGINXACCESS} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
+      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
     onsuccess: next_stage
   - grok:
@@ -68,5 +70,5 @@ statics:
     value: http_access-log
   - target: evt.StrTime
     expression: "evt.Parsed.time_local"
-
-
+  - meta: traefik_router_name
+    expression: "evt.Parsed.traefik_router_name"

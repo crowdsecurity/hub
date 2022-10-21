@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/synology-dsm-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/synology-dsm-bf.yaml
+postoverflows:
+- ""
+log_file: synology-dsm-bf.log
+log_type: syslog
+labels: {}
+ignore_parsers: true

@@ -1,0 +1,27 @@
+# Synology DSM auth.log
+#debug: true
+filter: "evt.Parsed.program == 'synoscgi_SYNO.API.Auth_7_login'"
+name: crowdsecurity/synology-dsm-logs
+description: "Parse Synology DSM web auth logs"
+onsuccess: next_stage
+format: 2.0
+pattern_syntax:
+  TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY}T%{HOUR}:%{MINUTE}:%{SECOND}+%{ISO8601_TIMEZONE}'
+# The IP grok pattern that ships with crowdsec is buggy and does not capture the last digit of an IP if it is the last thing it matches, and the last octet starts with a 2
+# https://github.com/crowdsecurity/crowdsec/issues/938
+  IPv4_WORKAROUND: '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
+  IP_WORKAROUND: '(?:%{IPV6}|%{IPv4_WORKAROUND})'
+  AUTH_LOG_FAIL: 'pam_unix\(webui:auth\): authentication failure; logname= uid=0 euid=0 tty= ruser= rhost=%{IP_WORKAROUND:src_ip}'
+grok:
+  pattern: "%{AUTH_LOG_FAIL}"
+  apply_on: message
+  statics:
+    - meta: log_type
+      value: synology-dsm_failed_auth
+statics:
+  - meta: log_type
+    value: synology-dsm_failed_auth
+  - meta: service
+    value: synology-dsm
+  - meta: source_ip
+    expression: "evt.Parsed.src_ip"

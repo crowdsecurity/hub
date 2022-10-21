@@ -1,0 +1,16 @@
+# endlessh bruteforce
+type: leaky
+name: crowdsecurity/endlessh-bf
+description: "Detect SSH bruteforce caught by Endlessh"
+filter: "evt.Meta.log_type == 'endlessh_accept'"
+leakspeed: "5m"
+references:
+  - http://wikipedia.com/ssh-bf-is-bad
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 120m
+reprocess: true
+labels:
+  service: endlessh
+  type: bruteforce
+  remediation: true

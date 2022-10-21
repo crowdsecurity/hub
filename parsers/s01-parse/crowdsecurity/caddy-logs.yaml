@@ -3,14 +3,28 @@ onsuccess: next_stage
 # debug: true
 name: crowdsecurity/caddy-logs
 description: "Parse caddy logs"
+pattern_syntax:
+ CUSTOMDATE: '%{DAY:day}, %{MONTHDAY:monthday} %{MONTH:month} %{YEAR:year} %{TIME:time} %{WORD:tz}'
 nodes:
   - nodes:
     - grok:
         pattern: '%{NOTSPACE} %{NOTSPACE} %{NOTSPACE} \[%{HTTPDATE:timestamp}\]%{DATA}'
         expression: JsonExtract(evt.Line.Raw, "common_log")
+        statics:
+          - target: evt.StrTime
+            expression: evt.Parsed.timestamp
+    - grok:
+        pattern: "%{CUSTOMDATE:timestamp}"
+        expression: JsonExtract(evt.Line.Raw, "resp_headers.Date[0]")
+        statics:
+          - target: evt.StrTime
+            expression: evt.Parsed.day + " " + evt.Parsed.month + " " + evt.Parsed.monthday + " " + evt.Parsed.time + ".000000" + " " + evt.Parsed.year
     - grok:
         pattern: '%{IPORHOST:remote_addr}:%{NUMBER}'
         expression: JsonExtract(evt.Line.Raw, "request.remote_addr")
+    - grok:
+        pattern: '%{IPORHOST:remote_ip}'
+        expression: JsonExtract(evt.Line.Raw, "request.remote_ip")
     - grok:
         pattern: '\["%{NOTDQUOTE:http_user_agent}\"]'
         expression: JsonExtract(evt.Line.Raw, "request.headers.User-Agent")
@@ -19,14 +33,16 @@ statics:
     value: http_access-log
   - meta: service
     value: http
-  - target: evt.StrTime
-    expression: evt.Parsed.timestamp
   - meta: source_ip
     expression: evt.Parsed.remote_addr
+  - meta: source_ip
+    expression: evt.Parsed.remote_ip
   - meta: http_status
     expression: JsonExtract(evt.Line.Raw, "status")
   - meta: http_path
     expression: JsonExtract(evt.Line.Raw, "request.uri")
+  - parsed: verb
+    expression: JsonExtract(evt.Line.Raw, "request.method")
   - meta: http_verb
     expression: JsonExtract(evt.Line.Raw, "request.method")
   - meta: http_user_agent

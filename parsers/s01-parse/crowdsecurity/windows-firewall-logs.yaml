@@ -3,7 +3,7 @@ filter: "evt.Parsed.program == 'windows-firewall' and evt.Parsed.message contain
 name: crowdsecurity/windows-firewall-logs
 description: "Parse windows firewall drop logs"
 grok:
-  pattern: "%{TIMESTAMP_ISO8601:date} DROP TCP %{IP:src_ip} %{IP:dst_ip} %{INT:src_port} %{INT:dst_port} %{INT:size} %{WORD:flags} %{INT:tcpsyn} %{INT:tcpack} %{INT:window} - - - RECEIVE %{INT:pid}" 
+  pattern: "%{TIMESTAMP_ISO8601:date} DROP TCP %{IP:src_ip} %{IP:dst_ip} %{INT:src_port} %{INT:dst_port} %{INT:size} %{WORD:flags} %{INT:tcpsyn} %{INT:tcpack} %{INT:window} - - - RECEIVE( %{INT:pid})?" 
   apply_on: message
 statics:
     - meta: service

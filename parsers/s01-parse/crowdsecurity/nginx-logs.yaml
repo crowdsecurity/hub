@@ -12,14 +12,14 @@ nodes:
         - target: evt.StrTime
           expression: evt.Parsed.time_local
   - grok:
-        # and this one the error log
-        pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}", host: "%{IPORHOST}"'
-        apply_on: message
-        statics:
-          - meta: log_type
-            value: http_error-log
-          - target: evt.StrTime
-            expression: evt.Parsed.time
+      # and this one the error log
+      pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: "%{WORD:verb} ([^/]+)?%{URIPATHPARAM:request}( HTTP/%{NUMBER:http_version})?", host: "%{IPORHOST}(:%{NONNEGINT})?"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_error-log
+        - target: evt.StrTime
+          expression: evt.Parsed.time
     pattern_syntax:
       NO_DOUBLE_QUOTE: '[^"]+'
     onsuccess: next_stage
@@ -46,6 +46,10 @@ nodes:
             value: "auth_fail"
           - meta: username
             expression: evt.Parsed.username
+      - filter: "evt.Parsed.message contains 'limiting requests, excess'"
+        statics:
+          - meta: sub_type
+            value: "req_limit_exceeded"
     # these ones apply for both grok patterns
 statics:
   - meta: service

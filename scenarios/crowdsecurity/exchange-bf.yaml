@@ -1,0 +1,12 @@
+type: leaky
+name: crowdsecurity/exchange-bf
+description: "Detect exchange bruteforce (SMTP,IMAP,POP3)"
+filter: evt.Meta.service == 'exchange' && evt.Meta.sub_type == 'auth_fail'
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: exchange
+  type: bruteforce
+  remediation: true

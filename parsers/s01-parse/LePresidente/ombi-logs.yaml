@@ -1,0 +1,21 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/ombi-logs
+description: "Parse ombi logs"
+filter: "evt.Parsed.program == 'ombi'"
+nodes:
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*?Failed login attempt by IP: %{IP:source_ip}'
+      
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ombi_auth_failed
+
+statics:
+    - meta: service
+      value: ombi
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp

@@ -7,8 +7,13 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
+      - 'scenarios/**.yml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yml'
+      - 'collections/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
+      - '.tests/**'
   push:
     branches: [ master ]
     paths:
@@ -16,41 +21,30 @@ on:
       - 'parsers/**.yaml'
       - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
+      - 'scenarios/**.yml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yml'
+      - 'collections/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
+      - '.tests/**'
 
 jobs:
   run-hub-tests:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/crowdsecurity/crowdsec
+      options: "--entrypoint bash"
+      env:
+        DISABLE_LOCAL_API: "true"
     env:
       RESULTS_PATH: .
     steps:
-    - name: Set up Go 1.17
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.17
-      id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-    - name: "Force machineid"
-      run: |
-          sudo chmod +w /etc/machine-id
-          echo githubciXXXXXXXXXXXXXXXXXXXXXXXX | sudo tee /etc/machine-id
-    - id: keydb
-      uses: pozetroninc/github-action-get-latest-release@master
-      with:
-        owner: crowdsecurity
-        repo: crowdsec
-        excludes: draft
-    - name: Install CrowdSec
-      run: |
-        git clone https://github.com/crowdsecurity/crowdsec.git
-        cd crowdsec/
-        BUILD_VERSION=${{ steps.keydb.outputs.release }} make release
-        cd crowdsec-${{ steps.keydb.outputs.release }}
-        sudo ./wizard.sh --unattended
     - name: run tests on last crowdsec tag
       run: |
+        mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
         cscli hubtest run --all --clean
         echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV

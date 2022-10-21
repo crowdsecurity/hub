@@ -1,0 +1,433 @@
+onsuccess: next_stage
+filter: "evt.Parsed.Channel == 'Microsoft-Windows-Sysmon/Operational'"
+name: crowdsecurity/sysmon
+description: "Parse sysmon events"
+nodes:
+  - filter: evt.Parsed.EventID == '1'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: FileVersion
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='FileVersion']")
+      - parsed: Description
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Description']")
+      - parsed: Company
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Company']")
+      - parsed: OriginalFileName
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='OriginalFileName']")
+      - parsed: CommandLine
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CommandLine']")
+      - parsed: CurrentDirectory
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CurrentDirectory']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: LogonGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonGuid']")
+      - parsed: LogonId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonId']")
+      - parsed: TerminalSessionId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TerminalSessionId']")
+      - parsed: IntegrityLevel
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IntegrityLevel']")
+      - parsed: Hashes
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Hashes']")
+      - parsed: ParentProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentProcessGuid']")
+      - parsed: ParentProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentProcessId']")
+      - parsed: ParentImage
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentImage']")
+      - parsed: ParentCommandLine
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentCommandLine']")
+      - parsed: ParentUser
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentUser']")
+      - meta: SysmonEventType
+        value: ProcessCreation
+  - filter: evt.Parsed.EventID == '2'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: TargetFilename
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetFilename']")
+      - parsed: CreationUtcTime
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CreationUtcTime']")
+      - parsed: CreationUtcTime
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CreationUtcTime']")
+      - meta: SysmonEventType
+        value: CreationTimeChanged
+  - filter: evt.Parsed.EventID == '3'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: User
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: Protocol
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Protocol']")
+      - parsed: Initiated
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Initiated']")
+      - parsed: SourceIsIpv6
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceIsIpv6']")
+      - parsed: SourceIp
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceIp']")
+      - parsed: SourceHostname
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceHostname']")
+      - parsed: SourcePort
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourcePort']")
+      - parsed: SourcePortName
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourcePortName']")
+      - parsed: DestinationIsIpv6
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='DestinationIsIpv6']")
+      - parsed: DestinationIp
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='DestinationIp']")
+      - parsed: DestinationHostname
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='DestinationHostname']")
+      - parsed: DestinationPort
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='DestinationPort']")
+      - parsed: DestinationPortName
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='DestinationPortName']")
+      - meta: SysmonEventType
+        value: NetworkConnection
+  - filter: evt.Parsed.EventID == '4'
+    statics:
+      - parsed: State
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='State']")
+      - parsed: Version
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Version']")
+      - parsed: SchemaVersion
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SchemaVersion']")
+      - meta: SysmonEventType
+        value: SysmonServiceStateChanged
+  - filter: evt.Parsed.EventID == '5'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - meta: SysmonEventType
+        value: ProcessTerminated
+  - filter: evt.Parsed.EventID == '6'
+    statics:
+      - parsed: ImageLoaded
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ImageLoaded']")
+      - parsed: Hashes
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Hashes']")
+      - parsed: Signed
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Signed']")
+      - parsed: Signature
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Signature']")
+      - parsed: SignatureStatus
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SignatureStatus']")
+      - meta: SysmonEventType
+        value: DriverLoaded
+  - filter: evt.Parsed.EventID == '7'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: ImageLoaded
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ImageLoaded']")
+      - parsed: Hashes
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Hashes']")
+      - parsed: Signed
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Signed']")
+      - parsed: Signature
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Signature']")
+      - parsed: SignatureStatus
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SignatureStatus']")
+      - meta: SysmonEventType
+        value: ImageLoaded
+  - filter: evt.Parsed.EventID == '8'
+    statics:
+      - parsed: SourceProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceProcessGuid']")
+      - parsed: SourceProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceProcessId']")
+      - parsed: SourceImage
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceImage']")
+      - parsed: TargetProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetProcessGuid']")
+      - parsed: TargetProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetProcessId']")
+      - parsed: TargetImage
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetImage']")
+      - parsed: NewThreadId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='NewThreadId']")
+      - parsed: StartAddress
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='StartAddress']")
+      - parsed: StartModule
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='StartModule']")
+      - parsed: StartFunction
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='StartFunction']")
+      - meta: SysmonEventType
+        value: CreateRemoteThread
+  - filter: evt.Parsed.EventID == '9'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: Device
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Device']")
+      - meta: SysmonEventType
+        value: RawAccessRead
+  - filter: evt.Parsed.EventID == '10'
+    statics:
+      - parsed: SourceProcessGUID
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceProcessGUID']")
+      - parsed: SourceProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceProcessId']")
+      - parsed: SourceThreadId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceThreadId']")
+      - parsed: SourceImage
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SourceImage']")
+      - parsed: TargetProcessGUID
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetProcessGUID']")
+      - parsed: TargetProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetProcessId']")
+      - parsed: TargetImage
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetImage']")
+      - parsed: GrantedAccess
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='GrantedAccess']")
+      - parsed: CallTrace
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CallTrace']")
+      - meta: SysmonEventType
+        value: ProcessAccess
+  - filter: evt.Parsed.EventID == '11'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetFilename
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetFilename']")
+      - parsed: CreationUtcTime
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CreationUtcTime']")
+      - meta: SysmonEventType
+        value: FileCreate
+  - filter: evt.Parsed.EventID == '12'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetObject
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetObject']")
+      - meta: SysmonEventType
+        value: RegistryCreateOrDel
+  - filter: evt.Parsed.EventID == '13'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetObject
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetObject']")
+      - parsed: Details
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Details']")
+      - meta: SysmonEventType
+        value: RegistrySetValue
+  - filter: evt.Parsed.EventID == '14'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetObject
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetObject']")
+      - parsed: NewName
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='NewName']")
+      - meta: SysmonEventType
+        value: RegistryRename
+  - filter: evt.Parsed.EventID == '15'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetFilename
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetFilename']")
+      - parsed: CreationUtcTime
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='CreationUtcTime']")
+      - meta: SysmonEventType
+        value: FileCreateStreamHash
+  - filter: evt.Parsed.EventID == '16'
+    statics:
+      - parsed: ConfigurationFileHash
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ConfigurationFileHash']")
+      - parsed: Configuration
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Configuration']")
+      - meta: SysmonEventType
+        value: SysmonConfigChange
+  - filter: evt.Parsed.EventID == '17'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: PipeName
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='PipeName']")
+      - meta: SysmonEventType
+        value: PipeCreated
+  - filter: evt.Parsed.EventID == '18'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: PipeName
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='PipeName']")
+      - meta: SysmonEventType
+        value: PipeConnected
+  - filter: evt.Parsed.EventID == '19'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: Operation
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Operation']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: EventNamespace
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventNamespace']")
+      - parsed: Name
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Name']")
+      - parsed: Query
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Query']")
+      - meta: SysmonEventType
+        value: WmiEventFilter
+  - filter: evt.Parsed.EventID == '20'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: Operation
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Operation']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: Type
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Type']")
+      - parsed: Name
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Name']")
+      - parsed: Destination
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Destination']")
+      - meta: SysmonEventType
+        value: WmiEventConsumer
+  - filter: evt.Parsed.EventID == '21'
+    statics:
+      - parsed: EventType
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='EventType']")
+      - parsed: Operation
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Operation']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: Consumer
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Consumer']")
+      - parsed: Filter
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Filter']")
+      - meta: SysmonEventType
+        value: WmiEventConsumerToFilter
+  - filter: evt.Parsed.EventID == '22'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: QueryName
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='QueryName']")
+      - parsed: QueryStatus
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='QueryStatus']")
+      - parsed: QueryResults
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='QueryResults']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - meta: SysmonEventType
+        value: DNSEvent
+  - filter: evt.Parsed.EventID == '23'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: TargetFilename
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetFilename']")
+      - parsed: Hashes
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Hashes']")
+      - parsed: IsExecutable
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IsExecutable']")
+      - parsed: Archived
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Archived']")
+      - meta: SysmonEventType
+        value: FileDelete
+  - filter: evt.Parsed.EventID == '24'
+    statics:
+      - parsed: ProcessGuid
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
+      - parsed: ProcessId
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessId']")
+      - parsed: User
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='User']")
+      - parsed: Image
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Image']")
+      - parsed: Session
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Session']")
+      - parsed: ClientInfo
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ClientInfo']")
+      - parsed: Hashes
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Hashes']")
+      - parsed: IsExecutable
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IsExecutable']")
+      - parsed: Archived
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Archived']")
+      - meta: SysmonEventType
+        value: ClipboardChange
+  - filter: evt.Parsed.EventID == '225'
+    statics:
+      - meta: SysmonEventType
+        value: SysmonInternalError
+
+statics:
+  - meta: service
+    value: sysmon
+  - meta: RuleName
+    expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='RuleName']")

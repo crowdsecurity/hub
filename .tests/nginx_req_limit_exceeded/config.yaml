@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/nginx-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/nginx-req-limit-exceeded.yaml
+postoverflows:
+- ""
+log_file: nginx_req_limit_exceeded.log
+log_type: nginx
+labels: {}
+ignore_parsers: false

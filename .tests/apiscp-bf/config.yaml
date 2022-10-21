@@ -1,0 +1,14 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/apache2-logs.yaml
+- ./parsers/s02-enrich/crowdsecurity/dateparse-enrich.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/crowdsecurity/http-apiscp-bf.yaml
+postoverflows:
+- ""
+log_file: apiscp-bf.log
+log_type: apache2
+labels: {}
+ignore_parsers: true
+override_statics: []

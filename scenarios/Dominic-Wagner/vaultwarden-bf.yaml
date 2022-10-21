@@ -1,0 +1,30 @@
+# vaultwarden bruteforce
+type: leaky
+name: Dominic-Wagner/vaultwarden-bf
+description: "Detect vaultwarden bruteforce"
+filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_totp']"
+leakspeed: 1m
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+ service: vaultwarden
+ type: bruteforce
+ remediation: true
+---
+# vaultwarden user-enum
+type: leaky
+name: Dominic-Wagner/vaultwarden-bf_user-enum
+description: "Detect vaultwarden user enum bruteforce"
+filter: evt.Meta.log_type == 'vaultwarden_failed_auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+leakspeed: 1m
+capacity: 5
+blackhole: 5m
+reprocess: true
+labels:
+ service: ssh
+ type: bruteforce
+ remediation: true

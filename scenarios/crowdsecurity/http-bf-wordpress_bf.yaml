@@ -3,7 +3,7 @@ name: crowdsecurity/http-bf-wordpress_bf
 description: "detect wordpress bruteforce"
 debug: false
 # failed auth on wp-login.php returns 200
-filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'wp-login.php' && evt.Parsed.verb == 'POST'"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'wp-login.php' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '200'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: 10s
