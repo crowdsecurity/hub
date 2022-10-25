@@ -143,7 +143,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 		log.Printf("GH_TOKEN env found, using it")
 		ctx := context.Background()
 		ts := oauth2.StaticTokenSource(
-			&oauth2.Token{AccessToken: "... your access token ..."},
+			&oauth2.Token{AccessToken: githubToken},
 		)
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
