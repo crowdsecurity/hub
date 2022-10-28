@@ -1,0 +1,21 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'Radarr'"
+name: schiz0phr3ne/radarr-logs
+description: "Parse Radarr Logs"
+nodes:
+  - grok:
+      pattern: '^\[Warn\] Auth: Auth-Failure ip %{IP:source_ip} username %{DATA:username}$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: radarr_failed_authentication
+
+statics:
+    - meta: service
+      value: radarr
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
+    - meta: username
+      expression: evt.Parsed.username
