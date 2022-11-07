@@ -1,7 +1,7 @@
 type: leaky
 name: crowdsecurity/http-apiscp-bf
 description: "detect apisCP dashboard bruteforce"
-debug: true
+debug: false
 # success auth on apisCP returns 303
 filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_path startsWith '/apps/login' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '200'"
 groupby: evt.Meta.source_ip
