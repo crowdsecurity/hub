@@ -1,0 +1,11 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/mstilkerich/bind9.yaml
+scenarios:
+postoverflows:
+log_file: bind9-logs.log
+log_type: named
+labels: {}
+ignore_parsers: false
+override_statics: []
