@@ -11,6 +11,8 @@ on:
 jobs:
   update_blockers:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/setup-go@v1
       with:
