@@ -141,7 +141,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	githubToken := os.Getenv("GH_TOKEN")
 	ctx := context.Background()
 	if githubToken != "" {
-		log.Printf("GH_TOKEN env found, using it")
+		log.Printf("GH_TOKEN env found, using it.")
 		ts := oauth2.StaticTokenSource(
 			&oauth2.Token{AccessToken: githubToken},
 		)
