@@ -42,8 +42,9 @@ nodes:
         onsuccess: next_stage
         pattern_syntax:
           EXTRACT_USER_AND_PATH: 'user %{NOT_DOUBLE_POINT:username}: authentication failure for "%{NOT_DOUBLE_QUOTE:target_uri}": Password Mismatch'
+          EXTRACT_USER_AND_PATH2: 'user %{NOT_DOUBLE_POINT:username} not found: "?%{NOT_DOUBLE_QUOTE:target_uri}"?'
         grok:
-          pattern: '%{EXTRACT_USER_AND_PATH}'
+          pattern: '%{EXTRACT_USER_AND_PATH}|%{EXTRACT_USER_AND_PATH2}'
           apply_on: message
           # these ones apply for both grok patterns
         statics:
