@@ -1,0 +1,7 @@
+name: crowdsecurity/nextcloud-whitelist
+description: "Whitelist events from nextcloud"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Nextcloud Whitelist"
+  expression:
+   - evt.Parsed.http_status == "404" && evt.Parsed.http_verb == "GET" && evt.Parsed.file_ext == ".vcf" && evt.Parsed.http_args in ["photo"]
