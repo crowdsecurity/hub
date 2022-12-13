@@ -4,4 +4,4 @@ filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 
 whitelist:
   reason: "Nextcloud Whitelist"
   expression:
-   - evt.Parsed.http_status == "404" && evt.Parsed.http_verb == "GET" && evt.Parsed.file_ext == ".vcf" && Lower(evt.Parsed.http_args) contains "photo"
+   - evt.Meta.http_status == "404" && evt.Meta.http_verb == "GET" && evt.Parsed.file_ext == ".vcf" && Lower(evt.Parsed.http_args) contains "photo"
