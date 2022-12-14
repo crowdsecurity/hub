@@ -864,7 +864,7 @@
   },
   "crowdsecurity/nextcloud": {
    "path": "collections/crowdsecurity/nextcloud.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "970735016eb78b0d0c722d7ed426b0edc1efd603547bf8cd5d68c57484e7a855",
@@ -873,15 +873,20 @@
     "0.2": {
      "digest": "a60b9e37b9f440f290632cdc20832b5a53ce9b59b3ce1d926b4ef40b49776c34",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "d2da4c1ec583f676030446419b7cc2e1b02935965c1ba7f10ffe8fce0e1f4182",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBbTmV4dGNsb3VkXShodHRwczovL25leHRjbG91ZC5jb20pIGluc3RhbmNlIGFnYWluc3QgY29tbW9uIGF0dGFja3MgOgogLSBOZXh0Y2xvdWQgcGFyc2VyCiAtIE5leHRjbG91ZCBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCgo+IENvbnRyaWJ1dGVkIGJ5IEjDpXZhcmQgTW9lbgoKIyMgQWNxdWlzaXRpb24gdGVtcGxhdGUKCgogRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKLS0tCmZpbGVuYW1lczoKIC0gL3Zhci93d3cvbmV4dGNsb3VkL2RhdGEvbmV4dGNsb3VkLmxvZwpsYWJlbHM6CiAgdHlwZTogTmV4dGNsb3VkCmBgYAoKYGBgeWFtbAotLS0Kc291cmNlOiBqb3VybmFsY3RsCmpvdXJuYWxjdGxfZmlsdGVyOgogIC0gIlNZU0xPR19JREVOVElGSUVSPU5leHRjbG91ZCIKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwpgYGAKLSBVc2UgdGhlIGZpbGVuYW1lIHZlcnNpb24gaWYgeW91IGhhdmUgdGhlIGRlZmF1bHQgW3NldHRpbmddKGh0dHBzOi8vZG9jcy5uZXh0Y2xvdWQuY29tL3NlcnZlci9zdGFibGUvYWRtaW5fbWFudWFsL2NvbmZpZ3VyYXRpb25fc2VydmVyL2NvbmZpZ19zYW1wbGVfcGhwX3BhcmFtZXRlcnMuaHRtbD9oaWdobGlnaHQ9bG9nbGV2ZWwjbG9nZ2luZykgb2YgbG9nZ2luZyB0byBmaWxlCi0gVXNlIHRoZSBqb3VybmFsY3RsIHZlcnNpb24gaWYgeW91IGFyZSBzZW5kaW5nIGxvZ3MgdG8gc3lzbG9nIG9yIHN5c3RlbWQgYW5kIHJlYWQgdGhlIGxvZ3MgZnJvbSBqb3VybmFsZAo=",
-   "content": "LS0tCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmCmRlc2NyaXB0aW9uOiAiTmV4dGNsb3VkIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gYnJ1dGVmb3JjZQogIC0gbmV4dGNsb3VkCg==",
+   "content": "LS0tCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC13aGl0ZWxpc3QKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9uZXh0Y2xvdWQtYmYKZGVzY3JpcHRpb246ICJOZXh0Y2xvdWQgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGUtZm9yY2UgZGV0ZWN0aW9uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZWZvcmNlCiAgLSBuZXh0Y2xvdWQK",
    "description": "Nextcloud support : parser and brute-force detection",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
-    "crowdsecurity/nextcloud-logs"
+    "crowdsecurity/nextcloud-logs",
+    "crowdsecurity/nextcloud-whitelist"
    ],
    "scenarios": [
     "crowdsecurity/nextcloud-bf"
@@ -2600,6 +2605,22 @@
    "long_description": "UGFyc2VyIGZvciBbTmV4dGNsb3VkXShodHRwczovL25leHRjbG91ZC5jb20vKSBsb2dzCgpJZiB5b3UgaGF2ZSB0aGUgZGVmYXVsdCBbc2V0dGluZ10oaHR0cHM6Ly9kb2NzLm5leHRjbG91ZC5jb20vc2VydmVyL3N0YWJsZS9hZG1pbl9tYW51YWwvY29uZmlndXJhdGlvbl9zZXJ2ZXIvY29uZmlnX3NhbXBsZV9waHBfcGFyYW1ldGVycy5odG1sP2hpZ2hsaWdodD1sb2dsZXZlbCNsb2dnaW5nKQpvZiBsb2dnaW5nIHRvIGZpbGUsIHlvdSBuZWVkIHRvIGFkZCBpbiBhY3F1aXNpdGlvbiAoY2hhbmdlIGZpbGVuYW1lIHRvIHlvdXIgbG9nIGZpbGUgbG9jYXRpb24pOgoKYGBgeWFtbAotLS0KZmlsZW5hbWVzOgogLSAvdmFyL3d3dy9uZXh0Y2xvdWQvZGF0YS9uZXh0Y2xvdWQubG9nCmxhYmVsczoKICB0eXBlOiBOZXh0Y2xvdWQKYGBgCgpJZiB5b3UgYXJlIHNlbmRpbmcgbG9ncyB0byBzeXNsb2cgb3Igc3lzdGVtZCBhbmQgcmVhZCBmcm9tIGpvdXJuYWxkLCBhZGQ6CmBgYHlhbWwKLS0tCnNvdXJjZTogam91cm5hbGN0bApqb3VybmFsY3RsX2ZpbHRlcjoKICAtICJTWVNMT0dfSURFTlRJRklFUj1OZXh0Y2xvdWQiCmxhYmVsczoKICB0eXBlOiBzeXNsb2cKYGBgCg==",
    "content": "LS0tCm9uc3VjY2VzczogbmV4dF9zdGFnZQpmaWx0ZXI6ICJVcHBlcihldnQuUGFyc2VkLnByb2dyYW0pID09ICdORVhUQ0xPVUQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgbmV4dGNsb3VkIGxvZ3MiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJ0xvZ2luIGZhaWxlZDogJXtVU0VSTkFNRTp0YXJnZXRfdXNlcn0gXChSZW1vdGUgSVA6ICV7SVA6c291cmNlX2lwfVwpJwogICAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJtZXNzYWdlIikKICAgIHN0YXRpY3M6CiAgICAgIC0gbWV0YTogdGFyZ2V0X3VzZXIKICAgICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC50YXJnZXRfdXNlciIKICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgIHZhbHVlOiBuZXh0Y2xvdWRfZmFpbGVkX2F1dGgKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICdCcnV0ZWZvcmNlIGF0dGVtcHQgZnJvbSBcXD8iJXtJUDpzb3VyY2VfaXB9XFw/IiBkZXRlY3RlZCBmb3IgYWN0aW9uIFxcPyIle0RBVEE6YWN0aW9ufVxcPyInCiAgICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgIm1lc3NhZ2UiKQogICAgc3RhdGljczoKICAgICAgLSBtZXRhOiBhY3Rpb24KICAgICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5hY3Rpb24iCiAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICB2YWx1ZTogbmV4dGNsb3VkX2JydXRlZm9yY2VfYXR0ZW1wdApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IG5leHRjbG91ZAogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJ0aW1lIikK",
    "description": "Parse nextcloud logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/nextcloud-whitelist": {
+   "path": "parsers/s02-enrich/crowdsecurity/nextcloud-whitelist.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7685c823a398a711b76afea742ebeb2637ac55c829eafba841b63504b1e2228e",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgTmV4dGNsb3VkIHdoaXRlbGlzdAoKIyMjIENvbnRhY3RzIGFwcApDb250YWN0cyBoYXMgYW4gaXNzdWUgd2l0aCBleGNlc3NpdmUgNDA0IHJlc3BvbnNlIGNvZGVzIHdoZW4gYSB1c2VyIGltYWdlIGlzIG1pc3NpbmcKW1Vwc3RyZWFtIGlzc3VlXShodHRwczovL2dpdGh1Yi5jb20vbmV4dGNsb3VkL2NvbnRhY3RzL2lzc3Vlcy8zMDIxKQ==",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9uZXh0Y2xvdWQtd2hpdGVsaXN0CmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IGV2ZW50cyBmcm9tIG5leHRjbG91ZCIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnaHR0cCcgJiYgZXZ0Lk1ldGEubG9nX3R5cGUgaW4gWydodHRwX2FjY2Vzcy1sb2cnLCAnaHR0cF9lcnJvci1sb2cnXSIKd2hpdGVsaXN0OgogIHJlYXNvbjogIk5leHRjbG91ZCBXaGl0ZWxpc3QiCiAgZXhwcmVzc2lvbjoKICAgLSBldnQuTWV0YS5odHRwX3N0YXR1cyBpbiBbIjQwNCIsICI0MDMiXSAmJiBldnQuTWV0YS5odHRwX3ZlcmIgPT0gIkdFVCIgJiYgZXZ0LlBhcnNlZC5maWxlX2V4dCA9PSAiLnZjZiIgJiYgTG93ZXIoZXZ0LlBhcnNlZC5odHRwX2FyZ3MpIGNvbnRhaW5zICJwaG90byI=",
+   "description": "Whitelist events from nextcloud",
    "author": "crowdsecurity",
    "labels": null
   },
