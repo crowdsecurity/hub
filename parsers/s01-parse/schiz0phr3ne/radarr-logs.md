@@ -7,4 +7,10 @@ filenames:
  - /var/log/syslog
 labels:
   type: syslog
+---
+source: file
+filenames:
+ - /var/log/radarr.txt
+labels:
+  type: Radarr
 ```
