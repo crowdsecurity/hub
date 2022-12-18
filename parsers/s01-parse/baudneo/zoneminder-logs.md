@@ -1,5 +1,6 @@
 # Description
 A parser that searches for unknown user and incorrect password logins to ZoneMinder by using `web_php.log` as a data source.
+ Now compatible with the new PHP intl date format.
 
 # HOW TO INSTALL PROPERLY
 - REQUIRED - example `acquis.yaml` entry - the `type` must be exactly as shown here or the parser will never be successful.
