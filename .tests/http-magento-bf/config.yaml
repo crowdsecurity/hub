@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/magento-extension-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/http-magento-bf.yaml
+postoverflows:
+- ""
+log_file: http-magento-bf.log
+log_type: magento-extension
+labels: {}
+ignore_parsers: true

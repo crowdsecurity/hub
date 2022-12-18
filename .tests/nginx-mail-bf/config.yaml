@@ -1,0 +1,12 @@
+parsers:
+- ./parsers/s01-parse/hitech95/nginx-mail-logs.yaml
+- crowdsecurity/nginx-logs
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/hitech95/mail-generic-bf.yaml
+postoverflows:
+- ""
+log_file: nginx-mail-bf.log
+log_type: nginx
+ignore_parsers: true

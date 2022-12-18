@@ -14,7 +14,7 @@ Example acquisition for this collection if you log to a file:
 ```yaml
 use_time_machine: true #Process logs as if we were replaying them to get the timestamp from the 
 filenames:
-  - C:\\inetpub\\logs\\LogFiles\\*\\*.log
+  - C:\inetpub\logs\LogFiles\*\*.log
 labels:
   type: iis
 ```

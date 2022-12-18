@@ -1,0 +1,12 @@
+type: leaky
+name: crowdsecurity/litespeed-admin-bf
+description: "Detect bruteforce against litespeed admin UI"
+filter: "evt.Meta.service == 'http' && evt.Meta.sub_type == 'litespeed_admin_auth_fail'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: "10s"
+blackhole: 1m
+labels:
+ service: http
+ type: bf
+ remediation: true

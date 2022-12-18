@@ -1,0 +1,9 @@
+onsuccess: next_stage
+filter: "evt.Overflow.Alert.Remediation == true && IsIPV6(evt.Overflow.Alert.Source.IP)"
+name: crowdsecurity/ipv6_to_range
+description: ""
+statics:
+  - target: evt.Overflow.Alert.Source.Value
+    expression: IpToRange(evt.Overflow.Alert.Source.IP, "/64")
+  - target: evt.Overflow.Alert.Source.Scope
+    value: Range
