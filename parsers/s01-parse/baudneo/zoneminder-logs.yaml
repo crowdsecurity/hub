@@ -1,17 +1,14 @@
-#filter: '1==1'     # Testing
 filter: evt.Parsed.program == "zoneminder"   # Production
 #debug: true
 onsuccess: next_stage
 name: baudneo/zoneminder-logs
-description: A parser for zoneminder web_php.log (Logins to DB/Web), now supports default PHP intl date format
+description: A parser for zoneminder web_php.log (Logins to DB/Web)
 pattern_syntax:
-  ZM_TIME: '2[0123]|[01]?[0-9]:[0-5][0-9]:(?:[0-5]?[0-9]|60)\s?(AM|PM [A-Z]{3})?\.[0-9]{6}'
-  ZM_BADUSER: '^%{MONTHNUM:month}[/-]%{MONTHDAY:day}[/-]%{YEAR:year},?[- ]%{ZM_TIME:time} web_php\[\d+]\.[A-Z]{3} \[(%{IP:source_ip})\]\s\[Could not retrieve user %{DATA:username} details\]'
-  ZM_BADPASSWORD: '^%{MONTHNUM:month}[/-]%{MONTHDAY:day}[/-]%{YEAR:year},?[- ]%{ZM_TIME:time} web_php\[\d+]\.[A-Z]{3} \[(%{IP:source_ip})\]\s\[Login denied for user \"%{DATA:username}\"\]'
-##NEW BAD USER# 12/17/22, 10:31:29 PM MST.557710 web_php[254894].ERR [10.0.1.5] [Could not retrieve user aaaa details] at /usr/share/zoneminder/www/includes/auth.php line 395
-##NEW BAD PASS# 01/06/22, 10:31:29 PM MST.557710 web_php[688].ERR [99.1.1.1] [Login denied for user "validuser"] at /usr/share/zoneminder/www/includes/auth.php line 313
-##OLD BAD USER# 01/06/22 09:26:15.117434 web_php[258].ERR [99.1.1.1] [Could not retrieve user testuser details] at /usr/share/zoneminder/www/includes/auth.php line 313
-##OLD BAD PASS# 01/06/22 09:27:39.843338 web_php[688].ERR [99.1.1.1] [Login denied for user "validuser"] at /usr/share/zoneminder/www/includes/auth.php line 313
+  ZM_TIME: 2[0123]|[01]?[0-9]:[0-5][0-9]:(?:[0-5]?[0-9]|60)
+  ZM_BADUSER: ^%{MONTHNUM:month}[/-]%{MONTHDAY:day}[/-]%{YEAR:year}[- ]%{ZM_TIME:time}\.\d+.*\[(%{IP:source_ip})\]\s\[Could not retrieve user %{DATA:username} details\]
+  ZM_BADPASSWORD: ^%{MONTHNUM:month}[/-]%{MONTHDAY:day}[/-]%{YEAR:year}[- ]%{ZM_TIME:time}\.\d+\s(%{WORD})\[.*\[(%{IP:source_ip})\]\s\[Login denied for user \"%{DATA:username}\"\]
+# 01/06/22 09:26:15.117434 web_php[258].ERR [99.1.1.1] [Could not retrieve user testuser details] at /usr/share/zoneminder/www/includes/auth.php line 313
+# 01/06/22 09:27:39.843338 web_php[688].ERR [99.1.1.1] [Login denied for user "validuser"] at /usr/share/zoneminder/www/includes/auth.php line 313
 
 nodes:
   - grok:
@@ -41,3 +38,4 @@ statics:
   - target: StrTime
     expression: |-
       "20" + evt.Parsed.year + "/" + evt.Parsed.month + "/" + evt.Parsed.day + " " + evt.Parsed.time
+
