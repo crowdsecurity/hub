@@ -1,16 +1,24 @@
 onsuccess: next_stage
-filter: "evt.Parsed.program == 'mono'"
+filter: "evt.Parsed.program in ['mono', 'Sonarr']"
 name: schiz0phr3ne/sonarr-logs
 description: "Parse Sonarr Logs"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
   - grok:
       pattern: '^\[Warn\] Auth: Auth-Failure ip %{IP:source_ip} username %{DATA:username}$'
       apply_on: message
+  - grok:
+      pattern: "%{DATE_YMD:date} %{TIME:time}\\|%{WORD:log_level}\\|Auth\\|Auth-Failure ip %{IPORHOST:source_ip} username '%{NOTDQUOTE:username}'"
+      apply_on: message
       statics:
-        - meta: log_type
-          value: sonarr_failed_authentication
+        - target: evt.Parsed.timestamp
+          expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
+    onsuccess: next_stage
 
 statics:
+    - meta: log_type
+      value: sonarr_failed_authentication
     - meta: service
       value: sonarr
     - meta: source_ip
