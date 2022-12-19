@@ -38,12 +38,15 @@ jobs:
     runs-on: ubuntu-latest
     if: |
         startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.CF_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.CF_AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.CF_AWS_ROLE }}
+        role-session-name: github-action
         aws-region: eu-west-1
     - name: Get branch name
       run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
