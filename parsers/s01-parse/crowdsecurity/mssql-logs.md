@@ -1,4 +1,4 @@
-Parser for MSSQL Logs via wineventlog OR MSSQL logs via [Azure-Edge-Sql](https://hub.docker.com/_/microsoft-azure-sql-edge) via docker
+Parser for MSSQL Logs via wineventlog OR MSSQL logs for [Azure-Edge-Sql](https://hub.docker.com/_/microsoft-azure-sql-edge) via docker
 
 ```yaml
 ---
