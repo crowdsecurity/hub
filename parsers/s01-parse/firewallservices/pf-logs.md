@@ -14,3 +14,9 @@ This will parse your packet filter logs. Tested with PfSense, sending its log to
     labels:
          type: syslog
        ```
+    
+### Tips
+The packet must be logged in order to be parsed by crowdsec.
+- *System*>*Settings*>*Logging*:
+  - Make sure `Log packets matched from the default block rules put in the ruleset` is enabled.
+- When you create any `block` firewall rules, make sure they are logged if you want the src IP to be parsed by crowdsec (enable the logging option in the firewall rule edit page). 
