@@ -1,6 +1,6 @@
 type: leaky
 name: firewallservices/pf-scan-multi_ports
-description: "ban IPs that are scanning us"
+description: "ban IPs that are TCP port scanning us"
 filter: "evt.Meta.log_type == 'pf_drop' && evt.Meta.service == 'tcp'"
 groupby: evt.Meta.source_ip
 distinct: evt.Parsed.dst_port
