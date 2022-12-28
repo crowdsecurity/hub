@@ -19,7 +19,7 @@ nodes:
   # this is another node, with its own pattern_syntax
   - #debug: true
     grok:
-      pattern: "%{DIR:file_dir}%{FILE:file_frag}%{EXT:file_ext}"
+      pattern: "%{DIR:file_dir}(%{FILE:file_frag}%{EXT:file_ext})?"
       apply_on: request
       statics:
         - meta: http_path
