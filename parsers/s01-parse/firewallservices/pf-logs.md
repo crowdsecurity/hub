@@ -1,4 +1,4 @@
-This will parse your packet filter logs. Tested with PfSense, sending its log to a remote syslog server, where crowdsec can parse them. Update decritpionsOPNsense style logs are also supported.
+This will parse your packet filter logs. Tested with PfSense, sending its log to a remote syslog server, where crowdsec can parse them. OPNsense style logs are also supported.
 
 ### How to enable OPNsense pf log ingestion
 
@@ -14,4 +14,3 @@ This will parse your packet filter logs. Tested with PfSense, sending its log to
     labels:
          type: syslog
        ```
-  
