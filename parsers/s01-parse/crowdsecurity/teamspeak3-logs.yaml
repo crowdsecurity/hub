@@ -1,0 +1,22 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'ts3'"
+name: crowdsecurity/teamspeak3-logs
+#debug: true
+description: "Parse teamspeak3 server logs"
+pattern_syntax:
+  NOPIPE: '[a-zA-Z\s]+'
+  TS3_AUTH_FAIL: '^%{TIMESTAMP_ISO8601:timestamp}\|%{NOPIPE:level}\|%{NOPIPE:service}\|%{NOPIPE:empty}\|query from %{INT:chan} %{IP:src_ip}:%{INT:src_port} attempted to login with account "%{DATA:login}" and failed!$'
+#2022-12-29 11:39:26.009756|INFO    |Query         |   |query from 11 127.0.0.1:48426 attempted to login with account "toto" and failed!
+
+grok:
+  name: TS3_AUTH_FAIL
+  apply_on: message
+  statics:
+    - meta: service
+      value: teamspeak3
+    - meta: log_type
+      value: ts3_fail_auth
+    - meta: source_ip
+      expression: "evt.Parsed.src_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
