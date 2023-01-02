@@ -1,0 +1,14 @@
+# 404 scan
+type: leaky
+#debug: true
+name: tabobine/get-uid-scan
+description: "Detect scan of tabobicode from a single ip"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_path == '/wp-content/themes/tabobine/tabobicode/get_uid.php' && evt.Parsed.verb == 'POST' && evt.Meta.http_status in ['404', '403']"
+groupby: "evt.Meta.source_ip"
+capacity: 5
+leakspeed: "90s"
+blackhole: 5m
+labels:
+ service: http
+ type: scan
+ remediation: true

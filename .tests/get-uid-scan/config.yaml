@@ -1,0 +1,15 @@
+parsers:
+- crowdsecurity/traefik-logs
+- crowdsecurity/syslog-logs
+- crowdsecurity/nginx-logs
+- crowdsecurity/http-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/tabobine/get-uid-scan.yaml
+postoverflows:
+- ""
+log_file: get-uid-scan.log
+log_type: traefik
+labels: {}
+ignore_parsers: true
+override_statics: []
