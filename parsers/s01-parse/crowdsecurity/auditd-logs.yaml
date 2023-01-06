@@ -1,6 +1,6 @@
 #type=SYSCALL msg=audit(1672330955.273:4433): arch=c000003e syscall=263 success=no exit=-2 a0=ffffff9c a1=557162396590 a2=0 a3=0 items=1 ppid=144571 pid=145400 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts0 ses=79 comm="rm" exe="/usr/bin/rm" key="file_modification"
 name: crowdsecurity/auditd-logs
-#debug: true
+debug: true
 description: "Parse auditd logs"
 filter: "evt.Parsed.program == 'auditd'"
 onsuccess: next_stage
@@ -25,3 +25,15 @@ nodes:
         value: auditd_execve
       - target: evt.StrTime
         expression: evt.Parsed.timestamp
+      - meta: exe
+        expression: evt.Parsed.exe
+      #let's hydrate with ppid process if we can :)
+      - target: evt.Meta.parent_progname
+        expression: GetFromStash("auditd_pid_progname", evt.Parsed.ppid)
+    #let's capture process name if we can
+    stash:
+      - name: auditd_pid_progname
+        key: evt.Parsed.pid
+        value: evt.Parsed.exe
+        ttl: 1m
+        size: 100      
