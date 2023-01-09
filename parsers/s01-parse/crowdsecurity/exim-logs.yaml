@@ -1,5 +1,5 @@
 onsuccess: next_stage
-debug: true
+#debug: true
 filter: "evt.Parsed.program == 'exim'"
 name: crowdsecurity/exim-logs
 description: "Parse exim logs"
@@ -17,7 +17,7 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: auth_failed
+          value: exim_failed_auth
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok:
@@ -25,7 +25,7 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: auth_failed
+          value: exim_failed_auth
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok:
@@ -33,7 +33,7 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: auth_failed
+          value: exim_failed_auth
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok:
@@ -55,7 +55,7 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: auth_failed
+          value: exim_failed_auth
         - target: evt.StrTime
           expression: evt.Parsed.date
         - meta: source_user
@@ -114,7 +114,7 @@ nodes:
           expression: "evt.Parsed.target_port"
 statics:
   - meta: service
-    value: mail
+    value: exim
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
   - meta: target_ip
