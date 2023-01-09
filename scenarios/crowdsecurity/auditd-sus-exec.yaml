@@ -1,0 +1,14 @@
+type: trigger
+#debug: true
+name: crowdsecurity/auditd-sus-exec
+description: "Detect post-exploitation behaviour : exec from suspicious locations"
+filter: evt.Meta.log_type == 'auditd_execve' and ( evt.Parsed.exe startsWith "/tmp/" or evt.Parsed.exe contains "/." )
+#we most likely don't want BH here
+#blackhole: 1m
+labels:
+  service: linux
+  type: post-exploitation
+  remediation: false
+scope:
+  type: pid
+  expression: evt.Parsed.ppid

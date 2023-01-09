@@ -27,6 +27,10 @@ nodes:
         expression: evt.Parsed.timestamp
       - meta: exe
         expression: evt.Parsed.exe
+      - meta: uid
+        expression: evt.Parsed.uid
+      - meta: auditd_eventid
+        expression: evt.Parsed.event_inc_id
       #let's hydrate with ppid process if we can :)
       - target: evt.Meta.parent_progname
         expression: GetFromStash("auditd_pid_progname", evt.Parsed.ppid)
