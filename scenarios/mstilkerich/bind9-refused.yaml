@@ -1,0 +1,14 @@
+type: leaky
+name: mstilkerich/bind9-refused
+description: "Act on queries / zone transfers denied by bind9 policy"
+debug: false
+filter: "evt.Meta.log_type == 'bind9_denied'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 10s
+blackhole: 1m
+labels:
+  service: bind9
+  type: scan
+  # remediation label, if set to true indicate IP should be banned
+  remediation: true

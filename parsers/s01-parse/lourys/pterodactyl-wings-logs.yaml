@@ -1,0 +1,27 @@
+name: lourys/pterodactyl-wings-logs
+description: "Parse Pterodactyl wings logs"
+filter: "evt.Parsed.program == 'pterodactyl'"
+debug: false
+onsuccess: next_stage
+nodes:
+  - grok:
+      pattern: '^WARN: \[%{DATA:time}\] failed to validate user credentials \(invalid format\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} subsystem=sftp username=%{USERNAME:username}$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pterodactly_wings_invalid_format
+  - grok:
+      pattern: '^WARN: \[%{DATA:time}\] failed to validate user credentials \(invalid username or password\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} subsystem=sftp username=%{USERNAME:username}$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pterodactly_wings_invalid_username_or_password
+statics:
+    - meta: service
+      value: pterodactyl
+    - meta: source_ip
+      expression: evt.Parsed.source_ip
+    - meta: target_user
+      expression: evt.Parsed.username
+    - target: evt.StrTime
+      expression: evt.Parsed.time

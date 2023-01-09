@@ -1,0 +1,45 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Exit (root): Disconnect received"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "dropbear"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "dropbear-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Bad PAM password attempt for 'foobar' from 192.168.9.163:49242"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "dropbear"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "dropbear-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "Login attempt for nonexistent user from 192.168.9.163:49906"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "dropbear"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "dropbear-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["crowdsecurity/dropbear-logs"]) == 3
+results["s01-parse"]["crowdsecurity/dropbear-logs"][0].Success == false
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Parsed["message"] == "Bad PAM password attempt for 'foobar' from 192.168.9.163:49242"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Parsed["port"] == "49242"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Parsed["program"] == "dropbear"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Parsed["source_ip"] == "192.168.9.163"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Parsed["user"] == "foobar"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["datasource_path"] == "dropbear-logs.log"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["service"] == "dropbear"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["source_ip"] == "192.168.9.163"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][1].Evt.Meta["target_user"] == "foobar"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Parsed["program"] == "dropbear"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Parsed["source_ip"] == "192.168.9.163"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Parsed["message"] == "Login attempt for nonexistent user from 192.168.9.163:49906"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Parsed["port"] == "49906"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Meta["service"] == "dropbear"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Meta["source_ip"] == "192.168.9.163"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Meta["datasource_path"] == "dropbear-logs.log"
+results["s01-parse"]["crowdsecurity/dropbear-logs"][2].Evt.Meta["datasource_type"] == "file"

@@ -1,0 +1,33 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'GITLAB'"
+name: timokoessler/gitlab-logs
+description: "Parse GitLab Logs"
+nodes:
+  - filter: |
+     JsonExtract(evt.Parsed.message, "method") == 'POST' &&
+     JsonExtract(evt.Parsed.message, "path") in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
+     any(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'user' && .value.login != ''}) &&
+     (JsonExtract(evt.Parsed.message, 'status') == '0' || JsonExtract(evt.Parsed.message, 'action') == 'failure')
+    statics:
+      - meta: log_type
+        value: "gitlab_failed_password"
+      - meta: username
+        expression: filter(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'user' && .value.login != ''})[0]['value']['login']
+  - filter: |
+     JsonExtract(evt.Parsed.message, "method") == 'POST' &&
+     JsonExtract(evt.Parsed.message, "path") == '/users/sign_in' &&
+     JsonExtract(evt.Parsed.message, 'params') contains 'otp_attempt' &&
+     JsonExtract(evt.Parsed.message, 'status') != '302'
+    statics:
+      - meta: log_type
+        value: "gitlab_failed_totp"
+
+statics:
+  - meta: service
+    value: gitlab
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "remote_ip")
+  - parsed: timestamp
+    expression: JsonExtract(evt.Parsed.message, "time")
+  - target: evt.StrTime
+    expression: "evt.Parsed.timestamp"

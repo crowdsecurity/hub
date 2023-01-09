@@ -1,0 +1,1 @@
+A parser for [sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) events
