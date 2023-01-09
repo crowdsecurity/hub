@@ -1,0 +1,22 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-iam-policy-change
+description: "Detect AWS IAM policy change"
+filter: |
+    evt.Unmarshaled.eventName == "DeleteGroupPolicy" ||
+    evt.Unmarshaled.eventName == "DeleteRolePolicy" ||
+    evt.Unmarshaled.eventName == "DeleteUserPolicy" ||
+    evt.Unmarshaled.eventName == "PutGroupPolicy" ||
+    evt.Unmarshaled.eventName == "PutRolePolicy" ||
+    evt.Unmarshaled.eventName == "PutUserPolicy" ||
+    evt.Unmarshaled.eventName == "CreatePolicy" ||
+    evt.Unmarshaled.eventName == "DeletePolicy" ||
+    evt.Unmarshaled.eventName == "CreatePolicyVersion" ||
+    evt.Unmarshaled.eventName == "DeletePolicyVersion" ||
+    evt.Unmarshaled.eventName == "AttachRolePolicy" ||
+    evt.Unmarshaled.eventName == "DetachRolePolicy" ||
+    evt.Unmarshaled.eventName == "AttachUserPolicy" ||
+    evt.Unmarshaled.eventName == "DetachUserPolicy" ||
+    evt.Unmarshaled.eventName == "AttachGroupPolicy" ||
+    evt.Unmarshaled.eventName == "DetachGroupPolicy"
+labels:
+  type: compliance
