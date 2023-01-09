@@ -37,7 +37,7 @@ pattern_syntax:
   SURICATA_EVE_TS: '%{TIMESTAMP_ISO8601:time}'
 nodes:
   - grok:
-      pattern: '%{SURICATA_EVE_TS:time}\+%{INT}'
+      pattern: '%{SURICATA_EVE_TS:time}(\-|\+)%{INT}'
       expression: JsonExtract(evt.Parsed.message, "timestamp")
 statics:
   - meta: service
