@@ -1,5 +1,5 @@
-len(results) == 4
-len(results["s01-parse"]["crowdsecurity/teamspeak3-logs"]) == 5
+len(results) == 5
+len(results["s01-parse"]["crowdsecurity/teamspeak3-logs"]) == 6
 results["s01-parse"]["crowdsecurity/teamspeak3-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/teamspeak3-logs"][0].Evt.Parsed["message"] == "2022-12-29 11:39:26.009756|INFO    |Query         |   |query from 11 127.0.0.1:48426 attempted to login with account \"toto\" and failed!"
 results["s01-parse"]["crowdsecurity/teamspeak3-logs"][0].Evt.Parsed["program"] == "ts3"
@@ -171,3 +171,21 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "ts3_fail_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "teamspeak3"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2022-12-29T11:28:04.596079Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["level"] == "INFO    "
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "2023-01-13 00:44:27.543333|INFO    |Query         |   |query from 101 [fd00:feed:dead:beef:405f:26ff:fe06:d4b]:34232 attempted to login with account "harry" and failed!1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "ts3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["service"] == "Query         "
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["src_port"] == "34232"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["timestamp"] == "2023-01-13 00:44:27.543333"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["chan"] == "101"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["empty"] == "   "
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["login"] == "harry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["src_ip"] == "fd00:feed:dead:beef:405f:26ff:fe06:d4b"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "fd00:feed:dead:beef:405f:26ff:fe06:d4b"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2023-01-13T00:44:27.543333Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"] == "teamspeak-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "ts3_fail_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["service"] == "teamspeak3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2023-01-13T00:44:27.543333Z"
