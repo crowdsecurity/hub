@@ -1,7 +1,7 @@
 onsuccess: next_stage
 name: crowdsecurity/mariadb-logs
 description: "Parse MariaDB logs"
-filter: "evt.Parsed.program == 'mariadb'"
+filter: "evt.Parsed.program startsWith 'mariadb'"
 pattern_syntax:
   LONG_DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
   SHORT_DATE_YMD: "%{YEAR:year}%{MONTHNUM2:month}%{MONTHDAY:day}"
