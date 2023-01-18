@@ -18,6 +18,7 @@ A collection of http specific CVEs :
  - [Text4Shell CVE-2022-42889](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42889)
  - [Ghost CMS CVE-2022-41697](https://nvd.nist.gov/vuln/detail/CVE-2022-41697)
  - [Cacti CVE-2022-46169](https://nvd.nist.gov/vuln/detail/CVE-2022-46169)
+ - [Centos Web Panel 7 CVE-2022-44877](https://nvd.nist.gov/vuln/detail/CVE-2022-44877)
 
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
