@@ -1,0 +1,25 @@
+filter: "evt.Parsed.program startsWith 'kasm'"
+onsuccess: next_stage
+# debug: true
+name: crowdsecurity/kasm-logs
+description: "Parse kasm logs"
+nodes:
+  - grok:
+      pattern: '%{IPORHOST:remote_ip},%{GREEDYDATA:proxies}'
+      expression: JsonExtract(evt.Line.Raw, "request_ip")
+  - grok:
+      pattern: '%{GREEDYDATA:log_message} \(%{DATA:user}\)'
+      expression: JsonExtract(evt.Line.Raw, "message")
+statics:
+  - meta: service
+    value: kasm
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Line.Raw, "timestamp")
+  - meta: metric_name
+    expression: JsonExtract(evt.Line.Raw, "metric_name")
+  - meta: source_ip
+    expression: evt.Parsed.remote_ip
+  - meta: http_user_agent
+    expression: JsonExtract(evt.Line.Raw, "user_agent")
+  - meta: http_path
+    expression: JsonExtract(evt.Line.Raw, "path_info")
