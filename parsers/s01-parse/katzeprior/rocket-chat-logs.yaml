@@ -1,0 +1,19 @@
+filter: "evt.Parsed.program == 'rocket-chat'"
+onsuccess: next_stage
+name: katzeprior/rocket-chat
+description: "Parser for rocket-chat"
+pattern_syntax:
+  ROCKET_CHAT_AUTHFAILED: '{"level":%{INT},"time":"%{TIMESTAMP_ISO8601:timestamp}","pid":%{INT},"hostname":"%{HOSTNAME}","name":"%{DATA}","msg":"Failed login detected - Username\[%{USERNAME}\] ClientAddress\[%{IP:source_ip}\]'
+nodes:
+  - grok:
+      name: "ROCKET_CHAT_AUTHFAILED"
+      apply_on: Line.Raw
+statics:
+  - meta: service
+    value: rocket-chat
+  - meta: log_type
+    value: rocket_chat_auth_failed
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: "evt.Parsed.timestamp"

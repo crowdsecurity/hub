@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/katzeprior/rocket-chat-logs.yaml
+scenarios:
+- ./scenarios/katzeprior/rocket-chat-bf.yaml
+postoverflows:
+- ""
+log_file: rocket-chat-bf.log
+log_type: rocket-chat
+labels: {}
+ignore_parsers: true
+override_statics: []
