@@ -5,11 +5,8 @@ name: crowdsecurity/kasm-logs
 description: "Parse kasm logs"
 nodes:
   - grok:
-      pattern: '%{IPORHOST:remote_ip},%{GREEDYDATA:proxies}'
+      pattern: '%{IPORHOST:remote_ip}(,%{GREEDYDATA:proxies})?'
       expression: JsonExtract(evt.Line.Raw, "request_ip")
-  - grok:
-      pattern: '%{GREEDYDATA:log_message} \(%{DATA:user}\)'
-      expression: JsonExtract(evt.Line.Raw, "message")
 statics:
   - meta: service
     value: kasm
