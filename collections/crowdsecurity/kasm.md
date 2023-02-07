@@ -4,7 +4,7 @@ This collection add parser support for kasm json log output, also a base scenari
 
 ```yaml
 filenames:
-  - /opt/kasm/current/log/*.log
+  - /opt/kasm/current/log/api_server_json.log
 labels:
   type: kasm
 ```
