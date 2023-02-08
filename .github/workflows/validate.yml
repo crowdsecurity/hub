@@ -38,6 +38,6 @@ jobs:
     - name: validate postoverflows against schema
       run: |
         for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
-    - name: validate parsers against schema
+    - name: validate collections against schema
       run: |
-        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
+        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
