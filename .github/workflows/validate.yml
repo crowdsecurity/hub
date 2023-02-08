@@ -30,6 +30,7 @@ jobs:
     - name: validate parsers against schema
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
+        find .
         for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
     - name: validate scenarios against schema
       run: |
