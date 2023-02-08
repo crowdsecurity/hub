@@ -31,13 +31,13 @@ jobs:
       run: |
         go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
         find .
-        for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+        for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
     - name: validate scenarios against schema
       run: |
-        for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv scenario_schema.json $ITEM ; done
+        for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.json $ITEM ; done
     - name: validate postoverflows against schema
       run: |
-        for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv collection_schema.json $ITEM ; done
+        for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
     - name: validate parsers against schema
       run: |
-        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv parser_schema.json $ITEM ; done
+        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
