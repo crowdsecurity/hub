@@ -3,7 +3,7 @@ type: conditional
 name: crowdsecurity/auditd-base64-exec-behavior
 description: "Detect post-exploitation behaviour : base64 + interpreter (perl/bash/python)"
 filter: evt.Meta.log_type == 'auditd_execve'
-#grouping by ppid to track on process doing a lot of invocations to rm, such as a shell script
+#grouping by ppid to track a processs invoking base64 and interpreter in sequence
 groupby: evt.Parsed.ppid
 condition: |
   any(queue.Queue, {.Parsed.exe == "/usr/bin/base64"})
