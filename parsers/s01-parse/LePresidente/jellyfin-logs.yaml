@@ -5,9 +5,10 @@ description: "Parse jellyfin logs"
 filter: "evt.Parsed.program == 'jellyfin'"
 pattern_syntax:
   CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  CUSTOMDATE: "%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}"
 nodes:
   - grok:
-      pattern: '\[%{RAILS_TIMESTAMP:timestamp}\].*Authentication request for "%{CUSTOMUSER:username}" has been denied \(IP: "%{IP:source_ip}"\).*'
+      pattern: '\[%{CUSTOMDATE:timestamp}.*\].*Authentication request for "%{CUSTOMUSER:username}" has been denied \(IP: "%{IP:source_ip}"\).*'
       apply_on: message
       statics:
         - meta: log_type
