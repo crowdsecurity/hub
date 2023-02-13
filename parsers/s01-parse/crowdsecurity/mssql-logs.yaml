@@ -34,3 +34,35 @@ statics:
     value: mssql_failed_auth
   - meta: user
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[1]")
+---
+onsuccess: next_stage
+name: crowdsecurity/mssql-text-logs
+description: "Parse mssql logs"
+filter: "evt.Parsed.program == 'mssql'"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+nodes:
+  - grok:
+      pattern: "%{DATE_YMD:date} %{TIME:time} Logon.*Login failed for user '%{NOTDQUOTE:user}'. Reason: %{GREEDYDATA:reason_message}. \\[CLIENT: %{IPORHOST:source_ip}\\]"
+      apply_on: message
+    onsuccess: next_stage
+    nodes:
+      - filter: "evt.Parsed.reason_message == 'Password did not match that for the login provided'"
+        onsuccess: next_stage
+        statics:
+          - meta: subtype
+            value: bad_password
+      - filter: "evt.Parsed.reason_message == 'Could not find a login matching the name provided'"
+        onsuccess: next_stage
+        statics:
+          - meta: subtype
+            value: bad_user
+statics:
+    - meta: service
+      value: mssql
+    - meta: log_type
+      value: mssql_failed_auth
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"

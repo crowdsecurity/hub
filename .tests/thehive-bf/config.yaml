@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/thehive-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/thehive-bf.yaml
+postoverflows:
+- ""
+log_file: thehive-bf.log
+log_type: thehive
+labels: {}
+ignore_parsers: false
+override_statics: []

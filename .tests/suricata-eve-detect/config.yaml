@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/suricata-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/suricata-alerts.yaml
+postoverflows:
+- ""
+log_file: suricata-eve-detect.log
+log_type: suricata-evelogs
+labels: {}
+ignore_parsers: true
+override_statics: []

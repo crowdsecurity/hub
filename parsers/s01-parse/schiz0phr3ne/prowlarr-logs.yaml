@@ -1,0 +1,28 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'Prowlarr'"
+name: schiz0phr3ne/prowlarr-logs
+description: "Parse Prowlarr Logs"
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+nodes:
+  - grok:
+      pattern: '^\[Warn\] Auth: Auth-Failure ip %{IP:source_ip} username %{DATA:username}$'
+      apply_on: message
+  - grok:
+      pattern: "%{DATE_YMD:date} %{TIME:time}\\|%{WORD:log_level}\\|Auth\\|Auth-Failure ip %{IPORHOST:source_ip} username '%{NOTDQUOTE:username}'"
+      apply_on: message
+      statics:
+        - target: evt.Parsed.timestamp
+          expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
+    onsuccess: next_stage
+statics:
+    - meta: log_type
+      value: prowlarr_failed_authentication
+    - meta: service
+      value: prowlarr
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
+    - meta: username
+      expression: evt.Parsed.username

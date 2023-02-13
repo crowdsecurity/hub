@@ -12,7 +12,7 @@ jobs:
     - name: Set up Go 1.15
       uses: actions/setup-go@v1
       with:
-        go-version: 1.15
+        go-version: 1.19
       id: go
     - name: merge all results
       run: |
@@ -30,5 +30,5 @@ jobs:
       uses: ad-m/github-push-action@master
       if: github.event_name == 'push'
       with:
-        github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}

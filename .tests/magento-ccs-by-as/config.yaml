@@ -1,0 +1,13 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/magento-extension-logs.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/geoip-enrich
+scenarios:
+- ./scenarios/crowdsecurity/http-magento-ccs-by-as.yaml
+postoverflows:
+- ""
+log_file: magento-ccs-by-as.log
+log_type: magento-extension
+labels: {}
+ignore_parsers: true

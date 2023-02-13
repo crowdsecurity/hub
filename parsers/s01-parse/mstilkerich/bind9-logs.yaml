@@ -1,0 +1,39 @@
+---
+filter: "Upper(evt.Parsed.program) == 'NAMED'"
+#debug: true
+onsuccess: next_stage
+pattern_syntax:
+  BIND9_TIMESTAMP_DATE: '%{MONTHDAY:ts_d}-%{MONTH:ts_m}-%{YEAR:ts_y}'
+  BIND9_TIMESTAMP_TIMEMS: '\d{3}'
+  BIND9_TIMESTAMP_TIME: '%{TIME:ts_t}\.%{BIND9_TIMESTAMP_TIMEMS:ts_ms}'
+  BIND9_TIMESTAMP: '%{BIND9_TIMESTAMP_DATE} %{BIND9_TIMESTAMP_TIME}'
+  # categories: security, client, update-security, etc.
+  BIND9_CATEGORY: '[a-z]+'
+  BIND9_SEVERITY: '[a-z]+'
+  BIND9_PREFIX: '^(%{BIND9_TIMESTAMP:timestamp} )?(%{BIND9_CATEGORY}: )?(%{BIND9_SEVERITY}: )?client @0x[0-9a-fA-F]+ %{IP:remote_addr}#%{POSINT:remote_port}.*: '
+name: mstilkerich/bind9
+description: "Parse bind9 logs"
+nodes:
+  # When multiple grok patterns are specified, only the first matching one is applied
+  - grok:
+      pattern: '^%{BIND9_PREFIX}zone transfer .* (?:denied|\(NOTAUTH\))\s*$'
+      apply_on: message
+  - grok:
+      pattern: '^%{BIND9_PREFIX}bad zone transfer request: ''\S+/IN'': non-authoritative zone (?:denied|\(NOTAUTH\))\s*$'
+      apply_on: message
+  - grok:
+      pattern: '^%{BIND9_PREFIX}(?:view (?:internal|external): )?query(?: \(cache\))? .* (?:denied|\(NOTAUTH\))\s*$'
+      apply_on: message
+statics:
+  - meta: service
+    value: bind9
+  - meta: log_type
+    value: bind9_denied
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - target: evt.StrTime  # convert time format for dateparse-enrich
+    expression: "
+      {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'}[evt.Parsed.ts_m]
+      + '/' + evt.Parsed.ts_d
+      + '/' + evt.Parsed.ts_y
+      + ' ' + evt.Parsed.ts_t"
