@@ -9,7 +9,6 @@ pattern_syntax:
   CUSTOMDATE: "%{MONTH} %{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}"
 nodes:
   - grok:
-      # Feb 10 17:33:10 meshcentral https[26880]: Failed password for undefined from 85.209.1.1 port 57951
       pattern: '%{CUSTOMDATE:timestamp}.*Failed password for %{CUSTOMUSER:username} from %{IP:source_ip}.*'
       apply_on: message
       statics:
