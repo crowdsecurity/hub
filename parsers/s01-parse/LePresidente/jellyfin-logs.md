@@ -6,5 +6,4 @@ filenames:
  - /var/log/jellyfin/log_*.log
 labels:
   type: jellyfin
-```emby
 ```
