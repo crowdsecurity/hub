@@ -23,4 +23,4 @@ statics:
     - meta: source_ip
       expression: "evt.Parsed.dovecot_remote_ip"
     - meta: dovecot_login_result
-      expression: "any(['Authentication failure', 'Paqssword mismatch', 'password mismatch', 'auth failed', 'unknown user'], {evt.Parsed.dovecot_login_message contains #}) ? 'auth_failed' : ''"
+      expression: "any(['Authentication failure', 'Password mismatch', 'password mismatch', 'auth failed', 'unknown user'], {evt.Parsed.dovecot_login_message contains #}) ? 'auth_failed' : ''"
