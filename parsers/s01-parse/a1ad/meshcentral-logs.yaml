@@ -1,0 +1,27 @@
+
+onsuccess: next_stage
+#debug: false
+name: a1ad/meshcentral-logs
+description: "Parse meshcentral logs"
+filter: "evt.Parsed.program == 'meshcentral'"
+pattern_syntax:
+  CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  CUSTOMDATE: "%{MONTH} %{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}"
+nodes:
+  - grok:
+      # Feb 10 17:33:10 meshcentral https[26880]: Failed password for undefined from 85.209.1.1 port 57951
+      pattern: '%{CUSTOMDATE:timestamp}.*Failed password for %{CUSTOMUSER:username} from %{IP:source_ip}.*'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: meshcentral_failed_auth
+
+statics:
+    - meta: service
+      value: meshcentral
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
