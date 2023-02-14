@@ -4,13 +4,14 @@ name: LePresidente/gitea-logs
 filter: "evt.Parsed.program == 'gitea'"
 description: "Parse gitea logs"
 pattern_syntax:
-  CUSTOMDATE: "%{DATE_X} %{TIME}"
+  GITEA_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  GITEA_CUSTOMDATE: "%{DATE_X} %{TIME}"
 nodes:
   - grok:
-      pattern: '^%{CUSTOMDATE:timestamp}.*?Failed authentication attempt for (%{EMAILADDRESS:email}|%{USERNAME:username}) from %{IP:remote_ip}:%{NUMBER:remote_port}: user does not exist'
+      pattern: '^%{GITEA_CUSTOMATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}: user does not exist'
       apply_on: message
       statics:
-        - meta: log_type
+        - meta: log_typeD
           value: gitea_failed_auth
 
 statics:
