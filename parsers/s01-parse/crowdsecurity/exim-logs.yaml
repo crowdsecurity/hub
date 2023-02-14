@@ -11,9 +11,18 @@ pattern_syntax:
   NOSPACE: '[^ ]+'
   DATE_T: '[0-9-]+ [0-9:]+'
   EXIM_HEADER: '%{DATE_T:date} dovecot_(login|plain)'
+  EXIM_DATE: '(:?%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME})'
 nodes:
   - grok:
       pattern: '%{EXIM_HEADER} authenticator failed for \(\[%{NO_END_BRACKET:target_ip}\]\) \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port}: %{INT} Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: exim_failed_auth
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+  - grok:
+      pattern: '%{EXIM_DATE} login authenticator failed for %{NOTSPACE:target_ip} \[%{IP:source_ip}]\: %{INT} Incorrect authentication data \(set_id=(%{USERNAME:target_user}|%{USERNAME:target_user}\@%{URIHOST:host})\)'
       apply_on: message
       statics:
         - meta: log_type
@@ -38,6 +47,34 @@ nodes:
           expression: evt.Parsed.date
   - grok:
       pattern: '%{DATE_T:date} H=%{NOSPACE:source_dns} \[%{NO_END_BRACKET:source_ip}\]:%{INT:source_port} F=<%{NO_GREATER:source_user}> rejected RCPT <%{NO_GREATER:target_user}>: "JunkMail rejected - %{NOSPACE} \[%{NO_END_BRACKET}\]:%{INT} is in an RBL: %{NO_DOUBLE_QUOTE:rbl_url}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: rbl_url
+          expression: evt.Parsed.rbl_url
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{EXIM_DATE} H=%{NOTSPACE:source_dns} \[%{IP:source_ip}\] X=%{NOTSPACE} CV=%{WORD} F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Email blocked by %{HOSTNAME:rbl_url}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: spam-attempt
+        - target: evt.StrTime
+          expression: evt.Parsed.date
+        - meta: rbl_url
+          expression: evt.Parsed.rbl_url
+        - meta: source_user
+          expression: evt.Parsed.source_user
+        - meta: source_dns
+          expression: "evt.Parsed.source_dns"
+  - grok:
+      pattern: '%{EXIM_DATE} H=%{NOTSPACE:source_dns} \[%{IP:source_ip}\] F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Email blocked by %{HOSTNAME:rbl_url}'
       apply_on: message
       statics:
         - meta: log_type
