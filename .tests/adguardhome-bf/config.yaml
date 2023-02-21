@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/docker-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/LePresidente/adguardhome-logs.yaml
+scenarios:
+- ./scenarios/LePresidente/adguardhome-bf.yaml
+postoverflows:
+- ""
+log_file: adguardhome-bf.log
+log_type: adguardhome
+labels: {}
+ignore_parsers: true
+override_statics: []
