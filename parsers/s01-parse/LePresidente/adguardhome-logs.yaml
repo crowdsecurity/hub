@@ -1,0 +1,20 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/adguardhome-logs
+description: "Parse adguardhome logs"
+filter: "evt.Parsed.program == 'adguardhome'"
+nodes:
+  - grok:
+      pattern: '%{DATE_X:date} %{TIME:time}.* POST %{IP:source_ip}.*: invalid username or password$'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: adguardhome_failed_auth
+
+statics:
+    - meta: service
+      value: adguardhome
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
