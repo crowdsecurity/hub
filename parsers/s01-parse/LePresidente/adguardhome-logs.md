@@ -3,7 +3,7 @@ Parser for [AdGuardHome](https://github.com/AdguardTeam/AdGuardHome) Logs.
 ```yaml
 ---
 filenames:
- - /var/log/adguardhome.log
+ - /var/log/AdGuardHome.log
 labels:
   type: adguardhome
 ```
@@ -12,7 +12,7 @@ labels:
 ---
 source: docker
 container_name:
- - adguardhome
+ - AdGuardHome
 #container_id:
 # - 843ee92d231b
 labels:
