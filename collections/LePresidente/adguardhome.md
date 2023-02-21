@@ -10,7 +10,7 @@ If using LOG_FILE environment variable:
 ```yaml
 ---
 filenames:
- - /var/log/adguardhome.log
+ - /var/log/AdGuardHome.log
 labels:
   type: adguardhome
 ```
@@ -20,7 +20,7 @@ Directly monitoring Docker
 ---
 source: docker
 container_name:
- - adguardhome
+ - AdGuardHome
 #container_id:
 # - 843ee92d231b
 labels:
