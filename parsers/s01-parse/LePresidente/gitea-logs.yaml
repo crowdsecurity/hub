@@ -13,6 +13,12 @@ nodes:
       statics:
         - meta: log_type
           value: gitea_failed_auth
+  - grok:
+      pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt from %{IP:remote_ip}:%{NUMBER:remote_port}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: gitea_failed_auth
 
 statics:
     - meta: service
