@@ -18,10 +18,15 @@ statics:
   - meta: region
     expression: evt.Unmarshaled.awsRegion
   - meta: source_ip
-    expression: evt.Unmarshaled.sourceIPAddress
+    expression: |
+      IsIP(String(evt.Unmarshaled.sourceIPAddress)) ? evt.Unmarshaled.sourceIPAddress : ""
   - meta: user_agent
     expression: evt.Unmarshaled.userAgent
   - meta: error_code
     expression: evt.Unmarshaled.errorCode
+  - meta: event_id
+    expression: evt.Unmarshaled.eventID
+  - meta: account_id
+    expression: evt.Unmarshaled.userIdentity.accountId
   - meta: log_type
     value: aws-cloudtrail
