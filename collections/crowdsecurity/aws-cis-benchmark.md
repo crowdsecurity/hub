@@ -31,6 +31,9 @@ format: |
    {{- range $index, $elem := . -}}
    {{- $region := GetMeta . "region" -}}
    {{- $event_uuid := GetMeta . "event_id" -}}
+   {{- $account_id := GetMeta . "account_id" -}}
+   {{- $event_name := GetMeta . "event_name" -}}
+   {{- $user := GetMeta . "user_arn" -}}
    {
      "type": "header",
      "text": {
@@ -57,7 +60,7 @@ format: |
      "type": "section",
      "text": {
        "type": "mrkdwn",
-       "text": "*Scenario Name*: {{$elem.Scenario}}\n *Source IP*: {{$elem.Source.Value}}"
+       "text": "*Scenario Name*: {{$elem.Scenario}}\n *Source IP*: {{$elem.Source.Value}}\n *Account ID*: {{index $account_id 0}}\n *Event Name*: {{index $event_name 0}}\n *User*: {{index $user 0}}"
      }
    },
    {
