@@ -4,8 +4,11 @@ description: "Parse VSFTPD logs"
 filter: "evt.Parsed.program == 'vsftpd'"
 #debug: true
 pattern_syntax:
-  FTP_AUTH_FAIL: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "(::ffff:)?%{IP:source_ip}"'
-  FTP_DENIED_USER: '%{HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FTP response: Client "(::ffff:)?%{IP:source_ip}", "530 Permission denied."'
+  # Custom grok for some versions that add an extra space before single digit monthday
+  # Not perfect because extra ,spaces are not trimmed in resulting 'timestamp' capture
+  CUSTOM_HTTPDERROR_DATE: '%{DAY} %{MONTH} (?:\s?)%{MONTHDAY} %{TIME} %{YEAR}'
+  FTP_AUTH_FAIL: '%{CUSTOM_HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FAIL LOGIN: Client "(::ffff:)?%{IP:source_ip}"'
+  FTP_DENIED_USER: '%{CUSTOM_HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] FTP response: Client "(::ffff:)?%{IP:source_ip}", "530 Permission denied."'
 nodes:
   - grok:
       pattern: "%{FTP_AUTH_FAIL}"
@@ -24,3 +27,5 @@ statics:
       expression: "evt.Parsed.user"
     - target: evt.StrTime
       expression: evt.Parsed.timestamp
+    - target: evt.StrTimeFormat
+      value: "Mon Jan _2 15:04:05 2006"

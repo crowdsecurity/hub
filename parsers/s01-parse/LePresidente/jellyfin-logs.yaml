@@ -1,0 +1,25 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/jellyfin-logs
+description: "Parse jellyfin logs"
+filter: "evt.Parsed.program == 'jellyfin'"
+pattern_syntax:
+  JELLYFIN_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  JELLYFIN_CUSTOMDATE: "%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}"
+nodes:
+  - grok:
+      pattern: '\[%{JELLYFIN_CUSTOMDATE:timestamp}.*\].*Authentication request for "%{JELLYFIN_CUSTOMUSER:username}" has been denied \(IP: "%{IP:source_ip}"\).*'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: jellyfin_failed_auth
+
+statics:
+    - meta: service
+      value: jellyfin
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp

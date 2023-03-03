@@ -1,0 +1,24 @@
+type: conditional
+#debug: true
+name: crowdsecurity/auditd-base64-exec-behavior
+description: "Detect post-exploitation behaviour : base64 + interpreter (perl/bash/python)"
+filter: evt.Meta.log_type == 'auditd_execve'
+#grouping by ppid to track a processs invoking base64 and interpreter in sequence
+groupby: evt.Parsed.ppid
+condition: |
+  any(queue.Queue, {.Parsed.exe == "/usr/bin/base64"})
+  and (
+    any(queue.Queue, { .Parsed.exe in ["/usr/bin/perl", "/bin/bash", "/bin/dash", "/bin/sh"] })
+    or
+    any(queue.Queue, { .Parsed.exe startsWith "/usr/bin/python" })
+  )
+leakspeed: 1s
+capacity: -1
+blackhole: 1m
+labels:
+  service: linux
+  type: post-exploitation
+  remediation: false
+scope:
+  type: pid
+  expression: evt.Parsed.ppid

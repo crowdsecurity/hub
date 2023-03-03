@@ -8,10 +8,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v48/github"
 	"github.com/pkg/errors"
+	"golang.org/x/oauth2"
 )
 
 const (
@@ -106,7 +108,7 @@ func fetchExpressBouncerDownload() (int, error) {
 	return totalDownload, nil
 }
 
-//DumpJSON dumps the list to a json file
+// DumpJSON dumps the list to a json file
 func DumpJSON(file string, items []ItemInfo) error {
 	dump, err := json.MarshalIndent(items, "", " ")
 	if err != nil {
@@ -119,7 +121,7 @@ func DumpJSON(file string, items []ItemInfo) error {
 	return nil
 }
 
-//LoadJSON loads a list of blockers from json
+// LoadJSON loads a list of blockers from json
 func LoadJSON(file string) ([]ItemInfo, error) {
 	var blockers []ItemInfo
 	body, err := ioutil.ReadFile(file)
@@ -132,13 +134,23 @@ func LoadJSON(file string) ([]ItemInfo, error) {
 	return blockers, nil
 }
 
-//UpdateItem refreshes the item information from github api
+// UpdateItem refreshes the item information from github api
 func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	/*Configure client with auth*/
 	client := github.NewClient(nil)
+	githubToken := os.Getenv("GH_TOKEN")
+	ctx := context.Background()
+	if githubToken != "" {
+		log.Printf("GH_TOKEN env found, using it.")
+		ts := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: githubToken},
+		)
+		tc := oauth2.NewClient(ctx, ts)
+		client = github.NewClient(tc)
+	}
 	/*get main infos about repo*/
 	log.Printf("updating %s/%s", item.Owner, item.Name)
-	repinfo, _, err := client.Repositories.Get(context.Background(), item.Owner, item.Name)
+	repinfo, _, err := client.Repositories.Get(ctx, item.Owner, item.Name)
 	if err != nil {
 		return item, fmt.Errorf("unable to get %s/%s : %s", item.Owner, item.Name, err)
 	}
@@ -150,7 +162,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	log.Printf("Description : %s", item.Description)
 
 	/*get the readme*/
-	readme, _, err := client.Repositories.GetReadme(context.Background(), item.Owner, item.Name, nil)
+	readme, _, err := client.Repositories.GetReadme(ctx, item.Owner, item.Name, nil)
 	if err != nil {
 		return item, fmt.Errorf("Failed to get the readme : %s", err)
 	}
@@ -162,7 +174,7 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 	log.Printf("len(readme) : %d", len(content))
 	item.ReadmeContent = base64.StdEncoding.EncodeToString([]byte(content))
 
-	releases, _, err := client.Repositories.ListReleases(context.Background(), item.Owner, item.Name, nil)
+	releases, _, err := client.Repositories.ListReleases(ctx, item.Owner, item.Name, nil)
 	if err != nil {
 		log.Fatalf("Failed to fetch releases : %+v", err.Error())
 	}

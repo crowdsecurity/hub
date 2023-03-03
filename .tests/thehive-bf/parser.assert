@@ -1,0 +1,138 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1741f|2989d0704d3c364c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "thehive"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
+len(results["s01-parse"]["crowdsecurity/thehive-logs"]) == 6
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1741f|2989d0704d3c364c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][0].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][1].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][2].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][3].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][4].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Success == true
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Parsed["program"] == "thehive"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s01-parse"]["crowdsecurity/thehive-logs"][5].Evt.Meta["source_ip"] == "172.17.0.2"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1741f|2989d0704d3c364c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "[info] o.t.s.AccessLogFilter [1e60d1e5e2a1742f|2989d0704d3c594c] 172.17.0.2 POST /api/v1/login took 8ms and returned 401 65 bytes"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "thehive"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["source_ip"] == "172.17.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"] == "thehive-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "thehive_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "172.17.0.2"
+len(results["success"][""]) == 0

@@ -1,12 +1,23 @@
 onsuccess: next_stage
 name: crowdsecurity/mariadb-logs
 description: "Parse MariaDB logs"
-filter: "evt.Parsed.program == 'mariadb'"
+filter: "evt.Parsed.program startsWith 'mariadb'"
 pattern_syntax:
-  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
-grok:
-  pattern: "%{DATE_YMD:date}  ?%{TIME:time} %{NUMBER:thread_id} \\[Warning\\] Access denied for user '%{DATA:user}'@'%{IP:source_ip}' \\(using password: %{WORD:using_password}\\)"
-  apply_on: message
+  LONG_DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+  SHORT_DATE_YMD: "%{YEAR:year}%{MONTHNUM2:month}%{MONTHDAY:day}"
+  PASSWORD_SYNTAX: " ?%{TIME:time} (%{NUMBER:thread_id} )?\\[Warning\\] Access denied for user '%{DATA:user}'@'%{IP:source_ip}' \\(using password: %{WORD:using_password}\\)"
+nodes:
+  - grok:
+      pattern: "%{LONG_DATE_YMD:date} %{PASSWORD_SYNTAX}"
+      apply_on: message
+    onsuccess: next_stage
+  - grok:
+      pattern: "%{SHORT_DATE_YMD:date} %{PASSWORD_SYNTAX}"
+      apply_on: message
+      statics:
+        - target: evt.StrTimeFormat
+          value: "060102 15:04:05"
+    onsuccess: next_stage
 statics:
   - target: evt.StrTime
     expression: "evt.Parsed.date + ' ' + evt.Parsed.time"

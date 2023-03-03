@@ -1,1 +1,1 @@
-A collection to detect bruteforce logins on ZoneMinder.
+A collection to detect bruteforce logins and user enumeration on ZoneMinder.

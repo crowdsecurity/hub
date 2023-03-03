@@ -1,0 +1,30 @@
+# Sonarr bruteforce
+type: leaky
+name: schiz0phr3ne/sonarr-bf
+description: "Detect Sonarr bruteforce"
+filter: "evt.Meta.log_type in ['sonarr_failed_authentication']"
+leakspeed: "15s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: sonarr
+  type: bruteforce
+  remediation: true
+---
+# Sonarr user enum bruteforce
+type: leaky
+name: schiz0phr3ne/sonarr-bf_user-enum
+description: "Detect Sonarr user enum bruteforce"
+filter: "evt.Meta.log_type in ['sonarr_failed_authentication']"
+leakspeed: "30s"
+capacity: 5
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+blackhole: 1m
+reprocess: true
+labels:
+  service: sonarr
+  type: bruteforce
+  remediation: true 

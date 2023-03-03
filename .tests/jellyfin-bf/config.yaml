@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/LePresidente/jellyfin-logs.yaml
+scenarios:
+- ./scenarios/LePresidente/jellyfin-bf.yaml
+postoverflows:
+- ""
+log_file: jellyfin-bf.log
+log_type: jellyfin
+labels: {}
+ignore_parsers: true
+override_statics: []
