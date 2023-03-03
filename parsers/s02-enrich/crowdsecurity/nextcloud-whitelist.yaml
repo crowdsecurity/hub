@@ -7,3 +7,5 @@ whitelist:
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Parsed.file_ext == '.vcf' && evt.Parsed.http_args contains "photo" #Contacts app .vcf missing photo
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/files_versions/preview' && evt.Parsed.http_args contains 'version' #Backup app missing file version
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/photos/api/v1/preview' && evt.Parsed.http_args contains 'x' && evt.Parsed.http_args contains 'y' #Photo app loads all previews as small panes, but can 404
+   - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Parsed.request == '/core/preview' && evt.Parsed.http_args contains 'x=' && evt.Parsed.http_args contains 'y=' && evt.Parsed.http_args contains 'fileId=' #File preview often 404s while searching
+   - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'PROPFIND' && evt.Meta.http_path startsWith '/remote.php/webdav/' #Uploading new files via WebDAV always produces a 404

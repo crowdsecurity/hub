@@ -5,8 +5,9 @@ name: crowdsecurity/teamspeak3-logs
 description: "Parse teamspeak3 server logs"
 pattern_syntax:
   NOPIPE: '[a-zA-Z\s]+'
-  TS3_AUTH_FAIL: '^%{TIMESTAMP_ISO8601:timestamp}\|%{NOPIPE:level}\|%{NOPIPE:service}\|%{NOPIPE:empty}\|query from %{INT:chan} %{IP:src_ip}:%{INT:src_port} attempted to login with account "%{DATA:login}" and failed!$'
+  TS3_AUTH_FAIL: '^%{TIMESTAMP_ISO8601:timestamp}\|%{NOPIPE:level}\|%{NOPIPE:service}\|%{NOPIPE:empty}\|query from %{INT:chan} \[?%{IP:src_ip}\]?:%{INT:src_port} attempted to login with account "%{DATA:login}" and failed!$'
 #2022-12-29 11:39:26.009756|INFO    |Query         |   |query from 11 127.0.0.1:48426 attempted to login with account "toto" and failed!
+#2023-01-13 00:44:27.543333|INFO    |Query         |   |query from 101 [fd00:feed:dead:beef:405f:26ff:fe06:d4b]:34232 attempted to login with account "toto" and failed!
 
 grok:
   name: TS3_AUTH_FAIL

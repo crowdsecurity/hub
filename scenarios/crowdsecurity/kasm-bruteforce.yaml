@@ -1,0 +1,13 @@
+type: leaky
+name: crowdsecurity/kasm-bruteforce
+description: "Detect kasm login bruteforce"
+filter: "evt.Meta.metric_name in ['account.login.failed_invalid_user', 'account.login.failed_invalid_password']"
+leakspeed: "10s"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: kasm
+ type: bruteforce
+ remediation: true

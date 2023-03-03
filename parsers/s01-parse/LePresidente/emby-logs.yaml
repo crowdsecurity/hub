@@ -3,8 +3,6 @@ onsuccess: next_stage
 name: LePresidente/emby-logs
 description: "Parse emby logs"
 filter: "evt.Parsed.program == 'emby'"
-pattern_syntax:
-  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
   - grok:
       pattern: '%{TIMESTAMP_ISO8601:timestamp}.*?AUTH-ERROR: %{IP:source_ip} - Invalid username or password entered\.$'

@@ -1,0 +1,45 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Feb 10 15:24:51 meshcentral https[26880]: Accepted password for admin from 79.78.1.1 port 2228"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "meshcentral"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "meshcentral-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Feb 10 17:33:10 meshcentral https[26880]: Failed password for undefined from 85.209.1.1 port 57951"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "meshcentral"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "meshcentral-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["a1ad/meshcentral-logs"]) == 2
+results["s01-parse"]["a1ad/meshcentral-logs"][0].Success == false
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Success == true
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Parsed["source_ip"] == "85.209.1.1"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Parsed["timestamp"] == "Feb 10 17:33:10"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Parsed["username"] == "undefined"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Parsed["message"] == "Feb 10 17:33:10 meshcentral https[26880]: Failed password for undefined from 85.209.1.1 port 57951"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Parsed["program"] == "meshcentral"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["datasource_path"] == "meshcentral-logs.log"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["log_type"] == "meshcentral_failed_auth"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["service"] == "meshcentral"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["source_ip"] == "85.209.1.1"
+results["s01-parse"]["a1ad/meshcentral-logs"][1].Evt.Meta["user"] == "undefined"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "undefined"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "Feb 10 17:33:10 meshcentral https[26880]: Failed password for undefined from 85.209.1.1 port 57951"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "meshcentral"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "85.209.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "Feb 10 17:33:10"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "undefined"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "meshcentral-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "meshcentral_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "meshcentral"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "85.209.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-02-10T17:33:10Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-02-10T17:33:10Z"
+len(results["success"][""]) == 0
