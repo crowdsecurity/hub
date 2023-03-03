@@ -1,0 +1,9 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-root-usage
+description: "Detect AWS root account usage"
+filter: |
+    evt.Unmarshaled.userIdentity.type == "Root" &&
+    evt.Unmarshaled.userIdentity.invokedBy == nil &&
+    evt.Unmarshaled.eventType != "AwsServiceEvent"
+labels:
+  type: compliance

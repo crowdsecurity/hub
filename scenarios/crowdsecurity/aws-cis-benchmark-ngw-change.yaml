@@ -1,0 +1,12 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-ngw-change
+description: "Detect AWS Network Gateway change"
+filter: |
+     evt.Unmarshaled.eventName == "CreateCustomerGateway" ||
+     evt.Unmarshaled.eventName == "DeleteCustomerGateway" ||
+     evt.Unmarshaled.eventName == "AttachInternetGateway" ||
+     evt.Unmarshaled.eventName == "CreateInternetGateway" ||
+     evt.Unmarshaled.eventName == "DeleteInternetGateway" ||
+     evt.Unmarshaled.eventName == "DetachInternetGateway"
+labels:
+  type: compliance

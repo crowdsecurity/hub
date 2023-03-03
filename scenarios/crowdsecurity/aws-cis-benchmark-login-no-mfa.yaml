@@ -1,0 +1,10 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-login-no-mfa
+description: "Detect login without MFA to the AWS console"
+filter: |
+    evt.Unmarshaled.eventName == "ConsoleLogin" &&
+    evt.Unmarshaled.additionalEventData.MFAUsed != "Yes" &&
+    evt.Unmarshaled.userIdentity.type == "IAMUser" &&
+    evt.Unmarshaled.responseElements.ConsoleLogin == "Success"
+labels:
+  type: compliance

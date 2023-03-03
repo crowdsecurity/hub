@@ -1,0 +1,8 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-kms-deletion
+description: "Detect AWS KMS key deletion"
+filter: |
+    evt.Unmarshaled.eventSource == "kms.amazonaws.com" &&
+    (evt.Unmarshaled.eventName == "DisableKey" || evt.Unmarshaled.eventName == "ScheduleKeyDeletion")
+labels:
+  type: compliance
