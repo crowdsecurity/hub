@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/auditd-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/auditd-postexploit-rm.yaml
+#postoverflows doesn't work in hubtest so far
+postoverflows:
+- ./postoverflows/s01-whitelist/crowdsecurity/auditd-whitelisted-process.yaml
+log_file: auditd-rm-sus-behaviour.log
+log_type: auditd
+labels: {}
+ignore_parsers: true
+override_statics: []
