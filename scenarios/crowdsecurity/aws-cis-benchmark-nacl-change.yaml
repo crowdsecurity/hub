@@ -1,0 +1,12 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-nacl-change
+description: "Detect AWS NACL change"
+filter: |
+     evt.Unmarshaled.eventName == "CreateNetworkAcl" ||
+     evt.Unmarshaled.eventName == "CreateNetworkAclEntry" ||
+     evt.Unmarshaled.eventName == "DeleteNetworkAcl" ||
+     evt.Unmarshaled.eventName == "DeleteNetworkAclEntry" ||
+     evt.Unmarshaled.eventName == "ReplaceNetworkAclEntry" ||
+     evt.Unmarshaled.eventName == "ReplaceNetworkAclAssociation"
+labels:
+  type: compliance

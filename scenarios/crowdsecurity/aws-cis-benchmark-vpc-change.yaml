@@ -1,0 +1,17 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-vpc-change
+description: "Detect AWS VPC change"
+filter: |
+     evt.Unmarshaled.eventName == "CreateVpc" ||
+     evt.Unmarshaled.eventName == "DeleteVpc" ||
+     evt.Unmarshaled.eventName == "ModifyVpcAttribute" ||
+     evt.Unmarshaled.eventName == "AcceptVpcPeeringConnection" ||
+     evt.Unmarshaled.eventName == "CreateVpcPeeringConnection" ||
+     evt.Unmarshaled.eventName == "DeleteVpcPeeringConnection" ||
+     evt.Unmarshaled.eventName == "RejectVpcPeeringConnection" ||
+     evt.Unmarshaled.eventName == "AttachClassicLinkVpc" ||
+     evt.Unmarshaled.eventName == "DetachClassicLinkVpc" ||
+     evt.Unmarshaled.eventName == "DisableVpcClassicLink" ||
+     evt.Unmarshaled.eventName == "EnableVpcClassicLink"
+labels:
+  type: compliance

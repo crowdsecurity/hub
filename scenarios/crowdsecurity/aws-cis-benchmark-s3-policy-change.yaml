@@ -1,0 +1,18 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-s3-policy-change
+description: "Detect AWS S3 bucket policy change"
+filter: |
+    evt.Unmarshaled.eventSource == "s3.amazonaws.com" &&
+    (
+     evt.Unmarshaled.eventName == "PutBucketAcl" ||
+     evt.Unmarshaled.eventName == "PutBucketPolicy" ||
+     evt.Unmarshaled.eventName == "PutBucketCors" ||
+     evt.Unmarshaled.eventName == "PutBucketLifecycle" ||
+     evt.Unmarshaled.eventName == "PutBucketReplication" ||
+     evt.Unmarshaled.eventName == "DeleteBucketPolicy" ||
+     evt.Unmarshaled.eventName == "DeleteBucketCors" ||
+     evt.Unmarshaled.eventName == "DeleteBucketLifecycle" ||
+     evt.Unmarshaled.eventName == "DeleteBucketReplication"
+    )
+labels:
+  type: compliance
