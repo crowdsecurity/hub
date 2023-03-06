@@ -1,0 +1,26 @@
+type: leaky
+name: crowdsecurity/freeswitch-bf
+description: "Detect freeswitch auth bruteforce"
+filter: "evt.Meta.service == 'freeswitch' && evt.Meta.sub_type == 'auth_failure'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: freeswitch
+ type: bruteforce
+ remediation: true
+---
+type: leaky
+name: crowdsecurity/freeswitch-slow-bf
+description: "Detect freeswitch auth bruteforce"
+filter: "evt.Meta.service == 'freeswitch' && evt.Meta.sub_type == 'auth_failure'"
+leakspeed: "1m"
+capacity: 20
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+ service: freeswitch
+ type: bruteforce
+ remediation: true
