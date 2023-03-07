@@ -2,9 +2,13 @@
 
 ### Description
 
-FreeSWITCH is a free and open-source telephony software for real-time communication protocols using audio, video, text and other forms of media. The software has applications in WebRTC, voice over Internet Protocol (VoIP), video transcoding, Multipoint Control Unit (MCU) functionality and supports Session Initiation Protocol (SIP) features.
+This collection will parse freeswitch logs and act upon the following information:
 
-The software runs on Linux, Windows, macOS, and FreeBSD.
+* `freeswitch-user-enumeration` : when an IP tries to enumerate users
+* `freeswitch-slow-user-enumeration` : when an IP tries to enumerate users slowly
+* `freeswitch-bf` : when an IP has more than 5 failed attempts to authenticate
+* `freeswitch-slow-bf` : when an IP has more than 20 failed attempts to authenticate
+* `freeswitch-acl-reject` : when an IP is rejected by the ACL 15 times
 
 ### Example acquis.yaml
     
