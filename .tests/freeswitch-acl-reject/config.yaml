@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/crowdsecurity/freeswitch.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- "./scenarios/crowdsecurity/freeswitch-acl-reject.yaml"
+postoverflows:
+- ""
+log_file: freeswitch.log
+log_type: freeswitch
+labels: {}
+ignore_parsers: true
+override_statics: []
