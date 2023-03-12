@@ -12,6 +12,11 @@ nodes:
     #%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL: password authentication failed for user "%{USERNAME:pgsql_target_user}"
       pattern: '%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
       apply_on: message
+  - grok:
+    #supabase docker compose postgres password auth fail
+      pattern: '%{IPORHOST:source_ip} %{TIMESTAMP_ISO8601:timestamp} %{WORD:zone} \[%{INT:PID}\] %{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname} FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
+      apply_on: message
+
 statics:
   - meta: log_type
     value: pgsql_failed_auth
