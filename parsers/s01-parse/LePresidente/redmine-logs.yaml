@@ -7,7 +7,7 @@ pattern_syntax:
   REDMINE_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
 nodes:
   - grok:
-      pattern: 'W, \[%{TIMESTAMP_ISO8601:timestamp} \#1\]  %{LOGLEVEL:loglevel} -- : Failed login for \S%{REDMINE_CUSTOMUSER:username}\S from %{IP:source_ip} at %{GREEDYDATA:date}'
+      pattern: '\[%{TIMESTAMP_ISO8601:timestamp} .*\]  %{LOGLEVEL:loglevel} .*: Failed login for \S%{REDMINE_CUSTOMUSER:username}\S from %{IP:source_ip} at %{GREEDYDATA:date}'
       apply_on: message
       statics:
         - meta: log_type
