@@ -2,15 +2,27 @@ filter: "evt.Parsed.program == 'filterlog' or evt.Parsed.message matches '^filte
 name: firewallservices/pf-logs
 description: "Parse packet filter logs"
 format: 2.0
+debug: true
 pattern_syntax:
-  PF_UDP_DATA: '%{INT:src_port},%{INT:dst_port},%{INT:data_length}'
-  PF_TCP_DATA: '%{PF_UDP_DATA},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{DATA:tcp_options}'
-  PF_PROTOCOL_DATA: '(%{PF_TCP_DATA}|%{PF_UDP_DATA})'
+  TCP_OPTS: '((\w{1,}(;)?){0,})'
+  PF_LABEL: '((P?<tracker_NODATA>0{1})|(P?<tracker_OPNsense>[a-zA-z0-9]{32})|%{INT:tracker_pfsense}|%{DATA:tracker_CATCHALL})'
+  PF_IPVER: '4|6'
+
+  # 59576,22,0,
+  PF_UDP_DATA: '%{INT:UDPsrc_port},%{INT:UDPdst_port},%{INT:UDPdata_length}'
+  # 59576,22,0,S,17536001,,65535,,mss
+  PF_TCP_DATA: '%{INT:TCPsrc_port},%{INT:TCPdst_port},%{INT:TCPdata_length},%{WORD:tcp_flags}?,%{DATA:tcp_seq}?,%{DATA:tcp_ack}?,%{DATA:tcp_window}?,%{DATA:urg_data}?,%{TCP_OPTS:tcp_options}?'
+  PF_PROTOCOL_DATA: '(%{PF_TCP_DATA}|%{PF_UDP_DATA:UDP_SOURCE_PORTS})'
+  # 44,10.0.2.2,10.0.2.15,
   PF_IP_DATA: '%{INT:length},%{IP:src_ip},%{IP:dst_ip},'
-  PF_IPv4_DATA: '%{BASE16NUM:ip4_tos},,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{WORD:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto},'
-  PF_IPv6_DATA: '%{BASE16NUM:ip6_class},%{DATA:ip6_flow_label},%{INT:ip6_hop_limit},%{WORD:ip6_proto},%{INT:ip6_proto_id},'
+  # 0x0,,64,892,0,none,6,tcp,
+  PF_IPv4_DATA: '%{BASE16NUM:ip4_tos},%{DATA:ip4_ecn}?,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{DATA:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto},'
+  PF_IPv6_DATA: '%{BASE16NUM:ip6_class},%{DATA:ip6_flow_label},%{INT:ip6_hop_limit},%{DATA:ip6_proto},%{INT:ip6_proto_id},'
+
   PF_IP_SPECIFIC_DATA: '(%{PF_IPv4_DATA}|%{PF_IPv6_DATA})'
-  PF_LOG_DATA: '%{INT:rule},(%{INT:sub_rule})?,,%{INT:tracker},%{DATA:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},%{INT:ip_ver},'
+# 53,,,1000102631,em0,match,block,in,4,0x0,,64,892,0,none,6,tcp,44,10.0.2.2,10.0.2.15,59576,22,0,S,17536001,,65535,,mss
+  PF_LOG_DATA: '%{INT:rule},%{INT:sub_rule}?,%{DATA:anchor_text}?,%{PF_LABEL:label},%{DATA:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},%{PF_IPVER:ip_ver},'
+
   PF_FILTERLOG: '%{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}'
 grok:
   pattern: "%{PF_FILTERLOG}"
@@ -18,14 +30,24 @@ grok:
 statics:
   - meta: log_type
     value: pf
+  # set tcp/udp
+  - target: evt.Meta.service
+    expression: evt.Parsed.ip4_proto
+  - target: evt.Meta.service
+    expression: evt.Parsed.ip6_proto
+  - target: evt.Parsed.dst_port
+    expression: evt.Parsed.TCPdst_port
+  - target: evt.Parsed.dst_port
+    expression: evt.Parsed.UDPdst_port
+  - target: evt.Meta.timestamp
+    expression: evt.Parsed.timestamp
+
 ---
 filter: "evt.Meta.log_type == 'pf' and evt.Parsed.action == 'block'"
 name: firewallservices/pf-logs-drop
 description: "Identify dropped packets"
 onsuccess: next_stage
 statics:
-  - meta: service
-    value: tcp
   - meta: log_type
     value: pf_drop
   - meta: source_ip

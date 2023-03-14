@@ -1,9 +1,9 @@
 parsers:
-- crowdsecurity/syslog-logs
+- ./parsers/s00-raw/crowdsecurity/syslog-logs.yaml
 - crowdsecurity/dateparse-enrich
-- crowdsecurity/sshd-logs
+- ./parsers/s01-parse/crowdsecurity/sshd-logs.yaml
 scenarios:
-- crowdsecurity/ssh-bf
+- ./scenarios/crowdsecurity/ssh-bf.yaml
 postoverflows:
 - ""
 log_file: opnsense-sshd.log

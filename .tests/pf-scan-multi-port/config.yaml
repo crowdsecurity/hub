@@ -1,9 +1,9 @@
 parsers:
-- crowdsecurity/syslog-logs
+- ./parsers/s00-raw/crowdsecurity/syslog-logs.yaml
+- ./parsers/s01-parse/firewallservices/pf-logs.yaml
 - crowdsecurity/dateparse-enrich
-- firewallservices/pf-logs
 scenarios:
-- firewallservices/pf-scan-multi_ports
+- ./scenarios/firewallservices/pf-scan-multi_ports.yaml
 postoverflows:
 - ""
 log_file: pf-scan-multi-port.log

@@ -2,9 +2,10 @@
 filter: "evt.Line.Labels.type == 'syslog'"
 onsuccess: next_stage
 pattern_syntax:
-  RAW_SYSLOG_PREFIX: '^<%{NUMBER:stuff1}>%{NUMBER:stuff2} %{SYSLOGBASE2} %{DATA:program} %{NUMBER:pid}'
+  RAW_SYSLOG_PREFIX: '^<%{NUMBER:syslog_priority}>%{NUMBER:syslog_version} %{SYSLOGBASE2} %{DATA:program} %{NUMBER:pid}'
   RAW_SYSLOG_META: '\[meta sequenceId="%{NOTDQUOTE:seq_id}"\]'
 name: crowdsecurity/syslog-logs
+description: A parser to determine if this is a syslog log (Linux, freeBSD [OPNsense])
 nodes:
   - grok:
       #this is a named regular expression. grok patterns can be kept into separate files for readability
@@ -35,6 +36,7 @@ statics:
 filter: "evt.Line.Labels.type != 'syslog'"
 onsuccess: next_stage
 name: crowdsecurity/non-syslog
+description: A parser that catches non-syslog logs
 #debug: true
 statics:
   - parsed: message
