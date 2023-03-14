@@ -1,0 +1,77 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:10:23.366875297+02:00 level=error msg=\"Invalid username or password\" error=\"user not found\" remote_addr=127.0.0.1 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "grafana"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:11:26.182430512+02:00 level=error msg=\"Invalid username or password\" error=\"invalid username or password\" remote_addr=127.0.0.1 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "grafana"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "logger=http.server t=2023-03-14T06:11:09.073590975+02:00 level=info msg=\"Successful Login\" User=admin@localhost"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "grafana"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["LePresidente/grafana-logs"]) == 3
+results["s01-parse"]["LePresidente/grafana-logs"][0].Success == true
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["error"] == "user not found"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["loglevel"] == "error"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:10:23.366875297+02:00 level=error msg=\"Invalid username or password\" error=\"user not found\" remote_addr=127.0.0.1 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["program"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["remote_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["timestamp"] == "2023-03-14T06:10:23.366875297+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Meta["service"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Success == true
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["error"] == "invalid username or password"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["loglevel"] == "error"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:11:26.182430512+02:00 level=error msg=\"Invalid username or password\" error=\"invalid username or password\" remote_addr=127.0.0.1 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["program"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["remote_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Parsed["timestamp"] == "2023-03-14T06:11:26.182430512+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["service"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s01-parse"]["LePresidente/grafana-logs"][2].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-03-14T06:10:23.366875297+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["error"] == "user not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["loglevel"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:10:23.366875297+02:00 level=error msg=\"Invalid username or password\" error=\"user not found\" remote_addr=127.0.0.1 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-03-14T06:10:23.366875297+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-03-14T06:10:23.366875297+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2023-03-14T06:11:26.182430512+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["error"] == "invalid username or password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["loglevel"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:11:26.182430512+02:00 level=error msg=\"Invalid username or password\" error=\"invalid username or password\" remote_addr=127.0.0.1 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-03-14T06:11:26.182430512+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-03-14T06:11:26.182430512+02:00"
+len(results["success"][""]) == 0
