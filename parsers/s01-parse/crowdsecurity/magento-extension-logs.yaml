@@ -1,0 +1,35 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'magento-extension'"
+name: crowdsecurity/magento-extension-logs
+description: "Parse CrowdSec Magento extension logs"
+pattern_syntax:
+  HEADER: '\[%{DATA:timestamp}\] crowdsec-events\.[^:]+:  %{GREEDYDATA:line} \[\]'
+nodes:
+  - grok:
+      name: "HEADER"
+      apply_on: message
+      statics:
+        - target: StrTime
+          expression: evt.Parsed.timestamp
+statics:
+    - meta: service
+      value: magento
+    - meta: log_type
+      expression: JsonExtract(evt.Parsed.line, "type")
+    - meta: source_ip
+      expression: JsonExtract(evt.Parsed.line, "ip")
+    - meta: x_forwarded_for
+      expression: JsonExtract(evt.Parsed.line, "x-forwarded-for-ip")
+    - meta: bouncer_agent
+      expression: JsonExtract(evt.Parsed.line, "bouncer_agent")
+    - meta: customer_id
+      expression: JsonExtract(evt.Parsed.line, "customer_id")
+    - meta: payment_method
+      expression: JsonExtract(evt.Parsed.line, "payment_method")
+    - meta: order_id
+      expression: JsonExtract(evt.Parsed.line, "order_id")
+    - meta: product_id
+      expression: JsonExtract(evt.Parsed.line, "product_id")
+    - meta: quote_id
+      expression: JsonExtract(evt.Parsed.line, "quote_id")

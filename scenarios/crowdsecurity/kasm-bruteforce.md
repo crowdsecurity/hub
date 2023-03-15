@@ -1,0 +1,1 @@
+Detect KASM login bruteforce 5 attempts with leakspeed of 10 seconds

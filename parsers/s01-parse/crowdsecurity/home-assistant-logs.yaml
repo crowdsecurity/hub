@@ -11,6 +11,12 @@ nodes:
       statics:
         - meta: log_type
           value: home-assistant_failed_auth
+  - grok:
+      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). Requested URL: '%{GREEDYDATA:url}'. \\(%{GREEDYDATA:http_user_agent}\\)"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: home-assistant_failed_auth
 statics:
   - target: StrTime
     expression: "evt.Parsed.time"

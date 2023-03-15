@@ -1,0 +1,29 @@
+#This is the same parser as the one in the hub, but with links to test databases.
+#If the actual parser is updated, this file also needs to be updated
+filter: "'source_ip' in evt.Meta"
+name: crowdsecurity/geoip-enrich
+description: "Populate event with geoloc info : as, country, coords, source range."
+data:
+  - source_url: https://crowdsec-statics-assets.s3.eu-west-1.amazonaws.com/GeoLite2-Test-City.mmdb
+    dest_file: GeoLite2-City.mmdb
+  - source_url: https://crowdsec-statics-assets.s3.eu-west-1.amazonaws.com/GeoLite2-Test-ASN.mmdb
+    dest_file: GeoLite2-ASN.mmdb
+statics:
+  - method: GeoIpCity
+    expression: evt.Meta.source_ip
+  - meta: IsoCode
+    expression: evt.Enriched.IsoCode
+  - meta: IsInEU
+    expression: evt.Enriched.IsInEU
+  - meta: GeoCoords
+    expression: evt.Enriched.GeoCoords
+  - method: GeoIpASN
+    expression: evt.Meta.source_ip
+  - meta: ASNNumber
+    expression: evt.Enriched.ASNNumber
+  - meta: ASNOrg
+    expression: evt.Enriched.ASNOrg
+  - method: IpToRange
+    expression: evt.Meta.source_ip
+  - meta: SourceRange
+    expression: evt.Enriched.SourceRange

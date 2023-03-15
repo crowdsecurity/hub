@@ -1,3 +1,1 @@
-Bruteforce protection for ZoneMinder.
-
-Leak speed of 10 seconds with a capacity of 4.
+Bruteforce/User Enumeration protection for ZoneMinder.

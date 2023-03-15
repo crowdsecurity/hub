@@ -1,0 +1,12 @@
+type: leaky
+name: crowdsecurity/teamspeak3-bf
+description: "detect teamspeak3 server bruteforce"
+filter: evt.Meta.log_type == 'ts3_fail_auth'
+groupby: evt.Meta.source_ip
+capacity: 2
+leakspeed: "10s"
+blackhole: 5m
+labels:
+ service: teamspeak3
+ type: bruteforce
+ remediation: true

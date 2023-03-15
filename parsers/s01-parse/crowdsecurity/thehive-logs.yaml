@@ -1,0 +1,15 @@
+onsuccess: next_stage
+name: crowdsecurity/thehive-logs
+description: "Parse Thehive logs"
+filter: "evt.Parsed.program == 'thehive'"
+nodes:
+  - grok:
+      pattern: '\[info\] o.t.s.AccessLogFilter \[.*\] %{IP:source_ip} POST /api/v1/login took %{INT}ms and returned 401 %{INT} bytes'
+      apply_on: message
+statics:
+  - meta: log_type
+    value: thehive_failed_auth
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    value: toto

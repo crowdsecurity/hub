@@ -19,7 +19,7 @@ nodes:
   # this is another node, with its own pattern_syntax
   - #debug: true
     grok:
-      pattern: "%{DIR:file_dir}%{FILE:file_frag}%{EXT:file_ext}"
+      pattern: "%{DIR:file_dir}(%{FILE:file_frag}%{EXT:file_ext})?"
       apply_on: request
       statics:
         - meta: http_path
@@ -30,4 +30,4 @@ nodes:
         - parsed: file_name
           expression: evt.Parsed.file_frag + evt.Parsed.file_ext
         - parsed: static_ressource
-          expression: "Upper(evt.Parsed.file_ext) in ['.JPG', '.CSS', '.JS', '.JPEG', '.PNG', '.SVG', '.MAP', '.ICO', '.OTF', '.GIF', '.MP3', '.MP4', '.WOFF', '.WOFF2', '.TTF', '.OTF', '.EOT', '.WEBP', '.WAV', '.GZ', '.BROTLI', '.BVR'] ? 'true' : 'false'"
+          expression: "Upper(evt.Parsed.file_ext) in ['.JPG', '.CSS', '.JS', '.JPEG', '.PNG', '.SVG', '.MAP', '.ICO', '.OTF', '.GIF', '.MP3', '.MP4', '.WOFF', '.WOFF2', '.TTF', '.OTF', '.EOT', '.WEBP', '.WAV', '.GZ', '.BROTLI', '.BVR', '.TS', '.BMP'] ? 'true' : 'false'"

@@ -20,6 +20,16 @@ nodes:
         expression: "evt.Parsed.action"
       - meta: log_type
         value: nextcloud_bruteforce_attempt
+
+#{"reqId":"dCA39mNG3NHLwbibVCFp","level":1,"time":"2023-02-14T17:28:33+00:00","remoteAddr":"172.18.0.200","user":"--","app":"core","method":"GET","url":"/","message":"Trusted domain error. \"172.18.0.200\" tried to access using \"kloot.ronsmans.eu\" as host.","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0","version":"25.0.3.2","data":{"app":"core"}}
+
+  - grok:
+      pattern: 'Trusted domain error. \\"%{IP:source_ip}\\".*'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: log_type
+        value: nextcloud_domain_error
+
 statics:
   - meta: service
     value: nextcloud

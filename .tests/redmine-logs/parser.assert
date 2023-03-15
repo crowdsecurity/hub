@@ -1,0 +1,47 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "redmine"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "I, [2023-03-13T09:18:03.678079 #1]  INFO -- : Successful authentication for 'user' from 127.0.0.1 at 2023-03-13 09:18:03 UTC"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "redmine-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "W, [2023-03-13T09:25:23.245316 #1]  WARN -- : Failed login for 'user' from 127.0.0.1 at 2023-03-13 09:25:23 UTC"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "redmine"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "redmine-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["LePresidente/redmine-logs"]) == 2
+results["s01-parse"]["LePresidente/redmine-logs"][0].Success == false
+results["s01-parse"]["LePresidente/redmine-logs"][1].Success == true
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["timestamp"] == "2023-03-13T09:25:23.245316"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["username"] == "user"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["date"] == "2023-03-13 09:25:23 UTC"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["loglevel"] == "WARN"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["message"] == "W, [2023-03-13T09:25:23.245316 #1]  WARN -- : Failed login for 'user' from 127.0.0.1 at 2023-03-13 09:25:23 UTC"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Parsed["program"] == "redmine"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Meta["log_type"] == "redmine_failed_auth"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Meta["service"] == "redmine"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Meta["datasource_path"] == "redmine-logs.log"
+results["s01-parse"]["LePresidente/redmine-logs"][1].Evt.Meta["datasource_type"] == "file"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["date"] == "2023-03-13 09:25:23 UTC"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["loglevel"] == "WARN"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "W, [2023-03-13T09:25:23.245316 #1]  WARN -- : Failed login for 'user' from 127.0.0.1 at 2023-03-13 09:25:23 UTC"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "redmine"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-03-13T09:25:23.245316"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "redmine-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "redmine_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "redmine"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-03-13T09:25:23.245316Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-03-13T09:25:23.245316Z"
+len(results["success"][""]) == 0

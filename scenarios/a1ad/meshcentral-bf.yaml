@@ -1,0 +1,29 @@
+# meshcentral BF scan
+name: a1ad/meshcentral-bf
+description: "Detect meshcentral bruteforce"
+filter: "evt.Meta.log_type == 'meshcentral_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: meshcentral
+  type: bruteforce
+  remediation: true
+---
+# meshcentral user-enum
+type: leaky
+name:  a1ad/meshcentral-bf_user-enum
+description: "Detect meshcentral user enum bruteforce"
+filter: "evt.Meta.log_type == 'meshcentral_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+ service: meshcentral
+ type: bruteforce
+ remediation: true
