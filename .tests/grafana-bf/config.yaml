@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/LePresidente/grafana-logs.yaml
+scenarios:
+- ./scenarios/LePresidente/grafana-bf.yaml
+postoverflows:
+- ""
+log_file: grafana-bf.log
+log_type: grafana
+labels: {}
+ignore_parsers: true
+override_statics: []

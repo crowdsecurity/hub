@@ -1,0 +1,20 @@
+onsuccess: next_stage
+#debug: false
+name: LePresidente/grafana-logs
+filter: "evt.Parsed.program == 'grafana'"
+description: "Parse grafana logs"
+nodes:
+  - grok:
+      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg="Invalid username or password" error="%{GREEDYDATA:error}" remote_addr=%{IP:remote_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: grafana_failed_auth
+
+statics:
+    - meta: service
+      value: grafana
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: "evt.Parsed.remote_ip"
