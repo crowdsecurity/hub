@@ -1212,15 +1212,19 @@
   },
   "crowdsecurity/pgsql": {
    "path": "collections/crowdsecurity/pgsql.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "78408615dfdfa97075b37dc7533b3d682b57293053aae5522ee3cd7b5825be02",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "6aff2e2669e207cfc148f56a1809aef6e36d2e8c1c98cb6a06ddf4814f27e257",
+     "deprecated": false
     }
    },
    "long_description": "IyMgUG9zdGdyZVNRTCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gZm9yIHBvc3RncmVzcWwgc2VydmljZXMgOgogLSBwZ3NxbCBsb2dzIHBhcnNlcgogLSBicnV0ZWZvcmNlIGRldGVjdGlvbgoKIyMgQWNxdWlzaXRpb24gdGVtcGxhdGUKCkV4YW1wbGUgYWNxdWlzaXRpb24gZm9yIHRoaXMgY29sbGVjdGlvbiA6CgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC92YXIvbG9nL3Bvc3RncmVzcWwvKi5sb2cKbGFiZWxzOgogIHR5cGU6IHBvc3RncmVzCmBgYAoKCm5vdGVzIDoKIC0gIElmIHlvdSBhcmUgdXNpbmcgYHN5c2xvZ2AsIHNldCB0eXBlIHRvIGBzeXNsb2dgIGluc3RlYWQKIC0gIERlcGVuZGluZyBvbiB5b3VyIGRpc3RyaWJ1dGlvbi9PUywgcGF0aHMgdG8gbG9nIGZpbGVzIG1pZ2h0IGNoYW5nZQogLSAgT25seSByZWxldmFudCBpZiB5b3UgYXJlIG1hbnVhbGx5IGluc3RhbGxpbmcgY29sbGVjdGlvbgo=",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGdzcWwtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3Bnc3FsLWJmCmRlc2NyaXB0aW9uOiAicG9zdGdyZXMgc3VwcG9ydCA6IGxvZ3MgYW5kIGJydXRlLWZvcmNlIHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gcGdzcWwKICAtIHBvc3RncmVzCiAgLSBicnV0ZWZvcmNlCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGdzcWwtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3Bnc3FsLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3Bnc3FsLXVzZXItZW51bQpkZXNjcmlwdGlvbjogInBvc3RncmVzIHN1cHBvcnQgOiBsb2dzIGFuZCBicnV0ZS1mb3JjZSBzY2VuYXJpb3MiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHBnc3FsCiAgLSBwb3N0Z3JlcwogIC0gYnJ1dGVmb3JjZQo=",
    "description": "postgres support : logs and brute-force scenarios",
    "author": "crowdsecurity",
    "labels": null,
@@ -1228,7 +1232,8 @@
     "crowdsecurity/pgsql-logs"
    ],
    "scenarios": [
-    "crowdsecurity/pgsql-bf"
+    "crowdsecurity/pgsql-bf",
+    "crowdsecurity/pgsql-user-enum"
    ]
   },
   "crowdsecurity/postfix": {
@@ -1244,7 +1249,7 @@
      "deprecated": false
     }
    },
-   "long_description": "IyMgUG9zdGZpeCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gZm9yIHBvc3RmaXgKICogcG9zdGZpeCBsb2cgcGFyc2VycwogKiBwb3N0c2NyZWVuIGxvZyBwYXJzZXIKICogcG9zdGZpeCBzY2VuYXJpbyBicnV0ZWZvcmNlIHNwYW0gYXR0ZW1wdAogKiBwb3N0c2NyZWVuIHJiIGF0dGVtcHQgYmxhY2tsaXN0CgpUaGlzIGNvbGxlY3Rpb24gbW9zdGx5IGFpbXMgYXQgZ2V0dGluZyBhIHNpbWlsYXIgc3BhbSBwcm90ZWN0aW9uIGFzCnRoZSBub3JtYWwgZmFpbDJiYW4gcG9zdGZpeCBjb25maWd1cmF0aW9uIGFsdGhvdWdoIHBvc3RjcmVlbiBsb2cKbWFuYWdlbWVudCBpc24ndCBpbmNsdWRlZCBieSBkZWZhdWx0IGJ5IGZhaWwyYmFuLgoKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbApmaWxlbmFtZXM6CiAgLSAvdmFyL2xvZy9tYWlsLmxvZwpsYWJlbHM6CiAgdHlwZTogc3lzbG9nCmBgYAoKCm5vdGVzIDoKIC0gIElmIHlvdSBhcmUgdXNpbmcgYHN5c2xvZ2AsIHNldCB0eXBlIHRvIGBzeXNsb2dgIGluc3RlYWQKIC0gIERlcGVuZGluZyBvbiB5b3VyIGRpc3RyaWJ1dGlvbi9PUywgcGF0aHMgdG8gbG9nIGZpbGVzIG1pZ2h0IGNoYW5nZQogLSAgT25seSByZWxldmFudCBpZiB5b3UgYXJlIG1hbnVhbGx5IGluc3RhbGxpbmcgY29sbGVjdGlvbgo=",
+   "long_description": "IyMgUG9zdGZpeCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gZm9yIHBvc3RmaXgKICogcG9zdGZpeCBsb2cgcGFyc2VycwogKiBwb3N0c2NyZWVuIGxvZyBwYXJzZXIKICogcG9zdGZpeCBzY2VuYXJpbyBicnV0ZWZvcmNlIHNwYW0gYXR0ZW1wdAogKiBwb3N0c2NyZWVuIHJiIGF0dGVtcHQgYmxhY2tsaXN0CgpUaGlzIGNvbGxlY3Rpb24gbW9zdGx5IGFpbXMgYXQgZ2V0dGluZyBhIHNpbWlsYXIgc3BhbSBwcm90ZWN0aW9uIGFzCnRoZSBub3JtYWwgZmFpbDJiYW4gcG9zdGZpeCBjb25maWd1cmF0aW9uIGFsdGhvdWdoIHBvc3RzY3JlZW4gbG9nCm1hbmFnZW1lbnQgaXNuJ3QgaW5jbHVkZWQgYnkgZGVmYXVsdCBieSBmYWlsMmJhbi4KCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvbWFpbC5sb2cKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwpgYGAKCgpub3RlcyA6CiAtICBJZiB5b3UgYXJlIHVzaW5nIGBzeXNsb2dgLCBzZXQgdHlwZSB0byBgc3lzbG9nYCBpbnN0ZWFkCiAtICBEZXBlbmRpbmcgb24geW91ciBkaXN0cmlidXRpb24vT1MsIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gIE9ubHkgcmVsZXZhbnQgaWYgeW91IGFyZSBtYW51YWxseSBpbnN0YWxsaW5nIGNvbGxlY3Rpb24K",
    "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcG9zdGZpeC1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3Bvc3RzY3JlZW4tbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3Bvc3RmaXgtc3BhbQpkZXNjcmlwdGlvbjogInBvc3RmaXggc3VwcG9ydCA6IHBhcnNlciBhbmQgc3BhbW1lciBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNwYW0KICAtIGJydXRlZm9yY2UK",
    "description": "postfix support : parser and spammer detection",
    "author": "crowdsecurity",
@@ -1324,6 +1329,25 @@
    "scenarios": [
     "crowdsecurity/ssh-bf",
     "crowdsecurity/ssh-slow-bf"
+   ]
+  },
+  "crowdsecurity/supabase-compose": {
+   "path": "collections/crowdsecurity/supabase-compose.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "eef6e1e9e9cc7f06a9bce9eb2ddec56e2b1032a729f4daf7a1e9d6237dcb21d0",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgU3VwYWJhc2UgRG9ja2VyIENvbXBvc2UgY29sbGVjdGlvbgoKQSBjb2xsZWN0aW9uIGZvciBzZWxmIGhvc3RlZCBTdXBhYmFzZSB2aWEgZG9ja2VyIGNvbXBvc2UKICogUGFyc2VyIGZvciBLb25nIGFuZCBwb3N0Z3Jlc3FsCiAqIGJhc2UgaHR0cCBzY2VuYXJpb3MgKGNyYXdsLCA0MDQgc2NhbiwgYmYpCiAqIGJydXRlZm9yY2Ugc2NlbmFyaW9zIGZvciBwb3N0Z3Jlc3FsCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKc291cmNlOiBkb2NrZXIKY29udGFpbmVyX25hbWU6CiAtIHN1cGFiYXNlLWRiCmxhYmVsczoKICB0eXBlOiBwb3N0Z3JlcwotLS0Kc291cmNlOiBkb2NrZXIKY29udGFpbmVyX25hbWU6CiAtIHN1cGFiYXNlLWtvbmcKbGFiZWxzOgogIHR5cGU6IG5naW54CmBgYAo=",
+   "content": "Y29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L25naW54CiAgLSBjcm93ZHNlY3VyaXR5L3Bnc3FsCmRlc2NyaXB0aW9uOiAic3VwYWJhc2UgZG9ja2VyIGNvbXBvc2Ugc3VwcG9ydCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gcGdzcWwKICAtIHBvc3RncmVzCiAgLSBicnV0ZWZvcmNlCiAgLSBuZ2lueAogIC0gc3VwYWJhc2UKICAtIGRvY2tlci1jb21wb3NlCiAgLSBkb2NrZXIK",
+   "description": "supabase docker compose support",
+   "author": "crowdsecurity",
+   "labels": null,
+   "collections": [
+    "crowdsecurity/nginx",
+    "crowdsecurity/pgsql"
    ]
   },
   "crowdsecurity/suricata": {
@@ -3180,7 +3204,7 @@
   "crowdsecurity/pgsql-logs": {
    "path": "parsers/s01-parse/crowdsecurity/pgsql-logs.yaml",
    "stage": "s01-parse",
-   "version": "0.5",
+   "version": "0.6",
    "versions": {
     "0.1": {
      "digest": "180dbffa0ae9a0b7fa192d5328dfc69c8b1a0489a81604c6642a47be3fd1394d",
@@ -3201,10 +3225,14 @@
     "0.5": {
      "digest": "70c79e6c9c679779cd61bad22760bc0ac421b6a735278d659dec3b39c85f15f2",
      "deprecated": false
+    },
+    "0.6": {
+     "digest": "9492516f5fce0c7a6b620efab95dc8679486bb2c5f4175012514ec09eabbf7f1",
+     "deprecated": false
     }
    },
    "long_description": "UG9zdGdyZVNRTCBmYWlsIGF1dGhlbnRpY2F0aW9uIHBhcnNlci4KCgoqKndhcm5pbmcqKiA6IEJ5IGRlZmF1bHQgKGF0IGxlYXN0IG9uIGRlYmlhbiB3aXRoIHBnc3FsIDEyKSwgcG9zdGdyZVNRTCBsb2dzIGRvIG5vdCBjb250YWluIHRoZSBzb3VyY2UgSVAsIGFuZCBgbG9nX2xpbmVfcHJlZml4YCBuZWVkcyB0byBiZSBlZGl0ZWQgdG8gY29udGFpbiBgJWhgICh0aGUgcmVtb3RlIGhvc3QpLiBUaGlzIHBhcnNlciBhc3N1bWVzIHRoZSBgbG9nX2xpbmVfcHJlZml4YCBpcyAgYCVtIFslcF0gJWglcSAldUAlZCBgIChpbnN0ZWFkIG9mIHRoZSBkZWZhdWx0IGAlbSBbJXBdICVxJXVAJWQgYCkKClBsZWFzZSBub3RlIHRoYXQgdGhlIHBhcnNlciBpZ25vcmVzIHRoZSB0aW1lem9uZSB3cml0dGVuIGJ5IHBvc3RncmVzLgo=",
-   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGdzcWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIFBnU1FMIGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGdyZXMnIgpub2RlczoKICAtIGdyb2s6CiAgICAjcGdzcWwgMTIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9IFxbJXtJTlQ6UElEfVxdICV7SVA6c291cmNlX2lwfSAle1VTRVJOQU1FOnBnc3FsX3VzZXJ9QCV7R1JFRURZREFUQTpwZ3NxbF9kYm5hbWV9IEZBVEFMOiAgJXtXT1JEOmF1dGhfbWV0aG9kfSBhdXRoZW50aWNhdGlvbiBmYWlsZWQgZm9yIHVzZXIgIiV7VVNFUk5BTUU6cGdzcWxfdGFyZ2V0X3VzZXJ9IicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAjYXdzIGF1cm9yYQogICAgIyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogcGFzc3dvcmQgYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogICV7V09SRDphdXRoX21ldGhvZH0gYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSInCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IHBnc3FsX2ZhaWxlZF9hdXRoCiAgLSBtZXRhOiBhdXRoX21ldGhvZAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuYXV0aF9tZXRob2QiCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAtIG1ldGE6IHVzZXIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnBnc3FsX3RhcmdldF91c2VyIgogIC0gbWV0YTogZGIKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnBnc3FsX2RibmFtZSIKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudGltZXN0YW1w",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGdzcWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIFBnU1FMIGxvZ3MiCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncG9zdGdyZXMnIgpub2RlczoKICAtIGdyb2s6CiAgICAjcGdzcWwgMTIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9IFxbJXtJTlQ6UElEfVxdICV7SVA6c291cmNlX2lwfSAle1VTRVJOQU1FOnBnc3FsX3VzZXJ9QCV7R1JFRURZREFUQTpwZ3NxbF9kYm5hbWV9IEZBVEFMOiAgJXtXT1JEOmF1dGhfbWV0aG9kfSBhdXRoZW50aWNhdGlvbiBmYWlsZWQgZm9yIHVzZXIgIiV7VVNFUk5BTUU6cGdzcWxfdGFyZ2V0X3VzZXJ9IicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAtIGdyb2s6CiAgICAjYXdzIGF1cm9yYQogICAgIyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogcGFzc3dvcmQgYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSIKICAgICAgcGF0dGVybjogJyV7REFURVNUQU1QOnRpbWVzdGFtcH0gJXtXT1JEOnpvbmV9OiV7SVA6c291cmNlX2lwfVwoJXtJTlQ6c291cmNlX3BvcnR9XCk6JXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfTpcWyV7SU5UOnBpZH1cXTpGQVRBTDogICV7V09SRDphdXRoX21ldGhvZH0gYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSInCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgLSBncm9rOgogICAgI3N1cGFiYXNlIGRvY2tlciBjb21wb3NlIHBvc3RncmVzIHBhc3N3b3JkIGF1dGggZmFpbAogICAgICBwYXR0ZXJuOiAnJXtJUE9SSE9TVDpzb3VyY2VfaXB9ICV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfSAle1dPUkQ6em9uZX0gXFsle0lOVDpQSUR9XF0gJXtVU0VSTkFNRTpwZ3NxbF91c2VyfUAle0dSRUVEWURBVEE6cGdzcWxfZGJuYW1lfSBGQVRBTDogICV7V09SRDphdXRoX21ldGhvZH0gYXV0aGVudGljYXRpb24gZmFpbGVkIGZvciB1c2VyICIle1VTRVJOQU1FOnBnc3FsX3RhcmdldF91c2VyfSInCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCgpzdGF0aWNzOgogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiBwZ3NxbF9mYWlsZWRfYXV0aAogIC0gbWV0YTogYXV0aF9tZXRob2QKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLmF1dGhfbWV0aG9kIgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgLSBtZXRhOiB1c2VyCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5wZ3NxbF90YXJnZXRfdXNlciIKICAtIG1ldGE6IGRiCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5wZ3NxbF9kYm5hbWUiCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcA==",
    "description": "Parse PgSQL logs",
    "author": "crowdsecurity",
    "labels": null
@@ -5762,6 +5790,25 @@
    "long_description": "RGV0ZWN0IHNldmVyYWwgZmFpbGVkIHBvc3RncmVzcWwgYXV0aGVudGljYXRpb25zLgoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNQo=",
    "content": "IyBwZ3NxbCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L3Bnc3FsLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFBnU1FMIGJydXRlZm9yY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3Bnc3FsX2ZhaWxlZF9hdXRoJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHBnc3FsCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
    "description": "Detect PgSQL bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "pgsql",
+    "type": "bruteforce"
+   }
+  },
+  "crowdsecurity/pgsql-user-enum": {
+   "path": "scenarios/crowdsecurity/pgsql-user-enum.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b9947e219aed3c267b0fa8ca4805d840a3ebf5ee1f0bf978cebb0f711e21336d",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBhdHRlbXB0cyB0byBlbnVtZXJhdGUgcG9zdGdyZXNxbCB1c2VycwoKbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNQoK",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9wZ3NxbC11c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3QgcG9zdGdyZXNxbCB1c2VyIGVudW1lcmF0aW9uIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdwZ3NxbF9mYWlsZWRfYXV0aCcKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS51c2VyCmxlYWtzcGVlZDogMTBzCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IHBnc3FsCiAgdHlwZTogYnJ1dGVmb3JjZQogIHJlbWVkaWF0aW9uOiB0cnVl",
+   "description": "Detect postgresql user enumeration",
    "author": "crowdsecurity",
    "labels": {
     "remediation": "true",
