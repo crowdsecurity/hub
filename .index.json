@@ -1482,7 +1482,7 @@
   },
   "crowdsecurity/windows-cve": {
    "path": "collections/crowdsecurity/windows-cve.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -1491,10 +1491,14 @@
     "0.2": {
      "digest": "64a28a68af069438de9f54c6f31ffebf289d9bfe246bc42c06ef4228f65fa808",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "ef9545e3263afd26967b0dbed02330f1841b7f33161c6c7e72e016785b052cac",
+     "deprecated": false
     }
    },
    "long_description": "QSBjb2xsZWN0aW9uIG9mIHdpbmRvd3Mgc3BlY2lmaWMgQ1ZFcyA6CgogLSBbTVNEVCBDVkUtMjAyMi0zMDE5MF0oaHR0cHM6Ly9udmQubmlzdC5nb3YvdnVsbi9kZXRhaWwvQ1ZFLTIwMjItMzAxOTApCgoKOndhcm5pbmc6IFRoaXMgY29sbGVjdGlvbiByZXF1aXJlcyBhIHdvcmtpbmcgW3N5c21vbl0oaHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvc3lzaW50ZXJuYWxzL2Rvd25sb2Fkcy9zeXNtb24pIGluc3RhbGxhdGlvbi4gVGhpcyBpcyBzdGlsbCBhIHByb29mLW9mLWNvbmNlcHQsIGFuZCB3aWxsIGdhaW4gbW9yZSBzY2VuYXJpb3Mgb3ZlciB0aW1lLgoKRXhhbXBsZSBhY3F1aXNpdGlvbiBjb25maWc6CmBgYApzb3VyY2U6IHdpbmV2ZW50bG9nCnByZXR0eV9uYW1lOiBzeXNtb24KZXZlbnRfY2hhbm5lbDogIk1pY3Jvc29mdC1XaW5kb3dzLVN5c21vbi9PcGVyYXRpb25hbCIKbGFiZWxzOgogdHlwZTogc3lzbW9uCmBgYA==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3N5c21vbi1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1DVkUtMjAyMi0zMDE5MC1tc2R0CmRlc2NyaXB0aW9uOiAid2luZG93cyBDVkU6IHRyeSB0byBkZXRlY3QgbG9jYWwgQ1ZFIGV4cGxvaXRhdGlvbiBvbiB3aW5kb3dzLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSB3aW5kb3dzCiAgLSBsb2NhbAogIC0gZXhwbG9pdAoK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3N5c21vbi1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvd2luZG93cy1DVkUtMjAyMi0zMDE5MC1tc2R0CiAgLSBjcm93ZHNlY3VyaXR5L0NWRS0yMDIzLTIzMzk3CmRlc2NyaXB0aW9uOiAid2luZG93cyBDVkU6IHRyeSB0byBkZXRlY3QgbG9jYWwgQ1ZFIGV4cGxvaXRhdGlvbiBvbiB3aW5kb3dzLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSB3aW5kb3dzCiAgLSBsb2NhbAogIC0gZXhwbG9pdAoK",
    "description": "windows CVE: try to detect local CVE exploitation on windows.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1503,7 +1507,8 @@
     "crowdsecurity/sysmon-logs"
    ],
    "scenarios": [
-    "crowdsecurity/windows-CVE-2022-30190-msdt"
+    "crowdsecurity/windows-CVE-2022-30190-msdt",
+    "crowdsecurity/CVE-2023-23397"
    ]
   },
   "crowdsecurity/windows-firewall": {
@@ -4499,6 +4504,24 @@
    "labels": {
     "remediation": "true",
     "type": "exploit"
+   }
+  },
+  "crowdsecurity/CVE-2023-23397": {
+   "path": "scenarios/crowdsecurity/CVE-2023-23397.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "0da94e909f66b0a4d98052d94fa1e6eb63f2d64fa2a53c80971d58e8086967c2",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgQ1ZFLTIwMjMtMjMzOTcKCkRldGVjdCBleHBsb2l0YXRpb24gb2YgQ1ZFLTIwMjMtMjMzOTcuCgpUaGlzIHNjZW5hcmlvIGlzIGJhc2VkIG9uIFt0aGlzIHNpZ21hIHJ1bGVdKGh0dHBzOi8vZ2l0aHViLmNvbS9TaWdtYUhRL3NpZ21hL2Jsb2IvMGViYmQwOWFiNDlkMjVmNmFjOGZiYTI4MzlmNmI3M2FhOTFlMjFkZC9ydWxlcy93aW5kb3dzL3Byb2Nlc3NfY3JlYXRpb24vcHJvY19jcmVhdGlvbl93aW5fcnVuZGxsMzJfd2ViZGF2X2NsaWVudF9zdXNwX2V4ZWN1dGlvbi55bWwpIA==",
+   "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L0NWRS0yMDIzLTIzMzk3CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IENWRS0yMDIzLTIzMzk3IGZyb20gc3lzbW9uIGV2ZW50cyIKZmlsdGVyOiB8CiAgZXZ0Lk1ldGEuc2VydmljZSA9PSAnc3lzbW9uJyAmJiBldnQuUGFyc2VkLkV2ZW50SUQgPT0gJzEnICYmCiAgZXZ0LlBhcnNlZC5QYXJlbnRJbWFnZSBlbmRzV2l0aCAiXFxzdmNob3N0LmV4ZSIgJiYKICBldnQuUGFyc2VkLkltYWdlIGVuZHNXaXRoICJcXHJ1bmRsbDMyLmV4ZSIgJiYKICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICJDOlxcd2luZG93c1xcc3lzdGVtMzJcXGRhdmNsbnQuZGxsLERhdlNldENvb2tpZSIgJiYKICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIG1hdGNoZXMgJzovL1xcZHsxLDN9XFwuXFxkezEsM31cXC5cXGR7MSwzfVxcLlxcZHsxLDN9JyAmJgogIChub3QgKGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzEwLiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xOTIuMTY4LiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMTYuIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzE3Mi4xNy4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTcyLjE4LiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMTkuIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzE3Mi4yMC4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTcyLjIxLiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMjIuIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzE3Mi4yMy4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTcyLjI0LiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMjUuIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzE3Mi4yNi4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTcyLjI3LiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMjguIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzE3Mi4yOS4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTcyLjMwLiIgfHwKICAgICAgICBldnQuUGFyc2VkLkNvbW1hbmRMaW5lIGNvbnRhaW5zICI6Ly8xNzIuMzEuIiB8fAogICAgICAgIGV2dC5QYXJzZWQuQ29tbWFuZExpbmUgY29udGFpbnMgIjovLzEyNy4iIHx8CiAgICAgICAgZXZ0LlBhcnNlZC5Db21tYW5kTGluZSBjb250YWlucyAiOi8vMTY5LjI1NC4iKSkKbGFiZWxzOgogbm90aWZpY2F0aW9uOiB0cnVlCiBvczogd2luZG93cwpzY29wZToKICB0eXBlOiB1c2VyX2FjY291bnQKICBleHByZXNzaW9uOiBldnQuUGFyc2VkLlVzZXIK",
+   "description": "Detect CVE-2023-23397 from sysmon events",
+   "author": "crowdsecurity",
+   "labels": {
+    "notification": "true",
+    "os": "windows"
    }
   },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
