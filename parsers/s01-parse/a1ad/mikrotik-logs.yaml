@@ -1,0 +1,17 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'mikrotik' and evt.Parsed.message contains 'input:'"
+name: a1ad/mikrotik-logs
+description: "Parse Mikrotik firewall input logs"
+grok:
+  pattern: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* %{DATA:tag} input: in:%{DATA:if_in} out:%{DATA:if_out}, .* src-mac %{MAC:src_mac}, proto %{WORD:proto}.*, %{IP:src_ip}:%{INT:src_port}->%{IP:dst_ip}:%{INT:dst_port}, len %{INT:length}"
+  apply_on: message
+statics:
+    - meta: service
+      value: tcp_udp
+    - meta: log_type
+      value: mikrotik_drop
+    - target: evt.StrTime
+      expression: "evt.Parsed.timestamp"
+    - meta: source_ip
+      expression: "evt.Parsed.src_ip"
