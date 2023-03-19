@@ -15,3 +15,26 @@ statics:
       expression: "evt.Parsed.timestamp"
     - meta: source_ip
       expression: "evt.Parsed.src_ip"
+
+---
+
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'mikrotik' and evt.Parsed.message contains 'login'"
+name: a1ad/mikrotik-logs
+description: "Parse Mikrotik auth logs"
+grok:
+  #2023-03-19T12:34:09.757188+01:00 10.120.127.1 system,error,critical login failure for user admin from 10.127.0.35 via winbox
+  pattern: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* login failure for user %{USERNAME:invalid_user} from %{IP:source_ip}"
+  apply_on: message
+statics:
+    - meta: service
+      value: mikrotik
+    - meta: log_type
+      value: mikrotik_failed_auth
+    - meta: user
+      expression: "evt.Parsed.invalid_user"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
