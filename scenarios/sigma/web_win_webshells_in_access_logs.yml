@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_win_webshells_in_access_logs
+description: |
+  Detects common commands used in Windows webshells
+filter: |
+  evt.Meta.service == 'http' && (evt.Meta.http_verb == "GET" && (evt.Line.Raw contains "=whoami" || evt.Line.Raw contains "=net%20user" || evt.Line.Raw contains "=net+user" || evt.Line.Raw contains "=net%2Buser" || evt.Line.Raw contains "=cmd%20/c%" || evt.Line.Raw contains "=cmd+/c+" || evt.Line.Raw contains "=cmd%2B/c%" || evt.Line.Raw contains "=cmd%20/r%" || evt.Line.Raw contains "=cmd+/r+" || evt.Line.Raw contains "=cmd%2B/r%" || evt.Line.Raw contains "=cmd%20/k%" || evt.Line.Raw contains "=cmd+/k+" || evt.Line.Raw contains "=cmd%2B/k%" || evt.Line.Raw contains "=powershell%" || evt.Line.Raw contains "=powershell+" || evt.Line.Raw contains "=tasklist%" || evt.Line.Raw contains "=tasklist+" || evt.Line.Raw contains "=wmic%" || evt.Line.Raw contains "=wmic+" || evt.Line.Raw contains "=ssh%" || evt.Line.Raw contains "=ssh+" || evt.Line.Raw contains "=python%" || evt.Line.Raw contains "=python+" || evt.Line.Raw contains "=python3%" || evt.Line.Raw contains "=python3+" || evt.Line.Raw contains "=ipconfig" || evt.Line.Raw contains "=wget%" || evt.Line.Raw contains "=wget+" || evt.Line.Raw contains "=curl%" || evt.Line.Raw contains "=curl+" || evt.Line.Raw contains "=certutil" || evt.Line.Raw contains "=copy%20%5C%5C" || evt.Line.Raw contains "=dsquery%" || evt.Line.Raw contains "=dsquery+" || evt.Line.Raw contains "=nltest%" || evt.Line.Raw contains "=nltest+"))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

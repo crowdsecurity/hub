@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_unc2546_dewmode_php_webshell
+description: |
+  Detects access to DEWMODE webshell as described in FIREEYE report
+filter: |
+  evt.Meta.service == 'http' && ((Match("*?dwn=*", evt.Parsed.http_args) && evt.Parsed.http_args contains "&fn=" && Match("*.html?*", evt.Parsed.http_args)) || (evt.Parsed.http_args contains "&dwn=" && Match("*?fn=*", evt.Parsed.http_args) && Match("*.html?*", evt.Parsed.http_args)))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
