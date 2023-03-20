@@ -1,40 +1,32 @@
 onsuccess: next_stage
-#debug: true
-filter: "evt.Parsed.program == 'mikrotik' and evt.Parsed.message contains 'input:'"
+debug: true
+filter: "evt.Parsed.program == 'mikrotik'"
 name: a1ad/mikrotik-logs
-description: "Parse Mikrotik firewall input logs"
-grok:
-  pattern: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* %{DATA:tag} input: in:%{DATA:if_in} out:%{DATA:if_out}, .* src-mac %{MAC:src_mac}, proto %{WORD:proto}.*, %{IP:src_ip}:%{INT:src_port}->%{IP:dst_ip}:%{INT:dst_port}, len %{INT:length}"
-  apply_on: message
+description: "Parse Mikrotik logs"
+pattern_syntax:
+  MIKROTIK_FIREWALL_DROP: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* %{DATA:tag} input: in:%{DATA:if_in} out:%{DATA:if_out}, .* src-mac %{MAC:src_mac}, proto %{WORD:proto}.*, %{IP:source_ip}:%{INT:src_port}->%{IP:dst_ip}:%{INT:dst_port}, len %{INT:length}"
+  MIKROTIK_AUTH_FAILED: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* login failure for user %{USERNAME:invalid_user} from %{IP:source_ip}"
+nodes:
+  - grok:
+     name: "MIKROTIK_FIREWALL_DROP"
+     apply_on: message
+    statics:
+      - meta: service
+        value: tcp_udp
+      - meta: log_type
+        value: mikrotik_drop
+  - grok:
+     name : "MIKROTIK_AUTH_FAILED"
+     apply_on: message
+    statics:
+      - meta: service
+        value: mikrotik
+      - meta: log_type
+        value: mikrotik_failed_auth
+      - meta: user
+        expression: "evt.Parsed.invalid_user"
 statics:
-    - meta: service
-      value: tcp_udp
-    - meta: log_type
-      value: mikrotik_drop
-    - target: evt.StrTime
-      expression: "evt.Parsed.timestamp"
-    - meta: source_ip
-      expression: "evt.Parsed.src_ip"
-
----
-
-onsuccess: next_stage
-#debug: true
-filter: "evt.Parsed.program == 'mikrotik' and evt.Parsed.message contains 'login'"
-name: a1ad/mikrotik-logs
-description: "Parse Mikrotik auth logs"
-grok:
-  #2023-03-19T12:34:09.757188+01:00 10.120.127.1 system,error,critical login failure for user admin from 10.127.0.35 via winbox
-  pattern: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* login failure for user %{USERNAME:invalid_user} from %{IP:source_ip}"
-  apply_on: message
-statics:
-    - meta: service
-      value: mikrotik
-    - meta: log_type
-      value: mikrotik_failed_auth
-    - meta: user
-      expression: "evt.Parsed.invalid_user"
-    - meta: source_ip
-      expression: "evt.Parsed.source_ip"
-    - target: evt.StrTime
-      expression: evt.Parsed.timestamp
+ - meta: source_ip
+   expression: "evt.Parsed.source_ip"
+ - target: evt.StrTime
+   expression: evt.Parsed.timestamp
