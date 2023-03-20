@@ -8,31 +8,13 @@ pattern_syntax:
   GITEA_CUSTOMDATE: "%{DATE_X} %{TIME}"
 nodes:
   - grok:
-      pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}.* user does not exist'
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: gitea_failed_auth
-  - grok:
-      pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from \[%{IP:remote_ip}\].* user does not exist' 
+      pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}: user does not exist'
       apply_on: message
       statics:
         - meta: log_type
           value: gitea_failed_auth
   - grok:
       pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt from %{IP:remote_ip}:%{NUMBER:remote_port}'
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: gitea_failed_auth
-  - grok:
-      pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt from \[%{IP:remote_ip}\]'
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: gitea_failed_auth
-  - grok:
-      pattern: "^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}.* user's password is invalid"
       apply_on: message
       statics:
         - meta: log_type

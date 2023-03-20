@@ -10,12 +10,7 @@ blackhole: 1m
 reprocess: true
 labels:
   service: prowlarr
-  confidence: 3
-  spoofable: 0
-  classification:
-    - attack.T1110
-  behavior: "http:bruteforce"
-  label: "Prowlarr Bruteforce"
+  type: bruteforce
   remediation: true
 ---
 # Prowlarr user enum bruteforce
@@ -31,11 +26,5 @@ blackhole: 1m
 reprocess: true
 labels:
   service: prowlarr
-  confidence: 3
-  spoofable: 0
-  classification:
-    - attack.T1589
-    - attack.T1110
-  behavior: "http:bruteforce"
-  label: "Prowlarr User Enumeration"
-  remediation: true
+  type: bruteforce
+  remediation: true 

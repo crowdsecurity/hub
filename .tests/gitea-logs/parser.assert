@@ -1,56 +1,32 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022/03/01 12:57:58 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test from 1.1.1.1:39522: user does not exist [uid: 0, name: test, keyid: 0]"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "gitea"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2022/03/01 12:57:59 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test@example.com from 1.1.1.1:39522: user does not exist [uid: 1, name: test, keyid: 0]"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "gitea"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "gitea-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "gitea"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "gitea"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test@example.com from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "2023/10/05 16:48:46 ...ers/web/auth/auth.go:206:SignInPost() [I] Failed authentication attempt for toto from 1.1.1.1:39522: user's password is invalid [uid: 1, name: asd]"
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "gitea"
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
-results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
-results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
-results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
-len(results["s01-parse"]["LePresidente/gitea-logs"]) == 5
+len(results["s01-parse"]["LePresidente/gitea-logs"]) == 2
 results["s01-parse"]["LePresidente/gitea-logs"][0].Success == true
+results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["timestamp"] == "2022/03/01 12:57:58"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["username"] == "test"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["message"] == "2022/03/01 12:57:58 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test from 1.1.1.1:39522: user does not exist [uid: 0, name: test, keyid: 0]"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["program"] == "gitea"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["remote_ip"] == "1.1.1.1"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["remote_port"] == "39522"
-results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Parsed["timestamp"] == "2022/03/01 12:57:58"
-results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["user"] == "test"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["datasource_path"] == "gitea-logs.log"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["log_type"] == "gitea_failed_auth"
 results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["service"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["LePresidente/gitea-logs"][0].Evt.Meta["user"] == "test"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Success == true
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["remote_ip"] == "1.1.1.1"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["remote_port"] == "39522"
@@ -58,130 +34,41 @@ results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["timestamp"] == "2
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["username"] == "test@example.com"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["message"] == "2022/03/01 12:57:59 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test@example.com from 1.1.1.1:39522: user does not exist [uid: 1, name: test, keyid: 0]"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Parsed["program"] == "gitea"
+results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["user"] == "test@example.com"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["datasource_path"] == "gitea-logs.log"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["log_type"] == "gitea_failed_auth"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["service"] == "gitea"
 results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Meta["user"] == "test@example.com"
-results["s01-parse"]["LePresidente/gitea-logs"][1].Evt.Whitelisted == false
-results["s01-parse"]["LePresidente/gitea-logs"][2].Success == true
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Parsed["program"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Parsed["remote_ip"] == "1234::5678"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Parsed["timestamp"] == "2023/05/12 12:17:34"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Parsed["username"] == "test"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["service"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["source_ip"] == "1234::5678"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["user"] == "test"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/gitea-logs"][2].Evt.Whitelisted == false
-results["s01-parse"]["LePresidente/gitea-logs"][3].Success == true
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Parsed["timestamp"] == "2023/05/12 12:17:34"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Parsed["username"] == "test@example.com"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test@example.com from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Parsed["program"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Parsed["remote_ip"] == "1234::5678"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["service"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["source_ip"] == "1234::5678"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Meta["user"] == "test@example.com"
-results["s01-parse"]["LePresidente/gitea-logs"][3].Evt.Whitelisted == false
-results["s01-parse"]["LePresidente/gitea-logs"][4].Success == true
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["message"] == "2023/10/05 16:48:46 ...ers/web/auth/auth.go:206:SignInPost() [I] Failed authentication attempt for toto from 1.1.1.1:39522: user's password is invalid [uid: 1, name: asd]"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["program"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["remote_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["remote_port"] == "39522"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["timestamp"] == "2023/10/05 16:48:46"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Parsed["username"] == "toto"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["user"] == "toto"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["service"] == "gitea"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/gitea-logs"][4].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022/03/01 12:57:58 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test from 1.1.1.1:39522: user does not exist [uid: 0, name: test, keyid: 0]"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_port"] == "39522"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2022/03/01 12:57:58"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "test"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022/03/01 12:57:58 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test from 1.1.1.1:39522: user does not exist [uid: 0, name: test, keyid: 0]"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "gitea"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "gitea-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "gitea_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "gitea"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-03-01T12:57:58Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "test"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-03-01T12:57:58Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_ip"] == "1.1.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_port"] == "39522"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2022/03/01 12:57:59"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "test@example.com"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2022/03/01 12:57:59 ...ers/web/auth/auth.go:200:SignInPost() [I] Failed authentication attempt for test@example.com from 1.1.1.1:39522: user does not exist [uid: 1, name: test, keyid: 0]"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "gitea"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_port"] == "39522"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "gitea"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2022-03-01T12:57:59Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "test@example.com"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "gitea-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-03-01T12:57:59Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2023/05/12 12:17:34"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["username"] == "test"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["remote_ip"] == "1234::5678"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "1234::5678"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2023-05-12T12:17:34Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["user"] == "test"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2023-05-12T12:17:34Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "2023/05/12 12:17:34 ...ers/web/auth/auth.go:206:SignInPost() [I] [645e123e] Failed authentication attempt for test@example.com from [1234::5678]:0: user does not exist [uid: 0, name: asd, keyid: 0]"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["remote_ip"] == "1234::5678"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2023/05/12 12:17:34"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["username"] == "test@example.com"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "1234::5678"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2023-05-12T12:17:34Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["user"] == "test@example.com"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["service"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2023-05-12T12:17:34Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_port"] == "39522"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "2023/10/05 16:48:46"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["username"] == "toto"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "2023/10/05 16:48:46 ...ers/web/auth/auth.go:206:SignInPost() [I] Failed authentication attempt for toto from 1.1.1.1:39522: user's password is invalid [uid: 1, name: asd]"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_ip"] == "1.1.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "gitea"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2023-10-05T16:48:46Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["user"] == "toto"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "gitea-logs.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "gitea_failed_auth"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2023-10-05T16:48:46Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
 len(results["success"][""]) == 0

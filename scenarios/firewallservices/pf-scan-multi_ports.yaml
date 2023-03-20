@@ -1,20 +1,13 @@
 type: leaky
 name: firewallservices/pf-scan-multi_ports
 description: "ban IPs that are scanning us"
-filter: "evt.Meta.log_type == 'pf_drop' && evt.Meta.service == 'tcp'"
+filter: "evt.Meta.log_type == 'pf_drop' && evt.Meta.service == 'tcp_udp'"
 groupby: evt.Meta.source_ip
 distinct: evt.Parsed.dst_port
 capacity: 15
 leakspeed: 5s
 blackhole: 1m
 labels:
-  service: tcp
-  confidence: 1
-  spoofable: 3
-  classification:
-    - attack.T1595.001
-    - attack.T1018
-    - attack.T1046
-  behavior: "tcp:scan"
-  label: "PF Scan Multi Ports"
+  service: tcp_udp
+  type: scan
   remediation: true

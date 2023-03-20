@@ -10,17 +10,12 @@ capacity: 5
 blackhole: 1m
 labels:
   service: jellyfin
-  behavior: "http:bruteforce"
-  classification:
-    - attack.T1110
-  spoofable: 0
-  confidence: 3
-  label: "Jellyfin Bruteforce"
+  type: bruteforce
   remediation: true
 ---
 # jellyfin user-enum
 type: leaky
-name: LePresidente/jellyfin-bf_user-enum
+name:  LePresidente/jellyfin-bf_user-enum
 description: "Detect jellyfin user enum bruteforce"
 filter: "evt.Meta.log_type == 'jellyfin_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -29,12 +24,6 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
-  service: jellyfin
-  behavior: "http:bruteforce"
-  spoofable: 0
-  confidence: 3
-  classification:
-    - attack.T1589
-    - attack.T1110
-  label: "Harbor User Enumeration"
-  remediation: true
+ service: jellyfin
+ type: bruteforce
+ remediation: true

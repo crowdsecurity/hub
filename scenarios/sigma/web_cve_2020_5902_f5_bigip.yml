@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2020_5902_f5_bigip
+description: |
+  Detects the exploitation attempt of the vulnerability found in F5 BIG-IP and described in CVE-2020-5902
+filter: |
+  evt.Meta.service == 'http' && ((evt.Parsed.http_args contains "/tmui/" || evt.Parsed.http_args contains "/hsqldb") && (evt.Parsed.http_args contains "..;/" || evt.Parsed.http_args contains ".jsp/.."))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

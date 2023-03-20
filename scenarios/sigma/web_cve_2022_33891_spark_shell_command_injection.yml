@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2022_33891_spark_shell_command_injection
+description: |
+  Detects attempts to exploit an apache spark server via CVE-2014-6287 from a weblogs perspective
+filter: |
+  evt.Meta.service == 'http' && (Match("*?doAs=`*", evt.Parsed.http_args))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
