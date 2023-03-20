@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_ssti_in_access_logs
+description: |
+  Detects SSTI attempts sent via GET requests in access logs
+filter: |
+  evt.Meta.service == 'http' && (evt.Meta.http_verb == "GET" && (evt.Line.Raw contains "={{" || evt.Line.Raw contains "=%7B%7B" || evt.Line.Raw contains "=${" || evt.Line.Raw contains "=$%7B" || evt.Line.Raw contains "=<%=" || evt.Line.Raw contains "=%3C%25=" || evt.Line.Raw contains "=@(" || evt.Line.Raw contains "freemarker.template.utility.Execute" || evt.Line.Raw contains ".getClass().forName('javax.script.ScriptEngineManager')" || evt.Line.Raw contains "T(org.apache.commons.io.IOUtils)") && (not (int(evt.Meta.http_status) == 404)))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

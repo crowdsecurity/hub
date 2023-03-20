@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_java_payload_in_access_logs
+description: |
+  Detects possible Java payloads in web access logs
+filter: |
+  evt.Meta.service == 'http' && (evt.Line.Raw contains "%24%7B%28%23a%3D%40" || evt.Line.Raw contains "${(#a=@" || evt.Line.Raw contains "%24%7B%40java" || evt.Line.Raw contains "${@java" || evt.Line.Raw contains "u0022java" || evt.Line.Raw contains "%2F%24%7B%23" || evt.Line.Raw contains "/${#" || evt.Line.Raw contains "new+java." || evt.Line.Raw contains "getRuntime().exec(" || evt.Line.Raw contains "getRuntime%28%29.exec%28")
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
