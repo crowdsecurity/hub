@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_iis_tilt_shortname_scan
+description: |
+  When IIS uses an old .Net Framework it's possible to enumerate folders with the symbol "~"
+filter: |
+  evt.Meta.service == 'http' && (evt.Parsed.http_args contains "~1" && evt.Parsed.http_args endsWith "a.aspx" && (evt.Meta.http_verb == "GET" || evt.Meta.http_verb == "OPTIONS") && (int(evt.Meta.http_status) == 200 || int(evt.Meta.http_status) == 301))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

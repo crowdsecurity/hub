@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/setup-go@v1
       with:
-        go-version: 1.13
+        go-version: 1.19
     - uses: actions/checkout@v1
     - name: Create local changes
       run: |
@@ -49,14 +49,17 @@ jobs:
     #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
     #We should avoid naming dev branches with something starting with v :D 
     if: |
-        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/honeypots'
+        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - uses: actions/checkout@v1
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.CF_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.CF_AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.CF_AWS_ROLE }}
+        role-session-name: github-action
         aws-region: eu-west-1
     - name: Get branch name
       run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV

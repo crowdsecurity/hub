@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/crowdsecurity/kasm-logs.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- "./scenarios/crowdsecurity/kasm-bruteforce.yaml"
+postoverflows:
+- ""
+collections: []
+log_file: kasm-logs.log
+log_type: kasm
+ignore_parsers: true

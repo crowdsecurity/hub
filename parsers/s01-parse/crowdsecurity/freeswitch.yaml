@@ -1,0 +1,40 @@
+filter: "evt.Parsed.program startsWith 'freeswitch'"
+onsuccess: next_stage
+# debug: true
+name: crowdsecurity/freeswitch
+description: "Parse freeswitch logs"
+pattern_syntax:
+  TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
+nodes:
+- grok:
+    pattern: '%{TIMESTAMP:timestamp}.*\[WARNING\] sofia_reg.c:\d+ %{GREEDYDATA:parsedmessage}'
+    apply_on: message
+  nodes:
+  - grok:
+      pattern: "Can't find user \\[.*@%{IPORHOST}\\] from %{IPORHOST:remote_ip}"
+      apply_on: parsedmessage
+    onsuccess: next_stage
+    statics:
+      - meta: sub_type
+        value: user_enumeration
+  - grok:
+      pattern: "IP %{IPORHOST:remote_ip} Rejected by register acl"
+      apply_on: parsedmessage
+    onsuccess: next_stage
+    statics:
+      - meta: sub_type
+        value: acl_reject
+  - grok:
+      pattern: "SIP auth failure \\((REGISTER|INVITE)\\) on sofia profile '.*' for \\[.*\\] from ip %{IPORHOST:remote_ip}"
+      apply_on: parsedmessage
+    onsuccess: next_stage
+    statics:
+      - meta: sub_type
+        value: auth_failure
+statics:
+  - meta: service
+    value: freeswitch
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: source_ip
+    expression: evt.Parsed.remote_ip

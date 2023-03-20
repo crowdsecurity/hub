@@ -1,0 +1,26 @@
+
+onsuccess: next_stage
+#debug: false
+name: a1ad/meshcentral-logs
+description: "Parse meshcentral logs"
+filter: "evt.Parsed.program == 'meshcentral'"
+pattern_syntax:
+  MESHCENTRAL_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  MESHCENTRAL_CUSTOMDATE: "%{MONTH} %{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}"
+nodes:
+  - grok:
+      pattern: '%{MESHCENTRAL_CUSTOMDATE:timestamp}.*Failed password for %{MESHCENTRAL_CUSTOMUSER:username} from %{IP:source_ip}.*'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: meshcentral_failed_auth
+
+statics:
+    - meta: service
+      value: meshcentral
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp

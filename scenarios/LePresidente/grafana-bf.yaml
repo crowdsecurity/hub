@@ -1,0 +1,14 @@
+# grafana BF scan
+name: LePresidente/grafana-bf
+description: "Detect grafana bruteforce"
+filter: "evt.Meta.log_type == 'grafana_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: grafana
+  type: bruteforce
+  remediation: true

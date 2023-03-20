@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2021_26814_wzuh_rce
+description: |
+  Detects the exploitation of the Wazuh RCE vulnerability described in CVE-2021-26814
+filter: |
+  evt.Meta.service == 'http' && (Match("*/manager/files?path=etc/lists/../../../../..*", evt.Parsed.http_args))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

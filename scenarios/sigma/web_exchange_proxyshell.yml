@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_exchange_proxyshell
+description: |
+  Detects URL patterns that could be found in ProxyShell exploitation attempts against Exchange servers (failed and successful)
+filter: |
+  evt.Meta.service == 'http' && ((int(evt.Meta.http_status) == 401 && evt.Parsed.http_args contains "/autodiscover.json" && (evt.Parsed.http_args contains "/powershell" || evt.Parsed.http_args contains "/mapi/nspi" || evt.Parsed.http_args contains "/EWS" || evt.Parsed.http_args contains "X-Rps-CAT")) || (int(evt.Meta.http_status) == 401 && (Match("*autodiscover.json?@*", evt.Parsed.http_args) || evt.Parsed.http_args contains "autodiscover.json%3f@" || evt.Parsed.http_args contains "%3f@foo.com" || evt.Parsed.http_args contains "Email=autodiscover/autodiscover.json" || Match("*json?@foo.com*", evt.Parsed.http_args))))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

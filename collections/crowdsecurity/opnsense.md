@@ -1,5 +1,6 @@
-## OPNSense collection
+## OPNsense collection
 
-This OPNSense collection supports :
+This OPNsense collection supports :
  - ssh parsers & bruteforce detection
  - web authentication bruteforce detection
+ - port scan detection

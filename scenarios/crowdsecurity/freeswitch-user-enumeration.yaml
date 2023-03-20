@@ -1,0 +1,26 @@
+type: leaky
+name: crowdsecurity/freeswitch-user-enumeration
+description: "Detect freeswitch user enumeration"
+filter: "evt.Meta.service == 'freeswitch' && evt.Meta.sub_type == 'user_enumeration'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: freeswitch
+ type: bruteforce
+ remediation: true
+---
+type: leaky
+name: crowdsecurity/freeswitch-user-enumeration
+description: "Detect freeswitch user enumeration"
+filter: "evt.Meta.service == 'freeswitch' && evt.Meta.sub_type == 'user_enumeration'"
+leakspeed: "1m"
+capacity: 20
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+ service: freeswitch
+ type: bruteforce
+ remediation: true

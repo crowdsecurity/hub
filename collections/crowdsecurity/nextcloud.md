@@ -1,8 +1,8 @@
 A collection to defend [Nextcloud](https://nextcloud.com) instance against common attacks :
  - Nextcloud parser
- - Nextcloud bruteforce & enumeration detection
+ - Nextcloud bruteforce, enumeration and trusted domain detection
 
-> Contributed by Håvard Moen
+> Contributed by Håvard Moen and a1ad
 
 ## Acquisition template
 

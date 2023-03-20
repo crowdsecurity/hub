@@ -14,6 +14,5 @@ container_name:
 #container_id:
 # - 843ee92d231b
 labels:
-  type: docker
-  program: jellyseerr
+  type: jellyseerr
 ```
