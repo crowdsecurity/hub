@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_susp_windows_path_uri
+description: |
+  Detects suspicious windows strins in URI which could indicate possible exfiltration or webshell communication
+filter: |
+  evt.Meta.service == 'http' && (evt.Parsed.http_args contains "=C:/Users" || evt.Parsed.http_args contains "=C:/Program%20Files" || evt.Parsed.http_args contains "=C:/Windows" || evt.Parsed.http_args contains "=C%3A%5CUsers" || evt.Parsed.http_args contains "=C%3A%5CProgram%20Files" || evt.Parsed.http_args contains "=C%3A%5CWindows")
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

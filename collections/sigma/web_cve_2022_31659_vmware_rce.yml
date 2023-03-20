@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2022_31659_vmware_rce
+description: |
+  Detects possible exploitation of VMware Workspace ONE Access Admin Remote Code Execution vulnerability as described in CVE-2022-31659
+filter: |
+  evt.Meta.service == 'http' && (evt.Meta.http_verb == "POST" && evt.Parsed.http_args contains "/SAAS/jersey/manager/api/migrate/tenant")
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

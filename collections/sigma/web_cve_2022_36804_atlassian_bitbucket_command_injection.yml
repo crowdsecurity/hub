@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2022_36804_atlassian_bitbucket_command_injection
+description: |
+  Detects attempts to exploit the Atlassian Bitbucket Command Injection CVE-2022-36804
+filter: |
+  evt.Meta.service == 'http' && (evt.Parsed.http_args contains "/rest/api/latest/projects/" && evt.Parsed.http_args contains "prefix=" && evt.Parsed.http_args contains "%00--exec")
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

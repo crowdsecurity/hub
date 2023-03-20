@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2021_22005_vmware_file_upload
+description: |
+  Detects exploitation attempts using file upload vulnerability CVE-2021-22005 in the VMWare vCenter Server.
+filter: |
+  evt.Meta.service == 'http' && (evt.Meta.http_verb == "POST" && Match("*/analytics/telemetry/ph/api/hyper/send?*", evt.Parsed.http_args))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

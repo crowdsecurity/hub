@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2021_44228_log4j
+description: |
+  Detects exploitation attempt against log4j RCE vulnerability reported as CVE-2021-44228 (Log4Shell)
+filter: |
+  evt.Meta.service == 'http' && ((evt.Line.Raw contains "${jndi:ldap:/" || evt.Line.Raw contains "${jndi:rmi:/" || evt.Line.Raw contains "${jndi:ldaps:/" || evt.Line.Raw contains "${jndi:dns:/" || evt.Line.Raw contains "/$%7bjndi:" || evt.Line.Raw contains "%24%7bjndi:" || evt.Line.Raw contains "$%7Bjndi:" || evt.Line.Raw contains "%2524%257Bjndi" || evt.Line.Raw contains "%2F%252524%25257Bjndi%3A" || evt.Line.Raw contains "${jndi:${lower:" || evt.Line.Raw contains "${::-j}${" || evt.Line.Raw contains "${jndi:nis" || evt.Line.Raw contains "${jndi:nds" || evt.Line.Raw contains "${jndi:corba" || evt.Line.Raw contains "${jndi:iiop" || evt.Line.Raw contains "Reference Class Name: foo" || evt.Line.Raw contains "${${env:BARFOO:-j}" || evt.Line.Raw contains "${::-l}${::-d}${::-a}${::-p}" || evt.Line.Raw contains "${base64:JHtqbmRp" || evt.Line.Raw contains "${${env:ENV_NAME:-j}ndi${env:ENV_NAME:-:}$" || evt.Line.Raw contains "${${lower:j}ndi:" || evt.Line.Raw contains "${${upper:j}ndi:" || evt.Line.Raw contains "${${::-j}${::-n}${::-d}${::-i}:") && (not (evt.Line.Raw contains "w.nessus.org/nessus" || evt.Line.Raw contains "/nessus}")))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true

@@ -1,0 +1,10 @@
+type: trigger
+name: sigma/web_cve_2019_3398_confluence
+description: |
+  Detects the exploitation of the Confluence vulnerability described in CVE-2019-3398
+filter: |
+  evt.Meta.service == 'http' && (evt.Meta.http_verb == "POST" && (evt.Parsed.http_args contains "/upload.action" && evt.Parsed.http_args contains "filename=../../../../"))
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
