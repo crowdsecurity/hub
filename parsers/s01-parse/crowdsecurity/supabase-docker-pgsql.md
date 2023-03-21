@@ -1,0 +1,1 @@
+Parser for postgres flavor provided by supabase docker compose deployment. 
