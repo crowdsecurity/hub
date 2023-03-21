@@ -1,6 +1,6 @@
 ## Supabase Docker Compose collection
 
-A collection for self hosted Supabase via docker compose
+A collection for [self hosted Supabase via docker compose](https://github.com/supabase/supabase/blob/master/docker/docker-compose.yml)
  * Parser for Kong and postgresql
  * base http scenarios (crawl, 404 scan, bf)
  * bruteforce scenarios for postgresql
