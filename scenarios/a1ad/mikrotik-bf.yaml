@@ -1,0 +1,29 @@
+# Mikrotik BF scan
+name: a1ad/mikrotik-bf
+description: "Detect Mikrotik bruteforce"
+filter: "evt.Meta.log_type == 'mikrotik_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: mikrotik
+  type: bruteforce
+  remediation: true
+---
+# meshcentral user-enum
+type: leaky
+name:  a1ad/mikrotik-bf_user-enum
+description: "Detect mikrotik user enum bruteforce"
+filter: "evt.Meta.log_type == 'mikrotik_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+ service: mikrotik
+ type: bruteforce
+ remediation: true
