@@ -1,0 +1,17 @@
+# debug: true
+onsuccess: next_stage
+name: crowdsecurity/mailu-admin-logs
+description: "Parse mailu-admin logs"
+filter: "evt.Parsed.program == 'mailu-admin'"
+grok:
+  pattern:  "\\[%{TIMESTAMP_ISO8601:timestamp8601},.*\\] WARNING in limiter: Authentication attempt from %{IP:source_ip} has been rate-limited."
+  apply_on: message
+statics:
+  - meta: log_type
+    value: mailu_admin_auth_attempt
+  - meta: service
+    value: mailu-admin
+  - meta: source_ip 
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: "evt.Parsed.timestamp8601"
