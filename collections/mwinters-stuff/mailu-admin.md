@@ -1,0 +1,1 @@
+Collection for the mailu admin container parser and secenario.
