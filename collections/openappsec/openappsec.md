@@ -8,6 +8,20 @@ This collection handle most of the `waapIncidentType` that open-appsec can gener
  - `Remote Code Execution`
  - `Vulnerability Scanning`
  - `Cross Site Scripting`
+ - `XML External Entity`
+ - `Evasion Techniques`
+ - `General`
+ - `URL instead of file`
+ - `Cross Site Request Forgery`
+ - `Cross Site Redirect`
+ - `Open Redirect`
+ - `Schema Validation`
+ - `Bot Protection`
+ - `Error Disclosure`
+ - `Error Limit`
+ - `Illegal http method violation`
+ - `Http limit violation`
+ - `Request Rate Limit`
 
 
 ## Acquisition template

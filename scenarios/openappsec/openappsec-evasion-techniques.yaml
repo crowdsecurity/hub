@@ -2,7 +2,7 @@ type: trigger
 #debug: true
 name: openappsec/openappsec-evasion-techniques
 description: "Detect openappsec 'prevent' securityActions on 'Evasion Techniques' events (when waf blocks malicious request)"
-filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.security_action) == 'prevent' and Lower(evt.Meta.incident_type) contains 'evasion techniques'
+filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.security_action) in ['prevent', 'detect'] and Lower(evt.Meta.incident_type) contains 'evasion techniques'
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
