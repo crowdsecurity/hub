@@ -1,0 +1,56 @@
+#onsuccess: next_stage
+name: "cloudtrail-logs-pouet"
+filter: "evt.Parsed.program == 'cloudtrail'"
+nodes:
+  - statics:
+      - meta: service
+        value: cloudtrail
+      - method: UnmarshalJSON
+        expression: evt.Line.Raw
+      - target: evt.StrTime
+        expression: evt.Unmarshaled.eventTime
+      - meta: user_type
+        expression: evt.Unmarshaled.userIdentity.type
+      - meta: user_arn
+        expression: evt.Unmarshaled.userIdentity.arn
+      - meta: event_name
+        expression: evt.Unmarshaled.eventName
+      - meta: event_source
+        expression: evt.Unmarshaled.eventSource
+      - meta: region
+        expression: evt.Unmarshaled.awsRegion
+      - meta: source_ip
+        expression: |
+          IsIP(evt.Unmarshaled.sourceIPAddress) ? evt.Unmarshaled.sourceIPAddress : ""
+      - meta: user_agent
+        expression: evt.Unmarshaled.userAgent
+      - meta: error_code
+        expression: evt.Unmarshaled.errorCode
+      - meta: event_id
+        expression: evt.Unmarshaled.eventID
+      - meta: account_id
+        expression: evt.Unmarshaled.userIdentity.accountId
+      - meta: log_type
+        value: aws-cloudtrail
+  - grok:
+      pattern: "%{AWS_CONSOLELOGIN_RESULT:result}"
+      expression: "evt.Unmarshaled.responseElements.ConsoleLogin"
+    pattern_syntax:
+      AWS_CONSOLELOGIN_RESULT: "(Success|Failure)"
+    nodes:
+      - filter: 'evt.Meta.event_name == "ConsoleLogin"'
+        statics:
+          - meta: auth
+            expression: evt.Unmarshaled.responseElements.ConsoleLogin #Lower(JsonExtract(evt.Line.Raw, "responseElements.ConsoleLogin"))
+          - meta: log_sub_type
+            expression: 'evt.Parsed.result == "Success" ? "aws_console_success_auth" : "aws_console_failed_auth"'
+  - grok:
+      pattern: "%{AWS_ENUMERATION_EVENT:enumeration_event}"
+      expression: "evt.Unmarshaled.eventName"
+    pattern_syntax:
+      AWS_ENUMERATION_EVENT: "(ListBuckets|DescribeInstances|GetCallerIdentity|ListFunctions.*|GetFunctions)"
+    statics:
+      - meta: log_sub_type
+        value: enumeration
+      - meta: enumeration_event
+        expression: evt.Parsed.enumeration_event
