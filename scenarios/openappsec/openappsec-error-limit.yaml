@@ -1,0 +1,11 @@
+type: trigger
+#debug: true
+name: openappsec/openappsec-error-limit
+description: "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)"
+filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.security_action) in ['prevent', 'detect'] and Lower(evt.Meta.incident_type) contains 'error limit'
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: openappsec
+ type: exploit
+ remediation: true
