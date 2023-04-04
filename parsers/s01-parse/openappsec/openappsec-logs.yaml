@@ -1,0 +1,38 @@
+name: openappsec/openappsec-logs
+description: "Parse openappsec logs"
+filter: "evt.Parsed.program == 'openappsec' && JsonExtract(evt.Parsed.message, 'eventAudience') == 'Security' && Lower(JsonExtract(evt.Parsed.message, 'eventSeverity')) in ['critical', 'high'] && Lower(JsonExtract(evt.Parsed.message, 'eventData.practiceSubType')) in ['web application','web api']"  
+debug: false
+onsuccess: next_stage
+statics:
+  - meta: service
+    value: openappsec
+  - meta: log_type
+    value: openappsec_security_log
+  - target: evt.StrTimeFormat
+    value: "2006-01-02T15:04:05"
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "eventTime")
+  - meta: event_name
+    expression: JsonExtract(evt.Parsed.message, "eventName")
+  - meta: event_severity
+    expression: JsonExtract(evt.Parsed.message, "eventSeverity")
+  - meta: event_priority
+    expression: JsonExtract(evt.Parsed.message, "eventPriority")
+  - meta: event_audience
+    expression: JsonExtract(evt.Parsed.message, "eventAudience")
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "eventData.sourceIP")
+  - meta: event_confidence
+    expression: JsonExtract(evt.Parsed.message, "eventData.eventConfidence")
+  - meta: security_action
+    expression: JsonExtract(evt.Parsed.message, "eventData.securityAction")
+  - meta: source_identifier
+    expression: JsonExtract(evt.Parsed.message, "eventData.httpSourceId")
+  - meta: matched_sample
+    expression: JsonExtract(evt.Parsed.message, "eventData.matchedSample")
+  - meta: matched_parameter
+    expression: JsonExtract(evt.Parsed.message, "eventData.matchedParameter")
+  - meta: matched_location
+    expression: JsonExtract(evt.Parsed.message, "eventData.matchedLocation")
+  - meta: incident_type
+    expression: JsonExtract(evt.Parsed.message, "eventData.waapIncidentType")

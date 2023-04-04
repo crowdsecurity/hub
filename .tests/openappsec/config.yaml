@@ -1,0 +1,32 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s02-enrich/crowdsecurity/dateparse-enrich.yaml
+- ./parsers/s01-parse/openappsec/openappsec-logs.yaml
+scenarios:
+- ./scenarios/openappsec/openappsec-ldap-injection.yaml
+- ./scenarios/openappsec/openappsec-path-traversal.yaml
+- ./scenarios/openappsec/openappsec-probing.yaml
+- ./scenarios/openappsec/openappsec-rce.yaml
+- ./scenarios/openappsec/openappsec-sql-injection.yaml
+- ./scenarios/openappsec/openappsec-xss.yaml
+- ./scenarios/openappsec/openappsec-bot-protection.yaml
+- ./scenarios/openappsec/openappsec-cross-site-redirect.yaml
+- ./scenarios/openappsec/openappsec-csrf.yaml
+- ./scenarios/openappsec/openappsec-error-disclosure.yaml
+- ./scenarios/openappsec/openappsec-error-limit.yaml
+- ./scenarios/openappsec/openappsec-evasion-techniques.yaml
+- ./scenarios/openappsec/openappsec-general.yaml
+- ./scenarios/openappsec/openappsec-http-limit-violation.yaml
+- ./scenarios/openappsec/openappsec-http-method-violation.yaml
+- ./scenarios/openappsec/openappsec-open-redirect.yaml
+- ./scenarios/openappsec/openappsec-request-rate-limit.yaml
+- ./scenarios/openappsec/openappsec-schema-validation.yaml
+- ./scenarios/openappsec/openappsec-url-instead-of-file.yaml
+- ./scenarios/openappsec/openappsec-xxe.yaml
+postoverflows:
+- ""
+log_file: openappsec.log
+log_type: openappsec
+labels: {}
+ignore_parsers: false
+override_statics: []
