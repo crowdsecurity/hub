@@ -1,0 +1,18 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s02-enrich/crowdsecurity/dateparse-enrich.yaml
+- ./parsers/s01-parse/openappsec/openappsec-logs.yaml
+scenarios:
+- ./scenarios/openappsec/openappsec-ldap-injection.yaml
+- ./scenarios/openappsec/openappsec-path-traversal.yaml
+- ./scenarios/openappsec/openappsec-probing.yaml
+- ./scenarios/openappsec/openappsec-rce.yaml
+- ./scenarios/openappsec/openappsec-sql-injection.yaml
+- ./scenarios/openappsec/openappsec-xss.yaml
+postoverflows:
+- ""
+log_file: openappsec.log
+log_type: openappsec
+labels: {}
+ignore_parsers: false
+override_statics: []

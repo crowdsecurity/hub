@@ -1,0 +1,11 @@
+type: trigger
+debug: false
+name: openappsec/openappsec-rce
+description: "Detect openappsec 'prevent' securityActions on 'Remote Code Execution' events (when waf blocks malicious request)"
+filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.security_action) == 'prevent' and Lower(evt.Meta.incident_type) contains 'remote code execution'
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+ service: openappsec
+ type: exploit
+ remediation: true
