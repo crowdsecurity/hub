@@ -4,7 +4,7 @@ A collection for Kubernetes audit logs :
  - Kubernetes audit logs parser
  - Scenarios to detect security related events (privileged pod creation, exec into a pod, mounting a sensitive host folder, ...)
 
-Most scenarios in this collection will *not* lead to a decision, they are mostly intented for notification purpose.
+Most scenarios in this collection will *not* lead to a decision, they are mostly intended for notification purposes.
 
 ## Notifications
 

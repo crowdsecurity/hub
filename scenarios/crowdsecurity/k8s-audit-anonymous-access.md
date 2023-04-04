@@ -4,4 +4,4 @@ Only attempts done on resources that are logged at least at the `Metadata` level
 
 Access to `healthz`, `livez` and `readyz` are ignored.
 
-No decision will be taken based on this scenario, it is only intented for notification purposes.
+No decision will be taken based on this scenario, it is only intended for notification purposes.
