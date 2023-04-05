@@ -6,6 +6,7 @@ filter: |
   evt.Unmarshaled.ObjectRef?.Resource == 'pods' &&
   evt.Unmarshaled.RequestObject != nil &&
   evt.Unmarshaled.RequestObject.spec != nil &&
+  evt.Unmarshaled.RequestObject.spec.volumes != nil &&
   any(evt.Unmarshaled.RequestObject.spec.volumes, { .hostPath != nil && .hostPath.path in ["/proc", "/var/run/docker.sock", "/", "/etc", "/root", "/var/run/crio/crio.sock", "/home/admin", "/var/lib/kubelet", "/var/lib/kubelet/pki", "/etc/kubernetes", "/etc/kubernetes/manifests"] })
 labels:
   service: k8s
