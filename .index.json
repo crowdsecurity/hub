@@ -349,6 +349,29 @@
     "baudneo/zoneminder_cve-2022-39291"
    ]
   },
+  "corvese/apache-guacamole": {
+   "path": "collections/corvese/apache-guacamole.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "eec539fc4d01c275a0777aa0e41578fc1480f79e8b23c97e695c9ff1a855dd5c",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBbQXBhY2hlIEd1YWNhbW9sZV0oaHR0cHM6Ly9ndWFjYW1vbGUuYXBhY2hlLm9yZy8pIGluc3RhbmNlIGFnYWluc3QgY29tbW9uIGF0dGFja3MKCkluY2x1ZGVzOiAKIC0gQXBhY2hlIEd1YWNhbW9sZSBwYXJzZXIKIC0gQXBhY2hlIEd1YWNhbW9sZSBicnV0ZWZvcmNlICYgdXNlciBlbnVtZXJhdGlvbiBkZXRlY3Rpb24gc2NlbmFyaW9zCgpTZWUgdGhlIGFwYWNoZS1ndWFjYW1vbGUtbG9ncyBwYXJzZXIgZG9jdW1lbnRhdGlvbiBmb3IgY29uZmlndXJhdGlvbiBpbnN0cnVjdGlvbnM=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGNvcnZlc2UvYXBhY2hlLWd1YWNhbW9sZS1sb2dzCnNjZW5hcmlvczoKICAtIGNvcnZlc2UvYXBhY2hlLWd1YWNhbW9sZV9iZgogIC0gY29ydmVzZS9hcGFjaGUtZ3VhY2Ftb2xlX3VzZXJfZW51bQpkZXNjcmlwdGlvbjogIkFwYWNoZSBHdWFjYW1vbGUgYnJ1dGVmb3JjZSBsb2dpbiBwcm90ZWN0aW9uIgphdXRob3I6IGNvcnZlc2UKdGFnczoKICAtIEFwYWNoZUd1YWNhbW9sZQogIC0gYnJ1dGVmb3JjZQ==",
+   "description": "Apache Guacamole bruteforce login protection",
+   "author": "corvese",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "corvese/apache-guacamole-logs"
+   ],
+   "scenarios": [
+    "corvese/apache-guacamole_bf",
+    "corvese/apache-guacamole_user_enum"
+   ]
+  },
   "crowdsecurity/apache2": {
    "path": "collections/crowdsecurity/apache2.yaml",
    "version": "0.1",
@@ -2404,6 +2427,22 @@
    "content": "I2ZpbHRlcjogJzE9PTEnICAgICAjIFRlc3RpbmcKZmlsdGVyOiBldnQuUGFyc2VkLnByb2dyYW0gPT0gInpvbmVtaW5kZXIiICAgIyBQcm9kdWN0aW9uCiNkZWJ1ZzogdHJ1ZQpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogYmF1ZG5lby96b25lbWluZGVyLWxvZ3MKZGVzY3JpcHRpb246IEEgcGFyc2VyIGZvciB6b25lbWluZGVyIHdlYl9waHAubG9nIChMb2dpbnMgdG8gREIvV2ViKSwgbm93IHN1cHBvcnRzIGRlZmF1bHQgUEhQIGludGwgZGF0ZSBmb3JtYXQKcGF0dGVybl9zeW50YXg6CiAgWk1fVElNRTogJzJbMDEyM118WzAxXT9bMC05XTpbMC01XVswLTldOig/OlswLTVdP1swLTldfDYwKVxzPyhBTXxQTSBbQS1aXXszfSk/XC5bMC05XXs2fScKICBaTV9CQURVU0VSOiAnXiV7TU9OVEhOVU06bW9udGh9Wy8tXSV7TU9OVEhEQVk6ZGF5fVsvLV0le1lFQVI6eWVhcn0sP1stIF0le1pNX1RJTUU6dGltZX0gd2ViX3BocFxbXGQrXVwuW0EtWl17M30gXFsoJXtJUDpzb3VyY2VfaXB9KVxdXHNcW0NvdWxkIG5vdCByZXRyaWV2ZSB1c2VyICV7REFUQTp1c2VybmFtZX0gZGV0YWlsc1xdJwogIFpNX0JBRFBBU1NXT1JEOiAnXiV7TU9OVEhOVU06bW9udGh9Wy8tXSV7TU9OVEhEQVk6ZGF5fVsvLV0le1lFQVI6eWVhcn0sP1stIF0le1pNX1RJTUU6dGltZX0gd2ViX3BocFxbXGQrXVwuW0EtWl17M30gXFsoJXtJUDpzb3VyY2VfaXB9KVxdXHNcW0xvZ2luIGRlbmllZCBmb3IgdXNlciBcIiV7REFUQTp1c2VybmFtZX1cIlxdJwojI05FVyBCQUQgVVNFUiMgMTIvMTcvMjIsIDEwOjMxOjI5IFBNIE1TVC41NTc3MTAgd2ViX3BocFsyNTQ4OTRdLkVSUiBbMTAuMC4xLjVdIFtDb3VsZCBub3QgcmV0cmlldmUgdXNlciBhYWFhIGRldGFpbHNdIGF0IC91c3Ivc2hhcmUvem9uZW1pbmRlci93d3cvaW5jbHVkZXMvYXV0aC5waHAgbGluZSAzOTUKIyNORVcgQkFEIFBBU1MjIDAxLzA2LzIyLCAxMDozMToyOSBQTSBNU1QuNTU3NzEwIHdlYl9waHBbNjg4XS5FUlIgWzk5LjEuMS4xXSBbTG9naW4gZGVuaWVkIGZvciB1c2VyICJ2YWxpZHVzZXIiXSBhdCAvdXNyL3NoYXJlL3pvbmVtaW5kZXIvd3d3L2luY2x1ZGVzL2F1dGgucGhwIGxpbmUgMzEzCiMjT0xEIEJBRCBVU0VSIyAwMS8wNi8yMiAwOToyNjoxNS4xMTc0MzQgd2ViX3BocFsyNThdLkVSUiBbOTkuMS4xLjFdIFtDb3VsZCBub3QgcmV0cmlldmUgdXNlciB0ZXN0dXNlciBkZXRhaWxzXSBhdCAvdXNyL3NoYXJlL3pvbmVtaW5kZXIvd3d3L2luY2x1ZGVzL2F1dGgucGhwIGxpbmUgMzEzCiMjT0xEIEJBRCBQQVNTIyAwMS8wNi8yMiAwOToyNzozOS44NDMzMzggd2ViX3BocFs2ODhdLkVSUiBbOTkuMS4xLjFdIFtMb2dpbiBkZW5pZWQgZm9yIHVzZXIgInZhbGlkdXNlciJdIGF0IC91c3Ivc2hhcmUvem9uZW1pbmRlci93d3cvaW5jbHVkZXMvYXV0aC5waHAgbGluZSAzMTMKCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogIlpNX0JBRFBBU1NXT1JEIgogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiB6bV9mYWlsZWRfYXV0aAogICAgICAgIC0gbWV0YTogbG9nX3N1YnR5cGUKICAgICAgICAgIHZhbHVlOiB6bV9iYWRfcGFzc3dvcmQKICAgICAgICAtIG1ldGE6IHVzZXJuYW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCiAgLSBncm9rOgogICAgICBuYW1lOiAiWk1fQkFEVVNFUiIKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogem1fZmFpbGVkX2F1dGgKICAgICAgICAtIG1ldGE6IGxvZ19zdWJ0eXBlCiAgICAgICAgICB2YWx1ZTogem1fYmFkX3VzZXIKICAgICAgICAtIG1ldGE6IHVzZXJuYW1lCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCgpzdGF0aWNzOgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnNvdXJjZV9pcAogIC0gdGFyZ2V0OiBTdHJUaW1lCiAgICBleHByZXNzaW9uOiB8LQogICAgICAiMjAiICsgZXZ0LlBhcnNlZC55ZWFyICsgIi8iICsgZXZ0LlBhcnNlZC5tb250aCArICIvIiArIGV2dC5QYXJzZWQuZGF5ICsgIiAiICsgZXZ0LlBhcnNlZC50aW1lCg==",
    "description": "A parser for zoneminder web_php.log (Logins to DB/Web), now supports default PHP intl date format",
    "author": "baudneo",
+   "labels": null
+  },
+  "corvese/apache-guacamole-logs": {
+   "path": "parsers/s01-parse/corvese/apache-guacamole-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "16e2b2205362d6ce2d83cce6a843194b5aea947891e5c7e72d006d4980c2d610",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBEZXNjcmlwdGlvbgpBIHBhcnNlciB0aGF0IHdpbGwgc2VhcmNoIGZvciBmYWlsZWQgYXV0aGVudGljYXRpb24gYXR0ZW1wdHMuIAoKIyBDb25maWd1cmF0aW9uCi0gTW9kaWZ5IHRoZSBgYWNxdWlzLnlhbWxgIGNvbmZpZ3VyYWl0b24gZmlsZS4gVGhlIGB0eXBlYCAqKk1VU1QqKiBiZSBleGFjdGx5IGFzIHNob3duIGhlcmUgb3IgdGhlIHBhcnNlciB3aWxsIG5ldmVyIGJlIHN1Y2Nlc3NmdWwuCgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC9wYXRoL3RvL2FwYWNoZS1ndWFjYW1vbGUubG9nCmxhYmVsczoKICB0eXBlOiBhcGFjaGUtZ3VhY2Ftb2xlCmBgYAo6ZXhjbGFtYXRpb246IFRoZSBgdHlwZWAgKipNVVNUKiogYmUgYGFwYWNoZS1ndWFjYW1vbGVgIDpleGNsYW1hdGlvbjoKCiMgQXBhY2hlIFF1YWNhbW9sZSBjb25maWd1cmF0aW9uCgpUaGUgZGVmYXVsdCBsb2cgZm9ybWF0IHVzZWQgYnkgcXVhY2Ftb2xlIGlzIG5vdCBzdXBwb3J0ZWQgYnkgY3Jvd2RzZWMgYXMgdGhlcmUgaXMgbm8gZGF0ZSBpbiB0aGUgbG9nIGxpbmUgeW91IHdpbGwgbmVlZCB0byBkbyB0aGUgZm9sbG93aW5nIHRvIG1ha2UgaXQgY29tcGF0aWJsZSwgdGhlc2UgYXJlIGV4YW1wbGVzIGFuZCBzaG91bGQgYmUgY2hhbmdlZCB0byByZWZsZWN0IHlvdXIgc2V0dXAuCgotIENyZWF0ZSB0aGUgZm9sbG93aW5nICdsb2diYWNrLnhtbCcgZmlsZSBpbiBndWFjYW1vbGUgaG9tZSBkaXIgdG8gbG9nIHdpdGggdGhlIGNvcnJlY3QgRGF0ZSBmb3JtYXQuClNURE9VVApgYGAKPGNvbmZpZ3VyYXRpb24+CiAgICA8IS0tIERlZmF1bHQgYXBwZW5kZXIgLS0+CiAgICA8YXBwZW5kZXIgbmFtZT0iR1VBQy1ERUZBVUxUIiBjbGFzcz0iY2gucW9zLmxvZ2JhY2suY29yZS5Db25zb2xlQXBwZW5kZXIiPgogICAgICAgIDxlbmNvZGVyPgogICAgICAgICAgICA8cGF0dGVybj4lZGF0ZXsieXl5eS1NTS1kZCdUJ0hIOm1tOnNzLFNTU1hYWCIsIFVUQ30gWyV0aHJlYWRdICUtNWxldmVsICVsb2dnZXJ7MzZ9IC0gJW1zZyVuPC9wYXR0ZXJuPgogICAgICAgIDwvZW5jb2Rlcj4KICAgIDwvYXBwZW5kZXI+CgogICAgPCEtLSBMb2cgYXQgSU5GTyBsZXZlbCAtLT4KICAgIDxyb290IGxldmVsPSJXQVJOIj4KICAgICAgICA8YXBwZW5kZXItcmVmIHJlZj0iR1VBQy1ERUZBVUxUIiAvPgogICAgPC9yb290PgoKPC9jb25maWd1cmF0aW9uPgpgYGAKCkZJTEU6CmBgYAo8Y29uZmlndXJhdGlvbj4KICAgIDwhLS0gRGVmYXVsdCBhcHBlbmRlciAtLT4KICAgIDxhcHBlbmRlciBuYW1lPSJHVUFDLURFRkFVTFQiIGNsYXNzPSJjaC5xb3MubG9nYmFjay5jb3JlLkZpbGVBcHBlbmRlciI+CiAgICAgICAgPGZpbGU+L3Zhci9sb2cvZ3VhY2Ftb2xlLmxvZzwvZmlsZT4KICAgICAgICA8ZW5jb2Rlcj4KICAgICAgICAgICAgPHBhdHRlcm4+JWRhdGV7Inl5eXktTU0tZGQnVCdISDptbTpzcyxTU1NYWFgiLCBVVEN9IFsldGhyZWFkXSAlLTVsZXZlbCAlbG9nZ2VyezM2fSAtICVtc2clbjwvcGF0dGVybj4KICAgICAgICA8L2VuY29kZXI+CiAgICA8L2FwcGVuZGVyPgoKICAgIDwhLS0gTG9nIGF0IElORk8gbGV2ZWwgLS0+CiAgICA8cm9vdCBsZXZlbD0iV0FSTiI+CiAgICAgICAgPGFwcGVuZGVyLXJlZiByZWY9IkdVQUMtREVGQVVMVCIgLz4KICAgIDwvcm9vdD4KCjwvY29uZmlndXJhdGlvbj4KYGBgCgpJZiB1c2luZyBkb2NrZXIgeW91IHdpbGwgbmVlZCB0byBtb3VudCB0aGUgZm9sbG93aW5nIHZvbHVtZSB0aGF0IGxpbmtzIHRvIHRoZSBsb2diYWNrLnhtbCBmaWxlIGFuZCBzZXQgdGhlIEdVQUNBTU9MRV9IT01FIHZhcmlhYmxlCmBgYAogICAgdm9sdW1lczoKICAgIC0gLi9sb2diYWNrLnhtbDovaG9tZS9ndWFjYW1vbGUvdGVtcC9sb2diYWNrLnhtbDpybwogICAgZW52aXJvbm1lbnQ6CiAgICAgIEdVQUNBTU9MRV9IT01FOiAvaG9tZS9ndWFjYW1vbGUvdGVtcC8KYGBgCg==",
+   "content": "bmFtZTogY29ydmVzZS9hcGFjaGUtZ3VhY2Ftb2xlLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZXMgQXBhY2hlIEd1YWNhbW9sZSBsb2dzIgpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2FwYWNoZS1ndWFjYW1vbGUnIgpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKcGF0dGVybl9zeW50YXg6CiAgR1VBQ19DVVNUT01VU0VSOiAiKCV7RU1BSUxBRERSRVNTfXwle1VTRVJOQU1FfSkiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJyV7VElNRVNUQU1QX0lTTzg2MDE6dGltZXN0YW1wfS4qQXV0aGVudGljYXRpb24gYXR0ZW1wdCBmcm9tIFxbJXtJUDpzb3VyY2VfaXB9Lipmb3IgdXNlciAiJXtHVUFDX0NVU1RPTVVTRVI6dXNlcm5hbWV9IiBmYWlsZWQnCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGFwYWNoZS1ndWFjYW1vbGVfZmFpbGVkX2F1dGgKICAgICAgICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IGFwYWNoZS1ndWFjYW1vbGUKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlX2lwCiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXA=",
+   "description": "Parses Apache Guacamole logs",
+   "author": "corvese",
    "labels": null
   },
   "crowdsecurity/apache2-logs": {
@@ -4721,6 +4760,44 @@
     "remediation": "true",
     "service": "zoneminder",
     "type": "exploit"
+   }
+  },
+  "corvese/apache-guacamole_bf": {
+   "path": "scenarios/corvese/apache-guacamole_bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "78920b8234b82abaeb1b73c6f3994f4c35e5c90cab074a7f11d9ffb58248ef70",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGVmZW5kcyBhZ2FpbnN0IGEgc2luZ2xlIHVzZXIncyBhY2NvdW50IGJlaW5nIGJydXRlZm9yY2Vk",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY29ydmVzZS9hcGFjaGUtZ3VhY2Ftb2xlX2JmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IEFwYWNoZSBHdWFjYW1vbGUgdXNlciBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdhcGFjaGUtZ3VhY2Ftb2xlX2ZhaWxlZF9hdXRoJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogYXBhY2hlLWd1YWNhbW9sZQogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQ==",
+   "description": "Detect Apache Guacamole user bruteforce",
+   "author": "corvese",
+   "labels": {
+    "remediation": "true",
+    "service": "apache-guacamole",
+    "type": "bruteforce"
+   }
+  },
+  "corvese/apache-guacamole_user_enum": {
+   "path": "scenarios/corvese/apache-guacamole_user_enum.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "9657710b2f728d779870ceda5d46c624dd1e33415c51232293f0ba416beda965",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGVmZW5kcyBhZ2FpbnN0IHVzZXIgZW51bWVyYXRpb24gYXR0YWNr",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY29ydmVzZS9hcGFjaGUtZ3VhY2Ftb2xlX3VzZXJfZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBBcGFjaGUgR3VhY2Ftb2xlIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdhcGFjaGUtZ3VhY2Ftb2xlX2ZhaWxlZF9hdXRoJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5NZXRhLnRhcmdldF91c2VyCmxlYWtzcGVlZDogMTBzCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IGFwYWNoZS1ndWFjYW1vbGUKICB0eXBlOiBicnV0ZWZvcmNlCiAgcmVtZWRpYXRpb246IHRydWU=",
+   "description": "Detect Apache Guacamole user enum bruteforce",
+   "author": "corvese",
+   "labels": {
+    "remediation": "true",
+    "service": "apache-guacamole",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/CVE-2019-18935": {
