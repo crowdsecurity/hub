@@ -2,9 +2,11 @@ name: corvese/apache-guacamole-logs
 description: "Parses Apache Guacamole logs"
 filter: "evt.Parsed.program == 'apache-guacamole'"
 onsuccess: next_stage
+pattern_syntax:
+  GUAC_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
 nodes:
   - grok:
-      pattern: '%{TIME:timestamp}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{USERNAME:username}" failed'
+      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{GUAC_CUSTOMUSER:username}" failed'
       apply_on: message
       statics:
         - meta: log_type
