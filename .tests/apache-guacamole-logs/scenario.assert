@@ -1,0 +1,58 @@
+INFO[10-04-2022 06:43:10 AM] Running test 'apache-guacamole-logs'         
+WARN[10-04-2022 06:43:14 AM] Assert file '/home/chris/development/hub/.tests/apache-guacamole-logs/parser.assert' is empty, generating assertion: 
+
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "28-Mar-2022 07:01:48.459 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler [\"http-nio-8080\"]"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "18:27:48.373 [http-nio-8080-exec-2] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [5.5.5.5, 192.168.48.7] for user \"test\" failed."
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "18:28:57.374 [http-nio-8080-exec-6] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [5.5.5.5, 192.168.48.7] for user \"testuser2\" failed."
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["corvese/apache-guacamole-logs"]) == 3
+results["s01-parse"]["corvese/apache-guacamole-logs"][0].Success == false
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Success == true
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["username"] == "test"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["hour"] == "18"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["message"] == "18:27:48.373 [http-nio-8080-exec-2] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [5.5.5.5, 192.168.48.7] for user \"test\" failed."
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["minute"] == "27"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["program"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["second"] == "48.373"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["source_ip"] == "5.5.5.5"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["source_ip"] == "5.5.5.5"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["target_user"] == "test"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["service"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Success == true
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["minute"] == "28"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["program"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["second"] == "57.374"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["source_ip"] == "5.5.5.5"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["username"] == "testuser2"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["hour"] == "18"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["message"] == "18:28:57.374 [http-nio-8080-exec-6] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [5.5.5.5, 192.168.48.7] for user \"testuser2\" failed."
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["service"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["source_ip"] == "5.5.5.5"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["target_user"] == "testuser2"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == false
+len(results["success"][""]) == 0

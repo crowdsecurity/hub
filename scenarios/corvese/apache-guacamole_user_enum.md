@@ -1,0 +1,1 @@
+Defends against user enumeration attack
