@@ -14,7 +14,7 @@ nodes:
         - target: evt.StrTime
           expression: evt.Parsed.time
   - grok:
-      pattern: '%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{IPORHOST:dest_ip}:%{POSINT:dest_port}(, login: "%{NO_DOUBLE_QUOTE:username}")?(, upstream: %{IPORHOST:proxy_ip}:%{POSINT:proxy_port})?'
+      pattern: '%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}( using starttls,|,) server: %{IPORHOST:dest_ip}:%{POSINT:dest_port}(, login: "%{NO_DOUBLE_QUOTE:username}")?(, upstream: %{IPORHOST:proxy_ip}:%{POSINT:proxy_port})?'
       apply_on: message
     filter: "evt.Parsed.message contains 'client '"
     statics:
