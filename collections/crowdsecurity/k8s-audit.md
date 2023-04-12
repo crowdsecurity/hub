@@ -1,3 +1,5 @@
+:warning: This version requires crowdsec version 1.5 :warning:
+
 ## Kubernetes Audit collection
 
 A collection for Kubernetes audit logs :

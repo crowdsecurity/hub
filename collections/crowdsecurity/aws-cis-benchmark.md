@@ -1,3 +1,5 @@
+:warning: This version requires crowdsec version 1.5 :warning:
+
 ## AWS CIS Benchmark collection
 
 This collections provides scenario to comply with the various alarms requirements specified in the CIS AWS Foundation Benchmark (https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-cis.html)

@@ -1,3 +1,5 @@
+:warning: This version requires crowdsec version 1.5 :warning:
+
 ## Auditd collection
 
 A collection for auditd:
