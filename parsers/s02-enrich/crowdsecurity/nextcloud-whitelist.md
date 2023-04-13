@@ -19,6 +19,8 @@ When loading backups for a file if those backups have been modified or deleted b
 The `/core/preview` endpoint returns 404 if a file has no thumbnail (including files which aren't meant to, like XMLs).
 This can trigger http-probing when using the file search bar.
 
+When previews are missing for files in the trash bin, a 404 error is returned which triggers http probing.
+
 In rare cases HTTP Probing will be triggered when opening multiple folders quickly, Nextcloud checks for a ``readme.md`` file and if it doesn't exist a 404 error is thrown.
 
 ---
