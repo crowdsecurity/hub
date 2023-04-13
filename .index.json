@@ -429,48 +429,6 @@
     "crowdsecurity/aws-cis-benchmark-vpc-change"
    ]
   },
-  "crowdsecurity/aws-console": {
-   "path": "collections/crowdsecurity/aws-console.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "48555992cef56f6886664bb530639bcf76334922523d87bd363ae69974c89a26",
-     "deprecated": false
-    }
-   },
-   "long_description": "IyBBd3MgY29sbGVjdGlvbgoKVGhpcyBjb2xsZWN0aW9uIGdyb3VwcyBhbiBhd3MgY2xvdWR0cmFpbCBwYXJzZXIgYW5kIGFuIGF3cyBicnV0ZSBjb25zb2xlIGRldGVjdGlvbiBzY2VuYXJpby4K",
-   "content": "cGFyc2VyczoKI2dlbmVyaWMgcG9zdC1wYXJzaW5nIG9mIGh0dHAgc3R1ZmYKICAtIGNyb3dkc2VjdXJpdHkvYXdzLWNsb3VkdHJhaWwKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hd3MtYmYKZGVzY3JpcHRpb246ICJhd3MgY2xvdWR0cmFpbCBwYXJzZXIgYW5kIGF3cyBjb25zb2xlIGJydXRlZm9yY2UiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gYXdzCgo=",
-   "description": "aws cloudtrail parser and aws console bruteforce",
-   "author": "crowdsecurity",
-   "labels": null,
-   "parsers": [
-    "crowdsecurity/aws-cloudtrail"
-   ],
-   "scenarios": [
-    "crowdsecurity/aws-bf"
-   ]
-  },
-  "crowdsecurity/aws-postexploit": {
-   "path": "collections/crowdsecurity/aws-postexploit.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "c69a44ec8b86aa40e38d2817cd4eb2a1a9fb99233b1ac1428580c8cc3889f782",
-     "deprecated": false
-    }
-   },
-   "long_description": "IyBBd3MgY29sbGVjdGlvbgoKVGhpcyBjb2xsZWN0aW9uIGdyb3VwcyBhbiBhd3MgY2xvdWR0cmFpbCBwYXJzZXIgYW5kIHR3byBhd3MKcG9zdGV4cGxvaXRhdGlvbiBhdHRlbXB0cyBkZXRlY3Rpb24gc2NlbmFyaW8uCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXdzLWNsb3VkdHJhaWwKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbC1wb3N0ZXhwbG9pdApkZXNjcmlwdGlvbjogImF3cyBjbG91ZHRyYWlsIHBhcnNlciBhbmQgYXdzIHBvc3RleHBsb2l0IHNjZW5hcmlvcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBhd3MKCg==",
-   "description": "aws cloudtrail parser and aws postexploit scenarios",
-   "author": "crowdsecurity",
-   "labels": null,
-   "parsers": [
-    "crowdsecurity/aws-cloudtrail"
-   ],
-   "scenarios": [
-    "crowdsecurity/aws-cloudtrail-postexploit"
-   ]
-  },
   "crowdsecurity/base-http-scenarios": {
    "path": "collections/crowdsecurity/base-http-scenarios.yaml",
    "version": "0.6",
@@ -2415,7 +2373,7 @@
   "crowdsecurity/aws-cloudtrail": {
    "path": "parsers/s01-parse/crowdsecurity/aws-cloudtrail.yaml",
    "stage": "s01-parse",
-   "version": "0.4",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "e8a3be4f59909cb5ce9e84132c41d73d6a038362668f84cd851e5228f8ce22a4",
@@ -2424,18 +2382,10 @@
     "0.2": {
      "digest": "9684e924bd23962cfb00b11530c569a9db5972be3ec254ec6fa711c19aeb03fe",
      "deprecated": false
-    },
-    "0.3": {
-     "digest": "c9c92075eda9de31a1366fca619d2a7708a53a121204b80381cada28280a9a59",
-     "deprecated": false
-    },
-    "0.4": {
-     "digest": "1c1ce10d16bda257a81f838efe8d9069559f0d9c1bf712dad7afd222592947ab",
-     "deprecated": false
     }
    },
-   "long_description": "IyBQYXJzZXIgZm9yIGNsb3VkdHJhaWwgbG9ncwoKUGFyc2VyIGZvciBjbG91ZHRyYWlsIGxvZ3Mgd2l0aCB0eXBlIGBhd3MtY2xvdWR0cmFpbGAuIAoKIyBTMwoKQXMgY2xvdWR0cmFpbCBsb2dzIHRoYXQgYXJlIHNlbnQgdG8gczMgYXJlIHN0b3JlZCBpbiBhIGpzb24gYXJyYXkKb2JqZWN0IGNhbGxlZCBgUmVjb3Jkc2AsIHlvdSBtYXkgd2FudCB0byB1c2UgdGhlIHRyYW5zZm9ybSBmZWF0dXJlIG9mCmNyb3dkc2VjIHdpdGggdGhlIGZvbGxvd2luZyBjb25maWd1cmF0aW9uOgpgbWFwKEpzb25FeHRyYWN0U2xpY2UoZXZ0LkxpbmUuUmF3LCAiUmVjb3JkcyIpLCBUb0pzb25TdHJpbmcoIykpYC4KCgpFeGFtcGxlIG9mIGBhY3F1aXMueWFtbGAgdXNpbmcgczMgczNub3RpZmljYXRpb25zIHRocm91Z2ggc3FzOgpgYGAKc291cmNlOiBzMwpwb2xsaW5nX21ldGhvZDogc3FzCnNxc19uYW1lOiA8c3FzX3F1ZXVlPgpzcXNfZm9ybWF0OiBzM25vdGlmaWNhdGlvbiAKcG9sbGluZ19pbnRlcnZhbDogMzAKYXdzX3JlZ2lvbjogZXUtd2VzdC0xCnRyYW5zZm9ybTogbWFwKEpzb25FeHRyYWN0U2xpY2UoZXZ0LkxpbmUuUmF3LCAiUmVjb3JkcyIpLCBUb0pzb25TdHJpbmcoIykpCm1heF9idWZmZXJfc2l6ZTogMTAwMDAwMDAKdXNlX3RpbWVfbWFjaGluZTogdHJ1ZQpsYWJlbHM6CiAgdHlwZTogYXdzLWNsb3VkdHJhaWwKYGBgCgpBIGRpcmVjdCBhY3F1aXNpdGlvbiBtZXRob2QgaXMgc3VwcG9ydGVkIHVzaW5nIHMzIGJ5IGRpcmVjdGx5IGxpc3RpbmcKbmV3IG9iamVjdCBpbiB0aGUgYnVja2V0LiBJbiBjYXNlIG9mIGhpZ2ggY2xvdWR0cmFpbCB0cmFmZmljLCB0aGlzIGlzCmRpc2NvdXJhZ2VkLCBiZWNhdXNlIGl0IHdpbGwgcmVxdWlyZSBzb21lIHNpZ25pZmljYW50IGNvbXB1dGUKcmVzb3VyY2VzLgoKQ2xvdWR0cmFpbCBsb2dzIGFyZSBhcnJpdmluZyBldmVyeSBmZXcgbWludXRlcywgdGh1cywgd2UgY2FuJ3QgdXNlIHRoZQpyZWFsIHRpbWUgZmVhdHVyZSBvZiBjcm93ZHNlYy4gVGhhdCdzIHRoZSByZWFzb24gd2UgYXJlIHN1Z2dlc3RpbmcKdG8gdXNlIHRoZSB0aW1lIG1hY2hpbmUgZmVhdHVyZSwgdG8gdGFrZSBpbnRvIGFjY291bnQgdGhlIHRpbWUgd2hlbgp0aGV5IG9jY3VyZWQgYW5kIG5vdCB3aGVuIHRoZXkgYXJlIHNlbnQgdG8gQ3Jvd2RTZWMuCgpQbGVhc2UgaGF2ZSBhIGxvb2sgYXQgdGhlIGRvY3VtZW50YXRpb24KaHR0cHM6Ly9kb2NzLmNyb3dkc2VjLm5ldC9kb2NzL25leHQvZGF0YV9zb3VyY2VzL3MzCgojIEtpbmVzaXMKCkNsb3VkdHJhaWwgbG9ncyBjYW4gYmUgc2VudCB0byBraW5lc2lzIGFzIHdlbGwsIGFuZCBjcm93ZHNlYyBzdXBwb3J0cwpzdWNoIGEgc291cmNlIGZvciBjbG91ZHRyYWlsIGxvZ3M6CgpgYGAKc291cmNlOiBraW5lc2lzCnN0cmVhbV9uYW1lOiBjbG91dHJhaWxfc3RyZWFtCmF3c19yZWdpb246IGV1LXdlc3QtMQpmcm9tX3N1YnNjcmlwdGlvbjogdHJ1ZQpsYWJlbHM6CiAgdHlwZTogYXdzLWNsb3VkdHJhaWwKYGBgCg==",
-   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2F3cy1jbG91ZHRyYWlsJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbApkZXNjcmlwdGlvbjogIlBhcnNlIEFXUyBDbG91ZHRyYWlsIGxvZ3MiCnN0YXRpY3M6CiAgLSBtZXRob2Q6IFVubWFyc2hhbEpTT04KICAgIGV4cHJlc3Npb246IGV2dC5MaW5lLlJhdwogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmV2ZW50VGltZQogIC0gbWV0YTogdXNlcl90eXBlCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQudXNlcklkZW50aXR5LnR5cGUKICMgc2VlIDogaHR0cHM6Ly9naXRodWIuY29tL2FudG9ubWVkdi9leHByL2Jsb2IvbWFzdGVyL2RvY3MvTGFuZ3VhZ2UtRGVmaW5pdGlvbi5tZCNuaWwtY29hbGVzY2luZwogIC0gbWV0YTogdXNlcl9hcm4KICAgIGV4cHJlc3Npb246IHwKICAgICAgZXZ0LlVubWFyc2hhbGVkLnVzZXJJZGVudGl0eT8uYXJuID8/IGV2dC5Vbm1hcnNoYWxlZC51c2VySWRlbnRpdHkudXNlck5hbWUKICAtIG1ldGE6IGV2ZW50X25hbWUKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5ldmVudE5hbWUKICAtIG1ldGE6IGV2ZW50X3NvdXJjZQogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmV2ZW50U291cmNlCiAgLSBtZXRhOiByZWdpb24KICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5hd3NSZWdpb24KICAtIG1ldGE6IHNvdXJjZV9pcAogICAgZXhwcmVzc2lvbjogfAogICAgICBJc0lQKGV2dC5Vbm1hcnNoYWxlZC5zb3VyY2VJUEFkZHJlc3MpID8gZXZ0LlVubWFyc2hhbGVkLnNvdXJjZUlQQWRkcmVzcyA6ICIiCiAgLSBtZXRhOiB1c2VyX2FnZW50CiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQudXNlckFnZW50CiAgLSBtZXRhOiBlcnJvcl9jb2RlCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuZXJyb3JDb2RlCiAgLSBtZXRhOiBldmVudF9pZAogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmV2ZW50SUQKICAtIG1ldGE6IGFjY291bnRfaWQKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC51c2VySWRlbnRpdHkuYWNjb3VudElkCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGF3cy1jbG91ZHRyYWlsCg==",
+   "long_description": "UGFyc2VyIGZvciBBV1MgQ2xvdWRUcmFpbCBKU09OIGxvZ3M=",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnYXdzLWNsb3VkdHJhaWwnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L2F3cy1jbG91ZHRyYWlsCmRlc2NyaXB0aW9uOiAiUGFyc2UgQVdTIENsb3VkdHJhaWwgbG9ncyIKc3RhdGljczoKICAtIG1ldGhvZDogVW5tYXJzaGFsSlNPTgogICAgZXhwcmVzc2lvbjogZXZ0LkxpbmUuUmF3CiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuZXZlbnRUaW1lCiAgLSBtZXRhOiB1c2VyX3R5cGUKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC51c2VySWRlbnRpdHkudHlwZQogIC0gbWV0YTogdXNlcl9hcm4KICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC51c2VySWRlbnRpdHkuYXJuCiAgLSBtZXRhOiBldmVudF9uYW1lCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuZXZlbnROYW1lCiAgLSBtZXRhOiBldmVudF9zb3VyY2UKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5ldmVudFNvdXJjZQogIC0gbWV0YTogcmVnaW9uCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuYXdzUmVnaW9uCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246IHwKICAgICAgSXNJUChTdHJpbmcoZXZ0LlVubWFyc2hhbGVkLnNvdXJjZUlQQWRkcmVzcykpID8gZXZ0LlVubWFyc2hhbGVkLnNvdXJjZUlQQWRkcmVzcyA6ICIiCiAgLSBtZXRhOiB1c2VyX2FnZW50CiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQudXNlckFnZW50CiAgLSBtZXRhOiBlcnJvcl9jb2RlCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuZXJyb3JDb2RlCiAgLSBtZXRhOiBldmVudF9pZAogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmV2ZW50SUQKICAtIG1ldGE6IGFjY291bnRfaWQKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC51c2VySWRlbnRpdHkuYWNjb3VudElkCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGF3cy1jbG91ZHRyYWls",
    "description": "Parse AWS Cloudtrail logs",
    "author": "crowdsecurity",
    "labels": null
@@ -4913,21 +4863,6 @@
     "type": "post-exploitation"
    }
   },
-  "crowdsecurity/aws-bf": {
-   "path": "scenarios/crowdsecurity/aws-bf.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "e9d8fa22c9685ae290834b7d6a6414d39b51d0066903f144ac5ce97c1c333fbc",
-     "deprecated": false
-    }
-   },
-   "long_description": "IyBkZXRlY3QgYXdzIGJydXRlZm9yY2UgbG9naW4KClRoaXMgc2NlbmFyaW8gbmVlZHMgdGhlIGNyb3dkc2VjdXJpdHkvYXdzLWNsb3VkdHJhaWwgcGFyc2VyIGFuZCBkZXRlY3RzCmJydXRlZm9yY2Ugb2YgdGhlIGF3cyBjb25zb2xlCgpGb2xsb3dpbmcgdGhlCltodHRwczovL2RvY3MuYXdzLmFtYXpvbi5jb20vYXdzY2xvdWR0cmFpbC9sYXRlc3QvdXNlcmd1aWRlL2Nsb3VkdHJhaWwtZXZlbnQtcmVmZXJlbmNlLWF3cy1jb25zb2xlLXNpZ24taW4tZXZlbnRzLmh0bWxdKGRvY3VtZW50YXRpb24pCnRha2UgYW4gZXh0cmEgY2FyZSBvZiB5b3VyIGNsb3VkdHJhaWwgcmVnaW9uIGNvbmZpZ3VyYXRpb24gd2hlbgpkZWFsaW5nIHdpdGggY29uc29sZSBzaWduaW5nIGV2ZW50IGNhcHR1cmUgYW5kIHBsZWFzZSBrZWVwIGluIG1pbmQKdGhhdCBldmVudCBzdWNjZXNzZnVsIGFuZCBmYWlsZWQgbG9naW4gYXR0ZW1wdHMgbWlnaHQgbm90IGJlIHNlbnQgaW4KdGhlIHNhbWUgY2xvdWR0cmFpbCByZWdpb24uCgpQbGVhc2Uga2VlcCBpbiBtaW5kIHRoYXQgb25seSBjb25zb2xlIHNpZ25pbmcgcmVnYXJkaW5kIGV4aXN0aW5nIHVzZXJzCmFyZSBjYXB0dXJlZCBpbiBjbG91ZHRyYWlsLiBUaGlzIG1ha2VzIHRoaXMgc2NlbmFyaW8gdXNlZnVsIGZvcgpleGlzdGluZyB1c2VycyBhbmQgdGhlIHJvb3QgdXNlci4K",
-   "content": "dHlwZTogbGVha3kKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAzMHMKbmFtZTogY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbC1iZi1jb25zb2xlLWxvZ2luCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGNvbnNvbGUgbG9naW4gYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2F3cy1jbG91ZHRyYWlsJyAmJiBldnQuTWV0YS5ldmVudF9uYW1lID09ICdDb25zb2xlTG9naW4nICYmIGV2dC5Vbm1hcnNoYWxlZC5yZXNwb25zZUVsZW1lbnRzLkNvbnNvbGVMb2dpbj09J0ZhaWx1cmUnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IHRydWUKc2NvcGU6CiAgdHlwZTogSXAK",
-   "description": "Detect console login bruteforce",
-   "author": "crowdsecurity",
-   "labels": null
-  },
   "crowdsecurity/aws-cis-benchmark-cloudtrail-config-change": {
    "path": "scenarios/crowdsecurity/aws-cis-benchmark-cloudtrail-config-change.yaml",
    "version": "0.1",
@@ -5165,40 +5100,6 @@
    "labels": {
     "type": "compliance"
    }
-  },
-  "crowdsecurity/aws-cloudtrail-postexploit": {
-   "path": "scenarios/crowdsecurity/aws-cloudtrail-postexploit.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "66e1721989b0bca40bdf99b15be757138bdf9968153692618ada0a1df57d3131",
-     "deprecated": false
-    }
-   },
-   "long_description": "IyBBV1MgY2xvdWR0cmFpbCBwb3N0ZXhwbG9pdGF0aW9uIGRldGVjdGlvbgoKVGhlc2Ugc2NlbmFyaW9zIG5lZWQgdGhlIGNyb3dkc2VjdXJpdHkvYXdzLWNsb3VkdHJhaWwgcGFyc2VyIGFuZApkZXRlY3QgQVBJIGNhbGxzIGtub3duIGZvciBiZWluZyB1c2VkIGZvciBlbnVtZXJhdGlvbiBhZnRlciBhCmNvbXByb21pc3Npb24uIFRob3NlIHNjZW5hcmlvcyB0cmlnZ2VyaW5nIGNhbiBiZSBhbiBpbmRpY2F0aW9uIG9mCmNvbXByb21pc3Npb24uIFRoZXJlJ3JlIHR3byBzY2VuYXJpb3MgaGVyZSwgYW5kIG9uZSBpcyBhIGJpdCBtb3JlCm5vaXN5LCBtZWFudCB0byBiZSB1c2VkIGluIGVudmlyb25tZW50IHdoZXJlIHNlY3VyaXR5IHN0YW5kYXJkIGFyZQptZWFudCB0byBiZSBoaWdoLgoK",
-   "content": "dHlwZTogY29uZGl0aW9uYWwKbmFtZTogY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbC1wb3N0ZXhwbG9pdApkZXNjcmlwdGlvbjogInBvc3RleHBsb2l0YXRpb24gZGV0ZWN0aW9uIgojZGVidWc6IHRydWUKY2FwYWNpdHk6IC0xCmxlYWtzcGVlZDogMW0KZGlzdGluY3Q6IGV2dC5NZXRhLmV2ZW50X25hbWUKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYXdzLWNsb3VkdHJhaWwnCmNvbmRpdGlvbjogfAogIGNvdW50KHF1ZXVlLlF1ZXVlLCAjLk1ldGEuZXZlbnRfbmFtZSBpbiBbIkxpc3RVc2VyUG9saWNpZXMiLCAiTGlzdFBvbGljaWVzIiwgIkxpc3RCdWNrZXRzIiwgIkRlc2NyaWJlSW5zdGFuY2VzIiwgIkdldENhbGxlcklkZW50aXR5IiwgIkdldEZ1bmN0aW9ucyJdIG9yICMuTWV0YS5ldmVudF9uYW1lIHN0YXJ0c1dpdGggIkxpc3RGdW5jdGlvbnMiKSA+IDEKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IHRydWUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCnNjb3BlOgogIHR5cGU6IEF3c0FSTgogIGV4cHJlc3Npb246IGV2dC5NZXRhLnVzZXJfYXJuCi0tLQp0eXBlOiBjb25kaXRpb25hbApuYW1lOiBjcm93ZHNlY3VyaXR5L2F3cy1jbG91ZHRyYWlsLXBvc3RleHBsb2l0LW5vaXN5CmRlc2NyaXB0aW9uOiAicG9zdGV4cGxvaXRhdGlvbiBkZXRlY3Rpb24gKG5vaXN5KSIKI2RlYnVnOiB0cnVlCmNhcGFjaXR5OiAtMQpsZWFrc3BlZWQ6IDFtCmRpc3RpbmN0OiBldnQuTWV0YS5ldmVudF9uYW1lCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2F3cy1jbG91ZHRyYWlsJwpjb25kaXRpb246IHwKICBjb3VudChxdWV1ZS5RdWV1ZSwgIy5NZXRhLmV2ZW50X25hbWUgaW4gWyJMaXN0VXNlclBvbGljaWVzIiwgIkxpc3RQb2xpY2llcyIsICJMaXN0QnVja2V0cyIsICJMaXN0QXBwbGljYXRpb25zIiwgIkRlc2NyaWJlSW5zdGFuY2VzIiwgIkdldENhbGxlcklkZW50aXR5IiwgIkdldEZ1bmN0aW9ucyIsICJEZXNjcmliZUFjY291bnRBdHRyaWJ1dGVzIiwgIkxpc3RSZXNvdXJjZXMiXSBvciAjLk1ldGEuZXZlbnRfbmFtZSBzdGFydHNXaXRoICJMaXN0RnVuY3Rpb25zIikgPiAyCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApzY29wZToKICB0eXBlOiBBd3NBUk4KICBleHByZXNzaW9uOiBldnQuTWV0YS51c2VyX2Fybgo=",
-   "description": "postexploitation detection",
-   "author": "crowdsecurity",
-   "labels": null
-  },
-  "crowdsecurity/aws-nwo-login": {
-   "path": "scenarios/crowdsecurity/aws-nwo-login.yaml",
-   "version": "0.2",
-   "versions": {
-    "0.1": {
-     "digest": "b373d3987c4745569fb856b46f6127d419651c98c9dbccbcc1cad74f10fe9548",
-     "deprecated": false
-    },
-    "0.2": {
-     "digest": "f093c51096d55419851635001ec2c2e31fbbc1453286237d1d6229ec1bcc6808",
-     "deprecated": false
-    }
-   },
-   "long_description": "IyBOb24gd29ya2luZyBob3VyIC8gbm9uIHdvcmtpbmcgZGF5IGxvZ2luCgpUaGlzIHNjZW5hcmlvIG5lZWRzIHRoZSBjcm93ZHNlY3VyaXR5L2F3cy1jbG91ZHRyYWlsIHBhcnNlciBhbmQKZGV0ZWN0cyBub24gd29ya2luZyBob3Vycy9kYXlzIGxvZ2luIGluIHRoZSBhd3MgY29uc29sZS4gWW91IG1heSB3YW50IHRvCmFkYXB0IHRoZSBob3VycyB0byB5b3VyIHNwZWNpZmljIG5lZWRzLiBBcyBhbiBleGFtcGxlLCB0aGUgc2NlbmFyaW8gaXMKd3JpdHRlbiBmb3IgVVRDKzIgd29ya2luZyBob3Vycy4KCkZvbGxvd2luZyB0aGUKW2h0dHBzOi8vZG9jcy5hd3MuYW1hem9uLmNvbS9hd3NjbG91ZHRyYWlsL2xhdGVzdC91c2VyZ3VpZGUvY2xvdWR0cmFpbC1ldmVudC1yZWZlcmVuY2UtYXdzLWNvbnNvbGUtc2lnbi1pbi1ldmVudHMuaHRtbF0oZG9jdW1lbnRhdGlvbikKdGFrZSBhbiBleHRyYSBjYXJlIG9mIHlvdXIgY2xvdWR0cmFpbCByZWdpb24gY29uZmlndXJhdGlvbiB3aGVuCmRlYWxpbmcgd2l0aCBjb25zb2xlIHNpZ25pbmcgZXZlbnQgY2FwdHVyZS4K",
-   "content": "IyBOV0QvTldIIEFXUyBjb25zb2xlIGxvZ2luCnR5cGU6IHRyaWdnZXIKbmFtZTogY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbC1ud28tbndkLWNvbnNvbGUtbG9naW4KZGVzY3JpcHRpb246ICJEZXRlY3QgY29uc29sZSBsb2dpbiBvdXRzaWRlIG9mIG9mZmljZSBob3VycyIKZmlsdGVyOiB8CiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYXdzLWNsb3VkdHJhaWwnICYmCiBldnQuTWV0YS5ldmVudF9uYW1lID09ICdDb25zb2xlTG9naW4nICYmCiBldnQuVW5tYXJzaGFsZWQucmVzcG9uc2VFbGVtZW50cz8uQ29uc29sZUxvZ2luID09ICdTdWNjZXNzJyAmJgogKAogICAoZXZ0LlRpbWUuSG91cigpID49IDIyIHx8IGV2dC5UaW1lLkhvdXIoKSA8IDEwKQogICB8fCAoZXZ0LlRpbWUuV2Vla2RheSgpLlN0cmluZygpIGluIFsnU2F0dXJkYXknLCdTdW5kYXknXSkKICkKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCnNjb3BlOgogdHlwZTogQXdzQVJOCiBleHByZXNzaW9uOiBldnQuTWV0YS51c2VyX2Fybgo=",
-   "description": "Detect console login outside of office hours",
-   "author": "crowdsecurity",
-   "labels": null
   },
   "crowdsecurity/ban-defcon-drop_range": {
    "path": "scenarios/crowdsecurity/ban-defcon-drop_range.yaml",
