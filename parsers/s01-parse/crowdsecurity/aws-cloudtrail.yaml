@@ -10,6 +10,7 @@ statics:
     expression: evt.Unmarshaled.eventTime
   - meta: user_type
     expression: evt.Unmarshaled.userIdentity.type
+ # see : https://github.com/antonmedv/expr/blob/master/docs/Language-Definition.md#nil-coalescing
   - meta: user_arn
     expression: |
       evt.Unmarshaled.userIdentity?.arn ?? evt.Unmarshaled.userIdentity.userName
