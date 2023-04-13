@@ -1,7 +1,7 @@
-# Non working hour login
+# Non working hour / non working day login
 
 This scenario needs the crowdsecurity/aws-cloudtrail parser and
-detects non working hours login in the aws console. You may want to
+detects non working hours/days login in the aws console. You may want to
 adapt the hours to your specific needs. As an example, the scenario is
 written for UTC+2 working hours.
 
