@@ -1,10 +1,14 @@
 # Parser for cloudtrail logs
 
-Parse with the cloudtrail parser logs with type `aws-cloudtrail`. As
-cloudtrail logs that are sent to s3 are stored in a json array object
-called `Records`You may want to use the transform feature of crowdsec
-with the following configuration: `map(JsonExtractSlice(evt.Line.Raw,
-"Records"), ToJsonString(#))`.
+Parse with the cloudtrail parser logs with type `aws-cloudtrail`. 
+
+# S3
+
+As cloudtrail logs that are sent to s3 are stored in a json array
+object called `Records`You may want to use the transform feature of
+crowdsec with the following configuration:
+`map(JsonExtractSlice(evt.Line.Raw, "Records"), ToJsonString(#))`.
+
 
 Example of `acquis.yaml` using s3 s3notifications through sqs:
 ```
@@ -33,3 +37,17 @@ they occured and not when they are sent to CrowdSec.
 
 Please have a look at the documentation
 https://docs.crowdsec.net/docs/next/data_sources/s3
+
+# Kinesis
+
+Cloudtrail logs can be sent to kinesis as well, and crowdsec supports
+such a source for cloudtrail logs:
+
+```
+source: kinesis
+stream_name: cloutrail_stream
+aws_region: eu-west-1
+from_subscription: true
+labels:
+  type: aws-cloudtrail
+```
