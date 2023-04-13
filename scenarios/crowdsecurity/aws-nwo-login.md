@@ -1,0 +1,10 @@
+# Non working hour login
+
+This scenario needs the crowdsecurity/aws-cloudtrail parser and
+detects non working hours login in the aws console. You may want to
+adapt the hours to your specific needs.
+
+Following the
+[https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html](documentation)
+take an extra care of your cloudtrail region configuration when
+dealing with console signing event capture.
