@@ -1,4 +1,5 @@
 onsuccess: next_stage
+#debug: true
 filter: "evt.Parsed.program == 'aws-cloudtrail'"
 name: crowdsecurity/aws-cloudtrail
 description: "Parse AWS Cloudtrail logs"
@@ -9,8 +10,10 @@ statics:
     expression: evt.Unmarshaled.eventTime
   - meta: user_type
     expression: evt.Unmarshaled.userIdentity.type
+ # see : https://github.com/antonmedv/expr/blob/master/docs/Language-Definition.md#nil-coalescing
   - meta: user_arn
-    expression: evt.Unmarshaled.userIdentity.arn
+    expression: |
+      evt.Unmarshaled.userIdentity?.arn ?? evt.Unmarshaled.userIdentity.userName
   - meta: event_name
     expression: evt.Unmarshaled.eventName
   - meta: event_source
@@ -19,7 +22,7 @@ statics:
     expression: evt.Unmarshaled.awsRegion
   - meta: source_ip
     expression: |
-      IsIP(String(evt.Unmarshaled.sourceIPAddress)) ? evt.Unmarshaled.sourceIPAddress : ""
+      IsIP(evt.Unmarshaled.sourceIPAddress) ? evt.Unmarshaled.sourceIPAddress : ""
   - meta: user_agent
     expression: evt.Unmarshaled.userAgent
   - meta: error_code
