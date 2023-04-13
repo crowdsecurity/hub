@@ -2,7 +2,8 @@
 
 This scenario needs the crowdsecurity/aws-cloudtrail parser and
 detects non working hours login in the aws console. You may want to
-adapt the hours to your specific needs.
+adapt the hours to your specific needs. As an example, the scenario is
+written for UTC+2 working hours.
 
 Following the
 [https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html](documentation)
