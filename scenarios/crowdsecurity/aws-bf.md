@@ -11,4 +11,5 @@ that event successful and failed login attempts might not be sent in
 the same cloudtrail region.
 
 Please keep in mind that only console signing regardind existing users
-are captured in cloudtrail.
+are captured in cloudtrail. This makes this scenario useful for
+existing users and the root user.
