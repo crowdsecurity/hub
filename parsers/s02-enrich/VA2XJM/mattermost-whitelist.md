@@ -1,0 +1,1 @@
+Mattermost returns a lot 403 code when emojis are present on a channel/private chat. When too much emojis are displayed at once, an authorized user will be ban for "HTTP-Probing". This enrich fix that for emojis path only.
