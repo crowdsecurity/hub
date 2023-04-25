@@ -5,3 +5,4 @@ whitelist:
   reason: "Zammad Whitelist"
   expression:
    - evt.Meta.http_status == '200' && evt.Parsed.static_ressource == 'false' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/api/v1/ticket_attachment/'
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/api/v1/ticket_attachment/' && evt.Parsed.http_args contains 'view=inline'
