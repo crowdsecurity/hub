@@ -30,4 +30,5 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "response_msg.response.message.detection.name")
   - meta: payload
     expression: JsonExtract(evt.Parsed.message, "response_msg.response.message.detection.payload.value")
-          
+  - parsed: verb
+    expression: JsonExtract(evt.Parsed.message, "method")
