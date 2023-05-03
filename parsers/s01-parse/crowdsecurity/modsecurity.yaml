@@ -4,11 +4,13 @@ name: crowdsecurity/modsecurity
 #debug: true
 description: A parser for modsecurity WAF
 pattern_syntax:
+  LITESPEEDERRORPREFIX: "%{TIMESTAMP_ISO8601:time} \\[%{DATA:log_level}\\] \\[%{NONNEGINT:pid}\\] \\[%{IPORHOST:remote_addr}:%{DATA:misc}#%{DATA:vhost}\\]"
   APACHEERRORPREFIX2: "\\[%{APACHEERRORTIME:timestamp}\\] \\[%{NOTSPACE:apacheseverity}\\] (\\[pid %{INT}(:tid %{INT})?\\] )?\\[client %{IPORHOST:sourcehost}(:%{INT:source_port})?\\] (\\[client %{IPORHOST}\\])?"
   NGINXERRORPREFIX: "%{NGINXERRTIME:time} \\[%{LOGLEVEL:loglevel}\\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\\*%{NONNEGINT:cid} )?(\\[client %{IPORHOST}\\] )?"
   NGINXERRORSUFFIX: "client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: \"%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}\", host: \"%{IPORHOST}(:%{INT})?\""
   MODSECNGINXPREFIX: "%{NGINXERRORPREFIX}ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
+  MODSECLITESPEEDPREFIX: "%{LITESPEEDERRORPREFIX} \\[Module:mod_security\\] ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
   MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
   MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
   MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
@@ -27,6 +29,7 @@ pattern_syntax:
   MODSECREF2: "\\[ref \"%{DATA:ref}\"\\]"
   MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
   MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?(?:%{MODSECRULEMATURITY} )?(?:%{MODSECRULEACCURACY} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2} %{MODSECREF2}, %{NGINXERRORSUFFIX}"
+  MODSECLITESPEEDERROR: "%{MODSECLITESPEEDPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?(?:%{MODSECRULEMATURITY} )?(?:%{MODSECRULEACCURACY} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2} %{MODSECREF2}"
 
 nodes:
   - grok:
@@ -61,4 +64,19 @@ nodes:
           expression: evt.Parsed.rulemessage
         - meta: modsec_ruledata
           expression: evt.Parsed.ruledata
-
+  - grok:
+      name: MODSECLITESPEEDERROR
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: modsecurity
+        - meta: source_ip
+          expression: evt.Parsed.remote_addr
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+        - meta: rule_id
+          expression: evt.Parsed.ruleid
+        - meta: modsec_message
+          expression: evt.Parsed.rulemessage
+        - meta: modsec_ruledata
+          expression: evt.Parsed.ruledata
