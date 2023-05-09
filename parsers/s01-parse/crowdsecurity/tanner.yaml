@@ -5,6 +5,15 @@ description: "Parse tanner logs trying to make it compatible with common http"
 #log line can be prefixed by a target_fqdn
 filter: 'evt.Parsed.program == "tanner"'
       # these ones apply for both grok patterns
+nodes:
+  - grok:
+      pattern: "Basic %{DATA:userb64}"
+      expression: JsonExtract(evt.Parsed.message, "header.authentication")
+    statics:
+      - parsed: username
+        value: evt.Parsed.userb64
+      - meta: sub_type
+        value: auth_fail
 statics:
   - meta: log_type
     value: http_error-log # seems like an authoritative stuff, but it keeps compat with other http server
@@ -18,11 +27,11 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "status")
   - meta: http_path
     expression: JsonExtract(evt.Parsed.message, "path")
-  - meta: http_verb
-    expression: JsonExtract(evt.Parsed.message, "method")
-  - meta: http_user_agent
+  - parsed: http_user_agent
     expression: JsonExtract(evt.Parsed.message, "headers.user_agent")
   - meta: target_fqdn
+    expression: JsonExtract(evt.Parsed.message, "headers.host")
+  - parsed: target_fqdn
     expression: JsonExtract(evt.Parsed.message, "headers.host")
   - meta: sub_log_type
     value: tanner
@@ -34,3 +43,4 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "method")
   - meta: http_status
     expression: JsonExtract(evt.Parsed.message, "status")
+    
