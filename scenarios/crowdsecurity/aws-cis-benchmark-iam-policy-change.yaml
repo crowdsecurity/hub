@@ -2,21 +2,21 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-iam-policy-change
 description: "Detect AWS IAM policy change"
 filter: |
-    evt.Unmarshaled.eventName == "DeleteGroupPolicy" ||
-    evt.Unmarshaled.eventName == "DeleteRolePolicy" ||
-    evt.Unmarshaled.eventName == "DeleteUserPolicy" ||
-    evt.Unmarshaled.eventName == "PutGroupPolicy" ||
-    evt.Unmarshaled.eventName == "PutRolePolicy" ||
-    evt.Unmarshaled.eventName == "PutUserPolicy" ||
-    evt.Unmarshaled.eventName == "CreatePolicy" ||
-    evt.Unmarshaled.eventName == "DeletePolicy" ||
-    evt.Unmarshaled.eventName == "CreatePolicyVersion" ||
-    evt.Unmarshaled.eventName == "DeletePolicyVersion" ||
-    evt.Unmarshaled.eventName == "AttachRolePolicy" ||
-    evt.Unmarshaled.eventName == "DetachRolePolicy" ||
-    evt.Unmarshaled.eventName == "AttachUserPolicy" ||
-    evt.Unmarshaled.eventName == "DetachUserPolicy" ||
-    evt.Unmarshaled.eventName == "AttachGroupPolicy" ||
-    evt.Unmarshaled.eventName == "DetachGroupPolicy"
+    evt.Meta.event_name == "DeleteGroupPolicy" ||
+    evt.Meta.event_name == "DeleteRolePolicy" ||
+    evt.Meta.event_name == "DeleteUserPolicy" ||
+    evt.Meta.event_name == "PutGroupPolicy" ||
+    evt.Meta.event_name == "PutRolePolicy" ||
+    evt.Meta.event_name == "PutUserPolicy" ||
+    evt.Meta.event_name == "CreatePolicy" ||
+    evt.Meta.event_name == "DeletePolicy" ||
+    evt.Meta.event_name == "CreatePolicyVersion" ||
+    evt.Meta.event_name == "DeletePolicyVersion" ||
+    evt.Meta.event_name == "AttachRolePolicy" ||
+    evt.Meta.event_name == "DetachRolePolicy" ||
+    evt.Meta.event_name == "AttachUserPolicy" ||
+    evt.Meta.event_name == "DetachUserPolicy" ||
+    evt.Meta.event_name == "AttachGroupPolicy" ||
+    evt.Meta.event_name == "DetachGroupPolicy"
 labels:
   type: compliance

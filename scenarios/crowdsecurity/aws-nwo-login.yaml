@@ -5,7 +5,7 @@ description: "Detect console login outside of office hours"
 filter: |
  evt.Meta.log_type == 'aws-cloudtrail' &&
  evt.Meta.event_name == 'ConsoleLogin' &&
- evt.Unmarshaled.responseElements?.ConsoleLogin == 'Success' &&
+ evt.Unmarshaled.cloudtrail.responseElements?.ConsoleLogin == 'Success' &&
  (
    (evt.Time.Hour() >= 22 || evt.Time.Hour() < 10)
    || (evt.Time.Weekday().String() in ['Saturday','Sunday'])

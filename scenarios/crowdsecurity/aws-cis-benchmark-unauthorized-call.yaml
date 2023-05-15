@@ -2,7 +2,7 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-unauthorized-call
 description: "Detect AWS API unauthorized calls"
 filter: |
-     (evt.Unmarshaled.errorCode != nil && evt.Unmarshaled.errorCode matches ".*UnauthorizedOperation$") ||
-     (evt.Unmarshaled.errorCode != nil && evt.Unmarshaled.errorCode matches "^AccessDenied.*")
+     (evt.Unmarshaled.cloudtrail.errorCode != nil && evt.Unmarshaled.cloudtrail.errorCode matches ".*UnauthorizedOperation$") ||
+     (evt.Unmarshaled.cloudtrail.errorCode != nil && evt.Unmarshaled.cloudtrail.errorCode matches "^AccessDenied.*")
 labels:
   type: compliance
