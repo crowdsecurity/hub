@@ -2,6 +2,8 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-vpc-change
 description: "Detect AWS VPC change"
 filter: |
+     evt.Meta.log_type == 'aws-cloudtrail' &&
+     (
      evt.Meta.event_name == "CreateVpc" ||
      evt.Meta.event_name == "DeleteVpc" ||
      evt.Meta.event_name == "ModifyVpcAttribute" ||
@@ -13,5 +15,6 @@ filter: |
      evt.Meta.event_name == "DetachClassicLinkVpc" ||
      evt.Meta.event_name == "DisableVpcClassicLink" ||
      evt.Meta.event_name == "EnableVpcClassicLink"
+     )
 labels:
   type: compliance

@@ -2,6 +2,7 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-root-usage
 description: "Detect AWS root account usage"
 filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' &&
     evt.Unmarshaled.cloudtrail.userIdentity.type == "Root" &&
     evt.Unmarshaled.cloudtrail.userIdentity.invokedBy == nil &&
     evt.Unmarshaled.cloudtrail.eventType != "AwsServiceEvent"
