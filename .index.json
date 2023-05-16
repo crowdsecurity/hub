@@ -134,6 +134,27 @@
     "LePresidente/grafana-bf"
    ]
   },
+  "LePresidente/harbor": {
+   "path": "collections/LePresidente/harbor.yml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "93d1b83b4948e89c35e034037be9588309a097009cf00335e054c8314424ff24",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBbSGFyYm9yXShodHRwczovL2dvaGFyYm9yLmlvLykgaW5zdGFuY2UgYWdhaW5zdCBjb21tb24gYXR0YWNrczoKIC0gSGFyYm9yIHBhcnNlcgogLSBIYXJib3IgYnJ1dGVmb3JjZSBkZXRlY3Rpb24KCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbAotLS0KZmlsZW5hbWVzOgogLSAvdmFyL2xvZy9oYXJib3IvY29yZS5sb2cKbGFiZWxzOgogIHR5cGU6IGhhcmJvcgpgYGA=",
+   "content": "cGFyc2VyczoKICAtIExlUHJlc2lkZW50ZS9oYXJib3ItbG9ncwpzY2VuYXJpb3M6CiAgLSBMZVByZXNpZGVudGUvaGFyYm9yLWJmCmRlc2NyaXB0aW9uOiAiSGFyYm9yIFN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBMZVByZXNpZGVudGUKdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZS1mb3JjZQogIC0gaGFyYm9y",
+   "description": "Harbor Support : parser and brute-force detection",
+   "author": "LePresidente",
+   "labels": null,
+   "parsers": [
+    "LePresidente/harbor-logs"
+   ],
+   "scenarios": [
+    "LePresidente/harbor-bf"
+   ]
+  },
   "LePresidente/jellyfin": {
    "path": "collections/LePresidente/jellyfin.yml",
    "version": "0.1",
@@ -2272,6 +2293,22 @@
    "long_description": "UGFyc2VyIGZvciBbR3JhZmFuYV0oaHR0cHM6Ly9ncmFmYW5hLmNvbSkgTG9ncy4KCmBgYHlhbWwKLS0tCmZpbGVuYW1lczoKIC0gL3Zhci9sb2cvZ3JhZmFuYS9ncmFmYW5hLmxvZwpsYWJlbHM6CiAgdHlwZTogZ3JhZmFuYQpgYGAKCmBgYHlhbWwKLS0tCnNvdXJjZTogZG9ja2VyCmNvbnRhaW5lcl9uYW1lOgogLSBncmFmYW5hCiNjb250YWluZXJfaWQ6CiMgLSA4NDNlZTkyZDIzMWIKbGFiZWxzOgogIHR5cGU6IGdyYWZhbmEKYGBg",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogZmFsc2UKbmFtZTogTGVQcmVzaWRlbnRlL2dyYWZhbmEtbG9ncwpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2dyYWZhbmEnIgpkZXNjcmlwdGlvbjogIlBhcnNlIGdyYWZhbmEgbG9ncyIKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAndD0le1RJTUVTVEFNUF9JU084NjAxOnRpbWVzdGFtcH0gbGV2ZWw9JXtHUkVFRFlEQVRBOmxvZ2xldmVsfSBtc2c9IkludmFsaWQgdXNlcm5hbWUgb3IgcGFzc3dvcmQiIGVycm9yPSIle0dSRUVEWURBVEE6ZXJyb3J9IiByZW1vdGVfYWRkcj0le0lQOnJlbW90ZV9pcH0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IGdyYWZhbmFfZmFpbGVkX2F1dGgKCnN0YXRpY3M6CiAgICAtIG1ldGE6IHNlcnZpY2UKICAgICAgdmFsdWU6IGdyYWZhbmEKICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWVzdGFtcAogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQucmVtb3RlX2lwIgo=",
    "description": "Parse grafana logs",
+   "author": "LePresidente",
+   "labels": null
+  },
+  "LePresidente/harbor-logs": {
+   "path": "parsers/s01-parse/LePresidente/harbor-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "2f93b00888095bfe2ffe8c69bd4cf7ad33f3ce22c2fd416f5aa8fffb13b29b91",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBbSGFyYm9yXShodHRwczovL2dvaGFyYm9yLmlvLykgTG9ncy4KCmBgYHlhbWwKLS0tCmZpbGVuYW1lczoKIC0gL3Zhci9sb2cvaGFyYm9yL2NvcmUubG9nCmxhYmVsczoKICB0eXBlOiBoYXJib3IKYGBg",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmRlYnVnOiBmYWxzZQpuYW1lOiBMZVByZXNpZGVudGUvaGFyYm9yLWxvZ3MKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdoYXJib3InIgpkZXNjcmlwdGlvbjogIlBhcnNlIEhhcmJvciBsb2dzIgpwYXR0ZXJuX3N5bnRheDoKICBIQVJCT1JfQ1VTVE9NVVNFUjogIigle0VNQUlMQUREUkVTU318JXtVU0VSTkFNRX0pIgpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICcuKmNvcmVcWyV7R1JFRURZREFUQTpQSUR9XF06ICV7UkZDMzMzOTp0aW1lc3RhbXB9IFxbJXtHUkVFRFlEQVRBOkVSUk9SfVxdIC4qXFtjbGllbnQgSVA9IiV7SVA6cmVtb3RlX2lwfSwgJXtJUDppbnRlcm5hbF9pcH0iLipmYWlsZWQgdG8gYXV0aGVudGljYXRlIHVzZXI6JXtIQVJCT1JfQ1VTVE9NVVNFUjp1c2VybmFtZX0sIGVycm9yOkZhaWxlZCB0byBhdXRoZW50aWNhdGUgdXNlciwgZHVlIHRvIGVycm9yIFxTSW52YWxpZCBjcmVkZW50aWFsc1xTJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiBoYXJib3JfZmFpbGVkX2F1dGgKc3RhdGljczoKICAgIC0gbWV0YTogc2VydmljZQogICAgICB2YWx1ZTogaGFyYm9yCiAgICAtIG1ldGE6IHVzZXIKICAgICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlcm5hbWUiCiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lc3RhbXAKICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlbW90ZV9pcCI=",
+   "description": "Parse Harbor logs",
    "author": "LePresidente",
    "labels": null
   },
@@ -4590,6 +4627,25 @@
    "labels": {
     "remediation": "true",
     "service": "grafana",
+    "type": "bruteforce"
+   }
+  },
+  "LePresidente/harbor-bf": {
+   "path": "scenarios/LePresidente/harbor-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "25f208be5fdb655805f5b9baed7784d6b0be07421f9c36d53b85400a778f9e3c",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBoYXJib3IgYXV0aGVudGljYXRpb25zOgoKIC0gbGVha3NwZWVkIG9mIDIwcywgY2FwYWNpdHkgb2YgNSBvbiBzYW1lIHRhcmdldCB1c2VyCiAtIGxlYWtzcGVlZCBvZiAxbSwgY2FwYWNpdHkgb2YgNSB1bmlxdWUgZGlzdGluY3QgdXNlcnM=",
+   "content": "IyBoYXJib3IgQkYgc2NhbgpuYW1lOiBMZVByZXNpZGVudGUvaGFyYm9yLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGhhcmJvciBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnaGFyYm9yX2ZhaWxlZF9hdXRoJyIKI2RlYnVnOiB0cnVlCnR5cGU6IGxlYWt5Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApsZWFrc3BlZWQ6ICIyMHMiCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KbGFiZWxzOgogIHNlcnZpY2U6IGhhcmJvcgogIHR5cGU6IGJydXRlZm9yY2UKICByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBoYXJib3IgdXNlci1lbnVtCnR5cGU6IGxlYWt5Cm5hbWU6ICBMZVByZXNpZGVudGUvaGFyYm9yLWJmX3VzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBoYXJib3IgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdoYXJib3JfZmFpbGVkX2F1dGgnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5NZXRhLnVzZXIKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBoYXJib3IKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect harbor bruteforce",
+   "author": "LePresidente",
+   "labels": {
+    "remediation": "true",
+    "service": "harbor",
     "type": "bruteforce"
    }
   },
