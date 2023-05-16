@@ -7,8 +7,11 @@ name: firewallservices/pf-logs
 description: "Parse packet filter logs"
 format: 2.0
 pattern_syntax:
+  # WORD including special characters
+  PF_WORD: '%{USERNAME}'
+  
   # rulenr, subrulenr, anchorname, label | "0", interface, reason, action, dir
-  PF_BASE: '%{INT:rule},(%{INT:sub_rule})?,(%{WORD:anchorname})?,(%{WORD:tracker}| 0),%{WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction}'
+  PF_BASE: '%{INT:rule},(%{INT:sub_rule})?,(%{WORD:anchorname})?,(%{WORD:tracker}| 0),%{PF_WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction}'
 
   # tos, ecn, ttl, id, offset, flags, protonum, protoname, length, src, dst
   PF_IPV4_DATA: '%{BASE16NUM:ip4_tos},(%{INT:ip4_ecn})?,%{INT:ip4_ttl},%{INT:ip4_id},%{INT:ip4_offset},%{WORD:ip4_flags},%{INT:ip4_proto_id},%{WORD:ip4_proto}'
