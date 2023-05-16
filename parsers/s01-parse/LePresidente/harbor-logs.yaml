@@ -1,0 +1,23 @@
+onsuccess: next_stage
+debug: false
+name: LePresidente/harbor-logs
+filter: "evt.Parsed.program == 'harbor'"
+description: "Parse Harbor logs"
+pattern_syntax:
+  HARBOR_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+nodes:
+  - grok:
+      pattern: '.*core\[%{GREEDYDATA:PID}\]: %{RFC3339:timestamp} \[%{GREEDYDATA:ERROR}\] .*\[client IP="%{IP:remote_ip}, %{IP:internal_ip}".*failed to authenticate user:%{HARBOR_CUSTOMUSER:username}, error:Failed to authenticate user, due to error \SInvalid credentials\S'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: harbor_failed_auth
+statics:
+    - meta: service
+      value: harbor
+    - meta: user
+      expression: "evt.Parsed.username"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: "evt.Parsed.remote_ip"
