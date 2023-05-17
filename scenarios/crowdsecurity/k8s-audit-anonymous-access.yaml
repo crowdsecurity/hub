@@ -3,7 +3,7 @@ name: crowdsecurity/k8s-audit-anonymous-access
 description: "Detect allowed anonymous access to the K8S API"
 filter: |
    evt.Meta.log_type == 'k8s-audit' &&
-   evt.Unmarshaled.ObjectRef?.Resource not in ["healthz", "livez", "readyz"] &&
+   evt.Unmarshaled.k8s_audit.ObjectRef?.Resource not in ["healthz", "livez", "readyz"] &&
    (evt.Meta.user in ["system:anonymous", "system:unauthenticated"])
 labels:
  service: k8s

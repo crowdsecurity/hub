@@ -3,17 +3,17 @@ filter: "evt.Parsed.program == 'k8s-audit'"
 name: crowdsecurity/k8s-audit
 description: "Parse Kubernetes audit logs"
 statics:
-  - method: UnmarshalJSON
-    expression: evt.Line.Raw
+  - parsed: k8s_parsed
+    expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "k8s_audit")
   - meta: user
-    expression: evt.Unmarshaled.User.username
+    expression: evt.Unmarshaled.k8s_audit.User.username
   - meta: source_ip
-    expression: evt.Unmarshaled.SourceIPs[0]
+    expression: evt.Unmarshaled.k8s_audit.SourceIPs[0]
   - meta: namespace
-    expression: evt.Unmarshaled.ObjectRef.Namespace
+    expression: evt.Unmarshaled.k8s_audit.ObjectRef.Namespace
   - meta: resource_name
-    expression: evt.Unmarshaled.ObjectRef.Name
+    expression: evt.Unmarshaled.k8s_audit.ObjectRef.Name
   - meta: kind
-    expression: evt.Unmarshaled.RequestObject?.kind
+    expression: evt.Unmarshaled.k8s_audit.RequestObject?.kind
   - meta: log_type
     value: k8s-audit
