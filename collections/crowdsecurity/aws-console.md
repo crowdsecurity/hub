@@ -1,3 +1,5 @@
+:warning: This version requires crowdsec version >= 1.5 :warning:
+
 # Aws console collection
 
 This collection groups
@@ -5,4 +7,4 @@ This collection groups
 * an aws brute force console detection scenario
 * an aws non working hour and non working day console login detection
 
-This collection is intended for crowdsec from version 1.5.
+Look at `crowdsecurity/aws-cloudtrail` for details about acquisition configuration.
