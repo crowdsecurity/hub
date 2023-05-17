@@ -1,0 +1,13 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'lfd'"
+name: crowdsecurity/csf-lfd-logs
+description: "Parse CSF LFD logs"
+debug: true
+grok:
+  pattern: "Failed SSH login from %{IP:source_ip} \\(%{NOTSPACE:country_code}/%{GREEDYDATA:country_name}/%{NOTSPACE:source_rdns}\\): %{GREEDYDATA:reason}"
+  apply_on: message
+  statics:
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: reason
+      expression: "evt.Parsed.reason"

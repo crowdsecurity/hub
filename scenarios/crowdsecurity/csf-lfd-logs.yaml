@@ -1,0 +1,11 @@
+type: trigger
+name: crowdsecurity/csf-lfd-logs
+description: "Detects SSH bruteforce attempts blocked by CSF."
+filter: "evt.Parsed.program == 'lfd'"
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: csf
+  type: bruteforce
+  remediation: true
+

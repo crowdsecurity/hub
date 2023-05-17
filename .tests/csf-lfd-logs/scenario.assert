@@ -1,0 +1,40 @@
+len(results) == 3
+"93.108.242.140" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["93.108.242.140"].IP == "93.108.242.140"
+results[0].Overflow.Sources["93.108.242.140"].Range == ""
+results[0].Overflow.Sources["93.108.242.140"].GetScope() == "Ip"
+results[0].Overflow.Sources["93.108.242.140"].GetValue() == "93.108.242.140"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "csf-lfd-logs.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("machine") == "cpanel-001-dev-fra"
+results[0].Overflow.Alert.Events[0].GetMeta("reason") == "5 in the last 300 secs - *Blocked in csf* [LF_SSHD]"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "93.108.242.140"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/csf-lfd-logs"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
+"121.177.70.228" in results[1].Overflow.GetSources()
+results[1].Overflow.Sources["121.177.70.228"].IP == "121.177.70.228"
+results[1].Overflow.Sources["121.177.70.228"].Range == ""
+results[1].Overflow.Sources["121.177.70.228"].GetScope() == "Ip"
+results[1].Overflow.Sources["121.177.70.228"].GetValue() == "121.177.70.228"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_path") == "csf-lfd-logs.log"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[1].Overflow.Alert.Events[0].GetMeta("machine") == "cpanel-001-dev-fra"
+results[1].Overflow.Alert.Events[0].GetMeta("reason") == "5 in the last 300 secs - *Blocked in csf* [LF_SSHD]"
+results[1].Overflow.Alert.Events[0].GetMeta("source_ip") == "121.177.70.228"
+results[1].Overflow.Alert.GetScenario() == "crowdsecurity/csf-lfd-logs"
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 1
+"107.170.39.69" in results[2].Overflow.GetSources()
+results[2].Overflow.Sources["107.170.39.69"].IP == "107.170.39.69"
+results[2].Overflow.Sources["107.170.39.69"].Range == ""
+results[2].Overflow.Sources["107.170.39.69"].GetScope() == "Ip"
+results[2].Overflow.Sources["107.170.39.69"].GetValue() == "107.170.39.69"
+results[2].Overflow.Alert.Events[0].GetMeta("datasource_path") == "csf-lfd-logs.log"
+results[2].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[2].Overflow.Alert.Events[0].GetMeta("machine") == "cpanel-001-dev-fra"
+results[2].Overflow.Alert.Events[0].GetMeta("reason") == "5 in the last 300 secs - *Blocked in csf* [LF_SSHD]"
+results[2].Overflow.Alert.Events[0].GetMeta("source_ip") == "107.170.39.69"
+results[2].Overflow.Alert.GetScenario() == "crowdsecurity/csf-lfd-logs"
+results[2].Overflow.Alert.Remediation == true
+results[2].Overflow.Alert.GetEventsCount() == 1
