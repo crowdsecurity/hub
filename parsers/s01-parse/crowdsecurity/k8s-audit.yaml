@@ -10,9 +10,9 @@ statics:
   - meta: source_ip
     expression: evt.Unmarshaled.k8s_audit.SourceIPs[0]
   - meta: namespace
-    expression: evt.Unmarshaled.k8s_audit.ObjectRef.Namespace
+    expression: evt.Unmarshaled.k8s_audit.ObjectRef?.Namespace
   - meta: resource_name
-    expression: evt.Unmarshaled.k8s_audit.ObjectRef.Name
+    expression: evt.Unmarshaled.k8s_audit.ObjectRef?.Name
   - meta: kind
     expression: evt.Unmarshaled.k8s_audit.RequestObject?.kind
   - meta: log_type
