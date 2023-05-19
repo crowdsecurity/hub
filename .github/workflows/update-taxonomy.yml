@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Create local changes
       run: |
-        pip install requests
+        pip install requests pyyaml
         python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
         python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.txt
         [ -f "taxonomy/scenario_taxonomy_errors.txt" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
