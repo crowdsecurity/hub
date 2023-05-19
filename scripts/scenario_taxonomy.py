@@ -156,7 +156,7 @@ def main():
     if len(errors) > 0:
         f = open(args.errors, "w")
         for scenario, errors in errors.items():
-            f.write("{}:\n".format(scenario))
+            f.write("*{}*:\n".format(scenario))
             for error in errors:
                 f.write("  - {}\n".format(error))
         f.close()
@@ -167,7 +167,7 @@ def parse_args():
 
     parser.add_argument('--hub', type=str, help="Hub folder path", default="")
     parser.add_argument('-o', '--output', type=str, help="Output file path", default="./scenarios.json")
-    parser.add_argument('-e', '--errors', type=str, help="Output errors file path", default="./scenario_taxonomy_errors.txt")
+    parser.add_argument('-e', '--errors', type=str, help="Output errors file path", default="./scenario_taxonomy_errors.md")
     parser.add_argument('-b', '--behaviors', type=str, help="behaviors.json filepath", default="./behaviors.json")
     parser.add_argument('-m', '--mitre', type=str, help="mitre_attack.json filepath", default="./mitre_attack.json")
     parser.add_argument('-v', '--verbose', action="store_true", help="Verbose mode", default=False)
