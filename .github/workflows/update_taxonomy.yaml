@@ -1,7 +1,7 @@
 name: Update Taxonomy
 
 on: 
-  push:
+  pull_request:
     paths:
       - 'scenarios/**.yaml'
       - 'scenarios/**.yml'
@@ -26,6 +26,7 @@ jobs:
       if: ${{ env.taxonomy_errors == '1'}}
       uses: thollander/actions-comment-pull-request@v2
       with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         filePath: taxonomy/scenario_taxonomy_errors.txt
 #    - name: Commit files
 #      if: ${{ github.event_name == 'push'}}
