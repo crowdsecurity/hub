@@ -29,19 +29,19 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         filePath: taxonomy/scenario_taxonomy_errors.txt
         reactions: "-1, eyes"
-#    - name: Commit files
-#      if: ${{ github.event_name == 'push'}}
-#      run: |
-#        git config --local user.email "action@github.com"
-#        git config --local user.name "GitHub Action"
-#        git commit -m "Update Mitre DB" taxonomy/mitre_attack.json
-#        git commit -m "Update Scenario Taxonomy" taxonomy/scenarios.json
-#    - name: Push changes
-#      if: ${{ github.event_name == 'push'}}
-#      uses: ad-m/github-push-action@master
-#      with:
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
-#        branch: ${{ github.ref }}
+    - name: Commit files
+      if: ${{ github.event_name == 'push'}}
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Update Mitre DB" taxonomy/mitre_attack.json
+        git commit -m "Update Scenario Taxonomy" taxonomy/scenarios.json
+    - name: Push changes
+      if: ${{ github.event_name == 'push'}}
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
 #
 #  invalidate-cache:
 #    runs-on: ubuntu-latest
