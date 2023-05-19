@@ -92,10 +92,10 @@ def main():
             mitre_attacks, mitre_errors = get_mitre_attacks_from_label(labels, mitre_data)
             scenario_errors.extend(mitre_errors)
             if behaviors == "":
-                scenario_errors.append("'behaviors' key not found in labels")
+                scenario_errors.append("`behaviors` key not found in labels")
 
             if len(mitre_attacks) == 0:
-                scenario_errors.append("'mittre_attack' key not found in labels")
+                scenario_errors.append("`mitre_attack` key not found in labels")
 
             scenario_label = ""
             confidence = ""
@@ -107,11 +107,11 @@ def main():
                 if "spoofable" in labels:
                     spoofable = labels["spoofable"]
                 else:
-                    scenario_errors.append("'spoofable' key not found in labels")
+                    scenario_errors.append("`spoofable` key not found in labels")
                 if "confidence" in labels:
                     confidence = labels["confidence"]
                 else:
-                    scenario_errors.append("'confidence' key not found in labels")
+                    scenario_errors.append("`confidence` key not found in labels")
 
             if scenario_label == "":
                 desc = scenario["description"].lower()
@@ -130,7 +130,7 @@ def main():
                 scenario_label = " ".join(tmp)
             
             if scenario_label == "":
-                scenario_errors.append("'label' key not found in labels")
+                scenario_errors.append("`label` key not found in labels")
 
             if behaviors not in behavior_data:
                 scenario_errors.append("Unknown behaviors: {}".format(behaviors))
