@@ -9,7 +9,7 @@ on:
       - '.github/workflows/update_taxonomy.yml'
 
 jobs:
-  build:
+  update-taxonomy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@v4
@@ -35,7 +35,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git status | grep 'taxonomy/mitre_attack.json' || (git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB")
-        git status | grep 'taxonomy/scenarios.json' || (git add taxonomy/taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy")
+        git status | grep 'taxonomy/scenarios.json' || (git add taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy")
         git pull --rebase origin ${{ github.head_ref }}
     - name: Push changes
       if: ${{ github.event_name == 'pull_request'}}
