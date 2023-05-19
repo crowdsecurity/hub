@@ -7,12 +7,6 @@ on:
       - 'scenarios/**.yml'
       - 'scripts/**.py'
       - '.github/workflows/update_taxonomy.yml'
-  push:
-    paths:
-      - 'scenarios/**.yaml'
-      - 'scenarios/**.yml'
-      - 'scripts/**.py'
-      - '.github/workflows/update_taxonomy.yml'
 
 jobs:
   build:
@@ -36,7 +30,7 @@ jobs:
         filePath: taxonomy/scenario_taxonomy_errors.md
         reactions: "-1, eyes"
     - name: Commit files
-      if: ${{ github.event_name == 'push'}}
+      if: ${{ github.event_name == 'pull_request'}}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -44,12 +38,13 @@ jobs:
         git commit -m "Update Mitre DB" 
         git add taxonomy/scenarios.json
         git commit -m "Update Scenario Taxonomy"
+        git pull --rebase origin scenario_taxonomy
     - name: Push changes
-      if: ${{ github.event_name == 'push'}}
+      if: ${{ github.event_name == 'pull_request'}}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        branch: ${{ github.head_ref }}
 #
 #  invalidate-cache:
 #    runs-on: ubuntu-latest
