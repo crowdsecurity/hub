@@ -34,8 +34,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git status | grep 'taxonomy/mitre_attack.json' || (git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB")
-        git status | grep 'taxonomy/scenarios.json' || (git add taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy")
+        git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB" || echo 0
+        git add taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy" || echo 0
         git pull --rebase origin ${{ github.head_ref }}
     - name: Push changes
       if: ${{ github.event_name == 'pull_request'}}
