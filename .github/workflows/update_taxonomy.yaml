@@ -38,14 +38,12 @@ jobs:
         git commit -m "Update Mitre DB" 
         git add taxonomy/scenarios.json
         git commit -m "Update Scenario Taxonomy"
-        echo ${{ github.head_ref}}
-        echo ${{ github.base_ref}}
     - name: Push changes
       if: ${{ github.event_name == 'pull_request'}}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        branch: ${{ github.head_ref }}
 #
 #  invalidate-cache:
 #    runs-on: ubuntu-latest
