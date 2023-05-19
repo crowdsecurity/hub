@@ -30,7 +30,7 @@ jobs:
         filePath: taxonomy/scenario_taxonomy_errors.md
         reactions: "-1, eyes"
     - name: Commit files
-      if: ${{ github.event_name == 'push'}}
+      if: ${{ github.event_name == 'pull_request'}}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
