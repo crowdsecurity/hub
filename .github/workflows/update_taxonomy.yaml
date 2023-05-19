@@ -34,8 +34,10 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Update Mitre DB" taxonomy/mitre_attack.json
-        git commit -m "Update Scenario Taxonomy" taxonomy/scenarios.json
+        git add taxonomy/mitre_attack.json
+        git commit -m "Update Mitre DB" 
+        git add taxonomy/scenarios.json
+        git commit -m "Update Scenario Taxonomy"
     - name: Push changes
       if: ${{ github.event_name == 'push'}}
       uses: ad-m/github-push-action@master
