@@ -156,7 +156,7 @@ def main():
     if len(errors) > 0:
         f = open(args.errors, "w")
         for scenario, errors in errors.items():
-            f.write("*{}*:\n".format(scenario))
+            f.write("**{}**:\n".format(scenario))
             for error in errors:
                 f.write("  - {}\n".format(error))
         f.close()
