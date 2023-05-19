@@ -39,7 +39,7 @@ jobs:
         git add taxonomy/scenarios.json
         git commit -m "Update Scenario Taxonomy"
     - name: Push changes
-      if: ${{ github.event_name == 'push'}}
+      if: ${{ github.event_name == 'pull_request'}}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
