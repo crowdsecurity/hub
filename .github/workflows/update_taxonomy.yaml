@@ -35,9 +35,10 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add taxonomy/mitre_attack.json
-        git commit -m "Update Mitre DB" || echo 0
+        git commit -m "Update Mitre DB" 2>/dev/null || echo 0
         git add taxonomy/scenarios.json
-        git commit -m "Update Scenario Taxonomy" || echo 0
+        git commit -m "Update Scenario Taxonomy" 2>/dev/null || echo 0
+        git pull --rebase origin ${{ github.head_ref }}
     - name: Push changes
       if: ${{ github.event_name == 'pull_request'}}
       uses: ad-m/github-push-action@master
