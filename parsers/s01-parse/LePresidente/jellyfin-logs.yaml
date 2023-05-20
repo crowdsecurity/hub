@@ -13,6 +13,12 @@ nodes:
       statics:
         - meta: log_type
           value: jellyfin_failed_auth
+  - grok:
+      pattern: '\[%{JELLYFIN_CUSTOMDATE:timestamp}.*\].*Authentication request for %{JELLYFIN_CUSTOMUSER:username} has been denied \(IP: %{IP:source_ip}\).*'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: jellyfin_failed_auth
 
 statics:
     - meta: service
