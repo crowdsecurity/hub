@@ -1,0 +1,14 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-cloudtrail-config-change
+description: "Detect AWS CloudTrail configuration change"
+filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' &&
+    (
+    evt.Meta.event_name == "CreateTrail" ||
+    evt.Meta.event_name == "UpdateTrail" ||
+    evt.Meta.event_name == "DeleteTrail" ||
+    evt.Meta.event_name == "StartLogging" ||
+    evt.Meta.event_name == "StopLogging"
+    )
+labels:
+  type: compliance

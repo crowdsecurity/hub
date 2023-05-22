@@ -1,0 +1,25 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-iam-policy-change
+description: "Detect AWS IAM policy change"
+filter: |
+  evt.Meta.log_type == 'aws-cloudtrail' &&
+  (
+    evt.Meta.event_name == "DeleteGroupPolicy" ||
+    evt.Meta.event_name == "DeleteRolePolicy" ||
+    evt.Meta.event_name == "DeleteUserPolicy" ||
+    evt.Meta.event_name == "PutGroupPolicy" ||
+    evt.Meta.event_name == "PutRolePolicy" ||
+    evt.Meta.event_name == "PutUserPolicy" ||
+    evt.Meta.event_name == "CreatePolicy" ||
+    evt.Meta.event_name == "DeletePolicy" ||
+    evt.Meta.event_name == "CreatePolicyVersion" ||
+    evt.Meta.event_name == "DeletePolicyVersion" ||
+    evt.Meta.event_name == "AttachRolePolicy" ||
+    evt.Meta.event_name == "DetachRolePolicy" ||
+    evt.Meta.event_name == "AttachUserPolicy" ||
+    evt.Meta.event_name == "DetachUserPolicy" ||
+    evt.Meta.event_name == "AttachGroupPolicy" ||
+    evt.Meta.event_name == "DetachGroupPolicy"
+  )
+labels:
+  type: compliance

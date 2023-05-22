@@ -1,0 +1,15 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-security-group-change
+description: "Detect AWS Security Group change"
+filter: |
+     evt.Meta.log_type == 'aws-cloudtrail' &&
+     (
+     evt.Meta.event_name == "AuthorizeSecurityGroupIngress" ||
+     evt.Meta.event_name == "AuthorizeSecurityGroupEgress" ||
+     evt.Meta.event_name == "RevokeSecurityGroupIngress" ||
+     evt.Meta.event_name == "RevokeSecurityGroupEgress" ||
+     evt.Meta.event_name == "CreateSecurityGroup" ||
+     evt.Meta.event_name == "DeleteSecurityGroup"
+     )
+labels:
+  type: compliance

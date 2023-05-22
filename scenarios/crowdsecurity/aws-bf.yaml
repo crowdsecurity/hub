@@ -1,0 +1,16 @@
+type: leaky
+capacity: 5
+leakspeed: 30s
+name: crowdsecurity/aws-cloudtrail-bf-console-login
+description: "Detect console login bruteforce"
+filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' && (
+      (evt.Meta.event_name == 'ConsoleLogin' && evt.Unmarshaled.cloudtrail.responseElements.ConsoleLogin == 'Failure') || 
+      (evt.Meta.event_name == 'GetSessionToken' && evt.Meta.error_code=='AccessDenied') || 
+      (evt.Meta.event_name == 'GetFederationToken' && evt.Meta.error_code=='AccessDenied')
+    )
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+scope:
+  type: Ip
