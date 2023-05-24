@@ -13,6 +13,8 @@ FILES_LIST = [
     "windows-CVE-2022-30190-msdt.yaml"
 ]
 
+FOLDERS_LIST = ["crowdsecurity"]
+
 
 def get_behavior_from_label(labels):
     service = ""
@@ -78,9 +80,11 @@ def main():
     scenarios_taxonomy = dict()
     filepath_list = []
     for r, d, f in os.walk(hub_scenarios_path):
-        for file in f:
-            if file in FILES_LIST:
-                filepath_list.append(os.path.join(r, file))
+        folder = r.split("/")[-1]
+        if folder in FOLDERS_LIST:
+            for file in f:
+                if file.endswith(".yaml") or file.endswith(".yml"):
+                    filepath_list.append(os.path.join(r, file))
 
     for filepath in filepath_list:
         f = open(filepath, "r")
