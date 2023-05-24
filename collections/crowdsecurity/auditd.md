@@ -22,7 +22,7 @@ Example acquisition for this collection :
 
 ```yaml
 filenames:
-  - /var/log/auditd/*.log
+  - /var/log/audit/*.log
 labels:
   type: auditd
 ```
