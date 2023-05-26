@@ -1,0 +1,13 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/k8s-audit.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/crowdsecurity/k8s-audit-privileged-pod-creation.yaml
+postoverflows:
+- ""
+log_file: k8s-audit-priv-pod-file.log
+log_type: k8s-audit
+labels: {}
+ignore_parsers: true
+override_statics: []
