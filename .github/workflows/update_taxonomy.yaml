@@ -22,13 +22,13 @@ jobs:
         python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
         python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
         [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
-    - name: Comment PR if errors
-      if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'pull_request') }}
-      uses: thollander/actions-comment-pull-request@v2
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        filePath: taxonomy/scenario_taxonomy_errors.md
-        reactions: "-1, eyes"
+#    - name: Comment PR if errors
+#      if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'pull_request') }}
+#      uses: thollander/actions-comment-pull-request@v2
+#      with:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        filePath: taxonomy/scenario_taxonomy_errors.md
+#        reactions: "-1, eyes"
     - name: Commit files
       if: ${{ github.event_name == 'pull_request'}}
       run: |

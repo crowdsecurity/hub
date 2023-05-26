@@ -97,11 +97,11 @@ def main():
                 continue
 
             labels = scenario["labels"]
-            behaviors = get_behavior_from_label(labels)        
+            behavior = get_behavior_from_label(labels)        
             mitre_attacks, mitre_errors = get_mitre_attacks_from_label(labels, mitre_data)
             scenario_errors.extend(mitre_errors)
-            if behaviors == "":
-                scenario_errors.append("`behaviors` key not found in labels")
+            if behavior == "":
+                scenario_errors.append("`behavior` key not found in labels")
 
             if len(mitre_attacks) == 0:
                 scenario_errors.append("`mitre_attack` key not found in labels")
@@ -141,8 +141,12 @@ def main():
             if scenario_label == "":
                 scenario_errors.append("`label` key not found in labels")
 
-            if behaviors not in behavior_data:
+            behaviors = list()
+            if behavior not in behavior_data:
                 scenario_errors.append("Unknown behaviors: {}".format(behaviors))
+            else:
+                behaviors.append(behavior)
+
 
             if len(scenario_errors) > 0:
                 errors[scenario["name"]] = scenario_errors
@@ -151,7 +155,7 @@ def main():
                 "name" : scenario["name"],
                 "description" : scenario["description"],
                 "label": scenario_label,
-                "behaviors": [behaviors],
+                "behaviors": behaviors,
                 "mitre_attacks": mitre_attacks,
                 "confidence": confidence,
                 "spoofable" : spoofable
