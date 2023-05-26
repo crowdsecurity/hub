@@ -44,7 +44,7 @@ def get_behavior_from_label(labels):
 def get_mitre_tactic_from_technique(technique, mitre_data):
     for tactic, tactic_info in mitre_data.items():
         for tech in tactic_info["techniques"]:
-            if technique == tech["id"]:
+            if technique == tech["name"]:
                 return tactic
     return None
 
