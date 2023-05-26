@@ -93,6 +93,7 @@ def main():
             scenario_errors = list()
             if "labels" not in scenario:
                 scenario_errors.append("`labels` not found")
+                errors[scenario["name"]] = scenario_errors
                 continue
 
             labels = scenario["labels"]
