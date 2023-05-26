@@ -91,6 +91,10 @@ def main():
         data = list(yaml.load_all(f, Loader=SafeLoader))
         for scenario in data:
             scenario_errors = list()
+            if "labels" not in scenario:
+                scenario_errors.append("`labels` not found")
+                continue
+
             labels = scenario["labels"]
             behaviors = get_behavior_from_label(labels)        
             mitre_attacks, mitre_errors = get_mitre_attacks_from_label(labels, mitre_data)
