@@ -53,9 +53,9 @@ def get_techniques(data, tactics):
             continue
 
         technique = {
-            "id" : obj["external_references"][0]["external_id"],
-            "references" : [obj["external_references"][0]["url"]],
-            "name" : obj["name"],
+            "name" : obj["external_references"][0]["external_id"],
+            #"references" : [obj["external_references"][0]["url"]],
+            "label" : obj["name"],
             "description" : obj["description"]
         }
 
