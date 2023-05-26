@@ -1,6 +1,6 @@
 # Synology DSM auth.log
 #debug: true
-filter: "evt.Parsed.program == 'synoscgi_SYNO.API.Auth_7_login'"
+filter: "evt.Parsed.program matches 'synoscgi_SYNO.API.Auth_[1-9]([0-9])?_login'"
 name: crowdsecurity/synology-dsm-logs
 description: "Parse Synology DSM web auth logs"
 onsuccess: next_stage

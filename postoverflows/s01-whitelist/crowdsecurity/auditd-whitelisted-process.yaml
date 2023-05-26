@@ -1,0 +1,7 @@
+name: crowdsecurity/auditd-whitelisted-process
+debug: true
+description: "Whitelist some process that are false-positives prone"
+whitelist:
+  reason: "package managers"
+  expression: 
+    - "all(evt.Overflow.Alert.Events, {.GetMeta('parent_progname') in ['/usr/bin/dpkg', '/usr/bin/dnf']})"

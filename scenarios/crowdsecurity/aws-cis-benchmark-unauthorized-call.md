@@ -1,0 +1,1 @@
+Detect unauthorized AWS API calls based on cloudtrail logs (Section 3.1 of CIS AWS Foundation Benchmark 1.2.0 ).
