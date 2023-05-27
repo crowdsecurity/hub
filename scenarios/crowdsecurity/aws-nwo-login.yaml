@@ -1,0 +1,16 @@
+# NWD/NWH AWS console login
+type: trigger
+name: crowdsecurity/aws-cloudtrail-nwo-nwd-console-login
+description: "Detect console login outside of office hours"
+filter: |
+ evt.Meta.log_type == 'aws-cloudtrail' &&
+ (evt.Meta.event_name == 'ConsoleLogin' || evt.Meta.event_name == 'GetSessionToken' || evt.Meta.event_name == 'GetFederationToken') &&
+ evt.Unmarshaled.cloudtrail.responseElements?.ConsoleLogin == 'Success' &&
+ (
+  (evt.Time.Hour() >= 18 || evt.Time.Hour() < 6) || 
+  (evt.Time.Weekday().String() == 'Saturday' || evt.Time.Weekday().String() == 'Sunday')
+ )
+groupby: evt.Meta.source_ip
+scope:
+ type: AwsARN
+ expression: evt.Meta.user_arn

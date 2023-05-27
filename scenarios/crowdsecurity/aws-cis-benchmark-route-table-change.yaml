@@ -1,0 +1,16 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-route-table-change
+description: "Detect AWS route table change"
+filter: |
+     evt.Meta.log_type == 'aws-cloudtrail' &&
+     (
+     evt.Meta.event_name == "CreateRoute" ||
+     evt.Meta.event_name == "CreateRouteTable" ||
+     evt.Meta.event_name == "ReplaceRoute" ||
+     evt.Meta.event_name == "ReplaceRouteTableAssociation" ||
+     evt.Meta.event_name == "DeleteRouteTable" ||
+     evt.Meta.event_name == "DeleteRoute" ||
+     evt.Meta.event_name == "DisassociateRouteTable"
+     )
+labels:
+  type: compliance

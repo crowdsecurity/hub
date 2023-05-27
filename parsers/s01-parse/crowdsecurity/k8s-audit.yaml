@@ -1,0 +1,43 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'k8s-audit'"
+name: crowdsecurity/k8s-audit
+description: "Parse Kubernetes audit logs"
+#Unfortunately, k8s has slightly different JSON when using a webhook or a file (first letter of the keys is capitalized when using the webhook).
+#Explicitly handle the webhook datasource, and assume file-like format for everything else (it could be coming from the syslog datasource for example)
+nodes:
+  - filter: evt.Meta.datasource_type == "k8s-audit"
+    statics:
+    - parsed: k8s_parsed
+      expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "k8s_audit")
+    - meta: user
+      expression: evt.Unmarshaled.k8s_audit.User.username
+    - meta: source_ip
+      expression: evt.Unmarshaled.k8s_audit.SourceIPs[0]
+    - meta: namespace
+      expression: evt.Unmarshaled.k8s_audit.ObjectRef?.Namespace
+    - meta: resource_name
+      expression: evt.Unmarshaled.k8s_audit.ObjectRef?.Name
+    - meta: kind
+      expression: evt.Unmarshaled.k8s_audit.RequestObject?.kind
+    - meta: log_type
+      value: k8s-audit
+    - target: evt.StrTime
+      expression: evt.Unmarshaled.k8s_audit.RequestReceivedTimestamp
+  - filter: evt.Meta.datasource_type != "k8s-audit"
+    statics:
+    - parsed: k8s_parsed
+      expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "k8s_audit")
+    - meta: user
+      expression: evt.Unmarshaled.k8s_audit.user.username
+    - meta: source_ip
+      expression: evt.Unmarshaled.k8s_audit.sourceIPs[0]
+    - meta: namespace
+      expression: evt.Unmarshaled.k8s_audit.objectRef?.namespace
+    - meta: resource_name
+      expression: evt.Unmarshaled.k8s_audit.objectRef?.name
+    - meta: kind
+      expression: evt.Unmarshaled.k8s_audit.requestObject?.kind
+    - meta: log_type
+      value: k8s-audit
+    - target: evt.StrTime
+      expression: evt.Unmarshaled.k8s_audit.requestReceivedTimestamp
