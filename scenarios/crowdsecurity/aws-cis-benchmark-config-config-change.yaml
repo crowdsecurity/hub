@@ -1,0 +1,14 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-config-config-change
+description: "Detect AWS Config configuration change"
+filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' && 
+    evt.Unmarshaled.cloudtrail.eventSource == "config.amazonaws.com" &&
+    (
+     evt.Meta.event_name == "StopConfigurationRecorder" ||
+     evt.Meta.event_name == "DeleteDeliveryChannel" ||
+     evt.Meta.event_name == "PutDeliveryChannel" ||
+     evt.Meta.event_name == "PutConfigurationRecorder"
+    )
+labels:
+  type: compliance
