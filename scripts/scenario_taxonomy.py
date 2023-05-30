@@ -15,7 +15,6 @@ FILES_LIST = [
 ]
 
 FOLDERS_LIST = ["crowdsecurity"]
-
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 
 def get_behavior_from_label(labels):
