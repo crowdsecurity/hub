@@ -30,9 +30,9 @@ def generate_scenarios_doc(filepath, data):
             info["name"],
             info["label"],
             info["description"],
-            info["behaviors"],
-            info["mitre_attacks"],
-            info["cves"] if "cves" in info else "",
+            "\n".join(info["behaviors"]),
+            "\n".join(info["mitre_attacks"]),
+            "\n".join(info["cves"]) if "cves" in info else "",
             info["spoofable"],
             info["confidence"],
         ])

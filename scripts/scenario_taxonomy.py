@@ -110,6 +110,9 @@ def main():
                 if file.endswith(".yaml") or file.endswith(".yml"):
                     filepath_list.append(os.path.join(r, file))
 
+    
+    filepath_list.sort()
+
     for filepath in filepath_list:
         f = open(filepath, "r")
         data = list(yaml.load_all(f, Loader=SafeLoader))
