@@ -3,8 +3,9 @@ Behaviors Taxonomy
 ==================
   
 
-|database:bruteforce|Database Bruteforce|IP has been reported for performing brute force on databases.|
+|Name|Label|Description|
 | :---: | :---: | :---: |
+|database:bruteforce|Database Bruteforce|IP has been reported for performing brute force on databases.|
 |ftp:bruteforce|FTP Bruteforce|IP has been reported for performing brute force on FTP services.|
 |generic:exploit|Exploitation attempt|IP has been reported trying to exploit known vulnerability/CVE on unspecified protocols.|
 |http:bruteforce|HTTP Bruteforce|IP has been reported for performing a HTTP brute force attack (either generic HTTP probing or applicative related brute force).|

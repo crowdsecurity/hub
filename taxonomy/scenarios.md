@@ -3,8 +3,9 @@ Scenarios Taxonomy
 ==================
   
 
-|crowdsecurity/CVE-2019-18935|Telerik Cve-2019-18935 Exploitation Attempts|Detect Telerik CVE-2019-18935 exploitation attempts||||0|0|
+|Name|Label|Description|Behaviors|Mitre ATT&CK|CVES|Spoofable|Confidence|
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+|crowdsecurity/CVE-2019-18935|Telerik Cve-2019-18935 Exploitation Attempts|Detect Telerik CVE-2019-18935 exploitation attempts||||0|0|
 |crowdsecurity/CVE-2021-4034|Cve-2021-4034 Exploits|Detect CVE-2021-4034 exploits||||0|0|
 |crowdsecurity/CVE-2022-26134|Cve-2022-26134 Exploits|Detect CVE-2022-26134 exploits||||0|0|
 |crowdsecurity/CVE-2022-35914|Cve-2022-35914 Exploits|Detect CVE-2022-35914 exploits||||0|0|
