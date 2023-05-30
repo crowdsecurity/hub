@@ -12,7 +12,11 @@ def generate_behaviors_doc(filepath, data):
     md = MdUtils(file_name=filepath, title="Behaviors Taxonomy")
     rows = ["Name", "Label", "Description"]
     nb_headers = len(rows)
-    for behavior, info in data.items():
+
+    data_keys = list(data.keys())
+    data_keys.sorted()
+    for key in data_keys:
+        info = data[key]
         rows.extend([info["name"], info["label"], info["description"]])
 
     md.new_line()
@@ -25,14 +29,18 @@ def generate_scenarios_doc(filepath, data):
     md = MdUtils(file_name=filepath, title="Scenarios Taxonomy")
     rows = ["Name", "Label", "Description", "Behaviors", "Mitre ATT&CK", "CVES", "Spoofable", "Confidence"]
     nb_headers = len(rows)
-    for scenarios, info in data.items():
+
+    data_keys = list(data.keys())
+    data_keys.sorted()
+    for key in data_keys:
+        info = data[key]
         rows.extend([
             info["name"],
             info["label"],
             info["description"],
-            "\n".join(info["behaviors"]),
-            "\n".join(info["mitre_attacks"]),
-            "\n".join(info["cves"]) if "cves" in info else "",
+            "<br />".join(info["behaviors"]),
+            "<br />".join(info["mitre_attacks"]),
+            "<br />".join(info["cves"]) if "cves" in info else "",
             info["spoofable"],
             info["confidence"],
         ])
