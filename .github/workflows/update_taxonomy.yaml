@@ -32,6 +32,7 @@ jobs:
     - name: Commit files
       if: ${{ github.event_name == 'pull_request'}}
       run: |
+        git branch
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git status | grep 'taxonomy/mitre_attack.json' && git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB"
