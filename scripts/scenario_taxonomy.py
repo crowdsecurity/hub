@@ -134,8 +134,8 @@ def main():
             scenario_errors.extend(cves_errors)
 
             scenario_label = ""
-            confidence = ""
-            spoofable = ""
+            confidence = 0
+            spoofable = 0
             if "labels" in scenario:
                 labels = scenario["labels"]
                 if "label" in labels:
