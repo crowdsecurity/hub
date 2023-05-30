@@ -10,21 +10,21 @@ SCENARIOS_DOC_FILE = "scenarios.md"
 
 def generate_behaviors_doc(filepath, data):
     md = MdUtils(file_name=filepath, title="Behaviors Taxonomy")
-    headers = ["Name", "Label", "Description"]
-    rows = []
+    rows = ["Name", "Label", "Description"]
+    nb_headers = len(rows)
     for behavior, info in data.items():
         rows.extend([info["name"], info["label"], info["description"]])
 
     md.new_line()
-    md.new_table(columns=len(headers), rows=len(data), text=rows, text_align='center')
+    md.new_table(columns=nb_headers, rows=len(data)+1, text=rows, text_align='center')
 
     md.create_md_file()
 
 
 def generate_scenarios_doc(filepath, data):
     md = MdUtils(file_name=filepath, title="Scenarios Taxonomy")
-    headers = ["Name", "Label", "Description", "Behaviors", "Mitre ATT&CK", "CVES", "Spoofable", "Confidence"]
-    rows = []
+    rows = ["Name", "Label", "Description", "Behaviors", "Mitre ATT&CK", "CVES", "Spoofable", "Confidence"]
+    nb_headers = len(rows)
     for scenarios, info in data.items():
         rows.extend([
             info["name"],
@@ -38,7 +38,7 @@ def generate_scenarios_doc(filepath, data):
         ])
 
     md.new_line()
-    md.new_table(columns=len(headers), rows=len(data), text=rows, text_align='center')
+    md.new_table(columns=nb_headers, rows=len(data)+1, text=rows, text_align='center')
 
     md.create_md_file()
 
