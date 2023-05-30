@@ -1,12 +1,12 @@
 name: Update Taxonomy
 
 on: 
-  pull_request:
+  push:
     paths:
       - 'scenarios/**.yaml'
       - 'scenarios/**.yml'
       - 'scripts/**.py'
-      - '.github/workflows/update_taxonomy.yml'
+      - '.github/workflows/update_taxonomy.yaml'
 
 jobs:
   update-taxonomy:
@@ -30,20 +30,14 @@ jobs:
 #        filePath: taxonomy/scenario_taxonomy_errors.md
 #        reactions: "-1, eyes"
     - name: Commit files
-      if: ${{ github.event_name == 'pull_request'}}
+      if: ${{ github.event_name == 'push'}}
       run: |
-        git branch
-    - name: Commit files
-      if: ${{ github.event_name == 'pull_request'}}
-      run: |
-        git branch
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git status | grep 'taxonomy/mitre_attack.json' && git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB"
         git status | grep 'taxonomy/scenarios.json' && git add taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy"
-        git pull --rebase origin ${{ github.head_ref }}
     - name: Push changes
-      if: ${{ github.event_name == 'pull_request'}}
+      if: ${{ github.event_name == 'push'}}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
