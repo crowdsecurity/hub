@@ -22,6 +22,7 @@ jobs:
         python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
         python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
         [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
+        python ./scripts/generate_doc.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -s taxonomy/scenarios.json -o taxonomy/
 #    - name: Comment PR if errors
 #      if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'pull_request') }}
 #      uses: thollander/actions-comment-pull-request@v2
@@ -36,6 +37,8 @@ jobs:
         git config --local user.name "GitHub Action"
         git status | grep 'taxonomy/mitre_attack.json' && git add taxonomy/mitre_attack.json && git commit -m "Update Mitre DB"
         git status | grep 'taxonomy/scenarios.json' && git add taxonomy/scenarios.json && git commit -m "Update Scenario Taxonomy"
+        git status | grep 'taxonomy/scenarios.md' && git add taxonomy/scenarios.md && git commit -m "Update Scenario Taxonomy Doc"
+        git status | grep 'taxonomy/behaviors.md' && git add taxonomy/behaviors.md && git commit -m "Update Behaviors Taxonomy Doc"
     - name: Push changes
       if: ${{ github.event_name == 'push'}}
       uses: ad-m/github-push-action@master
