@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import json
 import yaml
@@ -15,6 +16,7 @@ FILES_LIST = [
 
 FOLDERS_LIST = ["crowdsecurity"]
 
+CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 
 def get_behavior_from_label(labels):
     service = ""
@@ -55,8 +57,10 @@ def get_mitre_attacks_from_label(labels, mitre_data):
     if "classification" not in labels:
         return ret, errors
 
-    for attack in labels["classification"]:
-        split_attack = attack.split(".")
+    for classification in labels["classification"]:
+        split_attack = classification.split(".")
+        if split_attack[0] != "attack":
+            continue
         technique = split_attack[1]
         tactic = get_mitre_tactic_from_technique(technique, mitre_data)
         if tactic is None:
@@ -65,6 +69,26 @@ def get_mitre_attacks_from_label(labels, mitre_data):
         ret.append("{}:{}".format(tactic, technique))
 
     return ret, errors
+
+def get_cve_from_label(labels):
+    ret = list()
+    errors = list()
+    if "classification" not in labels:
+        return ret, errors
+
+    for classification in labels["classification"]:
+        split_cve = classification.split(".")
+        if split_cve[0] != "cve":
+            continue
+        cve = split_cve[1].upper()
+
+        if CVE_RE.match(cve) == None:
+            errors.append("bad CVE format: {}".format(cve))
+            continue
+        ret.append(cve)
+
+    return ret, errors
+
 
 def main():
     args = parse_args()
@@ -105,6 +129,9 @@ def main():
 
             if len(mitre_attacks) == 0:
                 scenario_errors.append("`mitre_attack` key not found in labels")
+
+            cves, cves_errors = get_cve_from_label(labels)
+            scenario_errors.extend(cves_errors)
 
             scenario_label = ""
             confidence = ""
@@ -160,7 +187,9 @@ def main():
                 "confidence": confidence,
                 "spoofable" : spoofable
             }
-    
+
+            if len(cves) > 0:
+                scenarios_taxonomy[scenario["name"]]["cves"] = cves
 
     f = open(args.output, "w")
     f.write(json.dumps(scenarios_taxonomy, indent=2))
