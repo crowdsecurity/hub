@@ -1,0 +1,21 @@
+type: conditional
+name: crowdsecurity/auditd-privesc
+description: "Detect a pid that elevated its privileges without using su/sudo/sudoedit"
+filter: evt.Meta.log_type == 'auditd_execve'
+groupby: evt.Unmarshaled.auditd.ppid
+#switch from non-zero uid to uid, without invoking sudo or su
+condition: |
+  any(queue.Queue, {.Unmarshaled.auditd.uid == "0"}) and 
+  any(queue.Queue, {.Unmarshaled.auditd.uid != "0"}) and
+  none(queue.Queue, {.Unmarshaled.auditd.exe in ["/usr/bin/sudo", "/usr/bin/su", "/usr/bin/sudoedit"]})
+leakspeed: 1s
+capacity: -1
+cache_size: 10
+blackhole: 1m
+labels:
+  service: linux
+  type: post-exploitation
+  remediation: false
+scope:
+  type: pid
+  expression: evt.Unmarshaled.auditd.ppid

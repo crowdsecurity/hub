@@ -16,6 +16,10 @@ A collection for auditd:
    - repeated/fast invokation of `rm` 
    - repeated/fast invokation of `kill` / `pkill`
 
+### Post exploitation behavior
+
+ - detect a process eleveting its privileges to uid 0, without invoking su/sudo/sudoedit
+
 ## Acquisition template
 
 Example acquisition for this collection :
