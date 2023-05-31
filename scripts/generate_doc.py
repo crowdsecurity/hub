@@ -14,7 +14,7 @@ def generate_behaviors_doc(filepath, data):
     nb_headers = len(rows)
 
     data_keys = list(data.keys())
-    data_keys.sorted()
+    data_keys.sort()
     for key in data_keys:
         info = data[key]
         rows.extend([info["name"], info["label"], info["description"]])
@@ -31,7 +31,7 @@ def generate_scenarios_doc(filepath, data):
     nb_headers = len(rows)
 
     data_keys = list(data.keys())
-    data_keys.sorted()
+    data_keys.sort()
     for key in data_keys:
         info = data[key]
         rows.extend([
