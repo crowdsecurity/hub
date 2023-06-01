@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/crowdsecurity/crowdsec/pkg/cwhub"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/crowdsecurity/crowdsec/pkg/cwhub"
 )
 
 type typeInfo struct {
@@ -26,6 +27,7 @@ type typeInfo struct {
 	Parsers         []string               `json:"parsers,omitempty"`
 	PostOverflows   []string               `json:"postoverflows,omitempty"`
 	Scenarios       []string               `json:"scenarios,omitempty"`
+	WafRules        []string               `json:"waf-rules,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
@@ -37,6 +39,7 @@ type fileInfo struct {
 	Parsers       []string          `yaml:"parsers,omitempty"`
 	PostOverflows []string          `yaml:"postoverflows,omitempty"`
 	Scenarios     []string          `yaml:"scenarios,omitempty"`
+	WafRules      []string          `yaml:"waf-rules,omitempty"`
 	Collections   []string          `yaml:"collections,omitempty"`
 }
 
@@ -50,12 +53,14 @@ const (
 	scenariosFolder     = "scenarios/"
 	postoverflowsFolder = "postoverflows/"
 	collectionsFolder   = "collections/"
+	wafRulesFolder      = "waf-rules/"
 )
 
 var types = []string{
 	"parsers",
 	"scenarios",
 	"postoverflows",
+	"waf-rules",
 	"collections",
 }
 
