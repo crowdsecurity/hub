@@ -179,6 +179,7 @@ def main():
 
             if len(scenario_errors) > 0:
                 errors[scenario["name"]] = scenario_errors
+                continue
 
             scenarios_taxonomy[scenario["name"]] = {
                 "name" : scenario["name"],
