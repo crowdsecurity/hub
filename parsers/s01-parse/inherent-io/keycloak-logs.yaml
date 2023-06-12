@@ -1,11 +1,9 @@
-filter: 1 == 1
-debug: true
+filter: evt.Parsed.program == 'keycloak'
 onsuccess: next_stage
 name: inherent-io/keycloak-logs
 description: "Parse keycloak logs"
 pattern_syntax:
   DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
-  GREEDYDATA: ".*"
   LOG_LEVEL: "(WARN|ERROR|INFO)"
 
   LOGIN_ERROR_DATA: "realmId=%{GREEDYDATA:realmId}, clientId=%{GREEDYDATA:clientId}, userId=%{GREEDYDATA:userId}, ipAddress=%{GREEDYDATA:ipAddress}, error=%{GREEDYDATA:error}, auth_method=%{GREEDYDATA:auth_method}, auth_type=%{GREEDYDATA:auth_type}, redirect_uri=%{GREEDYDATA:redirect_uri}, code_id=%{GREEDYDATA:code_id}, username=%{GREEDYDATA:username}, authSessionParentId=%{GREEDYDATA:authSessionParentId}, authSessionTabId=%{GREEDYDATA:authSessionTabId}"
