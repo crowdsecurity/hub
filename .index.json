@@ -2033,6 +2033,30 @@
     "hitech95/mail-generic-bf"
    ]
   },
+  "inherent-io/keycloak": {
+   "path": "collections/inherent-io/keycloak.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b57e28a782a618fd349ddba5deb1af5795dc75e72022b443de287ec98ec6daa0",
+     "deprecated": false
+    }
+   },
+   "long_description": "S2V5Y2xvYWsgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGUtZm9yY2UgZGV0ZWN0aW9uCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCklmIHVzaW5nIExPR19GSUxFIGVudmlyb25tZW50IHZhcmlhYmxlOgpgYGB5YW1sCi0tLQpmaWxlbmFtZXM6CiAtIC92YXIvbG9nL2tleWNsb2FrL2tleWNsb2FrLmxvZwpsYWJlbHM6CiAgdHlwZToga2V5Y2xvYWsKYGBgCgpEaXJlY3RseSBtb25pdG9yaW5nIERvY2tlcgpgYGB5YW1sCi0tLQpzb3VyY2U6IGRvY2tlcgpjb250YWluZXJfbmFtZToKIC0ga2V5Y2xvYWsKI2NvbnRhaW5lcl9pZDoKIyAtIDg0M2VlOTJkMjMxYgpsYWJlbHM6CiAgdHlwZToga2V5Y2xvYWsKLS0tCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGluaGVyZW50LWlvL2tleWNsb2FrLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvZGF0ZXBhcnNlLWVucmljaApzY2VuYXJpb3M6CiAgLSBpbmhlcmVudC1pby9rZXljbG9hay1iZgogIC0gaW5oZXJlbnQtaW8va2V5Y2xvYWstc2xvdy1iZgpkZXNjcmlwdGlvbjogIktleWNsb2FrIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBpbmhlcmVudC1pbwp0YWdzOgogIC0ga2V5Y2xvYWsKICAtIGJydXRlZm9yY2UK",
+   "description": "Keycloak support : parser and brute-force detection",
+   "author": "inherent-io",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "inherent-io/keycloak-logs",
+    "crowdsecurity/dateparse-enrich"
+   ],
+   "scenarios": [
+    "inherent-io/keycloak-bf",
+    "inherent-io/keycloak-slow-bf"
+   ]
+  },
   "jusabatier/apereo-cas": {
    "path": "collections/jusabatier/apereo-cas.yaml",
    "version": "0.1",
@@ -4446,6 +4470,22 @@
    "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ25naW54JyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGhpdGVjaDk1L25naW54LW1haWwtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIE5naW54IE1haWwgbG9ncyIKcGF0dGVybl9zeW50YXg6CiAgTk9fRE9VQkxFX1FVT1RFOiAnW14iXSsnCm5vZGVzOgogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJyV7TkdJTlhFUlJUSU1FOnRpbWV9IFxbJXtMT0dMRVZFTDpsb2dsZXZlbH1cXSAle05PTk5FR0lOVDpwaWR9IyV7Tk9OTkVHSU5UOnRpZH06IChcKiV7Tk9OTkVHSU5UOmNpZH0gKT9jbGllbnQgJXtJUE9SSE9TVDpyZW1vdGVfYWRkcn06JXtQT1NJTlQ6cmVtb3RlX3BvcnR9IGNvbm5lY3RlZCB0byAle0lQT1JIT1NUOmRlc3RfaXB9OiV7UE9TSU5UOmRlc3RfcG9ydH0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6ICJtYWlsX25ld19zZXNzaW9uIgogICAgICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC50aW1lCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnJXtOR0lOWEVSUlRJTUU6dGltZX0gXFsle0xPR0xFVkVMOmxvZ2xldmVsfVxdICV7Tk9OTkVHSU5UOnBpZH0jJXtOT05ORUdJTlQ6dGlkfTogKFwqJXtOT05ORUdJTlQ6Y2lkfSApPyV7R1JFRURZREFUQTptZXNzYWdlfSwgY2xpZW50OiAle0lQT1JIT1NUOnJlbW90ZV9hZGRyfSggdXNpbmcgc3RhcnR0bHMsfCwpIHNlcnZlcjogJXtJUE9SSE9TVDpkZXN0X2lwfTole1BPU0lOVDpkZXN0X3BvcnR9KCwgbG9naW46ICIle05PX0RPVUJMRV9RVU9URTp1c2VybmFtZX0iKT8oLCB1cHN0cmVhbTogJXtJUE9SSE9TVDpwcm94eV9pcH06JXtQT1NJTlQ6cHJveHlfcG9ydH0pPycKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgIGZpbHRlcjogImV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnY2xpZW50ICciCiAgICBzdGF0aWNzOgogICAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnRpbWUKICAgICAgLSBtZXRhOiB1c2VybmFtZQogICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudXNlcm5hbWUKICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgIHZhbHVlOiAibWFpbF9hdXRoIgogICAgbm9kZXM6CiAgICAgIC0gZmlsdGVyOiAiZXZ0LlBhcnNlZC5tZXNzYWdlIGNvbnRhaW5zICdsb2dnZWQgaW4nIgogICAgICAgIHN0YXRpY3M6CiAgICAgICAgICAtIG1ldGE6IHN1Yl90eXBlCiAgICAgICAgICAgIHZhbHVlOiAiYXV0aF9zdWNjZXNzIgogICAgICAtIGZpbHRlcjogImV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnbG9naW4gZmFpbGVkJyIKICAgICAgICBwYXR0ZXJuX3N5bnRheDoKICAgICAgICAgIE1BSUxfSFRUUF9BVVRIOiAnY2xpZW50IGxvZ2luIGZhaWxlZDogIiV7Tk9fRE9VQkxFX1FVT1RFOmF1dGhfcmVzdWx0fSIgd2hpbGUnCiAgICAgICAgZ3JvazoKICAgICAgICAgIHBhdHRlcm46ICcle01BSUxfSFRUUF9BVVRIfScKICAgICAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgICAgc3RhdGljczoKICAgICAgICAgIC0gbWV0YTogc3ViX3R5cGUKICAgICAgICAgICAgdmFsdWU6ICJhdXRoX2ZhaWwiCiAgICAgICAgICAtIG1ldGE6IGF1dGhfcmVzdWx0CiAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuYXV0aF9yZXN1bHQKIyB0aGVzZSBvbmVzIGFwcGx5IGZvciBib3RoIGdyb2sgcGF0dGVybnMKc3RhdGljczoKICAtIG1ldGE6IHNlcnZpY2UKICAgIHZhbHVlOiBtYWlsCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnJlbW90ZV9hZGRyIgogIC0gbWV0YTogZGVzdF9pcAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZGVzdF9pcCIKICAtIG1ldGE6IGRlc3RfcG9ydAogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQuZGVzdF9wb3J0Igo=",
    "description": "Parse Nginx Mail logs",
    "author": "hitech95",
+   "labels": null
+  },
+  "inherent-io/keycloak-logs": {
+   "path": "parsers/s01-parse/inherent-io/keycloak-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "82a556a0a3caba20dfc0d2cf5a6b794014cf0154dae388e979a249751673a5b2",
+     "deprecated": false
+    }
+   },
+   "long_description": "WW91ciBvbmUgZml0cy1hbGwga2V5Y2xvYWsgcGFyc2VyIHdpdGggc3VwcG9ydCBmb3IgdGhlIG1vc3QgY29tbW9uIGtpbmQgb2YgZmFpbGVkIGF1dGhlbnRpY2F0aW9ucyBhbmQgZXJyb3JzLgo=",
+   "content": "ZmlsdGVyOiBldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tleWNsb2FrJwpvbnN1Y2Nlc3M6IG5leHRfc3RhZ2UKbmFtZTogaW5oZXJlbnQtaW8va2V5Y2xvYWstbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIGtleWNsb2FrIGxvZ3MiCnBhdHRlcm5fc3ludGF4OgogIERBVEVUSU1FOiAiWzAtOV0rLVswLTldKy1bMC05XSsgWzAtMl1bMC05XTpbMC01XVswLTldOlswLTVdWzAtOV0sWzAtOV17M30iCiAgTE9HX0xFVkVMOiAiKFdBUk58RVJST1J8SU5GTykiCgogIExPR0lOX0VSUk9SX0RBVEE6ICJyZWFsbUlkPSV7R1JFRURZREFUQTpyZWFsbUlkfSwgY2xpZW50SWQ9JXtHUkVFRFlEQVRBOmNsaWVudElkfSwgdXNlcklkPSV7R1JFRURZREFUQTp1c2VySWR9LCBpcEFkZHJlc3M9JXtHUkVFRFlEQVRBOmlwQWRkcmVzc30sIGVycm9yPSV7R1JFRURZREFUQTplcnJvcn0sIGF1dGhfbWV0aG9kPSV7R1JFRURZREFUQTphdXRoX21ldGhvZH0sIGF1dGhfdHlwZT0le0dSRUVEWURBVEE6YXV0aF90eXBlfSwgcmVkaXJlY3RfdXJpPSV7R1JFRURZREFUQTpyZWRpcmVjdF91cml9LCBjb2RlX2lkPSV7R1JFRURZREFUQTpjb2RlX2lkfSwgdXNlcm5hbWU9JXtHUkVFRFlEQVRBOnVzZXJuYW1lfSwgYXV0aFNlc3Npb25QYXJlbnRJZD0le0dSRUVEWURBVEE6YXV0aFNlc3Npb25QYXJlbnRJZH0sIGF1dGhTZXNzaW9uVGFiSWQ9JXtHUkVFRFlEQVRBOmF1dGhTZXNzaW9uVGFiSWR9IgogIExPR0lOX0VSUk9SOiAiXiV7REFURVRJTUU6ZGF0ZXRpbWV9ICV7TE9HX0xFVkVMOmxvZ19sZXZlbH0gWyBdKi4rIHR5cGVcXD1MT0dJTl9FUlJPUiwgJXtMT0dJTl9FUlJPUl9EQVRBfSQiCm5vZGVzOgogIC0gZ3JvazoKICAgICAgbmFtZTogIkxPR0lOX0VSUk9SIgogICAgICBhcHBseV9vbjogTGluZS5SYXcKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogTE9HSU5fRVJST1IKICAgICAgICAtIG1ldGE6IGVycm9yCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmVycm9yCiAgICAgICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuaXBBZGRyZXNzCiAgICAgICAgLSBtZXRhOiB1c2VybmFtZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC51c2VybmFtZQpzdGF0aWNzOgogIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5kYXRldGltZQogIC0gbWV0YTogbG9nX2xldmVsCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmxvZ19sZXZlbAogIC0gdGFyZ2V0OiBldnQuU3RyVGltZUZvcm1hdAogICAgdmFsdWU6ICIyMDA2LTAxLTAyIDE1OjA0OjA1LDk5OTk5OTk5OSIK",
+   "description": "Parse keycloak logs",
+   "author": "inherent-io",
    "labels": null
   },
   "jusabatier/apereo-cas-audit-logs": {
@@ -7835,6 +7875,44 @@
     "remediation": "true",
     "service": "email",
     "type": "bf"
+   }
+  },
+  "inherent-io/keycloak-bf": {
+   "path": "scenarios/inherent-io/keycloak-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e49641024ac18c51c5f562e9f1c4a60ec31e0ef0525f5754537bc7ac8a425ddb",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBLZXljbG9hayBhdXRoZW50aWNhdGlvbnMgOgoKIC0gbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNSBvbiBzYW1lIHRhcmdldCB1c2VyCiAtIGxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUgdW5pcXVlIGRpc3RpbmN0IHVzZXJzCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogaW5oZXJlbnQtaW8va2V5Y2xvYWstYmYKZGVzY3JpcHRpb246ICJEZXRlY3Qga2V5Y2xvYWsgYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5lcnJvciBpbiBbJ3VzZXJfbm90X2ZvdW5kJywgJ2ludmFsaWRfdXNlcl9jcmVkZW50aWFscyddCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKIHNlcnZpY2U6IGtleWNsb2FrCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQotLS0KdHlwZTogbGVha3kKbmFtZTogaW5oZXJlbnQtaW8va2V5Y2xvYWstdXNlci1lbnVtLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGtleWNsb2FrIHVzZXIgZW51bSBicnV0ZWZvcmNlIgpmaWx0ZXI6IGV2dC5NZXRhLmVycm9yIGluIFsndXNlcl9ub3RfZm91bmQnLCAnaW52YWxpZF91c2VyX2NyZWRlbnRpYWxzJ10KbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5NZXRhLnVzZXJuYW1lCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKIHNlcnZpY2U6IGtleWNsb2FrCiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect keycloak bruteforce",
+   "author": "inherent-io",
+   "labels": {
+    "remediation": "true",
+    "service": "keycloak",
+    "type": "bruteforce"
+   }
+  },
+  "inherent-io/keycloak-slow-bf": {
+   "path": "scenarios/inherent-io/keycloak-slow-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "14928e0df7050fa79b4e332f228afc71e287c2a67fefd2c77aab19de99fad70a",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IGZhaWxlZCBLZXljbG9hayBhdXRoZW50aWNhdGlvbnMgOgoKIC0gbGVha3NwZWVkIG9mIDYwcywgY2FwYWNpdHkgb2YgMTAgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgNjBzLCBjYXBhY2l0eSBvZiAxMCB1bmlxdWUgZGlzdGluY3QgdXNlcnMK",
+   "content": "dHlwZTogbGVha3kKbmFtZTogaW5oZXJlbnQtaW8va2V5Y2xvYWstc2xvdy1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBrZXljbG9hayBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5lcnJvciBpbiBbJ3VzZXJfbm90X2ZvdW5kJywgJ2ludmFsaWRfdXNlcl9jcmVkZW50aWFscyddIgpsZWFrc3BlZWQ6ICI2MHMiCmNhcGFjaXR5OiAxMApncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogc2VydmljZToga2V5Y2xvYWsKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQp0eXBlOiBsZWFreQpuYW1lOiBpbmhlcmVudC1pby9rZXljbG9hay11c2VyLWVudW0tc2xvdy1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBrZXljbG9hayB1c2VyIGVudW0gYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEuZXJyb3IgaW4gWyd1c2VyX25vdF9mb3VuZCcsICdpbnZhbGlkX3VzZXJfY3JlZGVudGlhbHMnXSIKbGVha3NwZWVkOiAiNjBzIgpjYXBhY2l0eTogMTAKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS51c2VybmFtZQpibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiBzZXJ2aWNlOiBrZXljbG9hawogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect keycloak bruteforce",
+   "author": "inherent-io",
+   "labels": {
+    "remediation": "true",
+    "service": "keycloak",
+    "type": "bruteforce"
    }
   },
   "jusabatier/apereo-cas-bf": {
