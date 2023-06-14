@@ -1,0 +1,9 @@
+type: trigger
+name: crowdsecurity/aws-cis-benchmark-console-auth-fail
+description: "Detect AWS console authentication failure"
+filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' && 
+    evt.Meta.event_name == "ConsoleLogin" && 
+    evt.Unmarshaled.cloudtrail.errorMessage == "Failed authentication"
+labels:
+  type: compliance

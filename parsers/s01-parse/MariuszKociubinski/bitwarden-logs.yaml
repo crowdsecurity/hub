@@ -1,0 +1,28 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'bitwarden'"
+name: MariuszKociubinski/bitwarden-logs
+description: "Parse bitwarden logs"
+debug: false
+pattern_syntax:
+  BITWARDEN_FAILED_LOGIN: '^%{EXIM_DATE:timestamp}.*Failed login attempt\. %{IP:source_ip}.*$'
+  BITWARDEN_FAILED_LOGIN_2FA: '^%{EXIM_DATE:timestamp}.*Failed login attempt\, 2FA invalid\. %{IP:source_ip}.*$'
+nodes:
+  - grok:
+      name: BITWARDEN_FAILED_LOGIN  
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: bitwarden_failed_auth
+  - grok:
+      name: BITWARDEN_FAILED_LOGIN_2FA
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: bitwarden_failed_auth_2fa
+statics:
+    - meta: service
+      value: bitwarden
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"

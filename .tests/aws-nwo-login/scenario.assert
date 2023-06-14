@@ -1,0 +1,22 @@
+len(results) == 1
+"arn:aws:iam::<accoundId>:user/<userName>" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["arn:aws:iam::<accoundId>:user/<userName>"].IP == ""
+results[0].Overflow.Sources["arn:aws:iam::<accoundId>:user/<userName>"].Range == ""
+results[0].Overflow.Sources["arn:aws:iam::<accoundId>:user/<userName>"].GetScope() == "AwsARN"
+results[0].Overflow.Sources["arn:aws:iam::<accoundId>:user/<userName>"].GetValue() == "arn:aws:iam::<accoundId>:user/<userName>"
+results[0].Overflow.Alert.Events[0].GetMeta("account_id") == "<accoundId>"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "aws-nwo-login.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("event_id") == "<eventId>"
+results[0].Overflow.Alert.Events[0].GetMeta("event_name") == "ConsoleLogin"
+results[0].Overflow.Alert.Events[0].GetMeta("event_source") == "signin.amazonaws.com"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "aws-cloudtrail"
+results[0].Overflow.Alert.Events[0].GetMeta("region") == "eu-west-1"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "1.2.3.4"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2023-04-07T03:02:06Z"
+results[0].Overflow.Alert.Events[0].GetMeta("user_agent") == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+results[0].Overflow.Alert.Events[0].GetMeta("user_arn") == "arn:aws:iam::<accoundId>:user/<userName>"
+results[0].Overflow.Alert.Events[0].GetMeta("user_type") == "IAMUser"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/aws-cloudtrail-nwo-nwd-console-login"
+results[0].Overflow.Alert.Remediation == false
+results[0].Overflow.Alert.GetEventsCount() == 1
