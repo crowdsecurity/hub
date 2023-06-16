@@ -1,0 +1,10 @@
+type: trigger
+filter: evt.Parsed.event_type == "waf_match" && evt.Unmarshaled.waf.rule_type == "inband"
+#debug: true
+name: crowdsecurity/coraza-trigger
+description: here we go
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
+groupby: "evt.Meta.source_ip"

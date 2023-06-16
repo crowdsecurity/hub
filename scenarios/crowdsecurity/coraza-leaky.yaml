@@ -1,0 +1,13 @@
+type: leaky
+filter: evt.Parsed.event_type == "waf_match" && evt.Unmarshaled.waf.rule_type == "outofband"
+#debug: true
+name: crowdsecurity/coraza-leaky
+description: here we go
+blackhole: 2m
+leakspeed: 30s
+capacity: 1
+labels:
+  type: exploit
+  remediation: true
+groupby: "evt.Meta.source_ip"
+distinct: evt.Meta.rule_id
