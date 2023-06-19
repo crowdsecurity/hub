@@ -14,7 +14,7 @@ statics:
     - meta: log_type
       value: http_access-log
     - target: evt.StrTime
-      expression: evt.Parsed.time
+      expression: evt.Parsed.request_creation_time
     - meta: source_ip
       expression: "evt.Parsed.remote_addr"
     - meta: http_status
