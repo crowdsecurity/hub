@@ -11,4 +11,11 @@ filter: |
     evt.Meta.event_name == "StopLogging"
     )
 labels:
-  type: compliance
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.T1070
+  behavior: "cloud:indicator-removal"
+  label: "AWS CloudTrail indicator removal"
+  service: aws
+  remediation: false

@@ -16,4 +16,11 @@ filter: |
      evt.Meta.event_name == "DeleteBucketReplication"
     )
 labels:
-  type: compliance
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.T1578
+  behavior: "cloud:policy-change"
+  label: "AWS S3 bucket policy change"
+  service: aws
+  remediation: false

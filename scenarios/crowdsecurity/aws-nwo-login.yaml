@@ -14,3 +14,12 @@ groupby: evt.Meta.source_ip
 scope:
  type: AwsARN
  expression: evt.Meta.user_arn
+labels:
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1078
+  behavior: "cloud:unusual-account-activity"
+  label: "AWS bruteforce"
+  service: aws
+  remediation: false
