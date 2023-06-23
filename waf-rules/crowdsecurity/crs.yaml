@@ -1,5 +1,8 @@
 type: waf-rule
 name: crowdsecurity/crs-waf
+seclang_rules:
+ - SecRuleEngine On
+ - SecRequestBodyAccess On
 seclang_files_rules:
  - crs-setup.conf
  - REQUEST-901-INITIALIZATION.conf
@@ -34,6 +37,9 @@ on_load:
     - rules.SetOutOfBand()
 
 data:
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/crs-setup.conf
+    dest_file: crs-setup.conf
+    type: modsec
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/REQUEST-901-INITIALIZATION.conf
     dest_file: REQUEST-901-INITIALIZATION.conf
     type: modsec
@@ -99,6 +105,9 @@ data:
     type: modsec
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/RESPONSE-954-DATA-LEAKAGES-IIS.conf
     dest_file: RESPONSE-954-DATA-LEAKAGES-IIS.conf
+    type: modsec
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/RESPONSE-955-WEB-SHELLS.conf
+    dest_file: RESPONSE-955-WEB-SHELLS.conf
     type: modsec
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/RESPONSE-959-BLOCKING-EVALUATION.conf
     dest_file: RESPONSE-959-BLOCKING-EVALUATION.conf
