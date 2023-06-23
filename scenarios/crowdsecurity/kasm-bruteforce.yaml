@@ -8,6 +8,10 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: kasm
- type: bruteforce
  remediation: true
+ classification:
+  - attack.T1110
+ behavior: "remote-access:bruteforce"
+ label: "KASM Bruteforce"
+ spoofable: 0
+ confidence: 3

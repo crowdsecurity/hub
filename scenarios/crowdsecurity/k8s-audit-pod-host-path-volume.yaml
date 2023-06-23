@@ -23,6 +23,10 @@ filter: |
    )
   )
 labels:
-  service: k8s
-  type: pod-host-path
-  notification: true
+ notification: true
+ classification:
+  - attack.T1610
+ behavior: "k8s:pod-creation"
+ label: "Kubernetes Pod Start With Host Path"
+ spoofable: 0
+ confidence: 3

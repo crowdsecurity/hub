@@ -11,6 +11,10 @@ reprocess: true
 leakspeed: "10s"
 blackhole: 5m
 labels:
- service: http
- type: scan
  remediation: true
+ classification:
+  - attack.T1595.003
+ behavior: "http:scan"
+ label: "HTTP Probing"
+ spoofable: 0
+ confidence: 2
