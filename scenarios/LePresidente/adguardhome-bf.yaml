@@ -10,6 +10,10 @@ blackhole: 5m
 reprocess: true
 labels:
   service: adguardhome
-  type: bruteforce
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "AdGuardHome Bruteforce"
   behavior: "http:bruteforce"
   remediation: true
