@@ -9,9 +9,13 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: http
- type: bf
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "http:bruteforce"
+  label: "http bruteforce"
+  remediation: true
 ---
 # Generic 401 Authorization Errors
 type: leaky
@@ -24,9 +28,13 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: http
- type: bf
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "http:bruteforce"
+  label: "http bruteforce"
+  remediation: true
 ---
 # Generic 403 Forbidden (Authorization) Errors
 type: leaky
@@ -39,6 +47,10 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: http
- type: bf
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "http:bruteforce"
+  label: "http bruteforce"
+  remediation: true

@@ -13,5 +13,10 @@ leakspeed: 1m
 groupby: "evt.Meta.source_ip"
 blackhole: 2m
 labels:
-  type: scan
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.T1595
+  behavior: "http:exploit"
+  label: "detection of bad user-agents"
   remediation: true

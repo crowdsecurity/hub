@@ -15,6 +15,10 @@ reprocess: true
 leakspeed: 10s
 blackhole: 2m
 labels:
- service: http
- type: scan
  remediation: true
+ classification:
+  - attack.T1595.002
+ behavior: "http:exploit"
+ label: "HTTP Path Traversal Exploit"
+ spoofable: 0
+ confidence: 3

@@ -10,9 +10,16 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
-  service: llng
-  type: bruteforce
+  service: ldap
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1595
+  behavior: "ldap:bruteforce"
+  label: "LemonLDAP Bruteforce"
   remediation: true
+
 ---
 # Lemonldap::NG user enumeration
 type: leaky
@@ -26,7 +33,12 @@ leakspeed: 2m
 capacity: 5
 blackhole: 1m
 labels:
-  service: llng
-  type: bruteforce
+  service: ldap
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1595
+  behavior: "ldap:bruteforce"
+  label: "LemonLDAP User Enum Bruteforce"
   remediation: true
-

@@ -13,6 +13,11 @@ capacity: 1
 leakspeed: 5s
 blackhole: 5m
 labels:
-  service: http
-  type: discovery
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1595
+   - attack.T1190
+  behavior: "http:exploit"
+  label: "scanning for backdoors"
   remediation: true

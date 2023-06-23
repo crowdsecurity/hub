@@ -8,9 +8,14 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: freeswitch
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+   - attack.T1087
+  behavior: "generic:bruteforce"
+  label: "freeswitch user enumeration"
+  remediation: true
 ---
 type: leaky
 name: crowdsecurity/freeswitch-user-enumeration
@@ -21,6 +26,11 @@ capacity: 20
 groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
- service: freeswitch
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+   - attack.T1087
+  behavior: "generic:bruteforce"
+  label: "freeswitch user enumeration"
+  remediation: true

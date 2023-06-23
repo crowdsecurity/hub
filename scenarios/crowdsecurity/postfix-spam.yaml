@@ -12,8 +12,13 @@ blackhole: 1m
 reprocess: false
 labels:
  service: postfix
- type: bruteforce
  remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1598
+ behavior: "smtp:spam"
+ label: "Postfix spam"
 ---
 # postfix spam
 type: trigger
@@ -28,6 +33,10 @@ blackhole: 1m
 reprocess: false
 labels:
  service: postscreen
- type: bruteforce
  remediation: true
-
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1598
+ behavior: "smpt:spam"
+ label: "Postfix spam"
