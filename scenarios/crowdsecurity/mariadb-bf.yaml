@@ -9,10 +9,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- remediation: true
- classification:
-  - attack.T1110
- behavior: "database:bruteforce"
- label: "MariaDB Bruteforce"
- spoofable: 0
- confidence: 3
+  remediation: true
+  service: mariadb
+  classification:
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MariaDB Bruteforce"
+  spoofable: 0
+  confidence: 3
