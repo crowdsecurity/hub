@@ -10,6 +10,8 @@ blackhole: 1m
 labels:
   service: zoneminder
   type: bruteforce
+  spoofable: 0
+  confidence: 3
   remediation: true
   classification:
     - attack.T1110
@@ -29,8 +31,10 @@ blackhole: 1m
 labels:
   service: zoneminder
   type: bruteforce
+  spoofable: 0
+  confidence: 3
   remediation: true
   classification:
-    - attack.T1110
+    - attack.T1087
   behavior: "http:bruteforce"
   label: "Zoneminder user enumeration"
