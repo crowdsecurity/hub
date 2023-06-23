@@ -8,9 +8,13 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: exim
- type: bf
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Exim bruteforce"
+  remediation: true
 ---
 type: leaky
 #debug: true
@@ -23,6 +27,10 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: exim
- type: bf
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Exim bruteforce"
+  remediation: true
