@@ -1,53 +1,53 @@
 name: Update Taxonomy
 
-on: 
+on:
   push:
     paths:
-      - 'scenarios/**.yaml'
-      - 'scenarios/**.yml'
-      - 'scripts/**.py'
-      - '.github/workflows/update_taxonomy.yaml'
+      #  - 'scenarios/**.yaml'
+      #  - 'scenarios/**.yml'
+      #  - 'scripts/**.py'
+      - ".github/workflows/update_taxonomy.yaml"
 
 jobs:
   update-taxonomy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-    - uses: actions/checkout@v1
-    - name: Create local changes
-      run: |
-        pip install requests pyyaml mdutils
-        python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
-        python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
-        [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
-#    - name: Comment PR if errors
-#      if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'pull_request') }}
-#      uses: thollander/actions-comment-pull-request@v2
-#      with:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        filePath: taxonomy/scenario_taxonomy_errors.md
-#        reactions: "-1, eyes"
-    - name: Commit files
-      if: ${{ github.event_name == 'push'}}
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        (git add taxonomy/ && git commit -m "Update taxonomy") || exit 0
-    - name: Push changes
-      if: ${{ github.event_name == 'push'}}
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: actions/checkout@v1
+      - name: Create local changes
+        run: |
+          pip install requests pyyaml mdutils
+          python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
+          python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
+          [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
+      #    - name: Comment PR if errors
+      #      if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'pull_request') }}
+      #      uses: thollander/actions-comment-pull-request@v2
+      #      with:
+      #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #        filePath: taxonomy/scenario_taxonomy_errors.md
+      #        reactions: "-1, eyes"
+      - name: Commit files
+        if: ${{ github.event_name == 'push'}}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          (git add taxonomy/ && git commit -m "Update taxonomy") || exit 0
+      - name: Push changes
+        if: ${{ github.event_name == 'push'}}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 #
 #  invalidate-cache:
 #    runs-on: ubuntu-latest
 #    needs: build
 #    #Only invalidate cache on master or vX branches
 #    #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
-#    #We should avoid naming dev branches with something starting with v :D 
+#    #We should avoid naming dev branches with something starting with v :D
 #    if: |
 #        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
 #    permissions:
