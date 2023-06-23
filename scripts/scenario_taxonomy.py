@@ -210,8 +210,12 @@ def main():
                 f.write("  - {}\n".format(error))
         f.close()
 
+    print("Supported Mitre ATT&CK Techniques:")
+    for technique in stats["mitre"]:
+        print("\t{}".format(technique))
+
     total_scenario = len(stats["scenarios_ok"]) + len(stats["scenarios_nok"])
-    print("STATS:")
+    print("\nStats:")
     print("\tScenarios OK  : {}/{}".format(len(stats["scenarios_ok"]), total_scenario))
     print("\tScenarios NOK : {}/{}".format(len(stats["scenarios_nok"]), total_scenario))
     print("\tMitre Att&ck  : {}".format(len(stats["mitre"])))
