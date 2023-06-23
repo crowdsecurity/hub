@@ -10,12 +10,17 @@ capacity: 5
 blackhole: 1m
 labels:
   service: mikrotik
-  type: bruteforce
+  behavior: "iot:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Mikrotik Bruteforce"
   remediation: true
 ---
 # meshcentral user-enum
 type: leaky
-name:  a1ad/mikrotik-bf_user-enum
+name: a1ad/mikrotik-bf_user-enum
 description: "Detect mikrotik user enum bruteforce"
 filter: "evt.Meta.log_type == 'mikrotik_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -24,6 +29,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: mikrotik
- type: bruteforce
- remediation: true
+  service: mikrotik
+  behavior: "iot:bruteforce"
+  classification:
+    - attack.T1087
+  spoofable: 0
+  confidence: 3
+  label: "Mikrotik User Enumeration"
+  remediation: true

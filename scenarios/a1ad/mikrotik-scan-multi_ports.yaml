@@ -8,6 +8,11 @@ capacity: 15
 leakspeed: 5s
 blackhole: 1m
 labels:
-  service: tcp_udp
-  type: scan
+  service: mikrotik
+  behavior: "iot:scan"
+  classification:
+    - attack.T1046
+  spoofable: 0
+  confidence: 3
+  label: "Mikrotik Port Scanning"
   remediation: true
