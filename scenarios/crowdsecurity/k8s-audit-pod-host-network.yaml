@@ -9,10 +9,10 @@ filter: |
    (evt.Meta.datasource_type != "k8s-audit" && evt.Unmarshaled.k8s_audit.verb == 'create' && evt.Unmarshaled.k8s_audit.objectRef?.resource == 'pods' && evt.Unmarshaled.k8s_audit.requestObject?.spec?.hostNetwork == true)
   )
 labels:
- notification: true
- classification:
-  - attack.T1610
- behavior: "k8s:pod-creation"
- label: "Kubernetes Pod Start With Host Networking"
- spoofable: 0
- confidence: 3
+  notification: true
+  classification:
+    - attack.T1610
+  behavior: "k8s:audit"
+  label: "Kubernetes Pod Start With Host Networking"
+  spoofable: 0
+  confidence: 3

@@ -2,18 +2,18 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-login-no-mfa
 description: "Detect login without MFA to the AWS console"
 filter: |
-    evt.Meta.log_type == 'aws-cloudtrail' &&
-    evt.Meta.event_name == "ConsoleLogin" &&
-    evt.Unmarshaled.cloudtrail.additionalEventData.MFAUsed != "Yes" &&
-    evt.Unmarshaled.cloudtrail.userIdentity.type == "IAMUser" &&
-    evt.Unmarshaled.cloudtrail.responseElements.ConsoleLogin == "Success"
+  evt.Meta.log_type == 'aws-cloudtrail' &&
+  evt.Meta.event_name == "ConsoleLogin" &&
+  evt.Unmarshaled.cloudtrail.additionalEventData.MFAUsed != "Yes" &&
+  evt.Unmarshaled.cloudtrail.userIdentity.type == "IAMUser" &&
+  evt.Unmarshaled.cloudtrail.responseElements.ConsoleLogin == "Success"
 labels:
   confidence: 2
   spoofable: 0
   classification:
-   - attack.T1552
-   - attack.T1078.004
-  behavior: "cloud:credential-misuse"
+    - attack.T1552
+    - attack.T1078.004
   label: "AWS Credential misuse"
+  behavior: "cloud:unusual-activity"
   service: aws
   remediation: false
