@@ -12,8 +12,14 @@ blackhole: 1m
 reprocess: true
 labels:
  service: ssh
- type: bruteforce
  remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1110
+  - attack.T1190
+ behavior: "ssh:bruteforce"
+ label: "SSH Bruteforce"
 ---
 # ssh user-enum
 type: leaky
@@ -27,6 +33,11 @@ capacity: 10
 blackhole: 1m
 labels:
  service: ssh
- type: bruteforce
  remediation: true
-
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1110
+  - attack.T1190
+ behavior: "ssh:bruteforce"
+ label: "SSH Bruteforce"
