@@ -544,9 +544,6 @@
   - `confidence` key not found in labels
   - Unknown behaviors: []
 **crowdsecurity/teamspeak3-bf**:
-  - `mitre_attack` key not found in labels
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
   - Unknown behaviors: []
 **crowdsecurity/telnet-bf**:
   - `mitre_attack` key not found in labels
