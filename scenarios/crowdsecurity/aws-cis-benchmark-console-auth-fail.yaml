@@ -6,4 +6,11 @@ filter: |
     evt.Meta.event_name == "ConsoleLogin" && 
     evt.Unmarshaled.cloudtrail.errorMessage == "Failed authentication"
 labels:
-  type: compliance
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "cloud:bruteforce"
+  label: "AWS bruteforce"
+  service: aws
+  remediation: false

@@ -10,5 +10,11 @@ groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
  service: opnsense-gui-auth
- type: bruteforce
  remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1110
+  - attack.T1190
+ behavior: "http:bruteforce"
+ label: "Opnsense GUI Bruteforce"

@@ -7,4 +7,12 @@ filter: |
     evt.Unmarshaled.cloudtrail.userIdentity.invokedBy == nil &&
     evt.Unmarshaled.cloudtrail.eventType != "AwsServiceEvent"
 labels:
-  type: compliance
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.T1078
+   - attack.T1098
+  behavior: "cloud:unusual-account-activity"
+  label: "AWS root account usage"
+  service: aws
+  remediation: false

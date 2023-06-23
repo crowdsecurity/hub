@@ -22,4 +22,12 @@ filter: |
     evt.Meta.event_name == "DetachGroupPolicy"
   )
 labels:
-  type: compliance
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1098.003
+  behavior: "cloud:persistent-access"
+  label: "AWS IAM persistent access"
+  service: aws
+  remediation: false
+

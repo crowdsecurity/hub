@@ -8,4 +8,12 @@ filter: |
     evt.Unmarshaled.cloudtrail.userIdentity.type == "IAMUser" &&
     evt.Unmarshaled.cloudtrail.responseElements.ConsoleLogin == "Success"
 labels:
-  type: compliance
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.T1552
+   - attack.T1078.004
+  behavior: "cloud:credential-misuse"
+  label: "AWS Credential misuse"
+  service: aws
+  remediation: false

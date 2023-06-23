@@ -10,6 +10,10 @@ filter: |
    )
    && evt.Meta.user in ["system:anonymous", "system:unauthenticated"]
 labels:
- service: k8s
- type: apiserver-anonymous-access
  notification: true
+ classification:
+  - attack.T1595
+ behavior: "k8s:scan"
+ label: "Kubernetes API anonymous access"
+ spoofable: 0
+ confidence: 3

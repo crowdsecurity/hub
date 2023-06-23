@@ -10,12 +10,17 @@ capacity: 5
 blackhole: 1m
 labels:
   service: harbor
-  type: bruteforce
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Harbor Bruteforce"
   remediation: true
 ---
 # harbor user-enum
 type: leaky
-name:  LePresidente/harbor-bf_user-enum
+name: LePresidente/harbor-bf_user-enum
 description: "Detect harbor user enum bruteforce"
 filter: "evt.Meta.log_type == 'harbor_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -24,6 +29,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: harbor
- type: bruteforce
- remediation: true
+  service: harbor
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1087
+  label: "Harbor User Enumeration"
+  remediation: true
