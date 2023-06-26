@@ -11,14 +11,14 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: false
 labels:
- service: postfix
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1598
- behavior: "smtp:spam"
- label: "Postfix spam"
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1598
+  behavior: "pop3/imap:bruteforce"
+  label: "Postfix spam"
 ---
 # postfix spam
 type: trigger
@@ -32,11 +32,11 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: false
 labels:
- service: postscreen
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1598
- behavior: "smpt:spam"
- label: "Postfix spam"
+  service: postscreen
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1598
+  behavior: "pop3/imap:bruteforce"
+  label: "Postfix spam"

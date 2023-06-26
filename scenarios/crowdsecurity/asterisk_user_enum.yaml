@@ -9,5 +9,10 @@ capacity: 5
 blackhole: 1m
 labels:
   service: asterisk
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1087
+  behavior: "sip:bruteforce"
+  label: "Asterisk User Enumeration"
   remediation: true

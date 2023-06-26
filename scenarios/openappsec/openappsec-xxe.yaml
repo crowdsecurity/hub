@@ -6,12 +6,10 @@ filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.securi
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
-  service: http
-  classification:
-    - attack:T1204.002 
-    - attack:T1189
+  confidence: 3
   spoofable: 0
-  confidence: 2
+  classification:
+    - attack.T1190
   behavior: "http:exploit"
-  label: "Openappsec 'xxe' detection"
+  label: "XML External Entity"
   remediation: true

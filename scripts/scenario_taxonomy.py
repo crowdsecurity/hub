@@ -7,15 +7,8 @@ import argparse
 from yaml.loader import SafeLoader
 
 
-FILES_LIST = [
-    "apache_log4j2_cve-2021-44228.yaml",
-    "auditd-postexploit-exec-from-net.yaml",
-    "ssh-bf.yaml",
-    "windows-CVE-2022-30190-msdt.yaml"
-]
-
-FOLDERS_LIST = ["crowdsecurity"]
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
+
 
 def get_behavior_from_label(labels):
     service = ""
@@ -26,7 +19,7 @@ def get_behavior_from_label(labels):
 
     if "service" in labels:
         service = labels["service"]
-    
+
     if "type" in labels:
         attack_type = labels["type"]
 
@@ -34,7 +27,6 @@ def get_behavior_from_label(labels):
         for t in labels["target"]:
             if t.startswith("protocol"):
                 service = t.split(".")[-1]
-    
 
     if service == "" and "os" in labels:
         service = labels["os"]
@@ -69,6 +61,7 @@ def get_mitre_attacks_from_label(labels, mitre_data):
 
     return ret, errors
 
+
 def get_cve_from_label(labels):
     ret = list()
     errors = list()
@@ -97,40 +90,46 @@ def main():
 
     mitre_data = json.load(open(args.mitre, "r"))
     behavior_data = json.load(open(args.behaviors, "r"))
-
+    stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     errors = dict()
     scenarios_taxonomy = dict()
     filepath_list = []
     for r, d, f in os.walk(hub_scenarios_path):
-        folder = r.split("/")[-1]
-        if folder in FOLDERS_LIST:
-            for file in f:
-                if file.endswith(".yaml") or file.endswith(".yml"):
-                    filepath_list.append(os.path.join(r, file))
+        for file in f:
+            if file.endswith(".yaml") or file.endswith(".yml"):
+                filepath_list.append(os.path.join(r, file))
 
-    
     filepath_list.sort()
-
+    cpt = 0
     for filepath in filepath_list:
         f = open(filepath, "r")
         data = list(yaml.load_all(f, Loader=SafeLoader))
+
         for scenario in data:
+            cpt += 1
             scenario_errors = list()
             if "labels" not in scenario:
                 scenario_errors.append("`labels` not found")
                 errors[scenario["name"]] = scenario_errors
+                stats["scenarios_nok"].append(scenario["name"])
                 continue
 
             labels = scenario["labels"]
-            behavior = get_behavior_from_label(labels)        
-            mitre_attacks, mitre_errors = get_mitre_attacks_from_label(labels, mitre_data)
+            behavior = get_behavior_from_label(labels)
+            mitre_attacks, mitre_errors = get_mitre_attacks_from_label(
+                labels, mitre_data
+            )
             scenario_errors.extend(mitre_errors)
             if behavior == "":
                 scenario_errors.append("`behavior` key not found in labels")
 
             if len(mitre_attacks) == 0:
                 scenario_errors.append("`mitre_attack` key not found in labels")
+
+            for m in mitre_attacks:
+                if m not in stats["mitre"]:
+                    stats["mitre"].append(m)
 
             cves, cves_errors = get_cve_from_label(labels)
             scenario_errors.extend(cves_errors)
@@ -166,30 +165,35 @@ def main():
                         w = w.replace("cve", "CVE")
                     tmp.append(w)
                 scenario_label = " ".join(tmp)
-            
+
             if scenario_label == "":
                 scenario_errors.append("`label` key not found in labels")
 
             behaviors = list()
             if behavior not in behavior_data:
-                scenario_errors.append("Unknown behaviors: {}".format(behaviors))
+                scenario_errors.append("Unknown behaviors: {}".format(behavior))
             else:
                 behaviors.append(behavior)
 
+            if behavior not in stats["behaviors"]:
+                stats["behaviors"].append(behavior)
 
             if len(scenario_errors) > 0:
                 errors[scenario["name"]] = scenario_errors
+                stats["scenarios_nok"].append(scenario["name"])
                 continue
 
             scenarios_taxonomy[scenario["name"]] = {
-                "name" : scenario["name"],
-                "description" : scenario["description"],
+                "name": scenario["name"],
+                "description": scenario["description"],
                 "label": scenario_label,
                 "behaviors": behaviors,
                 "mitre_attacks": mitre_attacks,
                 "confidence": confidence,
-                "spoofable" : spoofable
+                "spoofable": spoofable,
             }
+
+            stats["scenarios_ok"].append(scenario["name"])
 
             if len(cves) > 0:
                 scenarios_taxonomy[scenario["name"]]["cves"] = cves
@@ -206,19 +210,52 @@ def main():
                 f.write("  - {}\n".format(error))
         f.close()
 
+    print("Supported Mitre ATT&CK Techniques:")
+    for technique in stats["mitre"]:
+        print("\t{}".format(technique))
+
+    total_scenario = len(stats["scenarios_ok"]) + len(stats["scenarios_nok"])
+    print("\nStats:")
+    print("\tScenarios OK  : {}/{}".format(len(stats["scenarios_ok"]), total_scenario))
+    print("\tScenarios NOK : {}/{}".format(len(stats["scenarios_nok"]), total_scenario))
+    print("\tMitre Att&ck  : {}".format(len(stats["mitre"])))
+    print("\tBehaviors     : {}".format(len(stats["behaviors"])))
+
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Generate CrowdSec Scenarios taxonomy file')
+    parser = argparse.ArgumentParser(
+        description="Generate CrowdSec Scenarios taxonomy file"
+    )
 
-    parser.add_argument('--hub', type=str, help="Hub folder path", default="")
-    parser.add_argument('-o', '--output', type=str, help="Output file path", default="./scenarios.json")
-    parser.add_argument('-e', '--errors', type=str, help="Output errors file path", default="./scenario_taxonomy_errors.md")
-    parser.add_argument('-b', '--behaviors', type=str, help="behaviors.json filepath", default="./behaviors.json")
-    parser.add_argument('-m', '--mitre', type=str, help="mitre_attack.json filepath", default="./mitre_attack.json")
-    parser.add_argument('-v', '--verbose', action="store_true", help="Verbose mode", default=False)
+    parser.add_argument("--hub", type=str, help="Hub folder path", default="")
+    parser.add_argument(
+        "-o", "--output", type=str, help="Output file path", default="./scenarios.json"
+    )
+    parser.add_argument(
+        "-e",
+        "--errors",
+        type=str,
+        help="Output errors file path",
+        default="./scenario_taxonomy_errors.md",
+    )
+    parser.add_argument(
+        "-b",
+        "--behaviors",
+        type=str,
+        help="behaviors.json filepath",
+        default="./behaviors.json",
+    )
+    parser.add_argument(
+        "-m",
+        "--mitre",
+        type=str,
+        help="mitre_attack.json filepath",
+        default="./mitre_attack.json",
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Verbose mode", default=False
+    )
     return parser.parse_args()
-
-
 
 
 if __name__ == "__main__":

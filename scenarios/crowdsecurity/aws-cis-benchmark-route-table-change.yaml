@@ -13,4 +13,12 @@ filter: |
      evt.Meta.event_name == "DisassociateRouteTable"
      )
 labels:
-  type: compliance
+     confidence: 1
+     spoofable: 0
+     classification:
+          - attack.T1578
+          - attack.T1498
+     behavior: "cloud:audit"
+     label: "AWS route table change"
+     service: aws
+     remediation: false
