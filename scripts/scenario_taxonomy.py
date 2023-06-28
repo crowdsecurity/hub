@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import csv
 import json
 import yaml
 import argparse
@@ -52,6 +53,9 @@ def get_mitre_attacks_from_label(labels, mitre_data):
         split_attack = classification.split(".")
         if split_attack[0] != "attack":
             continue
+        if len(split_attack) < 2:
+            errors.append("bad mitre format: {}".format(classification))
+            continue
         technique = split_attack[1]
         tactic = get_mitre_tactic_from_technique(technique, mitre_data)
         if tactic is None:
@@ -102,6 +106,7 @@ def main():
 
     filepath_list.sort()
     cpt = 0
+    mitres = dict()
     for filepath in filepath_list:
         f = open(filepath, "r")
         data = list(yaml.load_all(f, Loader=SafeLoader))
@@ -125,11 +130,22 @@ def main():
                 scenario_errors.append("`behavior` key not found in labels")
 
             if len(mitre_attacks) == 0:
-                scenario_errors.append("`mitre_attack` key not found in labels")
+                scenario_errors.append("`attack` not found in labels.classification")
 
             for m in mitre_attacks:
                 if m not in stats["mitre"]:
                     stats["mitre"].append(m)
+                ta, te = m.split(":")[0], m.split(":")[1]
+                if ta not in mitres:
+                    mitres[ta] = dict()
+
+                if te not in mitres[ta]:
+                    mitres[ta][te] = dict()
+
+                if "scenarios" not in mitres[ta][te]:
+                    mitres[ta][te]["scenarios"] = list()
+
+                mitres[ta][te]["scenarios"].append(scenario["name"])
 
             cves, cves_errors = get_cve_from_label(labels)
             scenario_errors.extend(cves_errors)
@@ -221,6 +237,43 @@ def main():
     print("\tMitre Att&ck  : {}".format(len(stats["mitre"])))
     print("\tBehaviors     : {}".format(len(stats["behaviors"])))
 
+    """
+
+    CSV_HEADERS = [
+        "Tactic ID",
+        "Tactic Name",
+        "Technique",
+        "Technique Name",
+    ]
+
+    rows = list()
+
+    for tactic, tactic_info in mitres.items():
+        ta_info = lookup_tactic(tactic, mitre_data)
+        if len(ta_info) == 0:
+            print("Tactic {} not found, skipping".format(tactic))
+            continue
+        for technique, technique_info in tactic_info.items():
+            tec_info = lookup_technique(technique, mitre_data)
+            rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
+
+    with open(args.report, "w", encoding="UTF-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(CSV_HEADERS)
+        writer.writerows(rows)
+    """
+
+
+def lookup_tactic(tactic_id, mitre_db):
+    return mitre_db.get(tactic_id, {})
+
+
+def lookup_technique(technique_id, mitre_db):
+    for tactic, tactic_info in mitre_db.items():
+        for technique in tactic_info["techniques"]:
+            if technique_id == technique["name"]:
+                return technique
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -230,6 +283,9 @@ def parse_args():
     parser.add_argument("--hub", type=str, help="Hub folder path", default="")
     parser.add_argument(
         "-o", "--output", type=str, help="Output file path", default="./scenarios.json"
+    )
+    parser.add_argument(
+        "-r", "--report", type=str, help="Report file path", default="./reports.csv"
     )
     parser.add_argument(
         "-e",
