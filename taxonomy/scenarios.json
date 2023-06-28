@@ -306,10 +306,12 @@
       "tcp:scan"
     ],
     "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0007:T1018",
       "TA0007:T1046"
     ],
-    "confidence": 3,
-    "spoofable": 0
+    "confidence": 1,
+    "spoofable": 3
   },
   "baudneo/gotify-bf": {
     "name": "baudneo/gotify-bf",
@@ -1058,6 +1060,20 @@
     "confidence": 3,
     "spoofable": 0
   },
+  "crowdsecurity/exim-spam": {
+    "name": "crowdsecurity/exim-spam",
+    "description": "detect spam on Exim",
+    "label": "Exim spam attempt",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0043:T1598"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
   "crowdsecurity/f5-big-ip-cve-2020-5902": {
     "name": "crowdsecurity/f5-big-ip-cve-2020-5902",
     "description": "Detect cve-2020-5902 exploitation attemps",
@@ -1491,10 +1507,12 @@
       "tcp:scan"
     ],
     "mitre_attacks": [
-      "TA0043:T1595"
+      "TA0043:T1595",
+      "TA0007:T1018",
+      "TA0007:T1046"
     ],
-    "confidence": 3,
-    "spoofable": 0
+    "confidence": 1,
+    "spoofable": 3
   },
   "crowdsecurity/jira_cve-2021-26086": {
     "name": "crowdsecurity/jira_cve-2021-26086",
@@ -2113,10 +2131,12 @@
       "tcp:scan"
     ],
     "mitre_attacks": [
-      "TA0043:T1595"
+      "TA0043:T1595",
+      "TA0007:T1018",
+      "TA0007:T1046"
     ],
-    "confidence": 3,
-    "spoofable": 1
+    "confidence": 1,
+    "spoofable": 3
   },
   "firewallservices/zimbra-bf": {
     "name": "firewallservices/zimbra-bf",
@@ -2350,7 +2370,7 @@
   "openappsec/openappsec-cross-site-redirect": {
     "name": "openappsec/openappsec-cross-site-redirect",
     "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Redirect' events (when waf blocks malicious request)",
-    "label": "Openappsec '' detection",
+    "label": "Openappsec 'cross site redirect' detection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2360,18 +2380,123 @@
     "confidence": 2,
     "spoofable": 0
   },
-  "openappsec/openappsec-csrf": {
-    "name": "openappsec/openappsec-csrf",
-    "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Request Forgery' events (when waf blocks malicious request)",
-    "label": "Openappsec 'cross site request forgery' detection",
+  "openappsec/openappsec-http-limit-violation": {
+    "name": "openappsec/openappsec-http-limit-violation",
+    "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
+    "label": "Openappsec 'http limit violation' detection",
+    "behaviors": [
+      "http:spam"
+    ],
+    "mitre_attacks": [
+      "TA0042:T1583"
+    ],
+    "confidence": 1,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-ldap-injection": {
+    "name": "openappsec/openappsec-ldap-injection",
+    "description": "Detect openappsec 'prevent' securityActions on 'LDAP Injection' events (when waf blocks malicious request)",
+    "label": "Openappsec 'ldap injection' detection",
     "behaviors": [
       "http:exploit"
     ],
     "mitre_attacks": [
-      "TA0001:T1189"
+      "TA0004:T1068"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-open-redirect": {
+    "name": "openappsec/openappsec-open-redirect",
+    "description": "Detect openappsec 'prevent' securityActions on 'Open Redirect' events (when waf blocks malicious request)",
+    "label": "Openappsec 'open redirect' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1189",
+      "TA0001:T1566"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-path-traversal": {
+    "name": "openappsec/openappsec-path-traversal",
+    "description": "Detect openappsec 'prevent' securityActions on 'Path Traversal' events (when waf blocks malicious request)",
+    "label": "Openappsec 'path traversal' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0007:T1083"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-probing": {
+    "name": "openappsec/openappsec-probing",
+    "description": "Detect openappsec 'prevent' securityActions on 'Vulnerability Scanning' events (when waf blocks malicious request)",
+    "label": "Openappsec 'probing' detection",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-rce": {
+    "name": "openappsec/openappsec-rce",
+    "description": "Detect openappsec 'prevent' securityActions on 'Remote Code Execution' events (when waf blocks malicious request)",
+    "label": "Openappsec 'rce' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-sql-injection": {
+    "name": "openappsec/openappsec-sql-injection",
+    "description": "Detect openappsec 'prevent' securityActions on 'SQL Injection' events (when waf blocks malicious request)",
+    "label": "Openappsec 'SQL Injection' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-url-instead-of-file": {
+    "name": "openappsec/openappsec-url-instead-of-file",
+    "description": "Detect openappsec 'prevent' securityActions on 'URL instead of file' events (when waf blocks malicious request)",
+    "label": "Openappsec 'url instead of file' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-xss": {
+    "name": "openappsec/openappsec-xss",
+    "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Scripting' events (when waf blocks malicious request)",
+    "label": "Openappsec 'XSS' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1203"
     ],
     "confidence": 2,
-    "spoofable": 1
+    "spoofable": 0
   },
   "openappsec/openappsec-xxe": {
     "name": "openappsec/openappsec-xxe",
