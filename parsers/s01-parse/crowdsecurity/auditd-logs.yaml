@@ -16,9 +16,11 @@ nodes:
           expression: evt.Unmarshaled.auditd.msg
         statics:
           - meta: log_type
-            value: auditd_execve
+            value: execve
           - target: evt.StrTime
             expression: evt.Parsed.timestamp
+          - meta: ppid
+            expression: evt.Unmarshaled.auditd.ppid
           - meta: exe
             expression: evt.Unmarshaled.auditd.exe
           - meta: uid
