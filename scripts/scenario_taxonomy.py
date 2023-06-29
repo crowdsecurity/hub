@@ -94,8 +94,14 @@ def main():
 
     mitre_data = json.load(open(args.mitre, "r"))
     behavior_data = json.load(open(args.behaviors, "r"))
+
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
+
+    ignore_list = list()
+    if os.path.exists(args.ignore):
+        ignore_list = open(args.ignore).read().split("\n")
+
     errors = dict()
     scenarios_taxonomy = dict()
     filepath_list = []
@@ -112,6 +118,9 @@ def main():
         data = list(yaml.load_all(f, Loader=SafeLoader))
 
         for scenario in data:
+            if scenario["name"] in ignore_list:
+                continue
+
             cpt += 1
             scenario_errors = list()
             if "labels" not in scenario:
@@ -308,9 +317,21 @@ def parse_args():
         help="mitre_attack.json filepath",
         default="./mitre_attack.json",
     )
+
+    parser.add_argument(
+        "-i",
+        "--ignore",
+        type=str,
+        help="File where ignored scenarios are specified",
+        default="{}/.scenariosignore".format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+    )
+
     parser.add_argument(
         "-v", "--verbose", action="store_true", help="Verbose mode", default=False
     )
+
     return parser.parse_args()
 
 
