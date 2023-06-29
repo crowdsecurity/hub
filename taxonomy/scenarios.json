@@ -1556,6 +1556,19 @@
     "confidence": 3,
     "spoofable": 0
   },
+  "crowdsecurity/k8s-audit-pod-exec": {
+    "name": "crowdsecurity/k8s-audit-pod-exec",
+    "description": "Detect execution (via kubectl exec) in pods",
+    "label": "Kubernetes Exec Into Pod",
+    "behaviors": [
+      "k8s:audit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1609"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
   "crowdsecurity/k8s-audit-pod-host-network": {
     "name": "crowdsecurity/k8s-audit-pod-host-network",
     "description": "Detect pods started with host networking",
@@ -1605,6 +1618,19 @@
     "mitre_attacks": [
       "TA0003:T1078",
       "TA0007:T1069"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "crowdsecurity/kasm-bruteforce": {
+    "name": "crowdsecurity/kasm-bruteforce",
+    "description": "Detect kasm login bruteforce",
+    "label": "KASM Bruteforce",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
     ],
     "confidence": 3,
     "spoofable": 0
@@ -2007,6 +2033,19 @@
     "confidence": 3,
     "spoofable": 0
   },
+  "crowdsecurity/teamspeak3-bf": {
+    "name": "crowdsecurity/teamspeak3-bf",
+    "description": "detect teamspeak3 server bruteforce",
+    "label": "TeamSpeak3 Bruteforce",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 2,
+    "spoofable": 0
+  },
   "crowdsecurity/telnet-bf": {
     "name": "crowdsecurity/telnet-bf",
     "description": "detect telnet bruteforce",
@@ -2050,6 +2089,40 @@
     "spoofable": 0,
     "cves": [
       "CVE-2018-20062"
+    ]
+  },
+  "crowdsecurity/vmware-cve-2022-22954": {
+    "name": "crowdsecurity/vmware-cve-2022-22954",
+    "description": "Detect Vmware CVE-2022-22954 exploitation attempts",
+    "label": "VMWARE CVE-2022-22954",
+    "behaviors": [
+      "vm-management:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190",
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cves": [
+      "CVE-2022-22954"
+    ]
+  },
+  "crowdsecurity/vmware-vcenter-vmsa-2021-0027": {
+    "name": "crowdsecurity/vmware-vcenter-vmsa-2021-0027",
+    "description": "Detect VMSA-2021-0027 exploitation attemps",
+    "label": "VMWARE VCenter VMSA CVE-2021-0027",
+    "behaviors": [
+      "vm-management:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190",
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cves": [
+      "CVE-2021-0027"
     ]
   },
   "crowdsecurity/vsftpd-bf": {
@@ -2341,6 +2414,19 @@
     "confidence": 3,
     "spoofable": 0
   },
+  "mstilkerich/bind9-refused": {
+    "name": "mstilkerich/bind9-refused",
+    "description": "Act on queries / zone transfers denied by bind9 policy",
+    "label": "Domain transfer attempt",
+    "behaviors": [
+      "generic:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1590"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
   "mwinters-stuff/mailu-admin-bf": {
     "name": "mwinters-stuff/mailu-admin-bf",
     "description": "Detect mailu admin bruteforce",
@@ -2380,6 +2466,72 @@
     "confidence": 2,
     "spoofable": 0
   },
+  "openappsec/openappsec-csrf": {
+    "name": "openappsec/openappsec-csrf",
+    "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Request Forgery' events (when waf blocks malicious request)",
+    "label": "Openappsec 'cross site request forgery' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1189"
+    ],
+    "confidence": 2,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-error-disclosure": {
+    "name": "openappsec/openappsec-error-disclosure",
+    "description": "Detect openappsec 'prevent' securityActions on 'Error Disclosure' events (when waf blocks malicious request)",
+    "label": "Openappsec 'error disclosure' detection",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 2,
+    "spoofable": 1
+  },
+  "openappsec/openappsec-error-limit": {
+    "name": "openappsec/openappsec-error-limit",
+    "description": "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)",
+    "label": "Openappsec 'error limit' detection",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0007:T1018",
+      "TA0007:T1087"
+    ],
+    "confidence": 1,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-evasion-techniques": {
+    "name": "openappsec/openappsec-evasion-techniques",
+    "description": "Detect openappsec 'prevent' securityActions on 'Evasion Techniques' events (when waf blocks malicious request)",
+    "label": "Openappsec 'Evasion Techniques' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 1,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-general": {
+    "name": "openappsec/openappsec-general",
+    "description": "Detect openappsec 'prevent' securityActions on 'General' events (when waf blocks malicious request)",
+    "label": "Openappsec 'general' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 1,
+    "spoofable": 0
+  },
   "openappsec/openappsec-http-limit-violation": {
     "name": "openappsec/openappsec-http-limit-violation",
     "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
@@ -2391,6 +2543,19 @@
       "TA0042:T1583"
     ],
     "confidence": 1,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-http-method-violation": {
+    "name": "openappsec/openappsec-http-method-violation",
+    "description": "Detect openappsec 'prevent' securityActions on 'Illegal http method violation' events (when waf blocks malicious request)",
+    "label": "Openappsec 'illegal http method violation' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
     "spoofable": 0
   },
   "openappsec/openappsec-ldap-injection": {
@@ -2457,6 +2622,32 @@
       "TA0001:T1190"
     ],
     "confidence": 3,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-request-rate-limit": {
+    "name": "openappsec/openappsec-request-rate-limit",
+    "description": "Detect openappsec 'prevent' securityActions on 'Request Rate Limit' events (when waf blocks malicious request)",
+    "label": "Openappsec 'request rate limit' detection",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0040:T1498"
+    ],
+    "confidence": 1,
+    "spoofable": 0
+  },
+  "openappsec/openappsec-schema-validation": {
+    "name": "openappsec/openappsec-schema-validation",
+    "description": "Detect openappsec 'prevent' securityActions on 'Schema Validation' events (when waf blocks malicious request)",
+    "label": "Openappsec 'schema validations' detection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 2,
     "spoofable": 0
   },
   "openappsec/openappsec-sql-injection": {
@@ -2598,6 +2789,32 @@
     ],
     "mitre_attacks": [
       "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "thespad/sshesame-cmd": {
+    "name": "thespad/sshesame-cmd",
+    "description": "Detect sshesame commands",
+    "label": "Sshesame Commands",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0
+  },
+  "thespad/sshesame-input": {
+    "name": "thespad/sshesame-input",
+    "description": "Detect sshesame input spam",
+    "label": "Sshesame Input Spam",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
     ],
     "confidence": 3,
     "spoofable": 0
