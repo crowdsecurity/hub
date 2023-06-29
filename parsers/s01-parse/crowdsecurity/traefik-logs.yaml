@@ -13,7 +13,7 @@ nodes:
   - grok: # CLF parser
       pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
-  - filter: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "traefik") == nil
+  - filter: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "traefik") in ["", nil]
     statics:
       - parsed: remote_addr
         expression: evt.Unmarshaled.traefik.ClientHost
