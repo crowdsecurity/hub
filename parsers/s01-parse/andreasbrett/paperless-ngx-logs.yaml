@@ -6,7 +6,7 @@ pattern_syntax:
     DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
     - grok:
-          # Paperless-ngx v1.16.5 and older
+          # Paperless-ngx v1.14.0 to v1.16.5
           pattern: '^\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{USERNAME:username}` from (private )?IP `%{IP:source_ip}\.`$'
           apply_on: message
           statics:
