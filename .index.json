@@ -711,6 +711,25 @@
     "crowdsecurity/cpanel-bf-attempt"
    ]
   },
+  "crowdsecurity/discord-crawler-whitelist": {
+   "path": "collections/crowdsecurity/discord-crawler-whitelist.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f8d9ddc77d06de7b5a861a44190bbbb1cd16e71e835c7c85b39d2c03d01c7b33",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBEaXNjb3JkIENyYXdsZXIgV2hpdGVsaXN0CgpUaGlzIGNvbGxlY3Rpb25zIHdpbGwgYWRkIGEgcG9zdG92ZXJmbG93IGNoZWNrIHRvIHNlZSBpZiB0aGUgSVAgaXMgYSBEaXNjb3JkIGNyYXdsZXIuIEN1cnJlbnRseSBpdCBjaGVja3MgZm9yIHRoZSBmb2xsb3dpbmcgZG9tYWluczoKICAtIHB0ci5kaXNjb3JkLmNvbQ==",
+   "content": "cG9zdG92ZXJmbG93czoKICAtIGNyb3dkc2VjdXJpdHkvZGlzY29yZC1jcmF3bGVyLXdoaXRlbGlzdAogIC0gY3Jvd2RzZWN1cml0eS9yZG5zCmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IERpc2NvcmQgUFRSIGRvbWFpbnMiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2hpdGVsaXN0CiAgLSBib3QKICAtIGNyYXdsZXIK",
+   "description": "Whitelist Discord PTR domains",
+   "author": "crowdsecurity",
+   "labels": null,
+   "postoverflows": [
+    "crowdsecurity/discord-crawler-whitelist",
+    "crowdsecurity/rdns"
+   ]
+  },
   "crowdsecurity/dovecot": {
    "path": "collections/crowdsecurity/dovecot.yaml",
    "version": "0.1",
@@ -4810,6 +4829,22 @@
    "long_description": "IyBDRE5zIHdoaXRlbGlzdAoKQ0ROcyB3aGl0ZWxpc3QgYmFzZWQgb24gZm9sbG93aW5nIGxpc3RzOgoqIGh0dHBzOi8vd3d3LmNsb3VkZmxhcmUuY29tL2lwcy12NAoKSXQgd2lsbCB3aGl0ZWxpc3Qgb3ZlcmZsb3dzIHRyaWdnZXJlZCBvbiBhbiBJUCBpbiB0aG9zZSBsaXN0cw==",
    "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9jZG4td2hpdGVsaXN0CmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IENETiBwcm92aWRlcnMiCndoaXRlbGlzdDoKICByZWFzb246ICJDRE4gcHJvdmlkZXIiCiAgZXhwcmVzc2lvbjogCiAgICAtICJhbnkoRmlsZSgnY2xvdWRmbGFyZV9pcHMudHh0JyksIHsgSXBJblJhbmdlKGV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuSVAgLCMpfSkiCiAgICAtICJhbnkoRmlsZSgnY2xvdWRmbGFyZV9pcDZzLnR4dCcpLCB7IElwSW5SYW5nZShldnQuT3ZlcmZsb3cuQWxlcnQuU291cmNlLklQICwjKX0pIgpkYXRhOgogIC0gc291cmNlX3VybDogaHR0cHM6Ly93d3cuY2xvdWRmbGFyZS5jb20vaXBzLXY0CiAgICBkZXN0X2ZpbGU6IGNsb3VkZmxhcmVfaXBzLnR4dAogICAgdHlwZTogc3RyaW5nCiAgLSBzb3VyY2VfdXJsOiBodHRwczovL3d3dy5jbG91ZGZsYXJlLmNvbS9pcHMtdjYKICAgIGRlc3RfZmlsZTogY2xvdWRmbGFyZV9pcDZzLnR4dAogICAgdHlwZTogc3RyaW5nCg==",
    "description": "Whitelist CDN providers",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/discord-crawler-whitelist": {
+   "path": "postoverflows/s01-whitelist/crowdsecurity/discord-crawler-whitelist.yaml",
+   "stage": "s01-whitelist",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d8eaee4f1ad3496ef253915ce0099d3c0cc2160785877efe306af35ffff929db",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBEaWNvcmQgQ3Jhd2xlciBXaGl0ZWxpc3QKCldoaXRlbGlzdCBmb3IgRGlzY29yZCBjcmF3bGVycyBiYXNlZCBvbiBSRE5TIHRvICdYWFgucHRyLmRpc2NvcmQuY29tLicuCgojIyMgUmVxdWlyZW1lbnRzIGlmIGluc3RhbGxpbmcgb3V0c2lkZSBvZiBjb2xsZWN0aW9uCgpUaGlzIHBvc3RvdmVyZmxvdyB1c2VzIFtSRE5TIGVucmljaGVyXShodHRwczovL2h1Yi5jcm93ZHNlYy5uZXQvYXV0aG9yL2Nyb3dkc2VjdXJpdHkvY29uZmlndXJhdGlvbnMvcmRucyksIHBsZWFzZSBlbnN1cmUgdGhpcyBpcyBpbnN0YWxsZWQgYW5kIGVuYWJsZWQu",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9kaXNjb3JkLWNyYXdsZXItd2hpdGVsaXN0CmRlc2NyaXB0aW9uOiBEaXNjb3JkIFBUUiB3aGl0ZWxpc3QKd2hpdGVsaXN0OgogIHJlYXNvbjogRGlzY29yZCBQVFIgZG9tYWluCiAgZXhwcmVzc2lvbjoKICAgIC0gZXZ0LkVucmljaGVkLnJldmVyc2VfZG5zIGVuZHNXaXRoICcucHRyLmRpc2NvcmQuY29tLic=",
+   "description": "Discord PTR whitelist",
    "author": "crowdsecurity",
    "labels": null
   },
