@@ -15,10 +15,11 @@ blackhole: 5m
 #low false positives approach : we require distinct payloads to avoid false positives
 distinct: evt.Parsed.http_args
 labels:
- remediation: true
- classification:
-  - attack.T1595.002
- behavior: "http:exploit"
- label: "XSS Attempt"
- spoofable: 0
- confidence: 3
+  remediation: true
+  classification:
+    - attack.T1595.002
+  behavior: "http:exploit"
+  label: "XSS Attempt"
+  spoofable: 0
+  service: http
+  confidence: 3

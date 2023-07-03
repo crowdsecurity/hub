@@ -6,10 +6,11 @@ description: "Web exploitation via modsecurity"
 filter: evt.Meta.log_type == 'modsecurity' && (evt.Parsed.ruleseverity == 'CRITICAL' || evt.Parsed.ruleseverity == '2')
 blackhole: 2m
 labels:
- remediation: true
- classification:
-  - attack.T1595
- behavior: "http:exploit"
- label: "Modsecurity Alert"
- spoofable: 0
- confidence: 3
+  remediation: true
+  classification:
+    - attack.T1595
+  behavior: "http:exploit"
+  label: "Modsecurity Alert"
+  spoofable: 0
+  confidence: 3
+  service: http

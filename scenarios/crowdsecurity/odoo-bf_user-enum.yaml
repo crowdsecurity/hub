@@ -9,14 +9,15 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1110
-  - attack.T1190
- behavior: "http:bruteforce"
- label: "Odoo Bruteforce"
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1190
+  behavior: "http:bruteforce"
+  label: "Odoo Bruteforce"
+  service: odoo
 ---
 # Odoo web auth user_enum
 type: leaky
@@ -29,11 +30,12 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1110
-  - attack.T1190
- behavior: "http:bruteforce"
- label: "Odoo Bruteforce"
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1190
+  behavior: "http:bruteforce"
+  label: "Odoo Bruteforce"
+  service: odoo

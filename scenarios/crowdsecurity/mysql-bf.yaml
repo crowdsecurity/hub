@@ -9,10 +9,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1110
- behavior: "database:bruteforce"
- label: "MySQL Bruteforce"
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MySQL Bruteforce"
+  service: mysql
