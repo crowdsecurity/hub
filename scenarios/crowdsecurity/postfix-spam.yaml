@@ -15,9 +15,7 @@ labels:
   remediation: true
   confidence: 3
   spoofable: 0
-  classification:
-    - attack.T1598
-  behavior: "pop3/imap:bruteforce"
+  behavior: "smtp:spam"
   label: "Postfix spam"
 ---
 # postfix spam
@@ -25,7 +23,6 @@ type: trigger
 name: crowdsecurity/postscreen-rbl
 description: "Detect spammers"
 filter: "evt.Meta.service == 'postscreen' && evt.Meta.pregreet == 'PREGREET'"
-leakspeed: "10s"
 references:
   - https://en.wikipedia.org/wiki/Spamming
 groupby: evt.Meta.source_ip
@@ -36,7 +33,5 @@ labels:
   remediation: true
   confidence: 3
   spoofable: 0
-  classification:
-    - attack.T1598
-  behavior: "pop3/imap:bruteforce"
+  behavior: "smtp:spam"
   label: "Postfix spam"
