@@ -15,9 +15,9 @@ labels:
   confidence: 3
   spoofable: 0
   classification:
-  - attack.T1110
+    - attack.T1110
   label: "SSH Bruteforce"
-  behavior : "ssh:bruteforce"
+  behavior: "ssh:bruteforce"
   remediation: true
 ---
 # ssh user-enum
@@ -31,12 +31,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: ssh
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1110
-  - attack.T1190
- behavior: "ssh:bruteforce"
- label: "SSH Bruteforce"
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  behavior: "ssh:bruteforce"
+  label: "SSH Bruteforce"

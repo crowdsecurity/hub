@@ -2,14 +2,14 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-console-auth-fail
 description: "Detect AWS console authentication failure"
 filter: |
-    evt.Meta.log_type == 'aws-cloudtrail' && 
-    evt.Meta.event_name == "ConsoleLogin" && 
-    evt.Unmarshaled.cloudtrail.errorMessage == "Failed authentication"
+  evt.Meta.log_type == 'aws-cloudtrail' && 
+  evt.Meta.event_name == "ConsoleLogin" && 
+  evt.Unmarshaled.cloudtrail.errorMessage == "Failed authentication"
 labels:
-  confidence: 2
+  confidence: 3
   spoofable: 0
   classification:
-   - attack.T1110
+    - attack.T1110
   behavior: "cloud:bruteforce"
   label: "AWS bruteforce"
   service: aws
