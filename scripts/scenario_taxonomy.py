@@ -10,6 +10,14 @@ from yaml.loader import SafeLoader
 
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 
+HELP_STR = '''Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
+As an example, some common mitre attack techniques:
+ - T1110 for bruteforce attacks
+ - T1595 and T1190 for exploitation of public vulnerabilities
+ - T1595 for generic scanning of exposed applications
+
+[Here](https://docs.crowdsec.net/docs/next/scenarios/format#labels) is the CrowdSec documentation on how to fill those labels
+'''
 
 def get_behavior_from_label(labels):
     service = ""
@@ -233,6 +241,7 @@ def main():
             f.write("**{}**:\n".format(scenario))
             for error in errors:
                 f.write("  - {}\n".format(error))
+        f.write(HELP_STR)
         f.close()
 
     print("Supported Mitre ATT&CK Techniques:")
