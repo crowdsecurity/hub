@@ -242,6 +242,7 @@ def main():
             f.write("**{}**:\n".format(scenario))
             for error in errors:
                 f.write("  - {}\n".format(error))
+            f.write("\n")
         f.write(HELP_STR)
         f.close()
 
