@@ -10,7 +10,8 @@ from yaml.loader import SafeLoader
 
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 
-HELP_STR = '''Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
+HELP_STR = '''
+Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
 As an example, some common mitre attack techniques:
  - T1110 for bruteforce attacks
  - T1595 and T1190 for exploitation of public vulnerabilities
