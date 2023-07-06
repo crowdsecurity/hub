@@ -255,31 +255,30 @@ def main():
     print("\tMitre Att&ck  : {}".format(len(stats["mitre"])))
     print("\tBehaviors     : {}".format(len(stats["behaviors"])))
 
-    """
 
-    CSV_HEADERS = [
-        "Tactic ID",
-        "Tactic Name",
-        "Technique",
-        "Technique Name",
-    ]
+    # write the report about the supported techniques only if the path is specified
+    if args.report != "":
+        CSV_HEADERS = [
+            "Tactic ID",
+            "Tactic Name",
+            "Technique",
+            "Technique Name",
+        ]
 
-    rows = list()
+        rows = list()
+        for tactic, tactic_info in mitres.items():
+            ta_info = lookup_tactic(tactic, mitre_data)
+            if len(ta_info) == 0:
+                print("Tactic {} not found, skipping".format(tactic))
+                continue
+            for technique, technique_info in tactic_info.items():
+                tec_info = lookup_technique(technique, mitre_data)
+                rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
 
-    for tactic, tactic_info in mitres.items():
-        ta_info = lookup_tactic(tactic, mitre_data)
-        if len(ta_info) == 0:
-            print("Tactic {} not found, skipping".format(tactic))
-            continue
-        for technique, technique_info in tactic_info.items():
-            tec_info = lookup_technique(technique, mitre_data)
-            rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
-
-    with open(args.report, "w", encoding="UTF-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(CSV_HEADERS)
-        writer.writerows(rows)
-    """
+        with open(args.report, "w", encoding="UTF-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(CSV_HEADERS)
+            writer.writerows(rows)
 
 
 def lookup_tactic(tactic_id, mitre_db):
@@ -303,7 +302,7 @@ def parse_args():
         "-o", "--output", type=str, help="Output file path", default="./scenarios.json"
     )
     parser.add_argument(
-        "-r", "--report", type=str, help="Report file path", default="./reports.csv"
+        "-r", "--report", type=str, help="Report file path", default=""
     )
     parser.add_argument(
         "-e",
