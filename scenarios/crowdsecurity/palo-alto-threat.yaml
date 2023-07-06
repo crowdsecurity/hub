@@ -1,0 +1,9 @@
+type: trigger
+debug: false
+name: crowdsecurity/palo-alto-threat
+filter: evt.Meta.log_type == "palo_alto" && evt.Meta.severity in ["medium", "high", "critical"]
+description: Detect palo alto threat with a severity higher or equal to medium
+blackhole: 2m
+labels:
+  remediation: true
+groupby: "evt.Meta.source_ip"
