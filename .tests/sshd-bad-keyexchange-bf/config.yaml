@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/sshd-logs.yaml
+scenarios:
+- ./scenarios/LePresidente/ssh-bad-keyexchange-bf.yaml
+postoverflows:
+- ""
+log_file: sshd-bad-keyexchange-bf.log
+log_type: syslog
+labels: {}
+ignore_parsers: true
