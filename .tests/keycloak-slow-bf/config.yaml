@@ -1,0 +1,15 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/inherent-io/keycloak-logs.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/inherent-io/keycloak-slow-bf.yaml
+postoverflows:
+- ""
+collections:
+- ""
+log_file: keycloak-logs.log
+log_type: keycloak
+labels: {}
+ignore_parsers: true
+override_statics: []
