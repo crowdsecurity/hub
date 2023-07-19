@@ -1,0 +1,7 @@
+name: crowdsecurity/auditd-nvm-whitelist-process
+description: "Whitelist nvm process that are false-positives prone"
+whitelist:
+  reason: "node version manager"
+  expression: 
+    - |
+    all(evt.Overflow.Alert.Events, {.GetMeta('exe') matches '\\.nvm\\/versions\\/node\\/v(\\d+)\\.(\\d+)\\.(\\d+)\\/bin\\/node$'})
