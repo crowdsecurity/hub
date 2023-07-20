@@ -1,20 +1,25 @@
 onsuccess: next_stage
-#debug: true
-filter: "evt.Parsed.program == 'waf'"
+debug: true
+filter: "evt.Parsed.program == 'coraza-waf'"
 name: crowdsecurity/coraza-logs
 description: "Parse Coraza Events"
 statics:
-  - parsed: coraza_parsed
-    expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, 'waf')
-  - meta: req_uuid
-    expression: evt.Unmarshaled.waf.req_uuid
   - meta: source_ip
-    expression: evt.Unmarshaled.waf.source_ip
-  - meta: rule_id
-    expression: evt.Unmarshaled.waf.rule_id
-  - meta: action
-    expression: evt.Unmarshaled.waf.rule_action
+    expression: evt.Parsed.source_ip
+  - target: evt.StrTime
+    expression: TimeNow()
   - meta: service
-    value: waf
+    value: http
+#let's copy standard http fields too
   - parsed: event_type
     value: waf_match
+  - parsed: verb
+    expression: evt.Parsed.method
+  - meta: http_status
+    expression: evt.Parsed.http_status
+  - meta: http_path
+    expression: evt.Parsed.target_uri
+  - meta: http_user_agent
+    expression: evt.Parsed.http_user_agent
+  - meta: target_fqdn
+    expression: evt.Parsed.target_host
