@@ -1,0 +1,7 @@
+name: crowdsecurity/auditd-nvm-whitelist-process
+description: "Whitelist node version manager"
+whitelist:
+  reason: "node version manager"
+  expression: 
+    - |
+      evt.Overflow.Alert.GetScenario() == 'crowdsecurity/auditd-sus-exec' && all(evt.Overflow.Alert.Events, {.GetMeta('exe') matches '\\.nvm\\/versions\\/node\\/v(\\d+)\\.(\\d+)\\.(\\d+)\\/bin\\/node$'})
