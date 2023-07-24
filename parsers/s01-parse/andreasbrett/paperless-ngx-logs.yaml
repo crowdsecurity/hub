@@ -1,0 +1,33 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'PAPERLESS-NGX'"
+name: andreasbrett/paperless-ngx-logs
+description: "Parse paperless-ngx logs"
+pattern_syntax:
+    DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+nodes:
+    - grok:
+          # Paperless-ngx v1.14.0 to v1.16.5
+          pattern: '^\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{USERNAME:username}` from (private )?IP `%{IP:source_ip}\.`$'
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: paperless_ngx_failed_auth
+              - meta: username
+                expression: evt.Parsed.username
+    - grok:
+          # Paperless-ngx v1.16.6+
+          pattern: '^\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{USERNAME:username}` from (private )?IP `%{IP:source_ip}`\.$'
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: paperless_ngx_failed_auth
+              - meta: username
+                expression: evt.Parsed.username
+
+statics:
+    - meta: service
+      value: paperless-ngx
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"

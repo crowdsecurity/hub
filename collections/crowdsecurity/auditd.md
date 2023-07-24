@@ -54,3 +54,19 @@ format: |
   {{ end -}}
   {{- end }}
 ```
+
+You shouldn't use an existing notification template, as it will not display the full information as it is tailored to IP base alerts.
+
+Once you have setup your notification template, you **MUST** add a profile to either `profiles.yaml` or `profiles.yaml.local`
+
+```yaml
+name: pid_alert
+filters:
+ - Alert.GetScope() == "pid"
+decisions: []
+notifications:
+  - slack_default
+## Please edit the above line to match your notification name
+on_success: break
+---
+```
