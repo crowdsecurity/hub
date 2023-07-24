@@ -1,0 +1,32 @@
+onsuccess: next_stage
+debug: true
+name: crowdsecurity/palo-alto-threat-log
+description: "Parse palo-alto-threat-log logs"
+filter: "evt.Parsed.program == 'palo-alto-threat'"
+pattern_syntax:
+  PAN_TIMESTAMP: "%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{HOUR}:%{MINUTE}:%{INT}"
+nodes:
+  - grok:
+      pattern: '(%{TIMESTAMP_ISO8601:syslog_timestamp} )?%{SYSLOGHOST:syslog_hostname} %{DATA:pan_reserved},%{DATA},%{WORD:serial_number},%{WORD:log_type},%{WORD:log_subtype},%{DATA:pan_unknown},%{PAN_TIMESTAMP:generation_timestamp},%{IP:src_ip},%{IP:dst_ip},%{IP:nat_src_ip},%{IP:nat_dst_ip},%{DATA:rule},%{DATA:src_user},%{DATA:dst_user},%{DATA:app},%{DATA:vsys},%{DATA:src_zone},%{DATA:dst_zone},%{DATA:ingress_int},%{DATA:egress_int},%{DATA:log_fwd_profile},%{DATA},%{DATA:session_id},%{DATA:repeat_count},%{DATA:src_port},%{DATA:dst_port},%{DATA:nat_src_port},%{DATA:nat_dst_port},%{DATA:pan_log_flags},%{DATA:ip_proto},%{DATA:action},("%{DATA:url_or_filename}")?,%{DATA:threat_id},%{DATA:url_category_or_wildfire_verdict},%{DATA:severity},%{DATA:direction},%{DATA:log_seq_num},%{DATA:fwd_to_panorama},%{DATA:src_country},%{DATA:dst_country},%{DATA:http_content_type},%{DATA:pcap_id},%{DATA:file_hash},%{DATA:wildfire_server},%{GREEDYDATA:unparsed_data}'
+      apply_on: message
+statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.syslog_timestamp
+  - meta: log_type
+    value: palo_alto
+  - meta: source_ip
+    expression: evt.Parsed.src_ip
+  - meta: severity
+    expression: evt.Parsed.severity
+  - meta: threat_id
+    expression: evt.Parsed.threat_id
+  - meta: destination_location
+    expression: evt.Parsed.dst_country
+  - meta: source_location
+    expression: evt.Parsed.src_country
+  - meta: rule_name
+    expression: evt.Parsed.rule
+  - meta: application
+    expression: evt.Parsed.app
+  - meta: threat_type
+    expression: evt.Parsed.threat_id

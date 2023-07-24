@@ -1,0 +1,29 @@
+# Paperless-ngx bruteforce
+type: leaky
+name: andreasbrett/paperless-ngx-bf
+description: "Detect Paperless-ngx bruteforce attacks"
+filter: "evt.Meta.log_type == 'paperless_ngx_failed_auth'"
+leakspeed: 1m
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+    service: paperless-ngx
+    type: bruteforce
+    remediation: true
+---
+# Paperless-ngx user-enum
+type: leaky
+name: andreasbrett/paperless-ngx-bf_user-enum
+description: "Detect Paperless-ngx user enum bruteforce"
+filter: "evt.Meta.log_type == 'paperless_ngx_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+leakspeed: 1m
+capacity: 5
+blackhole: 5m
+labels:
+    service: paperless-ngx
+    type: bruteforce
+    remediation: true

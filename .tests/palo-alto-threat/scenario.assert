@@ -1,0 +1,41 @@
+len(results) == 2
+"1.2.3.6" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["1.2.3.6"].IP == "1.2.3.6"
+results[0].Overflow.Sources["1.2.3.6"].Range == ""
+results[0].Overflow.Sources["1.2.3.6"].GetScope() == "Ip"
+results[0].Overflow.Sources["1.2.3.6"].GetValue() == "1.2.3.6"
+results[0].Overflow.Alert.Events[0].GetMeta("application") == "web-browsing"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "palo-alto-threat.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("destination_location") == "France"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "palo_alto"
+results[0].Overflow.Alert.Events[0].GetMeta("rule_name") == "Test Rule Name"
+results[0].Overflow.Alert.Events[0].GetMeta("severity") == "medium"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "1.2.3.6"
+results[0].Overflow.Alert.Events[0].GetMeta("source_location") == "France"
+results[0].Overflow.Alert.Events[0].GetMeta("threat_id") == "Nmap Scripting Engine Detection(58433)"
+results[0].Overflow.Alert.Events[0].GetMeta("threat_type") == "Nmap Scripting Engine Detection(58433)"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2023-07-05T14:14:33+02:00"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/palo-alto-threat"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
+"1.2.3.2" in results[1].Overflow.GetSources()
+results[1].Overflow.Sources["1.2.3.2"].IP == "1.2.3.2"
+results[1].Overflow.Sources["1.2.3.2"].Range == ""
+results[1].Overflow.Sources["1.2.3.2"].GetScope() == "Ip"
+results[1].Overflow.Sources["1.2.3.2"].GetValue() == "1.2.3.2"
+results[1].Overflow.Alert.Events[0].GetMeta("application") == "ssh"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_path") == "palo-alto-threat.log"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[1].Overflow.Alert.Events[0].GetMeta("destination_location") == "France"
+results[1].Overflow.Alert.Events[0].GetMeta("log_type") == "palo_alto"
+results[1].Overflow.Alert.Events[0].GetMeta("rule_name") == "TestruleName0"
+results[1].Overflow.Alert.Events[0].GetMeta("severity") == "high"
+results[1].Overflow.Alert.Events[0].GetMeta("source_ip") == "1.2.3.2"
+results[1].Overflow.Alert.Events[0].GetMeta("source_location") == "Germany"
+results[1].Overflow.Alert.Events[0].GetMeta("threat_id") == "SSH User Authentication Brute Force Attempt(40015)"
+results[1].Overflow.Alert.Events[0].GetMeta("threat_type") == "SSH User Authentication Brute Force Attempt(40015)"
+results[1].Overflow.Alert.Events[0].GetMeta("timestamp") == "2023-07-06T08:11:40+02:00"
+results[1].Overflow.Alert.GetScenario() == "crowdsecurity/palo-alto-threat"
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 1

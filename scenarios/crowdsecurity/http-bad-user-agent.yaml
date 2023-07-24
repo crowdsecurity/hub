@@ -8,6 +8,9 @@ data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/bad_user_agents.regex.txt
     dest_file: bad_user_agents.regex.txt
     type: regexp
+    strategy: LRU
+    size: 40
+    ttl: 10s
 capacity: 1
 leakspeed: 1m
 groupby: "evt.Meta.source_ip"

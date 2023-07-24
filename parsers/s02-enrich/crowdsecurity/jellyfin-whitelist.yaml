@@ -1,0 +1,7 @@
+name: crowdsecurity/jellyfin-whitelist
+description: "Whitelist events from jellyfin"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Jellyfin whitelist"
+  expression:
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_path contains "/Sessions/Playing/Progress" # When playing videos

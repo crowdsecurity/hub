@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/Zaulao/aws-alb.yaml
+- crowdsecurity/http-logs
+scenarios:
+- crowdsecurity/http-cve-2021-42013
+- crowdsecurity/CVE-2022-26134
+- crowdsecurity/apache_log4j2_cve-2021-44228
+- crowdsecurity/CVE-2022-46169
+postoverflows:
+- ""
+log_file: aws-alb-logs.log
+log_type: aws-alb
+labels: {}
+ignore_parsers: false
+override_statics: []
