@@ -1,5 +1,5 @@
 onsuccess: next_stage
-filter: "evt.Overflow.Alert.Remediation == true"
+filter: "evt.Overflow.Alert.Remediation == true && evt.Overflow.Alert.GetScope() == 'Ip'"
 name: crowdsecurity/rdns
 description: "Lookup the DNS associated to the source IP only for overflows"
 statics:
