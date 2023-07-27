@@ -1,0 +1,8 @@
+type: trigger
+name: klausagnoletti/wireguard-auth
+description: "Detects rejected connections attempts and unauthorized packets through wireguard tunnels"
+filter: "evt.Meta.log_type == 'wireguard_failed_auth'"
+groupby: evt.Meta.source_ip
+blackhole: 2m
+labels:
+  remediation: true

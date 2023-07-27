@@ -1,0 +1,31 @@
+filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'wireguard:'"
+debug: true
+onsuccess: next_stage
+name: klausagnoletti/wireguard
+description: "Parses wireguard log via dyndbg"
+pattern_syntax:
+  WIREGUARD_INVALID_HANDSHAKE: 'wireguard: wg%{INT}: Packet has unallowed src IP \(%{IP}\) from peer %{INT} \(%{IP:source_ip}:%{INT}\)'
+  WIREGUARD_UNAUTHORIZED_PACKET: 'wireguard: wg%{INT}: Invalid handshake initiation from %{IP:source_ip}:%{INT}'
+nodes:
+ - grok:
+     name: "WIREGUARD_INVALID_HANDSHAKE"
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: wireguard_failed_auth
+       - meta: log_subtype
+         value: wireguard_invalid_handshake
+ - grok:
+     name: "WIREGUARD_UNAUTHORIZED_PACKET"
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: wireguard_failed_auth
+       - meta: log_subtype
+         value: wireguard_unauthorized_packet
+
+statics:
+ - meta: service
+   value: wireguard
+ - meta: source_ip
+   expression: "evt.Parsed.source_ip"
