@@ -3,27 +3,20 @@ onsuccess: next_stage
 debug: true
 name: crowdsecurity/caddy-logs
 description: "Parse caddy logs"
-pattern_syntax:
-  TIMESTAMP_WALL: "%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{HOUR}:?%{MINUTE}(?::?%{SECOND})?"
-  TIMESTAMP_WALL_MILLI: "%{TIMESTAMP_WALL}.[\\d+]{3}$"
-  TIMESTAMP_WALL_NANO: "%{TIMESTAMP_WALL}.[\\d+]{9}$"
 statics:
   - meta: log_type
     value: http_access-log
   - target: evt.StrTime
     expression: |
-      LogInfo("%v", evt.Unmarshaled.caddy.ts) &&
-      evt.Unmarshaled.caddy.ts matches '^[0-9e\\.\\+]+$' ? int(evt.Unmarshaled.caddy.ts) : evt.Unmarshaled.caddy.ts
+      Sprintf("%v", evt.Unmarshaled.caddy.ts) matches '^[0-9e\\.\\+]+$' ? int(evt.Unmarshaled.caddy.ts) : evt.Unmarshaled.caddy.ts
   - meta: service
     value: http
   - parsed: remote_ip
     expression: evt.Unmarshaled.caddy.request.remote_ip
   - parsed: remote_addr
-    expression: Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0]
+    expression: "evt.Unmarshaled.caddy.request.remote_addr != nil ? Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0] : nil"
   - meta: source_ip
-    expression: evt.Parsed.remote_addr
-  - meta: source_ip
-    expression: evt.Parsed.remote_ip ?? evt.Parsed.remote_addr
+    expression: "evt.Parsed.remote_ip != '' ? evt.Parsed.remote_ip : evt.Parsed.remote_addr"
   - meta: http_status
     expression: int(evt.Unmarshaled.caddy.status)
   - meta: http_path
