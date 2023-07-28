@@ -1,0 +1,29 @@
+onsuccess: next_stage
+#debug: false
+name: gauth-fr/navidrome-logs
+description: "Parse navidrome logs"
+filter: "evt.Parsed.program == 'navidrome'"
+pattern_syntax:
+  NAVIDROME_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  NAVIDROME_CUSTOMDATE: "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}T%{HOUR}:%{MINUTE}:%{SECOND}Z"
+nodes:
+  - grok:
+      pattern: 'time="%{NAVIDROME_CUSTOMDATE:timestamp}".*msg="Unsuccessful login".*X-Forwarded-For:\[%{IP:source_ip}\].*username=%{NAVIDROME_CUSTOMUSER:username}'
+      #time="2023-05-20T17:32:04Z" level=warning msg="Unsuccessful login" request="map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Accept-Language:[en-US,fr-FR;q=0.7,en;q=0.3] Authorization:[] Content-Length:[45] Content-Type:[application/json] Cookie:[X-ND-Client-Unique-Id=31a20c05-3dd5-44cf-a3a8-fa5f6ddfd2ac; nd-player-6761757468=26a9f773-bb23-42eb-ac54-664a07aa181a] Origin:[https://navi.grutor.ovh] Referer:[https://navi.grutor.ovh/app/] Sec-Fetch-Dest:[empty] Sec-Fetch-Mode:[cors] Sec-Fetch-Site:[same-origin] Te:[trailers] User-Agent:[Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0] X-Forwarded-For:[192.168.0.254] X-Forwarded-Host:[navi.grutor.ovh] X-Forwarded-Port:[443] X-Forwarded-Proto:[https] X-Forwarded-Server:[2e6e5a175821] X-Real-Ip:[192.168.0.254]]" requestId=8c5a220df7c3/z6W0fufrmL-076207 username=gauthfdsf
+      #time="2023-05-20T17:37:53Z" level=warning msg="Unsuccessful login" request="map[Accept:[*/*] Accept-Encoding:[gzip, deflate, br] Accept-Language:[fr;q=0.7] Authorization:[] Content-Length:[36] Content-Type:[application/json] Cookie:[authelia_session=jQOkqw66gz4dnXZKIMLq_VlTy3UBCShe] Origin:[https://navi.grutor.ovh] Referer:[https://navi.grutor.ovh/app/] Sec-Ch-Ua:[\"Brave\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\"] Sec-Ch-Ua-Mobile:[?0] Sec-Ch-Ua-Platform:[\"Windows\"] Sec-Fetch-Dest:[empty] Sec-Fetch-Mode:[cors] Sec-Fetch-Site:[same-origin] Sec-Gpc:[1] User-Agent:[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36] X-Forwarded-For:[192.168.0.70] X-Forwarded-Host:[navi.grutor.ovh] X-Forwarded-Port:[443] X-Forwarded-Proto:[https] X-Forwarded-Server:[2e6e5a175821] X-Real-Ip:[192.168.0.70]]" requestId=8c5a220df7c3/z6W0fufrmL-076248 username=aze
+
+
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: navidrome_failed_auth
+
+statics:
+    - meta: service
+      value: navidrome
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
