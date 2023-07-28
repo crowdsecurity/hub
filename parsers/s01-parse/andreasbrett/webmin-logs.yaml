@@ -3,9 +3,9 @@ filter: "Upper(evt.Parsed.program) == 'WEBMIN'"
 name: andreasbrett/webmin-logs
 description: "Parse webmin logs"
 pattern_syntax:
-    DATE_DMY: "%{MONTHDAY}/%{MONTH}/%{YEAR}"
-    WEBMIN_AUTH_WRONG_PASS: '\[%{DATE_DMY:date} %{TIME:time}\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "wrongpass"'
-    WEBMIN_AUTH_TWOFACTOR: '\[%{DATE_DMY:date} %{TIME:time}\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "twofactor"'
+    WEBMIN_AUTH_WRONG_PASS: '%{INT:unix_epoch}\.%{INT}\.%{INT} \[.*\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "wrongpass"'
+    WEBMIN_AUTH_TWOFACTOR: '%{INT:unix_epoch}\.%{INT}\.%{INT} \[.*\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "twofactor"'
+
 nodes:
     - grok:
           pattern: "%{WEBMIN_AUTH_WRONG_PASS}"
@@ -28,4 +28,4 @@ statics:
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
     - target: evt.StrTime
-      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
+      expression: "evt.Parsed.unix_epoch"
