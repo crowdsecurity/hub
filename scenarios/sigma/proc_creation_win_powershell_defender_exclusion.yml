@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_defender_exclusion
+description: |
+  Detects requests to exclude files, folders or processes from Antivirus scanning using PowerShell cmdlets
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'Add-MpPreference ' || evt.Parsed.CommandLine contains 'Set-MpPreference ') && (evt.Parsed.CommandLine contains ' -ExclusionPath ' || evt.Parsed.CommandLine contains ' -ExclusionExtension ' || evt.Parsed.CommandLine contains ' -ExclusionProcess ' || evt.Parsed.CommandLine contains ' -ExclusionIpAddress '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.001
+
+  label: "Powershell Defender Exclusion"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

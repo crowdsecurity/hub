@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_office_token_search
+description: |
+  Detects possible search for office tokens via CLI by looking for the string "eyJ0eX". This string is used as an anchor to look for the start of the JWT token used by office and similar apps.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'eyJ0eXAiOi' || evt.Parsed.CommandLine contains ' eyJ0eX' || evt.Parsed.CommandLine contains ' "eyJ0eX"' || evt.Parsed.CommandLine contains ' \'eyJ0eX\'')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1528
+
+  label: "Suspicious Office Token Search Via CLI"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_download_patterns
+description: |
+  Detects a Powershell process that contains download commands in its command line string
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.CommandLine contains 'new-object' && evt.Parsed.CommandLine contains 'net.webclient).' && evt.Parsed.CommandLine contains 'download' && (evt.Parsed.CommandLine contains 'string(' || evt.Parsed.CommandLine contains 'file('))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "PowerShell Download Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

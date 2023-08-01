@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_attrib_hiding_files
+description: |
+  Detects usage of attrib.exe to hide files from users.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\attrib.exe' || evt.Parsed.OriginalFileName == 'ATTRIB.EXE') && evt.Parsed.CommandLine contains ' +h ' && not (evt.Parsed.CommandLine contains '\\desktop.ini ' || evt.Parsed.ParentImage endsWith '\\cmd.exe' && evt.Parsed.CommandLine == '+R +H +S +A \\*.cui' && evt.Parsed.ParentCommandLine == 'C:\\WINDOWS\\system32\\*.bat'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1564.001
+
+  label: "Hiding Files with Attrib.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

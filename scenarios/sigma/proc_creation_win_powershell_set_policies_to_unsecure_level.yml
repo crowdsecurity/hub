@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_set_policies_to_unsecure_level
+description: |
+  Detects use of executionpolicy option to set insecure policies
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' -executionpolicy ' || evt.Parsed.CommandLine contains ' -ep ' || evt.Parsed.CommandLine contains ' -exec ') && (evt.Parsed.CommandLine contains 'Unrestricted' || evt.Parsed.CommandLine contains 'bypass' || evt.Parsed.CommandLine contains 'RemoteSigned') && not (evt.Parsed.CommandLine contains 'C:\\Program Files' || evt.Parsed.CommandLine contains 'C:\\ProgramData' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\Code\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Change PowerShell Policies to an Insecure Level"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_execution_from_public_folder_as_parent
+description: |
+  This rule detects suspicious processes with parent images located in the C:\Users\Public folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage startsWith 'C:\\Users\\Public\\' && (evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /r ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'cmd /k ' || evt.Parsed.CommandLine contains 'wscript.exe' || evt.Parsed.CommandLine contains 'cscript.exe' || evt.Parsed.CommandLine contains 'bitsadmin' || evt.Parsed.CommandLine contains 'certutil' || evt.Parsed.CommandLine contains 'mshta.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Parent in Public Folder Suspicious Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

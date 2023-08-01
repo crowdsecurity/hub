@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_ilasm
+description: |
+  Detect use of Ilasm.exe to compile c# code into dll or exe.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ilasm.exe' || evt.Parsed.OriginalFileName == 'ilasm.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1127
+
+  label: "Ilasm Lolbin Use Compile C-Sharp"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

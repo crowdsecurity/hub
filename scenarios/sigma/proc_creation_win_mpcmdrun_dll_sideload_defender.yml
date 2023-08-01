@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_mpcmdrun_dll_sideload_defender
+description: |
+  Detects execution of Microsoft Defender's CLI process (MpCmdRun.exe) from the non-default directory which may be an attempt to sideload arbitrary DLL
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\MpCmdRun.exe' && not (evt.Parsed.Image startsWith 'C:\\Program Files\\Windows Defender\\' || evt.Parsed.Image startsWith 'C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\' || evt.Parsed.Image startsWith 'C:\\Windows\\winsxs\\' || evt.Parsed.Image startsWith 'C:\\Program Files\\Microsoft Security Client\\MpCmdRun.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1574.002
+
+  label: "DLL Sideloading by Microsoft Defender"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

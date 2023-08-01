@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_hotfix
+description: |
+  Detects the execution of wmic with the "qfe" flag in order to obtain information about installed hotfix updates on the system. This is often used by pentester and attacker enumeration scripts
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Image endsWith '\\WMIC.exe') && evt.Parsed.CommandLine contains ' qfe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Windows Hotfix Updates Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

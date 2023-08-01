@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_obfuscated_ip_via_cli
+description: |
+  Detects usage of an encoded/obfuscated version of an IP address (hex, octal...) via commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ping.exe' || evt.Parsed.Image endsWith '\\arp.exe') && (evt.Parsed.CommandLine contains ' 0x' || evt.Parsed.CommandLine matches ' [0-9]{7,13}'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Obfuscated IP Via CLI"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

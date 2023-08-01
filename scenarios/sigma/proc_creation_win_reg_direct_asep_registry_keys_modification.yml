@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_direct_asep_registry_keys_modification
+description: |
+  Detects direct modification of autostart extensibility point (ASEP) in registry using reg.exe.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\reg.exe' && evt.Parsed.CommandLine contains 'add' && (evt.Parsed.CommandLine contains '\\software\\Microsoft\\Windows\\CurrentVersion\\Run' || evt.Parsed.CommandLine contains '\\software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Userinit' || evt.Parsed.CommandLine contains '\\software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\Shell' || evt.Parsed.CommandLine contains '\\software\\Microsoft\\Windows NT\\CurrentVersion\\Windows' || evt.Parsed.CommandLine contains '\\software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders' || evt.Parsed.CommandLine contains '\\system\\CurrentControlSet\\Control\\SafeBoot\\AlternateShell'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1547.001
+
+  label: "Direct Autorun Keys Modification"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_susp_dxcap
+description: |
+  Detects execution of of Dxcap.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\DXCap.exe' || evt.Parsed.OriginalFileName == 'DXCap.exe') && evt.Parsed.CommandLine contains ' -c ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Application Whitelisting Bypass via Dxcap.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

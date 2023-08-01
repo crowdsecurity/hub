@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_dsacls_abuse_permissions
+description: |
+  Detects usage of Dsacls to grant over permissive permissions
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\dsacls.exe' || evt.Parsed.OriginalFileName == 'DSACLS.EXE') && evt.Parsed.CommandLine contains ' /G ' && (evt.Parsed.CommandLine contains 'GR' || evt.Parsed.CommandLine contains 'GE' || evt.Parsed.CommandLine contains 'GW' || evt.Parsed.CommandLine contains 'GA' || evt.Parsed.CommandLine contains 'WP' || evt.Parsed.CommandLine contains 'WD'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Potentially Over Permissive Permissions Granted Using Dsacls.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

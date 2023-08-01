@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_pcwutl
+description: |
+  Detects launch of executable by calling the LaunchApplication function from pcwutl.dll library.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine contains 'pcwutl' && evt.Parsed.CommandLine contains 'LaunchApplication')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218.011
+
+  label: "Code Execution via Pcwutl.dll"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_desktopimgdownldr_remote_file_download
+description: |
+  Detects the desktopimgdownldr utility being used to download a remote file. An adversary may use desktopimgdownldr to download arbitrary files as an alternative to certutil.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\desktopimgdownldr.exe' && evt.Parsed.ParentImage endsWith '\\desktopimgdownldr.exe' && evt.Parsed.CommandLine contains '/lockscreenurl:http')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Remote File Download via Desktopimgdownldr Utility"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

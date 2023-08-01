@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_dll_sideload_xwizard
+description: |
+  Detects the execution of Xwizard tool from the non-default directory which can be used to sideload a custom xwizards.dll
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\xwizard.exe' && not (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1574.002
+
+  label: "Xwizard DLL Sideloading"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

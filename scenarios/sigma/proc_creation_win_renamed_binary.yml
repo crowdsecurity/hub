@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_renamed_binary
+description: |
+  Detects the execution of a renamed binary often used by attackers or malware leveraging new Sysmon OriginalFileName datapoint.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.OriginalFileName == 'CONHOST.EXE' || evt.Parsed.OriginalFileName == '7z.exe' || evt.Parsed.OriginalFileName == 'WinRAR.exe' || evt.Parsed.OriginalFileName == 'wevtutil.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe' || evt.Parsed.OriginalFileName == 'netsh.exe' || evt.Parsed.OriginalFileName == 'InstallUtil.exe') && not (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\conhost.exe' || evt.Parsed.Image endsWith '\\7z.exe' || evt.Parsed.Image endsWith '\\WinRAR.exe' || evt.Parsed.Image endsWith '\\wevtutil.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.Image endsWith '\\InstallUtil.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036.003
+
+  label: "Potential Defense Evasion Via Binary Rename"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

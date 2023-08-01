@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_whoami_groups_discovery
+description: |
+  Detects the execution of whoami.exe with the /group command line flag to show group membership for the current user, account type, security identifiers (SID), and attributes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.OriginalFileName == 'whoami.exe') && (evt.Parsed.CommandLine contains ' /groups' || evt.Parsed.CommandLine contains ' -groups'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1033
+
+  label: "Group Membership Reconnaissance Via Whoami.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

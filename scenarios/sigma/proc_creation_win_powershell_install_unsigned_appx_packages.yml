@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_install_unsigned_appx_packages
+description: |
+  Detects usage of the "Add-AppxPackage" or it's alias "Add-AppPackage" to install unsigned AppX packages
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && (evt.Parsed.CommandLine contains 'Add-AppPackage ' || evt.Parsed.CommandLine contains 'Add-AppxPackage ') && evt.Parsed.CommandLine contains ' -AllowUnsigned')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Unsigned AppX Installation Attempt Using Add-AppxPackage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

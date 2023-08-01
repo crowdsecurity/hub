@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_wbadmin_delete_systemstatebackup
+description: |
+  Deletes the Windows systemstatebackup using wbadmin.exe.
+  This technique is used by numerous ransomware families.
+  This may only be successful on server platforms that have Windows Backup enabled.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wbadmin.exe' || evt.Parsed.OriginalFileName == 'WBADMIN.EXE') && evt.Parsed.CommandLine contains 'delete ' && evt.Parsed.CommandLine contains 'systemstatebackup ' && evt.Parsed.CommandLine contains '-keepVersions:0')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1490
+
+  label: "SystemStateBackup Deleted Using Wbadmin.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

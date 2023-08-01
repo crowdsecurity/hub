@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_configsecuritypolicy
+description: |
+  Upload file, credentials or data exfiltration with Binary part of Windows Defender
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'ConfigSecurityPolicy.exe' || evt.Parsed.Image endsWith '\\ConfigSecurityPolicy.exe' || evt.Parsed.OriginalFileName == 'ConfigSecurityPolicy.exe') && (evt.Parsed.CommandLine contains 'https://' || evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'ftp://'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1567
+
+  label: "Suspicious ConfigSecurityPolicy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

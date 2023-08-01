@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_service_manipulation
+description: |
+  Detects usage of wmic to start or stop a service
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Image endsWith '\\WMIC.exe') && evt.Parsed.CommandLine contains ' service ' && evt.Parsed.CommandLine contains ' call ' && (evt.Parsed.CommandLine contains 'stopservice' || evt.Parsed.CommandLine contains 'startservice'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Service Started/Stopped Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

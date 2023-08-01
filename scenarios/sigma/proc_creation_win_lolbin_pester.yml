@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_pester
+description: |
+  Detects code execution via Pester.bat (Pester - Powershell Modulte for testing)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && evt.Parsed.ParentCommandLine contains '\\WindowsPowerShell\\Modules\\Pester\\' && (evt.Parsed.ParentCommandLine contains '{ Invoke-Pester -EnableExit ;' || evt.Parsed.ParentCommandLine contains '{ Get-Help "'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+#  - attack.t1216
+
+  label: "Execute Code with Pester.bat as Parent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

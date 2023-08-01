@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_non_exe_image
+description: |
+  Checks whether the image specified in a process creation event doesn't refer to an .exe file (caused by process ghosting or other unorthodox methods to start a process)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (not (evt.Parsed.Image endsWith '.exe' || evt.Parsed.Image endsWith '.tmp' || evt.Parsed.Image endsWith '.scr') && not (evt.Parsed.Image == 'System' || evt.Parsed.Image == 'Registry' || evt.Parsed.Image == 'MemCompression' || evt.Parsed.Image == 'vmmem' || evt.Parsed.Image startsWith 'C:\\Windows\\Installer\\MSI' || evt.Parsed.Image startsWith 'C:\\Windows\\System32\\DriverStore\\FileRepository\\' || evt.Parsed.Image startsWith 'C:\\Config.Msi\\' && (evt.Parsed.Image endsWith '.rbf' || evt.Parsed.Image endsWith '.rbs') || evt.Parsed.ParentImage startsWith 'C:\\Windows\\Temp\\' && evt.Parsed.Image startsWith 'C:\\Windows\\Temp\\Helper\\' || (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\') && evt.Parsed.Image endsWith '.com' || evt.Parsed.Image startsWith 'C:\\$Extend\\$Deleted\\') && not (evt.Parsed.Image == '-' || evt.Parsed.Image == '' || evt.Parsed.Image == '' || evt.Parsed.ParentImage startsWith 'C:\\ProgramData\\Avira\\' || evt.Parsed.Image contains 'NVIDIA\\NvBackend\\' && evt.Parsed.Image endsWith '.dat' || evt.Parsed.Image endsWith '\\WinSCP.com' || evt.Parsed.Image contains 'C:\\Users\\' && evt.Parsed.Image contains '\\AppData\\' && evt.Parsed.Image contains '.tmp' && evt.Parsed.Image contains 'CodeSetup' || evt.Parsed.Image endsWith '\\program\\soffice.bin' || evt.Parsed.Image == 'C:\\Program Files\\EMC NetWorker\\Management\\GST\\apache\\cgi-bin\\update_jnlp.cgi' || evt.Parsed.Image == 'C:\\Program Files (x86)\\EMC NetWorker\\Management\\GST\\apache\\cgi-bin\\update_jnlp.cgi' || (evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\WINPAKPRO\\' || evt.Parsed.Image startsWith 'C:\\Program Files\\WINPAKPRO\\') && evt.Parsed.Image endsWith '.ngn' || evt.Parsed.Image == 'C:\\Program Files (x86)\\MyQ\\Server\\pcltool.dll' || evt.Parsed.Image == 'C:\\Program Files\\MyQ\\Server\\pcltool.dll' || (evt.Parsed.Image startsWith 'C:\\Program Files\\Microsoft Visual Studio\\' || evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\Microsoft Visual Studio') && evt.Parsed.Image endsWith '.com' || evt.Parsed.Image contains '\\AppData\\Local\\Packages\\' && evt.Parsed.Image contains '\\LocalState\\rootfs\\' || evt.Parsed.Image endsWith '\\LZMA_EXE' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\Temp\\' && evt.Parsed.ParentImage endsWith '\\TBT_Dock_Firmware\\GetDockVer32W.exe' || evt.Parsed.Image startsWith 'C:\\Program Files\\Mozilla Firefox\\tobedeleted\\' || evt.Parsed.ParentImage == 'C:\\Windows\\UUS\\amd64\\MoUsoCoreWorker.exe' && evt.Parsed.Image startsWith 'C:\\$Extend\\$Deleted\\' && evt.Parsed.CommandLine contains 'C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\OfficeC2RClient.exe' && evt.Parsed.CommandLine contains '/update UPDATEORCHESTRATOR displaylevel=False' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\services.exe' && evt.Parsed.Image endsWith 'com.docker.service'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Execution of Suspicious File Type Extension"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

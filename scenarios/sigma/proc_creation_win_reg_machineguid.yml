@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_machineguid
+description: |
+  Use of reg to get MachineGuid information
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\reg.exe' && evt.Parsed.CommandLine contains 'SOFTWARE\\Microsoft\\Cryptography' && evt.Parsed.CommandLine contains '/v ' && evt.Parsed.CommandLine contains 'MachineGuid')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1082
+
+  label: "Suspicious Query of MachineGUID"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

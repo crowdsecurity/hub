@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_java_sysaidserver_susp_child_process
+description: |
+  Detects suspicious child processes of SysAidServer (as seen in MERCURY threat actor intrusions)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && evt.Parsed.ParentCommandLine contains 'SysAidServer')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious SysAidServer Child"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

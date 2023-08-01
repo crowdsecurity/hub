@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmdkey_adding_generic_creds
+description: |
+  Detects usage of cmdkey to add generic credentials. As an example, this has to be used before connecting to an RDP session via command line interface.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmdkey.exe' || evt.Parsed.OriginalFileName == 'cmdkey.exe') && evt.Parsed.CommandLine contains ' /g' && evt.Parsed.CommandLine contains ' /u' && evt.Parsed.CommandLine contains ' /p')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1003.005
+
+  label: "New Generic Credentials Added Via Cmdkey.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

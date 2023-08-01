@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_fsutil_drive_enumeration
+description: |
+  Attackers may leverage fsutil to enumerated connected drives.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\fsutil.exe' || evt.Parsed.OriginalFileName == 'fsutil.exe') && evt.Parsed.CommandLine contains 'drives')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1120
+
+  label: "Fsutil Drive Enumeration"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_always_install_elevated_windows_installer
+description: |
+  Detects Windows Installer service (msiexec.exe) trying to install MSI packages with SYSTEM privilege
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\Windows\\Installer\\' && evt.Parsed.Image contains 'msi' && evt.Parsed.Image endsWith 'tmp' || evt.Parsed.Image endsWith '\\msiexec.exe' && evt.Parsed.IntegrityLevel == 'System') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\services.exe' || evt.Parsed.CommandLine endsWith '\\system32\\msiexec.exe /V' || evt.Parsed.ParentCommandLine endsWith '\\system32\\msiexec.exe /V' || evt.Parsed.ParentImage startsWith 'C:\\ProgramData\\Sophos\\' || evt.Parsed.ParentImage startsWith 'C:\\ProgramData\\Avira\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files\\Avast Software\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files (x86)\\Avast Software\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files\\Google\\Update\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files (x86)\\Google\\Update\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1548.002
+
+  label: "Always Install Elevated Windows Installer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

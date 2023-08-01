@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_software_discovery
+description: |
+  Adversaries may attempt to enumerate software for a variety of reasons, such as figuring out what security measures are present or if the compromised system has a version of software that is vulnerable.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\reg.exe' && evt.Parsed.CommandLine contains 'query' && evt.Parsed.CommandLine contains '\\software\\' && evt.Parsed.CommandLine contains '/v' && evt.Parsed.CommandLine contains 'svcversion')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1518
+
+  label: "Detected Windows Software Discovery"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

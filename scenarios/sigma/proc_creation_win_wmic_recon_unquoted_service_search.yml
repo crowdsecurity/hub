@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_unquoted_service_search
+description: |
+  Detects known WMI recon method to look for unquoted service paths using wmic. Often used by pentester and attacker enumeration scripts
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Image endsWith '\\WMIC.exe') && evt.Parsed.CommandLine contains ' service get ' && evt.Parsed.CommandLine contains 'name,displayname,pathname,startmode')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Potential Unquoted Service Path Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

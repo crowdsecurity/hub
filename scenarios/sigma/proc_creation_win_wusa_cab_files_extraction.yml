@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_wusa_cab_files_extraction
+description: |
+  Detects usage of the "wusa.exe" (Windows Update Standalone Installer) utility to extract cab using the "/extract" argument which is not longer supported. This could indicate an attacker using an old technique
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wusa.exe' && evt.Parsed.CommandLine contains '/extract:')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Wusa Extracting Cab Files"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

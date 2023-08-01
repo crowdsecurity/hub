@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_sysmon_config_update
+description: |
+  Detects updates to Sysmon's configuration. Attackers might update or replace the Sysmon configuration with a bare bone one to avoid monitoring without shutting down the service completely
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\Sysmon64.exe' || evt.Parsed.Image endsWith '\\Sysmon.exe' || evt.Parsed.Description == 'System activity monitor') && (evt.Parsed.CommandLine contains '-c' || evt.Parsed.CommandLine contains '/c'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1562.001
+
+  label: "Sysmon Configuration Update"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

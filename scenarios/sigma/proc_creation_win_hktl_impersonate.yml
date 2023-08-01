@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_hktl_impersonate
+description: |
+  Detects execution of the Impersonate tool. Which can be used to manipulate tokens on a Windows computers remotely (PsExec/WmiExec) or interactively
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'impersonate.exe' && (evt.Parsed.CommandLine contains ' list ' || evt.Parsed.CommandLine contains ' exec ' || evt.Parsed.CommandLine contains ' adduser ') || evt.Parsed.Hashes contains 'MD5=9520714AB576B0ED01D1513691377D01' || evt.Parsed.Hashes contains 'SHA256=E81CC96E2118DC4FBFE5BAD1604E0AC7681960143E2101E1A024D52264BB0A8A' || evt.Parsed.Hashes contains 'IMPHASH=0A358FFC1697B7A07D0E817AC740DF62' || evt.Parsed.md5 == '9520714AB576B0ED01D1513691377D01' || evt.Parsed.sha256 == 'E81CC96E2118DC4FBFE5BAD1604E0AC7681960143E2101E1A024D52264BB0A8A' || evt.Parsed.Imphash == '0A358FFC1697B7A07D0E817AC740DF62')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1134.001
+#  - attack.t1134.003
+
+  label: "HackTool - Impersonate Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

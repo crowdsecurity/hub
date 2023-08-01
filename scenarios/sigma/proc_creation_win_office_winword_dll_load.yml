@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_office_winword_dll_load
+description: |
+  Detects potential DLL sideloading using the Microsoft Office winword process via the '/l' flag.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\WINWORD.exe' || evt.Parsed.OriginalFileName == 'WinWord.exe') && evt.Parsed.CommandLine contains '/l ' && evt.Parsed.CommandLine contains '.dll')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Potential Arbitrary DLL Load Using Winword"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

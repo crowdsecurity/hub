@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_virtualbox_vboxdrvinst_execution
+description: |
+  Detect VBoxDrvInst.exe run with parameters allowing processing INF file.
+  This allows to create values in the registry and install drivers.
+  For example one could use this technique to obtain persistence via modifying one of Run or RunOnce registry keys
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\VBoxDrvInst.exe' && evt.Parsed.CommandLine contains 'driver' && evt.Parsed.CommandLine contains 'executeinf')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1112
+
+  label: "Suspicious VBoxDrvInst.exe Parameters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

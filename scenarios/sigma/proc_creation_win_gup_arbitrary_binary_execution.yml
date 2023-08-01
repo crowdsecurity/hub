@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_gup_arbitrary_binary_execution
+description: |
+  Detects execution of the Notepad++ updater (gup) to launch other commands or executables
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\gup.exe' && evt.Parsed.Image endsWith '\\explorer.exe' && not (evt.Parsed.Image endsWith '\\explorer.exe' && evt.Parsed.CommandLine contains '\\Notepad++\\notepad++.exe' || evt.Parsed.ParentImage contains '\\Notepad++\\updater\\' || evt.Parsed.CommandLine == ''))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Arbitrary Binary Execution Using GUP Utility"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

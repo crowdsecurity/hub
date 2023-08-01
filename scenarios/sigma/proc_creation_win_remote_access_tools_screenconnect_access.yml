@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_remote_access_tools_screenconnect_access
+description: |
+  Detects ScreenConnect program starts that establish a remote access to that system (not meeting, not remote support)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'e=Access&' && evt.Parsed.CommandLine contains 'y=Guest&' && evt.Parsed.CommandLine contains '&p=' && evt.Parsed.CommandLine contains '&c=' && evt.Parsed.CommandLine contains '&k=')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1133
+
+  label: "Remote Access Tool - ScreenConnect Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

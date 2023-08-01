@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pua_radmin
+description: |
+  Detects the execution of Radmin which can be abused by an adversary to remotely control Windows machines
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Description == 'Radmin Viewer' || evt.Parsed.Product == 'Radmin Viewer' || evt.Parsed.OriginalFileName == 'Radmin.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1072
+
+  label: "PUA - Radmin Viewer Utility Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

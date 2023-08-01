@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_amsi_null_bits_bypass
+description: |
+  Detects usage of special strings/null bits in order to potentially bypass AMSI functionalities
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'if(0){{{0}}}\' -f $(0 -as [char]) +' || evt.Parsed.CommandLine contains '#<NULL>')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.001
+
+  label: "Potential AMSI Bypass Using NULL Bits"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

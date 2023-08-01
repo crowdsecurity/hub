@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_vslsagent_agentextensionpath_load
+description: |
+  Detects Microsoft Visual Studio vsls-agent.exe lolbin execution with a suspicious library load using the --agentExtensionPath parameter
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\vsls-agent.exe' && evt.Parsed.CommandLine contains '--agentExtensionPath' && not (evt.Parsed.CommandLine contains 'Microsoft.VisualStudio.LiveShare.Agent.'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Suspicious Vsls-Agent Command With AgentExtensionPath Load"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

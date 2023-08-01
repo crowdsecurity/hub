@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_decode_gzip
+description: |
+  Detects attempts of decoding encoded Gzip archives via PowerShell.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'GZipStream' && evt.Parsed.CommandLine contains '::Decompress')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Gzip Archive Decode Via PowerShell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

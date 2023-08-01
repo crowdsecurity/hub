@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_active_directory_module_dll_import
+description: |
+  Detects usage of the "Import-Module" cmdlet to load the "Microsoft.ActiveDirectory.Management.dl" DLL. Which is often used by attackers to perform AD enumeration.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && (evt.Parsed.CommandLine contains 'Import-Module ' || evt.Parsed.CommandLine contains 'ipmo ') && evt.Parsed.CommandLine contains 'Microsoft.ActiveDirectory.Management.dll')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential Active Directory Enumeration Using AD Module - ProcCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_system_exe_anomaly
+description: |
+  Detects a Windows program executable started from a suspicious folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\svchost.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\services.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\powershell_ise.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\spoolsv.exe' || evt.Parsed.Image endsWith '\\lsass.exe' || evt.Parsed.Image endsWith '\\smss.exe' || evt.Parsed.Image endsWith '\\csrss.exe' || evt.Parsed.Image endsWith '\\conhost.exe' || evt.Parsed.Image endsWith '\\wininit.exe' || evt.Parsed.Image endsWith '\\lsm.exe' || evt.Parsed.Image endsWith '\\winlogon.exe' || evt.Parsed.Image endsWith '\\explorer.exe' || evt.Parsed.Image endsWith '\\taskhost.exe' || evt.Parsed.Image endsWith '\\Taskmgr.exe' || evt.Parsed.Image endsWith '\\sihost.exe' || evt.Parsed.Image endsWith '\\RuntimeBroker.exe' || evt.Parsed.Image endsWith '\\smartscreen.exe' || evt.Parsed.Image endsWith '\\dllhost.exe' || evt.Parsed.Image endsWith '\\audiodg.exe' || evt.Parsed.Image endsWith '\\wlanext.exe' || evt.Parsed.Image endsWith '\\dashost.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\wsl.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\atbroker.exe' || evt.Parsed.Image endsWith '\\bcdedit.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\certreq.exe' || evt.Parsed.Image endsWith '\\cmstp.exe' || evt.Parsed.Image endsWith '\\consent.exe' || evt.Parsed.Image endsWith '\\defrag.exe' || evt.Parsed.Image endsWith '\\dism.exe' || evt.Parsed.Image endsWith '\\dllhst3g.exe' || evt.Parsed.Image endsWith '\\eventvwr.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\runonce.exe' || evt.Parsed.Image endsWith '\\winver.exe' || evt.Parsed.Image endsWith '\\logonui.exe' || evt.Parsed.Image endsWith '\\userinit.exe' || evt.Parsed.Image endsWith '\\dwm.exe' || evt.Parsed.Image endsWith '\\LsaIso.exe' || evt.Parsed.Image endsWith '\\ntoskrnl.exe' || evt.Parsed.Image endsWith '\\wsmprovhost.exe' || evt.Parsed.Image endsWith '\\dfrgui.exe') && not (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\' || evt.Parsed.Image startsWith 'C:\\Windows\\WinSxS\\' || evt.Parsed.Image contains '\\SystemRoot\\System32\\' || evt.Parsed.Image == 'C:\\Windows\\explorer.exe' || evt.Parsed.Image == 'C:\\Program Files\\PowerShell\\7\\pwsh.exe' || evt.Parsed.Image startsWith 'C:\\Program Files\\WindowsApps\\MicrosoftCorporationII.WindowsSubsystemForLinux' && evt.Parsed.Image endsWith '\\wsl.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "System File Execution Location Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

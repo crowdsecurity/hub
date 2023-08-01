@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_get_clipboard
+description: |
+  Detects usage of the 'Get-Clipboard' cmdlet via CLI
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Get-Clipboard')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1115
+
+  label: "PowerShell Get-Clipboard Cmdlet Via CLI"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

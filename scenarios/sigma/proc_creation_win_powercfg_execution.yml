@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powercfg_execution
+description: |
+  Detects suspicious execution of 'Powercfg.exe' to change lock screen timeout
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powercfg.exe' || evt.Parsed.OriginalFileName == 'PowerCfg.exe') && (evt.Parsed.CommandLine contains '/setacvalueindex ' && evt.Parsed.CommandLine contains 'SCHEME_CURRENT' && evt.Parsed.CommandLine contains 'SUB_VIDEO' && evt.Parsed.CommandLine contains 'VIDEOCONLOCK' || evt.Parsed.CommandLine contains '-change ' && evt.Parsed.CommandLine contains '-standby-timeout-'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious Powercfg Execution To Change Lock Screen Timeout"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

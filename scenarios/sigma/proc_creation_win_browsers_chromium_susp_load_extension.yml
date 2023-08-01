@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_browsers_chromium_susp_load_extension
+description: |
+  Detects a suspicious process spawning a Chromium based browser process with the 'load-extension' flag to start a instance with custom extensions
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe') && (evt.Parsed.Image endsWith '\\brave.exe' || evt.Parsed.Image endsWith '\\chrome.exe' || evt.Parsed.Image endsWith '\\msedge.exe' || evt.Parsed.Image endsWith '\\opera.exe' || evt.Parsed.Image endsWith '\\vivaldi.exe') && evt.Parsed.CommandLine contains '--load-extension=' && evt.Parsed.CommandLine contains '\\AppData\\Local\\')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1176
+
+  label: "Suspicious Chromium Browser Instance Executed With Custom Extensions"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

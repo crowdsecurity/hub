@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_schtasks_schedule_via_masqueraded_xml_file
+description: |
+  Detects the creation of a scheduled task using the "-XML" flag with a file without the '.xml' extension. This behavior could be indicative of potential defense evasion attempt during persistence
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && (evt.Parsed.CommandLine contains '/create' || evt.Parsed.CommandLine contains '-create') && (evt.Parsed.CommandLine contains '/xml' || evt.Parsed.CommandLine contains '-xml') && not (evt.Parsed.CommandLine contains '.xml' || evt.Parsed.IntegrityLevel == 'System' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' && evt.Parsed.ParentCommandLine contains ':\\WINDOWS\\Installer\\MSI' && evt.Parsed.ParentCommandLine contains '.tmp,zzzzInvokeManagedCustomActionOutOfProc') && not (Match(':\\ProgramData\\OEM\\UpgradeTool\\CareCenter_\\BUnzip\\Setup_msi.exe', evt.Parsed.ParentImage) || evt.Parsed.ParentImage endsWith ':\\Program Files\\Axis Communications\\AXIS Camera Station\\SetupActions.exe' || evt.Parsed.ParentImage endsWith ':\\Program Files\\Axis Communications\\AXIS Device Manager\\AdmSetupActions.exe' || evt.Parsed.ParentImage endsWith ':\\Program Files (x86)\\Zemana\\AntiMalware\\AntiMalware.exe' || evt.Parsed.ParentImage endsWith ':\\Program Files\\Dell\\SupportAssist\\pcdrcui.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036.005
+#  - attack.t1053.005
+
+  label: "Suspicious Scheduled Task Creation via Masqueraded XML File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_elavated_msi_spawned_shell
+description: |
+  Detects Windows Installer service (msiexec.exe) spawning "cmd" or "powershell"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.ParentImage contains '\\Windows\\Installer\\' && evt.Parsed.ParentImage contains 'msi' && evt.Parsed.ParentImage endsWith 'tmp')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1548.002
+
+  label: "Always Install Elevated MSI Spawned Cmd And Powershell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

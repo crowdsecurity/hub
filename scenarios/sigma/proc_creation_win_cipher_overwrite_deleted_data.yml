@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_cipher_overwrite_deleted_data
+description: |
+  Detects usage of the "cipher" built-in utility in order to overwrite deleted data from disk.
+  Adversaries may destroy data and files on specific systems or in large numbers on a network to interrupt availability to systems, services, and network resources.
+  Data destruction is likely to render stored data irrecoverable by forensic techniques through overwriting files or data on local and remote drives
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'CIPHER.EXE' || evt.Parsed.Image endsWith '\\cipher.exe') && evt.Parsed.CommandLine contains ' /w:')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1485
+
+  label: "Deleted Data Overwritten Via Cipher.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

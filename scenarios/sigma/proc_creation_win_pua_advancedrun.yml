@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_pua_advancedrun
+description: |
+  Detects the execution of AdvancedRun utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'AdvancedRun.exe' || evt.Parsed.CommandLine contains ' /EXEFilename ' && evt.Parsed.CommandLine contains ' /Run' || evt.Parsed.CommandLine contains ' /WindowState 0' && evt.Parsed.CommandLine contains ' /RunAs ' && evt.Parsed.CommandLine contains ' /CommandLine ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "PUA - AdvancedRun Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

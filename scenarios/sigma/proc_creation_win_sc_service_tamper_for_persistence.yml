@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_sc_service_tamper_for_persistence
+description: |
+  Detects the modification of an existing service in order to execute an arbitrary payload when the service is started or killed as a potential method for persistence.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'sc ' && evt.Parsed.CommandLine contains 'config ' && evt.Parsed.CommandLine contains 'binpath=' || evt.Parsed.CommandLine contains 'sc ' && evt.Parsed.CommandLine contains 'failure' && evt.Parsed.CommandLine contains 'command=' || (evt.Parsed.CommandLine contains 'reg ' && evt.Parsed.CommandLine contains 'add ' && evt.Parsed.CommandLine contains 'FailureCommand' || evt.Parsed.CommandLine contains 'reg ' && evt.Parsed.CommandLine contains 'add ' && evt.Parsed.CommandLine contains 'ImagePath') && (evt.Parsed.CommandLine contains '.sh' || evt.Parsed.CommandLine contains '.exe' || evt.Parsed.CommandLine contains '.dll' || evt.Parsed.CommandLine contains '.bin$' || evt.Parsed.CommandLine contains '.bat' || evt.Parsed.CommandLine contains '.cmd' || evt.Parsed.CommandLine contains '.js' || evt.Parsed.CommandLine contains '.msh$' || evt.Parsed.CommandLine contains '.reg$' || evt.Parsed.CommandLine contains '.scr' || evt.Parsed.CommandLine contains '.ps' || evt.Parsed.CommandLine contains '.vb' || evt.Parsed.CommandLine contains '.jar' || evt.Parsed.CommandLine contains '.pl'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1543.003
+#  - attack.t1574.011
+
+  label: "Potential Persistence Attempt Via Existing Service Tampering"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

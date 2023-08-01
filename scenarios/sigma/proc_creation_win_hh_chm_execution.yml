@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_hh_chm_execution
+description: |
+  Detects the usage of "hh.exe" to execute ".chm" files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'HH.exe' || evt.Parsed.Image endsWith '\\hh.exe') && evt.Parsed.CommandLine contains '.chm')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218.001
+
+  label: "HH.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_hh_chm_remote_download_or_execution
+description: |
+  Detects the usage of "hh.exe" to execute/download remotely hosted ".chm" files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'HH.exe' || evt.Parsed.Image endsWith '\\hh.exe') && evt.Parsed.CommandLine contains 'http')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.001
+
+  label: "Remote CHM File Download/Execution Via HH.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

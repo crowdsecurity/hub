@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_add_user_remote_desktop_group
+description: |
+  Detects suspicious command line in which a user gets added to the local Remote Desktop Users group
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'localgroup ' && evt.Parsed.CommandLine contains ' /add' || evt.Parsed.CommandLine contains 'Add-LocalGroupMember ' && evt.Parsed.CommandLine contains ' -Group ') && (evt.Parsed.CommandLine contains 'Remote Desktop Users' || evt.Parsed.CommandLine contains 'Utilisateurs du Bureau à distance' || evt.Parsed.CommandLine contains 'Usuarios de escritorio remoto'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1133
+#  - attack.t1136.001
+#  - attack.t1021.001
+
+  label: "Suspicious Add User to Remote Desktop Users Group"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

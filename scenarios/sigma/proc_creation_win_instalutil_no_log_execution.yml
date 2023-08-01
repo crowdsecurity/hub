@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_instalutil_no_log_execution
+description: |
+  Uses the .NET InstallUtil.exe application in order to execute image without log
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\InstallUtil.exe' && evt.Parsed.Image contains 'Microsoft.NET\\Framework' && evt.Parsed.CommandLine contains '/logfile= ' && evt.Parsed.CommandLine contains '/LogToConsole=false')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious Execution of InstallUtil Without Log"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

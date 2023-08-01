@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_by_ordinal
+description: |
+  Detects suspicious calls of DLLs in rundll32.dll exports by ordinal
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && (evt.Parsed.CommandLine contains ',#' || evt.Parsed.CommandLine contains ', #' || evt.Parsed.CommandLine contains '.dll #' || evt.Parsed.CommandLine contains '.ocx #') && not (evt.Parsed.CommandLine contains 'EDGEHTML.dll' && evt.Parsed.CommandLine contains '#141' || (evt.Parsed.ParentImage contains '\\Msbuild\\Current\\Bin\\' || evt.Parsed.ParentImage contains '\\VC\\Tools\\MSVC\\' || evt.Parsed.ParentImage contains '\\Tracker.exe') && (evt.Parsed.CommandLine contains '\\FileTracker32.dll,#1' || evt.Parsed.CommandLine contains '\\FileTracker32.dll",#1' || evt.Parsed.CommandLine contains '\\FileTracker64.dll,#1' || evt.Parsed.CommandLine contains '\\FileTracker64.dll",#1')))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+#  classification:
+#  - attack.t1218.011
+
+  label: "Suspicious Call by Ordinal"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

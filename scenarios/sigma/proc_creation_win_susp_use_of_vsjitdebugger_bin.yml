@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_susp_use_of_vsjitdebugger_bin
+description: |
+  There is an option for a MS VS Just-In-Time Debugger "vsjitdebugger.exe" to launch specified executable and attach a debugger.
+  This option may be used adversaries to execute malicious code by signed verified binary.
+  The debugger is installed alongside with Microsoft Visual Studio package.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\vsjitdebugger.exe' && not (Match('\\vsimmersiveactivatehelper.exe', evt.Parsed.Image) || evt.Parsed.Image endsWith '\\devenv.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Malicious PE Execution by Microsoft Visual Studio Debugger"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

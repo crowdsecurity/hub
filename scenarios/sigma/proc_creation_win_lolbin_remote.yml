@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_remote
+description: |
+  Remote.exe is part of WinDbg in the Windows SDK and can be used for AWL bypass and running remote files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\remote.exe' || evt.Parsed.OriginalFileName == 'remote.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1127
+
+  label: "Use of Remote.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

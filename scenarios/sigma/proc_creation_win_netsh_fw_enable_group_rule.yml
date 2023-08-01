@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_fw_enable_group_rule
+description: |
+  Adversaries may modify system firewalls in order to bypass controls limiting network usage
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains 'advfirewall' && evt.Parsed.CommandLine contains 'firewall' && evt.Parsed.CommandLine contains 'set' && evt.Parsed.CommandLine contains 'rule' && evt.Parsed.CommandLine contains 'group=' && evt.Parsed.CommandLine contains 'new' && evt.Parsed.CommandLine contains 'enable=Yes')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1562.004
+
+  label: "Netsh Allow Group Policy on Microsoft Defender Firewall"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_invoke_webrequest_direct_ip
+description: |
+  Detects calls to PowerShell with Invoke-WebRequest cmdlet using direct IP access
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && (evt.Parsed.CommandLine contains 'curl ' || evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'wget ') && (evt.Parsed.CommandLine contains '://1' || evt.Parsed.CommandLine contains '://2' || evt.Parsed.CommandLine contains '://3' || evt.Parsed.CommandLine contains '://4' || evt.Parsed.CommandLine contains '://5' || evt.Parsed.CommandLine contains '://6' || evt.Parsed.CommandLine contains '://7' || evt.Parsed.CommandLine contains '://8' || evt.Parsed.CommandLine contains '://9'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Suspicious Invoke-WebRequest Execution With DirectIP"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

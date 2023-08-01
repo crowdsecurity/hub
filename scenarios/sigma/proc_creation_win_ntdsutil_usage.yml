@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_ntdsutil_usage
+description: |
+  Detects execution of ntdsutil.exe, which can be used for various attacks against the NTDS database (NTDS.DIT)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ntdsutil.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1003.003
+
+  label: "Invocation of Active Directory Diagnostic Tool (ntdsutil.exe)"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

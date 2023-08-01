@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_file_permission_modifications
+description: |
+  Detects a file or folder's permissions being modified or tampered with.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (((evt.Parsed.Image endsWith '\\cacls.exe' || evt.Parsed.Image endsWith '\\icacls.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe') && (evt.Parsed.CommandLine contains '/grant' || evt.Parsed.CommandLine contains '/setowner' || evt.Parsed.CommandLine contains '/inheritance:r') || evt.Parsed.Image endsWith '\\attrib.exe' && evt.Parsed.CommandLine contains '-r' || evt.Parsed.Image endsWith '\\takeown.exe') && not (evt.Parsed.CommandLine endsWith 'ICACLS C:\\ProgramData\\dynatrace\\gateway\\config\\connectivity.history /reset' || evt.Parsed.CommandLine contains 'ICACLS C:\\ProgramData\\dynatrace\\gateway\\config\\config.properties /grant :r ' && evt.Parsed.CommandLine contains 'S-1-5-19:F' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Programs\\Microsoft VS Code' || evt.Parsed.ParentImage endsWith '\\Microsoft VS Code\\Code.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1222.001
+
+  label: "File or Folder Permissions Modifications"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_tasklist_basic_execution
+description: |
+  Adversaries may attempt to get information about running processes on a system. Information obtained could be used to gain an understanding of common software/applications running on systems within the network
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'tasklist' || evt.Parsed.Image endsWith '\\tasklist.exe' || evt.Parsed.OriginalFileName == 'tasklist.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1057
+
+  label: "Suspicious Tasklist Discovery Command"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

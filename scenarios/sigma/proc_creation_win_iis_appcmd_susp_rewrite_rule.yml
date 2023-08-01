@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_iis_appcmd_susp_rewrite_rule
+description: |
+  Detects usage of "appcmd" to create new global URL rewrite rules. This behaviour has been observed being used by threat actors to add new rules so they can access their webshells.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\appcmd.exe' || evt.Parsed.OriginalFileName == 'appcmd.exe') && evt.Parsed.CommandLine contains 'set' && evt.Parsed.CommandLine contains 'config' && evt.Parsed.CommandLine contains 'section:system.webServer/rewrite/globalRules' && evt.Parsed.CommandLine contains 'commit:')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious IIS URL GlobalRules Rewrite Via AppCmd"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

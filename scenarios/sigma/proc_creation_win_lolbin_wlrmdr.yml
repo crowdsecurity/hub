@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_wlrmdr
+description: |
+  Detects use of Wlrmdr.exe in which the -u parameter is passed to ShellExecute
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\wlrmdr.exe' || (evt.Parsed.Image endsWith '\\wlrmdr.exe' || evt.Parsed.OriginalFileName == 'WLRMNDR.EXE') && evt.Parsed.CommandLine contains '-s ' && evt.Parsed.CommandLine contains '-f ' && evt.Parsed.CommandLine contains '-t ' && evt.Parsed.CommandLine contains '-m ' && evt.Parsed.CommandLine contains '-a ' && evt.Parsed.CommandLine contains '-u ' && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\winlogon.exe' || evt.Parsed.ParentImage == '-'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Wlrmdr Lolbin Use as Launcher"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

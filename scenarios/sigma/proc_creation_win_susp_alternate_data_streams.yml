@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_alternate_data_streams
+description: |
+  Detects execution from an Alternate Data Stream (ADS). Adversaries may use NTFS file attributes to hide their malicious data in order to evade detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'txt:' && (evt.Parsed.CommandLine contains 'type ' && evt.Parsed.CommandLine contains ' > ' || evt.Parsed.CommandLine contains 'makecab ' && evt.Parsed.CommandLine contains '.cab' || evt.Parsed.CommandLine contains 'reg ' && evt.Parsed.CommandLine contains ' export ' || evt.Parsed.CommandLine contains 'regedit ' && evt.Parsed.CommandLine contains ' /E ' || evt.Parsed.CommandLine contains 'esentutl ' && evt.Parsed.CommandLine contains ' /y ' && evt.Parsed.CommandLine contains ' /d ' && evt.Parsed.CommandLine contains ' /o '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Execute From Alternate Data Streams"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

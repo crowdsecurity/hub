@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_commandline_path_traversal_evasion
+description: |
+  Detects potential evasion or obfuscation attempts using bogus path traversal via the commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\Windows\\' && (evt.Parsed.CommandLine contains '\\..\\Windows\\' || evt.Parsed.CommandLine contains '\\..\\System32\\' || evt.Parsed.CommandLine contains '\\..\\..\\') || evt.Parsed.CommandLine contains '.exe\\..\\') && not (evt.Parsed.CommandLine contains '\\Google\\Drive\\googledrivesync.exe\\..\\' || evt.Parsed.CommandLine contains '\\Citrix\\Virtual Smart Card\\Citrix.Authentication.VirtualSmartcard.Launcher.exe\\..\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "Potential Command Line Path Traversal Evasion Attempt"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

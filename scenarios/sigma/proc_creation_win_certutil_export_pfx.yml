@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_certutil_export_pfx
+description: |
+  Detects the execution of the certutil with the "exportPFX" flag which allows the utility to export certificates.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && (evt.Parsed.CommandLine contains '-exportPFX ' || evt.Parsed.CommandLine contains '/exportPFX '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+
+  label: "Certificate Exported Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

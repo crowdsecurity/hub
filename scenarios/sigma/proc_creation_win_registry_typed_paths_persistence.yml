@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_registry_typed_paths_persistence
+description: |
+  Detects modification addition to the 'TypedPaths' key in the user or admin registry via the commandline. Which might indicate persistence attempt
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Persistence Via TypedPaths - CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

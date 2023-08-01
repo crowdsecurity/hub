@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_redirect
+description: |
+  Detects the use of the redirection character ">" to redicrect information in commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.Image endsWith '\\cmd.exe') && evt.Parsed.CommandLine contains '>' && not (evt.Parsed.CommandLine contains 'C:\\Program Files (x86)\\Internet Download Manager\\IDMMsgHost.exe' || evt.Parsed.CommandLine contains 'chrome-extension://' || evt.Parsed.CommandLine contains '\\.\\pipe\\chrome.nativeMessaging'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1082
+
+  label: "CMD Shell Output Redirect"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

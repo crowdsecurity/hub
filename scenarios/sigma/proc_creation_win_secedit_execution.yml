@@ -1,0 +1,36 @@
+type: trigger
+name: sigma/proc_creation_win_secedit_execution
+description: |
+  Detects potential suspicious behaviour using secedit.exe. Such as exporting or modifying the security policy
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\secedit.exe' || evt.Parsed.OriginalFileName == 'SeCEdit') && (evt.Parsed.CommandLine contains '/export' && evt.Parsed.CommandLine contains '/cfg' || evt.Parsed.CommandLine contains '/configure' && evt.Parsed.CommandLine contains '/db'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.002
+#  - attack.t1547.001
+#  - attack.t1505.005
+#  - attack.t1556.002
+#  - attack.t1562
+#  - attack.t1574.007
+#  - attack.t1564.002
+#  - attack.t1546.008
+#  - attack.t1546.007
+#  - attack.t1547.014
+#  - attack.t1547.010
+#  - attack.t1547.002
+#  - attack.t1557
+#  - attack.t1082
+
+  label: "Potential Suspicious Activity Using SeCEdit"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

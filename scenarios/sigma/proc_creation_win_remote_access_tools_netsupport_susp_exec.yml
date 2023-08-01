@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_remote_access_tools_netsupport_susp_exec
+description: |
+  Detects execution of client32.exe (NetSupport RAT) from an unusual location (outside of 'C:\Program Files')
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\client32.exe' || evt.Parsed.Product contains 'NetSupport Remote Control' || evt.Parsed.OriginalFileName contains 'client32.exe' || evt.Parsed.Imphash == 'a9d50692e95b79723f3e76fcf70d023e' || evt.Parsed.Hashes contains 'IMPHASH=a9d50692e95b79723f3e76fcf70d023e') && not (evt.Parsed.Image startsWith 'C:\\Program Files\\' || evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Remote Access Tool - NetSupport Execution From Unusual Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

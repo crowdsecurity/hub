@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_psr_capture_screenshots
+description: |
+  The psr.exe captures desktop screenshots and saves them on the local machine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Psr.exe' && evt.Parsed.CommandLine contains '/start')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1113
+
+  label: "Psr.exe Capture Screenshots"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

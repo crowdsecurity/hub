@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_windows_terminal_susp_children
+description: |
+  Detects suspicious children spawned via the Windows Terminal application which could be a sign of persistence via WindowsTerminal (see references section)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\WindowsTerminal.exe' || evt.Parsed.ParentImage endsWith '\\wt.exe') && (evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\csc.exe' || evt.Parsed.Image contains 'C:\\Users\\Public\\' || evt.Parsed.Image contains '\\Downloads\\' || evt.Parsed.Image contains '\\Desktop\\' || evt.Parsed.Image contains '\\AppData\\Local\\Temp\\' || evt.Parsed.Image contains '\\Windows\\TEMP\\' || evt.Parsed.CommandLine contains ' iex ' || evt.Parsed.CommandLine contains ' icm' || evt.Parsed.CommandLine contains 'Invoke-' || evt.Parsed.CommandLine contains 'Import-Module ' || evt.Parsed.CommandLine contains 'ipmo ' || evt.Parsed.CommandLine contains 'DownloadString(' || evt.Parsed.CommandLine contains ' /c ' || evt.Parsed.CommandLine contains ' /k ' || evt.Parsed.CommandLine contains ' /r ') && not (evt.Parsed.CommandLine contains 'Import-Module' && evt.Parsed.CommandLine contains 'Microsoft.VisualStudio.DevShell.dll' && evt.Parsed.CommandLine contains 'Enter-VsDevShell' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_' && evt.Parsed.CommandLine contains '\\LocalState\\settings.json' || evt.Parsed.CommandLine contains 'C:\\Program Files\\Microsoft Visual Studio\\' && evt.Parsed.CommandLine contains '\\Common7\\Tools\\VsDevCmd.bat'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious WindowsTerminal Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_runexehelper
+description: |
+  Detect usage of the "runexehelper.exe" binary as a proxy to launch other programs
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\runexehelper.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Lolbin Runexehelper Use As Proxy"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

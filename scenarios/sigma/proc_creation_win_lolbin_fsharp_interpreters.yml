@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_fsharp_interpreters
+description: |
+  The FSharp Interpreters, FsiAnyCpu.exe and FSi.exe, can be used for AWL bypass and is listed in Microsoft recommended block rules.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\fsianycpu.exe' || evt.Parsed.OriginalFileName == 'fsianycpu.exe' || evt.Parsed.Image endsWith '\\fsi.exe' || evt.Parsed.OriginalFileName == 'fsi.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Use of FSharp Interpreters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

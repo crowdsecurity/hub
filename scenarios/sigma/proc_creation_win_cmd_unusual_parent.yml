@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_unusual_parent
+description: |
+  Detects suspicious parent process for cmd.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\cmd.exe' && (evt.Parsed.ParentImage endsWith '\\csrss.exe' || evt.Parsed.ParentImage endsWith '\\ctfmon.exe' || evt.Parsed.ParentImage endsWith '\\dllhost.exe' || evt.Parsed.ParentImage endsWith '\\epad.exe' || evt.Parsed.ParentImage endsWith '\\FlashPlayerUpdateService.exe' || evt.Parsed.ParentImage endsWith '\\GoogleUpdate.exe' || evt.Parsed.ParentImage endsWith '\\jucheck.exe' || evt.Parsed.ParentImage endsWith '\\jusched.exe' || evt.Parsed.ParentImage endsWith '\\LogonUI.exe' || evt.Parsed.ParentImage endsWith '\\lsass.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\SearchIndexer.exe' || evt.Parsed.ParentImage endsWith '\\SearchProtocolHost.exe' || evt.Parsed.ParentImage endsWith '\\SIHClient.exe' || evt.Parsed.ParentImage endsWith '\\sihost.exe' || evt.Parsed.ParentImage endsWith '\\slui.exe' || evt.Parsed.ParentImage endsWith '\\spoolsv.exe' || evt.Parsed.ParentImage endsWith '\\sppsvc.exe' || evt.Parsed.ParentImage endsWith '\\taskhostw.exe' || evt.Parsed.ParentImage endsWith '\\unsecapp.exe' || evt.Parsed.ParentImage endsWith '\\WerFault.exe' || evt.Parsed.ParentImage endsWith '\\wergmgr.exe' || evt.Parsed.ParentImage endsWith '\\wlanext.exe' || evt.Parsed.ParentImage endsWith '\\WUDFHost.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Unusual Parent Process For Cmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

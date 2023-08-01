@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_runonce_execution
+description: |
+  This rule detects the execution of Run Once task as configured in the registry
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\runonce.exe' || evt.Parsed.Description == 'Run Once Wrapper') && (evt.Parsed.CommandLine contains '/AlternateShellStartup' || evt.Parsed.CommandLine endsWith '/r'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1112
+
+  label: "Run Once Task Execution as Configured in Registry"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

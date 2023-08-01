@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_encode
+description: |
+  Commandline to launch powershell with a base64 payload
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains ' -e ' || evt.Parsed.CommandLine contains ' -en ' || evt.Parsed.CommandLine contains ' -enc ' || evt.Parsed.CommandLine contains ' -enco' || evt.Parsed.CommandLine contains ' -ec ') && not (evt.Parsed.CommandLine contains ' -Encoding ' || evt.Parsed.ParentImage contains 'C:\\Packages\\Plugins\\Microsoft.GuestConfiguration.ConfigurationforWindows\\' || evt.Parsed.ParentImage contains '\\gc_worker.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Suspicious Execution of Powershell with Base64"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

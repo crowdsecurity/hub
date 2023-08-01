@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_susp_atbroker
+description: |
+  Atbroker executing non-deafualt Assistive Technology applications
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith 'AtBroker.exe' && evt.Parsed.CommandLine contains 'start' && not (evt.Parsed.CommandLine contains 'animations' || evt.Parsed.CommandLine contains 'audiodescription' || evt.Parsed.CommandLine contains 'caretbrowsing' || evt.Parsed.CommandLine contains 'caretwidth' || evt.Parsed.CommandLine contains 'colorfiltering' || evt.Parsed.CommandLine contains 'cursorscheme' || evt.Parsed.CommandLine contains 'filterkeys' || evt.Parsed.CommandLine contains 'focusborderheight' || evt.Parsed.CommandLine contains 'focusborderwidth' || evt.Parsed.CommandLine contains 'highcontrast' || evt.Parsed.CommandLine contains 'keyboardcues' || evt.Parsed.CommandLine contains 'keyboardpref' || evt.Parsed.CommandLine contains 'magnifierpane' || evt.Parsed.CommandLine contains 'messageduration' || evt.Parsed.CommandLine contains 'minimumhitradius' || evt.Parsed.CommandLine contains 'mousekeys' || evt.Parsed.CommandLine contains 'Narrator' || evt.Parsed.CommandLine contains 'osk' || evt.Parsed.CommandLine contains 'overlappedcontent' || evt.Parsed.CommandLine contains 'showsounds' || evt.Parsed.CommandLine contains 'soundsentry' || evt.Parsed.CommandLine contains 'stickykeys' || evt.Parsed.CommandLine contains 'togglekeys' || evt.Parsed.CommandLine contains 'windowarranging' || evt.Parsed.CommandLine contains 'windowtracking' || evt.Parsed.CommandLine contains 'windowtrackingtimeout' || evt.Parsed.CommandLine contains 'windowtrackingzorder'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Suspicious Atbroker Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_create_service
+description: |
+  Detects the creation of a new service using powershell.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'New-Service' && evt.Parsed.CommandLine contains '-BinaryPathName')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1543.003
+
+  label: "New Service Creation Using PowerShell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

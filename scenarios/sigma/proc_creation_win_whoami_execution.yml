@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_whoami_execution
+description: |
+  Detects the execution of whoami, which is often used by attackers after exploitation / privilege escalation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.OriginalFileName == 'whoami.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1033
+
+  label: "Whoami Utility Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

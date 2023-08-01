@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_dsquery_domain_trust_discovery
+description: |
+  Detects execution of "dsquery.exe" for domain trust discovery
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\dsquery.exe' || evt.Parsed.OriginalFileName == 'dsquery.exe') && evt.Parsed.CommandLine contains 'trustedDomain')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1482
+
+  label: "Domain Trust Discovery Via Dsquery"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

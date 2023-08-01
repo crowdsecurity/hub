@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_downgrade_attack
+description: |
+  Detects PowerShell downgrade attack by comparing the host versions with the actually used engine version 2.0
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\powershell.exe' && (evt.Parsed.CommandLine contains ' -version 2 ' || evt.Parsed.CommandLine contains ' -versio 2 ' || evt.Parsed.CommandLine contains ' -versi 2 ' || evt.Parsed.CommandLine contains ' -vers 2 ' || evt.Parsed.CommandLine contains ' -ver 2 ' || evt.Parsed.CommandLine contains ' -ve 2 ' || evt.Parsed.CommandLine contains ' -v 2 '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Potential PowerShell Downgrade Attack"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

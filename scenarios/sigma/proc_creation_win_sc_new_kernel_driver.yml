@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sc_new_kernel_driver
+description: |
+  Detects creation of a new service (kernel driver) with the type "kernel"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sc.exe' && (evt.Parsed.CommandLine contains 'create' || evt.Parsed.CommandLine contains 'config') && evt.Parsed.CommandLine contains 'binPath' && evt.Parsed.CommandLine contains 'type' && evt.Parsed.CommandLine contains 'kernel')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1543.003
+
+  label: "New Kernel Driver Via SC.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
