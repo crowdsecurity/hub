@@ -2,21 +2,13 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-cloudtrail-config-change
 description: "Detect AWS CloudTrail configuration change"
 filter: |
-  evt.Meta.log_type == 'aws-cloudtrail' &&
-  (
-  evt.Meta.event_name == "CreateTrail" ||
-  evt.Meta.event_name == "UpdateTrail" ||
-  evt.Meta.event_name == "DeleteTrail" ||
-  evt.Meta.event_name == "StartLogging" ||
-  evt.Meta.event_name == "StopLogging"
-  )
+    evt.Meta.log_type == 'aws-cloudtrail' &&
+    (
+    evt.Meta.event_name == "CreateTrail" ||
+    evt.Meta.event_name == "UpdateTrail" ||
+    evt.Meta.event_name == "DeleteTrail" ||
+    evt.Meta.event_name == "StartLogging" ||
+    evt.Meta.event_name == "StopLogging"
+    )
 labels:
-  confidence: 3
-  spoofable: 0
-  classification:
-    - attack.T1070
-  behavior: "cloud:audit"
-  label: "AWS CloudTrail indicator removal"
-  service: aws
-  cti: false
-  remediation: false
+  type: compliance

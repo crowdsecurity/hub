@@ -16,10 +16,6 @@ A collection for auditd:
    - repeated/fast invokation of `rm` 
    - repeated/fast invokation of `kill` / `pkill`
 
-### Local exploitation
-
- - detect a root suid binary that crashes soon after startup with a SIGSEGV, SIGABRT, SIGBUS or SIGTRAP.
-
 ## Acquisition template
 
 Example acquisition for this collection :
