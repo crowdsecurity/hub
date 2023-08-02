@@ -1,0 +1,1 @@
+Parser for the mailu admin containers logs to get rate limited authentication attempts.

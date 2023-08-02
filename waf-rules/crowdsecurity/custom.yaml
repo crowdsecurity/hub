@@ -1,0 +1,12 @@
+type: waf-rule
+name: crowdsecurity/custom-waf-rule
+seclang_files_rules:
+ - crs.rules
+seclang_rules:
+ - SecRule REMOTE_ADDR "@rx .*" "id:1,phase:1,pass,status:403"
+rules: 
+ - name: foobar1
+   targets:
+    - REQUEST_COOKIES
+    - "!REQUEST_COOKIES:/_utm/"
+   rx: "foobar"

@@ -1,0 +1,43 @@
+#type=SYSCALL msg=audit(1672330955.273:4433): arch=c000003e syscall=263 success=no exit=-2 a0=ffffff9c a1=557162396590 a2=0 a3=0 items=1 ppid=144571 pid=145400 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts0 ses=79 comm="rm" exe="/usr/bin/rm" key="file_modification"
+name: crowdsecurity/auditd-logs
+description: "Parse auditd logs"
+filter: "evt.Parsed.program == 'auditd'"
+onsuccess: next_stage
+pattern_syntax:
+  FLOAT: '[0-9\.]+'
+
+nodes:
+  #SYSCALL 59 on x86_64 -> execve
+  - filter: ParseKV(evt.Parsed.message, evt.Unmarshaled, "auditd") == nil # == nil is required because ParseKV does not return a value
+    nodes:
+      - filter: evt.Unmarshaled.auditd.type == "SYSCALL" and evt.Unmarshaled.auditd.arch == "c000003e" and evt.Unmarshaled.auditd.syscall == "59"
+        grok:
+          pattern: '%{WORD:msg_type}\(%{FLOAT:timestamp}:%{INT:event_inc_id}\):'
+          expression: evt.Unmarshaled.auditd.msg
+        statics:
+          - meta: log_type
+            value: execve
+          - target: evt.StrTime
+            expression: evt.Parsed.timestamp
+          - meta: ppid
+            expression: evt.Unmarshaled.auditd.ppid
+          - meta: exe
+            expression: evt.Unmarshaled.auditd.exe
+          - meta: uid
+            expression: evt.Unmarshaled.auditd.uid
+          - meta: auid
+            expression: evt.Unmarshaled.auditd.auid
+          - meta: tty
+            expression: evt.Unmarshaled.auditd.tty
+          - meta: auditd_eventid
+            expression: evt.Parsed.event_inc_id
+          #let's hydrate with ppid process if we can :)
+          - target: evt.Meta.parent_progname
+            expression: GetFromStash("auditd_pid_progname", evt.Unmarshaled.auditd.ppid)
+        #let's capture process name if we can
+        stash:
+          - name: auditd_pid_progname
+            key: evt.Unmarshaled.auditd.pid
+            value: evt.Unmarshaled.auditd.exe
+            ttl: 1m
+            size: 100

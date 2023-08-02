@@ -1,0 +1,92 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2023-04-23 21:53:37.311 -05:00 [WRN] Failed login attempt, 2FA invalid. 207.96.38.253"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "bitwarden"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2023-04-23 21:53:54.706 -05:00 [ERR] Request to https://push.bitwarden.com/push/register is unsuccessful with status of \"BadRequest\"-Bad Request"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "bitwarden"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2023-04-24 13:06:35.295 -05:00 [WRN] Failed login attempt. 207.96.38.253"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "bitwarden"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "bitwarden"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "2023-04-24 16:10:32.219 -05:00 [INF] Identity started."
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+len(results["s01-parse"]["MariuszKociubinski/bitwarden-logs"]) == 4
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Success == true
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["exim_day"] == "23"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["exim_month"] == "04"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["exim_time"] == "21:53:37.311"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["exim_year"] == "2023"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["message"] == "2023-04-23 21:53:37.311 -05:00 [WRN] Failed login attempt, 2FA invalid. 207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["program"] == "bitwarden"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["source_ip"] == "207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Parsed["timestamp"] == "2023-04-23 21:53:37.311"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Meta["service"] == "bitwarden"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Meta["source_ip"] == "207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][0].Evt.Meta["log_type"] == "bitwarden_failed_auth_2fa"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][1].Success == false
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Success == true
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["program"] == "bitwarden"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["source_ip"] == "207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["timestamp"] == "2023-04-24 13:06:35.295"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["exim_day"] == "24"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["exim_month"] == "04"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["exim_time"] == "13:06:35.295"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["exim_year"] == "2023"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Parsed["message"] == "2023-04-24 13:06:35.295 -05:00 [WRN] Failed login attempt. 207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Meta["log_type"] == "bitwarden_failed_auth"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Meta["service"] == "bitwarden"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][2].Evt.Meta["source_ip"] == "207.96.38.253"
+results["s01-parse"]["MariuszKociubinski/bitwarden-logs"][3].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["exim_day"] == "23"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["exim_month"] == "04"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["exim_time"] == "21:53:37.311"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["exim_year"] == "2023"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2023-04-23 21:53:37.311 -05:00 [WRN] Failed login attempt, 2FA invalid. 207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "bitwarden"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-04-23 21:53:37.311"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "bitwarden_failed_auth_2fa"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "bitwarden"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-04-23T21:53:37.311Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-04-23T21:53:37.311Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2023-04-24 13:06:35.295 -05:00 [WRN] Failed login attempt. 207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "bitwarden"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2023-04-24 13:06:35.295"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["exim_day"] == "24"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["exim_month"] == "04"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["exim_time"] == "13:06:35.295"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["exim_year"] == "2023"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "bitwarden-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "bitwarden_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "bitwarden"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "207.96.38.253"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-04-24T13:06:35.295Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-04-24T13:06:35.295Z"
+len(results["success"][""]) == 0

@@ -1,0 +1,16 @@
+# bitwarden bruteforce
+type: leaky
+name: MariuszKociubinski/bitwarden-bf
+description: "Detect bitwarden bruteforce"
+debug: false
+filter: "evt.Meta.log_type in ['bitwarden_failed_auth','bitwarden_failed_auth_2fa']"
+  #filter: "evt.Meta.log_type == 'bitwarden_failed_auth'"
+leakspeed: "1m"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: false
+labels:
+  service: bitwarden
+  type: bruteforce
+  remediation: true

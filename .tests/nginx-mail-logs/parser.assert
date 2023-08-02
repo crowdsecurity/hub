@@ -1,4 +1,4 @@
-len(results["s01-parse"]["hitech95/nginx-mail-logs"]) == 13
+len(results["s01-parse"]["hitech95/nginx-mail-logs"]) == 14
 results["s01-parse"]["hitech95/nginx-mail-logs"][0].Success == true
 results["s01-parse"]["hitech95/nginx-mail-logs"][0].Evt.Parsed["tid"] == "8"
 results["s01-parse"]["hitech95/nginx-mail-logs"][0].Evt.Parsed["time"] == "2022/04/02 15:45:23"
@@ -202,3 +202,26 @@ results["s01-parse"]["hitech95/nginx-mail-logs"][11].Evt.Meta["datasource_type"]
 results["s01-parse"]["hitech95/nginx-mail-logs"][11].Evt.Meta["log_type"] == "mail_auth"
 results["s01-parse"]["hitech95/nginx-mail-logs"][11].Evt.Meta["sub_type"] == "auth_success"
 results["s01-parse"]["hitech95/nginx-mail-logs"][12].Success == false
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Success == true
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["loglevel"] == "info"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["message"] == "client login failed: \"Authentication credentials invalid\" while in http auth state"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["time"] == "2023/04/05 21:00:42"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["username"] == "postmaster"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["cid"] == "175063"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["dest_port"] == "587"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["auth_result"] == "Authentication credentials invalid"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["pid"] == "126"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["dest_ip"] == "0.0.0.0"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["program"] == "nginx"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["tid"] == "126"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Parsed["remote_addr"] == "201.170.64.255"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["auth_result"] == "Authentication credentials invalid"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["dest_port"] == "587"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["log_type"] == "mail_auth"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["source_ip"] == "201.170.64.255"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["datasource_path"] == "nginx-mail-logs.log"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["dest_ip"] == "0.0.0.0"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["service"] == "mail"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["sub_type"] == "auth_fail"
+results["s01-parse"]["hitech95/nginx-mail-logs"][13].Evt.Meta["username"] == "postmaster"

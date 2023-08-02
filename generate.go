@@ -54,6 +54,13 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		user = pathSplit[0]
 		configName = pathSplit[1]
 		configName = strings.Split(configName, ".")[0]
+	} else if configType == "waf-rules" {
+		if len(pathSplit) != 2 {
+			return "", fmt.Errorf("invalid filepath '%s', should be : './waf-rules/<user>/<waf-rule.yaml>'", filepath)
+		}
+		user = pathSplit[0]
+		configName = pathSplit[1]
+		configName = strings.Split(configName, ".")[0]
 	} else if configType == "collections" {
 		if len(pathSplit) != 2 {
 			return "", fmt.Errorf("invalid filepath '%s', should be : './collections/<user>/<scenario.yaml>'", filepath)
@@ -122,6 +129,11 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 			ti.Collections = fInfo.Collections
 		} else {
 			ti.Collections = nil
+		}
+		if len(fInfo.WafRules) > 0 {
+			ti.WafRules = fInfo.WafRules
+		} else {
+			ti.WafRules = nil
 		}
 	}
 

@@ -1,0 +1,30 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'BAIKAL'"
+name: andreasbrett/baikal-logs
+description: "Parse baikal logs"
+pattern_syntax:
+    BAIKAL_FAILED_AUTH: '\[%{HTTPDERROR_DATE:timestamp}\].*\[client %{IP:source_ip}:%{INT:source_port}\] AH01071: Got error ''PHP message: user %{USERNAME:username} authentication failure for Baikal'''
+    BAIKAL_FAILED_AUTH_NO_USER: '\[%{HTTPDERROR_DATE:timestamp}\].*\[client %{IP:source_ip}:%{INT:source_port}\] AH01071: Got error ''PHP message: user \(name stripped-out\) authentication failure for Baikal'''
+nodes:
+    - grok:
+          pattern: "%{BAIKAL_FAILED_AUTH}"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: baikal_failed_auth
+              - meta: username
+                expression: evt.Parsed.username
+    - grok:
+          pattern: "%{BAIKAL_FAILED_AUTH_NO_USER}"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: baikal_failed_auth_no_user
+
+statics:
+    - meta: service
+      value: baikal
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
