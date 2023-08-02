@@ -1,0 +1,1 @@
+A parser for [open-appsec](https://www.openappsec.io/) waf logs. It supports logs from the prevention action.

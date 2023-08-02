@@ -1,0 +1,77 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "28-Mar-2022 07:01:48.459 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler [\"http-nio-8080\"]"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2023-04-06T09:05:54,991Z [http-nio-8080-exec-9] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test\" failed."
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2023-04-06T09:06:01,059Z [http-nio-8080-exec-10] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test@example.com\" failed."
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "apache-guacamole"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["corvese/apache-guacamole-logs"]) == 3
+results["s01-parse"]["corvese/apache-guacamole-logs"][0].Success == false
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Success == true
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["message"] == "2023-04-06T09:05:54,991Z [http-nio-8080-exec-9] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test\" failed."
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["program"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["timestamp"] == "2023-04-06T09:05:54,991Z"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Parsed["username"] == "test"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["service"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["target_user"] == "test"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s01-parse"]["corvese/apache-guacamole-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Success == true
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["message"] == "2023-04-06T09:06:01,059Z [http-nio-8080-exec-10] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test@example.com\" failed."
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["program"] == "apache-guacamole"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["timestamp"] == "2023-04-06T09:06:01,059Z"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Parsed["username"] == "test@example.com"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["target_user"] == "test@example.com"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s01-parse"]["corvese/apache-guacamole-logs"][2].Evt.Meta["service"] == "apache-guacamole"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2023-04-06T09:05:54,991Z [http-nio-8080-exec-9] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test\" failed."
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "apache-guacamole"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-04-06T09:05:54,991Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "apache-guacamole"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "test"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-04-06T09:05:54.991Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-04-06T09:05:54.991Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2023-04-06T09:06:01,059Z [http-nio-8080-exec-10] WARN  o.a.g.r.auth.AuthenticationService - Authentication attempt from [127.0.0.1, 127.0.0.2] for user \"test@example.com\" failed."
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "apache-guacamole"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2023-04-06T09:06:01,059Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "test@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "apache-guacamole_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "apache-guacamole"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "test@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-04-06T09:06:01.059Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "apache-guacamole-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-04-06T09:06:01.059Z"
+len(results["success"][""]) == 0

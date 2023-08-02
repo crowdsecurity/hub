@@ -1,0 +1,28 @@
+type: trigger
+name: crowdsecurity/k8s-audit-pod-host-path-volume
+description: "Detect pods mounting a sensitive host folder"
+filter: |
+  evt.Meta.log_type == 'k8s-audit' &&
+  (
+   (
+    evt.Meta.datasource_type == "k8s-audit" &&
+    evt.Unmarshaled.k8s_audit.ObjectRef?.Resource == 'pods' &&
+    evt.Unmarshaled.k8s_audit.RequestObject != nil &&
+    evt.Unmarshaled.k8s_audit.RequestObject.spec != nil &&
+    evt.Unmarshaled.k8s_audit.RequestObject.spec.volumes != nil &&
+    any(evt.Unmarshaled.k8s_audit.RequestObject.spec.volumes, { .hostPath != nil && .hostPath.path in ["/proc", "/var/run/docker.sock", "/", "/etc", "/root", "/var/run/crio/crio.sock", "/home/admin", "/var/lib/kubelet", "/var/lib/kubelet/pki", "/etc/kubernetes", "/etc/kubernetes/manifests"] })
+   )
+   ||
+   (
+    evt.Meta.datasource_type != "k8s-audit" &&
+    evt.Unmarshaled.k8s_audit.objectRef?.resource == 'pods' &&
+    evt.Unmarshaled.k8s_audit.requestObject != nil &&
+    evt.Unmarshaled.k8s_audit.requestObject.spec != nil &&
+    evt.Unmarshaled.k8s_audit.requestObject.spec.volumes != nil &&
+    any(evt.Unmarshaled.k8s_audit.requestObject.spec.volumes, { .hostPath != nil && .hostPath.path in ["/proc", "/var/run/docker.sock", "/", "/etc", "/root", "/var/run/crio/crio.sock", "/home/admin", "/var/lib/kubelet", "/var/lib/kubelet/pki", "/etc/kubernetes", "/etc/kubernetes/manifests"] })
+   )
+  )
+labels:
+  service: k8s
+  type: pod-host-path
+  notification: true

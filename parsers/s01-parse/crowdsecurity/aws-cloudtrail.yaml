@@ -1,0 +1,35 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'aws-cloudtrail'"
+name: crowdsecurity/aws-cloudtrail
+description: "Parse AWS Cloudtrail logs"
+statics:
+  - parsed: cloudtrail_parsed
+    expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, 'cloudtrail')
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.cloudtrail.eventTime
+  - meta: user_type
+    expression: evt.Unmarshaled.cloudtrail.userIdentity.type
+ # see : https://github.com/antonmedv/expr/blob/master/docs/Language-Definition.md#nil-coalescing
+  - meta: user_arn
+    expression: |
+      evt.Unmarshaled.cloudtrail.userIdentity?.arn ?? evt.Unmarshaled.cloudtrail.userIdentity.userName
+  - meta: event_name
+    expression: evt.Unmarshaled.cloudtrail.eventName
+  - meta: event_source
+    expression: evt.Unmarshaled.cloudtrail.eventSource
+  - meta: region
+    expression: evt.Unmarshaled.cloudtrail.awsRegion
+  - meta: source_ip
+    expression: |
+      IsIP(evt.Unmarshaled.cloudtrail.sourceIPAddress) ? evt.Unmarshaled.cloudtrail.sourceIPAddress : ""
+  - meta: user_agent
+    expression: evt.Unmarshaled.cloudtrail.userAgent
+  - meta: error_code
+    expression: evt.Unmarshaled.cloudtrail.errorCode
+  - meta: event_id
+    expression: evt.Unmarshaled.cloudtrail.eventID
+  - meta: account_id
+    expression: evt.Unmarshaled.cloudtrail.userIdentity.accountId
+  - meta: log_type
+    value: aws-cloudtrail

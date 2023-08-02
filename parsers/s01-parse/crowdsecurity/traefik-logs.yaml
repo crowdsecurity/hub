@@ -8,53 +8,44 @@ pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
   NUMBER_MINUS: '[0-9-]+'
-  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
+  NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
+  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGCUSTOMUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
 nodes:
   - grok: # CLF parser
       pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
-    onsuccess: next_stage
-  - grok:
-    nodes:
-      - grok:
-          pattern: '%{IPORHOST:remote_addr}'
-          expression: JsonExtract(evt.Parsed.message, "ClientAddr")
-      - grok:
-          pattern: '%{IPORHOST:dest_addr}'
-          expression: JsonExtract(evt.Parsed.message, "ClientAddr")
-      - grok:
-          pattern: '%{IPORHOST:request_addr}'
-          expression: JsonExtract(evt.Parsed.message, "RequestAddr")
-      - grok:
-          pattern: '%{USERNAME:service_addr}'
-          expression: JsonExtract(evt.Parsed.message, "ServiceAddr")
-      - grok:
-          pattern: '%{USERNAME:http_user_agent}'
-          expression: JsonExtract(evt.Parsed.message, "request_User-Agent")
-      - grok:
-          pattern: '%{NUMBER:body_bytes_sent}'
-          expression: JsonExtract(evt.Parsed.message, "DownstreamContentSize")
-      - grok:
-          pattern: '%{NUMBER:request_duration_in_ms}'
-          expression: JsonExtract(evt.Parsed.message, "Duration")
-      - grok:
-          pattern: '%{TRAEFIK_ROUTER:traefik_router_name}'
-          expression: JsonExtract(evt.Parsed.message, "RouterName")
-      - grok:
-          pattern: '%{GREEDYDATA:time_local}'
-          expression: JsonExtract(evt.Parsed.message, "time")
-      - grok:
-          pattern: '%{GREEDYDATA:verb}'
-          expression: JsonExtract(evt.Parsed.message, "RequestMethod")
-      - grok:
-          pattern: '%{GREEDYDATA:request}'
-          expression: JsonExtract(evt.Parsed.message, "RequestPath")
-      - grok:
-          pattern: 'HTTP/%{NUMBER:http_version}'
-          expression: JsonExtract(evt.Parsed.message, "RequestProtocol")
-      - grok:
-          pattern: '%{NUMBER:status}'
-          expression: JsonExtract(evt.Parsed.message, "DownstreamStatus")
+  - filter: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "traefik") in ["", nil]
+    statics:
+      - parsed: remote_addr
+        expression: evt.Unmarshaled.traefik.ClientHost
+      - parsed: dest_addr
+        ## Split dest_addr to get IP only as this is original functionality
+        expression: Split(evt.Unmarshaled.traefik.ClientAddr, ':')[0]
+      - parsed: request_addr
+        expression: evt.Unmarshaled.traefik.RequestAddr
+      - parsed: service_addr
+        ## Split service_addr to get IP only as this is original functionality
+        expression: "evt.Unmarshaled.traefik.ServiceAddr != nil ? Split(evt.Unmarshaled.traefik.ServiceAddr, ':')[0] : nil"
+      - parsed: http_user_agent
+        expression: evt.Unmarshaled.traefik["request_User-Agent"] ## We have to access via [] as the key contains a dash 
+      - parsed: body_bytes_sent
+        ## We have to check if DownstreamContentSize is nil, as it will cause EXPR error if it is 
+        expression: "evt.Unmarshaled.traefik.DownstreamContentSize != nil ? int(evt.Unmarshaled.traefik.DownstreamContentSize) : nil"
+      - parsed: request_duration_in_ms
+        expression: int(evt.Unmarshaled.traefik.Duration)
+      - parsed: traefik_router_name
+        expression: evt.Unmarshaled.traefik.RouterName
+      - parsed: time_local
+        expression: evt.Unmarshaled.traefik.time
+      - parsed: verb
+        expression: evt.Unmarshaled.traefik.RequestMethod
+      - parsed: request
+        expression: evt.Unmarshaled.traefik.RequestPath
+      - parsed: http_version
+        ## Split http_version to get version only as this is original functionality
+        expression: Split(evt.Unmarshaled.traefik.RequestProtocol, '/')[1]
+      - parsed: status
+        expression: int(evt.Unmarshaled.traefik.DownstreamStatus)
 statics:
   - meta: service
     value: http
@@ -66,6 +57,8 @@ statics:
     expression: "evt.Parsed.remote_user"
   - meta: source_ip
     expression: "evt.Parsed.remote_addr"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
   - meta: log_type
     value: http_access-log
   - target: evt.StrTime

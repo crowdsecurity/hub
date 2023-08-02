@@ -7,7 +7,7 @@ A collection for postfix
  * postscreen rb attempt blacklist
 
 This collection mostly aims at getting a similar spam protection as
-the normal fail2ban postfix configuration although postcreen log
+the normal fail2ban postfix configuration although postscreen log
 management isn't included by default by fail2ban.
 
 

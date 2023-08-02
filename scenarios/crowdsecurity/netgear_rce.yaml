@@ -1,0 +1,13 @@
+type: trigger
+format: 2.0
+name: crowdsecurity/netgear_rce
+description: "Detect Netgear RCE DGN1000/DGN220 exploitation attempts"
+filter: |
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] && Lower(QueryUnescape(evt.Meta.http_path)) startsWith Lower('/setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=')
+groupby: "evt.Meta.source_ip"
+blackhole: 2m
+references: 
+  - "https://www.exploit-db.com/exploits/25978"
+labels:
+  type: exploit
+  remediation: true
