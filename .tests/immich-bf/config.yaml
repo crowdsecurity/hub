@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/gauth-fr/immich-logs.yaml
+scenarios:
+- "./scenarios/gauth-fr/immich-bf.yaml"
+postoverflows:
+- ""
+log_file: immich-bf.log
+log_type: immich
+labels: {}
+ignore_parsers: false
+override_statics: []
