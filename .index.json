@@ -1572,6 +1572,47 @@
     "crowdsecurity/palo-alto-threat"
    ]
   },
+  "crowdsecurity/pfsense": {
+   "path": "collections/crowdsecurity/pfsense.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b0e0d8b751b34cc9d63268169a51849182039aa17ea78093a80da9d302756b97",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgcGZTZW5zZSBjb2xsZWN0aW9uCgpUaGlzIHBmU2Vuc2UgY29sbGVjdGlvbiBzdXBwb3J0cyA6CiAtIHNzaCBwYXJzZXJzICYgYnJ1dGVmb3JjZSBkZXRlY3Rpb24KIC0gd2ViIGF1dGhlbnRpY2F0aW9uIGJydXRlZm9yY2UgZGV0ZWN0aW9uCiAtIHBvcnQgc2NhbiBkZXRlY3Rpb24K",
+   "content": "Y29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L2ZyZWVic2QKICAtIGNyb3dkc2VjdXJpdHkvcGZzZW5zZS1ndWkKICAtIGZpcmV3YWxsc2VydmljZXMvcGYKZGVzY3JpcHRpb246ICJjb3JlIHBmc2Vuc2Ugc3VwcG9ydCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBmcmVlYnNkCg==",
+   "description": "core pfsense support",
+   "author": "crowdsecurity",
+   "labels": null,
+   "collections": [
+    "crowdsecurity/freebsd",
+    "crowdsecurity/pfsense-gui",
+    "firewallservices/pf"
+   ]
+  },
+  "crowdsecurity/pfsense-gui": {
+   "path": "collections/crowdsecurity/pfsense-gui.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "5e3c9d329eb515265634bcb8684180c2df2d01431273b6d1a9123e972109f408",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgcGZTZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gY29sbGVjdGlvbgoKU3VwcG9ydCB0byBkZXRlY3QgYnJ1dGVmb3JjZSBvbiB0aGUgcGZTZW5zZSB3ZWIgcG9ydGFsCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGZzZW5zZS1ndWktbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3Bmc2Vuc2UtZ3VpLWJmCmRlc2NyaXB0aW9uOiAicGZTZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gc3VwcG9ydCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBmcmVlYnNkCiAgLSBwZnNlbnNlCiAgLSBicnV0ZWZvcmNlCiAgLSBzY2FuCg==",
+   "description": "pfSense web authentication support",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/pfsense-gui-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/pfsense-gui-bf"
+   ]
+  },
   "crowdsecurity/pgsql": {
    "path": "collections/crowdsecurity/pgsql.yaml",
    "version": "0.1",
@@ -3998,6 +4039,22 @@
    "long_description": "QSBtaW5pbWFsIHBhcnNlciBmb3IgcGFtLCBzdXBwb3J0cyBvbmx5IDoKIC0gYXV0aGVudGljYXRpb24gZmFpbHVyZSBtZXNzYWdlcwogLSBhY2NvdW50IGxvY2sgKHBhbV90YWxseSkK",
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnc3VkbyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGFtLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBwYW0gbG9ncyIKbm9kZXM6CiAgLSBncm9rOiAKICAgICAgcGF0dGVybjogJ3BhbV90YWxseTJcKHN1ZG86YXV0aFwpOiB1c2VyICV7Tk9UU1BBQ0U6dXNlcm5hbWV9IFwoJXtOVU1CRVI6dWlkfVwpIHRhbGx5IFxkLCBkZW55IFxkJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiBwYW1fdXNlcl9sb2NrCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAncGFtX3VuaXhcKHN1ZG86YXV0aFwpOiBhdXRoZW50aWNhdGlvbiBmYWlsdXJlOyBsb2duYW1lPSV7Tk9UU1BBQ0U6bG9nbmFtZX0gdWlkPSV7TlVNQkVSOnVpZH0gZXVpZD0le05VTUJFUjpldWlkfSB0dHk9JXtOT1RTUEFDRTp0dHl9IHJ1c2VyPSV7Tk9UU1BBQ0U6cnVzZXJ9IHJob3N0PSV7R1JFRURZREFUQTpyaG9zdH0gIHVzZXI9JXtOT1RTUEFDRTp1c2VybmFtZX0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHBhbV9mYWlsZWRfYXV0aApzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IHBhbQogIC0gbWV0YTogdXNlcm5hbWUKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnVzZXJuYW1lIgo=",
    "description": "Parse pam logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/pfsense-gui-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/pfsense-gui-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "0e759d86c5244f6593c6ba58f18d59ad1fac1fe9cc2f127053f229d4851f57f4",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgcGZTZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gcGFyc2VyCgpBIHBhcnNlciBmb3IgcGZTZW5zZSB3ZWIgYXV0aGVudGljYXRpb24gKGZhaWxlZCkgbG9ncy4KVGhvc2UgbG9ncyBhcmUgdXN1YWxseSBwcmVzZW50IGluIGAgL3Zhci9sb2cvYXV0aC5sb2dgLgoK",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAncGhwLWZwbSciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGZzZW5zZS1ndWktbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHBmU2Vuc2Ugd2ViIGF1dGggbG9ncyIKZ3JvazogCiAgcGF0dGVybjogIi9pbmRleC5waHA6IHdlYkNvbmZpZ3VyYXRvciBhdXRoZW50aWNhdGlvbiBlcnJvciBmb3IgdXNlciAnJXtVU0VSTkFNRTp1c2VybmFtZX0nIGZyb206ICV7SVBPUkhPU1Q6c291cmNlX2lwfSIKICBhcHBseV9vbjogbWVzc2FnZQpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IHBmc2Vuc2UtZ3VpCiAgLSBtZXRhOiB1c2VybmFtZQogICAgZXhwcmVzc2lvbjogImV2dC5QYXJzZWQudXNlcm5hbWUiCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlX2lwCiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IHBmc2Vuc2UtZ3VpLWZhaWxlZC1hdXRoCg==",
+   "description": "Parse pfSense web auth logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -7734,6 +7791,25 @@
    "author": "crowdsecurity",
    "labels": {
     "remediation": "true"
+   }
+  },
+  "crowdsecurity/pfsense-gui-bf": {
+   "path": "scenarios/crowdsecurity/pfsense-gui-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b23ed9edafd3b8cea053d4286abfc2513d53c54904e7348b4fc1bf24e9e3a77d",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgcGZTZW5zZSB3ZWIgcG9ydGFsIGJydXRlZm9yY2UgZGV0ZWN0aW9uCgpEZXRlY3RzIGJydXRlZm9yY2UgYXR0ZW1wdHMgb24gdGhlIHBmU2Vuc2Ugd2ViIHBvcnRhbCA6CiAtIG1vcmUgdGhhbiA1IGF0dGVtcHRzCiAtIDEwIHNlY29uZHMgYmV0d2VlbiBlYWNoCgoK",
+   "content": "IyBwZnNlbnNlIHdlYiBhdXRoIGJydXRlZm9yY2UKdHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGZzZW5zZS13ZWItYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgYnJ1dGVmb3JjZSBvbiBwZnNlbnNlIHdlYiBpbnRlcmZhY2UiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3Bmc2Vuc2UtZ3VpLWZhaWxlZC1hdXRoJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHBmc2Vuc2UtZ3VpLWF1dGgKIHR5cGU6IGJydXRlZm9yY2UKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect bruteforce on pfsense web interface",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "true",
+    "service": "pfsense-gui-auth",
+    "type": "bruteforce"
    }
   },
   "crowdsecurity/pgsql-bf": {
