@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_installutil_download
+description: |
+  Detects the use the .NET InstallUtil.exe application in order to download arbitrary files. The files will be written to %LOCALAPPDATA%\Microsoft\Windows\INetCache\IE\
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\InstallUtil.exe' || evt.Parsed.OriginalFileName == 'InstallUtil.exe') && (evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://' || evt.Parsed.CommandLine contains 'ftp://'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Suspicious Execution of InstallUtil To Download"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

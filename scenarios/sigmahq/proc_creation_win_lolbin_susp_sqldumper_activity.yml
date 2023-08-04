@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_susp_sqldumper_activity
+description: |
+  Detects process dump via legitimate sqldumper.exe binary
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sqldumper.exe' && (evt.Parsed.CommandLine contains '0x0110' || evt.Parsed.CommandLine contains '0x01100:40'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1003.001
+
+  label: "Dumping Process via Sqldumper.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

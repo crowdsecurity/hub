@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_certoc_download
+description: |
+  Detects when a user downloads file by using CertOC.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certoc.exe' || evt.Parsed.OriginalFileName == 'CertOC.exe') && evt.Parsed.CommandLine contains '-GetCACAPS')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Suspicious File Download via CertOC.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

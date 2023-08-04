@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_appvlp
+description: |
+  Application Virtualization Utility is included with Microsoft Office. We are able to abuse "AppVLP" to execute shell commands.
+  Normally, this binary is used for Application Virtualization, but we can use it as an abuse binary to circumvent the ASR file path rule folder
+  or to mark a file as a system file.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\appvlp.exe' && not (evt.Parsed.Image endsWith '\\msoasb.exe' || evt.Parsed.Image endsWith '\\rundll32.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Using AppVLP To Circumvent ASR File Path Rule"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

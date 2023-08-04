@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_extrac32
+description: |
+  Download or Copy file with Extrac32
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'extrac32.exe' || evt.Parsed.Image endsWith '\\extrac32.exe' || evt.Parsed.OriginalFileName == 'extrac32.exe') && evt.Parsed.CommandLine contains '.cab' && (evt.Parsed.CommandLine contains '/C' || evt.Parsed.CommandLine contains '/Y' || evt.Parsed.CommandLine contains ' \\\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Suspicious Extrac32 Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
