@@ -1,7 +1,7 @@
 filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'wireguard:'"
 #debug: true
 onsuccess: next_stage
-name: crowdsecurity/wireguard
+name: crowdsecurity/wireguard-logs
 description: "Parses wireguard log via dyndbg"
 pattern_syntax:
   WIREGUARD_INVALID_HANDSHAKE: 'wireguard: wg%{INT}: Packet has unallowed src IP \(%{IP}\) from peer %{INT} \(%{IP:source_ip}:%{INT}\)'
