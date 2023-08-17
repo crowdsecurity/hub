@@ -34,4 +34,4 @@ statics:
   - meta: target_fqdn
     expression: evt.Unmarshaled.caddy.request.host
   - meta: sub_type
-    expression: "evt.Parsed.status == '401' && evt.Unmarshaled.request.headers.Authorization startsWith 'Basic ' ? 'auth_fail' : ''"
+    expression: "evt.Meta.http_status == '401' && evt.Unmarshaled.request.headers.Authorization startsWith 'Basic ' ? 'auth_fail' : ''"
