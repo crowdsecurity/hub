@@ -8,7 +8,8 @@ pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
   NUMBER_MINUS: '[0-9-]+'
-  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
+  NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
+  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGCUSTOMUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
 nodes:
   - grok: # CLF parser
       pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
@@ -24,7 +25,7 @@ nodes:
         expression: evt.Unmarshaled.traefik.RequestAddr
       - parsed: service_addr
         ## Split service_addr to get IP only as this is original functionality
-        expression: Split(evt.Unmarshaled.traefik.ServiceAddr, ':')[0]
+        expression: "evt.Unmarshaled.traefik.ServiceAddr != nil ? Split(evt.Unmarshaled.traefik.ServiceAddr, ':')[0] : nil"
       - parsed: http_user_agent
         expression: evt.Unmarshaled.traefik["request_User-Agent"] ## We have to access via [] as the key contains a dash 
       - parsed: body_bytes_sent
