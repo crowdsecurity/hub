@@ -11,12 +11,13 @@ statics:
       Sprintf("%v", evt.Unmarshaled.caddy.ts) matches '^[0-9e\\.\\+]+$' ? int(evt.Unmarshaled.caddy.ts) : evt.Unmarshaled.caddy.ts
   - meta: service
     value: http
+  ##Caddy now sets client_ip to the value of X-Forwarded-For if users sets trusted proxies
   - parsed: remote_ip
-    expression: evt.Unmarshaled.caddy.request.remote_ip
+    expression: evt.Unmarshaled.caddy.request.client_ip
   - parsed: remote_addr
     expression: "evt.Unmarshaled.caddy.request.remote_addr != nil ? Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0] : nil"
   - meta: source_ip
-    expression: "evt.Parsed.remote_ip != '' ? evt.Parsed.remote_ip : evt.Parsed.remote_addr"
+    expression: evt.Parsed.remote_ip
   - meta: http_status
     expression: int(evt.Unmarshaled.caddy.status)
   - meta: http_path
