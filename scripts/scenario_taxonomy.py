@@ -10,7 +10,7 @@ from yaml.loader import SafeLoader
 
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 
-HELP_STR = '''
+HELP_STR = """
 Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
 As an example, some common mitre attack techniques:
  - T1110 for bruteforce attacks
@@ -18,7 +18,8 @@ As an example, some common mitre attack techniques:
  - T1595 for generic scanning of exposed applications
 
 [Here](https://docs.crowdsec.net/docs/next/scenarios/format#labels) is the CrowdSec documentation on how to fill those labels
-'''
+"""
+
 
 def get_behavior_from_label(labels):
     service = ""
@@ -171,6 +172,7 @@ def main():
             scenario_label = ""
             confidence = 0
             spoofable = 0
+            in_cti = True
             if "labels" in scenario:
                 labels = scenario["labels"]
                 if "label" in labels:
@@ -183,6 +185,10 @@ def main():
                     confidence = labels["confidence"]
                 else:
                     scenario_errors.append("`confidence` key not found in labels")
+
+                if "cti" in labels:
+                    if labels["cti"] == False:
+                        in_cti = False
 
             if scenario_label == "":
                 desc = scenario["description"].lower()
@@ -225,6 +231,7 @@ def main():
                 "mitre_attacks": mitre_attacks,
                 "confidence": confidence,
                 "spoofable": spoofable,
+                "cti": in_cti,
             }
 
             stats["scenarios_ok"].append(scenario["name"])
@@ -256,7 +263,6 @@ def main():
     print("\tScenarios NOK : {}/{}".format(len(stats["scenarios_nok"]), total_scenario))
     print("\tMitre Att&ck  : {}".format(len(stats["mitre"])))
     print("\tBehaviors     : {}".format(len(stats["behaviors"])))
-
 
     # write the report about the supported techniques only if the path is specified
     if args.report != "":
@@ -303,9 +309,7 @@ def parse_args():
     parser.add_argument(
         "-o", "--output", type=str, help="Output file path", default="./scenarios.json"
     )
-    parser.add_argument(
-        "-r", "--report", type=str, help="Report file path", default=""
-    )
+    parser.add_argument("-r", "--report", type=str, help="Report file path", default="")
     parser.add_argument(
         "-e",
         "--errors",
