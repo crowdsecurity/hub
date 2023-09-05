@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/teleport-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/teleport-bf.yaml
+postoverflows:
+- ""
+log_file: teleport-bf.log
+log_type: teleport
+labels: {}
+ignore_parsers: true
+override_statics: []
