@@ -27,6 +27,18 @@
   - `confidence` key not found in labels
   - Unknown behaviors: paperless-ngx:bruteforce
 
+**andreasbrett/webmin-bf**:
+  - `attack` not found in labels.classification
+  - `spoofable` key not found in labels
+  - `confidence` key not found in labels
+  - Unknown behaviors: webmin:bruteforce
+
+**andreasbrett/webmin-bf_user-enum**:
+  - `attack` not found in labels.classification
+  - `spoofable` key not found in labels
+  - `confidence` key not found in labels
+  - Unknown behaviors: webmin:bruteforce
+
 **crowdsecurity/exim-spam**:
   - `attack` not found in labels.classification
 
@@ -47,6 +59,24 @@
 
 **crowdsecurity/postscreen-rbl**:
   - `attack` not found in labels.classification
+
+**crowdsecurity/wireguard-auth**:
+  - `attack` not found in labels.classification
+  - `spoofable` key not found in labels
+  - `confidence` key not found in labels
+  - Unknown behaviors: :
+
+**gauth-fr/immich-bf**:
+  - `attack` not found in labels.classification
+  - `spoofable` key not found in labels
+  - `confidence` key not found in labels
+  - Unknown behaviors: immich:bruteforce
+
+**gauth-fr/immich-bf_user-enum**:
+  - `attack` not found in labels.classification
+  - `spoofable` key not found in labels
+  - `confidence` key not found in labels
+  - Unknown behaviors: immich:bruteforce
 
 **inherent-io/keycloak-bf**:
   - `attack` not found in labels.classification
