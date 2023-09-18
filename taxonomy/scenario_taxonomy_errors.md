@@ -10,18 +10,6 @@
   - `confidence` key not found in labels
   - Unknown behaviors: baikal:bruteforce
 
-**andreasbrett/paperless-ngx-bf**:
-  - Unknown behaviors: paperless-ngx:bruteforce
-
-**andreasbrett/paperless-ngx-bf_user-enum**:
-  - Unknown behaviors: paperless-ngx:bruteforce
-
-**andreasbrett/webmin-bf**:
-  - Unknown behaviors: webmin:bruteforce
-
-**andreasbrett/webmin-bf_user-enum**:
-  - Unknown behaviors: webmin:bruteforce
-
 **crowdsecurity/exim-spam**:
   - `attack` not found in labels.classification
 
@@ -36,27 +24,6 @@
 
 **crowdsecurity/postscreen-rbl**:
   - `attack` not found in labels.classification
-
-**crowdsecurity/wireguard-auth**:
-  - Unknown behaviors: wireguard:bruteforce
-
-**gauth-fr/immich-bf**:
-  - Unknown behaviors: immich:bruteforce
-
-**gauth-fr/immich-bf_user-enum**:
-  - Unknown behaviors: immich:bruteforce
-
-**inherent-io/keycloak-bf**:
-  - Unknown behaviors: keycloak:bruteforce
-
-**inherent-io/keycloak-user-enum-bf**:
-  - Unknown behaviors: keycloak:bruteforce
-
-**inherent-io/keycloak-slow-bf**:
-  - Unknown behaviors: keycloak:bruteforce
-
-**inherent-io/keycloak-user-enum-slow-bf**:
-  - Unknown behaviors: keycloak:bruteforce
 
 
 Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
