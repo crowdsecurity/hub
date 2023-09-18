@@ -10,12 +10,17 @@ capacity: 5
 blackhole: 1m
 labels:
   service: immich
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Immich Bruteforce"
+  behavior: "immich:bruteforce"
   remediation: true
 ---
 # immich user-enum
 type: leaky
-name:  gauth-fr/immich-bf_user-enum
+name: gauth-fr/immich-bf_user-enum
 description: "Detect immich user enum bruteforce"
 filter: "evt.Meta.log_type == 'immich_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -24,6 +29,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: immich
- type: bruteforce
- remediation: true
+  service: immich
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Immich Bruteforce"
+  behavior: "immich:bruteforce"
+  remediation: true
