@@ -1,0 +1,28 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'postfix/cleanup'"
+name: krvtz/postfix-spam
+description: "Parse postfix logs"
+nodes:
+  - grok:
+      apply_on: message
+      pattern: 'milter-reject: END-OF-MESSAGE from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: 4.7.1 Spam message rejected'
+      statics:
+        - meta: log_type_enh
+          value: spam-attempt
+  - grok:
+      apply_on: message
+      pattern: ' %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: 450 4.1.1 <[a-zA-Z0-9@-]+>: Recipient address rejected'
+      statics:
+        - meta: log_type_enh
+          value: spam-attempt
+statics:
+    - meta: service
+      value: postfix
+    - meta: action
+      value: reject
+    - meta: source_ip
+      expression: "evt.Parsed.remote_addr"
+    - meta: source_hostname
+      expression: "evt.Parsed.remote_host"
+    - meta: log_type
+      value: postfix
