@@ -173,22 +173,21 @@ def main():
             confidence = 0
             spoofable = 0
             in_cti = True
-            if "labels" in scenario:
-                labels = scenario["labels"]
-                if "label" in labels:
-                    scenario_label = scenario["labels"]["label"]
-                if "spoofable" in labels:
-                    spoofable = labels["spoofable"]
-                else:
-                    scenario_errors.append("`spoofable` key not found in labels")
-                if "confidence" in labels:
-                    confidence = labels["confidence"]
-                else:
-                    scenario_errors.append("`confidence` key not found in labels")
 
-                if "cti" in labels:
-                    if labels["cti"] == False:
-                        in_cti = False
+            if "label" in labels:
+                scenario_label = scenario["labels"]["label"]
+            if "spoofable" in labels:
+                spoofable = labels["spoofable"]
+            else:
+                scenario_errors.append("`spoofable` key not found in labels")
+            if "confidence" in labels:
+                confidence = labels["confidence"]
+            else:
+                scenario_errors.append("`confidence` key not found in labels")
+
+            if "cti" in labels:
+                if labels["cti"] == False:
+                    in_cti = False
 
             if scenario_label == "":
                 desc = scenario["description"].lower()
