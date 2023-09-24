@@ -1,0 +1,38 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2023-09-23 10:33:45: [error] App: 403: POST /api/sessions: 1.2.3.4: Invalid username or password: {\"email\":\"user@example.com\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "joplin-server"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "joplin-server-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+len(results["s01-parse"]["xs539/joplin-server-logs"]) == 1
+results["s01-parse"]["xs539/joplin-server-logs"][0].Success == true
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Parsed["timestamp"] == "2023-09-23 10:33:45"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Parsed["message"] == "2023-09-23 10:33:45: [error] App: 403: POST /api/sessions: 1.2.3.4: Invalid username or password: {\"email\":\"user@example.com\"}"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Parsed["program"] == "joplin-server"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Parsed["target_user"] == "user@example.com"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["log_type"] == "joplin_server_failed_auth"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["service"] == "joplin"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["target_user"] == "user@example.com"
+results["s01-parse"]["xs539/joplin-server-logs"][0].Evt.Meta["datasource_path"] == "joplin-server-logs.log"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2023-09-23 10:33:45: [error] App: 403: POST /api/sessions: 1.2.3.4: Invalid username or password: {\"email\":\"user@example.com\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "joplin-server"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_user"] == "user@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-09-23 10:33:45"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "joplin_server_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "joplin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "user@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-09-23T10:33:45Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "joplin-server-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-09-23T10:33:45Z"
+len(results["success"][""]) == 0
