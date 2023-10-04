@@ -4,7 +4,6 @@ name: crowdsecurity/auditd-sus-exec
 description: "Detect post-exploitation behaviour : exec from suspicious locations"
 filter: evt.Meta.log_type == 'execve' and ( evt.Meta.exe startsWith "/tmp/" or evt.Meta.exe contains "/." )
 labels:
-labels:
   confidence: 2
   spoofable: 0
   classification:
