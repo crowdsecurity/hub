@@ -3,7 +3,7 @@ name: crowdsecurity/auditd-suid-crash
 description: "Detect root suid process crashing"
 filter: |
   (evt.Meta.log_type == 'execve' && evt.Meta.euid == '0' && evt.Meta.auid != '0') ||
-  (evt.Meta.log_type == 'anom_abend' && evt.Meta.sig in ["4", "5", "6", "7" "11"])
+  (evt.Meta.log_type == 'anom_abend' && evt.Meta.sig in ["4", "5", "6", "7", "11"])
 groupby: evt.Meta.pid
 condition: |
   len(queue.Queue) >= 2 and 
