@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/laurel-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/auditd-suid-crash.yaml
+postoverflows:
+- ""
+log_file: laurel-suid-crash.log
+log_type: laurel
+labels: {}
+ignore_parsers: true
+override_statics: []
