@@ -1,7 +1,7 @@
 onsuccess: next_stage
 #debug: true
 filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'segfault'"
-name: crowdsecurity/kernel-segfault
+name: crowdsecurity/segfault-logs
 nodes:
 - grok:
     pattern: '%{DATA:binary}\[%{INT:pid}\]: segfault at %{DATA:addr} ip %{DATA:rip} sp %{DATA:sp} error %{INT:err_num} in %{DATA:library}\[%{DATA:library_offset}\] %{DATA}'
