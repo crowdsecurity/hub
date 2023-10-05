@@ -1245,23 +1245,29 @@
   },
   "crowdsecurity/linux-lpe": {
    "path": "collections/crowdsecurity/linux-lpe.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "a68ef0b517c988b50b3cdc0d84702b2f70e621d29378b9782b2e037bf6663458",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "fd4a1d641522646b438dcf6572eddee3196c21bbc4dc75907515fd25e4f27578",
+     "deprecated": false
     }
    },
    "long_description": "IyMgTG9jYWwgUHJpdmlsZWdlIEVzY2FsYXRpb24gRGV0ZWN0aW9uCgpUaGlzIGNvbGxlY3Rpb24gYWltcyBhdCBkZXRlY3RpbmcgKHdoZW4gcG9zc2libGUpIGxvY2FsIHByaXZpbGVnZSBlc2NhbGF0aW9uIGF0dGFja3MuCgogLSBDVkUtMjAyMS00MDM0IDogRGV0ZWN0IGV4cGxvaXRhdGlvbiBvZiBwa2V4ZWMgdnVsbmVyYWJpbGl0eQoKOndhcm5pbmc6IFBsZWFzZSBub3RlIHRob3NlIHNjZW5hcmlvcyBhcmUgZGV0ZWN0aW9uIG9ubHksIGFuZCBhcmUgdmVyeSBsaWtlbHkgdG8gYmUgYnlwYXNzZWQgYnkgc21hcnQgYXR0YWNrZXJzLCBkbyBub3QgcmVseSBzb2xlbHkgb24gdGhlbSA6d2FybmluZzoKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbApmaWxlbmFtZXM6CiAgLSAvdmFyL2xvZy9hdXRoLmxvZwpsYWJlbHM6CiAgdHlwZTogc3lzbG9nCmBgYAoKbm90ZXMgOgogLSAgRGVwZW5kaW5nIG9uIHlvdXIgZGlzdHJpYnV0aW9uL09TLCBwYXRocyB0byBsb2cgZmlsZXMgbWlnaHQgY2hhbmdlCiAtICBPbmx5IHJlbGV2YW50IGlmIHlvdSBhcmUgbWFudWFsbHkgaW5zdGFsbGluZyBjb2xsZWN0aW9uCgo=",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9DVkUtMjAyMS00MDM0CmNvbGxlY3Rpb25zOgogIC0gY3Jvd2RzZWN1cml0eS9saW51eApkZXNjcmlwdGlvbjogIkxpbnV4IExvY2FsIFByaXZpbGVnZSBFc2NhbGF0aW9uIGNvbGxlY3Rpb24gOiBkZXRlY3QgdHJpdmlhbCBMUEVzIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBwcml2c2VjCiAgLSBscGUKCgo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvc2VnZmF1bHQtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L0NWRS0yMDIxLTQwMzQKICAtIGNyb3dkc2VjdXJpdHkvQ1ZFLTIwMjMtNDkxMQpjb2xsZWN0aW9uczoKICAtIGNyb3dkc2VjdXJpdHkvbGludXgKZGVzY3JpcHRpb246ICJMaW51eCBMb2NhbCBQcml2aWxlZ2UgRXNjYWxhdGlvbiBjb2xsZWN0aW9uIDogZGV0ZWN0IHRyaXZpYWwgTFBFcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gcHJpdnNlYwogIC0gbHBlCgoK",
    "description": "Linux Local Privilege Escalation collection : detect trivial LPEs",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
-    "crowdsecurity/pkexec-logs"
+    "crowdsecurity/pkexec-logs",
+    "crowdsecurity/segfault-logs"
    ],
    "scenarios": [
-    "crowdsecurity/CVE-2021-4034"
+    "crowdsecurity/CVE-2021-4034",
+    "crowdsecurity/CVE-2023-4911"
    ],
    "collections": [
     "crowdsecurity/linux"
@@ -4289,17 +4295,17 @@
    "author": "crowdsecurity",
    "labels": null
   },
-  "crowdsecurity/segfault": {
-   "path": "parsers/s01-parse/crowdsecurity/segfault.yaml",
+  "crowdsecurity/segfault-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/segfault-logs.yaml",
    "stage": "s01-parse",
    "version": "0.1",
    "versions": {
     "0.1": {
-     "digest": "e89341c2b93ebf4d1d44a4df8e31082084d30f930164a8c4ce55c66fb05825eb",
+     "digest": "9079d38e296e0b574a5cb2fe1fee614c08114912daefa569b2dc0648d8d8e8b8",
      "deprecated": false
     }
    },
-   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tlcm5lbCcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnc2VnZmF1bHQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L2tlcm5lbC1zZWdmYXVsdApub2RlczoKLSBncm9rOgogICAgcGF0dGVybjogJyV7REFUQTpiaW5hcnl9XFsle0lOVDpwaWR9XF06IHNlZ2ZhdWx0IGF0ICV7REFUQTphZGRyfSBpcCAle0RBVEE6cmlwfSBzcCAle0RBVEE6c3B9IGVycm9yICV7SU5UOmVycl9udW19IGluICV7REFUQTpsaWJyYXJ5fVxbJXtEQVRBOmxpYnJhcnlfb2Zmc2V0fVxdICV7REFUQX0nCiAgICBhcHBseV9vbjogbWVzc2FnZQpkZXNjcmlwdGlvbjogIlBhcnNlcyBzZWdmYXVsdCBrZXJuZWwgc2lkZSIKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZToga2VybmVsCiAgLSBtZXRhOiBzdWJfbG9nX3R5cGUKICAgIHZhbHVlOiBzZWdmYXVsdAogIC0gbWV0YTogcHJvZ3JhbQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5wcm9ncmFtCiAgLSBtZXRhOiBsaWJyYXJ5CiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmxpYnJhcnkKICAtIG1ldGE6IGVycm51bQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5lcnJudW0K",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2tlcm5lbCcgYW5kIGV2dC5QYXJzZWQubWVzc2FnZSBjb250YWlucyAnc2VnZmF1bHQnIgpuYW1lOiBjcm93ZHNlY3VyaXR5L3NlZ2ZhdWx0LWxvZ3MKbm9kZXM6Ci0gZ3JvazoKICAgIHBhdHRlcm46ICcle0RBVEE6YmluYXJ5fVxbJXtJTlQ6cGlkfVxdOiBzZWdmYXVsdCBhdCAle0RBVEE6YWRkcn0gaXAgJXtEQVRBOnJpcH0gc3AgJXtEQVRBOnNwfSBlcnJvciAle0lOVDplcnJfbnVtfSBpbiAle0RBVEE6bGlicmFyeX1cWyV7REFUQTpsaWJyYXJ5X29mZnNldH1cXSAle0RBVEF9JwogICAgYXBwbHlfb246IG1lc3NhZ2UKZGVzY3JpcHRpb246ICJQYXJzZXMgc2VnZmF1bHQga2VybmVsIHNpZGUiCnN0YXRpY3M6CiAgLSBtZXRhOiBsb2dfdHlwZQogICAgdmFsdWU6IGtlcm5lbAogIC0gbWV0YTogc3ViX2xvZ190eXBlCiAgICB2YWx1ZTogc2VnZmF1bHQKICAtIG1ldGE6IHByb2dyYW0KICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQucHJvZ3JhbQogIC0gbWV0YTogbGlicmFyeQogICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5saWJyYXJ5CiAgLSBtZXRhOiBlcnJudW0KICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuZXJybnVtCg==",
    "description": "Parses segfault kernel side",
    "author": "crowdsecurity",
    "labels": null
@@ -6094,6 +6100,22 @@
    "labels": {
     "notification": "true",
     "os": "windows"
+   }
+  },
+  "crowdsecurity/CVE-2023-4911": {
+   "path": "scenarios/crowdsecurity/CVE-2023-4911.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "c9be24878aab5602152e6873ee337e62eb3edb0e2ce9b3d2c873ee7112660379",
+     "deprecated": false
+    }
+   },
+   "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L0NWRS0yMDIzLTQ5MTEKZGVzY3JpcHRpb246ICJUcmlnZ2VyIG9uIHN1c3BpY2lvdXMgc2VnZmF1bHQiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdrZXJuZWwnICYmIGV2dC5NZXRhLnN1Yl9sb2dfdHlwZSA9PSAnc2VnZmF1bHQnICYmIGV2dC5NZXRhLmxpYnJhcnkgc3RhcnRzV2l0aCAnbGQtbGludXgtJyIKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgIyBjb25maWRlbmNlOiAxCiAgIyBzcG9vZmFibGU6IDAKICAjIGNsYXNzaWZpY2F0aW9uOgogICMgICAtIGF0dGFjay5UMTU0OC4wMDQKICAjIGJlaGF2aW9yOiAibGludXg6ZXhwbG9pdGF0aW9uIgogICMgbGFiZWw6ICJTdXNwaWNpb3VzIHN1aWQgcHJvY2VzcyBjcmFzaCIKICAjIHNlcnZpY2U6IGxpbnV4CiAgcmVtZWRpYXRpb246IGZhbHNlCnNjb3BlOgogIHR5cGU6IGV4ZQogIGV4cHJlc3Npb246IGV2dC5NZXRhLmV4ZQo=",
+   "description": "Trigger on suspicious segfault",
+   "author": "crowdsecurity",
+   "labels": {
+    "remediation": "false"
    }
   },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
