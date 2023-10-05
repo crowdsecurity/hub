@@ -4,7 +4,7 @@ filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'segfaul
 name: crowdsecurity/segfault-logs
 nodes:
 - grok:
-    pattern: '%{DATA:binary}\[%{INT:pid}\]: segfault at %{DATA:addr} ip %{DATA:rip} sp %{DATA:sp} error %{INT:err_num} in %{DATA:library}\[%{DATA:library_offset}\] %{DATA}'
+    pattern: '(\[%{DATA}\] )?%{DATA:binary}\[%{INT:pid}\]: segfault at %{DATA:addr} ip %{DATA:rip} sp %{DATA:sp} error %{INT:err_num} in %{DATA:library}\[%{DATA:library_offset}\] %{DATA}'
     apply_on: message
 description: "Parses segfault kernel side"
 statics:
