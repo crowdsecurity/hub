@@ -21,6 +21,7 @@ A collection of http specific CVEs :
  - [Centos Web Panel 7 CVE-2022-44877](https://nvd.nist.gov/vuln/detail/CVE-2022-44877)
  - [Telerik UI CVE-2019-18935](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-18935)
  - [Netgear DGN1000 / DGN2200 Remote Command Execution](https://www.exploit-db.com/exploits/25978)
+ - [Confluence CVE-2023-22515](https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html)
 
 
 :warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
