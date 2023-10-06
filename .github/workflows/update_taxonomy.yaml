@@ -17,13 +17,14 @@ jobs:
         with:
           python-version: "3.10"
       - uses: actions/checkout@v1
+      - name: Get changed files
+        run: |
+          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> $GITHUB_ENV
       - name: Create local changes
         env:
           AUTHOR: ${{ github.actor }}
-          AUTHOR2: ${{ github.event.pull_request.user.login }}
         run: |
-          echo "->>" $AUTHOR
-          echo "->>" $AUTHOR2
           pip install requests pyyaml mdutils
           python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
           python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
@@ -52,29 +53,29 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-#
-#  invalidate-cache:
-#    runs-on: ubuntu-latest
-#    needs: build
-#    #Only invalidate cache on master or vX branches
-#    #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
-#    #We should avoid naming dev branches with something starting with v :D
-#    if: |
-#        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
-#    permissions:
-#      id-token: write
-#      contents: read
-#    steps:
-#    - uses: actions/checkout@v1
-#    - name: Configure AWS credentials
-#      uses: aws-actions/configure-aws-credentials@v1
-#      with:
-#        role-to-assume: ${{ secrets.CF_AWS_ROLE }}
-#        role-session-name: github-action
-#        aws-region: eu-west-1
-#    - name: Get branch name
-#      run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-#    - name: Invalidate cache
-#      run: |
-#        aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/taxonomy/*"
-#
+
+ invalidate-cache:
+   runs-on: ubuntu-latest
+   needs: build
+   #Only invalidate cache on master or vX branches
+   #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
+   #We should avoid naming dev branches with something starting with v :D
+   if: |
+       startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+   permissions:
+     id-token: write
+     contents: read
+   steps:
+   - uses: actions/checkout@v1
+   - name: Configure AWS credentials
+     uses: aws-actions/configure-aws-credentials@v1
+     with:
+       role-to-assume: ${{ secrets.CF_AWS_ROLE }}
+       role-session-name: github-action
+       aws-region: eu-west-1
+   - name: Get branch name
+     run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+   - name: Invalidate cache
+     run: |
+       aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/taxonomy/*"
+
