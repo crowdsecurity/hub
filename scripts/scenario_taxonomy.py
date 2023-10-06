@@ -13,6 +13,7 @@ author = os.environ.get("AUTHOR", "ghost")
 
 OK_STR = f"""
 Hello @{author},
+
 Scenarios are compliant with the taxonomy, thank you for your contribution!
 """
 
