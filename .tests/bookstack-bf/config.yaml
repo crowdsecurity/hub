@@ -1,0 +1,10 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/xs539/bookstack-logs.yaml
+scenarios:
+- ./scenarios/xs539/bookstack-bf.yaml
+postoverflows:
+log_file: bookstack-bf.log
+log_type: bookstack
+ignore_parsers: true
