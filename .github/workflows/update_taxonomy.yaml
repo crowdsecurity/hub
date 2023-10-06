@@ -18,8 +18,12 @@ jobs:
           python-version: "3.10"
       - uses: actions/checkout@v1
       - name: Create local changes
+        env:
+          AUTHOR: ${{ github.event.issue.user.login }}
+          AUTHOR2: ${{ github.event.pull_request.user.login }}
         run: |
-          AUTHOR=${{ github.event.pull_request.user.login }}
+          echo "->>" $AUTHOR
+          echo "->>" $AUTHOR2
           pip install requests pyyaml mdutils
           python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
           python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md

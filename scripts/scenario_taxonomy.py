@@ -9,7 +9,7 @@ from yaml.loader import SafeLoader
 
 
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
-author = os.environ.get("AUTHOR", "unknown")
+author = os.environ.get("AUTHOR", "ghost")
 INTRO_STR = f"""
 Hello @{author} and thank you for your contribution!
 
