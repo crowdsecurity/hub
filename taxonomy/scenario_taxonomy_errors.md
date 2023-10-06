@@ -1,38 +1,8 @@
 **crowdsecurity/CVE-2023-4911**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: :
-
-**crowdsecurity/auditd-suid-crash**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
   - Unknown behaviors: linux:exploitation
 
-**xs539/bookstack-bf**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: bookstack:bruteforce
-
-**xs539/bookstack-bf_user-enum**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: bookstack:bruteforce
-
-**xs539/joplin-server-bf**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: joplin:bruteforce
-
-**xs539/joplin-server-bf_user-enum**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: joplin:bruteforce
+**crowdsecurity/auditd-suid-crash**:
+  - Unknown behaviors: linux:exploitation
 
 
 Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
