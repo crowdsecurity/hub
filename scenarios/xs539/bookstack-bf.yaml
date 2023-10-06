@@ -8,7 +8,12 @@ capacity: 3
 blackhole: 1m
 labels:
   service: bookstack
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Bookstack Bruteforce"
+  behavior: "http:bruteforce"
   remediation: true
 ---
 type: leaky
@@ -21,6 +26,11 @@ leakspeed: 15m
 capacity: 3
 blackhole: 1m
 labels:
- service: bookstack
- type: bruteforce
- remediation: true
+  service: bookstack
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Bookstack User Enumeration"
+  behavior: "http:bruteforce"
+  remediation: true

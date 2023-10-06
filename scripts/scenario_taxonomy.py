@@ -8,7 +8,7 @@ import argparse
 from yaml.loader import SafeLoader
 
 
-CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
+CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
 author = os.environ.get("AUTHOR", "ghost")
 
 OK_STR = f"""
@@ -245,7 +245,7 @@ def main():
                 scenario_errors.append("`confidence` key not found in labels")
 
             if "cti" in labels:
-                if labels["cti"] == False:
+                if not labels["cti"]:
                     in_cti = False
 
             if scenario_label == "":

@@ -13,8 +13,13 @@ leakspeed: 1s
 capacity: -1
 blackhole: 1m
 labels:
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1548.004
+  behavior: "linux:exploitation"
+  label: "Suspicious suid process crash"
   service: linux
-  type: exploitation
   remediation: false
 scope:
   type: exe
