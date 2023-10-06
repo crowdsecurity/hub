@@ -405,7 +405,7 @@
   "andreasbrett/paperless-ngx-bf_user-enum": {
     "name": "andreasbrett/paperless-ngx-bf_user-enum",
     "description": "Detect Paperless-ngx user enum bruteforce",
-    "label": "Paperless-ngx Bruteforce",
+    "label": "Paperless-ngx User Enumeration",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -768,6 +768,24 @@
       "CVE-2022-46169"
     ]
   },
+  "crowdsecurity/CVE-2023-22515": {
+    "name": "crowdsecurity/CVE-2023-22515",
+    "description": "Detect CVE-2023-22515 exploitation",
+    "label": "Confluence CVE-2023-22515",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "cves": [
+      "CVE-2023-22515"
+    ]
+  },
   "crowdsecurity/CVE-2023-23397": {
     "name": "crowdsecurity/CVE-2023-23397",
     "description": "Detect CVE-2023-23397 from sysmon events",
@@ -788,10 +806,14 @@
   "crowdsecurity/CVE-2023-4911": {
     "name": "crowdsecurity/CVE-2023-4911",
     "description": "exploitation of CVE-2023-4911: segfaulting in dynamic loader",
-    "label": "Exploitation OF Cve-2023-4911: Segfaulting IN Dynamic Loader",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "label": "CVE-2023-4911",
+    "behaviors": [
+      "linux:exploitation"
+    ],
+    "mitre_attacks": [
+      "TA0004:T1548"
+    ],
+    "confidence": 1,
     "spoofable": 0,
     "cti": true
   },
@@ -902,10 +924,14 @@
   "crowdsecurity/auditd-suid-crash": {
     "name": "crowdsecurity/auditd-suid-crash",
     "description": "Detect root suid process crashing",
-    "label": "Root Suid Process Crashing",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "label": "Suspicious suid process crash",
+    "behaviors": [
+      "linux:exploitation"
+    ],
+    "mitre_attacks": [
+      "TA0004:T1548"
+    ],
+    "confidence": 1,
     "spoofable": 0,
     "cti": true
   },
@@ -1343,7 +1369,7 @@
   "crowdsecurity/freeswitch-user-enumeration": {
     "name": "crowdsecurity/freeswitch-user-enumeration",
     "description": "Detect freeswitch user enumeration",
-    "label": "freeswitch user enumeration",
+    "label": "Freeswitch user enumeration",
     "behaviors": [
       "generic:bruteforce"
     ],
@@ -3332,39 +3358,55 @@
     "name": "xs539/bookstack-bf",
     "description": "Detect bookstack bruteforce",
     "label": "Bookstack Bruteforce",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
     "spoofable": 0,
     "cti": true
   },
   "xs539/bookstack-bf_user-enum": {
     "name": "xs539/bookstack-bf_user-enum",
     "description": "Detect bookstack bruteforce",
-    "label": "Bookstack Bruteforce",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "label": "Bookstack User Enumeration",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589"
+    ],
+    "confidence": 3,
     "spoofable": 0,
     "cti": true
   },
   "xs539/joplin-server-bf": {
     "name": "xs539/joplin-server-bf",
     "description": "Detect Joplin Server bruteforce",
-    "label": "Joplin Server Bruteforce",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "label": "Joplin Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
     "spoofable": 0,
     "cti": true
   },
   "xs539/joplin-server-bf_user-enum": {
     "name": "xs539/joplin-server-bf_user-enum",
     "description": "Detect Joplin Server bruteforce",
-    "label": "Joplin Server Bruteforce",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "label": "Joplin User Enumeration",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589"
+    ],
+    "confidence": 3,
     "spoofable": 0,
     "cti": true
   }
