@@ -34,7 +34,7 @@ jobs:
         with:
           state: open
       - name: Comment PR if errors
-        if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'push') && github.event.issue.pull_request }}
+        if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'push') }}
         uses: thollander/actions-comment-pull-request@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
