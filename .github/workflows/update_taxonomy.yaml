@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Create local changes
         run: |
+          AUTHOR=${{ github.event.pull_request.user.login }}
           pip install requests pyyaml mdutils
           python ./scripts/mitre_db.py -o taxonomy/mitre_attack.json
           python ./scripts/scenario_taxonomy.py --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
