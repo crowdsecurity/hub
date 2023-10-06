@@ -1,18 +1,6 @@
 **crowdsecurity/exim-spam**:
   - `attack` not found in labels.classification
 
-**crowdsecurity/palo-alto-threat**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: :
-
-**crowdsecurity/postfix-spam**:
-  - `attack` not found in labels.classification
-
-**crowdsecurity/postscreen-rbl**:
-  - `attack` not found in labels.classification
-
 
 Information about mitre attack can be found [here](https://attack.mitre.org/techniques/enterprise/).
 As an example, some common mitre attack techniques:
