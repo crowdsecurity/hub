@@ -18,6 +18,7 @@ As an example, some common mitre attack techniques:
  - T1595 for generic scanning of exposed applications
 
 [Here](https://docs.crowdsec.net/docs/next/scenarios/format#labels) is the CrowdSec documentation on how to fill those labels
+[Here](https://github.com/crowdsecurity/hub/blob/master/taxonomy/behaviors.json) are the available behaviors
 """
 
 
