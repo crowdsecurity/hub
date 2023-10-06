@@ -10,6 +10,12 @@ from yaml.loader import SafeLoader
 
 CVE_RE = re.compile("CVE-\d{4}-\d{4,7}")
 author = os.environ.get("AUTHOR", "ghost")
+
+OK_STR = f"""
+Hello @{author},
+Scenarios are compliant with the taxonomy, thank you for your contribution!
+"""
+
 INTRO_STR = f"""
 Hello @{author} and thank you for your contribution!
 
@@ -303,6 +309,10 @@ def main():
                 f.write("  - {}\n".format(error))
             f.write("\n")
         f.write(HELP_STR)
+        f.close()
+    else:
+        f = open(args.errors, "w")
+        f.write(OK_STR)
         f.close()
 
     print("Supported Mitre ATT&CK Techniques:")

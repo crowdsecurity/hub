@@ -39,7 +39,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           filePath: taxonomy/scenario_taxonomy_errors.md
-          reactions: "-1, eyes"
           pr_number: ${{ steps.findPr.outputs.pr }}
       - name: Commit files
         if: ${{ github.event_name == 'push'}}
