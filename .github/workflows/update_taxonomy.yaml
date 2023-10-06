@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Create local changes
         env:
-          AUTHOR: ${{ github.event.issue.user.login }}
+          AUTHOR: ${{ github.actor }}
           AUTHOR2: ${{ github.event.pull_request.user.login }}
         run: |
           echo "->>" $AUTHOR
