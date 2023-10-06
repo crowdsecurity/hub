@@ -1,15 +1,3 @@
-**andreasbrett/baikal-bf**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: baikal:bruteforce
-
-**andreasbrett/baikal-bf_user-enum**:
-  - `attack` not found in labels.classification
-  - `spoofable` key not found in labels
-  - `confidence` key not found in labels
-  - Unknown behaviors: baikal:bruteforce
-
 **crowdsecurity/exim-spam**:
   - `attack` not found in labels.classification
 
