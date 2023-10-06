@@ -1,5 +1,5 @@
 
-Hello @unknown and thank you for your contribution!
+Hello @ and thank you for your contribution!
 
 I'm a bot that helps maintainers to validate scenarios and ensure they include all the required information.
 I've found some errors in your scenarios, please fix them and re-submit your PR, or ask for help if you need it.
