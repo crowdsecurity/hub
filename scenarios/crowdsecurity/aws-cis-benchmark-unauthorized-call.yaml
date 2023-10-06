@@ -8,4 +8,12 @@ filter: |
           (evt.Unmarshaled.cloudtrail.errorCode != nil && evt.Unmarshaled.cloudtrail.errorCode matches "^AccessDenied.*")
      )
 labels:
-  type: compliance
+     confidence: 3
+     spoofable: 0
+     classification:
+          - attack.T1212
+     behavior: "cloud:audit"
+     label: "AWS API unauthorized calls"
+     service: aws
+     cti: false
+     remediation: false

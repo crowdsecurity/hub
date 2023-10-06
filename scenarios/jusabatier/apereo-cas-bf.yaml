@@ -11,9 +11,14 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: cas
- type: bruteforce
- remediation: true
+  service: http
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "CAS Bruteforce"
+  remediation: true
 ---
 # cas user-enum
 type: leaky
@@ -26,6 +31,12 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: cas
- type: bruteforce
- remediation: true
+  service: http
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "CAS User Enum Bruteforce"
+  remediation: true

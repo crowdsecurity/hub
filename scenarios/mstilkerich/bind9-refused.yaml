@@ -8,7 +8,11 @@ capacity: 5
 leakspeed: 10s
 blackhole: 1m
 labels:
-  service: bind9
-  type: scan
-  # remediation label, if set to true indicate IP should be banned
+  service: domain
+  classification:
+    - attack.T1590.002
+  spoofable: 0
+  confidence: 3
+  behavior: "generic:scan"
+  label: "Domain transfer attempt"
   remediation: true

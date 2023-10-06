@@ -9,6 +9,13 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 5m
 labels:
- service: http
- type: bruteforce
- remediation: true
+  remediation: true
+  classification:
+    - attack.T1589
+    - attack.T1110
+    - attack.T1595
+  behavior: "http:scan"
+  label: "Wordpress User Enumeration"
+  spoofable: 0
+  service: wordpress
+  confidence: 3
