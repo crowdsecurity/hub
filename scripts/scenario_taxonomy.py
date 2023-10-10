@@ -279,7 +279,6 @@ def main():
             if len(scenario_errors) > 0 and filepath[2:] in changed_files:
                 errors[scenario["name"]] = scenario_errors
                 stats["scenarios_nok"].append(scenario["name"])
-                continue
 
             scenarios_taxonomy[scenario["name"]] = {
                 "name": scenario["name"],

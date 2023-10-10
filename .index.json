@@ -1131,6 +1131,30 @@
     "crowdsecurity/CVE-2023-22515"
    ]
   },
+  "crowdsecurity/http-dos": {
+   "path": "collections/crowdsecurity/http-dos.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "9b9657dd6f304e3660f4dd8e9e289ef3d7302cdad759c5efc72333c1e3e96020",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "3ffa21f9474ea37d7c7d70156d05d557c16a62b8ae08dce202ce5d288609fef7",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRGV0ZWN0aW5nIEhUVFAgRE9TCgpUaGlzIGNvbGxlY3Rpb24gb2Ygc2NlbmFyaW9zIGRldGVjdHMgc3BlY2lmaWMgSFRUUCBEb1MgdG9vbHMgdGhhdCBhcmUgbm90IGRldGVjdGVkIGJ5IGRlZmF1bHQgSFRUUCBzY2VuYXJpb3MuCgpUbyB3b3JrIGNvcnJlY3RseSwgaXQgcmVxdWlyZXMgdGhlIGFzc29jaWF0ZWQgSFRUUCBjb2xsZWN0aW9uIG9mIHlvdXIgd2Vic2VydmVyIHRvIGJlIHByZXNlbnQsIHN1Y2ggYXMgW25naW54XShodHRwczovL2h1Yi5jcm93ZHNlYy5uZXQvYXV0aG9yL2Nyb3dkc2VjdXJpdHkvY29sbGVjdGlvbnMvbmdpbngpIG9yIFthcGFjaGUyXShodHRwczovL2h1Yi5jcm93ZHNlYy5uZXQvYXV0aG9yL2Nyb3dkc2VjdXJpdHkvY29sbGVjdGlvbnMvYXBhY2hlMikuCgpHaXZlbiB0aGUgdmVyeSBuYXR1cmUgb2YgdGhlIHNjZW5hcmlvcywgcHJvcGVyIHRlc3RpbmcgaXMgYWR2aXNlZCB0byBhdm9pZCBmYWxzZS1wb3NpdGl2ZXM6CgogLSBCeSBbcmVwbGF5aW5nICJjb2xkIiBsb2dzXShodHRwczovL2RvYy5jcm93ZHNlYy5uZXQvZG9jcy9uZXh0L3VzZXJfZ3VpZGVzL3JlcGxheV9tb2RlKSB0byBlbnN1cmUgbm8gZmFsc2UtcG9zaXRpdmVzIGFyZSBwcmVzZW50CiAtIEJ5IHNldHRpbmcgdGhlIHNjZW5hcmlvcyBpbiBbInNpbXVsYXRpb24gbW9kZSJdKGh0dHBzOi8vZG9jLmNyb3dkc2VjLm5ldC9kb2NzL25leHQvY3NjbGkvY3NjbGlfc2ltdWxhdGlvbi8pIGZvciBvYnNlcnZhYmlsaXR5Cgo=",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWRvcy1ieXBhc3MtY2FjaGUKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1kb3MtcmFuZG9tLXVyaQogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWRvcy1zd2l0Y2hpbmctdWEKICAtIGNyb3dkc2VjdXJpdHkvaHR0cC1kb3MtaW52YWxpZC1odHRwLXZlcnNpb25zCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2ViCiAgLSBkb3MKICAtIGh0dHAK",
+   "author": "crowdsecurity",
+   "labels": null,
+   "scenarios": [
+    "crowdsecurity/http-dos-bypass-cache",
+    "crowdsecurity/http-dos-random-uri",
+    "crowdsecurity/http-dos-switching-ua",
+    "crowdsecurity/http-dos-invalid-http-versions"
+   ]
+  },
   "crowdsecurity/iis": {
    "path": "collections/crowdsecurity/iis.yaml",
    "version": "0.1",
@@ -8347,6 +8371,134 @@
     "spoofable": 0
    }
   },
+  "crowdsecurity/http-dos-bypass-cache": {
+   "path": "scenarios/crowdsecurity/http-dos-bypass-cache.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "0e58abde23b14beae6be2ca1b2bfe58ad980f75c5691b8c0cacf1b2fff4d23bd",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "05d3d10236ceb9b23f3f9355970f9b25583c891e0d0d3cf210dc289240b48f25",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRGV0ZWN0aW5nIERPUyB3aXRoIGNhY2hlIGJ5cGFzcwoKVGhpcyBzY2VuYXJpbyBkZXRlY3RzIERvUyB0b29scyB0aGF0IGlzc3VlIGEgaGlnaCBudW1iZXIgb2YgcmVxdWVzdHMsIHdoaWxlIGF0dGVtcHRpbmcgdG8gYnlwYXNzIGNhY2hlIHJ1bGVzIGJ5IGFwcGVuZGluZyByYW5kb20gbnVtZXJpYyBzdWZmaXguCgpEaXJlY3RseSBpbnNwaXJlZCBieSBzb21lIHNwZWNpZmljIERvUyB0b29scyBUVFAuCgo6d2FybmluZzogVGhpcyBzY2VuYXJpbyBtaWdodCB0cmlnZ2VyIGZhbHNlIHBvc2l0aXZlcywgcHJvcGVyIHRlc3RpbmcgaXMgYWR2aXNlZCA6d2FybmluZzo=",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWRvcy1ieXBhc3MtY2FjaGUKZGVzY3JpcHRpb246ICJEZXRlY3QgRG9TIHRvb2xzIGJ5cGFzc2luZyBjYWNoZSBldmVyeSByZXF1ZXN0IgojYXMgc2VlbiBpbiBjYy1hdHRhY2sgdG9vbApmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnaHR0cF9hY2Nlc3MtbG9nJyAmJiBpbnQoZXZ0Lk1ldGEuaHR0cF9hcmdzX2xlbikgPj0gNyAmJiBpbnQoZXZ0Lk1ldGEuaHR0cF9hcmdzX2xlbikgPD0gMTIgJiYgZXZ0LlBhcnNlZC5odHRwX2FyZ3MgbWF0Y2hlcyAnXlswLTldKyQnICYmIGV2dC5QYXJzZWQuc3RhdGljX3Jlc3NvdXJjZSA9PSAnZmFsc2UnIgpkaXN0aW5jdDogImV2dC5QYXJzZWQuaHR0cF9hcmdzIgpsZWFrc3BlZWQ6IDFzCmNhcGFjaXR5OiAzMAojZGVidWc6IHRydWUKY2FjaGVfc2l6ZTogMTAKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMgogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBiZWhhdmlvcjogImh0dHA6ZG9zIgogIGxhYmVsOiAiZGV0ZWN0aW9uIG9mIGh0dHAgZG9zIHdpdGggY2FjaGUgYnlwYXNzIg==",
+   "description": "Detect DoS tools bypassing cache every request",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:dos",
+    "classification": [
+     "attack.T1498"
+    ],
+    "confidence": 2,
+    "label": "detection of http dos with cache bypass",
+    "remediation": true,
+    "service": "http",
+    "spoofable": 0
+   }
+  },
+  "crowdsecurity/http-dos-invalid-http-versions": {
+   "path": "scenarios/crowdsecurity/http-dos-invalid-http-versions.yaml",
+   "version": "0.4",
+   "versions": {
+    "0.1": {
+     "digest": "4508b6364d19557247a86c08b6bd8c262295a661c01c183313c38aaeea08fd00",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "7a0fe2257c1e04db49ac1f9c1a882553caa7b787168f574cc28a116e52974b14",
+     "deprecated": false
+    },
+    "0.3": {
+     "digest": "6ad1c79bf0ca97716b1176a9070a9eaf9e8356d0b5e3c1d7b4652cfa8acf8297",
+     "deprecated": false
+    },
+    "0.4": {
+     "digest": "2cb7ced10c6122aee759e1c0abec546c23a339337abae98292a9bd4752113887",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRGV0ZWN0aW5nIERPUyB3aXRoIGludmFsaWQgSFRUUCB2ZXJzaW9ucwoKVGhpcyBzY2VuYXJpbyBkZXRlY3RzIERvUyB0b29scyB0aGF0IGlzc3VlIGEgaGlnaCBudW1iZXIgb2YgcmVxdWVzdHMgd2l0aCBpbnZhbGlkIEhUVFAgdmVyc2lvbnMuCgpEaXJlY3RseSBpbnNwaXJlZCBieSBzb21lIHNwZWNpZmljIERvUyB0b29scyBUVFAuCgo6d2FybmluZzogVGhpcyBzY2VuYXJpbyBtaWdodCB0cmlnZ2VyIGZhbHNlIHBvc2l0aXZlcywgcHJvcGVyIHRlc3RpbmcgaXMgYWR2aXNlZCA6d2FybmluZzo=",
+   "content": "dHlwZTogdHJpZ2dlcgpmb3JtYXQ6IDIuMAojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwLWRvcy1pbnZhbGlkLWh0dHAtdmVyc2lvbnMKZGVzY3JpcHRpb246ICJEZXRlY3QgRG9TIHRvb2xzIHVzaW5nIGludmFsaWQgSFRUUCB2ZXJzaW9ucyIKI3BhdHRlcm4gc2VlbiBpbiBtaGRkb3MgdG9vbApmaWx0ZXI6ICdldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdICYmIGV2dC5QYXJzZWQuaHR0cF92ZXJzaW9uIG5vdCBpbiBbIjAuOSIsICIxLjAiLCAiMS4xIiwgIjIuMCIsICIzLjAiXScgCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIHNlcnZpY2U6IGh0dHAKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDIKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNDk4CiAgYmVoYXZpb3I6ICJodHRwOmRvcyIKICBsYWJlbDogImRldGVjdGlvbiBvZiBodHRwIGRvcyB3aXRoIGludmFsaWQgaHR0cCB2ZXJzaW9uIg==",
+   "description": "Detect DoS tools using invalid HTTP versions",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:dos",
+    "classification": [
+     "attack.T1498"
+    ],
+    "confidence": 2,
+    "label": "detection of http dos with invalid http version",
+    "remediation": true,
+    "service": "http",
+    "spoofable": 0
+   }
+  },
+  "crowdsecurity/http-dos-random-uri": {
+   "path": "scenarios/crowdsecurity/http-dos-random-uri.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "0fed8a75f88fd41f17498166bc1a60ec9e981ce1b82f0cd840ef52ae4fc71d39",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "f1ed5aefe6fce34ce3253e85b342c3849620e7582e21ea03596121d540e2265b",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgSFRUUCBET1MgUmFuZG9tIFVSSQoKClRoaXMgc2NlbmFyaW8gZGV0ZWN0cyBEb1MgdG9vbHMgdGhhdCBpc3N1ZSBhIGhpZ2ggbnVtYmVyIG9mIHJlcXVlc3RzLCB3aGlsZSB2YXJ5aW5nIHRoZSBzdWZmaXggVVJMIHRvIGV2YWRlIHN0YXRpYyBydWxlcy4KCkRpcmVjdGx5IGluc3BpcmVkIGJ5IHNvbWUgc3BlY2lmaWMgRG9TIHRvb2xzIFRUUC4KCjp3YXJuaW5nOiBUaGlzIHNjZW5hcmlvIG1pZ2h0IHRyaWdnZXIgZmFsc2UgcG9zaXRpdmVzLCBwcm9wZXIgdGVzdGluZyBpcyBhZHZpc2VkIDp3YXJuaW5nOgo=",
+   "content": "dHlwZTogbGVha3kKZm9ybWF0OiAyLjAKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1kb3MtcmFuZG9tLXVyaQpkZXNjcmlwdGlvbjogIkRldGVjdCBEb1MgdG9vbHMgdXNpbmcgcmFuZG9tIHVyaSIKI3BhdHRlcm4gc2VlbiBpbiBsb2ljIHRvb2wKZmlsdGVyOiB8CiAgZXZ0Lk1ldGEubG9nX3R5cGUgPT0gImh0dHBfYWNjZXNzLWxvZyIgJiYKICBldnQuTWV0YS5odHRwX3ZlcmIgPT0gJ0dFVCcgJiYKICBldnQuUGFyc2VkLnN0YXRpY19yZXNzb3VyY2UgPT0gJ2ZhbHNlJyAmJgogIFVwcGVyKGV2dC5QYXJzZWQuZmlsZV9mcmFnKSA9PSBldnQuUGFyc2VkLmZpbGVfZnJhZyAmJgogIGxlbihldnQuUGFyc2VkLmZpbGVfZnJhZykgPT0gNiAmJgogIGludChldnQuTWV0YS5odHRwX2FyZ3NfbGVuKSA9PSAwCmNhcGFjaXR5OiAzMApsZWFrc3BlZWQ6IDFzCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIGNvbmZpZGVuY2U6IDIKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNDk4CiAgYmVoYXZpb3I6ICJodHRwOmRvcyIKICBsYWJlbDogImRldGVjdGlvbiBvZiBodHRwIGRvcyB2aWEgcmFuZG9tIHVyaSIKICBzZXJ2aWNlOiBodHRwCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect DoS tools using random uri",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:dos",
+    "classification": [
+     "attack.T1498"
+    ],
+    "confidence": 2,
+    "label": "detection of http dos via random uri",
+    "remediation": true,
+    "service": "http",
+    "spoofable": 0
+   }
+  },
+  "crowdsecurity/http-dos-switching-ua": {
+   "path": "scenarios/crowdsecurity/http-dos-switching-ua.yaml",
+   "version": "0.3",
+   "versions": {
+    "0.1": {
+     "digest": "3e0821e088a069ff12b26bfd106c913405b8cda87755438b535bbb803da6d5a1",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "54b1bc5cade329a7b8dd8a4447258b8c0029732759dae3e2632e0f96abc04b36",
+     "deprecated": false
+    },
+    "0.3": {
+     "digest": "f40b2ff1b0a7351994ec48af5f5c31d66e4e475632e34e3e7c9218fb88b67cb6",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgSFRUUCBET1MgQ2hhbmdpbmcgVXNlci1BZ2VudAoKVGhpcyBzY2VuYXJpbyBkZXRlY3RzIHNwZWNpZmljIERvUyB0b29scyB0aGF0IGlzc3VlIGEgaGlnaCBudW1iZXIgb2YgcmVxdWVzdHMsIHdoaWxlIGNoYW5naW5nIHRoZSBgVXNlci1BZ2VudGAgZXZlcnkgcmVxdWVzdC4KCkRpcmVjdGx5IGluc3BpcmVkIGJ5IHNvbWUgc3BlY2lmaWMgRG9TIHRvb2xzIFRUUC4KCjp3YXJuaW5nOiBUaGlzIHNjZW5hcmlvIG1pZ2h0IHRyaWdnZXIgZmFsc2UgcG9zaXRpdmVzLCBwcm9wZXIgdGVzdGluZyBpcyBhZHZpc2VkIDp3YXJuaW5nOgo=",
+   "content": "dHlwZTogbGVha3kKZm9ybWF0OiAyLjAKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1kb3Mtc3dpdGhjaW5nLXVhCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IERvUyB0b29scyBzd2l0Y2hpbmcgdXNlci1hZ2VudCB0b28gZmFzdCIKI3BhdHRlcm4gc2VlbiBpbiBtaGRkb3MgdG9vbApmaWx0ZXI6ICdldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdJwpjYXBhY2l0eTogMTAKZGlzdGluY3Q6IGV2dC5QYXJzZWQuaHR0cF91c2VyX2FnZW50CmxlYWtzcGVlZDogOHMKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiAybQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMgogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBiZWhhdmlvcjogImh0dHA6ZG9zIgogIGxhYmVsOiAiZGV0ZWN0aW9uIG9mIGh0dHAgZG9zIHdpdGggdmFyeWluZyBVQSI=",
+   "description": "Detect DoS tools switching user-agent too fast",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:dos",
+    "classification": [
+     "attack.T1498"
+    ],
+    "confidence": 2,
+    "label": "detection of http dos with varying UA",
+    "remediation": true,
+    "service": "http",
+    "spoofable": 0
+   }
+  },
   "crowdsecurity/http-generic-bf": {
    "path": "scenarios/crowdsecurity/http-generic-bf.yaml",
    "version": "0.5",
@@ -9395,7 +9547,7 @@
   },
   "crowdsecurity/nginx-req-limit-exceeded": {
    "path": "scenarios/crowdsecurity/nginx-req-limit-exceeded.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "7e6fa2b7386d763b570025b3144c8790f68463f7c5739d8f527c9f80f15c15ce",
@@ -9404,14 +9556,18 @@
     "0.2": {
      "digest": "f064319bf72d0df012495cd33acc005ca934314519adc06d8175c8cfa84c2e18",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "d135e5fe0f486f5f5223006c53324b51b5b1130c4d71fcf51f75e13b8575cc03",
+     "deprecated": false
     }
    },
    "long_description": "RGV0ZWN0cyBJUHMgd2hpY2ggdmlvbGF0ZSBuZ2lueCdzIHVzZXIgc2V0IHJlcXVlc3QgbGltaXQuCgpJUCBpcyBiYW5uZWQgaWYgaXQgdmlvbGF0ZXMgbmdpbngncyB1c2VyIHNldCByZXF1ZXN0IGxpbWl0IG1vcmUgdGhhbiA1IHRpbWVzIGluIGEgbWludXRlLg==",
-   "content": "dHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbmdpbngtcmVxLWxpbWl0LWV4Y2VlZGVkCmRlc2NyaXB0aW9uOiAiRGV0ZWN0cyBJUHMgd2hpY2ggdmlvbGF0ZSBuZ2lueCdzIHVzZXIgc2V0IHJlcXVlc3QgbGltaXQuIgpmaWx0ZXI6IGV2dC5NZXRhLnN1Yl90eXBlID09ICdyZXFfbGltaXRfZXhjZWVkZWQnCmxlYWtzcGVlZDogIjYwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMgogIHNwb29mYWJsZTogMgogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBiZWhhdmlvcjogImh0dHA6YnJ1dGVmb3JjZSIKICBsYWJlbDogIk5naW54IHJlcXVlc3QgbGltaXQgZXhjZWVkZWQiCiAgc2VydmljZTogaHR0cAo=",
+   "content": "dHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvbmdpbngtcmVxLWxpbWl0LWV4Y2VlZGVkCmRlc2NyaXB0aW9uOiAiRGV0ZWN0cyBJUHMgd2hpY2ggdmlvbGF0ZSBuZ2lueCdzIHVzZXIgc2V0IHJlcXVlc3QgbGltaXQuIgpmaWx0ZXI6IGV2dC5NZXRhLnN1Yl90eXBlID09ICdyZXFfbGltaXRfZXhjZWVkZWQnCmxlYWtzcGVlZDogIjYwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMgogIHNwb29mYWJsZTogMgogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBiZWhhdmlvcjogImh0dHA6ZG9zIgogIGxhYmVsOiAiTmdpbnggcmVxdWVzdCBsaW1pdCBleGNlZWRlZCIKICBzZXJ2aWNlOiBodHRwCg==",
    "description": "Detects IPs which violate nginx's user set request limit.",
    "author": "crowdsecurity",
    "labels": {
-    "behavior": "http:bruteforce",
+    "behavior": "http:dos",
     "classification": [
      "attack.T1498"
     ],
