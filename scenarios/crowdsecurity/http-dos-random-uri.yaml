@@ -3,6 +3,7 @@ format: 2.0
 #debug: true
 name: crowdsecurity/http-dos-random-uri
 description: "Detect DoS tools using random uri"
+#pattern seen in loic tool
 filter: |
   evt.Meta.log_type == "http_access-log" &&
   evt.Meta.http_verb == 'GET' &&
