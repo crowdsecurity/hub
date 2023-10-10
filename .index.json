@@ -1131,6 +1131,24 @@
     "crowdsecurity/CVE-2023-22515"
    ]
   },
+  "crowdsecurity/http-dos": {
+   "path": "collections/crowdsecurity/http-dos.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "9b9657dd6f304e3660f4dd8e9e289ef3d7302cdad759c5efc72333c1e3e96020",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRGV0ZWN0aW5nIEhUVFAgRE9TCgpUaGlzIGNvbGxlY3Rpb24gb2Ygc2NlbmFyaW9zIGFpbXMgdG8gZGV0ZWN0IEhUVFAgRE9TIGF0dGFja3MgdGhhdCBhcmUgbm90IGRldGVjdGVkIGJ5IHRoZSBkZWZhdWx0IEhUVFAgc2NlbmFyaW9zLgoKCi8hXCBUaGlzIGNvbGxlY3Rpb24gbWlnaHQgdHJpZ2dlciBmYWxzZSBwb3NpdGl2ZXM=",
+   "content": "c2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9odHRwX2Rvc19ieXBhc3NfY2FjaGUKICAtIGNyb3dkc2VjdXJpdHkvaHR0cF9kb3NfcmFuZG9tX3VyaQphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIHdlYgogIC0gZG9zCiAgLSBodHRwCg==",
+   "author": "crowdsecurity",
+   "labels": null,
+   "scenarios": [
+    "crowdsecurity/http_dos_bypass_cache",
+    "crowdsecurity/http_dos_random_uri"
+   ]
+  },
   "crowdsecurity/iis": {
    "path": "collections/crowdsecurity/iis.yaml",
    "version": "0.1",
@@ -8785,20 +8803,49 @@
   },
   "crowdsecurity/http_dos_bypass_cache": {
    "path": "scenarios/crowdsecurity/http_dos_bypass_cache.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "d0cc59ba3cfe6a7b0b48f178368a4d9f6f8c6aeb4033889b940cfa280079aea5",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "5ff2152aa170c59939f050b8107b0805e87773c32933fc5dd5176067f93f2fc9",
+     "deprecated": false
     }
    },
    "long_description": "IyMgRGV0ZWN0aW5nIERPUyB3aXRoIGNhY2hlIGJ5cGFzcwoKClRoaXMgc2NlbmFyaW8gYWltcyB0byBtaXRpZ2F0ZSBET1MgYXR0YWNrIHdoZXJlIHRoZSBhdHRhY2tlciB0cnkgdG8gYnlwYXNzIHRoZSBjYWNoZSBmb3IgZWFjaCByZXF1ZXN0LgoKCi8hXCBUaGlzIHNjZW5hcmlvIG1pZ2h0IHRyaWdnZXIgZmFsc2UgcG9zaXRpdmVz",
-   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwX2Rvc19ieXBhc3NfY2FjaGUKZGVzY3JpcHRpb246ICJEZXRlY3QgRE9TIGJ5cGFzc2luZyBjYWNoZSBldmVyeSByZXF1ZXN0IgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZyddICYmIGludChldnQuTWV0YS5odHRwX2FyZ3NfbGVuKSA+PSA3ICYmIGludChldnQuTWV0YS5odHRwX2FyZ3NfbGVuKSA8PSAxMiAmJiBldnQuUGFyc2VkLmh0dHBfYXJncyBtYXRjaGVzICdeWzAtOV0rJCcgJiYgZXZ0LlBhcnNlZC5zdGF0aWNfcmVzc291cmNlID09ICdmYWxzZSciCmRpc3RpbmN0OiAiZXZ0LlBhcnNlZC5odHRwX2FyZ3MiCmxlYWtzcGVlZDogMXMKY2FwYWNpdHk6IDMwCiNkZWJ1ZzogdHJ1ZQpjYWNoZV9zaXplOiAxMApncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpibGFja2hvbGU6IDFtCmxhYmVsczoKIHNlcnZpY2U6IGh0dHAKIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9odHRwX2Rvc19ieXBhc3NfY2FjaGUKZGVzY3JpcHRpb246ICJEZXRlY3QgRE9TIGJ5cGFzc2luZyBjYWNoZSBldmVyeSByZXF1ZXN0IgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnaHR0cF9hY2Nlc3MtbG9nJyAmJiBpbnQoZXZ0Lk1ldGEuaHR0cF9hcmdzX2xlbikgPj0gNyAmJiBpbnQoZXZ0Lk1ldGEuaHR0cF9hcmdzX2xlbikgPD0gMTIgJiYgZXZ0LlBhcnNlZC5odHRwX2FyZ3MgbWF0Y2hlcyAnXlswLTldKyQnICYmIGV2dC5QYXJzZWQuc3RhdGljX3Jlc3NvdXJjZSA9PSAnZmFsc2UnIgpkaXN0aW5jdDogImV2dC5QYXJzZWQuaHR0cF9hcmdzIgpsZWFrc3BlZWQ6IDFzCmNhcGFjaXR5OiAzMAojZGVidWc6IHRydWUKY2FjaGVfc2l6ZTogMTAKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiBzZXJ2aWNlOiBodHRwCiByZW1lZGlhdGlvbjogdHJ1ZQo=",
    "description": "Detect DOS bypassing cache every request",
    "author": "crowdsecurity",
    "labels": {
     "remediation": true,
     "service": "http"
+   }
+  },
+  "crowdsecurity/http_dos_random_uri": {
+   "path": "scenarios/crowdsecurity/http_dos_random_uri.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "ed7785ad3a414753863aed6d8f61d9c2a311a83f024e1475f418cefabb874cd4",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgSFRUUCBET1MgUmFuZG9tIFVSSQoKVGhpcyBzY2VuYXJpbyBkZXRlY3RzIGEgaGlnaCBudW1iZXIgb2YgcmVxdWVzdHMgd2l0aCByYW5kb20gVVJJIHRoYXQgbWF0Y2hlcyBhIHNwZWNpZmljIHByb2dyYW0gcGF0dGVybi4KCi8hXCBUaGlzIHNjZW5hcmlvIG1pZ2h0IHRyaWdnZXIgZmFsc2UgcG9zaXRpdmVz",
+   "content": "dHlwZTogbGVha3kKZm9ybWF0OiAyLjAKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cF9kb3NfcmFuZG9tX3VyaQpkZXNjcmlwdGlvbjogIkRldGVjdCBodHRwIGRvcyB2aWEgcmFuZG9tIHVyaSIKZmlsdGVyOiB8CiAgZXZ0Lk1ldGEubG9nX3R5cGUgPT0gImh0dHBfYWNjZXNzLWxvZyIgJiYKICBldnQuTWV0YS5odHRwX3ZlcmIgPT0gJ0dFVCcgJiYKICBldnQuUGFyc2VkLnN0YXRpY19yZXNzb3VyY2UgPT0gJ2ZhbHNlJyAmJgogIFVwcGVyKGV2dC5QYXJzZWQuZmlsZV9mcmFnKSA9PSBldnQuUGFyc2VkLmZpbGVfZnJhZyAmJgogIGxlbihldnQuUGFyc2VkLmZpbGVfZnJhZykgPT0gNiAmJgogIGludChldnQuTWV0YS5odHRwX2FyZ3NfbGVuKSA9PSAwCmNhcGFjaXR5OiAzMApsZWFrc3BlZWQ6IDFzCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmJsYWNraG9sZTogMm0KbGFiZWxzOgogIGNvbmZpZGVuY2U6IDIKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNDk4CiAgYmVoYXZpb3I6ICJodHRwOmRvcyIKICBsYWJlbDogImRldGVjdGlvbiBvZiBodHRwIGRvcyB2aWEgcmFuZG9tIHVyaSIKICBzZXJ2aWNlOiBodHRwCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect http dos via random uri",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:dos",
+    "classification": [
+     "attack.T1498"
+    ],
+    "confidence": 2,
+    "label": "detection of http dos via random uri",
+    "remediation": true,
+    "service": "http",
+    "spoofable": 0
    }
   },
   "crowdsecurity/iptables-scan-multi_ports": {
