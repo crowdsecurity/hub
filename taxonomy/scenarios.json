@@ -1536,7 +1536,9 @@
     "name": "crowdsecurity/http-dos-bypass-cache",
     "description": "Detect DoS tools bypassing cache every request",
     "label": "detection of http dos with cache bypass",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -1548,7 +1550,9 @@
     "name": "crowdsecurity/http-dos-invalid-http-versions",
     "description": "Detect DoS tools using invalid HTTP versions",
     "label": "detection of http dos with invalid http version",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -1560,7 +1564,9 @@
     "name": "crowdsecurity/http-dos-random-uri",
     "description": "Detect DoS tools using random uri",
     "label": "detection of http dos via random uri",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -1572,7 +1578,9 @@
     "name": "crowdsecurity/http-dos-swithcing-ua",
     "description": "Detect DoS tools switching user-agent too fast",
     "label": "detection of http dos with varying UA",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -2087,7 +2095,7 @@
     "description": "Detects IPs which violate nginx's user set request limit.",
     "label": "Nginx request limit exceeded",
     "behaviors": [
-      "http:bruteforce"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0040:T1498"
