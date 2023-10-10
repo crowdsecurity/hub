@@ -10,5 +10,11 @@ cache_size: 10
 groupby: "evt.Meta.source_ip"
 blackhole: 1m
 labels:
- service: http
- remediation: true
+  service: http
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "detection of http dos with cache bypass"

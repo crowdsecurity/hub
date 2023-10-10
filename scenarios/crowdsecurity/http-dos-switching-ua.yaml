@@ -10,5 +10,11 @@ leakspeed: 8s
 groupby: "evt.Meta.source_ip"
 blackhole: 2m
 labels:
-  type: scan
+  service: http
   remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "detection of http dos with varying UA"
