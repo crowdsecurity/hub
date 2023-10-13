@@ -285,7 +285,7 @@ def main():
                 "description": scenario["description"],
                 "label": scenario_label,
                 "behaviors": behaviors,
-                "mitre_techniques": mitre_techniques,
+                "mitre_attacks": mitre_techniques,
                 "confidence": confidence,
                 "spoofable": spoofable,
                 "cti": in_cti,
