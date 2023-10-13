@@ -1,4 +1,10 @@
-A collection of http specific CVEs :
+
+
+A collection to detect exploitation of some specific http CVEs.
+
+Works with [apache2](https://hub.crowdsec.net/author/crowdsecurity/collections/apache2), [nginx](https://hub.crowdsec.net/author/crowdsecurity/collections/nginx), [traefik](https://hub.crowdsec.net/author/crowdsecurity/collections/traefik) etc.
+
+:warning: While this collection is frequently updated with trending CVEs, it is _not_ a WAF and does _not_ aims at replacing a WAF. As such, an attacker might be able to bypass those signatures.
 
  - [Apache CVE-2021-41773](https://cve.circl.lu/cve/CVE-2021-41773)
  - [Apache CVE-2021-42013](https://cve.circl.lu/cve/CVE-2021-42013)
@@ -12,6 +18,8 @@ A collection of http specific CVEs :
  - [Atlassian Jira CVE-2021-26086](https://cve.circl.lu/cve/CVE-2021-26086)
  - [Spring4Shell CVE-2022-22965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22965)
  - [VMware CVE-2022-22954](https://www.vmware.com/security/advisories/VMSA-2022-0011.html)
+ - [Zimbra CVE-2022-37042](https://nvd.nist.gov/vuln/detail/CVE-2022-37042)
+ - [Microsoft Exchange CVE-2022-41082](https://nvd.nist.gov/vuln/detail/CVE-2022-41082)
  - [GLPI CVE-2022-35914](https://nvd.nist.gov/vuln/detail/CVE-2022-35914)
  - [Fortinet CVE-2022-40684](https://www.horizon3.ai/fortios-fortiproxy-and-fortiswitchmanager-authentication-bypass-technical-deep-dive-cve-2022-40684/)
  - [Confluence CVE-2022-26134](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-26134)
@@ -24,7 +32,6 @@ A collection of http specific CVEs :
  - [Confluence CVE-2023-22515](https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html)
 
 
-:warning: This collection is _not_ a WAF and this collection does _not_ aims at replacing a WAF.
 
-As such, an attacker might be able to bypass those signatures.
+
 
