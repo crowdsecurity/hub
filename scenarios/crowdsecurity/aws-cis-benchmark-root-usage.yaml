@@ -2,9 +2,18 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-root-usage
 description: "Detect AWS root account usage"
 filter: |
-    evt.Meta.log_type == 'aws-cloudtrail' &&
-    evt.Unmarshaled.cloudtrail.userIdentity.type == "Root" &&
-    evt.Unmarshaled.cloudtrail.userIdentity.invokedBy == nil &&
-    evt.Unmarshaled.cloudtrail.eventType != "AwsServiceEvent"
+  evt.Meta.log_type == 'aws-cloudtrail' &&
+  evt.Unmarshaled.cloudtrail.userIdentity.type == "Root" &&
+  evt.Unmarshaled.cloudtrail.userIdentity.invokedBy == nil &&
+  evt.Unmarshaled.cloudtrail.eventType != "AwsServiceEvent"
 labels:
-  type: compliance
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1078
+    - attack.T1098
+  behavior: "cloud:unusual-activity"
+  label: "AWS root account usage"
+  service: aws
+  cti: false
+  remediation: false

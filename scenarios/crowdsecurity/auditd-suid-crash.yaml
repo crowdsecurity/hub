@@ -1,0 +1,26 @@
+type: conditional
+name: crowdsecurity/auditd-suid-crash
+description: "Detect root suid process crashing"
+filter: |
+  (evt.Meta.log_type == 'execve' && evt.Meta.euid == '0' && evt.Meta.auid != '0') ||
+  (evt.Meta.log_type == 'anom_abend' && evt.Meta.sig in ["4", "5", "6", "7", "11"])
+groupby: evt.Meta.pid
+distinct: evt.Meta.log_type
+condition: |
+  len(queue.Queue) >= 2 and 
+    queue.Queue[0].Meta.exe == queue.Queue[1].Meta.exe
+leakspeed: 1s
+capacity: -1
+blackhole: 1m
+labels:
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1548.004
+  behavior: "linux:exploitation"
+  label: "Suspicious suid process crash"
+  service: linux
+  remediation: false
+scope:
+  type: exe
+  expression: evt.Meta.exe

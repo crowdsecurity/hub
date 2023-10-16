@@ -11,7 +11,12 @@ blackhole: 1m
 reprocess: true
 labels:
   service: zimbra
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Zimbra Bruteforce"
   remediation: true
 ---
 # Zimbra user enumeration
@@ -27,6 +32,11 @@ capacity: 5
 blackhole: 1m
 labels:
   service: zimbra
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589.002
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Zimbra Bruteforce"
   remediation: true
-

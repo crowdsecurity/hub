@@ -9,9 +9,14 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: email
- type: bf
- remediation: true
+  service: pop3/imap
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "POP3/IMAP Bruteforce"
+  remediation: true
 ---
 # Per user brouteforce
 type: leaky
@@ -25,6 +30,12 @@ capacity: 3
 leakspeed: "30s"
 blackhole: 1m
 labels:
- service: email
- type: bf
- remediation: true
+  service: pop3/imap
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589.002
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Mail User Enum Bruteforce"
+  remediation: true

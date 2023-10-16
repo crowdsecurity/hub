@@ -9,6 +9,11 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: windows
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "windows:bruteforce"
+  label: "Windows Bruteforce"
+  remediation: true
+  service: windows

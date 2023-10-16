@@ -8,6 +8,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: nginx
- type: bruteforce
- remediation: true
+  remediation: true
+  confidence: 2
+  spoofable: 2
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "Nginx request limit exceeded"
+  service: http

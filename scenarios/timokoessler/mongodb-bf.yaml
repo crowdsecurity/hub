@@ -10,7 +10,12 @@ blackhole: 1m
 reprocess: true
 labels:
   service: mongodb
-  type: bruteforce
+  classification:
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MongoDB Bruteforce"
+  spoofable: 0
+  confidence: 3
   remediation: true
 ---
 # mongodb user enum bruteforce
@@ -26,7 +31,13 @@ blackhole: 1m
 reprocess: true
 labels:
   service: mongodb
-  type: bruteforce
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MongoDB User Enumeration"
+  spoofable: 0
+  confidence: 3
   remediation: true
 ---
 # mongodb authentication database enum bruteforce
@@ -42,5 +53,11 @@ blackhole: 1m
 reprocess: true
 labels:
   service: mongodb
-  type: bruteforce
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MongoDB Authentication Enumeration"
+  spoofable: 0
+  confidence: 3
   remediation: true

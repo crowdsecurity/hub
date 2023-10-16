@@ -23,6 +23,11 @@ filter: |
    )
   )
 labels:
- service: k8s
- type: privileged-pod
- notification: true
+  notification: true
+  classification:
+    - attack.T1610
+  behavior: "k8s:audit"
+  label: "Kubernetes Privileged Pod Creation"
+  spoofable: 0
+  confidence: 3
+  service: k8s
