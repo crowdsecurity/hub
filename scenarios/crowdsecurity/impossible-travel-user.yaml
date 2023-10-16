@@ -15,5 +15,11 @@ scope:
     type: username
     expression: evt.Meta.user
 labels:
-    type: "inside-threat"
-    remediation: false
+  remediation: false
+  classification:
+    - attack.T1078
+  behavior: "login:successful"
+  label: "Impossible travel"
+  spoofable: 0
+  service: login
+  confidence: 3

@@ -12,5 +12,11 @@ condition: |
     queue.Queue[-2].Enriched.Latitude, queue.Queue[-2].Enriched.Longitude) > 1000
 leakspeed: 3h
 labels:
-    type: "inside-threat"
-    remediation: false
+  remediation: false
+  classification:
+    - attack.T1078
+  behavior: "login:successful"
+  label: "Impossible travel"
+  spoofable: 0
+  service: login
+  confidence: 3
