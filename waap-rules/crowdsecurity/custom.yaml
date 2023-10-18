@@ -1,0 +1,20 @@
+type: waap-rule
+name: crowdsecurity/custom-waf-rule
+seclang_rules:
+ - SecRule ARGS:ip ";" "t:none,phase:1,log,deny,msg:'semi colon test',id:2"
+
+rules:
+ - target: ARGS
+   var: bar
+   match: "[0-9]+"
+   logic: AND
+   sub_rules:
+    - target: "REQUEST_URI"
+      match: /joomla/index.php/component/users/
+ - target: "REQUEST_URI"
+   equals: /webui/create_user
+   logic: AND
+   sub_rules:
+    - target: ARGS_POST
+      var: username
+      equals: cisco_tac_admin
