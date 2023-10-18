@@ -54,7 +54,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		user = pathSplit[0]
 		configName = pathSplit[1]
 		configName = strings.Split(configName, ".")[0]
-	} else if configType == "waap-rule" {
+	} else if configType == "waap-rules" {
 		if len(pathSplit) != 2 {
 			return "", fmt.Errorf("invalid filepath '%s', should be : './waap-rules/<user>/<waap-rule.yaml>'", filepath)
 		}
@@ -68,6 +68,8 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		user = pathSplit[0]
 		configName = pathSplit[1]
 		configName = strings.Split(configName, ".")[0]
+	} else {
+		return "", fmt.Errorf("invalid config type '%s'", configType)
 	}
 
 	// set the filepath
@@ -130,10 +132,10 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		} else {
 			ti.Collections = nil
 		}
-		if len(fInfo.WafRules) > 0 {
-			ti.WafRules = fInfo.WafRules
+		if len(fInfo.WaapRules) > 0 {
+			ti.WaapRules = fInfo.WaapRules
 		} else {
-			ti.WafRules = nil
+			ti.WaapRules = nil
 		}
 	}
 

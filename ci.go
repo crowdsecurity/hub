@@ -27,7 +27,7 @@ type typeInfo struct {
 	Parsers         []string               `json:"parsers,omitempty"`
 	PostOverflows   []string               `json:"postoverflows,omitempty"`
 	Scenarios       []string               `json:"scenarios,omitempty"`
-	WafRules        []string               `json:"waap-rules,omitempty"`
+	WaapRules       []string               `json:"waap-rules,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
@@ -39,7 +39,7 @@ type fileInfo struct {
 	Parsers       []string          `yaml:"parsers,omitempty"`
 	PostOverflows []string          `yaml:"postoverflows,omitempty"`
 	Scenarios     []string          `yaml:"scenarios,omitempty"`
-	WafRules      []string          `yaml:"waap-rules,omitempty"`
+	WaapRules     []string          `yaml:"waap-rules,omitempty"`
 	Collections   []string          `yaml:"collections,omitempty"`
 }
 
