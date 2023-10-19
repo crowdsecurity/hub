@@ -124,6 +124,11 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		} else {
 			ti.WaapRules = nil
 		}
+		if len(fInfo.WaapConfigs) > 0 {
+			ti.WaapConfigs = fInfo.WaapConfigs
+		} else {
+			ti.WaapConfigs = nil
+		}
 	}
 
 	// versions informations (digest and deprecated for each version)
