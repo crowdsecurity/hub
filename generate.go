@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -14,14 +13,14 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func inSlice(s string, slice []string) bool {
-	for _, str := range slice {
-		if str == s {
-			return true
-		}
-	}
-	return false
-}
+const (
+	PARSER_TYPE       = "parsers"
+	SCENARIO_TYPE     = "scenarios"
+	POSTOVERFLOW_TYPE = "postoverflows"
+	WAAP_RULES_TYPE   = "waap-rules"
+	WAAP_CONFIGS_TYPE = "waap-configs"
+	COLLECTIONS_TYPE  = "collections"
+)
 
 func (ti *typeInfo) generate(filepath string, configType string) (string, error) {
 	pathSplit := strings.Split(filepath, "/")
@@ -39,36 +38,24 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 	// set user, stage and config name
 	var user string
 	var configName string
-	if configType == "parsers" || configType == "postoverflows" {
+
+	switch configType {
+	case PARSER_TYPE, POSTOVERFLOW_TYPE:
 		if len(pathSplit) != 3 {
-			return "", fmt.Errorf("invalid filepath '%s', should be : './%s//<user>/<scenario.yaml>'", configType, filepath)
+			return "", fmt.Errorf("invalid filepath '%s', should be : './%s/<user>/<scenario.yaml>'", configType, filepath)
 		}
 		ti.Stage = pathSplit[0]
 		user = pathSplit[1]
 		configName = pathSplit[2]
 		configName = strings.Split(configName, ".")[0]
-	} else if configType == "scenarios" {
+	case SCENARIO_TYPE, WAAP_RULES_TYPE, WAAP_CONFIGS_TYPE, COLLECTIONS_TYPE:
 		if len(pathSplit) != 2 {
-			return "", fmt.Errorf("invalid filepath '%s', should be : './scenarios/<user>/<scenario.yaml>'", filepath)
+			return "", fmt.Errorf("invalid filepath '%s', should be : './%s/<user>/<scenario.yaml>'", configType, filepath)
 		}
 		user = pathSplit[0]
 		configName = pathSplit[1]
 		configName = strings.Split(configName, ".")[0]
-	} else if configType == "waap-rules" {
-		if len(pathSplit) != 2 {
-			return "", fmt.Errorf("invalid filepath '%s', should be : './waap-rules/<user>/<waap-rule.yaml>'", filepath)
-		}
-		user = pathSplit[0]
-		configName = pathSplit[1]
-		configName = strings.Split(configName, ".")[0]
-	} else if configType == "collections" {
-		if len(pathSplit) != 2 {
-			return "", fmt.Errorf("invalid filepath '%s', should be : './collections/<user>/<scenario.yaml>'", filepath)
-		}
-		user = pathSplit[0]
-		configName = pathSplit[1]
-		configName = strings.Split(configName, ".")[0]
-	} else {
+	default:
 		return "", fmt.Errorf("invalid config type '%s'", configType)
 	}
 
@@ -81,7 +68,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 
 	/* Get description, author and references from the file */
 	var fInfo fileInfo
-	yamlFile, err := ioutil.ReadFile(filepath)
+	yamlFile, err := os.ReadFile(filepath)
 	if err != nil {
 		return "", err
 	}
@@ -176,7 +163,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 	hubName := fmt.Sprintf("%s/%s", user, configName)
 	/*if we're all good, check if markdown documentation exists and join it*/
 	//pdocpath
-	mdFile, err := ioutil.ReadFile(pdocpath)
+	mdFile, err := os.ReadFile(pdocpath)
 	if err == nil {
 		ti.LongDescription = base64.StdEncoding.EncodeToString([]byte(string(mdFile)))
 	}
