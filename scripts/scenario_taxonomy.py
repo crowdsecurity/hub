@@ -210,6 +210,8 @@ def main():
             if len(mitre_techniques) == 0:
                 scenario_errors.append("`attack` not found in labels.classification")
 
+            service = labels.get("service", None)
+
             for m in mitre_techniques:
                 if m not in stats["mitre"]:
                     stats["mitre"].append(m)
@@ -289,6 +291,7 @@ def main():
                 "confidence": confidence,
                 "spoofable": spoofable,
                 "cti": in_cti,
+                "service": service,
             }
 
             stats["scenarios_ok"].append(scenario["name"])
