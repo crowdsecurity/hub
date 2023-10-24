@@ -12,4 +12,12 @@ filter: |
      evt.Meta.event_name == "ReplaceNetworkAclAssociation"
      )
 labels:
-  type: compliance
+     confidence: 3
+     spoofable: 0
+     classification:
+          - attack.T1578
+     behavior: "cloud:audit"
+     label: "AWS NACL change"
+     service: aws
+     cti: false
+     remediation: false

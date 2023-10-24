@@ -7,6 +7,11 @@ capacity: 5
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: http
- type: bf
- remediation: true
+  remediation: true
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "LiteSpeed Admin Bruteforce"
+  spoofable: 0
+  confidence: 3
+  service: litespeed

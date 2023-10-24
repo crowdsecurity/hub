@@ -14,6 +14,7 @@ on:
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
+      - '!.github/workflows/update_taxonomy.yaml'
   push:
     branches: [ master ]
     paths:
@@ -28,7 +29,7 @@ on:
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
-
+      - '!.github/workflows/update_taxonomy.yaml'
 jobs:
   run-hub-tests:
     runs-on: ubuntu-latest

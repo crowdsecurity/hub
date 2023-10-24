@@ -1,7 +1,7 @@
- # AdGuardHome bruteforce
+# AdGuardHome bruteforce
 type: leaky
 name: LePresidente/adguardhome-bf
-description: "Detect AdGuardHome bruteforce attacks" 
+description: "Detect AdGuardHome bruteforce attacks"
 filter: "evt.Meta.log_type == 'adguardhome_failed_auth'"
 leakspeed: 1m
 capacity: 5
@@ -9,6 +9,11 @@ groupby: evt.Meta.source_ip
 blackhole: 5m
 reprocess: true
 labels:
- service: adguardhome
- type: bruteforce
- remediation: true
+  service: adguardhome
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "AdGuardHome Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
