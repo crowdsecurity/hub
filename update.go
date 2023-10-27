@@ -59,7 +59,7 @@ func updateIndex(configType string, idx map[string]map[string]typeInfo, tmpIdx m
 					var tInfo typeInfo
 					hubName, err := tInfo.generate(filepath, configType)
 					if err != nil {
-						fmt.Printf("skipping '%s' because : %s\n", filepath, err.Error())
+						fmt.Printf("skipping '%s' for update because : %s\n", filepath, err.Error())
 					} else {
 						idx[configType][hubName] = tInfo
 					}
