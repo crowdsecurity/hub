@@ -22,7 +22,7 @@ type typeInfo struct {
 	Description     string                 `json:"description,omitempty"`
 	Author          string                 `json:"author,omitempty"`
 	References      []string               `json:"references,omitempty"`
-	Labels          map[string]string      `json:"labels"`
+	Labels          map[string]interface{} `json:"labels"`
 	Parsers         []string               `json:"parsers,omitempty"`
 	PostOverflows   []string               `json:"postoverflows,omitempty"`
 	Scenarios       []string               `json:"scenarios,omitempty"`
@@ -32,16 +32,16 @@ type typeInfo struct {
 }
 
 type fileInfo struct {
-	Description   string            `yaml:"description"`
-	Author        string            `yaml:"author"`
-	References    []string          `yaml:"references"`
-	Labels        map[string]string `json:"labels"`
-	Parsers       []string          `yaml:"parsers,omitempty"`
-	PostOverflows []string          `yaml:"postoverflows,omitempty"`
-	Scenarios     []string          `yaml:"scenarios,omitempty"`
-	WaapRules     []string          `yaml:"waap-rules,omitempty"`
-	WaapConfigs   []string          `yaml:"waap-configs,omitempty"`
-	Collections   []string          `yaml:"collections,omitempty"`
+	Description   string                 `yaml:"description"`
+	Author        string                 `yaml:"author"`
+	References    []string               `yaml:"references"`
+	Labels        map[string]interface{} `json:"labels"`
+	Parsers       []string               `yaml:"parsers,omitempty"`
+	PostOverflows []string               `yaml:"postoverflows,omitempty"`
+	Scenarios     []string               `yaml:"scenarios,omitempty"`
+	WaapRules     []string               `yaml:"waap-rules,omitempty"`
+	WaapConfigs   []string               `yaml:"waap-configs,omitempty"`
+	Collections   []string               `yaml:"collections,omitempty"`
 }
 
 type versionInfo struct {

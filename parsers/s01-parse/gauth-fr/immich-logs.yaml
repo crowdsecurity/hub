@@ -1,0 +1,39 @@
+onsuccess: next_stage
+#debug: false
+name: gauth-fr/immich-logs
+description: "Parse Immich logs"
+filter: "evt.Parsed.program == 'immich'"
+pattern_syntax:
+  IMMICH_CUSTOMDATE_PM: "%{MONTHNUM2}/%{MONTHDAY}/%{YEAR}, %{TIME} (AM|PM|am|pm)"
+  IMMICH_CUSTOMDATE: "%{MONTHNUM2}/%{MONTHDAY}/%{YEAR}, %{TIME}"
+nodes:
+  - grok:
+      pattern: ".*%{IMMICH_CUSTOMDATE_PM:timestamp}.*Failed login attempt for user %{EMAILADDRESS:username} from ip address %{IP:source_ip}.*"
+      #[Nest] 7  - 08/02/2023, 7:34:03 PM    WARN [AuthService] Failed login attempt for user fds@hdd.com from ip address 176.172.44.211
+
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: immich_failed_auth
+        - target: evt.StrTimeFormat
+          value: "01/02/2006, 3:04:05 PM"
+  - grok:
+      pattern: ".*%{IMMICH_CUSTOMDATE:timestamp}.*Failed login attempt for user %{EMAILADDRESS:username} from ip address %{IP:source_ip}.*"
+      #[Nest] 7  - 08/02/2023, 7:34:03    WARN [AuthService] Failed login attempt for user fds@hdd.com from ip address 176.172.44.211
+
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: immich_failed_auth
+        - target: evt.StrTimeFormat
+          value: "01/02/2006, 15:04:05"
+
+statics:
+    - meta: service
+      value: immich
+    - meta: user
+      expression: "evt.Parsed.username"
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp

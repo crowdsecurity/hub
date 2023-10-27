@@ -9,6 +9,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: mssql
- type: bruteforce
- remediation: true
+  remediation: true
+  classification:
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "MSSQL Bruteforce"
+  spoofable: 0
+  confidence: 3
+  service: mssql

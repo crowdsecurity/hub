@@ -9,7 +9,12 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
   service: sshesame
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:bruteforce"
+  label: "SSHesame Bruteforce"
   remediation: true
 ---
 # sshesame commands
@@ -23,6 +28,11 @@ blackhole: 1m
 labels:
   service: sshesame
   type: command
+  behavior: "ssh:bruteforce"
+  classification:
+    - attack.T1059
+  spoofable: 0
+  confidence: 3
   remediation: true
 ---
 # sshesame input
@@ -36,5 +46,9 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
   service: sshesame
-  type: input
+  behavior: "ssh:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1059
   remediation: true

@@ -1,6 +1,6 @@
 name: Update index
 
-on: 
+on:
   push:
     paths:
       - 'scenarios/**.yaml'
@@ -22,61 +22,63 @@ on:
       - 'waap-rules/**.md'
       - 'waap-configs/**.md'
       - '.github/workflows/update-index.yml'
-
+      - "*.go"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-go@v1
-      with:
-        go-version: 1.19
-    - uses: actions/checkout@v1
-    - name: Create local changes
-      run: |
-        go build
-        ./main -target configs
-    - name: Commit files
-      if: ${{ github.event_name == 'push'}}
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Update index" .index.json || exit 0
-    - name: Push changes
-      if: ${{ github.event_name == 'push'}}
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.19
+      - uses: actions/checkout@v1
+      - name: Create local changes
+        run: |
+          go build
+          ./main -target configs
+      - uses: nelonoel/branch-name@v1.0.1
+      - name: Commit files
+        if: ${{ github.event_name == 'push'}}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update index" .index.json || exit 0
+          git pull --rebase origin ${BRANCH_NAME}
+      - name: Push changes
+        if: ${{ github.event_name == 'push'}}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 
   invalidate-cache:
     runs-on: ubuntu-latest
     needs: build
     #Only invalidate cache on master or vX branches
     #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
-    #We should avoid naming dev branches with something starting with v :D 
+    #We should avoid naming dev branches with something starting with v :D
     if: |
-        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+      startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
     permissions:
       id-token: write
       contents: read
     steps:
-    - uses: actions/checkout@v1
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: ${{ secrets.CF_AWS_ROLE }}
-        role-session-name: github-action
-        aws-region: eu-west-1
-    - name: Get branch name
-      run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-    - name: Get changed files
-      run: |
-        changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
-        echo "changed_files=${changed_files}" >> $GITHUB_ENV
-    - name: Invalidate cache
-      run: |
-        aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/.index.json"
-        IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
-        for i in "${FILE[@]}"; do
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/$i"
-        done
+      - uses: actions/checkout@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.CF_AWS_ROLE }}
+          role-session-name: github-action
+          aws-region: eu-west-1
+      - name: Get branch name
+        run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - name: Get changed files
+        run: |
+          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> $GITHUB_ENV
+      - name: Invalidate cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/.index.json"
+          IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
+          for i in "${FILE[@]}"; do
+            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/$i"
+          done

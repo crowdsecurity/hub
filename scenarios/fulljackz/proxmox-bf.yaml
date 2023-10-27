@@ -8,10 +8,16 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
+
 labels:
- service: pvedaemon
- type: bruteforce
- remediation: true
+  service: vm-management
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "vm-management:bruteforce"
+  label: "PveDaemon Bruteforce"
+  remediation: true
 ---
 # Proxmox bad user
 type: leaky
@@ -25,6 +31,12 @@ distinct: evt.Meta.source_user
 blackhole: 1m
 reprocess: true
 labels:
- service: pvedaemon
- type: bruteforce
- remediation: true
+  service: vm-management
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "vm-management:bruteforce"
+  label: "PveDaemon User Enum Bruteforce"
+  remediation: true

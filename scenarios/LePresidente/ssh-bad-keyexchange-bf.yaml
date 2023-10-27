@@ -11,7 +11,11 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: ssh
- type: bruteforce
- remediation: true
-
+  service: ssh
+  behavior: "ssh:bruteforce"
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  remediation: true
+  label: "SSH Bad Key Bruteforce"

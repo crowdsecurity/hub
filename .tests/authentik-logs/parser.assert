@@ -1,0 +1,65 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"action\": \"login_failed\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"geo\": {\"city\": \"Washington\", \"continent\": \"NA\", \"country\": \"US\", \"lat\": 38.8894, \"long\": -77.0353}, \"http_request\": {\"args\": {\"next\": \"/application/o/authorize/?client_id=xyz&redirect_uri=https%3A%2F%2Ffoo.mywebsite.com%2Foutpost.goauthentik.io%2Fcallback%3FX-authentik-auth-callback%3Dtrue&response_type=code&scope=profile+openid+email+ak_proxy&state=-b-123_-000\"}, \"method\": \"POST\", \"path\": \"/api/v3/flows/executor/default-authentication-flow/\"}, \"password\": \"********************\", \"stage\": {\"app\": \"authentik_stages_password\", \"model_name\": \"passwordstage\", \"name\": \"default-authentication-password\", \"pk\": \"abc\"}, \"username\": \"myuser\"}, \"event\": \"Created Event\", \"host\": \"foo.mywebsite.com\", \"level\": \"info\", \"logger\": \"authentik.events.models\", \"pid\": 290146, \"request_id\": \"a60cee518bb444c9a591d32a994268f3\", \"timestamp\": \"2023-10-17T17:39:46.598288\", \"user\": {\"email\": \"\", \"pk\": 2, \"username\": \"AnonymousUser\"}}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "authentik"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "{\"action\": \"invalid_identifier\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"stage\": \"<authentik.stages.identification.stage.IdentificationStageView object at 0x7f609a25fb10>\"}, \"event\": \"invalid_login\", \"host\": \"foo.mywebsite.com\", \"identifier\": \"wronguser\", \"level\": \"info\", \"logger\": \"authentik.flows.stage\", \"pid\": 290146, \"request_id\": \"b845048981dc46e4b8456e3f731551c2\", \"stage\": \"default-authentication-identification\", \"stage_view\": \"authentik.stages.identification.stage.IdentificationStageView\", \"timestamp\": \"2023-10-17T17:31:29.487016\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "authentik"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "{\"action\": \"login\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"auth_method\": \"password\", \"auth_method_args\": {}, \"geo\": {\"city\": \"Washington\", \"continent\": \"NA\", \"country\": \"US\", \"lat\": 38.8894, \"long\": -77.0353}, \"http_request\": {\"args\": {\"next\": \"/\"}, \"method\": \"GET\", \"path\": \"/api/v3/flows/executor/default-authentication-flow/\"}}, \"event\": \"Created Event\", \"host\": \"foo.mywebsite.com\", \"level\": \"info\", \"logger\": \"authentik.events.models\", \"pid\": 290146, \"request_id\": \"83b803b905eb40e89fc1c9bc052c2f4a\", \"timestamp\": \"2023-10-17T17:32:24.328552\", \"user\": {\"email\": \"myuser@myemail.com\", \"pk\": 6, \"username\": \"myuser\"}}"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "authentik"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["firix/authentik-logs"]) == 3
+results["s01-parse"]["firix/authentik-logs"][0].Success == true
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Parsed["message"] == "{\"action\": \"login_failed\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"geo\": {\"city\": \"Washington\", \"continent\": \"NA\", \"country\": \"US\", \"lat\": 38.8894, \"long\": -77.0353}, \"http_request\": {\"args\": {\"next\": \"/application/o/authorize/?client_id=xyz&redirect_uri=https%3A%2F%2Ffoo.mywebsite.com%2Foutpost.goauthentik.io%2Fcallback%3FX-authentik-auth-callback%3Dtrue&response_type=code&scope=profile+openid+email+ak_proxy&state=-b-123_-000\"}, \"method\": \"POST\", \"path\": \"/api/v3/flows/executor/default-authentication-flow/\"}, \"password\": \"********************\", \"stage\": {\"app\": \"authentik_stages_password\", \"model_name\": \"passwordstage\", \"name\": \"default-authentication-password\", \"pk\": \"abc\"}, \"username\": \"myuser\"}, \"event\": \"Created Event\", \"host\": \"foo.mywebsite.com\", \"level\": \"info\", \"logger\": \"authentik.events.models\", \"pid\": 290146, \"request_id\": \"a60cee518bb444c9a591d32a994268f3\", \"timestamp\": \"2023-10-17T17:39:46.598288\", \"user\": {\"email\": \"\", \"pk\": 2, \"username\": \"AnonymousUser\"}}"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Parsed["program"] == "authentik"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["log_type"] == "authentik_failed_auth"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["service"] == "authentik"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["firix/authentik-logs"][0].Evt.Meta["username"] == "myuser"
+results["s01-parse"]["firix/authentik-logs"][1].Success == true
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Parsed["message"] == "{\"action\": \"invalid_identifier\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"stage\": \"<authentik.stages.identification.stage.IdentificationStageView object at 0x7f609a25fb10>\"}, \"event\": \"invalid_login\", \"host\": \"foo.mywebsite.com\", \"identifier\": \"wronguser\", \"level\": \"info\", \"logger\": \"authentik.flows.stage\", \"pid\": 290146, \"request_id\": \"b845048981dc46e4b8456e3f731551c2\", \"stage\": \"default-authentication-identification\", \"stage_view\": \"authentik.stages.identification.stage.IdentificationStageView\", \"timestamp\": \"2023-10-17T17:31:29.487016\"}"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Parsed["program"] == "authentik"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["username"] == "wronguser"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["log_type"] == "authentik_invalid_username"
+results["s01-parse"]["firix/authentik-logs"][1].Evt.Meta["service"] == "authentik"
+results["s01-parse"]["firix/authentik-logs"][2].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"action\": \"login_failed\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"geo\": {\"city\": \"Washington\", \"continent\": \"NA\", \"country\": \"US\", \"lat\": 38.8894, \"long\": -77.0353}, \"http_request\": {\"args\": {\"next\": \"/application/o/authorize/?client_id=xyz&redirect_uri=https%3A%2F%2Ffoo.mywebsite.com%2Foutpost.goauthentik.io%2Fcallback%3FX-authentik-auth-callback%3Dtrue&response_type=code&scope=profile+openid+email+ak_proxy&state=-b-123_-000\"}, \"method\": \"POST\", \"path\": \"/api/v3/flows/executor/default-authentication-flow/\"}, \"password\": \"********************\", \"stage\": {\"app\": \"authentik_stages_password\", \"model_name\": \"passwordstage\", \"name\": \"default-authentication-password\", \"pk\": \"abc\"}, \"username\": \"myuser\"}, \"event\": \"Created Event\", \"host\": \"foo.mywebsite.com\", \"level\": \"info\", \"logger\": \"authentik.events.models\", \"pid\": 290146, \"request_id\": \"a60cee518bb444c9a591d32a994268f3\", \"timestamp\": \"2023-10-17T17:39:46.598288\", \"user\": {\"email\": \"\", \"pk\": 2, \"username\": \"AnonymousUser\"}}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "authentik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "authentik_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "authentik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-10-17T17:39:46.598288Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "myuser"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-10-17T17:39:46.598288Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "{\"action\": \"invalid_identifier\", \"auth_via\": \"unauthenticated\", \"client_ip\": \"1.2.3.4\", \"context\": {\"stage\": \"<authentik.stages.identification.stage.IdentificationStageView object at 0x7f609a25fb10>\"}, \"event\": \"invalid_login\", \"host\": \"foo.mywebsite.com\", \"identifier\": \"wronguser\", \"level\": \"info\", \"logger\": \"authentik.flows.stage\", \"pid\": 290146, \"request_id\": \"b845048981dc46e4b8456e3f731551c2\", \"stage\": \"default-authentication-identification\", \"stage_view\": \"authentik.stages.identification.stage.IdentificationStageView\", \"timestamp\": \"2023-10-17T17:31:29.487016\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "authentik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "authentik-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "authentik_invalid_username"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "authentik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-10-17T17:31:29.487016Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] == "wronguser"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-10-17T17:31:29.487016Z"
+len(results["success"][""]) == 0
