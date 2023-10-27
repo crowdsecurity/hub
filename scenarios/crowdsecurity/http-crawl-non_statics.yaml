@@ -11,6 +11,11 @@ cache_size: 5
 groupby: "evt.Meta.source_ip + '/' + evt.Parsed.target_fqdn"
 blackhole: 1m
 labels:
- service: http
- type: crawl
- remediation: true
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "http:crawl"
+  service: http
+  label: "detection of aggressive crawl"
+  remediation: true

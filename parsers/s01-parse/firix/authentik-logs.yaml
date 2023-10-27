@@ -1,0 +1,24 @@
+name: firix/authentik-logs
+description: "Parse Authentik logs"
+filter: "Lower(evt.Parsed.program) == 'authentik'"
+onsuccess: next_stage
+nodes:
+  - filter: "JsonExtract(evt.Parsed.message, 'action') == 'login_failed'"
+    statics:
+      - meta: log_type
+        value: authentik_failed_auth
+      - meta: username
+        expression: JsonExtract(evt.Parsed.message, "context.username")
+  - filter: "JsonExtract(evt.Parsed.message, 'action') == 'invalid_identifier'"
+    statics:
+      - meta: log_type
+        value: authentik_invalid_username
+      - meta: username
+        expression: JsonExtract(evt.Parsed.message, "identifier")
+statics:
+  - meta: service
+    value: authentik
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "client_ip")
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "timestamp") + "Z"

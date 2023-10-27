@@ -11,9 +11,14 @@ groupby: evt.Meta.source_ip
 blackhole: 15m
 reprocess: true
 labels:
- service: pterodactyl
- type: bruteforce
- remediation: true
+  service: pterodactyl
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 1
+  behavior: "http:bruteforce"
+  label: "Pterodactyl Wing bruteforce"
+  remediation: true
 ---
 type: leaky
 name: lourys/pterodactyl-wings-bf
@@ -25,9 +30,14 @@ leakspeed: 15s
 capacity: 1
 blackhole: 15m
 labels:
- service: pterodactyl
- type: bruteforce
- remediation: true
+  service: pterodactyl
+  classification:
+    - attack.T1087
+  spoofable: 0
+  confidence: 1
+  behavior: "http:bruteforce"
+  label: "Pterodactyl Wing bruteforce"
+  remediation: true
 
 ###############################
 ## Invalid username/password ##
@@ -42,7 +52,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: pterodactyl
- type: bruteforce
- remediation: true
-
+  service: pterodactyl
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  behavior: "http:bruteforce"
+  label: "Pterodactyl Wing bruteforce"
+  remediation: true

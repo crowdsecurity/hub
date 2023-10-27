@@ -1,0 +1,31 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'WEBMIN'"
+name: andreasbrett/webmin-logs
+description: "Parse webmin logs"
+pattern_syntax:
+    WEBMIN_AUTH_WRONG_PASS: '%{INT:unix_epoch}\.%{INT}\.%{INT} \[.*\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "wrongpass"'
+    WEBMIN_AUTH_TWOFACTOR: '%{INT:unix_epoch}\.%{INT}\.%{INT} \[.*\] %{USERNAME:username} - %{IP:source_ip} global miniserv.pl "failed" "-" "twofactor"'
+
+nodes:
+    - grok:
+          pattern: "%{WEBMIN_AUTH_WRONG_PASS}"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: webmin_failed_auth_wrong_pass
+    - grok:
+          pattern: "%{WEBMIN_AUTH_TWOFACTOR}"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: webmin_failed_auth_twofactor
+
+statics:
+    - meta: service
+      value: webmin
+    - meta: username
+      expression: evt.Parsed.username
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: "evt.Parsed.unix_epoch"

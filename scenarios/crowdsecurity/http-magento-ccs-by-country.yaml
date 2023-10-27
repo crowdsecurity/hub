@@ -9,7 +9,11 @@ capacity: 10
 leakspeed: 30s
 blackhole: 5m
 labels:
- service: http
- type: scan
- remediation: true
- application: magento
+  remediation: true
+  classification:
+    - attack.T1110.004
+  confidence: 1
+  spoofable: 3
+  service: magento
+  behavior: "ecommerce:fraud"
+  label: "Magento Credit Card Stuffing By Country"

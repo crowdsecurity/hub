@@ -10,7 +10,12 @@ blackhole: 1m
 reprocess: true
 labels:
   service: uptime-kuma
-  type: bruteforce
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Uptime Kuma Bruteforce"
+  spoofable: 0
+  confidence: 3
   remediation: true
 ---
 # Uptime Kuma user enum bruteforce
@@ -26,5 +31,11 @@ blackhole: 1m
 reprocess: true
 labels:
   service: uptime-kuma
-  type: bruteforce
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Uptime Kuma User Enumeration"
+  spoofable: 0
+  confidence: 3
   remediation: true

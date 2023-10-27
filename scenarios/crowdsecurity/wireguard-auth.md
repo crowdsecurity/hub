@@ -1,0 +1,1 @@
+Detects bruteforce attempts against a wireguard server. It will parse the wireguard log file and count the number of failed login attempts per IP address. If the number of failed login attempts exceeds the threshold, the IP address will trigger an alert.

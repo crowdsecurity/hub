@@ -1,0 +1,39 @@
+# immich BF scan
+name: gauth-fr/immich-bf
+description: "Detect immich bruteforce"
+filter: "evt.Meta.log_type == 'immich_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: immich
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Immich Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+# immich user-enum
+type: leaky
+name: gauth-fr/immich-bf_user-enum
+description: "Detect immich user enum bruteforce"
+filter: "evt.Meta.log_type == 'immich_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: immich
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Immich Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
