@@ -199,7 +199,7 @@ func generateIndex(configType string) (map[string]typeInfo, error) {
 			var err error
 			hubName, err = info.generate(filepath, configType)
 			if err != nil {
-				fmt.Printf("skipping '%s' because : %s\n", filepath, err.Error())
+				fmt.Printf("skipping '%s' for index generation because : %s\n", filepath, err.Error())
 			} else {
 				tInfo[hubName] = info
 			}
