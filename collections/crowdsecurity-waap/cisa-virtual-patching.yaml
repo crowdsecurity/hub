@@ -1,10 +1,13 @@
 name: crowdsecurity-waap/cisa-virtual-patching
 waap-rules:
-  - crowdsecurity/default-coraza-cfg
   - crowdsecurity/vpatch-CVE-2023-40044
   - crowdsecurity/vpatch-CVE-2023-42793
 waap-configs:
   - crowdsecurity/vpatch
+parsers:
+  - crowdsecurity/waap-logs
+scenarios:
+  - crowdsecurity/waap-vpatch
 description: "a generic virtual patching collection, suitable for most web servers"
 author: crowdsecurity-waap
 

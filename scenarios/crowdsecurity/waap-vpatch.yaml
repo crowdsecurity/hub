@@ -1,0 +1,20 @@
+# ssh bruteforce
+type: leaky
+debug: true
+name: crowdsecurity/waap-vpatch
+description: "Detect waap attacks"
+filter: "evt.Meta.log_type == 'waap-block'"
+leakspeed: "10s"
+capacity: 1
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: http
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "WAAP blocked"
+  behavior: "http:exploit"
+  remediation: true

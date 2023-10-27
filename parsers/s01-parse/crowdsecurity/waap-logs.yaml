@@ -1,0 +1,22 @@
+onsuccess: next_stage
+debug: true
+filter: "evt.Parsed.program == 'coraza-waap'"
+name: crowdsecurity/waap-logs
+description: "Parse WAAP events"
+statics:
+  - meta: service
+    value: waap
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: target_host
+    expression: "evt.Parsed.target_host"
+  - meta: request_uuid
+    expression: "evt.Parsed.req_uuid"
+  - meta: target_uri
+    expression: "evt.Parsed.target_uri"
+  - meta: log_type
+    value: waap-block
+  - meta: rule_name
+    expression: evt.Waap.GetName()
+  - meta: rule_ids
+    expression: Sprintf("%+v", evt.Waap.GetRuleIDs())
