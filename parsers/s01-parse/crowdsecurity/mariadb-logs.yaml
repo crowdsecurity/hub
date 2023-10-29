@@ -1,28 +1,68 @@
 onsuccess: next_stage
+#debug: true
 name: crowdsecurity/mariadb-logs
 description: "Parse MariaDB logs"
 filter: "evt.Parsed.program startsWith 'mariadb'"
 pattern_syntax:
-  LONG_DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
-  SHORT_DATE_YMD: "%{YEAR:year}%{MONTHNUM2:month}%{MONTHDAY:day}"
-  PASSWORD_SYNTAX: " ?%{TIME:time} (%{NUMBER:thread_id} )?\\[Warning\\] Access denied for user '%{DATA:user}'@'%{IP:source_ip}' \\(using password: %{WORD:using_password}\\)"
+  LONG_DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}.*?%{TIME:time}"
+  SHORT_DATE_YMD: "%{YEAR:year}%{MONTHNUM2:month}%{MONTHDAY:day}.*?%{TIME:time}"
+  MARIADB_ACCESS_DENIED: "Access denied for user '%{DATA:user}'@'%{IP:source_ip}' \\(using password: %{WORD:using_password}\\)"
+  PASSWORD_SYNTAX: "(%{NUMBER:thread_id} )?\\[Warning\\] %{MARIADB_ACCESS_DENIED}"
+  CONNECT_SYNTAX: ".*?%{NUMBER:connect_number} Connect.*?%{MARIADB_ACCESS_DENIED}"
 nodes:
   - grok:
-      pattern: "%{LONG_DATE_YMD:date} %{PASSWORD_SYNTAX}"
+      pattern: "%{SHORT_DATE_YMD:timestamp} %{PASSWORD_SYNTAX}"
       apply_on: message
-    onsuccess: next_stage
-  - grok:
-      pattern: "%{SHORT_DATE_YMD:date} %{PASSWORD_SYNTAX}"
-      apply_on: message
-      statics:
+    statics:
+        - meta: log_type
+          value: "mariadb_failed_auth"
         - target: evt.StrTimeFormat
           value: "060102 15:04:05"
-    onsuccess: next_stage
+  - grok:
+      pattern: "%{LONG_DATE_YMD:timestamp} %{PASSWORD_SYNTAX}"
+      apply_on: message
+    statics:
+        - meta: log_type
+          value: "mariadb_failed_auth"
+  - grok:
+      pattern: "%{SHORT_DATE_YMD:timestamp}.*?%{NUMBER:connect_number} Connect.*?on.*?using TCP/IP"
+      apply_on: message
+    stash:
+      - name: mariadb_time_stash
+        key: evt.Parsed.connect_number
+        value: evt.Parsed.timestamp
+        ttl: 1m
+        size: 100
+  - grok:
+      pattern: "%{LONG_DATE_YMD:timestamp}.*?%{NUMBER:connect_number} Connect.*?on.*?using TCP/IP"
+      apply_on: message
+    stash:
+      - name: mariadb_time_stash
+        key: evt.Parsed.connect_number
+        value: evt.Parsed.timestamp
+        ttl: 1m
+        size: 100
+  - grok:
+      pattern: "(%{SHORT_DATE_YMD:timestamp})?%{CONNECT_SYNTAX}"
+      apply_on: message
+    statics:
+        - meta: log_type
+          value: "mariadb_failed_auth"
+        - target: evt.Parsed.timestamp
+          expression: GetFromStash("mariadb_time_stash", evt.Parsed.connect_number)
+        - target: evt.StrTimeFormat
+          value: "060102 15:04:05"
+  - grok:
+      pattern: "(%{LONG_DATE_YMD:timestamp})?%{CONNECT_SYNTAX}"
+      apply_on: message
+    statics:
+        - meta: log_type
+          value: "mariadb_failed_auth"
+        - target: evt.Parsed.timestamp
+          expression: GetFromStash("mariadb_time_stash", evt.Parsed.connect_number)
 statics:
   - target: evt.StrTime
-    expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
-  - meta: log_type
-    value: "mariadb_failed_auth"
+    expression: "evt.Parsed.timestamp"
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
   - meta: user
