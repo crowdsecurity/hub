@@ -1,0 +1,36 @@
+type: leaky
+name: xs539/joplin-server-bf
+description: "Detect Joplin Server bruteforce"
+filter: "evt.Meta.log_type == 'joplin_server_failed_auth'"
+groupby: evt.Meta.source_ip
+leakspeed: 15m
+capacity: 3
+blackhole: 1m
+labels:
+  service: joplin
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Joplin Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+type: leaky
+name:  xs539/joplin-server-bf_user-enum
+description: "Detect Joplin Server bruteforce"
+filter: "evt.Meta.log_type == 'joplin_server_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 15m
+capacity: 3
+blackhole: 1m
+labels:
+  service: joplin
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Joplin User Enumeration"
+  behavior: "http:bruteforce"
+  remediation: true

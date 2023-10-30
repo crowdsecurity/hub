@@ -8,7 +8,12 @@ capacity: 15
 leakspeed: 5s
 blackhole: 1m
 labels:
-  service: tcp
-  type: scan
   remediation: true
-
+  classification:
+    - attack.T1595.001
+    - attack.T1018
+    - attack.T1046
+  behavior: "tcp:scan"
+  label: "TCP Port Scan"
+  spoofable: 3
+  confidence: 1

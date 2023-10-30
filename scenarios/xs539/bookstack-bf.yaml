@@ -1,0 +1,36 @@
+type: leaky
+name: xs539/bookstack-bf
+description: "Detect bookstack bruteforce"
+filter: "evt.Meta.log_type == 'bookstack_failed_auth'"
+groupby: evt.Meta.source_ip
+leakspeed: 15m
+capacity: 3
+blackhole: 1m
+labels:
+  service: bookstack
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Bookstack Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+type: leaky
+name:  xs539/bookstack-bf_user-enum
+description: "Detect bookstack bruteforce"
+filter: "evt.Meta.log_type == 'bookstack_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 15m
+capacity: 3
+blackhole: 1m
+labels:
+  service: bookstack
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Bookstack User Enumeration"
+  behavior: "http:bruteforce"
+  remediation: true

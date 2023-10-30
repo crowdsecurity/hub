@@ -1,0 +1,17 @@
+type: leaky
+name: crowdsecurity/wireguard-auth
+description: "Detects rejected connections attempts and unauthorized packets through wireguard tunnels"
+filter: "evt.Meta.log_type == 'wireguard_failed_auth'"
+groupby: evt.Meta.source_ip
+leakspeed: "30s"
+capacity: 3
+blackhole: 1m
+labels:
+  remediation: true
+  service: wireguard
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Wireguard Bruteforce"
+  behavior: "generic:bruteforce"

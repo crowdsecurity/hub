@@ -1,0 +1,10 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/xs539/joplin-server-logs.yaml
+scenarios:
+- ./scenarios/xs539/joplin-server-bf.yaml
+postoverflows:
+log_file: joplin-server-bf.log
+log_type: joplin-server
+ignore_parsers: true

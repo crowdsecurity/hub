@@ -1,0 +1,20 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'segfault'"
+name: crowdsecurity/segfault-logs
+nodes:
+- grok:
+    pattern: '(\[%{DATA}\] )?%{DATA:binary}\[%{INT:pid}\]: segfault at %{DATA:addr} ip %{DATA:rip} sp %{DATA:sp} error %{INT:err_num} in %{DATA:library}\[%{DATA:library_offset}\]( %{DATA})?'
+    apply_on: message
+description: "Parses segfault kernel side"
+statics:
+  - meta: log_type
+    value: kernel
+  - meta: sub_log_type
+    value: segfault
+  - meta: library
+    expression: evt.Parsed.library
+  - meta: errnum
+    expression: evt.Parsed.errnum
+  - meta: binary
+    expression: evt.Parsed.binary

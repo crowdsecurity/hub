@@ -8,6 +8,12 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: ftp
- type: bruteforce
+ service: proftpd
  remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+  - attack.T1110
+  - attack.T1190
+ behavior: "ftp:bruteforce"
+ label: "Proftpd Bruteforce"

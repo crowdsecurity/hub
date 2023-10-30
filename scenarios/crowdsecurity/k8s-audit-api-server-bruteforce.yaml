@@ -14,6 +14,11 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: k8s
- type: bruteforce
- remediation: true
+  remediation: true
+  classification:
+    - attack.T1110
+  behavior: "k8s:bruteforce"
+  label: "Kubernetes API Bruteforce"
+  spoofable: 0
+  confidence: 3
+  service: k8s

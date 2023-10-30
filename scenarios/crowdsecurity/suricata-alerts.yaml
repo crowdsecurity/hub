@@ -7,9 +7,16 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: suricata
- type: exploit
- remediation: true
+  service: suricata
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1190
+    - attack.T1595
+  behavior: "generic:exploit"
+  label: "Suricata Severity 1 Event"
+
 ---
 # for lower (2) priority : wait for >=3 different signatures being triggered
 # we intentionally avoid scenarios on priority 3 and such that are too sensitive to false positives
@@ -24,5 +31,11 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: suricata
- type: exploit
+  service: suricata
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1190
+    - attack.T1595
+  behavior: "generic:exploit"
+  label: "Suricata Severity 2 Event"

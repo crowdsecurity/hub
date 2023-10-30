@@ -10,5 +10,10 @@ capacity: 5
 blackhole: 1m
 labels:
   service: grafana
-  type: bruteforce
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Grafana Bruteforce"
   remediation: true
