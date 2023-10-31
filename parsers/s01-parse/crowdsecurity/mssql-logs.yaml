@@ -1,7 +1,7 @@
 onsuccess: next_stage
 name: crowdsecurity/mssql-logs
 description: "Parse mssql logs"
-filter: "evt.Parsed.Channel == 'Application' && evt.Parsed.Source == 'MSSQLSERVER' && evt.Parsed.EventID == '18456'"
+filter: "evt.Parsed.Channel == 'Application' && (evt.Parsed.Source == 'MSSQLSERVER' || evt.Parsed.Source startsWith 'MSSQL$') && evt.Parsed.EventID == '18456'"
 nodes:
   - grok:
       pattern: "Reason: Password did not match that for the login provided\\."
