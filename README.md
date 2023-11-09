@@ -37,12 +37,12 @@ Feel free to use the parsers/scenarios here as a source of inspiration.
 
 > list existing tests
 
-`cscli hubtest list` 
+`cscli hubtest list`
 
 
 > run a specific test
 
-`cscli hubtest run [test-name]` 
+`cscli hubtest run [test-name]`
 
 
 > show current tests coverage
@@ -102,7 +102,7 @@ _note: the order doesn't matter. If the parser name is in the form `author/parse
 Now we need to dump some actual logs into the test's log file :
 
 ```bash
-▶ cat > .tests/dovecot-logs/dovecot-logs.log 
+▶ cat > .tests/dovecot-logs/dovecot-logs.log
 Jan 28 10:16:13 dovecot-box dovecot[7508]: imap-login: Disconnected (auth failed, 1 attempts in 6 secs): user=<toto@toto.com>, method=PLAIN, rip=4.4.4.4, lip=7.7.7.7, TLS, session=<3650VvK5bdIaW-iK>
 Sep 8 07:16:29 canyon dovecot: auth-worker(24058): pam(toto,1.1.1.1,<youpi>): pam_authenticate() failed: Authentication failure (password mismatch?)
 Sep 8 07:46:51 canyon dovecot: auth-worker(24544): pam(toto,1.1.1.1): unknown user
@@ -116,10 +116,10 @@ Now that we have config & logs, let's run it for the first time :
 
 ```bash
 ▶ cscli hubtest run dovecot-logs
-INFO[27-09-2021 06:13:59 PM] Running test 'dovecot-logs'                  
-INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment 
-INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment 
-WARN[27-09-2021 06:14:02 PM] Assert file '/home/bui/github/hub/.tests/dovecot-logs/parser.assert' is empty, generating assertion: 
+INFO[27-09-2021 06:13:59 PM] Running test 'dovecot-logs'
+INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment
+INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment
+WARN[27-09-2021 06:14:02 PM] Assert file '/home/bui/github/hub/.tests/dovecot-logs/parser.assert' is empty, generating assertion:
 
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 ...
@@ -146,7 +146,7 @@ Your careful eye will keep only the ones relevant to the parser you're testing :
 
 
 ```bash
-▶ cat > .tests/dovecot-logs/parser.assert 
+▶ cat > .tests/dovecot-logs/parser.assert
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Parsed["pid"] == "7508"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Parsed["timestamp"] == "Jan 28 10:16:13"
@@ -194,10 +194,10 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][2].Evt.Meta["datasource_type"
 
 
 ```bash
-▶ cscli hubtest run dovecot-logs                                
-INFO[27-09-2021 06:19:33 PM] Running test 'dovecot-logs'                  
-INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment 
-INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment 
+▶ cscli hubtest run dovecot-logs
+INFO[27-09-2021 06:19:33 PM] Running test 'dovecot-logs'
+INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment
+INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment
 Test 'dovecot-logs' passed successfully (39 assertions) 🟩
 ```
 
@@ -213,7 +213,7 @@ When working on a test, you can as well pass expressions directly to `hubtest` c
 
 
 ```bash
-▶ cscli hubtest  eval dovecot-logs -e 'results["s01-parse"]["crowdsecurity/dovecot-logs"][2].Evt.Parsed'             
+▶ cscli hubtest  eval dovecot-logs -e 'results["s01-parse"]["crowdsecurity/dovecot-logs"][2].Evt.Parsed'
 dovecot_login_result: unknown user
 dovecot_remote_ip: 1.1.1.1
 dovecot_user: toto
@@ -230,7 +230,3 @@ timestamp8601: ""
 ## Open your PR
 
 yes.
-
-
-
-
