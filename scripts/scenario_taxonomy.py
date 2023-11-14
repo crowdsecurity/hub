@@ -10,6 +10,7 @@ from itertools import chain
 
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
+CWE_RE = re.compile(r"CWE-\d{2,6}")
 author = os.environ.get("AUTHOR", "ghost")
 
 OK_STR = f"""
@@ -128,6 +129,24 @@ def get_mitre_techniques_from_label(labels, mitre_data):
 
     return ret, errors
 
+def get_cwe_from_label(labels):
+    ret = list()
+    errors = list()
+    if "classification" not in labels:
+        return ret, errors
+
+    for classification in labels["classification"]:
+        split_cwe = classification.split(".")
+        if split_cwe[0] != "cwe":
+            continue
+        cwe = split_cwe[1].upper()
+
+        if CWE_RE.match(cwe) == None:
+            errors.append("bad CWE format: {}".format(cwe))
+            continue
+        ret.append(cwe)
+
+    return ret, errors
 
 def get_cve_from_label(labels):
     ret = list()
@@ -230,6 +249,8 @@ def main():
 
             cves, cves_errors = get_cve_from_label(labels)
             scenario_errors.extend(cves_errors)
+            cwes, cwes_errors = get_cwe_from_label(labels)
+            scenario_errors.extend(cwes_errors)
 
             scenario_label = ""
             confidence = 0
@@ -299,6 +320,8 @@ def main():
 
             if len(cves) > 0:
                 scenarios_taxonomy[scenario["name"]]["cves"] = cves
+            if len(cwes) > 0:
+                scenarios_taxonomy[scenario["name"]]["cwes"] = cwes
 
     f = open(args.output, "w")
     f.write(json.dumps(scenarios_taxonomy, indent=2))
