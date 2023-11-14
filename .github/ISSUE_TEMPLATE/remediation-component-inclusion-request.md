@@ -22,3 +22,5 @@ I would like to suggest the addition of the `XXXX` to the hub :
 - Short/Long description: ...
 - Howto: in README
 - At least one release: yes
+
+Link to blockers/list.json addition PR: <PR URL>
