@@ -1,7 +1,7 @@
 ---
-name: remediation component inclusion template
+name: Remediation Component inclusion Request
 about: Request to add your remediation component to the hub
-title: remediation component inclusion
+title: Remediation Component inclusion
 labels: ''
 assignees: ''
 
