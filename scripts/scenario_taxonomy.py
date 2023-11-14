@@ -6,6 +6,7 @@ import json
 import yaml
 import argparse
 from yaml.loader import SafeLoader
+from itertools import chain
 
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
@@ -23,7 +24,7 @@ Hello @{author} and thank you for your contribution!
 I'm a bot that helps maintainers to validate scenarios and ensure they include all the required information.
 I've found some errors in your scenarios, please fix them and re-submit your PR, or ask for help if you need it.
 
-The following scenarios have errors:
+The following items have errors:
 
 """
 
@@ -165,7 +166,8 @@ def main():
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
-
+    hub_waaprules_path = os.path.join(args.hub, "waap-rules")
+    print("[+] waap rules : {}".format(hub_waaprules_path))
     ignore_list = list()
     if os.path.exists(args.ignore):
         ignore_list = open(args.ignore).read().split("\n")
@@ -174,7 +176,7 @@ def main():
     scenarios_taxonomy = dict()
     filepath_list = []
 
-    for r, d, f in os.walk(hub_scenarios_path):
+    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_waaprules_path]):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
                 filepath_list.append(os.path.join(r, file))
@@ -183,6 +185,7 @@ def main():
     cpt = 0
     mitres = dict()
     for filepath in filepath_list:
+        print("[+] Processing {}".format(filepath))
         f = open(filepath, "r")
         data = list(yaml.load_all(f, Loader=SafeLoader))
 
