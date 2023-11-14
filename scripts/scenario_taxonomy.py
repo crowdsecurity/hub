@@ -167,7 +167,6 @@ def main():
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_waaprules_path = os.path.join(args.hub, "waap-rules")
-    print("[+] waap rules : {}".format(hub_waaprules_path))
     ignore_list = list()
     if os.path.exists(args.ignore):
         ignore_list = open(args.ignore).read().split("\n")
@@ -212,7 +211,6 @@ def main():
 
             if len(mitre_techniques) == 0:
                 scenario_errors.append("`attack` not found in labels.classification")
-
             service = labels.get("service", None)
 
             for m in mitre_techniques:
@@ -284,6 +282,8 @@ def main():
             if len(scenario_errors) > 0 and filepath[2:] in changed_files:
                 errors[scenario["name"]] = scenario_errors
                 stats["scenarios_nok"].append(scenario["name"])
+            else:
+                stats["scenarios_ok"].append(scenario["name"])
 
             scenarios_taxonomy[scenario["name"]] = {
                 "name": scenario["name"],
@@ -296,8 +296,6 @@ def main():
                 "cti": in_cti,
                 "service": service,
             }
-
-            stats["scenarios_ok"].append(scenario["name"])
 
             if len(cves) > 0:
                 scenarios_taxonomy[scenario["name"]]["cves"] = cves
