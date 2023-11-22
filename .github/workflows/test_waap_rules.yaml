@@ -54,7 +54,7 @@ jobs:
     - name: Setup NGINX Bouncer API key
       run: |
         sudo cscli bouncers add hubtestWaap -k "this_is_a_bad_password"
-        sed -i 's/API_KEY=.*$/API_KEY=this_is_a_bad_password/' /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
+        sudo sed -i 's/API_KEY=.*$/API_KEY=this_is_a_bad_password/' /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
         sudo systemctl restart nginx
     - name: run tests on last crowdsec tag
       run: |
