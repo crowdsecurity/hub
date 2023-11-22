@@ -30,7 +30,7 @@ jobs:
         go-version: '1.21'
     - name: Install requirements
       run: |
-        apt install libre2-dev
+        sudo apt install libre2-dev
     - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
@@ -41,7 +41,7 @@ jobs:
         sudo ./wizard.sh --unattended
     - name: Install NGINX
       run: |
-        apt install nginx
+        sudo apt install nginx
     - name: run tests on last crowdsec tag
       run: |
         cscli hubtest list --waap
