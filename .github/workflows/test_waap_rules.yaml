@@ -33,7 +33,7 @@ jobs:
         git clone https://github.com/crowdsecurity/crowdsec.git
         cd crowdsec
         git checkout -b "coraza_poc_acquis"
-        make release BUILD_STATIC=1
+        BUILD_STATIC=1 make release
         cd crowdsec-v*
         sudo ./wizard.sh --unattended
     - name: Install NGINX
