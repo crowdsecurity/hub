@@ -1,0 +1,10 @@
+type: trigger
+filter: evt.Parsed.program == 'crowdsec-waap' && evt.Waap.HasInBandMatches == true && evt.Parsed.action in ["deny", "drop"]
+#debug: true
+name: crowdsecurity/crowdsec-waap-inband
+description: IP has trigger an In Band CrowdSec Waap rule
+blackhole: 2m
+labels:
+  type: exploit
+  remediation: true
+groupby: evt.Meta.source_ip
