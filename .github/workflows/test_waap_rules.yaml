@@ -28,6 +28,9 @@ jobs:
     - uses: actions/setup-go@v4
       with:
         go-version: '1.21'
+    - name: Install requirements
+      run: |
+        apt install libre2-dev
     - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
