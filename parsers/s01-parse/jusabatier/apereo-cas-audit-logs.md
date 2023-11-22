@@ -2,7 +2,7 @@ Use Apereo CAS audit logs : https://apereo.github.io/cas/6.4.x/audits/Audits-Fil
 
 Need to : 
 * ativate `cas.audit.slf4j.use-single-line=true` in CAS configuration
-* add cas_audit.log generated file to CrowdSec aquisitions
+* add cas_audit.log generated file to CrowdSec acquisitions
 
 Sample log4j config : 
 
