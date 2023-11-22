@@ -63,7 +63,7 @@ jobs:
         cscli hubtest run --all --waap
         echo "WAAP_RULE_COV=$(cscli hubtest coverage --waap --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         WAAP_RULE_COV_NUMBER=$(cscli hubtest coverage --waap --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        WAAP_RULE_BADGE_COLOR=$(if [ "$WAAP_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
+        echo "WAAP_RULE_BADGE_COLOR=$(if [ "$WAAP_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
     - name: Create waap badge
       uses: schneegans/dynamic-badges-action@v1.1.0
       #if: ${{ github.ref == 'refs/heads/master' }}
