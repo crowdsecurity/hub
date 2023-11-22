@@ -42,6 +42,20 @@ jobs:
     - name: Install NGINX
       run: |
         sudo apt install nginx
+    - name: Install CrowdSec NGINX Bouncer
+      run: |
+        git clone https://github.com/crowdsecurity/cs-nginx-bouncer.git
+        cd cs-nginx-bouncer/
+        git checkout waf_integration
+        make release
+        tar xzvf crowdsec-nginx-bouncer.tgz
+        cd crowdsec-nginx-bouncer-v*
+        sudo ./install.sh -y
+    - name: Setup NGINX Bouncer API key
+      run: |
+        sudo cscli bouncers add hubtestWaap -k "this_is_a_bad_password"
+        sed -i 's/API_KEY=.*$/API_KEY=this_is_a_bad_password/' /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
+        sudo systemctl restart nginx
     - name: run tests on last crowdsec tag
       run: |
         cscli hubtest list --waap
