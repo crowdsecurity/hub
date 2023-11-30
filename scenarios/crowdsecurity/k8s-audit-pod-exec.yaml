@@ -9,12 +9,6 @@ filter: |
    (evt.Meta.datasource_type != "k8s-audit" && evt.Unmarshaled.k8s_audit.objectRef?.resource == 'pods' && evt.Unmarshaled.k8s_audit.objectRef?.subresource == 'exec')
   )
 labels:
-  notification: true
-  classification:
-    - attack.T1609
-  behavior: "k8s:audit"
-  label: "Kubernetes Exec Into Pod"
-  spoofable: 0
-  confidence: 3
-  cti: false
-  service: k8s
+ service: k8s
+ type: exec-into-pod
+ notification: true

@@ -11,12 +11,7 @@ reprocess: true
 labels:
     service: baikal
     type: bruteforce
-    classification:
-      - attack.T1110
     remediation: true
-    behavior: http:bruteforce
-    spoofable: 0
-    confidence: 3
 ---
 # Baikal user-enum (only for web UI since Baikal doesn't log failed username for CalDAV/CardDAV access)
 type: leaky
@@ -32,8 +27,3 @@ labels:
     service: baikal
     type: bruteforce
     remediation: true
-    behavior: http:bruteforce
-    spoofable: 0
-    confidence: 3
-    classification:
-      - attack.T1110

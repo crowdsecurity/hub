@@ -8,12 +8,6 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: pgsql
- remediation: true
- confidence: 3
- spoofable: 0
- classification:
-  - attack.T1110
-  - attack.T1589
- behavior: "database:bruteforce"
- label: "Postgres Bruteforce"
+  service: pgsql
+  type: bruteforce
+  remediation: true
