@@ -1,0 +1,16 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'php-fpm'"
+name: crowdsecurity/pfsense-gui-logs
+description: "Parse pfSense web auth logs"
+grok: 
+  pattern: "/index.php: webConfigurator authentication error for user '%{USERNAME:username}' from: %{IPORHOST:source_ip}"
+  apply_on: message
+statics:
+  - meta: service
+    value: pfsense-gui
+  - meta: username
+    expression: "evt.Parsed.username"
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: log_type
+    value: pfsense-gui-failed-auth

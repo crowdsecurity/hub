@@ -1,7 +1,7 @@
 # opnsense web auth bruteforce
 type: leaky
 #debug: true
-name: crowdsecurity/opnsense-web-bf
+name: crowdsecurity/opnsense-gui-bf
 description: "Detect bruteforce on opnsense web interface"
 filter: evt.Meta.log_type == 'opnsense-gui-failed-auth'
 leakspeed: "10s"
@@ -15,5 +15,5 @@ labels:
   classification:
     - attack.T1110
   behavior: "http:bruteforce"
-  label: "Opnsense GUI Bruteforce"
+  label: "OPNsense GUI Bruteforce"
   service: opnsense
