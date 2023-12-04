@@ -30,11 +30,6 @@ seclang_files_rules:
  - RESPONSE-959-BLOCKING-EVALUATION.conf
  - RESPONSE-980-CORRELATION.conf
 
-#This applies to ALL rules loaded by this particular file
-on_load:
- - apply:
-    - rules.SetOutOfBand()
-
 data:
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/waf-rules/waf/crs/crs-setup.conf
     dest_file: crs-setup.conf
