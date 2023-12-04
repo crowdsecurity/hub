@@ -1,11 +1,11 @@
 onsuccess: next_stage
 debug: true
 filter: "evt.Parsed.program == 'coraza-waap'"
-name: crowdsecurity/waap-logs
-description: "Parse WAAP events"
+name: crowdsecurity/appsec-logs
+description: "Parse Appsec events"
 statics:
   - meta: service
-    value: waap
+    value: appsec
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
   - meta: target_host
@@ -15,7 +15,7 @@ statics:
   - meta: target_uri
     expression: "evt.Parsed.target_uri"
   - meta: log_type
-    value: waap-block
+    value: appsec-block
   - meta: rule_name
     expression: evt.Waap.GetName()
   - meta: rule_ids

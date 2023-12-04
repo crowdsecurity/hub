@@ -26,8 +26,8 @@ type typeInfo struct {
 	Parsers         []string               `json:"parsers,omitempty"`
 	PostOverflows   []string               `json:"postoverflows,omitempty"`
 	Scenarios       []string               `json:"scenarios,omitempty"`
-	WaapRules       []string               `json:"waap-rules,omitempty"`
-	WaapConfigs     []string               `json:"waap-configs,omitempty"`
+	AppsecRules     []string               `json:"appsec-rules,omitempty"`
+	AppsecConfigs   []string               `json:"appsec-configs,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
@@ -39,8 +39,8 @@ type fileInfo struct {
 	Parsers       []string               `yaml:"parsers,omitempty"`
 	PostOverflows []string               `yaml:"postoverflows,omitempty"`
 	Scenarios     []string               `yaml:"scenarios,omitempty"`
-	WaapRules     []string               `yaml:"waap-rules,omitempty"`
-	WaapConfigs   []string               `yaml:"waap-configs,omitempty"`
+	AppsecRules   []string               `yaml:"appsec-rules,omitempty"`
+	AppsecConfigs []string               `yaml:"appsec-configs,omitempty"`
 	Collections   []string               `yaml:"collections,omitempty"`
 }
 
@@ -53,8 +53,8 @@ var types = []string{
 	"parsers",
 	"scenarios",
 	"postoverflows",
-	"waap-rules",
-	"waap-configs",
+	"appsec-rules",
+	"appsec-configs",
 	"collections",
 }
 

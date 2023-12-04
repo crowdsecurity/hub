@@ -1,23 +1,23 @@
-name: Waap Rules Tests
+name: Appsec Rules Tests
 on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'waap-configs/**.yaml'
-      - 'waap-configs/**.yml'
-      - 'waap-rules/**.yaml'
-      - 'waap-rules/**.yml'
-      - '.github/workflows/test_waap_rules.yaml'
-      - '.waap-tests/**'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - '.github/workflows/test_appsec_rules.yaml'
+      - '.appsec-tests/**'
   push:
     branches: [ master ]
     paths:
-      - 'waap-configs/**.yaml'
-      - 'waap-configs/**.yml'
-      - 'waap-rules/**.yaml'
-      - 'waap-rules/**.yml'
-      - '.github/workflows/test_waap_rules.yaml'
-      - '.waap-tests/**'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - '.github/workflows/test_appsec_rules.yaml'
+      - '.appsec-tests/**'
 
 jobs:
   run-hub-tests:
@@ -54,25 +54,25 @@ jobs:
         sudo ./install.sh -y
     - name: Setup NGINX Bouncer API key
       run: |
-        sudo cscli bouncers add hubtestWaap -k "this_is_a_bad_password"
+        sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
         sudo sed -i 's/API_KEY=.*$/API_KEY=this_is_a_bad_password/' /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
         echo "WAF_URL=http://127.0.0.1:4241" | sudo tee -a /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
         sudo systemctl restart nginx
     - name: run tests on last crowdsec tag
       run: |
-        cscli hubtest run --all --waap
-        echo "WAAP_RULE_COV=$(cscli hubtest coverage --waap --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        WAAP_RULE_COV_NUMBER=$(cscli hubtest coverage --waap --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        echo "WAAP_RULE_BADGE_COLOR=$(if [ "$WAAP_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
-    - name: Create waap badge
+        cscli hubtest run --all --appsec
+        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> $GITHUB_ENV
+        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
+        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
+    - name: Create appsec badge
       uses: schneegans/dynamic-badges-action@v1.1.0
       #if: ${{ github.ref == 'refs/heads/master' }}
       if: false
       with:
         auth: ${{ secrets.GIST_BADGES_SECRET }}
         gistID: ${{ secrets.GIST_BADGES_ID }}
-        filename: hub_waap_badge.json
-        label: Hub Waap
-        message: ${{ env.WAAP_RULE_COV }}
-        color: ${{ env.WAAP_RULE_BADGE_COLOR }}
+        filename: hub_appsec_badge.json
+        label: Hub Appsec
+        message: ${{ env.APPSEC_RULE_COV }}
+        color: ${{ env.APPSEC_RULE_BADGE_COLOR }}
 

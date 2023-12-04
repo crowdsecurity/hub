@@ -14,12 +14,12 @@ import (
 )
 
 const (
-	PARSER_TYPE       = "parsers"
-	SCENARIO_TYPE     = "scenarios"
-	POSTOVERFLOW_TYPE = "postoverflows"
-	WAAP_RULES_TYPE   = "waap-rules"
-	WAAP_CONFIGS_TYPE = "waap-configs"
-	COLLECTIONS_TYPE  = "collections"
+	PARSER_TYPE         = "parsers"
+	SCENARIO_TYPE       = "scenarios"
+	POSTOVERFLOW_TYPE   = "postoverflows"
+	APPSEC_RULES_TYPE   = "appsec-rules"
+	APPSEC_CONFIGS_TYPE = "appsec-configs"
+	COLLECTIONS_TYPE    = "collections"
 )
 
 func (ti *typeInfo) generate(filepath string, configType string) (string, error) {
@@ -48,7 +48,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		user = pathSplit[1]
 		configName = pathSplit[2]
 		configName = strings.Split(configName, ".")[0]
-	case SCENARIO_TYPE, WAAP_RULES_TYPE, WAAP_CONFIGS_TYPE, COLLECTIONS_TYPE:
+	case SCENARIO_TYPE, APPSEC_RULES_TYPE, APPSEC_CONFIGS_TYPE, COLLECTIONS_TYPE:
 		if len(pathSplit) != 2 {
 			return "", fmt.Errorf("invalid filepath '%s', should be : './%s/<user>/<scenario.yaml>'", configType, filepath)
 		}
@@ -119,15 +119,15 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		} else {
 			ti.Collections = nil
 		}
-		if len(fInfo.WaapRules) > 0 {
-			ti.WaapRules = fInfo.WaapRules
+		if len(fInfo.AppsecRules) > 0 {
+			ti.AppsecRules = fInfo.AppsecRules
 		} else {
-			ti.WaapRules = nil
+			ti.AppsecRules = nil
 		}
-		if len(fInfo.WaapConfigs) > 0 {
-			ti.WaapConfigs = fInfo.WaapConfigs
+		if len(fInfo.AppsecConfigs) > 0 {
+			ti.AppsecConfigs = fInfo.AppsecConfigs
 		} else {
-			ti.WaapConfigs = nil
+			ti.AppsecConfigs = nil
 		}
 	}
 

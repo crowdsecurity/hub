@@ -185,7 +185,7 @@ def main():
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
-    hub_waaprules_path = os.path.join(args.hub, "waap-rules")
+    hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     ignore_list = list()
     if os.path.exists(args.ignore):
         ignore_list = open(args.ignore).read().split("\n")
@@ -194,7 +194,7 @@ def main():
     scenarios_taxonomy = dict()
     filepath_list = []
 
-    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_waaprules_path]):
+    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
                 filepath_list.append(os.path.join(r, file))
