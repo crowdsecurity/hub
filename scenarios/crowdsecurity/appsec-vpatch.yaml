@@ -1,20 +1,19 @@
-# ssh bruteforce
 type: leaky
-#debug: true
+debug: true
 name: crowdsecurity/appsec-vpatch
 description: "Detect appsec attacks"
-filter: "evt.Meta.log_type == 'waap-block'"
-leakspeed: "10s"
+filter: "evt.Meta.log_type == 'appsec-block'"
+distinct: evt.Meta.rule_name
+leakspeed: "60s"
 capacity: 1
 groupby: evt.Meta.source_ip
 blackhole: 1m
-reprocess: true
 labels:
   service: http
   confidence: 3
   spoofable: 0
   classification:
     - attack.T1110
-  label: "WAAP blocked"
+  label: "appsec blocked"
   behavior: "http:exploit"
   remediation: true
