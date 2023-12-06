@@ -1,6 +1,6 @@
 onsuccess: next_stage
 #debug: true
-filter: "evt.Parsed.program == 'coraza-waap'"
+filter: "evt.Parsed.program == 'appsec'"
 name: crowdsecurity/appsec-logs
 description: "Parse Appsec events"
 statics:
@@ -14,8 +14,9 @@ statics:
     expression: "evt.Parsed.req_uuid"
   - meta: target_uri
     expression: "evt.Parsed.target_uri"
+#was the request blocked ?
   - meta: log_type
-    value: appsec-block
+    value: evt.Appsec.HasInBandMatches() ? "appsec-block" : "appsec-info"
   - meta: rule_name
     expression: evt.Appsec.GetName()
   - meta: rule_ids
