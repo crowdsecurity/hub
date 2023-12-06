@@ -1,5 +1,18 @@
 {
  "appsec-configs": {
+  "crowdsecurity/cisa-virtual-patching": {
+   "path": "appsec-configs/crowdsecurity/cisa-virtual-patching.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "f11f4818db7f23a34c0f3b7cfdf08e3da236e2ac7b1217fb8a488d48695aa2c6",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9jaXNhLXZpcnR1YWwtcGF0Y2hpbmcKZGVmYXVsdF9yZW1lZGlhdGlvbjogYmFuCiNsb2dfbGV2ZWw6IGRlYnVnCmluYmFuZF9ydWxlczoKIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDAwNDQKIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDI3OTMKIyBpbmJhbmRfb3B0aW9uczoKIyAgZGlzYWJsZV9ib2R5X2luc3BlY3Rpb246IHRydWUK",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/crs": {
    "path": "appsec-configs/crowdsecurity/crs.yaml",
    "version": "0.2",
@@ -14,19 +27,6 @@
     }
    },
    "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9jcnMKZGVmYXVsdF9yZW1lZGlhdGlvbjogYmFuCiNsb2dfbGV2ZWw6IGRlYnVnCm91dG9mYmFuZF9ydWxlczoKIC0gY3Jvd2RzZWN1cml0eS9jcnM=",
-   "author": "crowdsecurity",
-   "labels": null
-  },
-  "crowdsecurity/vpatch": {
-   "path": "appsec-configs/crowdsecurity/vpatch.yaml",
-   "version": "0.1",
-   "versions": {
-    "0.1": {
-     "digest": "45260e588229855d4e50c7800f8a91c204814f7375cb6a090804119d4b3a4aee",
-     "deprecated": false
-    }
-   },
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gKZGVmYXVsdF9yZW1lZGlhdGlvbjogYmFuCiNsb2dfbGV2ZWw6IGRlYnVnCmluYmFuZF9ydWxlczoKIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDAwNDQKIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDI3OTMKIyBpbmJhbmRfb3B0aW9uczoKIyAgZGlzYWJsZV9ib2R5X2luc3BlY3Rpb246IHRydWUK",
    "author": "crowdsecurity",
    "labels": null
   }
@@ -587,45 +587,6 @@
     "corvese/apache-guacamole_user_enum"
    ]
   },
-  "crowdsecurity-waap/cisa-virtual-patching": {
-   "path": "collections/crowdsecurity-waap/cisa-virtual-patching.yaml",
-   "version": "0.4",
-   "versions": {
-    "0.1": {
-     "digest": "259ee27f3625f30770d785cb86fd089f921e75d9c9437ac3339fc78edff1fa7f",
-     "deprecated": false
-    },
-    "0.2": {
-     "digest": "135c639cc288d61ef44b583ace1b3854a6ad85f0050f19487f8e61068d63a9b5",
-     "deprecated": false
-    },
-    "0.3": {
-     "digest": "02efad23da3e426ec9745cb24151a848f49e60191b93b8651a9825844e1ae11f",
-     "deprecated": false
-    },
-    "0.4": {
-     "digest": "6bd318c7e89088b7e97aec426e12c9d59d7ba6583602dcc18969dad0c2ee1b33",
-     "deprecated": false
-    }
-   },
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS13YWFwL2Npc2EtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDI3OTMKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaApwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKZGVzY3JpcHRpb246ICJhIGdlbmVyaWMgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgbW9zdCB3ZWIgc2VydmVycyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5LXdhYXAKCg==",
-   "description": "a generic virtual patching collection, suitable for most web servers",
-   "author": "crowdsecurity-waap",
-   "labels": null,
-   "parsers": [
-    "crowdsecurity/appsec-logs"
-   ],
-   "scenarios": [
-    "crowdsecurity/appsec-vpatch"
-   ],
-   "appsec-rules": [
-    "crowdsecurity/vpatch-CVE-2023-40044",
-    "crowdsecurity/vpatch-CVE-2023-42793"
-   ],
-   "appsec-configs": [
-    "crowdsecurity/vpatch"
-   ]
-  },
   "crowdsecurity/apache2": {
    "path": "collections/crowdsecurity/apache2.yaml",
    "version": "0.1",
@@ -672,6 +633,34 @@
     "crowdsecurity/postfix",
     "crowdsecurity/pgsql",
     "crowdsecurity/vsftpd"
+   ]
+  },
+  "crowdsecurity/appsec-cisa-virtual-patching": {
+   "path": "collections/crowdsecurity/appsec-cisa-virtual-patching.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "927b42aa85814b97f76ac5d370585ac6ced990e35e3bc9b406c154546e40e226",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyBDSVNBIENhdGFsb2cgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGlzIGRpcmVjdGx5IGluc3BpcmVkIGZyb20gdGhlIFtDSVNBIEtub3duIEV4cGxvaXRlZCBWdWxuZXJhYmlsaXRpZXMgQ2F0YWxvZ10oaHR0cHM6Ly93d3cuY2lzYS5nb3Yva25vd24tZXhwbG9pdGVkLXZ1bG5lcmFiaWxpdGllcy1jYXRhbG9nKS4gVGhlIGdvYWwgaXMgdG8gcHJvdmlkZSB2aXJ0dWFsIHBhdGNoaW5nIGNhcGFiaWxpdGllcyBmb3IgdGhlIG9mdGVuIGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGF2b2lkaW5nIGZhbHNlIHBvc2l0aXZlcyB3aGlsZSBjYXRjaGluZyBwb3BsZSBzY291dGluZyB5b3VyIGFwcGxpY2F0aW9ucyBmb3IganVpY3kgdnVsbmVyYWJpbGl0aWVzLgo=",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtY2lzYS12aXJ0dWFsLXBhdGNoaW5nCmFwcHNlYy1ydWxlczoKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTQwMDQ0CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvY2lzYS12aXJ0dWFsLXBhdGNoaW5nCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApkZXNjcmlwdGlvbjogImEgZ2VuZXJpYyB2aXJ0dWFsIHBhdGNoaW5nIGNvbGxlY3Rpb24sIHN1aXRhYmxlIGZvciBtb3N0IHdlYiBzZXJ2ZXJzLiBJbnNwaXJlZCBieSBDSVNBIGNhdGFsb2cuIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKCg==",
+   "description": "a generic virtual patching collection, suitable for most web servers. Inspired by CISA catalog.",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/appsec-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/appsec-vpatch"
+   ],
+   "appsec-rules": [
+    "crowdsecurity/vpatch-CVE-2023-40044",
+    "crowdsecurity/vpatch-CVE-2023-42793"
+   ],
+   "appsec-configs": [
+    "crowdsecurity/cisa-virtual-patching"
    ]
   },
   "crowdsecurity/appsec-crs": {
