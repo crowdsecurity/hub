@@ -24,6 +24,9 @@ nodes:
   - grok:
       pattern: '^%{BIND9_PREFIX}(?:view (?:internal|external): )?query(?: \(cache\))? .* (?:denied|\(NOTAUTH\))\s*$'
       apply_on: message
+  - grok:
+      pattern: '^%{BIND9_PREFIX}query failed \(REFUSED\) for %{DATA}/IN/%{WORD} at %{DATA}$'
+      apply_on: message
 statics:
   - meta: service
     value: bind9
