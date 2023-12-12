@@ -484,6 +484,33 @@
     "type": "exploit"
    }
   },
+  "crowdsecurity/vpatch-CVE-2023-50164": {
+   "path": "appsec-rules/crowdsecurity/vpatch-CVE-2023-50164.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "2af3917de29ccf7f71d43b78502602568b2d4582769e62ffb9c195fcfab33e90",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjMtNTAxNjQgZXhwbG9pdHMgIgpydWxlczoKICAtIGFuZDoKICAgIC0gem9uZXM6CiAgICAgIC0gVVJJCiAgICAgIHRyYW5zZm9ybToKICAgICAgLSBsb3dlcmNhc2UKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogZW5kc1dpdGgKICAgICAgICB2YWx1ZTogdXBsb2FkLmFjdGlvbgogICAgLSB6b25lczoKICAgICAgLSBNRVRIT0QKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogZXF1YWxzCiAgICAgICAgdmFsdWU6IFBPU1QKICAgIC0gem9uZXM6CiAgICAgIC0gQk9EWV9BUkdTCiAgICAgIC0gQVJHUwogICAgICB2YXJpYWJsZXM6CiAgICAgIC0gdXBsb2FkRmlsZU5hbWUKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogY29udGFpbnMKICAgICAgICB2YWx1ZTogIi4uLyIKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQXBhY2hlIFN0cnV0czIgKENWRS0yMDIzLTUwMTY0KSIKICBjbGFzc2lmaWNhdGlvbjoKICAgLSBjdmUuQ1ZFLTIwMjMtNTAxNjQKICAgLSBhdHRhY2suVDE1OTUKICAgLSBhdHRhY2suVDExOTAKICAgLSBjd2UuQ1dFLTUwMgoKCg==",
+   "description": "Detect CVE-2023-50164 exploits ",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "cve.CVE-2023-50164",
+     "attack.T1595",
+     "attack.T1190",
+     "cwe.CWE-502"
+    ],
+    "confidence": 3,
+    "label": "Apache Struts2 (CVE-2023-50164)",
+    "service": "http",
+    "spoofable": 0,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/vpatch-env-access": {
    "path": "appsec-rules/crowdsecurity/vpatch-env-access.yaml",
    "version": "0.1",
@@ -1079,15 +1106,19 @@
   },
   "crowdsecurity/appsec-virtual-patching": {
    "path": "collections/crowdsecurity/appsec-virtual-patching.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "a165d638c8d826a932e4ca4e70ec5379d558a0bee1356e871c7c92cc2df714fc",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "4bacd3307cc84a5498d0939c83df3eccf40f430d4eedbdc1f7e7ae1fb8b71676",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIHZpcnR1YWwgcGF0Y2hpbmcgZm9yIGNvbW1vbmx5IGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGFuZCBpcyBpbnNwaXJlZCBmcm9tIHRoZSBbQ0lTQSBLbm93biBFeHBsb2l0ZWQgVnVsbmVyYWJpbGl0aWVzIENhdGFsb2ddKGh0dHBzOi8vd3d3LmNpc2EuZ292L2tub3duLWV4cGxvaXRlZC12dWxuZXJhYmlsaXRpZXMtY2F0YWxvZykuIFRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgdmlydHVhbCBwYXRjaGluZyBjYXBhYmlsaXRpZXMgZm9yIHRoZSBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLCBhdm9pZGluZyBmYWxzZSBwb3NpdGl2ZXMgd2hpbGUgY2F0Y2hpbmcgcG9wbGUgc2NvdXRpbmcgeW91ciBhcHBsaWNhdGlvbnMgZm9yIGp1aWN5IHZ1bG5lcmFiaWxpdGllcy4K",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDI3OTMKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L3ZpcnR1YWwtcGF0Y2hpbmcKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtdnBhdGNoCmRlc2NyaXB0aW9uOiAiYSBnZW5lcmljIHZpcnR1YWwgcGF0Y2hpbmcgY29sbGVjdGlvbiwgc3VpdGFibGUgZm9yIG1vc3Qgd2ViIHNlcnZlcnMuIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKCg==",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L3ZpcnR1YWwtcGF0Y2hpbmcKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtdnBhdGNoCmRlc2NyaXB0aW9uOiAiYSBnZW5lcmljIHZpcnR1YWwgcGF0Y2hpbmcgY29sbGVjdGlvbiwgc3VpdGFibGUgZm9yIG1vc3Qgd2ViIHNlcnZlcnMuIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKCg==",
    "description": "a generic virtual patching collection, suitable for most web servers.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1098,8 +1129,21 @@
     "crowdsecurity/appsec-vpatch"
    ],
    "appsec-rules": [
+    "crowdsecurity/base-config",
+    "crowdsecurity/vpatch-env-access",
     "crowdsecurity/vpatch-CVE-2023-40044",
-    "crowdsecurity/vpatch-CVE-2023-42793"
+    "crowdsecurity/vpatch-CVE-2017-9841",
+    "crowdsecurity/vpatch-CVE-2020-11738",
+    "crowdsecurity/vpatch-CVE-2022-27926",
+    "crowdsecurity/vpatch-CVE-2022-35914",
+    "crowdsecurity/vpatch-CVE-2022-46169",
+    "crowdsecurity/vpatch-CVE-2023-20198",
+    "crowdsecurity/vpatch-CVE-2023-22515",
+    "crowdsecurity/vpatch-CVE-2023-33617",
+    "crowdsecurity/vpatch-CVE-2023-34362",
+    "crowdsecurity/vpatch-CVE-2023-3519",
+    "crowdsecurity/vpatch-CVE-2023-42793",
+    "crowdsecurity/vpatch-CVE-2023-50164"
    ],
    "appsec-configs": [
     "crowdsecurity/virtual-patching"
