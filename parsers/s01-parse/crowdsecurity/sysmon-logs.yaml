@@ -5,6 +5,8 @@ description: "Parse sysmon events"
 nodes:
   - filter: evt.Parsed.EventID == '1'
     statics:
+      - parsed: ProviderName
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System/Provider/@Name")
       - parsed: ProcessGuid
         expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ProcessGuid']")
       - parsed: Image
@@ -45,6 +47,8 @@ nodes:
         expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentCommandLine']")
       - parsed: ParentUser
         expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentUser']")
+      - parsed: Product
+        expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Product']")        
       - meta: SysmonEventType
         value: ProcessCreation
   - filter: evt.Parsed.EventID == '2'
