@@ -117,8 +117,8 @@ Now that we have config & logs, let's run it for the first time :
 ```bash
 ▶ cscli hubtest run dovecot-logs
 INFO[27-09-2021 06:13:59 PM] Running test 'dovecot-logs'                  
-INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment 
-INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment 
+INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/dovecot-logs' installed successfully in runtime environment
+INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/syslog-logs' installed successfully in runtime environment
 WARN[27-09-2021 06:14:02 PM] Assert file '/home/bui/github/hub/.tests/dovecot-logs/parser.assert' is empty, generating assertion: 
 
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
@@ -196,8 +196,8 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][2].Evt.Meta["datasource_type"
 ```bash
 ▶ cscli hubtest run dovecot-logs                                
 INFO[27-09-2021 06:19:33 PM] Running test 'dovecot-logs'                  
-INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/syslog-logs' installed succesfully in runtime environment 
-INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/dovecot-logs' installed succesfully in runtime environment 
+INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/syslog-logs' installed successfully in runtime environment
+INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/dovecot-logs' installed successfully in runtime environment
 Test 'dovecot-logs' passed successfully (39 assertions) 🟩
 ```
 
