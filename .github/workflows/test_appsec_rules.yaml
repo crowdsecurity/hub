@@ -36,7 +36,6 @@ jobs:
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
         cd crowdsec
-        git checkout "coraza_poc_acquis"
         BUILD_STATIC=1 make release
         cd crowdsec-v*
         sudo ./wizard.sh --unattended
@@ -47,7 +46,6 @@ jobs:
       run: |
         git clone https://github.com/crowdsecurity/cs-nginx-bouncer.git
         cd cs-nginx-bouncer/
-        git checkout waf_integration
         make release
         tar xzvf crowdsec-nginx-bouncer.tgz
         cd crowdsec-nginx-bouncer-v*
