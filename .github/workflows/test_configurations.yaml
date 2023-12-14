@@ -44,7 +44,6 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
     - name: run tests on last crowdsec tag
-      if: false # disable it for the tests
       run: |
         mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
         cscli hubtest run --all --clean
