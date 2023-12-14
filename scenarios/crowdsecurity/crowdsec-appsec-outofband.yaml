@@ -1,7 +1,6 @@
 # just count distinct number of requests getting blocked
 type: leaky
 filter: evt.Parsed.program == 'crowdsec-waap' && evt.Appsec.HasInBandMatches == false && evt.Parsed.action in ["deny", "drop"]
-debug: true
 name: crowdsecurity/crowdsec-appsec-outofband
 description: IP has triggered more than 5 CrowdSec Out Of Band Waap rules
 blackhole: 2m
