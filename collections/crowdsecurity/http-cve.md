@@ -30,6 +30,8 @@ Works with [apache2](https://hub.crowdsec.net/author/crowdsecurity/collections/a
  - [Telerik UI CVE-2019-18935](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-18935)
  - [Netgear DGN1000 / DGN2200 Remote Command Execution](https://www.exploit-db.com/exploits/25978)
  - [Confluence CVE-2023-22515](https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html)
+ - [Confluence CVE-2023-22518](https://confluence.atlassian.com/pages/viewpage.action?pageId=1311473907)
+ - [Owncloud CVE-2023-49103](https://nvd.nist.gov/vuln/detail/CVE-2023-49103)
 
 
 

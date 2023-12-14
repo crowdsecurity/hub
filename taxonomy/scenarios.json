@@ -1205,6 +1205,25 @@
       "CVE-2023-22515"
     ]
   },
+  "crowdsecurity/CVE-2023-22518": {
+    "name": "crowdsecurity/CVE-2023-22518",
+    "description": "Detect CVE-2023-22518 exploits",
+    "label": "Atlassian Confluence Server CVE-2023-22518",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "Atlassian Confluence",
+    "cves": [
+      "CVE-2023-22518"
+    ]
+  },
   "crowdsecurity/CVE-2023-23397": {
     "name": "crowdsecurity/CVE-2023-23397",
     "description": "Detect CVE-2023-23397 from sysmon events",
@@ -1221,6 +1240,25 @@
     "service": "windows",
     "cves": [
       "CVE-2023-23397"
+    ]
+  },
+  "crowdsecurity/CVE-2023-49103": {
+    "name": "crowdsecurity/CVE-2023-49103",
+    "description": "Detect owncloud CVE-2023-49103 exploitation attempts",
+    "label": "owncloud CVE-2023-49103",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 2,
+    "spoofable": 1,
+    "cti": true,
+    "service": "owncloud",
+    "cves": [
+      "CVE-2023-49103"
     ]
   },
   "crowdsecurity/CVE-2023-4911": {
@@ -2681,10 +2719,10 @@
     "cti": true,
     "service": "odoo"
   },
-  "crowdsecurity/opnsense-web-bf": {
-    "name": "crowdsecurity/opnsense-web-bf",
+  "crowdsecurity/opnsense-gui-bf": {
+    "name": "crowdsecurity/opnsense-gui-bf",
     "description": "Detect bruteforce on opnsense web interface",
-    "label": "Opnsense GUI Bruteforce",
+    "label": "OPNsense GUI Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2695,6 +2733,21 @@
     "spoofable": 0,
     "cti": true,
     "service": "opnsense"
+  },
+  "crowdsecurity/pfsense-gui-bf": {
+    "name": "crowdsecurity/pfsense-gui-bf",
+    "description": "Detect bruteforce on pfsense web interface",
+    "label": "pfSense GUI Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "pfsense"
   },
   "crowdsecurity/pgsql-bf": {
     "name": "crowdsecurity/pgsql-bf",
@@ -2827,7 +2880,7 @@
   "crowdsecurity/ssh-bf_user-enum": {
     "name": "crowdsecurity/ssh-bf_user-enum",
     "description": "Detect ssh user enum bruteforce",
-    "label": "SSH Bruteforce",
+    "label": "SSH User Enumeration",
     "behaviors": [
       "ssh:bruteforce"
     ],
@@ -2842,7 +2895,7 @@
   "crowdsecurity/ssh-slow-bf": {
     "name": "crowdsecurity/ssh-slow-bf",
     "description": "Detect slow ssh bruteforce",
-    "label": "SSH Bruteforce",
+    "label": "SSH Slow Bruteforce",
     "behaviors": [
       "ssh:bruteforce"
     ],
@@ -2857,7 +2910,7 @@
   "crowdsecurity/ssh-slow-bf_user-enum": {
     "name": "crowdsecurity/ssh-slow-bf_user-enum",
     "description": "Detect slow ssh user enum bruteforce",
-    "label": "SSH Bruteforce",
+    "label": "SSH Slow User Enumeration",
     "behaviors": [
       "ssh:bruteforce"
     ],

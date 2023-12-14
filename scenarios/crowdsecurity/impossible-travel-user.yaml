@@ -1,0 +1,25 @@
+## Generic bucket to handle impossible travel for authentication with username scope
+type: conditional
+name: crowdsecurity/impossible-travel-user
+description: "impossible travel user"
+filter: "evt.Meta.log_type == 'auth_success' && evt.Meta.user not in ['', nil]"
+groupby: "evt.Meta.service + evt.Meta.user"
+# To make it generic we concatenate the service name and the user
+capacity: -1
+condition: |
+    len(queue.Queue) >= 2 
+    and Distance(queue.Queue[-1].Enriched.Latitude, queue.Queue[-1].Enriched.Longitude,
+    queue.Queue[-2].Enriched.Latitude, queue.Queue[-2].Enriched.Longitude) > 1000
+leakspeed: 3h
+scope:
+    type: username
+    expression: evt.Meta.user
+labels:
+  remediation: false
+  classification:
+    - attack.T1078
+  behavior: "auth:successful"
+  label: "Impossible travel"
+  spoofable: 0
+  service: authentication
+  confidence: 3
