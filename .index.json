@@ -570,6 +570,33 @@
     "type": "exploit"
    }
   },
+  "crowdsecurity/vpatch-CVE-2023-38205": {
+   "path": "appsec-rules/crowdsecurity/vpatch-CVE-2023-38205.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d2c3666c0a337304d92b737ca02ad1aed164e31439eb6596a848688f0c27b178",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzgyMDUKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjMtMzgyMDUgZXhwbG9pdHMgIgpydWxlczoKICAtIGFuZDoKICAgIC0gem9uZXM6CiAgICAgIC0gVVJJCiAgICAgIHRyYW5zZm9ybToKICAgICAgLSBsb3dlcmNhc2UKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogY29udGFpbnMKICAgICAgICB2YWx1ZTogLi5jZmlkZS93aXphcmRzL2NvbW1vbi8KbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQWRvYmUgQ29sZEZ1c2lvbiBhY2Nlc3MgY29udHJvbCBieXBhc3MgKENWRS0yMDIzLTM4MjA1KSIKICBjbGFzc2lmaWNhdGlvbjoKICAgLSBjdmUuQ1ZFLTIwMjMtMzgyMDUKICAgLSBhdHRhY2suVDE1OTUKICAgLSBhdHRhY2suVDExOTAKICAgLSBjd2UuQ1dFLTI4NA==",
+   "description": "Detect CVE-2023-38205 exploits ",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "cve.CVE-2023-38205",
+     "attack.T1595",
+     "attack.T1190",
+     "cwe.CWE-284"
+    ],
+    "confidence": 3,
+    "label": "Adobe ColdFusion access control bypass (CVE-2023-38205)",
+    "service": "http",
+    "spoofable": 0,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/vpatch-CVE-2023-40044": {
    "path": "appsec-rules/crowdsecurity/vpatch-CVE-2023-40044.yaml",
    "version": "0.2",
@@ -1254,7 +1281,7 @@
   },
   "crowdsecurity/appsec-virtual-patching": {
    "path": "collections/crowdsecurity/appsec-virtual-patching.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "a165d638c8d826a932e4ca4e70ec5379d558a0bee1356e871c7c92cc2df714fc",
@@ -1263,10 +1290,14 @@
     "0.2": {
      "digest": "4bacd3307cc84a5498d0939c83df3eccf40f430d4eedbdc1f7e7ae1fb8b71676",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "28962f063f10702629018df810167378d8250185ab8d64f4f5d1454b14dd1d4f",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIHZpcnR1YWwgcGF0Y2hpbmcgZm9yIGNvbW1vbmx5IGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGFuZCBpcyBpbnNwaXJlZCBmcm9tIHRoZSBbQ0lTQSBLbm93biBFeHBsb2l0ZWQgVnVsbmVyYWJpbGl0aWVzIENhdGFsb2ddKGh0dHBzOi8vd3d3LmNpc2EuZ292L2tub3duLWV4cGxvaXRlZC12dWxuZXJhYmlsaXRpZXMtY2F0YWxvZykuIFRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgdmlydHVhbCBwYXRjaGluZyBjYXBhYmlsaXRpZXMgZm9yIHRoZSBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLCBhdm9pZGluZyBmYWxzZSBwb3NpdGl2ZXMgd2hpbGUgY2F0Y2hpbmcgcG9wbGUgc2NvdXRpbmcgeW91ciBhcHBsaWNhdGlvbnMgZm9yIGp1aWN5IHZ1bG5lcmFiaWxpdGllcy4K",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L3ZpcnR1YWwtcGF0Y2hpbmcKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtdnBhdGNoCmRlc2NyaXB0aW9uOiAiYSBnZW5lcmljIHZpcnR1YWwgcGF0Y2hpbmcgY29sbGVjdGlvbiwgc3VpdGFibGUgZm9yIG1vc3Qgd2ViIHNlcnZlcnMuIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKCg==",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKZGVzY3JpcHRpb246ICJhIGdlbmVyaWMgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgbW9zdCB3ZWIgc2VydmVycy4iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQoK",
    "description": "a generic virtual patching collection, suitable for most web servers.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1291,7 +1322,13 @@
     "crowdsecurity/vpatch-CVE-2023-34362",
     "crowdsecurity/vpatch-CVE-2023-3519",
     "crowdsecurity/vpatch-CVE-2023-42793",
-    "crowdsecurity/vpatch-CVE-2023-50164"
+    "crowdsecurity/vpatch-CVE-2023-50164",
+    "crowdsecurity/vpatch-CVE-2023-38205",
+    "crowdsecurity/vpatch-CVE-2023-24489",
+    "crowdsecurity/vpatch-CVE-2021-3129",
+    "crowdsecurity/vpatch-CVE-2021-22941",
+    "crowdsecurity/vpatch-CVE-2019-12989",
+    "crowdsecurity/vpatch-CVE-2022-44877"
    ],
    "appsec-configs": [
     "crowdsecurity/virtual-patching"
