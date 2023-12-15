@@ -5,7 +5,8 @@ from yaml.loader import SafeLoader
 
 VPATCH_COLLECTION_FILEPATH = "./collections/crowdsecurity/appsec-virtual-patching.yaml"
 VPATCH_COLLECTION_NAME = "crowdsecurity/appsec-virtual-patching"
-
+WORKFLOW_FILEPATH = ".github/workflows/appsec_vpatch_lint.yaml"
+SCRIPT_FILEPATH = "./scripts/appsec_vpatch_lint.py"
 author = os.environ.get("AUTHOR", "ghost")
 
 INTRO_STR = f"""
@@ -29,7 +30,13 @@ def main():
         sys.exit(1)
 
     changed_files = os.environ.get("changed_files", "").split(",")
-    if changed_files == [""]:
+    if (
+        changed_files == [""]
+        or WORKFLOW_FILEPATH
+        in changed_files  # if the workflow file has been modified, we want to run the script on all rules
+        or SCRIPT_FILEPATH
+        in changed_files  # if the script has been modified, we want to run it on all rules
+    ):
         changed_files = []
         print("[-] No changed files found, run on all files.")
     else:
