@@ -1,10 +1,19 @@
-type: trigger
-filter: evt.Parsed.program == 'crowdsec-waap' && evt.Appsec.HasInBandMatches == true && evt.Parsed.action in ["deny", "drop"]
+type: leaky
+filter: evt.Parsed.program == 'crowdsec-appsec' && evt.Appsec.HasInBandMatches == true && evt.Parsed.action in ["deny", "drop"]
 #debug: true
 name: crowdsecurity/crowdsec-appsec-inband
-description: IP has trigger an In Band CrowdSec appsec rule
-blackhole: 2m
-labels:
-  type: exploit
-  remediation: true
+description: IP has triggered multiples In Band CrowdSec appsec rules
+blackhole: 1m
+leakspeed: 30s
+capacity: 1
 groupby: evt.Meta.source_ip
+distinct: evt.Appsec.GetName()
+labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1190
+  behavior: "http:exploit"
+  label: "Triggered multiple inband CrowdSec appsec rules"
+  service: http
+  remediation: true
