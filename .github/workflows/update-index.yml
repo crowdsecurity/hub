@@ -64,11 +64,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.CF_AWS_ROLE }}
           role-session-name: github-action
           aws-region: eu-west-1
+          mask-aws-account-id: true
       - name: Get branch name
         run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       - name: Get changed files
