@@ -6,7 +6,7 @@ from yaml.loader import SafeLoader
 VPATCH_COLLECTION_FILEPATH = "./collections/crowdsecurity/appsec-virtual-patching.yaml"
 VPATCH_COLLECTION_NAME = "crowdsecurity/appsec-virtual-patching"
 WORKFLOW_FILEPATH = ".github/workflows/appsec_vpatch_lint.yaml"
-SCRIPT_FILEPATH = "./scripts/appsec_vpatch_lint.py"
+SCRIPT_FILEPATH = "scripts/appsec_vpatch_lint.py"
 author = os.environ.get("AUTHOR", "ghost")
 
 INTRO_STR = f"""
