@@ -78,7 +78,8 @@ jobs:
       - name: Invalidate cache
         run: |
           create_invalidation() {
-            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "$1"
+            #$1 is not quotted on purpose, so it can be expanded to multiple arguments
+            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
           }
           PATHS="/${{ env.version }}/.index.json"
           IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
