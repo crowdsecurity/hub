@@ -16,7 +16,7 @@ author = os.environ.get("AUTHOR", "ghost")
 OK_STR = f"""
 Hello @{author},
 
-Scenarios are compliant with the taxonomy, thank you for your contribution!
+Scenarios/AppSec Rule are compliant with the taxonomy, thank you for your contribution!
 """
 
 INTRO_STR = f"""
@@ -129,6 +129,7 @@ def get_mitre_techniques_from_label(labels, mitre_data):
 
     return ret, errors
 
+
 def get_cwe_from_label(labels):
     ret = list()
     errors = list()
@@ -147,6 +148,7 @@ def get_cwe_from_label(labels):
         ret.append(cwe)
 
     return ret, errors
+
 
 def get_cve_from_label(labels):
     ret = list()
@@ -194,7 +196,9 @@ def main():
     scenarios_taxonomy = dict()
     filepath_list = []
 
-    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]):
+    for r, d, f in chain.from_iterable(
+        os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
+    ):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
                 filepath_list.append(os.path.join(r, file))
