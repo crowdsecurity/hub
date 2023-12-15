@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -27,6 +26,8 @@ type typeInfo struct {
 	Parsers         []string               `json:"parsers,omitempty"`
 	PostOverflows   []string               `json:"postoverflows,omitempty"`
 	Scenarios       []string               `json:"scenarios,omitempty"`
+	AppsecRules     []string               `json:"appsec-rules,omitempty"`
+	AppsecConfigs   []string               `json:"appsec-configs,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
@@ -38,6 +39,8 @@ type fileInfo struct {
 	Parsers       []string               `yaml:"parsers,omitempty"`
 	PostOverflows []string               `yaml:"postoverflows,omitempty"`
 	Scenarios     []string               `yaml:"scenarios,omitempty"`
+	AppsecRules   []string               `yaml:"appsec-rules,omitempty"`
+	AppsecConfigs []string               `yaml:"appsec-configs,omitempty"`
 	Collections   []string               `yaml:"collections,omitempty"`
 }
 
@@ -46,17 +49,12 @@ type versionInfo struct {
 	Deprecated bool   `json:"deprecated"`
 }
 
-const (
-	parsersFolder       = "parsers/"
-	scenariosFolder     = "scenarios/"
-	postoverflowsFolder = "postoverflows/"
-	collectionsFolder   = "collections/"
-)
-
 var types = []string{
 	"parsers",
 	"scenarios",
 	"postoverflows",
+	"appsec-rules",
+	"appsec-configs",
 	"collections",
 }
 
@@ -93,7 +91,7 @@ func main() {
 	flag.Parse()
 
 	if target == "all" || target == "configs" {
-		if generate == true {
+		if generate {
 			for _, t := range types {
 				configType, err := generateIndex(t)
 				if err != nil {
@@ -103,7 +101,7 @@ func main() {
 			}
 		} else {
 			// update .index file
-			f, _ := ioutil.ReadFile(inputFile)
+			f, _ := os.ReadFile(inputFile)
 
 			_ = json.Unmarshal([]byte(f), &tmpIdx)
 
@@ -116,12 +114,12 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if err := ioutil.WriteFile(outFile, json, 0644); err != nil {
+		if err := os.WriteFile(outFile, json, 0644); err != nil {
 			log.Fatalf("failed writting new json index : %s", err)
 		}
 
 		/*Check if the generated index is correct*/
-		indexContent, err := ioutil.ReadFile(outFile)
+		indexContent, err := os.ReadFile(outFile)
 		if err != nil {
 			log.Fatalf("Unable to read index : %v", err)
 		}
@@ -151,6 +149,4 @@ func main() {
 			log.Fatalf("failed to dump new json file : %s", err)
 		}
 	}
-	return
-
 }

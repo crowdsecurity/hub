@@ -6,15 +6,17 @@ import json
 import yaml
 import argparse
 from yaml.loader import SafeLoader
+from itertools import chain
 
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
+CWE_RE = re.compile(r"CWE-\d{2,6}")
 author = os.environ.get("AUTHOR", "ghost")
 
 OK_STR = f"""
 Hello @{author},
 
-Scenarios are compliant with the taxonomy, thank you for your contribution!
+Scenarios/AppSec Rule are compliant with the taxonomy, thank you for your contribution!
 """
 
 INTRO_STR = f"""
@@ -23,7 +25,7 @@ Hello @{author} and thank you for your contribution!
 I'm a bot that helps maintainers to validate scenarios and ensure they include all the required information.
 I've found some errors in your scenarios, please fix them and re-submit your PR, or ask for help if you need it.
 
-The following scenarios have errors:
+The following items have errors:
 
 """
 
@@ -128,6 +130,26 @@ def get_mitre_techniques_from_label(labels, mitre_data):
     return ret, errors
 
 
+def get_cwe_from_label(labels):
+    ret = list()
+    errors = list()
+    if "classification" not in labels:
+        return ret, errors
+
+    for classification in labels["classification"]:
+        split_cwe = classification.split(".")
+        if split_cwe[0] != "cwe":
+            continue
+        cwe = split_cwe[1].upper()
+
+        if CWE_RE.match(cwe) == None:
+            errors.append("bad CWE format: {}".format(cwe))
+            continue
+        ret.append(cwe)
+
+    return ret, errors
+
+
 def get_cve_from_label(labels):
     ret = list()
     errors = list()
@@ -165,7 +187,7 @@ def main():
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
-
+    hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     ignore_list = list()
     if os.path.exists(args.ignore):
         ignore_list = open(args.ignore).read().split("\n")
@@ -174,7 +196,9 @@ def main():
     scenarios_taxonomy = dict()
     filepath_list = []
 
-    for r, d, f in os.walk(hub_scenarios_path):
+    for r, d, f in chain.from_iterable(
+        os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
+    ):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
                 filepath_list.append(os.path.join(r, file))
@@ -183,6 +207,7 @@ def main():
     cpt = 0
     mitres = dict()
     for filepath in filepath_list:
+        print("[+] Processing {}".format(filepath))
         f = open(filepath, "r")
         data = list(yaml.load_all(f, Loader=SafeLoader))
 
@@ -209,7 +234,6 @@ def main():
 
             if len(mitre_techniques) == 0:
                 scenario_errors.append("`attack` not found in labels.classification")
-
             service = labels.get("service", None)
 
             for m in mitre_techniques:
@@ -229,6 +253,8 @@ def main():
 
             cves, cves_errors = get_cve_from_label(labels)
             scenario_errors.extend(cves_errors)
+            cwes, cwes_errors = get_cwe_from_label(labels)
+            scenario_errors.extend(cwes_errors)
 
             scenario_label = ""
             confidence = 0
@@ -281,6 +307,8 @@ def main():
             if len(scenario_errors) > 0 and filepath[2:] in changed_files:
                 errors[scenario["name"]] = scenario_errors
                 stats["scenarios_nok"].append(scenario["name"])
+            else:
+                stats["scenarios_ok"].append(scenario["name"])
 
             scenarios_taxonomy[scenario["name"]] = {
                 "name": scenario["name"],
@@ -294,10 +322,10 @@ def main():
                 "service": service,
             }
 
-            stats["scenarios_ok"].append(scenario["name"])
-
             if len(cves) > 0:
                 scenarios_taxonomy[scenario["name"]]["cves"] = cves
+            if len(cwes) > 0:
+                scenarios_taxonomy[scenario["name"]]["cwes"] = cwes
 
     f = open(args.output, "w")
     f.write(json.dumps(scenarios_taxonomy, indent=2))

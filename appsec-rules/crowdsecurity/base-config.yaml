@@ -1,0 +1,11 @@
+name: crowdsecurity/base-config
+#### This file is intended to provide a basic configuration for coraza:
+#### - Set the body processors based on the content-type
+
+seclang_rules:
+ - Secrule REQUEST_HEADERS:Content-Type "@rx ^application/x-www-form-urlencoded" "id:100,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=URLENCODED"
+ - Secrule REQUEST_HEADERS:Content-Type "@rx ^multipart/form-data" "id:101,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=MULTIPART"
+ - Secrule REQUEST_HEADERS:Content-Type "@rx ^application/xml" "id:102,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=XML"
+ - Secrule REQUEST_HEADERS:Content-Type "@rx ^application/json" "id:103,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=JSON"
+ - Secrule REQUEST_HEADERS:Content-Type "@rx ^text/xml" "id:104,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=XML"
+ - SecRule REQBODY_PROCESSOR "!@rx (?:URLENCODED|MULTIPART|XML|JSON)" "id:105,phase:1,pass,nolog,noauditlog,ctl:requestBodyProcessor=RAW" #Use our custom RAW body processor, just to have REQUEST_BODY set
