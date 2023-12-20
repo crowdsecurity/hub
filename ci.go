@@ -57,6 +57,7 @@ var types = []string{
 	"postoverflows",
 	"appsec-rules",
 	"appsec-configs",
+	"contexts",
 	"collections",
 }
 
