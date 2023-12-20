@@ -28,6 +28,7 @@ type typeInfo struct {
 	Scenarios       []string               `json:"scenarios,omitempty"`
 	AppsecRules     []string               `json:"appsec-rules,omitempty"`
 	AppsecConfigs   []string               `json:"appsec-configs,omitempty"`
+	Contexts        []string               `json:"contexts,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
