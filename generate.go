@@ -17,6 +17,7 @@ const (
 	PARSER_TYPE         = "parsers"
 	SCENARIO_TYPE       = "scenarios"
 	POSTOVERFLOW_TYPE   = "postoverflows"
+	CONTEXT_TYPE        = "contexts"
 	APPSEC_RULES_TYPE   = "appsec-rules"
 	APPSEC_CONFIGS_TYPE = "appsec-configs"
 	COLLECTIONS_TYPE    = "collections"
@@ -48,7 +49,7 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		user = pathSplit[1]
 		configName = pathSplit[2]
 		configName = strings.Split(configName, ".")[0]
-	case SCENARIO_TYPE, APPSEC_RULES_TYPE, APPSEC_CONFIGS_TYPE, COLLECTIONS_TYPE:
+	case SCENARIO_TYPE, APPSEC_RULES_TYPE, APPSEC_CONFIGS_TYPE, COLLECTIONS_TYPE, CONTEXT_TYPE:
 		if len(pathSplit) != 2 {
 			return "", fmt.Errorf("invalid filepath '%s', should be : './%s/<user>/<scenario.yaml>'", configType, filepath)
 		}
