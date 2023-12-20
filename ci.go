@@ -41,6 +41,7 @@ type fileInfo struct {
 	Scenarios     []string               `yaml:"scenarios,omitempty"`
 	AppsecRules   []string               `yaml:"appsec-rules,omitempty"`
 	AppsecConfigs []string               `yaml:"appsec-configs,omitempty"`
+	Contexts      []string               `yaml:"contexts,omitempty"`
 	Collections   []string               `yaml:"collections,omitempty"`
 }
 
