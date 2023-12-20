@@ -130,6 +130,11 @@ func (ti *typeInfo) generate(filepath string, configType string) (string, error)
 		} else {
 			ti.AppsecConfigs = nil
 		}
+		if len(fInfo.Contexts) > 0 {
+			ti.Contexts = fInfo.Contexts
+		} else {
+			ti.Contexts = nil
+		}
 	}
 
 	// versions informations (digest and deprecated for each version)
