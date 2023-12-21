@@ -56,7 +56,6 @@ def main():
     missing_rules = list()
 
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
-    print(changed_files)
     for r, d, f in os.walk(hub_appsecrules_path):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
