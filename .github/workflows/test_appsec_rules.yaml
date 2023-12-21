@@ -39,23 +39,12 @@ jobs:
         BUILD_STATIC=1 make release
         cd crowdsec-v*
         sudo ./wizard.sh --unattended
-    - name: Install NGINX
-      run: |
-        sudo apt install nginx
-    - name: Install CrowdSec NGINX Bouncer
-      run: |
-        git clone https://github.com/crowdsecurity/cs-nginx-bouncer.git
-        cd cs-nginx-bouncer/
-        make release
-        tar xzvf crowdsec-nginx-bouncer.tgz
-        cd crowdsec-nginx-bouncer-v*
-        sudo ./install.sh -y
-    - name: Setup NGINX Bouncer API key
+    - name: Register Remediation Component API Key
       run: |
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
-        sudo sed -i 's/API_KEY=.*$/API_KEY=this_is_a_bad_password/' /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
-        echo "APPSEC_URL=http://127.0.0.1:4241" | sudo tee -a /etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf
-        sudo systemctl restart nginx
+    - name: Start OpenResty Container
+      run: |
+        docker-compose -f docker/appsec/docker-compose.yaml up -d --build
     - name: run tests on last crowdsec tag
       run: |
         cscli hubtest run --all --appsec --debug --target http://127.0.0.1:7822
@@ -73,4 +62,7 @@ jobs:
         label: Hub Appsec
         message: ${{ env.APPSEC_RULE_COV }}
         color: ${{ env.APPSEC_RULE_BADGE_COLOR }}
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f docker/appsec/docker-compose.yaml down
 
