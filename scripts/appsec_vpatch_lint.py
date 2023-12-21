@@ -23,6 +23,13 @@ The new VPATCH Rule is compliant, thank you for your contribution!
 """
 
 
+def file_in_pathlist(filename, path_list):
+    for path in path_list:
+        if filename in path:
+            return True
+    return False
+
+
 def main():
     args = parse_args()
     if args.hub == "":
@@ -49,11 +56,12 @@ def main():
     missing_rules = list()
 
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
+    print(changed_files)
     for r, d, f in os.walk(hub_appsecrules_path):
         for file in f:
             if file.endswith(".yaml") or file.endswith(".yml"):
                 if len(changed_files) == 0 or (
-                    len(changed_files) > 0 and file in changed_files
+                    len(changed_files) > 0 and file_in_pathlist(file, changed_files)
                 ):
                     if not file.startswith("vpatch-"):
                         continue
