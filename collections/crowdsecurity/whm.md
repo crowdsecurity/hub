@@ -16,7 +16,7 @@ Example acquisition for this collection :
 filenames: 
   - /var/log/apache2/domlogs/*
 exclude_regexps:
-  - ".*ftpxferlog.*"
+  - .*ftpxferlog.*
   # you can excluse other regexp that are not apache2 log files
 labels:
   type: apache2
