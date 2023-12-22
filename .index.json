@@ -865,6 +865,38 @@
     "spoofable": 0,
     "type": "scan"
    }
+  },
+  "crowdsecurity/vpatch-laravel-debug-mode": {
+   "path": "appsec-rules/crowdsecurity/vpatch-laravel-debug-mode.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "096552a04dd5f6c94e6beeadb8c197bc543518388b2b2316ce602b60ba3d9f49",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "38bac09d834161aa1f0e66dbf6930c53a8f71c25871cb1e527c97c02b3a41b50",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtbGFyYXZlbC1kZWJ1Zy1tb2RlCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGJvdHMgZXhwbG9pdGluZyBsYXJhdmVsIGRlYnVnIG1vZGUiCiNzZWUgaHR0cHM6Ly9naXRodWIuY29tL3MxbWlpaS9jYXBlL2Jsb2IvbWFpbi9sZXIucHkgOiBib3QgaXMgdHJ5aW5nIHRvIHRyaWdnZXIgYSBkZWJ1ZyBsb2cgdG8gZXh0cmFjdCBzZWNyZXRzLgpydWxlczoKICAtIHpvbmVzOgogICAgLSBNRVRIT0QKICAgIG1hdGNoOgogICAgICB0eXBlOiBlcXVhbHMKICAgICAgdmFsdWU6IFBPU1QKICAtIHpvbmVzOgogICAgLSBCT0RZX0FSR1NfTkFNRVMKICAgIHRyYW5zZm9ybToKICAgICAgLSBsb3dlcmNhc2UKICAgIG1hdGNoOgogICAgICB0eXBlOiBlcXVhbHMKICAgICAgdmFsdWU6ICIweFtdIgpsYWJlbHM6CiAgdHlwZTogc2NhbgogIHNlcnZpY2U6IGh0dHAKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgYmVoYXZpb3I6ICJodHRwOnNjYW4iCiAgbGFiZWw6ICJBY2Nlc3MgdG8gbGFyYXZlbCBkZWJ1ZyBtb2RlIgogICN3aGlsZSB0aGUgdnBhdGNoIGRvZXNuJ3QgYWRkcmVzcyBkaXJlY3RseSB0aGUgQ1ZFcyBiZWxvdywgaXQgZGV0ZWN0cyB0aGUgYm90IHRoYXQgYWJ1c2VzIHRoZW0uCiAgY2xhc3NpZmljYXRpb246CiAgIC0gYXR0YWNrLlQxNTk1CiAgIC0gYXR0YWNrLlQxMTkwCiAgIC0gY3ZlLkNWRS0yMDE3LTE2ODk0CiAgIC0gY3ZlLkNWRS0yMDIxLTQxNzE0CiAgIC0gY3ZlLkNWRS0yMDE5LTE3MDUwCg==",
+   "description": "Detect bots exploiting laravel debug mode",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:scan",
+    "classification": [
+     "attack.T1595",
+     "attack.T1190",
+     "cve.CVE-2017-16894",
+     "cve.CVE-2021-41714",
+     "cve.CVE-2019-17050"
+    ],
+    "confidence": 3,
+    "label": "Access to laravel debug mode",
+    "service": "http",
+    "spoofable": 0,
+    "type": "scan"
+   }
   }
  },
  "collections": {
@@ -1436,7 +1468,7 @@
   },
   "crowdsecurity/appsec-virtual-patching": {
    "path": "collections/crowdsecurity/appsec-virtual-patching.yaml",
-   "version": "0.3",
+   "version": "0.4",
    "versions": {
     "0.1": {
      "digest": "a165d638c8d826a932e4ca4e70ec5379d558a0bee1356e871c7c92cc2df714fc",
@@ -1449,10 +1481,14 @@
     "0.3": {
      "digest": "28962f063f10702629018df810167378d8250185ab8d64f4f5d1454b14dd1d4f",
      "deprecated": false
+    },
+    "0.4": {
+     "digest": "669b4be106d8d3e7754eeafba093db2228f2750dc399d8d9a41c3bb8256712fb",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIHZpcnR1YWwgcGF0Y2hpbmcgZm9yIGNvbW1vbmx5IGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGFuZCBpcyBpbnNwaXJlZCBmcm9tIHRoZSBbQ0lTQSBLbm93biBFeHBsb2l0ZWQgVnVsbmVyYWJpbGl0aWVzIENhdGFsb2ddKGh0dHBzOi8vd3d3LmNpc2EuZ292L2tub3duLWV4cGxvaXRlZC12dWxuZXJhYmlsaXRpZXMtY2F0YWxvZykuIFRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgdmlydHVhbCBwYXRjaGluZyBjYXBhYmlsaXRpZXMgZm9yIHRoZSBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLCBhdm9pZGluZyBmYWxzZSBwb3NpdGl2ZXMgd2hpbGUgY2F0Y2hpbmcgcG9wbGUgc2NvdXRpbmcgeW91ciBhcHBsaWNhdGlvbnMgZm9yIGp1aWN5IHZ1bG5lcmFiaWxpdGllcy4K",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKZGVzY3JpcHRpb246ICJhIGdlbmVyaWMgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgbW9zdCB3ZWIgc2VydmVycy4iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQoK",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtbGFyYXZlbC1kZWJ1Zy1tb2RlCmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS92aXJ0dWFsLXBhdGNoaW5nCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApkZXNjcmlwdGlvbjogImEgZ2VuZXJpYyB2aXJ0dWFsIHBhdGNoaW5nIGNvbGxlY3Rpb24sIHN1aXRhYmxlIGZvciBtb3N0IHdlYiBzZXJ2ZXJzLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cgo=",
    "description": "a generic virtual patching collection, suitable for most web servers.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1483,7 +1519,8 @@
     "crowdsecurity/vpatch-CVE-2021-3129",
     "crowdsecurity/vpatch-CVE-2021-22941",
     "crowdsecurity/vpatch-CVE-2019-12989",
-    "crowdsecurity/vpatch-CVE-2022-44877"
+    "crowdsecurity/vpatch-CVE-2022-44877",
+    "crowdsecurity/vpatch-laravel-debug-mode"
    ],
    "appsec-configs": [
     "crowdsecurity/virtual-patching"
