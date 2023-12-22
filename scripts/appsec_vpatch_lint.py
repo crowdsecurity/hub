@@ -12,14 +12,14 @@ author = os.environ.get("AUTHOR", "ghost")
 INTRO_STR = f"""
 Hello @{author} and thank you for your contribution!
 
-It seems that the following scenarios are not part of the '{VPATCH_COLLECTION_NAME}' collection:
+:heavy_exclamation_mark: It seems that the following scenarios are not part of the '{VPATCH_COLLECTION_NAME}' collection
 
 """
 
 OK_STR = f"""
 Hello @{author},
 
-The new VPATCH Rule is compliant, thank you for your contribution!
+:white_check_mark: The new VPATCH Rule is compliant, thank you for your contribution!
 """
 
 
@@ -75,7 +75,7 @@ def main():
     if len(missing_rules) > 0:
         f.write(INTRO_STR)
         for rule in missing_rules:
-            f.write("**{}**\n".format(rule))
+            f.write(":red_circle: **{}** :red_circle:\n".format(rule))
     else:
         f.write(OK_STR)
 
