@@ -20,6 +20,12 @@ http:
       Content-Type: application/x-www-form-urlencoded
 
       0x%5B%5D=androxgh0st
+    - |
+      POST /test HTTP/1.1
+      Host: {{Hostname}}
+      Content-Type: application/x-www-form-urlencoded
+
+      foo=bar
     cookie-reuse: true
 #test will fail because we won't match http status 
     matchers:
@@ -28,3 +34,4 @@ http:
       dsl:
         - 'status_code_1 == 403'
         - 'status_code_2 == 403'
+        - 'status_code_3 == 404'
