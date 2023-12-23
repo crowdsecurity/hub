@@ -2,18 +2,19 @@ name: crowdsecurity/vpatch-laravel-debug-mode
 description: "Detect bots exploiting laravel debug mode"
 #see https://github.com/s1miii/cape/blob/main/ler.py : bot is trying to trigger a debug log to extract secrets.
 rules:
-  - zones:
-    - METHOD
-    match:
-      type: equals
-      value: POST
-  - zones:
-    - BODY_ARGS_NAMES
-    transform:
-      - lowercase
-    match:
-      type: equals
-      value: "0x[]"
+  - and:
+    - zones:
+      - METHOD
+      match:
+        type: equals
+        value: POST
+    - zones:
+        - BODY_ARGS_NAMES
+      transform:
+        - lowercase
+      match:
+        type: equals
+        value: "0x[]"
 labels:
   type: scan
   service: http
