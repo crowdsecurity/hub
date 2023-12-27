@@ -53,8 +53,7 @@ jobs:
         echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
     - name: Create appsec badge
       uses: schneegans/dynamic-badges-action@v1.1.0
-      #if: ${{ github.ref == 'refs/heads/master' }}
-      if: false
+      if: ${{ github.ref == 'refs/heads/master' }}
       with:
         auth: ${{ secrets.GIST_BADGES_SECRET }}
         gistID: ${{ secrets.GIST_BADGES_ID }}
