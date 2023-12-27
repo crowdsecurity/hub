@@ -64,6 +64,9 @@ jobs:
     - uses: actions/setup-go@v4
       with:
         go-version: '1.21'
+    - name: Install requirements
+      run: |
+        sudo apt install libre2-dev
     - name: Install CrowdSec
       run: |
         current_pwd=$(pwd)
