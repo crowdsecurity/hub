@@ -77,7 +77,7 @@ jobs:
         sudo ./wizard.sh --unattended
     - name: Setup CrowdSec Appsec
       run: |
-        cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
+        sudo cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
         sudo cscli collections install crowdsecurity/appsec-virtual-patching
         sudo systemctl restart crowdsec
     - name: Register Remediation Component API Key
