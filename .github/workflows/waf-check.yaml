@@ -1,0 +1,77 @@
+name: Appsec Rules Tests
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - '.github/workflows/test_appsec_rules.yaml'
+      - '.appsec-tests/**'
+  push:
+    branches: [ master ]
+    paths:
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - '.github/workflows/test_appsec_rules.yaml'
+      - '.appsec-tests/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+    - name: Split dateset
+      run: |
+        cd waf-check && go build -o waf-check
+        ./waf-check -download -batch -dir-count 1
+    - uses: actions/upload-artifact
+      name: Upload dataset in artifact
+      with:
+        name: waf-check-dataset
+        path: ./dataset/dataset_**/
+  run:
+    runs-on: ubuntu-22.04
+    needs: build
+    strategy:
+      matrix:
+        dataset_folder: ["dataset_0"]
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: waf-check-dataset
+        path: waf-check/dataset/
+      name: Download dataset from artifact
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+    - name: Install CrowdSec
+      run: |
+        current_pwd=$(pwd)
+        git clone https://github.com/crowdsecurity/crowdsec.git
+        cd crowdsec
+        BUILD_STATIC=1 make release
+        cd crowdsec-v*
+        sudo ./wizard.sh --unattended
+        cd $current_pwd
+    - name: Register Remediation Component API Key
+      run: |
+        sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
+    - name: Start OpenResty Container
+      run: |
+        docker-compose -f docker/appsec/docker-compose.yaml up -d --build
+        sleep 3
+    - name: Build and Run Waf Check
+      run: |
+        cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
+
+
