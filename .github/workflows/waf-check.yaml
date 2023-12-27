@@ -62,7 +62,11 @@ jobs:
         BUILD_STATIC=1 make release
         cd crowdsec-v*
         sudo ./wizard.sh --unattended
-        cd $current_pwd
+    - name: Setup CrowdSec Appsec
+      run: |
+        cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
+        sudo cscli collections install crowdsecurity/appsec-virtual-patching
+        sudo systemctl restart crowdsec
     - name: Register Remediation Component API Key
       run: |
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
