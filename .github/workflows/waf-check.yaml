@@ -35,7 +35,7 @@ jobs:
       run: |
         cd waf-check && go build -o waf-check
         ./waf-check -download -batch -dir-count 1
-    - uses: actions/upload-artifact
+    - uses: actions/upload-artifact@v4
       name: Upload dataset in artifact
       with:
         name: waf-check-dataset
