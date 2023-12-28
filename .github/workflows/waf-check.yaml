@@ -78,7 +78,9 @@ jobs:
     - name: Setup CrowdSec Appsec
       run: |
         sudo cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
-        sudo cscli collections install crowdsecurity/appsec-virtual-patching
+        sudo cp appsec-rules/*/vpatch-*.yaml /etc/crowdsec/appsec-rules/
+        sudo cp appsec-rules/crowdsecurity/base-config.yaml /etc/crowdsec/appsec-rules/
+        sudo cp appsec-configs/crowdsecurity/virtual-patching.yaml /etc/crowdsec/appsec-configs/
         sudo systemctl restart crowdsec
     - name: Register Remediation Component API Key
       run: |
