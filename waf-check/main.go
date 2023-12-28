@@ -56,12 +56,14 @@ func main() {
 		log.Fatalf("error running manager: %s", err)
 	}
 
+	timeElapsed := time.Since(startTime)
+
+	fmt.Printf("%v to process '%s' dataset\n", timeElapsed.Round(time.Second), config.DatasetFolder)
+
 	if err := GetResult(manager.resultsChan, config.OutputFolder); err != nil {
 		log.Fatalf("error getting result: %s", err)
 	}
 
-	timeElapsed := time.Since(startTime)
-
-	fmt.Printf("%v to process '%s' dataset\n", timeElapsed.Round(time.Second), config.DatasetFolder)
+	fmt.Printf("everything went well!")
 
 }

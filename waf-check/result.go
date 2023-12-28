@@ -47,5 +47,9 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 	fmt.Printf("  - Total test: %d\n", totalTestRun)
 	fmt.Printf("  - Total fail: %d\n", totalTestFail)
 
+	if totalTestFail > 0 {
+		return fmt.Errorf("%d tests have failed", totalTestFail)
+	}
+
 	return nil
 }
