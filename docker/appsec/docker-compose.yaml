@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  target:
+    build: .
+    environment:
+      - API_URL=http://127.0.0.1:8181
+      - API_KEY=this_is_a_bad_password
+      - APPSEC_URL=http://127.0.0.1:4241
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+    network_mode: "host" 
+

@@ -11,9 +11,14 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 reprocess: true
 labels:
- service: ssh
- type: bruteforce
- remediation: true
+  service: ssh
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "SSH Bruteforce"
+  behavior: "ssh:bruteforce"
+  remediation: true
 ---
 # ssh user-enum
 type: leaky
@@ -26,7 +31,11 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: ssh
- type: bruteforce
- remediation: true
-
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  behavior: "ssh:bruteforce"
+  label: "SSH User Enumeration"

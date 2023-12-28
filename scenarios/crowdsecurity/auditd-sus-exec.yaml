@@ -4,8 +4,14 @@ name: crowdsecurity/auditd-sus-exec
 description: "Detect post-exploitation behaviour : exec from suspicious locations"
 filter: evt.Meta.log_type == 'execve' and ( evt.Meta.exe startsWith "/tmp/" or evt.Meta.exe contains "/." )
 labels:
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1059.004
+  behavior: "linux:post-exploitation"
+  label: "Post Exploitation command execution"
   service: linux
-  type: post-exploitation
+  remediation: false
 scope:
   type: pid
   expression: evt.Meta.ppid

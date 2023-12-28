@@ -6,8 +6,15 @@ filter: |
   evt.Meta.log_type in ['http_access-log', 'http_error-log'] && Lower(QueryUnescape(evt.Meta.http_path)) startsWith Lower('/setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=')
 groupby: "evt.Meta.source_ip"
 blackhole: 2m
-references: 
+references:
   - "https://www.exploit-db.com/exploits/25978"
 labels:
-  type: exploit
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1595
+    - attack.T1190
+  behavior: "http:exploit"
+  label: "Netgear RCE"
+  service: netgear
   remediation: true

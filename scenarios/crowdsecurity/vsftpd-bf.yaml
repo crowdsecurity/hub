@@ -8,6 +8,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: ftp
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ftp:bruteforce"
+  label: "VSFTPD Bruteforce"
+  remediation: true
+  service: vsftpd

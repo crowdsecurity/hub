@@ -6,6 +6,13 @@ filter: evt.Meta.log_type == 'openappsec_security_log' and Lower(evt.Meta.securi
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: openappsec
- type: exploit
- remediation: true
+  service: http
+  classification:
+    - attack.T1189
+    - attack.T1595
+    - attack.T1190
+  spoofable: 0
+  confidence: 2
+  behavior: "http:exploit"
+  label: "Openappsec 'XSS' detection"
+  remediation: true

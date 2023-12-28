@@ -10,12 +10,17 @@ capacity: 5
 blackhole: 1m
 labels:
   service: gitea
-  type: bruteforce
+  behavior: "vcs:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Gitea Bruteforce"
   remediation: true
 ---
 # gitea user-enum
 type: leaky
-name:  LePresidente/gitea-bf_user-enum
+name: LePresidente/gitea-bf_user-enum
 description: "Detect gitea user enum bruteforce"
 filter: "evt.Meta.log_type == 'gitea_failed_auth'"
 groupby: evt.Meta.source_ip
@@ -24,6 +29,12 @@ leakspeed: 10s
 capacity: 5
 blackhole: 1m
 labels:
- service: gitea
- type: bruteforce
- remediation: true
+  service: gitea
+  behavior: "vcs:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1589
+    - attack.T1110
+  label: "Gitea User Enumeration"
+  remediation: true

@@ -8,7 +8,11 @@ capacity: 5
 leakspeed: 10s
 blackhole: 5m
 labels:
- service: http
- type: bruteforce
- remediation: true
- application: magento
+  service: magento
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "http bruteforce"
+  remediation: true
