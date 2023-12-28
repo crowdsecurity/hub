@@ -98,7 +98,7 @@ jobs:
         sleep 3
     - name: Build and Run Waf Check
       run: |
-        ls /home/runner/work/hub/hub/waf-check/dataset
-        cd waf-check && go build -o waf-check && ./waf-check -dataset "/home/runner/work/hub/hub/waf-check/dataset/${{ matrix.dataset_folder }}"
+        ls -lh waf-check/dataset/dataset_0/
+        cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
 
 
