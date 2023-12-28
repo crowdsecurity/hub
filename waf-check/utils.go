@@ -124,35 +124,23 @@ func splitIntoDirectories(files []string, dirCount int) [][]string {
 	return directories
 }
 
-func copyFile(src, dst string) error {
-	sourceFile, err := os.Open(src)
+func moveFile(src, dst string) error {
+	// Move the file by renaming it
+	err := os.Rename(src, dst)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to move %s to %s: %w", src, dst, err)
 	}
-	defer sourceFile.Close()
-
-	destFile, err := os.Create(dst)
-	if err != nil {
-		return err
-	}
-	defer destFile.Close()
-
-	_, err = io.Copy(destFile, sourceFile)
-	if err != nil {
-		return err
-	}
-
-	return destFile.Sync()
+	return nil
 }
 
-func copyFilesToDirectory(files []string, destDir string) error {
+func moveFilesToDirectory(files []string, destDir string) error {
 	for _, file := range files {
 		fileName := filepath.Base(file)
 		destPath := filepath.Join(destDir, fileName)
 
-		err := copyFile(file, destPath)
+		err := moveFile(file, destPath)
 		if err != nil {
-			return fmt.Errorf("failed to copy %s to %s: %w", file, destPath, err)
+			return err
 		}
 	}
 	return nil

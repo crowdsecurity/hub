@@ -39,7 +39,7 @@ func main() {
 				log.Fatalf("unable to create batch folder '%s': %s", datatsetBatchPath, err)
 			}
 
-			if err := copyFilesToDirectory(batch, datatsetBatchPath); err != nil {
+			if err := moveFilesToDirectory(batch, datatsetBatchPath); err != nil {
 				log.Fatalf("unable to copy batch to '%s': %s", datatsetBatchPath, err)
 			}
 		}
