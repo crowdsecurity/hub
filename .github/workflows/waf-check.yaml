@@ -54,6 +54,8 @@ jobs:
       matrix:
         dataset_folder: ["dataset_0"]
     steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v4
     - uses: actions/download-artifact@v4
       with:
         name: waf-check-dataset
@@ -68,8 +70,6 @@ jobs:
     - name: debug
       run: |
         ls -lh waf-check/dataset/
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v4
     - uses: actions/setup-go@v4
       with:
         go-version: '1.21'
