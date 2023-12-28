@@ -77,7 +77,7 @@ func unzip(src, dest string) error {
 		fPath := filepath.Join(dest, f.Name)
 		fmt.Printf("Extracting '%s' \n", fPath)
 
-		// create the folder if doesn't exist
+		// create the folder of the file if doesn't exist
 		folderPath := filepath.Dir(fPath)
 		os.MkdirAll(folderPath, os.ModePerm)
 
@@ -125,7 +125,6 @@ func splitIntoDirectories(files []string, dirCount int) [][]string {
 }
 
 func moveFile(src, dst string) error {
-	// Move the file by renaming it
 	err := os.Rename(src, dst)
 	if err != nil {
 		return fmt.Errorf("failed to move %s to %s: %w", src, dst, err)

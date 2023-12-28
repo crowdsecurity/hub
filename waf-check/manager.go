@@ -121,7 +121,6 @@ func (m *Manager) Run() error {
 
 	for _, file := range m.filesList {
 		m.filesChan <- file
-		fmt.Printf("File '%s' sent to process\n", file)
 	}
 	close(m.filesChan)
 

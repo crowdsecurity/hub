@@ -33,7 +33,7 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 	}
 
 	request.URL = fmt.Sprintf("/%s", strings.TrimLeft(request.URL, "/"))
-	// Parse the URI
+
 	parsedURI, err := url.Parse(request.URL)
 	if err != nil {
 		return *req, fmt.Errorf("error parsing URI: %w", err)
@@ -51,7 +51,6 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 		return *req, err
 	}
 
-	// Adding headers to the request
 	for key, value := range request.Headers {
 		req.Header.Add(key, value)
 	}

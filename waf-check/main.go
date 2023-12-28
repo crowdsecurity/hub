@@ -27,7 +27,7 @@ func main() {
 	}
 
 	if len(filesList) == 0 {
-		fmt.Printf("No files in dataset '%s', please download with '-download'", config.DatasetFolder)
+		fmt.Printf("No files in dataset '%s', please download with '-download'\n", config.DatasetFolder)
 		return
 	}
 
@@ -44,7 +44,7 @@ func main() {
 			}
 		}
 
-		fmt.Printf("%d files have been splitted in %d folder", len(filesList), config.dirCount)
+		fmt.Printf("%d files have been splitted in %d folder\n", len(filesList), config.dirCount)
 		return
 	}
 
@@ -61,9 +61,9 @@ func main() {
 	fmt.Printf("%v to process '%s' dataset\n", timeElapsed.Round(time.Second), config.DatasetFolder)
 
 	if err := GetResult(manager.resultsChan, config.OutputFolder); err != nil {
-		log.Fatalf("error getting result: %s", err)
+		log.Fatalf(err.Error())
 	}
 
-	fmt.Printf("everything went well!")
+	fmt.Printf("everything went well!\n")
 
 }
