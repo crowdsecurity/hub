@@ -10,6 +10,9 @@ statics:
     expression: evt.Unmarshaled.teleport.event
   - meta: success
     expression: "evt.Unmarshaled.teleport.success ? 'true' : 'false'"
+## Set for impossible travel scenario
+  - meta: log_type
+    expression: "evt.Unmarshaled.teleport.success ? 'auth_success' : 'auth_failed'"
 ##Converting a bool with sprintf is very slow, so we use a ternary expression
   - target: evt.StrTime
     expression: evt.Unmarshaled.teleport.time
