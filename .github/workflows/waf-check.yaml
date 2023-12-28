@@ -37,7 +37,7 @@ jobs:
     - name: Split dateset
       run: |
         cd waf-check && go build -o waf-check
-        ./waf-check -download -batch -dir-count 1
+        ./waf-check -download -batch -dir-count 6
     - name: debug
       run: |
         ls
@@ -52,7 +52,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        dataset_folder: ["dataset_0"]
+        dataset_folder: ["dataset_0","dataset_1","dataset_2","dataset_3","dataset_4","dataset_5"]
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
