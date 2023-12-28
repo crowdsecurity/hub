@@ -61,15 +61,6 @@ jobs:
         name: waf-check-dataset
         path: waf-check/dataset/
       name: Download dataset from artifact
-    - name: debug
-      run: |
-        ls -lh
-    - name: debug
-      run: |
-        ls -lh waf-check
-    - name: debug
-      run: |
-        ls -lh waf-check/dataset/
     - uses: actions/setup-go@v4
       with:
         go-version: '1.21'
@@ -98,7 +89,6 @@ jobs:
         sleep 3
     - name: Build and Run Waf Check
       run: |
-        ls -lh waf-check/dataset/dataset_0/
         cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
 
 
