@@ -1,1 +1,0 @@
-Detects SSH bruteforce attempts blocked by CSF. 

@@ -45,6 +45,15 @@ labels:
 ```
 
 ```yaml
+# ConfigServer LFD path : 
+## put in /etc/crowdsec/acquis.d/configserver-lfd.yaml 
+filenames: 
+  - /var/log/lfd.log
+labels:
+  type: syslog
+```
+
+```yaml
 # In case your Dovecot logs into syslog
 # syslog will likely route mail logs to maillog
 ## put in /etc/crowdsec/acquis.d/dovecot.yaml 
