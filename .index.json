@@ -2717,7 +2717,7 @@
   },
   "crowdsecurity/sshd": {
    "path": "collections/crowdsecurity/sshd.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "21159aeb87529efcf1a5033f720413d5321a6451bab679a999f7f01a7aa972b3",
@@ -2726,10 +2726,14 @@
     "0.2": {
      "digest": "72f6329808fafbb42da52cc6476a6e794d0a1ae5b3847e0060cf23593dd40352",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "31d549124634df1d13e67f0903b10c1816690589f4d6add6fec0ed74d30499bb",
+     "deprecated": false
     }
    },
    "long_description": "IyMgU1NIRCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gdG8gZGVmZW5kIHNzaGQgYWdhaW5zdCBjb21tb24gYXR0YWNrcyA6CiAtIHNzaCBwYXJzZXIKIC0gc3NoIGJydXRlZm9yY2UgJiBlbnVtZXJhdGlvbiBkZXRlY3Rpb24KIC0gc3NoICdzbG93JyBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvYXV0aC5sb2cKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwpgYGAKCgpub3RlcyA6CiAtICBJZiB5b3UgYXJlIHVzaW5nIGBzeXNsb2dgLCBzZXQgdHlwZSB0byBgc3lzbG9nYCBpbnN0ZWFkCiAtICBEZXBlbmRpbmcgb24geW91ciBkaXN0cmlidXRpb24vT1MsIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gIE9ubHkgcmVsZXZhbnQgaWYgeW91IGFyZSBtYW51YWxseSBpbnN0YWxsaW5nIGNvbGxlY3Rpb24KCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCmRlc2NyaXB0aW9uOiAic3NoZCBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmNvbnRleHRzOgogIC0gY3Jvd2RzZWN1cml0eS9iZl9iYXNlCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIHNzaAogIC0gYnJ1dGVmb3JjZQoK",
    "description": "sshd support : parser and brute-force detection",
    "author": "crowdsecurity",
    "labels": null,
@@ -2739,6 +2743,9 @@
    "scenarios": [
     "crowdsecurity/ssh-bf",
     "crowdsecurity/ssh-slow-bf"
+   ],
+   "contexts": [
+    "crowdsecurity/bf_base"
    ]
   },
   "crowdsecurity/sshd-impossible-travel": {
@@ -3621,6 +3628,19 @@
     }
    },
    "content": "Y29udGV4dDoKICBydWxlczoKICAtIGV2dC5NZXRhLnJ1bGVfbmFtZQo=",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/bf_base": {
+   "path": "contexts/crowdsecurity/bf_base.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "5b5d0f412ea7da0712fd8e298e9a03642051591adee3817ae529fafa6b66995c",
+     "deprecated": false
+    }
+   },
+   "content": "I2EgZ2VuZXJpYyBjb250ZXh0IGZvciBicnV0ZWZvcmNlIGJhc2VkIHNjZW5hcmlvcwpjb250ZXh0OgogIHRhcmdldF91c2VyOgogICAgLSBldnQuTWV0YS50YXJnZXRfdXNlcgo=",
    "author": "crowdsecurity",
    "labels": null
   },
