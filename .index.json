@@ -1791,7 +1791,7 @@
   },
   "crowdsecurity/cpanel": {
    "path": "collections/crowdsecurity/cpanel.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "708cb00f74feff6b8bc5109ba0dea0ed646229adbbb2174288ea7bd185b31e53",
@@ -1800,19 +1800,25 @@
     "0.2": {
      "digest": "f2496391e82604dcba85c91ba79ec8204661aca4fdb38f6c46773f203c99b9fe",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "4f16f7015f9fcd4727413b3e742b4582d3c8fd565e1377e6dacdc6ed68e9735c",
+     "deprecated": false
     }
    },
    "long_description": "IyMgQ3BhbmVsIGNvbGxlY3Rpb24KCkEgY29sbGVjdGlvbiBmb3IgY3BhbmVsLiBDb250YWluczoKICogY3BhbmVsIGxvZyBwYXJzZXIKICogY3BhbmVsIHNjZW5hcmlvIHRvIGRldGVjdCBicnV0ZWZvcmNlCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL2hvbWUvPHVzZXJuYW1lPi9sb2dzL2NwYW5lbC9sb2dpbl9sb2cKbGFiZWxzOgogIHR5cGU6IGNwYW5lbApgYGAKCgpub3RlcyA6CiAtICBJZiB5b3UgYXJlIHVzaW5nIGBzeXNsb2dgLCBzZXQgdHlwZSB0byBgc3lzbG9nYCBpbnN0ZWFkCiAtICBEZXBlbmRpbmcgb24geW91ciBkaXN0cmlidXRpb24vT1MsIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gIE9ubHkgcmVsZXZhbnQgaWYgeW91IGFyZSBtYW51YWxseSBpbnN0YWxsaW5nIGNvbGxlY3Rpb24K",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9jcGFuZWwtYmYKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsLWJmLWF0dGVtcHQKZGVzY3JpcHRpb246ICJjcGFuZWwgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGVmb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGNwYW5lbAogIC0gYnJ1dGVmb3JjZQo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvY29uZmlnc2VydmVyLWxmZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsLWJmCiAgLSBjcm93ZHNlY3VyaXR5L2NwYW5lbC1iZi1hdHRlbXB0CiAgLSBjcm93ZHNlY3VyaXR5L2NvbmZpZ3NlcnZlci1sZmQtYmYKZGVzY3JpcHRpb246ICJjcGFuZWwgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGVmb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGNwYW5lbAogIC0gYnJ1dGVmb3JjZQo=",
    "description": "cpanel support : parser and bruteforce detection",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
-    "crowdsecurity/cpanel-logs"
+    "crowdsecurity/cpanel-logs",
+    "crowdsecurity/configserver-lfd-logs"
    ],
    "scenarios": [
     "crowdsecurity/cpanel-bf",
-    "crowdsecurity/cpanel-bf-attempt"
+    "crowdsecurity/cpanel-bf-attempt",
+    "crowdsecurity/configserver-lfd-bf"
    ]
   },
   "crowdsecurity/discord-crawler-whitelist": {
@@ -3069,6 +3075,37 @@
     "crowdsecurity/seo-bots-whitelist",
     "crowdsecurity/cdn-whitelist",
     "crowdsecurity/rdns"
+   ]
+  },
+  "crowdsecurity/whm": {
+   "path": "collections/crowdsecurity/whm.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b2e05f1a3fb4a667f7bf39fa3224e3f77cc12a199f4fae209a9da173700fe768",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgV0hNIGNvbGxlY3Rpb24KCkEgY29sbGVjdGlvbiB0byBkZWZlbmQgV0hNIG9uIHRoZSB2YXJpb3VzIGNvbW1vbiBzZXJ2aWNlcyBpbnN0YWxsZWQKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpUbyBoZWxwIHlvdSBsb2NhdGUgdGhlIGxvZ3Mgc3BlY2lmaWMgdG8gV0hNIG9yIENQYW5lbCBjb25maWd1cmF0aW9uIHJlZmVyIHRvIGh0dHBzOi8vZG9jcy5jcGFuZWwubmV0L2tub3dsZWRnZS1iYXNlL2NwYW5lbC1wcm9kdWN0L3RoZS1jcGFuZWwtbG9nLWZpbGVzLwoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCgpgYGB5YW1sCiMgWW91IGNhbiBsZWF2ZSB0aGUgZGVmYXVsdCBhcGFjaGUyIHBhdGggaW4gYWNxdWlzLnlhbWwgYXMgaXQgd2lsbCBkZWFsIHdpdGggeW91ciBzZXJ2ZXIgbG9ncwojIHRoaXMgZXh0cmEgYWNxdWlzaXRpb24gaXMgZm9yIGFwYWNoZTIgZXJyb3JzIGZvciB5b3VyIHZhcmlvdXMgdXNlcnMgZG9tYWlucyAKIyMgcHV0IGluIC9ldGMvY3Jvd2RzZWMvYWNxdWlzLmQvYXBhY2hlMndobS55YW1sIApmaWxlbmFtZXM6IAogIC0gL3Zhci9sb2cvYXBhY2hlMi9kb21sb2dzLyoKZXhjbHVkZV9yZWdleHBzOgogIC0gLipmdHB4ZmVybG9nLioKICAjIHlvdSBjYW4gZXhjbHVzZSBvdGhlciByZWdleHAgdGhhdCBhcmUgbm90IGFwYWNoZTIgbG9nIGZpbGVzCmxhYmVsczoKICB0eXBlOiBhcGFjaGUyCmBgYAoKYGBgeWFtbAojIGZ0cHhmZXIgdHlwaWNhbCBXSE0gb3ZlcnJpZGUgOiAKIyMgcHV0IGluIC9ldGMvY3Jvd2RzZWMvYWNxdWlzLmQvZnRweGZlci55YW1sIApmaWxlbmFtZXM6IAogIC0gL3Vzci9sb2NhbC9hcGFjaGUyL2RvbWxvZ3MvZnRweGZlcmxvZwpsYWJlbHM6CiAgdHlwZTogc3lzbG9nCiAgIyBkZXBlbmRpbmcgb24geW91ciBmdHAgc2VydmljZSB0aGUgdHlwZSBjYW4gYWxzbyBiZSBwcm9mdHBkIG9yIHZzZnRwZApgYGAKCmBgYHlhbWwKIyBjcGFuZWwgdHlwaWNhbCBXSE0gb3ZlcnJpZGUgOiAKIyMgcHV0IGluIC9ldGMvY3Jvd2RzZWMvYWNxdWlzLmQvY3BhbmVsLnlhbWwgCiMjIGFuZCBjb21tZW50IG91dCBjcGFuZWwgYWNxdWlzIGRlZmF1bHQgY29uZmlnIGluIC9ldGMvY3Jvd2RzZWMvYWNxdWlzLnlhbWwgaWYgbmVjZXNzYXJ5CmZpbGVuYW1lczogCiAgLSAvdXNyL2xvY2FsL2NwYW5lbC9sb2dzL2xvZ2luX2xvZwogIC0gL3Vzci9sb2NhbC9jcGFuZWwvbG9ncy9lcnJvcl9sb2cKICAtIC91c3IvbG9jYWwvY3BhbmVsL2xvZ3MvYWNjZXNzX2xvZwpsYWJlbHM6CiAgdHlwZTogY3BhbmVsCmBgYAoKYGBgeWFtbAojIENvbmZpZ1NlcnZlciBMRkQgcGF0aCA6IAojIyBwdXQgaW4gL2V0Yy9jcm93ZHNlYy9hY3F1aXMuZC9jb25maWdzZXJ2ZXItbGZkLnlhbWwgCmZpbGVuYW1lczogCiAgLSAvdmFyL2xvZy9sZmQubG9nCmxhYmVsczoKICB0eXBlOiBzeXNsb2cKYGBgCgpgYGB5YW1sCiMgSW4gY2FzZSB5b3VyIERvdmVjb3QgbG9ncyBpbnRvIHN5c2xvZwojIHN5c2xvZyB3aWxsIGxpa2VseSByb3V0ZSBtYWlsIGxvZ3MgdG8gbWFpbGxvZwojIyBwdXQgaW4gL2V0Yy9jcm93ZHNlYy9hY3F1aXMuZC9kb3ZlY290LnlhbWwgCiMjIGFuZCBjb21tZW50IG91dCBjcGFuZWwgYXFjdWlzIGRlZmF1bHQgY29uZmlnIGluIC9ldGMvY3Jvd2RzZWMvYWNxdWlzLnlhbWwgaWYgbmVjZXNzYXJ5CiMjIGRlcGVuZGluZyBvbiB5b3VyIE9TIHRoZSBmaWxlIG1pZ2h0IGJlIC92YXIvbG9nL21haWxsb2cgb3IgL3Zhci9sb2cvbWFpbC5sb2cKZmlsZW5hbWVzOiAKICAtIC92YXIvbG9nL21haWxsb2cKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwpgYGAKCm5vdGVzIDoKIC0gIElmIHlvdSBhcmUgdXNpbmcgYHN5c2xvZ2AsIHNldCB0eXBlIHRvIGBzeXNsb2dgIGluc3RlYWQKIC0gIERlcGVuZGluZyBvbiB5b3VyIGRpc3RyaWJ1dGlvbi9PUywgcGF0aHMgdG8gbG9nIGZpbGVzIG1pZ2h0IGNoYW5nZQogLSAgT25seSByZWxldmFudCBpZiB5b3UgYXJlIG1hbnVhbGx5IGluc3RhbGxpbmcgY29sbGVjdGlvbgo=",
+   "content": "Y29sbGVjdGlvbnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwYWNoZTIKICAtIGNyb3dkc2VjdXJpdHkvY3BhbmVsCiAgLSBjcm93ZHNlY3VyaXR5L2RvdmVjb3QKICAtIGNyb3dkc2VjdXJpdHkvZXhpbQogIC0gY3Jvd2RzZWN1cml0eS9odHRwLWN2ZQogIC0gY3Jvd2RzZWN1cml0eS9saW51eAogIC0gY3Jvd2RzZWN1cml0eS9tb2RzZWN1cml0eQogIC0gY3Jvd2RzZWN1cml0eS9teXNxbAogIC0gY3Jvd2RzZWN1cml0eS9wZ3NxbAogIC0gY3Jvd2RzZWN1cml0eS9wcm9mdHBkCiAgLSBjcm93ZHNlY3VyaXR5L3NzaGQKICAtIGNyb3dkc2VjdXJpdHkvdnNmdHBkCiAgLSBmdWxsamFja3ovcHVyZWZ0cGQKICAtIGNyb3dkc2VjdXJpdHkvd2hpdGVsaXN0LWdvb2QtYWN0b3JzCmRlc2NyaXB0aW9uOiAiV0hNIGJyb2FkIHNlbGVjdGlvbiBvZiBjb2xsZWN0aW9ucyBwb3NzaWJseSBiZWluZyBpbnN0YWxsZWQiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gd2htCiAgLSBjcGFuZWwKICAtIGxpbnV4Cg==",
+   "description": "WHM broad selection of collections possibly being installed",
+   "author": "crowdsecurity",
+   "labels": null,
+   "collections": [
+    "crowdsecurity/apache2",
+    "crowdsecurity/cpanel",
+    "crowdsecurity/dovecot",
+    "crowdsecurity/exim",
+    "crowdsecurity/http-cve",
+    "crowdsecurity/linux",
+    "crowdsecurity/modsecurity",
+    "crowdsecurity/mysql",
+    "crowdsecurity/pgsql",
+    "crowdsecurity/proftpd",
+    "crowdsecurity/sshd",
+    "crowdsecurity/vsftpd",
+    "fulljackz/pureftpd",
+    "crowdsecurity/whitelist-good-actors"
    ]
   },
   "crowdsecurity/windows": {
@@ -4409,6 +4446,22 @@
    "long_description": "UGFyc2VyIGZvciBjYWRkeSBsb2dzLgpJdCBleHBlY3RzIHRoZSBkZWZhdWx0IGtleSB2YWx1ZXMgZm9yIGNhZGR5IGxvZ3MuCgpZb3UgbmVlZCB0byBzcGVjaWZ5IGNhZGR5IGNvbmZpZyB0byBlbmFibGUgbG9nZ2luZyBpbiBhIGZpbGU6CgpgYGBiYXNoCjo4MCB7CiAgICAgICAgIyBTZXQgdGhpcyBwYXRoIHRvIHlvdXIgc2l0ZSdzIGRpcmVjdG9yeS4KICAgICAgICByb290ICogL3Vzci9zaGFyZS9jYWRkeQoKICAgICAgICAjIEVuYWJsZSB0aGUgc3RhdGljIGZpbGUgc2VydmVyLgogICAgICAgIGZpbGVfc2VydmVyCgogICAgICAgICMgQW5vdGhlciBjb21tb24gdGFzayBpcyB0byBzZXQgdXAgYSByZXZlcnNlIHByb3h5OgogICAgICAgICMgcmV2ZXJzZV9wcm94eSBsb2NhbGhvc3Q6ODA4MAoKICAgICAgICAjIE9yIHNlcnZlIGEgUEhQIHNpdGUgdGhyb3VnaCBwaHAtZnBtOgogICAgICAgICMgcGhwX2Zhc3RjZ2kgbG9jYWxob3N0OjkwMDAKICAgICAgICBsb2cgewogICAgICAgICAgICAgICAgb3V0cHV0IGZpbGUgL3Zhci9sb2cvY2FkZHkvYWNjZXNzLmxvZwogICAgICAgIH0KfQoKYGBgCgpBbmQgdGhlbiBhZGQgaW4gYWNxdWlzaXRpb24gdGhpcyA6CgpgYGB5YW1sCi0tLQpmaWxlbmFtZXM6CiAtIC92YXIvbG9nL2NhZGR5L2FjY2Vzcy5sb2cKbGFiZWxzOgogIHR5cGU6IGNhZGR5CmBgYA==",
    "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtIHN0YXJ0c1dpdGggJ2NhZGR5JyAmJiBVbm1hcnNoYWxKU09OKGV2dC5QYXJzZWQubWVzc2FnZSwgZXZ0LlVubWFyc2hhbGVkLCAnY2FkZHknKSBpbiBbJycsIG5pbF0iCm9uc3VjY2VzczogbmV4dF9zdGFnZQpuYW1lOiBjcm93ZHNlY3VyaXR5L2NhZGR5LWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBjYWRkeSBsb2dzIgpzdGF0aWNzOgogIC0gbWV0YTogbG9nX3R5cGUKICAgIHZhbHVlOiBodHRwX2FjY2Vzcy1sb2cKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IHwKICAgICAgU3ByaW50ZigiJXYiLCBldnQuVW5tYXJzaGFsZWQuY2FkZHkudHMpIG1hdGNoZXMgJ15bMC05ZVxcLlxcK10rJCcgPyBpbnQoZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnRzKSA6IGV2dC5Vbm1hcnNoYWxlZC5jYWRkeS50cwogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGh0dHAKICAjI0NhZGR5IG5vdyBzZXRzIGNsaWVudF9pcCB0byB0aGUgdmFsdWUgb2YgWC1Gb3J3YXJkZWQtRm9yIGlmIHVzZXJzIHNldHMgdHJ1c3RlZCBwcm94aWVzCiAgLSBwYXJzZWQ6IHJlbW90ZV9pcAogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QuY2xpZW50X2lwCiAgLSBwYXJzZWQ6IHJlbW90ZV9hZGRyCiAgICBleHByZXNzaW9uOiAiZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QucmVtb3RlX2FkZHIgIT0gbmlsID8gU3BsaXQoZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QucmVtb3RlX2FkZHIsICc6JylbMF0gOiBuaWwiCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQucmVtb3RlX2lwCiAgLSBtZXRhOiBodHRwX3N0YXR1cwogICAgZXhwcmVzc2lvbjogaW50KGV2dC5Vbm1hcnNoYWxlZC5jYWRkeS5zdGF0dXMpCiAgLSBtZXRhOiBodHRwX3BhdGgKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5jYWRkeS5yZXF1ZXN0LnVyaQogIC0gcGFyc2VkOiByZXF1ZXN0ICNBZGQgZm9yIGh0dHAtbG9ncyBlbnJpY2hlcgogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QudXJpCiAgLSBwYXJzZWQ6IHZlcmIKICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5jYWRkeS5yZXF1ZXN0Lm1ldGhvZAogIC0gbWV0YTogaHR0cF92ZXJiCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuY2FkZHkucmVxdWVzdC5tZXRob2QKICAtIHBhcnNlZDogaHR0cF91c2VyX2FnZW50CiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuY2FkZHkucmVxdWVzdC5oZWFkZXJzWydVc2VyLUFnZW50J11bMF0KICAtIG1ldGE6IGh0dHBfdXNlcl9hZ2VudAogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QuaGVhZGVyc1snVXNlci1BZ2VudCddWzBdCiAgLSBtZXRhOiB0YXJnZXRfZnFkbgogICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLmNhZGR5LnJlcXVlc3QuaG9zdAogIC0gbWV0YTogc3ViX3R5cGUKICAgIGV4cHJlc3Npb246ICJldnQuTWV0YS5odHRwX3N0YXR1cyA9PSAnNDAxJyAmJiBldnQuVW5tYXJzaGFsZWQucmVxdWVzdC5oZWFkZXJzLkF1dGhvcml6YXRpb24gc3RhcnRzV2l0aCAnQmFzaWMgJyA/ICdhdXRoX2ZhaWwnIDogJyci",
    "description": "Parse caddy logs",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/configserver-lfd-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/configserver-lfd-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "d066bf65a18de919170ddc124550c4617246053031355c66150262e1be2d968f",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBDb25maWdTZXJlciBMRkQgZmlsZSBsb2dzLiA=",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnbGZkJyIKbmFtZTogY3Jvd2RzZWN1cml0eS9jb25maWdzZXJ2ZXItbGZkLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBDb25maWdTZXJ2ZXIgTEZEIGxvZ3MiCmRlYnVnOiB0cnVlCmdyb2s6CiAgcGF0dGVybjogIkZhaWxlZCBTU0ggbG9naW4gZnJvbSAle0lQOnNvdXJjZV9pcH0gXFwoJXtOT1RTUEFDRTpjb3VudHJ5X2NvZGV9LyV7R1JFRURZREFUQTpjb3VudHJ5X25hbWV9LyV7Tk9UU1BBQ0U6c291cmNlX3JkbnN9XFwpOiAle0dSRUVEWURBVEE6cmVhc29ufSIKICBhcHBseV9vbjogbWVzc2FnZQogIHN0YXRpY3M6CiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5zb3VyY2VfaXAiCiAgICAtIG1ldGE6IHJlYXNvbgogICAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC5yZWFzb24i",
+   "description": "Parse ConfigServer LFD logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -8986,6 +9039,31 @@
    "author": "crowdsecurity",
    "labels": {
     "remediation": true
+   }
+  },
+  "crowdsecurity/configserver-lfd-bf": {
+   "path": "scenarios/crowdsecurity/configserver-lfd-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "5752cf0e3b12356803e6a3d0a2a97dd89ec3266b4ce0b49d48f6bfe5980ee5bc",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBTU0ggYnJ1dGVmb3JjZSBhdHRlbXB0cyBibG9ja2VkIGJ5IENvbmZpZyBTZXJ2ZXIgKGFrYSBDU0YpLgoKTG9ncyB1c3VhbGx5IGluIHRoZSBmb2xsb3dpbmcgZmlsZTogL3Zhci9sb2cvbGZkLmxvZw==",
+   "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2NvbmZpZ3NlcnZlci1sZmQtYmYKZGVzY3JpcHRpb246ICJEZXRlY3RzIFNTSCBicnV0ZWZvcmNlIGF0dGVtcHRzIGJsb2NrZWQgYnkgQ29uZmlnU2VydmVyLiIKZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdsZmQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBsYWJlbDogIlNTSCBCcnV0ZWZvcmNlIgogIGJlaGF2aW9yOiAic3NoOmJydXRlZm9yY2UiCiAgcmVtZWRpYXRpb246IHRydWUKCg==",
+   "description": "Detects SSH bruteforce attempts blocked by ConfigServer.",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "ssh:bruteforce",
+    "classification": [
+     "attack.T1110"
+    ],
+    "confidence": 3,
+    "label": "SSH Bruteforce",
+    "remediation": true,
+    "service": "ssh",
+    "spoofable": 0
    }
   },
   "crowdsecurity/cpanel-bf": {
