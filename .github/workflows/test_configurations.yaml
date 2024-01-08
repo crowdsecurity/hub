@@ -30,6 +30,11 @@ on:
       - '.github/workflows/**.yml'
       - '.tests/**'
       - '!.github/workflows/update_taxonomy.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-hub-tests:
     runs-on: ubuntu-latest
