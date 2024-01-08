@@ -27,8 +27,7 @@ func main() {
 	}
 
 	if len(filesList) == 0 {
-		fmt.Printf("No files in dataset '%s', please download with '-download'\n", config.DatasetFolder)
-		return
+		log.Fatalf("No files in dataset '%s', please download with '-download'\n", config.DatasetFolder)
 	}
 
 	if config.batch {

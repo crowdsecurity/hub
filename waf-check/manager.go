@@ -24,6 +24,7 @@ type FailTest struct {
 	Request     Request  `json:"request"`
 	Response    Response `json:"response"`
 	CurlCommand string   `json:"curl"`
+	Error       string   `json:"error"`
 }
 
 type Result struct {
@@ -67,11 +68,11 @@ func (m *Manager) processFile(file string) {
 		}
 
 		if resp.StatusCode == http.StatusForbidden {
+			readErr := ""
 			responseBody, err := io.ReadAll(resp.Body)
 			if err != nil {
-				fmt.Printf("error reading response body for URL %s: %s\n", request.FullURL, err)
-				resp.Body.Close()
-				continue
+				readErr = fmt.Sprintf("error reading response body for URL %s: %s\n", request.FullURL, err)
+				fmt.Println(readErr)
 			}
 			response := Response{
 				URL:        request.URL,
@@ -83,6 +84,7 @@ func (m *Manager) processFile(file string) {
 				Request:     request,
 				Response:    response,
 				CurlCommand: request.Curl(),
+				Error:       readErr,
 			}
 			result.FailedTests = append(result.FailedTests, failedTest)
 		}
