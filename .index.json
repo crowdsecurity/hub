@@ -872,6 +872,33 @@
     "type": "exploit"
    }
   },
+  "crowdsecurity/vpatch-CVE-2023-6553": {
+   "path": "appsec-rules/crowdsecurity/vpatch-CVE-2023-6553.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "7f1b24ef1f47484198636bb3c21580d075befe0be4a5438c2fb881d7a8646827",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjU1MwpkZXNjcmlwdGlvbjogIkJhY2t1cCBNaWdyYXRpb24gcGx1Z2luIGZvciBXb3JkUHJlc3MgUkNFIChDVkUtMjAyMy02NTUzKSIKcnVsZXM6CiAgLSBhbmQ6CiAgICAtIHpvbmVzOgogICAgICAtIFVSSQogICAgICB0cmFuc2Zvcm06CiAgICAgIC0gbG93ZXJjYXNlCiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IGVuZHNXaXRoCiAgICAgICAgdmFsdWU6IC93cC1jb250ZW50L3BsdWdpbnMvYmFja3VwLWJhY2t1cC9pbmNsdWRlcy9iYWNrdXAtaGVhcnQucGhwCiAgICAtIHpvbmVzOgogICAgICAtIEhFQURFUlMKICAgICAgdmFyaWFibGVzOgogICAgICAtIGNvbnRlbnQtZGlyCiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IHN0YXJ0c1dpdGgKICAgICAgICB2YWx1ZTogInBocDovL2ZpbHRlciIKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQmFja3VwIE1pZ3JhdGlvbiBwbHVnaW4gZm9yIFdvcmRQcmVzcyBSQ0UiCiAgY2xhc3NpZmljYXRpb246CiAgIC0gY3ZlLkNWRS0yMDIzLTY1NTMKICAgLSBhdHRhY2suVDE1OTUKICAgLSBhdHRhY2suVDExOTAKICAgLSBjd2UuQ1dFLTI4Nw==",
+   "description": "Backup Migration plugin for WordPress RCE (CVE-2023-6553)",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "cve.CVE-2023-6553",
+     "attack.T1595",
+     "attack.T1190",
+     "cwe.CWE-287"
+    ],
+    "confidence": 3,
+    "label": "Backup Migration plugin for WordPress RCE",
+    "service": "http",
+    "spoofable": 0,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/vpatch-env-access": {
    "path": "appsec-rules/crowdsecurity/vpatch-env-access.yaml",
    "version": "0.1",
@@ -1503,7 +1530,7 @@
   },
   "crowdsecurity/appsec-virtual-patching": {
    "path": "collections/crowdsecurity/appsec-virtual-patching.yaml",
-   "version": "0.5",
+   "version": "0.6",
    "versions": {
     "0.1": {
      "digest": "a165d638c8d826a932e4ca4e70ec5379d558a0bee1356e871c7c92cc2df714fc",
@@ -1524,10 +1551,14 @@
     "0.5": {
      "digest": "b15a1c03f30928de35d1744f77a32dd4efe06517a9d14a640c13035124922a20",
      "deprecated": false
+    },
+    "0.6": {
+     "digest": "9ef6be9953b564972004433adab368203163324bc71f236e0589b567b7c8f97b",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIHZpcnR1YWwgcGF0Y2hpbmcgZm9yIGNvbW1vbmx5IGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGFuZCBpcyBpbnNwaXJlZCBmcm9tIHRoZSBbQ0lTQSBLbm93biBFeHBsb2l0ZWQgVnVsbmVyYWJpbGl0aWVzIENhdGFsb2ddKGh0dHBzOi8vd3d3LmNpc2EuZ292L2tub3duLWV4cGxvaXRlZC12dWxuZXJhYmlsaXRpZXMtY2F0YWxvZykuIFRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgdmlydHVhbCBwYXRjaGluZyBjYXBhYmlsaXRpZXMgZm9yIHRoZSBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLCBhdm9pZGluZyBmYWxzZSBwb3NpdGl2ZXMgd2hpbGUgY2F0Y2hpbmcgcG9wbGUgc2NvdXRpbmcgeW91ciBhcHBsaWNhdGlvbnMgZm9yIGp1aWN5IHZ1bG5lcmFiaWxpdGllcy4K",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTgtMTA1NjIKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLWxhcmF2ZWwtZGVidWctbW9kZQphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKZGVzY3JpcHRpb246ICJhIGdlbmVyaWMgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgbW9zdCB3ZWIgc2VydmVycy4iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQoK",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTgtMTA1NjIKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTY1NTMKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLWxhcmF2ZWwtZGVidWctbW9kZQphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKZGVzY3JpcHRpb246ICJhIGdlbmVyaWMgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgbW9zdCB3ZWIgc2VydmVycy4iCmF1dGhvcjogY3Jvd2RzZWN1cml0eQoK",
    "description": "a generic virtual patching collection, suitable for most web servers.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1560,6 +1591,7 @@
     "crowdsecurity/vpatch-CVE-2019-12989",
     "crowdsecurity/vpatch-CVE-2022-44877",
     "crowdsecurity/vpatch-CVE-2018-10562",
+    "crowdsecurity/vpatch-CVE-2023-6553",
     "crowdsecurity/vpatch-laravel-debug-mode"
    ],
    "appsec-configs": [
