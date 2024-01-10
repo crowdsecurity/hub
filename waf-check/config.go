@@ -25,8 +25,9 @@ func LoadConfig() (Config, error) {
 
 	configFile := flag.String("config", "./config.yaml", "Configuration file")
 	datasetFolder := flag.String("dataset", "", "Path to dataset. Priority over configuration file")
+	outputFolder := flag.String("output", "", "Path to fail directory. Priority over configuration file")
 	batch := flag.Bool("batch", false, "Batch mode")
-	download := flag.Bool("download", false, "Download dataset")
+	download := flag.Bool("download", false, "Download dataset. Priority over configuration file")
 	dirCount := flag.Int("dir-count", 3, "Split batch")
 	flag.Parse()
 
@@ -44,6 +45,10 @@ func LoadConfig() (Config, error) {
 
 	if *datasetFolder != "" {
 		config.DatasetFolder = *datasetFolder
+	}
+
+	if *outputFolder != "" {
+		config.OutputFolder = *outputFolder
 	}
 
 	if *download {
