@@ -18,6 +18,7 @@ type Manager struct {
 	WafURL      string
 	NbWorker    int
 	filesList   []string
+	statusCode  int
 }
 
 type FailTest struct {
@@ -67,7 +68,7 @@ func (m *Manager) processFile(file string) {
 			log.Fatalf("error doing request from file '%s' to '%s': %s", file, request.FullURL, err)
 		}
 
-		if resp.StatusCode == http.StatusForbidden {
+		if resp.StatusCode == m.statusCode {
 			readErr := ""
 			responseBody, err := io.ReadAll(resp.Body)
 			if err != nil {
@@ -105,6 +106,7 @@ func NewManager(config Config, filesList []string) Manager {
 		filesChan:   make(chan string),
 		resultsChan: make(chan Result, len(filesList)),
 		filesList:   filesList,
+		statusCode:  config.statusCode,
 	}
 }
 
