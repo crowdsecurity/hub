@@ -19,9 +19,11 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 		totalTestFail += len(result.FailedTests)
 
 		resultCpt += 1
+
+		percentage := (100.0 * float32(len(result.FailedTests))) / float32(result.DoneTests)
 		fmt.Printf("'%s' result:\n", result.Filename)
 		fmt.Printf("  - %d/%d tests done\n", result.DoneTests, result.TotalTests)
-		fmt.Printf("  - %d/%d tests failed\n", len(result.FailedTests), result.DoneTests)
+		fmt.Printf("  - %d/%d tests failed (%.2f %%)\n", len(result.FailedTests), result.DoneTests, percentage)
 		if len(result.FailedTests) > 0 {
 			filename := filepath.Base(result.Filename)
 			failedTestFile := fmt.Sprintf("failed_%s", filename)
@@ -42,10 +44,11 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 	}
 	close(resultsChan)
 
+	percentageTotal := (100.0 * float32(totalTestFail)) / float32(totalTestRun)
 	fmt.Println("Result:")
 	fmt.Printf("  - Total file: %d\n", totalFileRun)
 	fmt.Printf("  - Total test: %d\n", totalTestRun)
-	fmt.Printf("  - Total fail: %d\n", totalTestFail)
+	fmt.Printf("  - Total fail: %d (%.2f %%)\n", totalTestFail, percentageTotal)
 
 	if totalTestFail > 0 {
 		return fmt.Errorf("%d tests have failed", totalTestFail)
