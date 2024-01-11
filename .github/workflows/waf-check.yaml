@@ -100,3 +100,8 @@ jobs:
         name: waf-check-result
         path: ./waf-check/output/
         retention-days: 1
+    - uses: geekyeggo/delete-artifact@v4
+      if: always()
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: waf-check-dataset
