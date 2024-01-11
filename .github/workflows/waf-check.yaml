@@ -90,6 +90,9 @@ jobs:
     - name: Build and Run Waf Check
       run: |
         cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
+    - name: copy /var/log/crowdsec.log
+      if: failure()
+      run: |
         sudo cp /var/log/crowdsec.log .
         sudo chmod 755 crowdsec.log
     - uses: actions/upload-artifact@v4
