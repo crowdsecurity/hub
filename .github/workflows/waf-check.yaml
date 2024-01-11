@@ -90,6 +90,9 @@ jobs:
     - name: Build and Run Waf Check
       run: |
         cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
+    - run: |
+        ls -la
+        ls -la ./waf-check/
     - uses: actions/upload-artifact@v4
       name: Upload dataset in artifact
       with:
