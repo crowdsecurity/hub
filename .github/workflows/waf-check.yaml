@@ -94,7 +94,7 @@ jobs:
         ls -la
         ls -la ./waf-check/
     - uses: actions/upload-artifact@v4
-      if: always()
+      if: failure()
       name: Upload dataset in artifact
       with:
         name: waf-check-result
