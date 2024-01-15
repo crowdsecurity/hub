@@ -1,0 +1,41 @@
+onsuccess: next_stage
+## Facilite le débogage
+## EN: Enable debugging
+debug: false
+## Nom de la tâche
+## EN: Task name
+name: aidalinfo/tcpudp-flood-traefik
+## Description de la tâche
+## EN: Task description
+description: "Parse TCP/UDP traefik logs"
+## filtre du log à traiter
+## EN: Log filter to process
+filter: "evt.Parsed.program == 'tcpudp-traefik'"
+## Liste des nœuds
+## EN: List of nodes
+nodes:
+## TCP GROK
+  - grok:
+  ## Grok pattern for extract IP SOURCE and other informations on this message structure
+      pattern: 'time="%{TIMESTAMP_ISO8601:time}" level=%{LOGLEVEL:level} msg="Handling TCP connection from %{IP:source_ip}:%{NUMBER:source_port} to %{IP:destination_ip}:%{NUMBER:destination_port}"'
+      ## Apply pattern on for all message in logs
+      apply_on: message
+      statics:
+      ## Add meta value, this type is used by scenario
+        - meta: log_type
+          value: traefik_tcpudp
+## UDP GROK pattern for extract IP SOURCE and other informations on this message structure
+  - grok:
+      pattern: 'time="%{TIMESTAMP_ISO8601:time}" level=%{LOGLEVEL:level} msg="Handling UDP stream from %{IP:source_ip}:%{NUMBER:source_port} to %{IP:destination_ip}:%{NUMBER:destination_port}"'
+     ## Apply pattern on for all message in logs
+      apply_on: message
+      statics:
+      ## Add meta value, this type is used by scenario
+        - meta: log_type
+          value: traefik_tcpudp
+statics:
+## Pass Time and Source IP to other stages and scenarios.
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.time
