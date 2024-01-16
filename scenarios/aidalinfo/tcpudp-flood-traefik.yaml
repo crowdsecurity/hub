@@ -4,7 +4,7 @@ description: "Detect TCP/UDP flood"
 filter: "evt.Meta.log_type == 'traefik_tcpudp'"
 groupby: "evt.Meta.source_ip"
 capacity: 1000
-cache_size: 300
+cache_size: 10
 leakspeed: "10s"
 blackhole: 5m
 labels:
