@@ -1,0 +1,49 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "miniflux  | time=2024-01-12T22:54:56.307Z level=WARN msg=\"Incorrect username or password\" authentication_failed=true client_ip=192.168.0.254 user_agent=\"Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36\" username=hacker1 error=\"store: unable to find this user: hacker1\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "miniflux"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "miniflux-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "miniflux  | time=2024-01-12T22:55:30.265Z level=WARN msg=\"Incorrect username or password\" authentication_failed=true client_ip=192.168.0.254 user_agent=\"Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36\" username=user1 error=\"store: invalid password for \\\"user1\\\" (crypto/bcrypt: hashedPassword is not the hash of the given password)\""
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "miniflux"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "miniflux-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["jbowdre/miniflux-logs"]) == 2
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Success == true
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Parsed["message"] == "miniflux  | time=2024-01-12T22:54:56.307Z level=WARN msg=\"Incorrect username or password\" authentication_failed=true client_ip=192.168.0.254 user_agent=\"Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36\" username=hacker1 error=\"store: unable to find this user: hacker1\""
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Parsed["program"] == "miniflux"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Parsed["source_ip"] == "192.168.0.254"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Parsed["timestamp"] == "2024-01-12T22:54:56.307Z"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Parsed["username"] == "hacker1"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["datasource_path"] == "miniflux-logs.log"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["evt.StrTimeFormat"] == "2006-01-02T15:04:05.999Z"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["log_subtype"] == "miniflux_bad_user"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["log_type"] == "miniflux_failed_auth"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["service"] == "miniflux"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["source_ip"] == "192.168.0.254"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Meta["user"] == "hacker1"
+results["s01-parse"]["jbowdre/miniflux-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Success == true
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Parsed["message"] == "miniflux  | time=2024-01-12T22:55:30.265Z level=WARN msg=\"Incorrect username or password\" authentication_failed=true client_ip=192.168.0.254 user_agent=\"Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36\" username=user1 error=\"store: invalid password for \\\"user1\\\" (crypto/bcrypt: hashedPassword is not the hash of the given password)\""
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Parsed["program"] == "miniflux"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Parsed["source_ip"] == "192.168.0.254"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Parsed["timestamp"] == "2024-01-12T22:55:30.265Z"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Parsed["username"] == "user1"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["datasource_path"] == "miniflux-logs.log"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["evt.StrTimeFormat"] == "2006-01-02T15:04:05.999Z"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["log_subtype"] == "miniflux_bad_password"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["log_type"] == "miniflux_failed_auth"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["service"] == "miniflux"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["source_ip"] == "192.168.0.254"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Meta["user"] == "user1"
+results["s01-parse"]["jbowdre/miniflux-logs"][1].Evt.Whitelisted == false
+len(results["success"][""]) == 0
