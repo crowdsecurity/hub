@@ -2,8 +2,7 @@ A collection to defend [Miniflux](https://miniflux.app/) instance against common
  - Miniflux parser
  - Miniflux bruteforce detection
 
-> [!NOTE]
-> Miniflux doesn't write timestamps in logs by default. You must set `LOG_DATE_TIME=1` to enable timestamps.
+**Note:** Miniflux doesn't write timestamps in logs by default. You must set `LOG_DATE_TIME=1` to enable timestamps.
 
 ## Acquisition template
 
