@@ -1100,6 +1100,36 @@
     "type": "exploit"
    }
   },
+  "crowdsecurity/vpatch-CVE-2023-7028": {
+   "path": "appsec-rules/crowdsecurity/vpatch-CVE-2023-7028.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "811a139492660287a20b85f93f48c4ae1de59ff4a22f8c73d7a7f5a56933d273",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "e5171ce8e1da414ec9d165d6bfcd407eaad7f9f2b88531ce0651317dc4bbfa14",
+     "deprecated": false
+    }
+   },
+   "content": "Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTcwMjgKZGVzY3JpcHRpb246ICJHaXRsYWIgUGFzc3dvcmQgUmVzZXQgQWNjb3VudCBUYWtlb3ZlciAoQ1ZFLTIwMjMtNzAyOCkiCnJ1bGVzOgogIC0gYW5kOgogICAgLSB6b25lczoKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBlbmRzV2l0aAogICAgICAgIHZhbHVlOiAvdXNlcnMvcGFzc3dvcmQKICAgIC0gem9uZXM6CiAgICAgIC0gTUVUSE9ECiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgIHZhbHVlOiBQT1NUCiAgICAtIHpvbmVzOgogICAgICAtIEJPRFlfQVJHUwogICAgICB2YXJpYWJsZXM6CiAgICAgIC0gJ3VzZXJbZW1haWxdW10nCiAgICAgIHRyYW5zZm9ybToKICAgICAgLSBjb3VudAogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBndGUKICAgICAgICB2YWx1ZTogMgpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHNlcnZpY2U6IGh0dHAKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgYmVoYXZpb3I6ICJodHRwOmV4cGxvaXQiCiAgbGFiZWw6ICJHaXRsYWIgUGFzc3dvcmQgUmVzZXQgQWNjb3VudCBUYWtlb3ZlciIKICBjbGFzc2lmaWNhdGlvbjoKICAgLSBjdmUuQ1ZFLTIwMjMtNzAyOAogICAtIGF0dGFjay5UMTU5NQogICAtIGF0dGFjay5UMTE5MA==",
+   "description": "Gitlab Password Reset Account Takeover (CVE-2023-7028)",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "cve.CVE-2023-7028",
+     "attack.T1595",
+     "attack.T1190"
+    ],
+    "confidence": 3,
+    "label": "Gitlab Password Reset Account Takeover",
+    "service": "http",
+    "spoofable": 0,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/vpatch-env-access": {
    "path": "appsec-rules/crowdsecurity/vpatch-env-access.yaml",
    "version": "0.1",
@@ -1731,7 +1761,7 @@
   },
   "crowdsecurity/appsec-virtual-patching": {
    "path": "collections/crowdsecurity/appsec-virtual-patching.yaml",
-   "version": "0.8",
+   "version": "0.9",
    "versions": {
     "0.1": {
      "digest": "a165d638c8d826a932e4ca4e70ec5379d558a0bee1356e871c7c92cc2df714fc",
@@ -1764,10 +1794,14 @@
     "0.8": {
      "digest": "c01f361d48f93381b296a9c528992adee4637df7e161881ba8f41752cea70abd",
      "deprecated": false
+    },
+    "0.9": {
+     "digest": "9dd886832f31bace922431d965094f1c1b38320ea0a84c1badc4a9e895a630d9",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgVmlydHVhbCBQYXRjaGluZwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIHZpcnR1YWwgcGF0Y2hpbmcgZm9yIGNvbW1vbmx5IGV4cGxvaXRlZCB2dWxuZXJhYmlsaXRpZXMsIGFuZCBpcyBpbnNwaXJlZCBmcm9tIHRoZSBbQ0lTQSBLbm93biBFeHBsb2l0ZWQgVnVsbmVyYWJpbGl0aWVzIENhdGFsb2ddKGh0dHBzOi8vd3d3LmNpc2EuZ292L2tub3duLWV4cGxvaXRlZC12dWxuZXJhYmlsaXRpZXMtY2F0YWxvZykuIFRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgdmlydHVhbCBwYXRjaGluZyBjYXBhYmlsaXRpZXMgZm9yIHRoZSBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLCBhdm9pZGluZyBmYWxzZSBwb3NpdGl2ZXMgd2hpbGUgY2F0Y2hpbmcgcG9wbGUgc2NvdXRpbmcgeW91ciBhcHBsaWNhdGlvbnMgZm9yIGp1aWN5IHZ1bG5lcmFiaWxpdGllcy4K",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTgtMTA1NjIKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTY1NTMKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLWxhcmF2ZWwtZGVidWctbW9kZQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMjgxMjEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIwLTE3NDk2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0xMzg5CmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS92aXJ0dWFsLXBhdGNoaW5nCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApkZXNjcmlwdGlvbjogImEgZ2VuZXJpYyB2aXJ0dWFsIHBhdGNoaW5nIGNvbGxlY3Rpb24sIHN1aXRhYmxlIGZvciBtb3N0IHdlYiBzZXJ2ZXJzLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cgo=",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtdmlydHVhbC1wYXRjaGluZwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1lbnYtYWNjZXNzCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00MDA0NAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTctOTg0MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjAtMTE3MzgKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI3OTI2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi0zNTkxNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjItNDYxNjkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMTk4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMjUxNQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMzM2MTcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM0MzYyCiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0zNTE5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy00Mjc5MwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNTAxNjQKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTM4MjA1CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yNDQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMzEyOQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjEtMjI5NDEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDE5LTEyOTg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMi00NDg3NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMTgtMTA1NjIKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTY1NTMKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLWxhcmF2ZWwtZGVidWctbW9kZQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtMjgxMjEKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIwLTE3NDk2CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0xMzg5CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy03MDI4CmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS92aXJ0dWFsLXBhdGNoaW5nCnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApkZXNjcmlwdGlvbjogImEgZ2VuZXJpYyB2aXJ0dWFsIHBhdGNoaW5nIGNvbGxlY3Rpb24sIHN1aXRhYmxlIGZvciBtb3N0IHdlYiBzZXJ2ZXJzLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cgo=",
    "description": "a generic virtual patching collection, suitable for most web servers.",
    "author": "crowdsecurity",
    "labels": null,
@@ -1804,7 +1838,8 @@
     "crowdsecurity/vpatch-laravel-debug-mode",
     "crowdsecurity/vpatch-CVE-2023-28121",
     "crowdsecurity/vpatch-CVE-2020-17496",
-    "crowdsecurity/vpatch-CVE-2023-1389"
+    "crowdsecurity/vpatch-CVE-2023-1389",
+    "crowdsecurity/vpatch-CVE-2023-7028"
    ],
    "appsec-configs": [
     "crowdsecurity/virtual-patching"
