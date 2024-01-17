@@ -1,0 +1,39 @@
+# miniflux BF scan
+name: jbowdre/miniflux-bf
+description: "Detect miniflux bruteforce"
+filter: "evt.Meta.log_type == 'miniflux_failed_auth'"
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: miniflux
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Miniflux Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+# miniflux user-enum
+type: leaky
+name: jbowdre/miniflux-bf_user-enum
+description: "Detect miniflux user enum bruteforce"
+filter: "evt.Meta.log_type == 'miniflux_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 1m
+capacity: 5
+blackhole: 1m
+labels:
+  service: miniflux
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Miniflux Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+
