@@ -28,6 +28,7 @@ type typeInfo struct {
 	Scenarios       []string               `json:"scenarios,omitempty"`
 	AppsecRules     []string               `json:"appsec-rules,omitempty"`
 	AppsecConfigs   []string               `json:"appsec-configs,omitempty"`
+	Contexts        []string               `json:"contexts,omitempty"`
 	Collections     []string               `json:"collections,omitempty"`
 }
 
@@ -41,6 +42,7 @@ type fileInfo struct {
 	Scenarios     []string               `yaml:"scenarios,omitempty"`
 	AppsecRules   []string               `yaml:"appsec-rules,omitempty"`
 	AppsecConfigs []string               `yaml:"appsec-configs,omitempty"`
+	Contexts      []string               `yaml:"contexts,omitempty"`
 	Collections   []string               `yaml:"collections,omitempty"`
 }
 
@@ -55,6 +57,7 @@ var types = []string{
 	"postoverflows",
 	"appsec-rules",
 	"appsec-configs",
+	"contexts",
 	"collections",
 }
 
