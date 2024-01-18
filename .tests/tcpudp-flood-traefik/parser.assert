@@ -1,0 +1,74 @@
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling UDP stream from 1.2.3.44:34871 to 192.168.176.3:21116\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling TCP connection from 1.2.3.4:35501 to 192.168.176.3:21116\""
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Success == true
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["destination_ip"] == "192.168.176.3"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["destination_port"] == "21116"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["level"] == "debug"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling UDP stream from 1.2.3.44:34871 to 192.168.176.3:21116\""
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["source_ip"] == "1.2.3.44"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["source_port"] == "34871"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Parsed["time"] == "2024-01-15T18:43:09Z"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Meta["log_type"] == "traefik_tcpudp"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Meta["source_ip"] == "1.2.3.44"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][0].Evt.Whitelisted == false
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Success == true
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["destination_ip"] == "192.168.176.3"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["destination_port"] == "21116"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["level"] == "debug"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling TCP connection from 1.2.3.4:35501 to 192.168.176.3:21116\""
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["source_port"] == "35501"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Parsed["time"] == "2024-01-15T18:43:09Z"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Meta["log_type"] == "traefik_tcpudp"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["aidalinfo/tcpudp-flood-traefik"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["destination_ip"] == "192.168.176.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["destination_port"] == "21116"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling UDP stream from 1.2.3.44:34871 to 192.168.176.3:21116\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.2.3.44"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_port"] == "34871"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["time"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "traefik_tcpudp"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.44"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["destination_ip"] == "192.168.176.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["destination_port"] == "21116"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "time=\"2024-01-15T18:43:09Z\" level=debug msg=\"Handling TCP connection from 1.2.3.4:35501 to 192.168.176.3:21116\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "tcpudp-traefik"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_port"] == "35501"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["time"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "tcpudp-flood-traefik.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "traefik_tcpudp"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2024-01-15T18:43:09Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false

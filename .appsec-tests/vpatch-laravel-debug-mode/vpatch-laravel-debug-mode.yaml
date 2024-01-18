@@ -1,0 +1,37 @@
+id: vpatch-laravel-debug-mode
+info:
+  name: vpatch-laravel-debug-mode
+  author: crowdsec
+  severity: info
+  description: vpatch-laravel-debug-mode testing
+  tags: appsec-testing
+http:
+#this is a dummy request, edit the request(s) to match your needs
+  - raw:
+    - |
+      POST /test HTTP/1.1
+      Host: {{Hostname}}
+      Content-Type: application/x-www-form-urlencoded
+
+      0x[]=androxgh0st
+    - |
+      POST /test HTTP/1.1
+      Host: {{Hostname}}
+      Content-Type: application/x-www-form-urlencoded
+
+      0x%5B%5D=androxgh0st
+    - |
+      POST /test HTTP/1.1
+      Host: {{Hostname}}
+      Content-Type: application/x-www-form-urlencoded
+
+      foo=bar
+    cookie-reuse: true
+#test will fail because we won't match http status 
+    matchers:
+    - type: dsl
+      condition: and
+      dsl:
+        - 'status_code_1 == 403'
+        - 'status_code_2 == 403'
+        - 'status_code_3 == 404'

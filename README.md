@@ -5,14 +5,14 @@
 <p align="center">
 <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_parsers_badge.json">
 <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_scenarios_badge.json">
-<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_waap_badge.json">
+<img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/AlteredCoder/ed74e50c43e3b17bdfc4d93149f23d37/raw/hub_appsec_badge.json">
 </p>
 
 <p align="center">
 :books: <a href="https://doc.crowdsec.net">Documentation</a>
 :diamond_shape_with_a_dot_inside: <a href="https://hub.crowdsec.net">Configuration Hub</a>
 :speech_balloon: <a href="https://discourse.crowdsec.net">Discourse (Forum)</a>
-:speech_balloon: <a href="https://gitter.im/crowdsec-project/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link">Gitter (Live chat)</a>
+:speech_balloon: <a href="https://discord.gg/crowdsec">Discord (Live Chat)</a>
 </p>
 
 > CrowdSec Hub for parsers, enrichers and scenarios.
@@ -112,10 +112,10 @@ Now that we have config & logs, let's run it for the first time :
 ```bash
 ▶ cscli hubtest run dovecot-logs
 
-INFO[27-09-2021 06:13:59 PM] Running test 'dovecot-logs'                  
+INFO[27-09-2021 06:13:59 PM] Running test 'dovecot-logs'
 INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/dovecot-logs' installed successfully in runtime environment
 INFO[27-09-2021 06:13:59 PM] parser 'crowdsecurity/syslog-logs' installed successfully in runtime environment
-WARN[27-09-2021 06:14:02 PM] Assert file '/home/bui/github/hub/.tests/dovecot-logs/parser.assert' is empty, generating assertion: 
+WARN[27-09-2021 06:14:02 PM] Assert file '/home/bui/github/hub/.tests/dovecot-logs/parser.assert' is empty, generating assertion:
 
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 ...
@@ -186,8 +186,8 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][2].Evt.Meta["datasource_type"
 4. Test your newly crafted test
 
 ```bash
-▶ cscli hubtest run dovecot-logs                                
-INFO[27-09-2021 06:19:33 PM] Running test 'dovecot-logs'                  
+▶ cscli hubtest run dovecot-logs
+INFO[27-09-2021 06:19:33 PM] Running test 'dovecot-logs'
 INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/syslog-logs' installed successfully in runtime environment
 INFO[27-09-2021 06:19:33 PM] parser 'crowdsecurity/dovecot-logs' installed successfully in runtime environment
 Test 'dovecot-logs' passed successfully (39 assertions) 🟩
