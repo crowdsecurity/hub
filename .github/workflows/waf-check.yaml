@@ -38,10 +38,6 @@ jobs:
       run: |
         cd waf-check && go build -o waf-check
         ./waf-check -download -batch -dir-count 6
-    - name: debug
-      run: |
-        ls
-        ls waf-check/
     - uses: actions/upload-artifact@v4
       name: Upload dataset in artifact
       with:
@@ -94,5 +90,15 @@ jobs:
     - name: Build and Run Waf Check
       run: |
         cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
-
-
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      name: Upload dataset in artifact
+      with:
+        name: waf-check-result
+        path: ./waf-check/output/
+        retention-days: 1
+    - uses: geekyeggo/delete-artifact@v4
+      if: always()
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: waf-check-dataset
