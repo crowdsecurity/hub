@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/aidalinfo/tcpudp-flood-traefik.yaml
+scenarios:
+- ./scenarios/aidalinfo/tcpudp-flood-traefik.yaml
+postoverflows:
+- ""
+log_file: tcpudp-flood-traefik.log
+log_type: tcpudp-traefik
+labels: {}
+ignore_parsers: false
+override_statics: []

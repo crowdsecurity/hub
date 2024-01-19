@@ -3,14 +3,16 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'scenarios/**.yaml'
-      - 'parsers/**.yaml'
-      - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - 'scenarios/**.yml'
-      - 'parsers/**.yml'
-      - 'postoverflows/**.yml'
       - 'collections/**.yml'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
@@ -18,18 +20,25 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'scenarios/**.yaml'
-      - 'parsers/**.yaml'
-      - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - 'scenarios/**.yml'
-      - 'parsers/**.yml'
-      - 'postoverflows/**.yml'
       - 'collections/**.yml'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
       - '!.github/workflows/update_taxonomy.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-hub-tests:
     runs-on: ubuntu-latest

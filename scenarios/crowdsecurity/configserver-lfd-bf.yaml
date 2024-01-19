@@ -1,0 +1,16 @@
+type: trigger
+name: crowdsecurity/configserver-lfd-bf
+description: "Detects SSH bruteforce attempts blocked by ConfigServer."
+filter: "evt.Parsed.program == 'lfd'"
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: ssh
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "SSH Bruteforce"
+  behavior: "ssh:bruteforce"
+  remediation: true
+

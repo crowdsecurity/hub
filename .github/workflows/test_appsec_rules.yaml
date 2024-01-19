@@ -19,8 +19,12 @@ on:
       - '.github/workflows/test_appsec_rules.yaml'
       - '.appsec-tests/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  run-hub-tests:
+  run-appsec-rules-tests:
     runs-on: ubuntu-20.04
     steps:
     - name: Check out code into the Go module directory
