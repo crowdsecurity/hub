@@ -17,25 +17,11 @@ nodes:
           expression: evt.Parsed.timestamp
         - meta: path_db
           expression: evt.Parsed.request
-  - grok:
-      pattern: '\[%{LOGLEVEL:loglevel}\] %{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA} <%{DATA:process_id}> %{DATA:request_id} %{DATA:auth_module}: Authentication failed for user %{USERNAME:user} from %{IP:source_ip}'
-      apply_on: message
-      statics:
-        - meta: stage_log
-          value: root-done
-        - meta: target_user
-          expression: "evt.Parsed.user"
-        - meta: source_ip
-          expression: "evt.Parsed.source_ip"
-        - target: evt.StrTime
-          expression: evt.Parsed.timestamp
-        - meta: FAIL_AUTH
-          value: "true"
 ---
 onsuccess: next_stage
 filter: "evt.Meta.stage_log == 'root-done'"
 name: aidalinfo/couchdb-log-subnode
-description: "Second step sort if is bruteforce, crawl or bruteforce on existing db"
+description: "Second step sort if is bruteforce or crawl"
 # debug: true
 nodes:
   - filter: "evt.Parsed.http_status_code == '401'"
@@ -48,8 +34,3 @@ nodes:
     statics:
       - meta: log_type
         value: crawl-couchdb
-  - filter: "evt.Meta.FAIL_AUTH == 'true'"
-    debug: false
-    statics:
-      - meta: log_type
-        value: fail-auth-couchdb
