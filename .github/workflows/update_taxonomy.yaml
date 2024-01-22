@@ -42,6 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           filePath: taxonomy/scenario_taxonomy_errors.md
           pr_number: ${{ steps.findPr.outputs.pr }}
+      - uses: nelonoel/branch-name@v1.0.1
       - name: Commit files
         if: ${{ github.event_name == 'push'}}
         run: |
