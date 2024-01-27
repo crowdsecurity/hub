@@ -76,10 +76,10 @@ jobs:
           echo "changed_files=${changed_files}" >> $GITHUB_ENV
       - name: Invalidate cache
         run: |
-          create_invalidation() {
-            #$1 is not quotted on purpose, so it can be expanded to multiple arguments
-            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
-          }
+          # create_invalidation() {
+          #   #$1 is not quotted on purpose, so it can be expanded to multiple arguments
+          #   aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
+          # }
           # PATHS="/${{ env.version }}/.index.json"
           # IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
           # for i in "${FILE[@]}"; do
@@ -87,6 +87,6 @@ jobs:
           # done
           # echo "Invalidating paths: $PATHS"
           for ((i=0; i < 3; i++)); do
-            create_invalidation "'/*'" && break || echo "Invalidation failed, retrying in 5 seconds..."
+            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths '/*' && break || echo "Invalidation failed, retrying in 5 seconds..."
             sleep 5
           done
