@@ -1,0 +1,15 @@
+type: trigger
+name: barnoux/coraza
+description: "Web exploitation detected via coraza"
+filter: evt.Meta.log_type == 'modsecurity' && evt.Parsed.ruleid == '949110'
+blackhole: 2m
+labels:
+  remediation: true
+  classification:
+    - attack.T1595
+    - attack.T1190
+  behavior: "http:exploit"
+  label: "Coraza Alert"
+  spoofable: 0
+  confidence: 2
+  service: http
