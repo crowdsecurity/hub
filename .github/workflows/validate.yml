@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: checkout hub
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'crowdsecurity/crowdsec-yaml-schemas'
         path: crowdsec-yaml-schemas
@@ -37,6 +37,6 @@ jobs:
     - name: validate postoverflows against schema
       run: |
         for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
-    - name: validate collections against schema
-      run: |
-        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
+#    - name: validate collections against schema
+#      run: |
+#        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done

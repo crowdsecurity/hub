@@ -5,9 +5,6 @@ set -e
 git clone https://github.com/crowdsecurity/cs-openresty-bouncer.git
 cd cs-openresty-bouncer
 
-# tmp until we merge
-git checkout waf_integration
-
 # make the release
 make release
 tar xzvf crowdsec-openresty-bouncer.tgz

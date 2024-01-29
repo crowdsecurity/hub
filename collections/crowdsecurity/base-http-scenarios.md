@@ -7,6 +7,7 @@ A collection of defensive (implementation independent) scenarios for http servic
  - path traversal detection
  - sensitive data access attempts detection
  - SQL injection detection
+ - administration interface probing detection
 
 :warning: This collection is _not_ a WAF and this scenario does _not_ aims at replacing a WAF.
 

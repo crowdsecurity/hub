@@ -1,0 +1,16 @@
+type: leaky
+name: aidalinfo/tcpudp-flood-traefik
+description: "Detect TCP/UDP flood"
+filter: "evt.Meta.log_type == 'traefik_tcpudp'"
+groupby: "evt.Meta.source_ip"
+capacity: 1000
+cache_size: 10
+leakspeed: "10s"
+blackhole: 5m
+labels:
+  remediation: true
+  classification:
+    - attack.T1498
+  spoofable: 0
+  confidence: 2
+  label: "UDP or TCP Flood Traefik"
