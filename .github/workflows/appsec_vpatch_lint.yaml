@@ -16,6 +16,8 @@ jobs:
         with:
           python-version: "3.10"
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Get changed files
         run: |
           changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
