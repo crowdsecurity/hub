@@ -3,24 +3,27 @@ name: Update index
 on:
   push:
     paths:
-      - 'scenarios/**.yaml'
-      - 'parsers/**.yaml'
-      - 'postoverflows/**.yaml'
-      - 'collections/**.yaml'
-      - 'appsec-rules/**.yaml'
-      - 'appsec-configs/**.yaml'
-      - 'scenarios/**.yml'
-      - 'parsers/**.yml'
-      - 'postoverflows/**.yml'
-      - 'collections/**.yml'
-      - 'appsec-rules/**.yml'
-      - 'appsec-configs/**.yml'
-      - 'scenarios/**.md'
-      - 'parsers/**.md'
-      - 'postoverflows/**.md'
-      - 'collections/**.md'
-      - 'appsec-rules/**.md'
       - 'appsec-configs/**.md'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.md'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - 'collections/**.md'
+      - 'collections/**.yaml'
+      - 'collections/**.yml'
+      - 'contexts/**.md'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.md'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.md'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.md'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
       - '.github/workflows/update-index.yml'
       - "*.go"
 jobs:
@@ -30,7 +33,7 @@ jobs:
       - uses: actions/setup-go@v1
         with:
           go-version: 1.19
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Create local changes
         run: |
           go build
@@ -57,7 +60,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -73,17 +76,17 @@ jobs:
           echo "changed_files=${changed_files}" >> $GITHUB_ENV
       - name: Invalidate cache
         run: |
-          create_invalidation() {
-            #$1 is not quotted on purpose, so it can be expanded to multiple arguments
-            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
-          }
-          PATHS="/${{ env.version }}/.index.json"
-          IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
-          for i in "${FILE[@]}"; do
-            PATHS="$PATHS /${{ env.version }}/$i"
-          done
-          echo "Invalidating paths: $PATHS"
+          # create_invalidation() {
+          #   #$1 is not quotted on purpose, so it can be expanded to multiple arguments
+          #   aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
+          # }
+          # PATHS="/${{ env.version }}/.index.json"
+          # IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
+          # for i in "${FILE[@]}"; do
+          #   PATHS="$PATHS /${{ env.version }}/$i"
+          # done
+          # echo "Invalidating paths: $PATHS"
           for ((i=0; i < 3; i++)); do
-            create_invalidation "$PATHS" && break || echo "Invalidation failed, retrying in 5 seconds..."
+            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths '/*' && break || echo "Invalidation failed, retrying in 5 seconds..."
             sleep 5
           done
