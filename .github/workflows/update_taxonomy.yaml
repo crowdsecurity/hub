@@ -18,7 +18,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Get changed files
         run: |
           changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
@@ -42,12 +44,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           filePath: taxonomy/scenario_taxonomy_errors.md
           pr_number: ${{ steps.findPr.outputs.pr }}
+      - uses: nelonoel/branch-name@v1.0.1
       - name: Commit files
         if: ${{ github.event_name == 'push'}}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          (git add taxonomy/ && git commit -m "Update taxonomy") || exit 0
+          (git add taxonomy/ && git commit -m "Update taxonomy" && git pull --rebase origin ${BRANCH_NAME}) || exit 0
       - name: Push changes
         if: ${{ github.event_name == 'push'}}
         uses: ad-m/github-push-action@master
@@ -67,7 +70,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

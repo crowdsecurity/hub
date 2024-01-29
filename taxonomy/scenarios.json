@@ -684,6 +684,28 @@
       "CVE-2023-7028"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-23897": {
+    "name": "crowdsecurity/vpatch-CVE-2024-23897",
+    "description": "Jenkins CLI RCE (CVE-2023-50164)",
+    "label": "Jenkins CLI RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-23897"
+    ],
+    "cwes": [
+      "CWE-552"
+    ]
+  },
   "crowdsecurity/vpatch-env-access": {
     "name": "crowdsecurity/vpatch-env-access",
     "description": "Detect access to .env files",
@@ -2366,6 +2388,21 @@
     "cti": true,
     "service": "home-assistant"
   },
+  "crowdsecurity/http-admin-interface-probing": {
+    "name": "crowdsecurity/http-admin-interface-probing",
+    "description": "Detect generic http interface probing",
+    "label": "http admin interface probing",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http"
+  },
   "crowdsecurity/http-apiscp-bf": {
     "name": "crowdsecurity/http-apiscp-bf",
     "description": "detect apisCP dashboard bruteforce",
@@ -3426,6 +3463,32 @@
     "spoofable": 0,
     "cti": true,
     "service": "teamspeak3"
+  },
+  "crowdsecurity/teleport-bf": {
+    "name": "crowdsecurity/teleport-bf",
+    "description": "detect teleport bruteforce",
+    "label": "Teleport Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "teleport"
+  },
+  "crowdsecurity/teleport-slow-bf": {
+    "name": "crowdsecurity/teleport-slow-bf",
+    "description": "detect slow teleport bruteforce",
+    "label": "Teleport Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "teleport"
   },
   "crowdsecurity/telnet-bf": {
     "name": "crowdsecurity/telnet-bf",
