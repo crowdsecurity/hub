@@ -1,0 +1,43 @@
+type: leaky
+name: crowdsecurity/teleport-bf
+description: "detect teleport bruteforce"
+filter: | 
+  evt.Meta.service == 'teleport' &&
+  evt.Meta.sub_type in ['auth', 'user.login'] &&
+  evt.Meta.success == 'false'
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: "10s"
+blackhole: 5m
+labels:
+ service: teleport
+ type: bruteforce
+ remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+    - attack.T1110
+ label: "Teleport Bruteforce"
+ behavior: "teleport:bruteforce"
+---
+type: leaky
+name: crowdsecurity/teleport-slow-bf
+description: "detect slow teleport bruteforce"
+filter: | 
+  evt.Meta.service == 'teleport' &&
+  evt.Meta.sub_type in ['auth', 'user.login'] &&
+  evt.Meta.success == 'false'
+groupby: evt.Meta.source_ip
+capacity: 10
+leakspeed: 1m
+blackhole: 5m
+labels:
+ service: teleport
+ type: bruteforce
+ remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+    - attack.T1110
+ label: "Teleport Bruteforce"
+ behavior: "teleport:bruteforce"
