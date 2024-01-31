@@ -1,0 +1,65 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"ei\":0,\"event\":\"user.login\",\"uid\":\"a487975c-a132-4b76-81c1-225284b2a129\",\"code\":\"T1000W\",\"time\":\"2023-09-05T07:16:25.133Z\",\"cluster_name\":\"teleport.home.example.com\",\"user\":\"Bekekrb\",\"success\":false,\"error\":\"invalid username, password or second factor\",\"method\":\"local\",\"user_agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1\",\"addr.remote\":\"172.19.0.2:34204\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "teleport"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "teleport-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+len(results["s01-parse"]["crowdsecurity/teleport-logs"]) == 1
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Parsed["message"] == "{\"ei\":0,\"event\":\"user.login\",\"uid\":\"a487975c-a132-4b76-81c1-225284b2a129\",\"code\":\"T1000W\",\"time\":\"2023-09-05T07:16:25.133Z\",\"cluster_name\":\"teleport.home.example.com\",\"user\":\"Bekekrb\",\"success\":false,\"error\":\"invalid username, password or second factor\",\"method\":\"local\",\"user_agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1\",\"addr.remote\":\"172.19.0.2:34204\"}"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Parsed["program"] == "teleport"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["datasource_path"] == "teleport-logs.log"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["log_type"] == "auth_failed"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["service"] == "teleport"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["source_ip"] == "172.19.0.2"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["sub_type"] == "user.login"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["success"] == "false"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Meta["user"] == "Bekekrb"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["user"] == "Bekekrb"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["addr.remote"] == "172.19.0.2:34204"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["code"] == "T1000W"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["ei"] == 0
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["error"] == "invalid username, password or second factor"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["success"] == false
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["uid"] == "a487975c-a132-4b76-81c1-225284b2a129"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["cluster_name"] == "teleport.home.example.com"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["event"] == "user.login"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["method"] == "local"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["time"] == "2023-09-05T07:16:25.133Z"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Unmarshaled["teleport"]["user_agent"] == "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
+results["s01-parse"]["crowdsecurity/teleport-logs"][0].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"ei\":0,\"event\":\"user.login\",\"uid\":\"a487975c-a132-4b76-81c1-225284b2a129\",\"code\":\"T1000W\",\"time\":\"2023-09-05T07:16:25.133Z\",\"cluster_name\":\"teleport.home.example.com\",\"user\":\"Bekekrb\",\"success\":false,\"error\":\"invalid username, password or second factor\",\"method\":\"local\",\"user_agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1\",\"addr.remote\":\"172.19.0.2:34204\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "teleport"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "teleport-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "auth_failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "teleport"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "172.19.0.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["sub_type"] == "user.login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["success"] == "false"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-09-05T07:16:25.133Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "Bekekrb"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-09-05T07:16:25.133Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["uid"] == "a487975c-a132-4b76-81c1-225284b2a129"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["user_agent"] == "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["cluster_name"] == "teleport.home.example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["method"] == "local"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["time"] == "2023-09-05T07:16:25.133Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["error"] == "invalid username, password or second factor"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["event"] == "user.login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["success"] == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["user"] == "Bekekrb"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["addr.remote"] == "172.19.0.2:34204"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["code"] == "T1000W"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["teleport"]["ei"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0

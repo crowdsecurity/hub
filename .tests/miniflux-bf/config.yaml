@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/jbowdre/miniflux-logs.yaml
+scenarios:
+- ./scenarios/jbowdre/miniflux-bf.yaml
+postoverflows:
+- ""
+log_file: miniflux-bf.log
+log_type: miniflux
+labels: {}
+ignore_parsers: true
+override_statics: []
