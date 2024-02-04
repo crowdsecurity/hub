@@ -1,6 +1,6 @@
 type: trigger
-name: barnoux/coraza
-description: "Web exploitation detected via coraza"
+name: barnoux/crs-anomaly-score
+description: "Web exploitation detected via Core Rule Set inbound anomaly scoring set by the user in crs-setup.conf"
 filter: evt.Meta.log_type == 'modsecurity' && evt.Parsed.ruleid == '949110'
 blackhole: 2m
 labels:
@@ -9,7 +9,7 @@ labels:
     - attack.T1595
     - attack.T1190
   behavior: "http:exploit"
-  label: "Coraza Alert"
+  label: "CRS Anomaly Alert"
   spoofable: 0
   confidence: 2
   service: http
