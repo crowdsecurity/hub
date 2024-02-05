@@ -762,6 +762,22 @@
       "CVE-2019-17050"
     ]
   },
+  "crowdsecurity/vpatch-symfony-profiler": {
+    "name": "crowdsecurity/vpatch-symfony-profiler",
+    "description": "Detect abuse of symfony profiler",
+    "label": "Access to symfony profiler",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http"
+  },
   "Dominic-Wagner/vaultwarden-bf": {
     "name": "Dominic-Wagner/vaultwarden-bf",
     "description": "Detect vaultwarden bruteforce",
@@ -1178,6 +1194,43 @@
     "spoofable": 2,
     "cti": true,
     "service": "mikrotik"
+  },
+  "aidalinfo/couchdb-slow-bf": {
+    "name": "aidalinfo/couchdb-slow-bf",
+    "description": "Detect slow Couchdb bruteforce/enum",
+    "label": "Couchdb low Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
+  },
+  "aidalinfo/couchdb-bf": {
+    "name": "aidalinfo/couchdb-bf",
+    "description": "Detect Couchdb bruteforce/enum",
+    "label": "Couchdb Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
+  },
+  "aidalinfo/couchdb-crawl": {
+    "name": "aidalinfo/couchdb-crawl",
+    "description": "Detect crawl from single ip",
+    "label": "detection of aggressive crawl on couchdb",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
   },
   "aidalinfo/tcpudp-flood-traefik": {
     "name": "aidalinfo/tcpudp-flood-traefik",
