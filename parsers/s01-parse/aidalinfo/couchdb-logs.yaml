@@ -1,0 +1,36 @@
+# debug: true
+filter: "evt.Parsed.program == 'couchdb'"
+name: aidalinfo/couchdb-log-node
+description: "First step get IP, User, time and IP from couchdb logs"
+nodes:
+  - grok:
+      pattern: '\[notice\] %{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA} %{IP:source_ip} %{WORD:user} %{WORD:http_method} %{URIPATHPARAM:request} %{NUMBER:http_status_code}'
+      apply_on: message
+      statics:
+        - meta: stage_log
+          value: root-done
+        - meta: target_user
+          expression: "evt.Parsed.user"
+        - meta: source_ip
+          expression: "evt.Parsed.source_ip"
+        - target: evt.StrTime
+          expression: evt.Parsed.timestamp
+        - meta: path_db
+          expression: evt.Parsed.request
+---
+onsuccess: next_stage
+filter: "evt.Meta.stage_log == 'root-done'"
+name: aidalinfo/couchdb-log-subnode
+description: "Second step sort if is bruteforce or crawl"
+# debug: true
+nodes:
+  - filter: "evt.Parsed.http_status_code == '401'"
+    debug: false
+    statics:
+      - meta: log_type
+        value: bf-enum-couchdb
+  - filter: "evt.Parsed.http_status_code == '404'"
+    debug: false
+    statics:
+      - meta: log_type
+        value: crawl-couchdb
