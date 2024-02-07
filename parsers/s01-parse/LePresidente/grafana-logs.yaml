@@ -13,16 +13,13 @@ nodes:
   - filter: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "grafana") in ["", nil]
     nodes:
     - filter: evt.Unmarshaled.grafana.msg == 'Invalid username or password'
-      nodes:
-        - grok:
-            pattern: '%{IP:remote_ip}'
-            expression: evt.Unmarshaled.grafana.remote_addr
-        - grok: 
-            pattern: '%{TIMESTAMP_ISO8601:timestamp}'
-            expression: evt.Unmarshaled.grafana.t
       statics:
         - meta: log_type
           value: grafana_failed_auth
+        - parsed: remote_ip
+          expression: evt.Unmarshaled.grafana.remote_addr
+        - parsed: timestamp
+          expression: evt.Unmarshaled.grafana.t
 statics:
     - meta: service
       value: grafana
