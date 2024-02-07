@@ -1,22 +1,28 @@
 onsuccess: next_stage
-#debug: false
+debug: true
 name: LePresidente/grafana-logs
 filter: "evt.Parsed.program == 'grafana'"
 description: "Parse grafana logs"
 nodes:
   - grok:
-      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg=Unauthorized error="\[password-auth.failed\] failed to authenticate identity: (\[identity.not-found\] no user found: user not found|\[password-auth.invalid\] invalid password)" remote_addr=%{IP:remote_ip}'
+      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg=("Invalid username or password"|Unauthorized) error="%{GREEDYDATA:error}" remote_addr=%{IP:remote_ip}'
       apply_on: message
       statics:
         - meta: log_type
           value: grafana_failed_auth
-  - grok:
-      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg="Invalid username or password" error="%{GREEDYDATA:error}" remote_addr=%{IP:remote_ip}'
-      apply_on: message
+  - filter: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "grafana") in ["", nil]
+    nodes:
+    - filter: evt.Unmarshaled.grafana.msg == 'Invalid username or password'
+      nodes:
+        - grok:
+            pattern: '%{IP:remote_ip}'
+            expression: evt.Unmarshaled.grafana.remote_addr
+        - grok: 
+            pattern: '%{TIMESTAMP_ISO8601:timestamp}'
+            expression: evt.Unmarshaled.grafana.t
       statics:
         - meta: log_type
           value: grafana_failed_auth
-
 statics:
     - meta: service
       value: grafana

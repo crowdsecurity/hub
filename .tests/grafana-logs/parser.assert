@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 8
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2023-03-14T06:10:23.366875297+02:00 level=error msg=\"Invalid username or password\" error=\"user not found\" remote_addr=192.168.1.1 traceID="
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "grafana"
@@ -19,31 +19,45 @@ results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] ==
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:24:56.503804307Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.2 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "{\"error\":\"invalid username or password\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:33:35.0353436+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "grafana"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:25:22.597595031Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.2 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "{\"error\":\"user not found\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:34:51.1833376+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "grafana"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "logger=context userId=1 orgId=1 uname=myusername t=2024-02-06T07:41:07.335580117Z level=info msg=\"Request Completed\" method=GET path=/logout status=302 remote_addr=192.168.1.2 time_ms=9 duration=9.436424ms size=29 referer=\"https://192.168.1.2/d/ebfm82rZz/hwinf=5s\" handler=/logout"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "{\"User\":\"admin@localhost\",\"level\":\"info\",\"logger\":\"http.server\",\"msg\":\"Successful Login\",\"t\":\"2024-02-07T09:34:16.8294691+02:00\"}"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "grafana"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:19.8927413+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.3 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "grafana"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:22.5261499+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.3 traceID="
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "grafana"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 8
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
-len(results["s01-parse"]["LePresidente/grafana-logs"]) == 6
+results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
+len(results["s01-parse"]["LePresidente/grafana-logs"]) == 8
 results["s01-parse"]["LePresidente/grafana-logs"][0].Success == true
 results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["error"] == "user not found"
 results["s01-parse"]["LePresidente/grafana-logs"][0].Evt.Parsed["loglevel"] == "error"
@@ -72,31 +86,75 @@ results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Meta["source_ip"] == "1
 results["s01-parse"]["LePresidente/grafana-logs"][1].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/grafana-logs"][2].Success == false
 results["s01-parse"]["LePresidente/grafana-logs"][3].Success == true
-results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["loglevel"] == "info"
-results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:24:56.503804307Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.2 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["message"] == "{\"error\":\"invalid username or password\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:33:35.0353436+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["program"] == "grafana"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["remote_ip"] == "192.168.1.2"
-results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["timestamp"] == "2024-02-06T07:24:56.503804307Z"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Parsed["timestamp"] == "2024-02-07T09:33:35.0353436+02:00"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Meta["log_type"] == "grafana_failed_auth"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Meta["service"] == "grafana"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Meta["source_ip"] == "192.168.1.2"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["logger"] == "context"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["msg"] == "Invalid username or password"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["orgId"] == 0
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["uname"] == ""
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["level"] == "error"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["remote_addr"] == "192.168.1.2"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["t"] == "2024-02-07T09:33:35.0353436+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["traceID"] == ""
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["userId"] == 0
+results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Unmarshaled["grafana"]["error"] == "invalid username or password"
 results["s01-parse"]["LePresidente/grafana-logs"][3].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/grafana-logs"][4].Success == true
-results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["loglevel"] == "info"
-results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:25:22.597595031Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.2 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["message"] == "{\"error\":\"user not found\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:34:51.1833376+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["program"] == "grafana"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["remote_ip"] == "192.168.1.2"
-results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["timestamp"] == "2024-02-06T07:25:22.597595031Z"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Parsed["timestamp"] == "2024-02-07T09:34:51.1833376+02:00"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Meta["log_type"] == "grafana_failed_auth"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Meta["service"] == "grafana"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Meta["source_ip"] == "192.168.1.2"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["error"] == "user not found"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["t"] == "2024-02-07T09:34:51.1833376+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["uname"] == ""
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["userId"] == 0
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["traceID"] == ""
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["level"] == "error"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["logger"] == "context"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["msg"] == "Invalid username or password"
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["orgId"] == 0
+results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Unmarshaled["grafana"]["remote_addr"] == "192.168.1.2"
 results["s01-parse"]["LePresidente/grafana-logs"][4].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/grafana-logs"][5].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+results["s01-parse"]["LePresidente/grafana-logs"][6].Success == true
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["error"] == "[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["loglevel"] == "info"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:19.8927413+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.3 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["program"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["remote_ip"] == "192.168.1.3"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Parsed["timestamp"] == "2024-02-07T10:20:19.8927413+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Meta["service"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Meta["source_ip"] == "192.168.1.3"
+results["s01-parse"]["LePresidente/grafana-logs"][6].Evt.Whitelisted == false
+results["s01-parse"]["LePresidente/grafana-logs"][7].Success == true
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["error"] == "[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["loglevel"] == "info"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:22.5261499+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.3 traceID="
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["program"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["remote_ip"] == "192.168.1.3"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Parsed["timestamp"] == "2024-02-07T10:20:22.5261499+02:00"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Meta["service"] == "grafana"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Meta["source_ip"] == "192.168.1.3"
+results["s01-parse"]["LePresidente/grafana-logs"][7].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["error"] == "user not found"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["loglevel"] == "error"
@@ -128,31 +186,79 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-03-14T06:11:26.182430512+02:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["loglevel"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:24:56.503804307Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.2 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "{\"error\":\"invalid username or password\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:33:35.0353436+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "grafana"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["remote_ip"] == "192.168.1.2"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2024-02-06T07:24:56.503804307Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2024-02-07T09:33:35.0353436+02:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "grafana_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "grafana"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.2"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2024-02-06T07:24:56.503804307Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2024-02-06T07:24:56.503804307Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2024-02-07T09:33:35.0353436+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2024-02-07T09:33:35.0353436+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["traceID"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["userId"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["error"] == "invalid username or password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["logger"] == "context"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["msg"] == "Invalid username or password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["orgId"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["remote_addr"] == "192.168.1.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["t"] == "2024-02-07T09:33:35.0353436+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["grafana"]["uname"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["loglevel"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-06T07:25:22.597595031Z level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.2 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "{\"error\":\"user not found\",\"level\":\"error\",\"logger\":\"context\",\"msg\":\"Invalid username or password\",\"orgId\":0,\"remote_addr\":\"192.168.1.2\",\"t\":\"2024-02-07T09:34:51.1833376+02:00\",\"traceID\":\"\",\"uname\":\"\",\"userId\":0}"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "grafana"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["remote_ip"] == "192.168.1.2"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2024-02-06T07:25:22.597595031Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2024-02-07T09:34:51.1833376+02:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "grafana-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "grafana_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["service"] == "grafana"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "192.168.1.2"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2024-02-06T07:25:22.597595031Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2024-02-06T07:25:22.597595031Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2024-02-07T09:34:51.1833376+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2024-02-07T09:34:51.1833376+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["msg"] == "Invalid username or password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["orgId"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["t"] == "2024-02-07T09:34:51.1833376+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["uname"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["userId"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["error"] == "user not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["logger"] == "context"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["remote_addr"] == "192.168.1.2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["grafana"]["traceID"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["error"] == "[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["loglevel"] == "info"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:19.8927413+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [password-auth.invalid] invalid password\" remote_addr=192.168.1.3 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_ip"] == "192.168.1.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "2024-02-07T10:20:19.8927413+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "192.168.1.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2024-02-07T10:20:19.8927413+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2024-02-07T10:20:19.8927413+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["error"] == "[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["loglevel"] == "info"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "logger=context userId=0 orgId=0 uname= t=2024-02-07T10:20:22.5261499+02:00 level=info msg=Unauthorized error=\"[password-auth.failed] failed to authenticate identity: [identity.not-found] no user found: user not found\" remote_addr=192.168.1.3 traceID="
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["remote_ip"] == "192.168.1.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["timestamp"] == "2024-02-07T10:20:22.5261499+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"] == "grafana-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "grafana_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["service"] == "grafana"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "192.168.1.3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2024-02-07T10:20:22.5261499+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2024-02-07T10:20:22.5261499+02:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Whitelisted == false
 len(results["success"][""]) == 0
