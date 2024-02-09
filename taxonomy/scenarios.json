@@ -1180,8 +1180,8 @@
   },
   "a1ad/mikrotik-scan-multi_ports": {
     "name": "a1ad/mikrotik-scan-multi_ports",
-    "description": "ban IPs that are scanning us",
-    "label": "Mikrotik Port Scanning",
+    "description": "Detect port scanning from single ip on MikroTik router",
+    "label": "MikroTik Port Scanning",
     "behaviors": [
       "tcp:scan"
     ],
@@ -1223,10 +1223,14 @@
   },
   "aidalinfo/couchdb-crawl": {
     "name": "aidalinfo/couchdb-crawl",
-    "description": "Detect crawl from single ip",
-    "label": "Detection of aggressive crawl on couchdb",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "description": "Detect aggressive crawl on CouchDB",
+    "label": "CouchDB Crawl",
+    "behaviors": [
+      "http:crawl"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
     "confidence": 1,
     "spoofable": 0,
     "cti": true,
@@ -1804,8 +1808,8 @@
   },
   "crowdsecurity/asterisk_bf": {
     "name": "crowdsecurity/asterisk_bf",
-    "description": "Detect asterisk user bruteforce",
-    "label": "Asterisk bruteforce",
+    "description": "Detect Asterisk user bruteforce",
+    "label": "Asterisk Bruteforce",
     "behaviors": [
       "sip:bruteforce"
     ],
@@ -1819,7 +1823,7 @@
   },
   "crowdsecurity/asterisk_user_enum": {
     "name": "crowdsecurity/asterisk_user_enum",
-    "description": "Detect asterisk user enum bruteforce",
+    "description": "Detect Asterisk user enumeration bruteforce",
     "label": "Asterisk User Enumeration",
     "behaviors": [
       "sip:bruteforce"
@@ -2508,7 +2512,7 @@
   "crowdsecurity/http-bad-user-agent": {
     "name": "crowdsecurity/http-bad-user-agent",
     "description": "Detect usage of bad User Agent",
-    "label": "Detection of bad User Agent",
+    "label": "Bad User Agent",
     "behaviors": [
       "http:scan"
     ],
@@ -2552,8 +2556,8 @@
   },
   "crowdsecurity/http-crawl-non_statics": {
     "name": "crowdsecurity/http-crawl-non_statics",
-    "description": "Detect aggressive crawl from single ip",
-    "label": "Detection of aggressive crawl",
+    "description": "Detect aggressive crawl on non static ressources",
+    "label": "Aggressive Crawl",
     "behaviors": [
       "http:crawl"
     ],
@@ -2606,7 +2610,7 @@
   "crowdsecurity/http-dos-bypass-cache": {
     "name": "crowdsecurity/http-dos-bypass-cache",
     "description": "Detect DoS tools bypassing cache every request",
-    "label": "Detection of HTTP DOS with cache bypass",
+    "label": "HTTP DOS with cache bypass",
     "behaviors": [
       "http:dos"
     ],
@@ -2621,7 +2625,7 @@
   "crowdsecurity/http-dos-invalid-http-versions": {
     "name": "crowdsecurity/http-dos-invalid-http-versions",
     "description": "Detect DoS tools using invalid HTTP versions",
-    "label": "Detection of HTTP DOS with invalid HTTP version",
+    "label": "HTTP DOS with invalid HTTP version",
     "behaviors": [
       "http:dos"
     ],
@@ -2636,7 +2640,7 @@
   "crowdsecurity/http-dos-random-uri": {
     "name": "crowdsecurity/http-dos-random-uri",
     "description": "Detect DoS tools using random uri",
-    "label": "Detection of HTTP DOS via random URI",
+    "label": "HTTP DOS via random URI",
     "behaviors": [
       "http:dos"
     ],
@@ -2651,7 +2655,7 @@
   "crowdsecurity/http-dos-swithcing-ua": {
     "name": "crowdsecurity/http-dos-swithcing-ua",
     "description": "Detect DoS tools switching user-agent too fast",
-    "label": "Detection of HTTP DOS with varying UA",
+    "label": "HTTP DOS with varying UA",
     "behaviors": [
       "http:dos"
     ],
