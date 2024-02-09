@@ -1,6 +1,6 @@
 type: leaky
 name: aidalinfo/couchdb-crawl
-description: "Detect crawl from single ip"
+description: "Detect aggressive crawl on CouchDB"
 filter: evt.Meta.log_type == 'crawl-couchdb'
 distinct: evt.Meta.path_db
 leakspeed: 0.5s
@@ -14,5 +14,8 @@ labels:
   service: couchdb
   confidence: 1
   spoofable: 0
-  label: "detection of aggressive crawl on couchdb"
+  classification:
+    - attack.T1595
+  behavior: "http:crawl"
+  label: "CouchDB Crawl"
   remediation: true

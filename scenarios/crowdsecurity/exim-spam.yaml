@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/exim-spam
-description: "detect spam on Exim"
+description: "Detect spam on Exim"
 #debug: true
 filter: "evt.Meta.log_type == 'spam-attempt' && evt.Meta.service == 'exim'"
 groupby: evt.Meta.source_ip
@@ -11,6 +11,6 @@ labels:
   confidence: 3
   spoofable: 0
   behavior: "smtp:spam"
-  label: "Exim spam attempt"
+  label: "Exim Spam"
   remediation: true
   service: smtp

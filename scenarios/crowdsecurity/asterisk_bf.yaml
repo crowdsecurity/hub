@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/asterisk_bf
-description: "Detect asterisk user bruteforce"
+description: "Detect Asterisk user bruteforce"
 filter: evt.Meta.log_type == 'asterisk_failed_auth'
 groupby: evt.Meta.source_ip
 leakspeed: 10s
@@ -13,5 +13,5 @@ labels:
   classification:
     - attack.T1110
   behavior: "sip:bruteforce"
-  label: "Asterisk bruteforce"
+  label: "Asterisk Bruteforce"
   remediation: true
