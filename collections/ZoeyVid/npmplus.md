@@ -10,7 +10,7 @@ Example acquisition for this collection:
 
 ```yaml
 filenames:
-  - /opt/npm/nginx/*.log
+  - /opt/npm/nginx/access.log
 labels:
   type: npmplus
 ---
