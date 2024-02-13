@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import sys
+import yaml
+
+
+class IndexValidator:
+    def __init__(self, index):
+        self.index = index
+        self.item_types = list(index.keys())
+        self.one_scenario_per_file = False
+        self.errors = 0
+
+    def error(self, msg):
+        print(msg, file=sys.stderr)
+        self.errors += 1
+
+    def all_items(self):
+        for item_type, items in sorted(self.index.items()):
+            for item_key, item in sorted(items.items()):
+                yield item_type, item_key, item
+
+    def all_subitems(self, collection):
+        for item_type in sorted(self.item_types):
+            subitems = collection.get(item_type)
+            if subitems is None:
+                continue
+            if not subitems:
+                self.error(f"Collection {collection} has empty subitem list for {item_type}")
+                continue
+            for subitem_key in sorted(subitems):
+                yield item_type, subitem_key, self.index[item_type].get(subitem_key)
+
+    def validate_scenario(self, scenario_key, scenario, content_path, content):
+        docs = []
+        try:
+            for doc in yaml.safe_load_all(content):
+                docs += [doc]
+        except yaml.YAMLError as e:
+            self.error(f"Error parsing YAML in {content_path}: {e}")
+            return
+        except Exception as e:
+            self.error(f"Error parsing YAML in {content_path}: {e}")
+            return
+
+        num_docs = 0
+        names = []
+        found = False
+        for doc in docs:
+            num_docs += 1
+            name = doc.get('name')
+            if name is None:
+                self.error(f"Scenario {scenario_key} has document without name")
+                continue
+            names += [name]
+            if name == scenario_key:
+                found = True
+
+        if num_docs > 1 and self.one_scenario_per_file:
+            self.error(f"Scenario {scenario_key} has more than one document: {', '.join(names)}")
+
+        if not found:
+            self.error(f"Scenario file {content_path} does not have a document named {scenario_key}")
+
+    def validate(self):
+        for item_type, item_key, item in self.all_items():
+
+            # the item must have the "author" field
+            author = item.get('author')
+            if author is None:
+                self.error(f"Item {item_type}:{item_key} is missing author")
+                continue
+
+            # the key prefix and the author must match
+            if not item_key.startswith(f"{author}/"):
+                self.error(f"Item {item_type}:{item_key} does not start with author {author}")
+
+            # the item must have the "path" field
+            pth = item.get('path')
+            if pth is None:
+                self.error(f"Item {item_type}:{item_key} is missing path")
+                continue
+
+            # item's path must reference the expected location, based on the item type and stage
+            stage = item.get('stage')
+            basedir = f"{item_type}/{stage}" if stage else item_type
+            expected_paths = [
+                f"{basedir}/{item_key}.yml",
+                f"{basedir}/{item_key}.yaml"
+            ]
+            if pth not in expected_paths:
+                self.error(f"Item {item_type}:{item_key} has unexpected path {pth}")
+
+            # the item's file must exist in the repo
+            try:
+                with open(pth, 'r') as f:
+                    if item_type == 'scenarios':
+                        self.validate_scenario(item_key, item, pth, f.read())
+            except FileNotFoundError:
+                self.error(f"Item {item_type}:{item_key} file {pth} does not exist")
+
+            # if it's a collection, check that its sub-items exist
+            if item_type == 'collections':
+                for subitem_type, subitem_key, subitem in self.all_subitems(item):
+                    if subitem is None:
+                        self.error(f"{item_type}:{item_key} references missing subitem {subitem_type}:{subitem_key}")
+
+
+def main(argv):
+    parser = argparse.ArgumentParser(description='Validate items in the index file')
+    parser.add_argument('index_file', help='The index file to validate')
+    parser.add_argument('--one-scenario-per-file', action='store_true',
+                        help='Check for multiple documents in a scenario file')
+
+    args = parser.parse_args()
+
+    print(f"Validating index file: {args.index_file}", file=sys.stderr)
+
+    try:
+        with open(args.index_file, 'r') as file:
+            index = json.load(file)
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}", file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError:
+        # print to stderr
+        print(f"File not found: {args.index_file}", file=sys.stderr)
+        sys.exit(1)
+
+    validator = IndexValidator(index)
+    if args.one_scenario_per_file:
+        validator.one_scenario_per_file = True
+    validator.validate()
+
+    tot_items = len(list(validator.all_items()))
+    print(f"Validated {tot_items} items, {validator.errors} errors", file=sys.stderr)
+
+    if validator.errors > 0:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main(sys.argv)
