@@ -6,6 +6,14 @@ import sys
 import yaml
 
 
+RED = '\033[91m'
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+UNDERLINE = '\033[4m'
+
+
 class IndexValidator:
     def __init__(self, index):
         self.index = index
@@ -22,13 +30,13 @@ class IndexValidator:
             for item_key, item in sorted(items.items()):
                 yield item_type, item_key, item
 
-    def all_subitems(self, collection):
+    def all_subitems(self, collection_key, collection):
         for item_type in sorted(self.item_types):
             subitems = collection.get(item_type)
             if subitems is None:
                 continue
             if not subitems:
-                self.error(f"Collection {collection} has empty subitem list for {item_type}")
+                self.error(f"Collection {GREEN}{collection_key}{RESET} has empty subitem list for {RED}{item_type}{RESET}")
                 continue
             for subitem_key in sorted(subitems):
                 yield item_type, subitem_key, self.index[item_type].get(subitem_key)
@@ -39,10 +47,10 @@ class IndexValidator:
             for doc in yaml.safe_load_all(content):
                 docs += [doc]
         except yaml.YAMLError as e:
-            self.error(f"Error parsing YAML in {content_path}: {e}")
+            self.error(f"Error parsing YAML in {RED}{content_path}{RESET}: {e}")
             return
         except Exception as e:
-            self.error(f"Error parsing YAML in {content_path}: {e}")
+            self.error(f"Error parsing YAML in {RED}{content_path}{RESET}: {e}")
             return
 
         num_docs = 0
@@ -52,17 +60,17 @@ class IndexValidator:
             num_docs += 1
             name = doc.get('name')
             if name is None:
-                self.error(f"Scenario {scenario_key} has document without name")
+                self.error(f"Scenario {GREEN}{scenario_key}{RESET} has {RED}document without name{RESET} in {content_path}")
                 continue
             names += [name]
             if name == scenario_key:
                 found = True
 
         if num_docs > 1 and self.one_scenario_per_file:
-            self.error(f"Scenario {scenario_key} has more than one document: {', '.join(names)}")
+            self.error(f"Scenario {GREEN}{scenario_key}{RESET} has more than one document: {RED}{', '.join(names)}{RESET} in {content_path}")
 
         if not found:
-            self.error(f"Scenario file {content_path} does not have a document named {scenario_key}")
+            self.error(f"Scenario file {RED}{content_path}{RESET} does not have a document named {GREEN}{scenario_key}{RESET}")
 
     def validate(self):
         for item_type, item_key, item in self.all_items():
@@ -70,17 +78,17 @@ class IndexValidator:
             # the item must have the "author" field
             author = item.get('author')
             if author is None:
-                self.error(f"Item {item_type}:{item_key} is missing author")
+                self.error(f"Item {GREEN}{item_type}:{item_key}{RESET} is missing author")
                 continue
 
             # the key prefix and the author must match
             if not item_key.startswith(f"{author}/"):
-                self.error(f"Item {item_type}:{item_key} does not start with author {author}")
+                self.error(f"Item {GREEN}{item_type}:{item_key}{RESET} does not start with author {author}")
 
             # the item must have the "path" field
             pth = item.get('path')
             if pth is None:
-                self.error(f"Item {item_type}:{item_key} is missing path")
+                self.error(f"Item {GREEN}{item_type}:{item_key}{RESET} is missing path")
                 continue
 
             # item's path must reference the expected location, based on the item type and stage
@@ -91,7 +99,7 @@ class IndexValidator:
                 f"{basedir}/{item_key}.yaml"
             ]
             if pth not in expected_paths:
-                self.error(f"Item {item_type}:{item_key} has unexpected path {pth}")
+                self.error(f"Item {GREEN}{item_type}:{item_key}{RESET} has unexpected path {RED}{pth}{RESET}")
 
             # the item's file must exist in the repo
             try:
@@ -99,13 +107,13 @@ class IndexValidator:
                     if item_type == 'scenarios':
                         self.validate_scenario(item_key, item, pth, f.read())
             except FileNotFoundError:
-                self.error(f"Item {item_type}:{item_key} file {pth} does not exist")
+                self.error(f"Item {GREEN}{item_type}:{item_key}{RESET} file {RED}{pth}{RESET} does not exist")
 
             # if it's a collection, check that its sub-items exist
             if item_type == 'collections':
-                for subitem_type, subitem_key, subitem in self.all_subitems(item):
+                for subitem_type, subitem_key, subitem in self.all_subitems(item_key, item):
                     if subitem is None:
-                        self.error(f"{item_type}:{item_key} references missing subitem {subitem_type}:{subitem_key}")
+                        self.error(f"{GREEN}{item_type}:{item_key}{RESET} references missing subitem {RED}{subitem_type}:{subitem_key}{RESET}")
 
 
 def main(argv):
