@@ -42,4 +42,7 @@ jobs:
 #        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
 
     - name: python validator
-      run: ./check-index .index.json
+      run: |
+        ./hublint defaults > .hublint.toml
+        ./hublint check
+

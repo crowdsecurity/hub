@@ -1,0 +1,447 @@
+#!/usr/bin/env python3
+
+# where we're going, we don't need third-party libraries
+
+import argparse
+import collections
+import json
+import sys
+import textwrap
+import time
+import tomllib
+import yaml
+
+if sys.stdout.isatty():
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    RESET = '\033[0m'
+    UNDERLINE = '\033[4m'
+    BOL = '\r'
+    ERASETOEOL = '\033[0K'
+else:
+    RED = ''
+    GREEN = ''
+    YELLOW = ''
+    BLUE = ''
+    RESET = ''
+    UNDERLINE = ''
+    BOL = ''
+    ERASETOEOL = ''
+
+
+class Index:
+    def __init__(self, file):
+        self._index = json.load(file)
+        self.hubtypes = list(self._index.keys())
+
+    def __iter__(self):
+        for hubtype, content in self._index.items():
+            for key, spec in content.items():
+                yield Item(hubtype, key, spec)
+
+
+class Item:
+    def __init__(self, hubtype, key, spec):
+        self.hubtype = hubtype
+        self.key = key
+        self._spec = spec
+        self._warnings = collections.defaultdict(list)
+        self._errors = collections.defaultdict(list)
+
+    def __str__(self):
+        return f"{self.hubtype}:{self.key}"
+
+    def validate(self, index, linters):
+        if sys.stdout.isatty():
+            # fake delay to show the cute spinner
+            time.sleep(0.005)
+        for linter in linters:
+            fails = list(linter(self, index))
+            if not fails:
+                continue
+            if linter.error:
+                self._errors[linter.name].extend(fails)
+            else:
+                self._warnings[linter.name].extend(fails)
+
+    def yaml_content(self):
+        try:
+            pth = self._spec['path']
+        except KeyError:
+            return ""
+        try:
+            with open(pth) as file:
+                return file.read()
+        except FileNotFoundError:
+            return ""
+
+    # XXX: loading documents can have errors, how to handle them?
+    def yaml_docs(self):
+        content = self.yaml_content()
+        if not content:
+            return
+        for doc in yaml.safe_load_all(content):
+            yield doc
+
+
+class Linter:
+    def __init__(self):
+        cls = self.__class__.__name__
+        if not hasattr(self, "name"):
+            raise ValueError(f"Linter {cls} must have a name")
+        if not hasattr(self, "description"):
+            raise ValueError(f"Linter {cls} must have a description")
+        if not hasattr(self, "enabled"):
+            raise ValueError(f"Linter {cls} must have a default 'enabled' attribute")
+        if not hasattr(self, "error"):
+            raise ValueError(f"Linter {cls} must have a default 'error' attribute")
+        if not hasattr(self, "__call__"):
+            raise ValueError(f"Linter {cls} must have a __call__ method")
+
+
+# yeah, it's a joke/example
+class NotLinux(Linter):
+    name = "not-linux"
+    description = "Item name must not contain 'linux'"
+    enabled = False
+    error = False
+
+    def __call__(self, item, index):
+        if 'linux' in item.key:
+            yield f"Name contains 'linux': {item.key}"
+
+
+class OnlyCollectionHaveDependencies(Linter):
+    name = "only-collection-have-dependencies"
+    description = "Only collections can have dependencies"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        if item.hubtype == "collections":
+            return
+        for typ in index.hubtypes:
+            deps = item._spec.get(typ, [])
+            if deps:
+                yield f"Item declares dependencies but it's not a collection: {typ}={deps}."
+
+
+class EmptyDependencies(Linter):
+    name = "empty-dependencies"
+    description = "An item (collection) contains an explicit empty dependency (ex. parsers=[])"
+    enabled = True
+    error = False
+
+    def __call__(self, item, index):
+        for typ in index.hubtypes:
+            if item._spec.get(typ) == []:
+                yield f"Empty dependency: {typ}=[]"
+
+
+class OneDocumentPerYAMLFile(Linter):
+    name = "one-document-per-yaml-file"
+    description = "Each YAML file must contain only one document"
+    enabled = True
+    error = False
+
+    def __call__(self, item, index):
+        if len(list(item.yaml_docs())) > 1:
+            names = [doc.get("name") for doc in item.yaml_docs()]
+            yield f"File {item._spec['path']} contains more than one document: {names}"
+
+
+class MissingAuthor(Linter):
+    name = "missing-author"
+    description = "Each item must have an author field"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        if not item._spec.get("author"):
+            yield "Missing 'author' field"
+
+
+class MissingItemFile(Linter):
+    name = "missing-item-file"
+    description = "The item file is missing"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        try:
+            with open(item._spec['path']):
+                pass
+        except FileNotFoundError:
+            yield f"File '{item._spec['path']}' does not exist"
+        except KeyError:
+            yield "Missing 'path' field"
+
+
+class MissingDependencies(Linter):
+    name = "missing-dependencies"
+    description = "An item declares a dependency that does not exist"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        for typ in index.hubtypes:
+            for dep in item._spec.get(typ, []):
+                if dep not in index._index.get(typ, {}):
+                    yield f"Dependency '{typ}:{dep}' does not exist"
+
+
+class BadPath(Linter):
+    name = "bad-path"
+    description = "The path must match the item type, stage (if it exists) and name"
+    enabled = True
+    error = False
+
+    def __call__(self, item, index):
+        stage = item._spec.get("stage")
+        basedir = f"{item.hubtype}/{stage}" if stage else item.hubtype
+        expected_paths = [
+            f"{basedir}/{item.key}.yml",
+            f"{basedir}/{item.key}.yaml",
+        ]
+        pth = item._spec.get("path")
+        if pth not in expected_paths:
+            yield f"Path '{pth}' does not match the item type, stage and name (must be one of: {expected_paths})"
+
+
+class MissingPath(Linter):
+    name = "missing-path"
+    description = "Each item must have a path field"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        if not item._spec.get("path"):
+            yield "Missing 'path' field"
+
+
+class AuthorMatchkey(Linter):
+    name = "author-match-key"
+    description = "The author field must match the item key"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        author = item._spec.get("author", "")
+        if not item.key.startswith(author + '/'):
+            yield f"Author field '{author}' does not match the item key '{item.key}'"
+
+
+class DocumentWithoutName(Linter):
+    name = "document-without-name"
+    description = "Each section of a YAML file must have a name (only scenarios)"
+    enabled = True
+    error = True
+    # XXX: we could meke linters configurable from the toml file
+    config = {'hubtypes': ['scenarios']}
+
+    def __call__(self, item, index):
+        if item.hubtype not in self.config['hubtypes']:
+            return
+        for doc in item.yaml_docs():
+            if not doc.get("name"):
+                yield f"YAML document without name: {item._spec['path']}"
+
+
+class DocumentNameMatchingItem(Linter):
+    name = "document-name-matching-item"
+    description = "The name of the document must match the item name (only scenarios)"
+    enabled = True
+    error = True
+    config = {'hubtypes': ['scenarios']}
+
+    def __call__(self, item, index):
+        if item.hubtype not in self.config['hubtypes']:
+            return
+        for doc in item.yaml_docs():
+            if doc.get("name") == item.key:
+                return
+        yield f"YAML file {item._spec.get('path')} does not have a document named: {item.key}"
+
+
+# validate configuration and create linters
+def linters_from_config(config):
+    cfg_linters = config.get("linters", {})
+    # create a default configuration for all linters
+    for linter_class in Linter.__subclasses__():
+        # see if the class can be instantiated, or defaults are missing
+        linter_class()
+        if linter_class.name not in cfg_linters:
+            cfg_linters[linter_class.name] = {}
+
+    for linter_name, linter_cfg in cfg_linters.items():
+        for linter_class in Linter.__subclasses__():
+            # TODO: check for duplicates
+            if linter_class.name == linter_name:
+                linter = linter_class()
+                if linter_cfg.get("enabled") is not None:
+                    linter.enabled = linter_cfg.get("enabled")
+                if linter_cfg.get("error") is not None:
+                    linter.error = linter_cfg.get("error")
+                yield linter
+                break
+        else:
+            raise ValueError(f"Unknown linter: {linter_name}")
+
+
+def run_linters(index_file, enabled_linters):
+    # leave feedback for successful checks too
+    print_ok = False
+
+    try:
+        index = Index(index_file)
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    spinner = [
+        "▹▹▹▹▹",
+        "▸▹▹▹▹",
+        "▹▸▹▹▹",
+        "▹▹▸▹▹",
+        "▹▹▹▸▹",
+        "▹▹▹▹▸"
+    ]
+
+    all_items = list(index)
+    tot = len(all_items)
+
+    tot_warnings = 0
+    tot_errors = 0
+
+    for idx, item in enumerate(all_items):
+        check = spinner[idx % len(spinner)]
+
+        if sys.stdout.isatty():
+            print(f" {check} [{idx}/{tot}] {item}{BOL}", end="")
+
+        item.validate(index, enabled_linters)
+
+        print_feedback = False
+
+        if item._errors:
+            check = RED + '✗' + RESET
+            print_feedback = True
+        elif item._warnings:
+            check = YELLOW + '⚠' + RESET
+            print_feedback = True
+        else:
+            check = GREEN + '✓' + RESET
+            if not sys.stdout.isatty():
+                print_feedback = False
+
+        if print_feedback or print_ok:
+            print(f" {check} {item}{ERASETOEOL}", end="\n" if print_ok else f"{BOL}")
+
+        if item._errors or item._warnings:
+            if print_ok:
+                print("")
+            for lintername, warnings in sorted(item._warnings.items()):
+                for warning in warnings:
+                    tot_warnings += 1
+                    print(f"{YELLOW}warning:{RESET} ({lintername}) {warning}")
+            for lintername, errors in sorted(item._errors.items()):
+                for error in errors:
+                    tot_errors += 1
+                    print(f"{RED}error:{RESET} ({lintername}) {error}")
+
+    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors", file=sys.stderr)
+    return tot_errors
+
+
+def read_config(config_file=None):
+    try:
+        return tomllib.load(config_file)
+    except tomllib.TOMLDecodeError as e:
+        print(f"Error parsing TOML: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def print_linters(linters):
+    print("Available linters:")
+    for linter in linters:
+        enabled = f"{GREEN}✓{RESET}" if linter.enabled else f"{RED}✗{RESET}"
+        print(f" {enabled} {linter.name}: {linter.description}")
+        if linter.enabled:
+            if linter.error:
+                print("   error")
+            else:
+                print("   warning")
+
+
+def add_config_argument(parser):
+    parser.add_argument('--config', default='.hublint.toml', type=argparse.FileType('rb'),
+                        help='The configuration file')
+
+
+def print_default_config():
+    linters = list(Linter.__subclasses__())
+    for linter in linters:
+        print(f'# {linter.description}')
+        print(f"[linters.{linter.name}]")
+        print(f"enabled = {linter.enabled.__str__().lower()}")
+        print(f"error = {linter.error.__str__().lower()}")
+        print("")
+
+
+def main(argv):
+    parser = argparse.ArgumentParser(description='Validate hub index files',
+                                     formatter_class=argparse.RawTextHelpFormatter,
+                                     epilog=textwrap.dedent("""
+                                     Example:
+
+                                     # generate the initial configuration
+                                     hublint defaults > .hublint.toml
+
+                                     # validate an index file
+                                     hublint check --index .index.json
+                                     """))
+
+    subparsers = parser.add_subparsers(dest='command')
+
+    parser_linters = subparsers.add_parser('linters', help='Show all the available linters')
+    add_config_argument(parser_linters)
+
+    parser_check = subparsers.add_parser('check', help='Validate an index file')
+    parser_check.add_argument('--index', default='.index.json', type=argparse.FileType(),
+                              help='The index file to validate')
+    add_config_argument(parser_check)
+
+    subparsers.add_parser('defaults', help='Show the default configuration',
+                          epilog=textwrap.dedent("""
+                          Example:
+
+                          #generate an initial configuration file
+                          hublint defaults > .hublint.toml
+                          """))
+
+    args = parser.parse_args()
+
+    if args.command not in [None, 'defaults']:
+        print("Using config: {args.config.name}", file=sys.stderr)
+        config = read_config(args.config)
+        all_linters = list(linters_from_config(config))
+
+    if args.command == "linters":
+        print_linters(all_linters)
+        sys.exit(0)
+    elif args.command == "check":
+        print(f"Validating: '{args.index.name}'", file=sys.stderr)
+        tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled])
+        sys.exit(tot_errors > 0)
+    elif args.command == "defaults":
+        print_default_config()
+        sys.exit(0)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main(sys.argv)
