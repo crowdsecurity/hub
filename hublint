@@ -22,10 +22,19 @@ UNDERLINE = ''
 BOL = '\r'
 ERASETOEOL = '\033[0K'
 
+# TODO:
+# de-duplicate code for warning, error (reduce cyclo)
+# tests
+# MarkDown output
+# publish comment on PR
+
+
+isatty = sys.stdout.isatty
+
 
 def init_colors(force):
     global RED, GREEN, YELLOW, BLUE, RESET, UNDERLINE
-    if force == 'always' or (force == 'auto' and sys.stdout.isatty()):
+    if force == 'always' or (force == 'auto' and isatty()):
         RED = '\033[91m'
         GREEN = '\033[92m'
         YELLOW = '\033[93m'
@@ -95,7 +104,7 @@ class Item:
         return f"{self.hubtype}:{self.key}"
 
     def validate(self, index, linters):
-        if sys.stdout.isatty():
+        if isatty():
             # fake delay to show the cute spinner
             time.sleep(0.005)
         for linter in linters:
@@ -125,6 +134,13 @@ class Item:
             return
         for doc in yaml.safe_load_all(content):
             yield doc
+
+    def data_urls(self):
+        for doc in self.yaml_docs():
+            data = doc.get("data", [])
+            for data in data:
+                if 'source_url' in data:
+                    yield data['source_url']
 
 
 class Linter:
@@ -188,8 +204,8 @@ class OneDocumentPerYAMLFile(Linter):
     error = False
 
     def __call__(self, item, index):
-        if len(list(item.yaml_docs())) > 1:
-            names = [doc.get("name") for doc in item.yaml_docs()]
+        names = [doc.get("name") for doc in item.yaml_docs()]
+        if len(names) > 1:
             yield f"File {item._spec['path']} contains more than one document: {names}", None
 
 
@@ -314,7 +330,7 @@ class DocumentNameMatchingItem(Linter):
 
 class ItemSchema(Linter):
     name = "item-schema"
-    description = "Validate item files with their YAML schema"
+    description = "Validate item files against their YAML schema"
     enabled = True
     error = True
     config = {
@@ -327,30 +343,49 @@ class ItemSchema(Linter):
         'scenarios': {
             'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/scenario_schema.yaml',
         },
+        'postoverflows': {
+            'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/parser_schema.yaml',
+        },
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._cache = {}
+        self._schemas = {}
 
     def __call__(self, item, index):
         if item.hubtype not in self.config:
             return
 
-        if item.hubtype not in self._cache:
+        if item.hubtype not in self._schemas:
             try:
                 yaml_schema = requests.get(self.config[item.hubtype]['url']).text
-                self._cache[item.hubtype] = yaml.safe_load(yaml_schema)
+                self._schemas[item.hubtype] = yaml.safe_load(yaml_schema)
             except requests.RequestException as e:
                 yield f"Failed to fetch schema for {item.hubtype}: {e}", None
                 return
 
-        schema = self._cache[item.hubtype]
+        schema = self._schemas[item.hubtype]
         for doc in item.yaml_docs():
             try:
                 jsonschema.validate(doc, schema)
             except jsonschema.ValidationError as e:
                 yield f"File {item._spec.get('path')} does not match the schema: {e.message}", None
+
+
+class DataFilesExist(Linter):
+    name = "data-files-exist"
+    description = "Check the source_url of the data files declared in the item"
+    enabled = False
+    error = True
+
+    def __call__(self, item, index):
+        for url in item.data_urls():
+            try:
+                if isatty():
+                    print(f"Fetching {url}{ERASETOEOL}{BOL}", end="")
+                requests.head(url).raise_for_status()
+            except requests.RequestException as e:
+                yield f"Failed to fetch data file {url}: {e}", None
 
 
 # --------------------------------------------------------------------- #
@@ -412,7 +447,7 @@ def run_linters(index_file, enabled_linters, no_warnings=False, show_location=Fa
     for idx, item in enumerate(all_items):
         check = spinner[idx % len(spinner)]
 
-        if sys.stdout.isatty():
+        if isatty():
             print(f" {check} [{idx}/{tot}] {item}{BOL}", end="")
 
         item.validate(index, enabled_linters)
@@ -427,7 +462,7 @@ def run_linters(index_file, enabled_linters, no_warnings=False, show_location=Fa
             print_feedback = True
         else:
             check = GREEN + '✓' + RESET
-            if not sys.stdout.isatty():
+            if not isatty():
                 print_feedback = False
 
         if print_feedback or print_ok:
@@ -543,6 +578,7 @@ def main(argv):
                               help='Do not show warning details (still, count them)')
     parser_check.add_argument('--show-location', action='store_true',
                               help='Show the location of the error/warning')
+    # XXX: --debug option, for logger and to keep stack trace on CTRL+C
 
     add_config_argument(parser_check)
 
@@ -557,7 +593,7 @@ def main(argv):
     args = parser.parse_args()
 
     if args.command not in [None, 'defaults']:
-        print("Using config: {args.config.name}")
+        print(f"Using config: {args.config.name}")
         config = read_config(args.config)
         all_linters = list(linters_from_config(config))
 
