@@ -292,7 +292,7 @@ def linters_from_config(config):
             raise ValueError(f"Unknown linter: {linter_name}")
 
 
-def run_linters(index_file, enabled_linters):
+def run_linters(index_file, enabled_linters, no_warnings=False):
     # leave feedback for successful checks too
     print_ok = False
 
@@ -316,6 +316,9 @@ def run_linters(index_file, enabled_linters):
 
     tot_warnings = 0
     tot_errors = 0
+
+    errors_by_linter = collections.defaultdict(int)
+    warnings_by_linter = collections.defaultdict(int)
 
     for idx, item in enumerate(all_items):
         check = spinner[idx % len(spinner)]
@@ -344,16 +347,30 @@ def run_linters(index_file, enabled_linters):
         if item._errors or item._warnings:
             if print_feedback or print_ok:
                 print("")
-            for lintername, warnings in sorted(item._warnings.items()):
-                for warning in warnings:
-                    tot_warnings += 1
-                    print(f"{YELLOW}warning:{RESET} ({lintername}) {warning}")
             for lintername, errors in sorted(item._errors.items()):
                 for error in errors:
                     tot_errors += 1
+                    errors_by_linter[lintername] += 1
                     print(f"{RED}error:{RESET} ({lintername}) {error}")
+            for lintername, warnings in sorted(item._warnings.items()):
+                for warning in warnings:
+                    tot_warnings += 1
+                    warnings_by_linter[lintername] += 1
+                    if no_warnings:
+                        continue
+                    print(f"{YELLOW}warning:{RESET} ({lintername}) {warning}")
 
-    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors", file=sys.stderr)
+    print()
+    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors")
+    print()
+    print("Errors by linter:")
+    for linter, count in sorted(errors_by_linter.items()):
+        print(f" {linter}: {count}")
+
+    print("Warnings by linter:")
+    for linter, count in sorted(warnings_by_linter.items()):
+        print(f" {linter}: {count}")
+
     return tot_errors
 
 
@@ -415,6 +432,8 @@ def main(argv):
                               help='The index file to validate')
     parser_check.add_argument('--color', choices=['always', 'never', 'auto'], default='auto',
                               help='Force colored output')
+    parser_check.add_argument('--no-warning-details', action='store_true',
+                              help='Do not show warning details (still, count them)')
     add_config_argument(parser_check)
 
     subparsers.add_parser('defaults', help='Show the default configuration',
@@ -428,7 +447,7 @@ def main(argv):
     args = parser.parse_args()
 
     if args.command not in [None, 'defaults']:
-        print("Using config: {args.config.name}", file=sys.stderr)
+        print("Using config: {args.config.name}")
         config = read_config(args.config)
         all_linters = list(linters_from_config(config))
 
@@ -437,8 +456,10 @@ def main(argv):
         sys.exit(0)
     elif args.command == "check":
         init_colors(args.color)
-        print(f"Validating: '{args.index.name}'", file=sys.stderr)
-        tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled])
+        print(f"Validating: '{args.index.name}'")
+        print()
+        tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled],
+                                 no_warnings=args.no_warning_details)
         sys.exit(tot_errors > 0)
     elif args.command == "defaults":
         print_default_config()
