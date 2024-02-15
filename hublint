@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# where we're going, we don't need third-party libraries
-
 import argparse
 import collections
 import json
@@ -33,15 +31,48 @@ def init_colors(force):
         UNDERLINE = '\033[4m'
 
 
+# from https://github.com/yaml/pyyaml/issues/456
+class TrackingLoader(yaml.SafeLoader):
+    def __init__(self, stream):
+        super().__init__(stream)
+        self.locations = {}
+
+    def compose_node(self, parent, index):
+        node = super().compose_node(parent, index)
+        node._myloader_location = (self.line, self.column)
+        return node
+
+    def construct_object(self, node, deep=False):
+        obj = super().construct_object(node, deep=deep)
+        key = id(obj)
+        if key in self.locations:
+            self.locations[key] = None
+        else:
+            self.locations[key] = node._myloader_location
+        return obj
+
+    @classmethod
+    def load(cls, stream):
+        loader = cls(stream)
+        try:
+            return loader.get_single_data(), loader.locations
+        finally:
+            loader.dispose()
+
+
 class Index:
-    def __init__(self, file):
-        self._index = json.load(file)
+    def __init__(self, content):
+        # self._index = json.loads(content)
+        self._index, self._yaml_locations = TrackingLoader.load(content)
         self.hubtypes = list(self._index.keys())
 
     def __iter__(self):
         for hubtype, content in self._index.items():
             for key, spec in content.items():
                 yield Item(hubtype, key, spec)
+
+    def get_location(self, ob):
+        return self._yaml_locations.get(id(ob))
 
 
 class Item:
@@ -112,6 +143,9 @@ class NotLinux(Linter):
 
     def __call__(self, item, index):
         if 'linux' in item.key:
+            ob = index._index[item.hubtype][item.key]
+            location = index.get_location(ob)
+            import pdb; pdb.set_trace()
             yield f"Name contains 'linux': {item.key}"
 
 
@@ -297,7 +331,8 @@ def run_linters(index_file, enabled_linters, no_warnings=False):
     print_ok = False
 
     try:
-        index = Index(index_file)
+        content = index_file.read()
+        index = Index(content)
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}", file=sys.stderr)
         sys.exit(1)
