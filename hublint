@@ -7,6 +7,9 @@ import sys
 import textwrap
 import time
 import tomllib
+
+import jsonschema
+import requests
 import yaml
 
 RED = ''
@@ -308,6 +311,49 @@ class DocumentNameMatchingItem(Linter):
                 return
         yield f"YAML file {item._spec.get('path')} does not have a document named: {item.key}", None
 
+
+class ItemSchema(Linter):
+    name = "item-schema"
+    description = "Validate item files with their YAML schema"
+    enabled = True
+    error = True
+    config = {
+        'collections': {
+            'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/collection_schema.yaml',
+        },
+        'parsers': {
+            'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/parser_schema.yaml',
+        },
+        'scenarios': {
+            'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/scenario_schema.yaml',
+        },
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._cache = {}
+
+    def __call__(self, item, index):
+        if item.hubtype not in self.config:
+            return
+
+        if item.hubtype not in self._cache:
+            try:
+                yaml_schema = requests.get(self.config[item.hubtype]['url']).text
+                self._cache[item.hubtype] = yaml.safe_load(yaml_schema)
+            except requests.RequestException as e:
+                yield f"Failed to fetch schema for {item.hubtype}: {e}", None
+                return
+
+        schema = self._cache[item.hubtype]
+        for doc in item.yaml_docs():
+            try:
+                jsonschema.validate(doc, schema)
+            except jsonschema.ValidationError as e:
+                yield f"File {item._spec.get('path')} does not match the schema: {e.message}", None
+
+
+# --------------------------------------------------------------------- #
 
 # validate configuration and create linters
 def linters_from_config(config):
