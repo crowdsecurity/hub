@@ -11,24 +11,26 @@ import time
 import tomllib
 import yaml
 
-if sys.stdout.isatty():
-    RED = '\033[91m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    BLUE = '\033[94m'
-    RESET = '\033[0m'
-    UNDERLINE = '\033[4m'
-    BOL = '\r'
-    ERASETOEOL = '\033[0K'
-else:
-    RED = ''
-    GREEN = ''
-    YELLOW = ''
-    BLUE = ''
-    RESET = ''
-    UNDERLINE = ''
-    BOL = ''
-    ERASETOEOL = ''
+RED = ''
+GREEN = ''
+YELLOW = ''
+BLUE = ''
+RESET = ''
+UNDERLINE = ''
+
+BOL = '\r'
+ERASETOEOL = '\033[0K'
+
+
+def init_colors(force):
+    global RED, GREEN, YELLOW, BLUE, RESET, UNDERLINE
+    if force == 'always' or (force == 'auto' and sys.stdout.isatty()):
+        RED = '\033[91m'
+        GREEN = '\033[92m'
+        YELLOW = '\033[93m'
+        BLUE = '\033[94m'
+        RESET = '\033[0m'
+        UNDERLINE = '\033[4m'
 
 
 class Index:
@@ -340,7 +342,7 @@ def run_linters(index_file, enabled_linters):
             print(f" {check} {item}{ERASETOEOL}", end="\n" if print_ok else f"{BOL}")
 
         if item._errors or item._warnings:
-            if print_ok:
+            if print_feedback or print_ok:
                 print("")
             for lintername, warnings in sorted(item._warnings.items()):
                 for warning in warnings:
@@ -411,6 +413,8 @@ def main(argv):
     parser_check = subparsers.add_parser('check', help='Validate an index file')
     parser_check.add_argument('--index', default='.index.json', type=argparse.FileType(),
                               help='The index file to validate')
+    parser_check.add_argument('--color', choices=['always', 'never', 'auto'], default='auto',
+                              help='Force colored output')
     add_config_argument(parser_check)
 
     subparsers.add_parser('defaults', help='Show the default configuration',
@@ -432,6 +436,7 @@ def main(argv):
         print_linters(all_linters)
         sys.exit(0)
     elif args.command == "check":
+        init_colors(args.color)
         print(f"Validating: '{args.index.name}'", file=sys.stderr)
         tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled])
         sys.exit(tot_errors > 0)
