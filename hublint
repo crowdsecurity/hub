@@ -38,17 +38,22 @@ class TrackingLoader(yaml.SafeLoader):
         self.locations = {}
 
     def compose_node(self, parent, index):
+        # Get the start position before composing the node
+        start_line, start_column = self.line, self.column
         node = super().compose_node(parent, index)
-        node._myloader_location = (self.line, self.column)
+        # Attach the start position to the node itself
+        node._myloader_start_location = (start_line, start_column)
         return node
 
     def construct_object(self, node, deep=False):
+        # Construct the object first
         obj = super().construct_object(node, deep=deep)
         key = id(obj)
-        if key in self.locations:
-            self.locations[key] = None
+        # Use the start location attached to the node
+        if hasattr(node, '_myloader_start_location'):
+            self.locations[key] = node._myloader_start_location
         else:
-            self.locations[key] = node._myloader_location
+            self.locations[key] = None
         return obj
 
     @classmethod
@@ -143,10 +148,7 @@ class NotLinux(Linter):
 
     def __call__(self, item, index):
         if 'linux' in item.key:
-            ob = index._index[item.hubtype][item.key]
-            location = index.get_location(ob)
-            import pdb; pdb.set_trace()
-            yield f"Name contains 'linux': {item.key}"
+            yield f"Name contains 'linux': {item.key}", index._index[item.hubtype][item.key]
 
 
 class OnlyCollectionHaveDependencies(Linter):
@@ -161,7 +163,7 @@ class OnlyCollectionHaveDependencies(Linter):
         for typ in index.hubtypes:
             deps = item._spec.get(typ, [])
             if deps:
-                yield f"Item declares dependencies but it's not a collection: {typ}={deps}."
+                yield f"Item declares dependencies but it's not a collection: {typ}={deps}.", index._index[item.hubtype][item.key][typ]
 
 
 class EmptyDependencies(Linter):
@@ -173,7 +175,7 @@ class EmptyDependencies(Linter):
     def __call__(self, item, index):
         for typ in index.hubtypes:
             if item._spec.get(typ) == []:
-                yield f"Empty dependency: {typ}=[]"
+                yield f"Empty dependency: {typ}=[]", index._index[item.hubtype][item.key][typ]
 
 
 class OneDocumentPerYAMLFile(Linter):
@@ -185,7 +187,7 @@ class OneDocumentPerYAMLFile(Linter):
     def __call__(self, item, index):
         if len(list(item.yaml_docs())) > 1:
             names = [doc.get("name") for doc in item.yaml_docs()]
-            yield f"File {item._spec['path']} contains more than one document: {names}"
+            yield f"File {item._spec['path']} contains more than one document: {names}", None
 
 
 class MissingAuthor(Linter):
@@ -196,7 +198,7 @@ class MissingAuthor(Linter):
 
     def __call__(self, item, index):
         if not item._spec.get("author"):
-            yield "Missing 'author' field"
+            yield "Missing 'author' field", index._index[item.hubtype][item.key]
 
 
 class MissingItemFile(Linter):
@@ -212,7 +214,7 @@ class MissingItemFile(Linter):
         except FileNotFoundError:
             yield f"File '{item._spec['path']}' does not exist"
         except KeyError:
-            yield "Missing 'path' field"
+            yield "Missing 'path' field", index._index[item.hubtype][item.key]
 
 
 class MissingDependencies(Linter):
@@ -223,9 +225,9 @@ class MissingDependencies(Linter):
 
     def __call__(self, item, index):
         for typ in index.hubtypes:
-            for dep in item._spec.get(typ, []):
+            for dep_idx, dep in enumerate(item._spec.get(typ, [])):
                 if dep not in index._index.get(typ, {}):
-                    yield f"Dependency '{typ}:{dep}' does not exist"
+                    yield f"Dependency '{typ}:{dep}' does not exist", index._index[item.hubtype][item.key][typ][dep_idx]
 
 
 class BadPath(Linter):
@@ -243,7 +245,10 @@ class BadPath(Linter):
         ]
         pth = item._spec.get("path")
         if pth not in expected_paths:
-            yield f"Path '{pth}' does not match the item type, stage and name (must be one of: {expected_paths})"
+            ob = index._index[item.hubtype][item.key]
+            if 'path' in ob:
+                ob = ob['path']
+            yield f"Path '{pth}' does not match the item type, stage and name (must be one of: {expected_paths})", ob
 
 
 class MissingPath(Linter):
@@ -254,7 +259,7 @@ class MissingPath(Linter):
 
     def __call__(self, item, index):
         if not item._spec.get("path"):
-            yield "Missing 'path' field"
+            yield "Missing 'path' field", index._index[item.hubtype][item.key]
 
 
 class AuthorMatchkey(Linter):
@@ -266,7 +271,10 @@ class AuthorMatchkey(Linter):
     def __call__(self, item, index):
         author = item._spec.get("author", "")
         if not item.key.startswith(author + '/'):
-            yield f"Author field '{author}' does not match the item key '{item.key}'"
+            ob = index._index[item.hubtype][item.key]
+            if 'author' in ob:
+                ob = ob['author']
+            yield f"Author field '{author}' does not match the item key '{item.key}'", ob
 
 
 class DocumentWithoutName(Linter):
@@ -282,7 +290,7 @@ class DocumentWithoutName(Linter):
             return
         for doc in item.yaml_docs():
             if not doc.get("name"):
-                yield f"YAML document without name: {item._spec['path']}"
+                yield f"YAML document without name: {item._spec['path']}", None
 
 
 class DocumentNameMatchingItem(Linter):
@@ -298,7 +306,7 @@ class DocumentNameMatchingItem(Linter):
         for doc in item.yaml_docs():
             if doc.get("name") == item.key:
                 return
-        yield f"YAML file {item._spec.get('path')} does not have a document named: {item.key}"
+        yield f"YAML file {item._spec.get('path')} does not have a document named: {item.key}", None
 
 
 # validate configuration and create linters
@@ -326,7 +334,7 @@ def linters_from_config(config):
             raise ValueError(f"Unknown linter: {linter_name}")
 
 
-def run_linters(index_file, enabled_linters, no_warnings=False):
+def run_linters(index_file, enabled_linters, no_warnings=False, show_location=False):
     # leave feedback for successful checks too
     print_ok = False
 
@@ -386,14 +394,32 @@ def run_linters(index_file, enabled_linters, no_warnings=False):
                 for error in errors:
                     tot_errors += 1
                     errors_by_linter[lintername] += 1
-                    print(f"{RED}error:{RESET} ({lintername}) {error}")
+                    file = index_file.name
+                    if error[1] and show_location:
+                        location = index.get_location(error[1])
+                        if location:
+                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
+                        else:
+                            location = ""
+                    else:
+                        location = ""
+                    print(f"{RED}{lintername}:{RESET}{location} {error[0]}")
             for lintername, warnings in sorted(item._warnings.items()):
                 for warning in warnings:
                     tot_warnings += 1
                     warnings_by_linter[lintername] += 1
                     if no_warnings:
                         continue
-                    print(f"{YELLOW}warning:{RESET} ({lintername}) {warning}")
+                    file = index_file.name
+                    if warning[1] and show_location:
+                        location = index.get_location(warning[1])
+                        if location:
+                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
+                        else:
+                            location = ""
+                    else:
+                        location = ""
+                    print(f"{YELLOW}{lintername}:{RESET}{location} {warning[0]}")
 
     print()
     print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors")
@@ -469,6 +495,9 @@ def main(argv):
                               help='Force colored output')
     parser_check.add_argument('--no-warning-details', action='store_true',
                               help='Do not show warning details (still, count them)')
+    parser_check.add_argument('--show-location', action='store_true',
+                              help='Show the location of the error/warning')
+
     add_config_argument(parser_check)
 
     subparsers.add_parser('defaults', help='Show the default configuration',
@@ -494,7 +523,8 @@ def main(argv):
         print(f"Validating: '{args.index.name}'")
         print()
         tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled],
-                                 no_warnings=args.no_warning_details)
+                                 no_warnings=args.no_warning_details,
+                                 show_location=args.show_location)
         sys.exit(tot_errors > 0)
     elif args.command == "defaults":
         print_default_config()
@@ -505,4 +535,7 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    try:
+        main(sys.argv)
+    except KeyboardInterrupt:
+        sys.exit(1)
