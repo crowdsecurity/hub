@@ -1800,7 +1800,7 @@
     "description": "exploitation of CVE-2023-4911: segfaulting in dynamic loader",
     "label": "CVE-2023-4911",
     "behaviors": [
-      "linux:exploitation"
+      "linux:exploit"
     ],
     "mitre_attacks": [
       "TA0004:T1548"
@@ -1941,7 +1941,7 @@
     "description": "Detect root suid process crashing",
     "label": "Suspicious suid process crash",
     "behaviors": [
-      "linux:exploitation"
+      "linux:exploit"
     ],
     "mitre_attacks": [
       "TA0004:T1548"
@@ -2960,7 +2960,7 @@
   },
   "crowdsecurity/iptables-scan-multi_ports": {
     "name": "crowdsecurity/iptables-scan-multi_ports",
-    "description": "ban IPs that are scanning us",
+    "description": "Detect TCP scan on multiple ports",
     "label": "TCP Port Scan",
     "behaviors": [
       "tcp:scan"
@@ -3710,9 +3710,7 @@
     "name": "crowdsecurity/CVE-2022-30190-msdt",
     "description": "Detect CVE-2022-30190 from sysmon events",
     "label": "CVE-2022-30190",
-    "behaviors": [
-      "windows:rce"
-    ],
+    "behaviors": [],
     "mitre_attacks": [
       "TA0002:T1059",
       "TA0002:T1203"
@@ -3788,8 +3786,8 @@
   },
   "firewallservices/pf-scan-multi_ports": {
     "name": "firewallservices/pf-scan-multi_ports",
-    "description": "ban IPs that are scanning us",
-    "label": "PF Scan Multi Ports",
+    "description": "Detect TCP scan on multiple ports",
+    "label": "TCP Port Scan",
     "behaviors": [
       "tcp:scan"
     ],
