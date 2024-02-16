@@ -8,6 +8,8 @@ import textwrap
 import time
 import tomllib
 
+from http import HTTPMethod
+
 import jsonschema
 import requests
 import yaml
@@ -78,10 +80,14 @@ class TrackingLoader(yaml.SafeLoader):
 
 
 class Index:
-    def __init__(self, content):
+    def __init__(self, content, enabled_linters):
         # self._index = json.loads(content)
         self._index, self._yaml_locations = TrackingLoader.load(content)
         self.hubtypes = list(self._index.keys())
+        # cache for http requests, by method and url
+        self._http_cache = {}
+        # some linter may skip some checks if they are covered by others
+        self.enabled_linters = enabled_linters
 
     def __iter__(self):
         for hubtype, content in self._index.items():
@@ -90,6 +96,17 @@ class Index:
 
     def get_location(self, ob):
         return self._yaml_locations.get(id(ob))
+
+    def proxy(self, method, url):
+        """
+        Return a cached request, if it exists
+        """
+        try:
+            return self._http_cache[(url, method)]
+        except KeyError:
+            r = requests.request(method, url)
+            self._http_cache[(url, method)] = r
+            return r
 
 
 class Item:
@@ -104,9 +121,6 @@ class Item:
         return f"{self.hubtype}:{self.key}"
 
     def validate(self, index, linters):
-        if isatty():
-            # fake delay to show the cute spinner
-            time.sleep(0.005)
         for linter in linters:
             fails = list(linter(self, index))
             if not fails:
@@ -382,10 +396,54 @@ class DataFilesExist(Linter):
         for url in item.data_urls():
             try:
                 if isatty():
-                    print(f"Fetching {url}{ERASETOEOL}{BOL}", end="")
-                requests.head(url).raise_for_status()
+                    print(f"Checking {url}{ERASETOEOL}{BOL}", end="")
+                try:
+                    r = index.proxy(HTTPMethod.HEAD, url)
+                    r.raise_for_status()
+                except requests.HTTPError as e:
+                    yield f"HTTP error for data file {url}: {e}", None
+                    continue
+
             except requests.RequestException as e:
                 yield f"Failed to fetch data file {url}: {e}", None
+
+
+class DataFilesLastModified(Linter):
+    """
+    This is implemented as a separate linter to allow for a warning instead of an error
+    """
+
+    name = "data-files-last-modified"
+    description = "Check the last-modified header of the data files declared in the item"
+    enabled = False
+    error = False
+
+    def __call__(self, item, index):
+        for url in item.data_urls():
+            try:
+                if isatty():
+                    print(f"Checking {url}{ERASETOEOL}{BOL}", end="")
+                r = index.proxy(HTTPMethod.HEAD, url)
+                r.raise_for_status()
+                if not r.headers.get('last-modified'):
+                    yield f"Data file {url} does not have a 'last-modified' header", None
+            except requests.RequestException as e:
+                # if the other linter is enabled, we don't report the error here
+                if DataFilesExist.name in index.enabled_linters:
+                    yield f"Failed to fetch data file {url}: {e}", None
+
+
+class NoDebugMode(Linter):
+    name = "no-debug-mode"
+    description = "The item must not be in debug mode"
+    enabled = True
+    error = True
+
+    def __call__(self, item, index):
+        for doc in item.yaml_docs():
+            if doc.get("debug"):
+                # TODO: add location (needs file name support if it's other than the index file)
+                yield f"Item file {item._spec.get('path')} in debug mode", None
 
 
 # --------------------------------------------------------------------- #
@@ -415,25 +473,85 @@ def linters_from_config(config):
             raise ValueError(f"Unknown linter: {linter_name}")
 
 
-def run_linters(index_file, enabled_linters, no_warnings=False, show_location=False):
-    # leave feedback for successful checks too
-    print_ok = False
+class TTYReporter:
+    spinner = ["▹▹▹▹▹", "▸▹▹▹▹", "▹▸▹▹▹", "▹▹▸▹▹", "▹▹▹▸▹", "▹▹▹▹▸"]
+
+    def __init__(self, no_warnings, show_location, print_ok=False):
+        self.no_warnings = no_warnings
+        self.show_location = show_location
+        # leave feedback for successful checks too?
+        self.print_ok = print_ok
+
+    def item(self, item):
+        pass
+
+    def update_status(self, idx, tot, item):
+        wheel = self.spinner[idx % len(self.spinner)]
+        if isatty():
+            print(f" {wheel} [{idx}/{tot}] {item}{ERASETOEOL}{BOL}", end="")
+
+    def item_feedback(self, item, index, index_file):
+        print_feedback = False
+
+        if item._errors:
+            check = RED + '✗'
+            print_feedback = True
+        elif item._warnings:
+            check = YELLOW + '⚠'
+            print_feedback = True
+        else:
+            check = GREEN + '✓'
+            if not isatty():
+                print_feedback = False
+
+        if print_feedback or self.print_ok:
+            print(f" {check}{RESET} {item}{ERASETOEOL}", end="")
+            if self.print_ok:
+                print()
+            else:
+                print(BOL, end="")
+
+        if item._errors or item._warnings:
+            if print_feedback or self.print_ok:
+                print("")
+            for lintername, errors in sorted(item._errors.items()):
+                for error in errors:
+                    file = index_file.name
+                    if error[1] and self.show_location:
+                        location = index.get_location(error[1])
+                        if location:
+                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
+                        else:
+                            location = ""
+                    else:
+                        location = ""
+                    print(f"{RED}{lintername}:{RESET}{location} {error[0]}")
+            for lintername, warnings in sorted(item._warnings.items()):
+                for warning in warnings:
+                    if self.no_warnings:
+                        continue
+                    file = index_file.name
+                    if warning[1] and self.show_location:
+                        location = index.get_location(warning[1])
+                        if location:
+                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
+                        else:
+                            location = ""
+                    else:
+                        location = ""
+                    print(f"{YELLOW}{lintername}:{RESET}{location} {warning[0]}")
+
+
+def run_linters(index_file, enabled_linters, no_warnings=False, show_location=False, quick=False):
+    report = TTYReporter(no_warnings, show_location)
+    t0 = time.time()
 
     try:
         content = index_file.read()
-        index = Index(content)
+        index = Index(content, enabled_linters=enabled_linters)
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}", file=sys.stderr)
         sys.exit(1)
-
-    spinner = [
-        "▹▹▹▹▹",
-        "▸▹▹▹▹",
-        "▹▸▹▹▹",
-        "▹▹▸▹▹",
-        "▹▹▹▸▹",
-        "▹▹▹▹▸"
-    ]
 
     all_items = list(index)
     tot = len(all_items)
@@ -445,71 +563,68 @@ def run_linters(index_file, enabled_linters, no_warnings=False, show_location=Fa
     warnings_by_linter = collections.defaultdict(int)
 
     for idx, item in enumerate(all_items):
-        check = spinner[idx % len(spinner)]
-
-        if isatty():
-            print(f" {check} [{idx}/{tot}] {item}{BOL}", end="")
+        report.update_status(idx, tot, item)
 
         item.validate(index, enabled_linters)
 
-        print_feedback = False
+        report.item_feedback(item, index, index_file)
 
-        if item._errors:
-            check = RED + '✗' + RESET
-            print_feedback = True
-        elif item._warnings:
-            check = YELLOW + '⚠' + RESET
-            print_feedback = True
-        else:
-            check = GREEN + '✓' + RESET
-            if not isatty():
-                print_feedback = False
+        for lintername, errors in item._errors.items():
+            tot_errors += len(errors)
+            errors_by_linter[lintername] += len(errors)
 
-        if print_feedback or print_ok:
-            print(f" {check} {item}{ERASETOEOL}", end="\n" if print_ok else f"{BOL}")
+        for lintername, warnings in item._warnings.items():
+            tot_warnings += len(warnings)
+            warnings_by_linter[lintername] += len(warnings)
 
-        if item._errors or item._warnings:
-            if print_feedback or print_ok:
-                print("")
-            for lintername, errors in sorted(item._errors.items()):
-                for error in errors:
-                    tot_errors += 1
-                    errors_by_linter[lintername] += 1
-                    file = index_file.name
-                    if error[1] and show_location:
-                        location = index.get_location(error[1])
-                        if location:
-                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
-                        else:
-                            location = ""
-                    else:
-                        location = ""
-                    print(f"{RED}{lintername}:{RESET}{location} {error[0]}")
-            for lintername, warnings in sorted(item._warnings.items()):
-                for warning in warnings:
-                    tot_warnings += 1
-                    warnings_by_linter[lintername] += 1
-                    if no_warnings:
-                        continue
-                    file = index_file.name
-                    if warning[1] and show_location:
-                        location = index.get_location(warning[1])
-                        if location:
-                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
-                        else:
-                            location = ""
-                    else:
-                        location = ""
-                    print(f"{YELLOW}{lintername}:{RESET}{location} {warning[0]}")
+        if not quick and isatty():
+            # fake delay to show the cute spinner
+            time.sleep(0.01)
 
+            # but why? here's why.
+            #
+            # Psychological Perspective
+            #
+            #    Cognitive Processing Time: Users need time to process the
+            #    information presented on the screen. An artificial pause can
+            #    ensure that users have adequate time to read and understand
+            #    the output before the application proceeds to the next step.
+            #    This is especially crucial for complex outputs or instructions
+            #    that require user attention and comprehension.
+            #
+            #    Reduced Cognitive Load: Rapidly updating the screen with new
+            #    information can overwhelm users, leading to a higher cognitive
+            #    load. By introducing a pause, the application allows the
+            #    user's cognitive processes to catch up with the information
+            #    flow, reducing the risk of information overload.
+            #
+            #    User Experience and Satisfaction: A pause can contribute to a
+            #    more pleasant user experience by making the interaction feel
+            #    less rushed and more deliberate. This pacing can make the
+            #    application feel more responsive to the user's need for time
+            #    to think and make decisions, potentially increasing overall
+            #    user satisfaction.
+            #
+            #    Anticipation and Engagement: Strategic pauses can create a
+            #    sense of anticipation, making the interaction more engaging.
+            #    In scenarios where the application performs a complex task, a
+            #    brief pause before displaying the result can enhance the
+            #    perceived value of the outcome.
+            #
+            #  Other practical reasons can be provided on request.
+            #  More importantly, it allows the developer to make the application faster in a new version.
+
+    elapsed = time.time() - t0
+    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors in {elapsed:.2}s{ERASETOEOL}")
     print()
-    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors")
-    print()
-    print("Errors by linter:")
+
+    if len(errors_by_linter) > 0:
+        print("Errors by linter:")
     for linter, count in sorted(errors_by_linter.items()):
         print(f" {linter}: {count}")
 
-    print("Warnings by linter:")
+    if len(warnings_by_linter) > 0:
+        print("Warnings by linter:")
     for linter, count in sorted(warnings_by_linter.items()):
         print(f" {linter}: {count}")
 
@@ -525,6 +640,7 @@ def read_config(config_file=None):
 
 
 def print_linters(linters):
+    init_colors('auto')
     print("Available linters:")
     for linter in linters:
         enabled = f"{GREEN}✓{RESET}" if linter.enabled else f"{RED}✗{RESET}"
@@ -578,6 +694,11 @@ def main(argv):
                               help='Do not show warning details (still, count them)')
     parser_check.add_argument('--show-location', action='store_true',
                               help='Show the location of the error/warning')
+    parser_check.add_argument('--markdown-report', type=argparse.FileType('w'),
+                              help='Generate a markdown report')
+    parser_check.add_argument('--quick', action='store_true', help='Quick mode (default when stdout is redirected)')
+    parser_check.add_argument('--lint-only', type=str, nargs='+', help='Run only the specified linters')
+
     # XXX: --debug option, for logger and to keep stack trace on CTRL+C
 
     add_config_argument(parser_check)
@@ -604,9 +725,20 @@ def main(argv):
         init_colors(args.color)
         print(f"Validating: '{args.index.name}'")
         print()
+
+        for linter in args.lint_only or []:
+            if linter not in [linter.name for linter in all_linters]:
+                print(f"Unknown linter: {linter}", file=sys.stderr)
+                sys.exit(1)
+
+        for linter in all_linters:
+            if args.lint_only:
+                linter.enabled = linter.name in args.lint_only
+
         tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled],
                                  no_warnings=args.no_warning_details,
-                                 show_location=args.show_location)
+                                 show_location=args.show_location,
+                                 quick=args.quick)
         sys.exit(tot_errors > 0)
     elif args.command == "defaults":
         print_default_config()
