@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
+import base64
 import collections
+import enum
 import json
 import sys
 import textwrap
@@ -25,10 +27,17 @@ BOL = '\r'
 ERASETOEOL = '\033[0K'
 
 # TODO:
-# de-duplicate code for warning, error (reduce cyclo)
+# --file-only to check only the modified files
+#      (if an item has the file path, it's checked, otherwise it's skipped)
+# --item-only to check only the specified items, with a glob pattern
 # tests
-# MarkDown output
 # publish comment on PR
+# markdown report: error and warning must keep track of the item (proper class!)
+# review linter names, descriptions and defaults
+# separate index linters (to run in CI) from the others, which can be run before committing (with an out-of-date index)
+#   - linter name prefix?
+#   - separate config section?
+#   - flag to skip them?
 
 
 isatty = sys.stdout.isatty
@@ -45,7 +54,7 @@ def init_colors(force):
         UNDERLINE = '\033[4m'
 
 
-# from https://github.com/yaml/pyyaml/issues/456
+# tweaked from https://github.com/yaml/pyyaml/issues/456
 class TrackingLoader(yaml.SafeLoader):
     def __init__(self, stream):
         super().__init__(stream)
@@ -88,13 +97,17 @@ class Index:
         self._http_cache = {}
         # some linter may skip some checks if they are covered by others
         self.enabled_linters = enabled_linters
-
-    def __iter__(self):
+        # eager creation of items, so we can store stuff if needed
+        self._items = []
         for hubtype, content in self._index.items():
             for key, spec in content.items():
-                yield Item(hubtype, key, spec)
+                self._items.append(Item(hubtype, key, spec))
 
-    def get_location(self, ob):
+    def __iter__(self):
+        yield from self._items
+
+    def locate(self, ob):
+        # TODO: return file path too
         return self._yaml_locations.get(id(ob))
 
     def proxy(self, method, url):
@@ -109,26 +122,45 @@ class Index:
             return r
 
 
+class Severity(enum.StrEnum):
+    WARNING = "warning"
+    ERROR = "error"
+
+
+class Issue:
+    def __init__(self, linter, message, severity, location=None):
+        self.linter = linter
+        self.message = message
+        self.location = location
+        self._reported_severity = severity
+        # set by the Item after the Issue is created
+        self.item = None
+
+    @property
+    def severity(self):
+        # the severity can be ERROR only if the linter is in error mode
+        if self.linter.error:
+            return self._reported_severity
+        return Severity.WARNING
+
+    # TODO: __str__ ?
+
+
 class Item:
     def __init__(self, hubtype, key, spec):
         self.hubtype = hubtype
         self.key = key
         self._spec = spec
-        self._warnings = collections.defaultdict(list)
-        self._errors = collections.defaultdict(list)
+        self._issues = []
 
     def __str__(self):
         return f"{self.hubtype}:{self.key}"
 
-    def validate(self, index, linters):
+    def validate(self, linters):
         for linter in linters:
-            fails = list(linter(self, index))
-            if not fails:
-                continue
-            if linter.error:
-                self._errors[linter.name].extend(fails)
-            else:
-                self._warnings[linter.name].extend(fails)
+            for issue in linter(self):
+                issue.item = self
+                self._issues.append(issue)
 
     def yaml_content(self):
         try:
@@ -159,6 +191,8 @@ class Item:
 
 class Linter:
     def __init__(self):
+        # XXX: this is mandatory
+        self.index = None
         cls = self.__class__.__name__
         if not hasattr(self, "name"):
             raise ValueError(f"Linter {cls} must have a name")
@@ -171,6 +205,18 @@ class Linter:
         if not hasattr(self, "__call__"):
             raise ValueError(f"Linter {cls} must have a __call__ method")
 
+    def err(self, message, ob=None):
+        location = None
+        if ob:
+            location = self.index.locate(ob)
+        return Issue(self, message, Severity.ERROR, location)
+
+    def warn(self, message, ob=None):
+        location = None
+        if ob:
+            location = self.index.locate(ob)
+        return Issue(self, message, Severity.WARNING, location)
+
 
 # yeah, it's a joke/example
 class NotLinux(Linter):
@@ -179,9 +225,10 @@ class NotLinux(Linter):
     enabled = False
     error = False
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if 'linux' in item.key:
-            yield f"Name contains 'linux': {item.key}", index._index[item.hubtype][item.key]
+            yield self.err(f"Name contains 'linux': {item.key}",
+                           self.index._index[item.hubtype][item.key])
 
 
 class OnlyCollectionHaveDependencies(Linter):
@@ -190,13 +237,14 @@ class OnlyCollectionHaveDependencies(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if item.hubtype == "collections":
             return
-        for typ in index.hubtypes:
+        for typ in self.index.hubtypes:
             deps = item._spec.get(typ, [])
             if deps:
-                yield f"Item declares dependencies but it's not a collection: {typ}={deps}.", index._index[item.hubtype][item.key][typ]
+                yield self.err(f"Item declares dependencies but it's not a collection: {typ}={deps}",
+                               self.index._index[item.hubtype][item.key][typ])
 
 
 class EmptyDependencies(Linter):
@@ -205,10 +253,11 @@ class EmptyDependencies(Linter):
     enabled = True
     error = False
 
-    def __call__(self, item, index):
-        for typ in index.hubtypes:
+    def __call__(self, item):
+        for typ in self.index.hubtypes:
             if item._spec.get(typ) == []:
-                yield f"Empty dependency: {typ}=[]", index._index[item.hubtype][item.key][typ]
+                yield self.err(f"Empty dependency: {typ}=[]",
+                               self.index._index[item.hubtype][item.key][typ])
 
 
 class OneDocumentPerYAMLFile(Linter):
@@ -217,10 +266,10 @@ class OneDocumentPerYAMLFile(Linter):
     enabled = True
     error = False
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         names = [doc.get("name") for doc in item.yaml_docs()]
         if len(names) > 1:
-            yield f"File {item._spec['path']} contains more than one document: {names}", None
+            yield self.err(f"File {item._spec['path']} contains more than one document: {names}")
 
 
 class MissingAuthor(Linter):
@@ -229,9 +278,10 @@ class MissingAuthor(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if not item._spec.get("author"):
-            yield "Missing 'author' field", index._index[item.hubtype][item.key]
+            yield self.err("Missing 'author' field",
+                           self.index._index[item.hubtype][item.key])
 
 
 class MissingItemFile(Linter):
@@ -240,14 +290,15 @@ class MissingItemFile(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         try:
             with open(item._spec['path']):
                 pass
         except FileNotFoundError:
-            yield f"File '{item._spec['path']}' does not exist"
+            yield self.err(f"File '{item._spec['path']}' does not exist")
         except KeyError:
-            yield "Missing 'path' field", index._index[item.hubtype][item.key]
+            yield self.err("Missing 'path' field",
+                           self.index._index[item.hubtype][item.key])
 
 
 class MissingDependencies(Linter):
@@ -256,11 +307,12 @@ class MissingDependencies(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
-        for typ in index.hubtypes:
+    def __call__(self, item):
+        for typ in self.index.hubtypes:
             for dep_idx, dep in enumerate(item._spec.get(typ, [])):
-                if dep not in index._index.get(typ, {}):
-                    yield f"Dependency '{typ}:{dep}' does not exist", index._index[item.hubtype][item.key][typ][dep_idx]
+                if dep not in self.index._index.get(typ, {}):
+                    yield self.err(f"Dependency '{typ}:{dep}' does not exist",
+                                   self.index._index[item.hubtype][item.key][typ][dep_idx])
 
 
 class BadPath(Linter):
@@ -269,7 +321,7 @@ class BadPath(Linter):
     enabled = True
     error = False
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         stage = item._spec.get("stage")
         basedir = f"{item.hubtype}/{stage}" if stage else item.hubtype
         expected_paths = [
@@ -278,10 +330,11 @@ class BadPath(Linter):
         ]
         pth = item._spec.get("path")
         if pth not in expected_paths:
-            ob = index._index[item.hubtype][item.key]
+            ob = self.index._index[item.hubtype][item.key]
             if 'path' in ob:
                 ob = ob['path']
-            yield f"Path '{pth}' does not match the item type, stage and name (must be one of: {expected_paths})", ob
+            yield self.err(f"Path '{pth}' does not match item type/stage/name (must be one of: {expected_paths})",
+                           ob)
 
 
 class MissingPath(Linter):
@@ -290,9 +343,10 @@ class MissingPath(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if not item._spec.get("path"):
-            yield "Missing 'path' field", index._index[item.hubtype][item.key]
+            yield self.err("Missing 'path' field",
+                           self.index._index[item.hubtype][item.key])
 
 
 class AuthorMatchkey(Linter):
@@ -301,13 +355,14 @@ class AuthorMatchkey(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         author = item._spec.get("author", "")
         if not item.key.startswith(author + '/'):
-            ob = index._index[item.hubtype][item.key]
+            ob = self.index._index[item.hubtype][item.key]
             if 'author' in ob:
                 ob = ob['author']
-            yield f"Author field '{author}' does not match the item key '{item.key}'", ob
+            yield self.err(f"Author field '{author}' does not match the item key '{item.key}'",
+                           ob)
 
 
 class DocumentWithoutName(Linter):
@@ -318,12 +373,12 @@ class DocumentWithoutName(Linter):
     # XXX: we could make linters configurable from the toml file
     config = {'hubtypes': ['scenarios']}
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if item.hubtype not in self.config['hubtypes']:
             return
         for doc in item.yaml_docs():
             if not doc.get("name"):
-                yield f"YAML document without name: {item._spec['path']}", None
+                yield self.err(f"YAML document without name: {item._spec['path']}")
 
 
 class DocumentNameMatchingItem(Linter):
@@ -333,13 +388,13 @@ class DocumentNameMatchingItem(Linter):
     error = True
     config = {'hubtypes': ['scenarios']}
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if item.hubtype not in self.config['hubtypes']:
             return
         for doc in item.yaml_docs():
             if doc.get("name") == item.key:
                 return
-        yield f"YAML file {item._spec.get('path')} does not have a document named: {item.key}", None
+        yield self.err(f"YAML file {item._spec.get('path')} does not have a document named: {item.key}")
 
 
 class ItemSchema(Linter):
@@ -366,7 +421,7 @@ class ItemSchema(Linter):
         super().__init__(*args, **kwargs)
         self._schemas = {}
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         if item.hubtype not in self.config:
             return
 
@@ -375,7 +430,7 @@ class ItemSchema(Linter):
                 yaml_schema = requests.get(self.config[item.hubtype]['url']).text
                 self._schemas[item.hubtype] = yaml.safe_load(yaml_schema)
             except requests.RequestException as e:
-                yield f"Failed to fetch schema for {item.hubtype}: {e}", None
+                yield self.err(f"Failed to fetch schema for {item.hubtype}: {e}")
                 return
 
         schema = self._schemas[item.hubtype]
@@ -383,7 +438,7 @@ class ItemSchema(Linter):
             try:
                 jsonschema.validate(doc, schema)
             except jsonschema.ValidationError as e:
-                yield f"File {item._spec.get('path')} does not match the schema: {e.message}", None
+                yield self.err(f"File {item._spec.get('path')} does not match the schema: {e.message}")
 
 
 class DataFilesExist(Linter):
@@ -392,20 +447,20 @@ class DataFilesExist(Linter):
     enabled = False
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         for url in item.data_urls():
             try:
                 if isatty():
                     print(f"Checking {url}{ERASETOEOL}{BOL}", end="")
                 try:
-                    r = index.proxy(HTTPMethod.HEAD, url)
+                    r = self.index.proxy(HTTPMethod.HEAD, url)
                     r.raise_for_status()
                 except requests.HTTPError as e:
-                    yield f"HTTP error for data file {url}: {e}", None
+                    yield self.err(f"HTTP error for data file {url}: {e}")
                     continue
 
             except requests.RequestException as e:
-                yield f"Failed to fetch data file {url}: {e}", None
+                yield self.err(f"Failed to fetch data file {url}: {e}")
 
 
 class DataFilesLastModified(Linter):
@@ -418,19 +473,19 @@ class DataFilesLastModified(Linter):
     enabled = False
     error = False
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         for url in item.data_urls():
             try:
                 if isatty():
                     print(f"Checking {url}{ERASETOEOL}{BOL}", end="")
-                r = index.proxy(HTTPMethod.HEAD, url)
+                r = self.index.proxy(HTTPMethod.HEAD, url)
                 r.raise_for_status()
                 if not r.headers.get('last-modified'):
-                    yield f"Data file {url} does not have a 'last-modified' header", None
+                    yield self.err(f"Data file {url} does not have a 'last-modified' header")
             except requests.RequestException as e:
                 # if the other linter is enabled, we don't report the error here
-                if DataFilesExist.name in index.enabled_linters:
-                    yield f"Failed to fetch data file {url}: {e}", None
+                if DataFilesExist.name in self.index.enabled_linters:
+                    yield self.err(f"Failed to fetch data file {url}: {e}")
 
 
 class NoDebugMode(Linter):
@@ -439,11 +494,27 @@ class NoDebugMode(Linter):
     enabled = True
     error = True
 
-    def __call__(self, item, index):
+    def __call__(self, item):
         for doc in item.yaml_docs():
             if doc.get("debug"):
                 # TODO: add location (needs file name support if it's other than the index file)
-                yield f"Item file {item._spec.get('path')} in debug mode", None
+                yield self.err(f"Item file {item._spec.get('path')} in debug mode")
+
+
+class ContentMatchFile(Linter):
+    name = "content-match-file"
+    description = "The content of the item must match the file"
+    enabled = True
+    error = True
+
+    def __call__(self, item):
+        # TODO: handle file or field not present
+        from_file = item.yaml_content()
+        from_file = from_file.encode('utf-8')
+        from_file = base64.b64encode(from_file).decode('utf-8')
+        from_field = item._spec.get('content')
+        if from_field != from_file:
+            yield self.err(f"Content field does not match the file: {item._spec.get('path')}")
 
 
 # --------------------------------------------------------------------- #
@@ -493,10 +564,10 @@ class TTYReporter:
     def item_feedback(self, item, index, index_file):
         print_feedback = False
 
-        if item._errors:
+        if any(i.severity == Severity.ERROR for i in item._issues):
             check = RED + '✗'
             print_feedback = True
-        elif item._warnings:
+        elif any(i.severity == Severity.WARNING for i in item._issues):
             check = YELLOW + '⚠'
             print_feedback = True
         else:
@@ -511,39 +582,73 @@ class TTYReporter:
             else:
                 print(BOL, end="")
 
-        if item._errors or item._warnings:
+        if item._issues:
             if print_feedback or self.print_ok:
                 print("")
-            for lintername, errors in sorted(item._errors.items()):
-                for error in errors:
-                    file = index_file.name
-                    if error[1] and self.show_location:
-                        location = index.get_location(error[1])
-                        if location:
-                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
-                        else:
-                            location = ""
-                    else:
-                        location = ""
-                    print(f"{RED}{lintername}:{RESET}{location} {error[0]}")
-            for lintername, warnings in sorted(item._warnings.items()):
-                for warning in warnings:
-                    if self.no_warnings:
-                        continue
-                    file = index_file.name
-                    if warning[1] and self.show_location:
-                        location = index.get_location(warning[1])
-                        if location:
-                            location = f" {file}:{location[0]+1}:{location[1]+1}:"
-                        else:
-                            location = ""
-                    else:
-                        location = ""
-                    print(f"{YELLOW}{lintername}:{RESET}{location} {warning[0]}")
+            for issue in item._issues:
+                file = index_file.name
+                if issue.location and self.show_location:
+                    location = f" {file}:{issue.location[0]+1}:{issue.location[1]+1}:"
+                else:
+                    location = ""
+                sev = RED if issue.severity == Severity.ERROR else YELLOW
+                print(f"{sev}{issue.linter.name}:{RESET}{location} {issue.message}")
 
 
-def run_linters(index_file, enabled_linters, no_warnings=False, show_location=False, quick=False):
-    report = TTYReporter(no_warnings, show_location)
+class MarkDownReporter:
+    def __init__(self, outfile):
+        self.outfile = outfile
+
+    def write_report(self, index, enabled_linters):
+        if not self.outfile:
+            return
+
+        self.outfile.write(self.report(index, enabled_linters))
+
+    def report(self, index, enabled_linters):
+        linters_desc = {linter.name: linter.description for linter in enabled_linters}
+
+        errors = [i for item in index for i in item._issues if i.severity == Severity.ERROR]
+        warnings = [i for item in index for i in item._issues if i.severity == Severity.WARNING]
+
+        report = [
+            "# Hublint Validation Report",
+            "",
+            f" Checked {len(enabled_linters)} linters: {len(errors)} errors, {len(warnings)} warnings",
+            "",
+        ]
+
+        item_per_type = collections.defaultdict(list)
+        for item in index:
+            if not item._issues:
+                continue
+            item_per_type[item.hubtype].append(item)
+
+        report.append("Issues were found by the following linters.")
+        report.append("")
+
+        failed_linters = set(i.linter.name for i in errors + warnings)
+
+        for linter in failed_linters:
+            report.append(f"## {linter}")
+            report.append(f"  {linters_desc[linter]}")
+
+        for hubtype, items in item_per_type.items():
+            for item in items:
+                report.append(f"### {hubtype}:{item.key}")
+                for issue in item._issues:
+                    if issue.severity == Severity.ERROR:
+                        report.append(f"  - :x: {issue.linter.name}: {issue.message}")
+                    elif issue.severity == Severity.WARNING:
+                        report.append(f"  - :warning: {issue.linter.name}: {issue.message}")
+
+        return '\n'.join(report)
+
+
+def run_linters(index_file, enabled_linters, no_warnings, show_location, markdown, quick):
+    ttyrep = TTYReporter(no_warnings, show_location)
+    mdrep = MarkDownReporter(markdown)
+
     t0 = time.time()
 
     try:
@@ -562,20 +667,24 @@ def run_linters(index_file, enabled_linters, no_warnings=False, show_location=Fa
     errors_by_linter = collections.defaultdict(int)
     warnings_by_linter = collections.defaultdict(int)
 
+    # XXX: clean this mess
+    for linter in enabled_linters:
+        linter.index = index
+
     for idx, item in enumerate(all_items):
-        report.update_status(idx, tot, item)
+        ttyrep.update_status(idx, tot, item)
+        item.validate(enabled_linters)
 
-        item.validate(index, enabled_linters)
+        ttyrep.item_feedback(item, index, index_file)
 
-        report.item_feedback(item, index, index_file)
-
-        for lintername, errors in item._errors.items():
-            tot_errors += len(errors)
-            errors_by_linter[lintername] += len(errors)
-
-        for lintername, warnings in item._warnings.items():
-            tot_warnings += len(warnings)
-            warnings_by_linter[lintername] += len(warnings)
+        errors = [i for i in item._issues if i.severity == Severity.ERROR]
+        tot_errors += len(errors)
+        for e in errors:
+            errors_by_linter[e.linter.name] += 1
+        warnings = [i for i in item._issues if i.severity == Severity.WARNING]
+        for w in warnings:
+            warnings_by_linter[w.linter.name] += 1
+        tot_warnings += len(warnings)
 
         if not quick and isatty():
             # fake delay to show the cute spinner
@@ -627,6 +736,8 @@ def run_linters(index_file, enabled_linters, no_warnings=False, show_location=Fa
         print("Warnings by linter:")
     for linter, count in sorted(warnings_by_linter.items()):
         print(f" {linter}: {count}")
+
+    mdrep.write_report(index, enabled_linters)
 
     return tot_errors
 
@@ -694,7 +805,7 @@ def main(argv):
                               help='Do not show warning details (still, count them)')
     parser_check.add_argument('--show-location', action='store_true',
                               help='Show the location of the error/warning')
-    parser_check.add_argument('--markdown-report', type=argparse.FileType('w'),
+    parser_check.add_argument('--markdown', type=argparse.FileType('w'),
                               help='Generate a markdown report')
     parser_check.add_argument('--quick', action='store_true', help='Quick mode (default when stdout is redirected)')
     parser_check.add_argument('--lint-only', type=str, nargs='+', help='Run only the specified linters')
@@ -738,6 +849,7 @@ def main(argv):
         tot_errors = run_linters(args.index, [linter for linter in all_linters if linter.enabled],
                                  no_warnings=args.no_warning_details,
                                  show_location=args.show_location,
+                                 markdown=args.markdown,
                                  quick=args.quick)
         sys.exit(tot_errors > 0)
     elif args.command == "defaults":
