@@ -1,0 +1,18 @@
+name: darkclip/opnsense-ipsec-bf
+#debug: true
+description: "Detect OPNSense IPSEC bruteforce"
+filter: "evt.Meta.log_type == 'opnsense_ipsec_auth_fail'"
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "10s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: opnsense_ipsec
+  behavior: "generic:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "OPNSense IPSEC Bruteforce"
+  remediation: true
