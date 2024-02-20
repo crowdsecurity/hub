@@ -1,0 +1,18 @@
+type: leaky
+#debug: true
+name: crowdsecurity/nginx-con-limit-exceeded
+description: "Detects IPs which violate nginx's user set connections limit."
+filter: evt.Meta.sub_type == 'con_limit_exceeded'
+leakspeed: "60s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  remediation: true
+  confidence: 2
+  spoofable: 2
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "Nginx connections limit exceeded"
+  service: http
