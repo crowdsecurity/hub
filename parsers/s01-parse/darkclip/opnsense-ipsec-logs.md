@@ -1,1 +1,0 @@
-Parser for OPNSense IPSEC authentication fail.
