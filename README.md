@@ -229,7 +229,7 @@ timestamp8601: ""
 
 ## Contributing
 
-We gracefully accept PR to enrich the content of Hub. Follow the steps on our documentation website: [https://docs.crowdsec.net/docs/next/contributing/contributing_hub/](https://docs.crowdsec.net/docs/next/contributing/contributing_hub/)
+We gratefully accept PR to enrich the content of Hub. Follow the steps on our documentation website: [https://docs.crowdsec.net/docs/next/contributing/contributing_hub/](https://docs.crowdsec.net/docs/next/contributing/contributing_hub/)
 
 
 
