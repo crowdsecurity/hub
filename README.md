@@ -227,10 +227,9 @@ timestamp: Sep 8 07:46:51
 timestamp8601: ""
 ```
 
-## Open your PR
+## Contributing
 
-yes.
-
+We gracefully accept PR to enrich the content of Hub. Follow the steps on our documentation website: [https://docs.crowdsec.net/docs/next/contributing/contributing_hub/](https://docs.crowdsec.net/docs/next/contributing/contributing_hub/)
 
 
 
