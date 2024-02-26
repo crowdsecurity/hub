@@ -3931,6 +3931,29 @@
     "crowdsecurity/http-wordpress_user-enum"
    ]
   },
+  "darkclip/charon-ipsec": {
+   "path": "collections/darkclip/charon-ipsec.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "936e0b860d53b0f5ec796488d4d70a6d0b97b4c480c297afcc0ee0326fa44edd",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgQ2hhcm9uIElQc2VjIGNvbGxlY3Rpb24KCkEgY29sbGVjdGlvbiB0byBkZWZlbmQgQ2hhcm9uIElQc2VjIGFnYWluc3QgYnJ1dGVmb3JjZSBhdHRhY2tzOgoKLSBDaGFyb24gSVBzZWMgcGFyc2VycwotIENoYXJvbiBJUHNlYyBzY2VuYXJpb3MKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb246CgpgYGB5YW1sCmZpbGVuYW1lczoKICAtIC92YXIvbG9nL2lwc2VjL2xhdGVzdC5sb2cKICAtIC92YXIvbG9nL2lwc2VjLmxvZwpmb3JjZV9pbm90aWZ5OiB0cnVlCnBvbGxfd2l0aG91dF9pbm90aWZ5OiB0cnVlCmxhYmVsczoKICB0eXBlOiBzeXNsb2cKYGBgCg==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3lzbG9nLWxvZ3MKICAtIGRhcmtjbGlwL2NoYXJvbi1pcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGRhcmtjbGlwL2NoYXJvbi1pcHNlYy1iZgogIC0gZGFya2NsaXAvY2hhcm9uLWlwc2VjLXNsb3ctYmYKZGVzY3JpcHRpb246ICJDaGFyb24gSVBTRUMgc3VwcG9ydDogcGFyc2VycyBhbmQgc2NlbmFyaW9zIgphdXRob3I6IGRhcmtjbGlwCnRhZ3M6CiAgLSBmcmVlYnNkCiAgLSBvcG5zZW5zZQogIC0gcGZzZW5zZQogIC0gY2hhcm9uCiAgLSBzdHJvbmdzd2FuCiAgLSB2cG4KICAtIGlwc2VjCiAgLSBicnV0ZWZvcmNl",
+   "description": "Charon IPSEC support: parsers and scenarios",
+   "author": "darkclip",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/syslog-logs",
+    "darkclip/charon-ipsec-logs"
+   ],
+   "scenarios": [
+    "darkclip/charon-ipsec-bf",
+    "darkclip/charon-ipsec-slow-bf"
+   ]
+  },
   "firewallservices/lemonldap-ng": {
    "path": "collections/firewallservices/lemonldap-ng.yaml",
    "version": "0.1",
@@ -7043,6 +7066,22 @@
    "content": "ZmlsdGVyOiAiZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdrZXJuZWwnIGFuZCBldnQuUGFyc2VkLm1lc3NhZ2UgY29udGFpbnMgJ3dpcmVndWFyZDonIgojZGVidWc6IHRydWUKb25zdWNjZXNzOiBuZXh0X3N0YWdlCm5hbWU6IGNyb3dkc2VjdXJpdHkvd2lyZWd1YXJkLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZXMgd2lyZWd1YXJkIGxvZyB2aWEgZHluZGJnIgpwYXR0ZXJuX3N5bnRheDoKICBXSVJFR1VBUkRfSU5WQUxJRF9IQU5EU0hBS0U6ICd3aXJlZ3VhcmQ6IHdnJXtJTlR9OiBQYWNrZXQgaGFzIHVuYWxsb3dlZCBzcmMgSVAgXCgle0lQfVwpIGZyb20gcGVlciAle0lOVH0gXCgle0lQOnNvdXJjZV9pcH06JXtJTlR9XCknCiAgV0lSRUdVQVJEX1VOQVVUSE9SSVpFRF9QQUNLRVQ6ICd3aXJlZ3VhcmQ6IHdnJXtJTlR9OiBJbnZhbGlkIGhhbmRzaGFrZSBpbml0aWF0aW9uIGZyb20gJXtJUDpzb3VyY2VfaXB9OiV7SU5UfScKbm9kZXM6CiAtIGdyb2s6CiAgICAgbmFtZTogIldJUkVHVUFSRF9JTlZBTElEX0hBTkRTSEFLRSIKICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgIHN0YXRpY3M6CiAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgIHZhbHVlOiB3aXJlZ3VhcmRfZmFpbGVkX2F1dGgKICAgICAgIC0gbWV0YTogbG9nX3N1YnR5cGUKICAgICAgICAgdmFsdWU6IHdpcmVndWFyZF9pbnZhbGlkX2hhbmRzaGFrZQogLSBncm9rOgogICAgIG5hbWU6ICJXSVJFR1VBUkRfVU5BVVRIT1JJWkVEX1BBQ0tFVCIKICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgIHN0YXRpY3M6CiAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgIHZhbHVlOiB3aXJlZ3VhcmRfZmFpbGVkX2F1dGgKICAgICAgIC0gbWV0YTogbG9nX3N1YnR5cGUKICAgICAgICAgdmFsdWU6IHdpcmVndWFyZF91bmF1dGhvcml6ZWRfcGFja2V0CgpzdGF0aWNzOgogLSBtZXRhOiBzZXJ2aWNlCiAgIHZhbHVlOiB3aXJlZ3VhcmQKIC0gbWV0YTogc291cmNlX2lwCiAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCI=",
    "description": "Parses wireguard log via dyndbg",
    "author": "crowdsecurity",
+   "labels": null
+  },
+  "darkclip/charon-ipsec-logs": {
+   "path": "parsers/s01-parse/darkclip/charon-ipsec-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "78622315a1cd3b5c4c8650479388ca4846daa6341134a172735044486be8072a",
+     "deprecated": false
+    }
+   },
+   "long_description": "UGFyc2VyIGZvciBDaGFyb24gSVBzZWMgYXV0aGVudGljYXRpb24gZmFpbC4=",
+   "content": "bmFtZTogZGFya2NsaXAvY2hhcm9uLWlwc2VjLWxvZ3MKI2RlYnVnOiB0cnVlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnY2hhcm9uJyIKZGVzY3JpcHRpb246IFBhcnNlIENoYXJvbiBJUHNlYyBsb2dzCm9uc3VjY2VzczogbmV4dF9zdGFnZQpwYXR0ZXJuX3N5bnRheDoKICBJUFNFQ19JRDogJzwle0RBVEF9XHwle05VTUJFUn0+Jwpub2RlczoKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICdeJXtOVU1CRVI6dGhyZWFkfVxbJXtXT1JEOnN1YnN5c31cXSAle0lQU0VDX0lEOmlwc2VjX2lkfS4qdmVyaWZpY2F0aW9uLipmYWlsZWQuKicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgIHN0YXNoOgogICAgICAtIG5hbWU6IGNoYXJvbl9pcHNlY19sb2dzCiAgICAgICAga2V5OiBldnQuUGFyc2VkLnRocmVhZAogICAgICAgIHZhbHVlOiBldnQuUGFyc2VkLmlwc2VjX2lkCiAgICAgICAgdHRsOiA1cwogICAgICAgIHNpemU6IDEwCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXiV7TlVNQkVSOnRocmVhZH1cWyV7V09SRDpzdWJzeXN9XF0gJXtJUFNFQ19JRDppcHNlY19pZH0uKmF1dGhlbnRpY2F0aW9uLipmYWlsZWQuKicKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgIHN0YXNoOgogICAgICAtIG5hbWU6IGNoYXJvbl9pcHNlY19sb2dzCiAgICAgICAga2V5OiBldnQuUGFyc2VkLnRocmVhZAogICAgICAgIHZhbHVlOiBldnQuUGFyc2VkLmlwc2VjX2lkCiAgICAgICAgdHRsOiA1cwogICAgICAgIHNpemU6IDEwCiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXiV7TlVNQkVSOnRocmVhZH1cWyV7V09SRDpzdWJzeXN9XF0gJXtJUFNFQ19JRDppcHNlY19pZH0gc2VuZGluZyBwYWNrZXRcOiBmcm9tICV7SVA6dGFyZ2V0X2lwfVxbJXtOVU1CRVI6dGFyZ2V0X3BvcnR9XF0gdG8gJXtJUDpzb3VyY2VfaXB9XFsle05VTUJFUjpzb3VyY2VfcG9ydH1cXS4qJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgbm9kZXM6CiAgICAgIC0gZmlsdGVyOiAiR2V0RnJvbVN0YXNoKCdjaGFyb25faXBzZWNfbG9ncycsIGV2dC5QYXJzZWQudGhyZWFkKSAhPSAnJyAmJiBHZXRGcm9tU3Rhc2goJ2NoYXJvbl9pcHNlY19sb2dzJywgZXZ0LlBhcnNlZC50aHJlYWQpID09IGV2dC5QYXJzZWQuaXBzZWNfaWQiCiAgICAgICAgc3RhdGljczoKICAgICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgICAgdmFsdWU6IGNoYXJvbl9pcHNlY19hdXRoX2ZhaWwKICAgICAgICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuc291cmNlX2lwCgpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGNoYXJvbl9pcHNlYwo=",
+   "description": "Parse Charon IPsec logs",
+   "author": "darkclip",
    "labels": null
   },
   "firewallservices/lemonldap-ng": {
@@ -13211,6 +13250,56 @@
     "label": "Wireguard Bruteforce",
     "remediation": true,
     "service": "wireguard",
+    "spoofable": 0
+   }
+  },
+  "darkclip/charon-ipsec-bf": {
+   "path": "scenarios/darkclip/charon-ipsec-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "183e51751d76663ff636d1b64acae7ade0ac6995ec50ea77a09e573f9a61079e",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIGF1dGhlbnRpY2F0aW9ucyBmb3IgQ2hhcm9uIElQc2VjIHNlcnZlci4KCiAtIGxlYWtzcGVlZCBvZiAxMHMsIGNhcGFjaXR5IG9mIDUgb24gc2FtZSBzb3VyY2U=",
+   "content": "bmFtZTogZGFya2NsaXAvY2hhcm9uLWlwc2VjLWJmCiNkZWJ1ZzogdHJ1ZQpkZXNjcmlwdGlvbjogIkRldGVjdCBDaGFyb24gSVBzZWMgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2NoYXJvbl9pcHNlY19hdXRoX2ZhaWwnIgp0eXBlOiBsZWFreQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAiMTBzIgpjYXBhY2l0eTogNQpibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBjaGFyb25faXBzZWMKICBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGxhYmVsOiAiQ2hhcm9uIElQc2VjIEJydXRlZm9yY2UiCiAgcmVtZWRpYXRpb246IHRydWUK",
+   "description": "Detect Charon IPsec bruteforce",
+   "author": "darkclip",
+   "labels": {
+    "behavior": "generic:bruteforce",
+    "classification": [
+     "attack.T1110"
+    ],
+    "confidence": 3,
+    "label": "Charon IPsec Bruteforce",
+    "remediation": true,
+    "service": "charon_ipsec",
+    "spoofable": 0
+   }
+  },
+  "darkclip/charon-ipsec-slow-bf": {
+   "path": "scenarios/darkclip/charon-ipsec-slow-bf.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "b91ab9160377e1a2396c593b054374c778cb6affadecdba952207fb1e9442fe0",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0cyBzbG93IGJydXRlZm9yY2UgYXV0aGVudGljYXRpb25zIGZvciBDaGFyb24gSVBzZWMgc2VydmVyLgoKIC0gbGVha3NwZWVkIG9mIDYwcywgY2FwYWNpdHkgb2YgMTAgb24gc2FtZSBzb3VyY2U=",
+   "content": "bmFtZTogZGFya2NsaXAvY2hhcm9uLWlwc2VjLWJmCiNkZWJ1ZzogdHJ1ZQpkZXNjcmlwdGlvbjogIkRldGVjdCBDaGFyb24gSVBzZWMgc2xvdyBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnY2hhcm9uX2lwc2VjX2F1dGhfZmFpbCciCnR5cGU6IGxlYWt5Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApsZWFrc3BlZWQ6ICI2MHMiCmNhcGFjaXR5OiAxMApibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBjaGFyb25faXBzZWMKICBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGxhYmVsOiAiQ2hhcm9uIElQc2VjIFNsb3cgQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+   "description": "Detect Charon IPsec slow bruteforce",
+   "author": "darkclip",
+   "labels": {
+    "behavior": "generic:bruteforce",
+    "classification": [
+     "attack.T1110"
+    ],
+    "confidence": 3,
+    "label": "Charon IPsec Slow Bruteforce",
+    "remediation": true,
+    "service": "charon_ipsec",
     "spoofable": 0
    }
   },
