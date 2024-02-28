@@ -15,6 +15,13 @@ nodes:
       statics:
         - meta: log_type_enh
           value: spam-attempt
+  - grok:
+      apply_on: message
+      # Feb 28 13:41:10 mail postfix/smtpd[98013]: warning: unknown[114.243.105.223]: SASL PLAIN authentication failed: (reason unavailable), sasl_username=inf@kabardians.com
+      pattern: ' %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: SASL PLAIN authentication failed'
+      statics:
+        - meta: log_type_enh
+          value: posfix_failed_auth
 statics:
     - meta: service
       value: postfix
