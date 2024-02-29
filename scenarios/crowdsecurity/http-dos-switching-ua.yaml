@@ -1,0 +1,21 @@
+type: leaky
+format: 2.0
+#debug: true
+name: crowdsecurity/http-dos-swithcing-ua
+description: "Detect DoS tools switching user-agent too fast"
+#pattern seen in mhddos tool
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"]'
+capacity: 10
+distinct: evt.Parsed.http_user_agent
+leakspeed: 8s
+groupby: "evt.Meta.source_ip"
+blackhole: 2m
+labels:
+  service: http
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "HTTP DOS with varying UA"

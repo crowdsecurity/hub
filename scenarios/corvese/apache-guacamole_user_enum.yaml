@@ -9,5 +9,11 @@ capacity: 5
 blackhole: 1m
 labels:
   service: apache-guacamole
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Apache Guacamole User Enumeration"
   remediation: true

@@ -1,0 +1,42 @@
+name: Vpatch collection lint
+on:
+  push:
+    paths:
+      - "appsec-rules/**.yaml"
+      - "appsec-rules/**.yml"
+      - "scripts/**.py"
+      - ".github/workflows/appsec_vpatch_lint.yaml"
+      - "./collections/crowdsecurity/appsec-virtual-patching.yaml"
+
+jobs:
+  update-taxonomy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        run: |
+          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> $GITHUB_ENV
+      - name: Create local changes
+        env:
+          AUTHOR: ${{ github.actor }}
+        run: |
+          pip install requests pyyaml mdutils
+          python ./scripts/appsec_vpatch_lint.py -e appsec_vpatch_cve_error.md --hub ./
+          [ -f "appsec_vpatch_cve_error.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          state: open
+      - name: Comment PR if errors
+        if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'push') && (github.ref != 'refs/heads/master') }}
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          filePath: appsec_vpatch_cve_error.md
+          pr_number: ${{ steps.findPr.outputs.pr }}

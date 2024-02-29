@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/http-bf-wordpress_bf
-description: "detect wordpress bruteforce"
+description: "Detect WordPress bruteforce on admin interface"
 debug: false
 # failed auth on wp-login.php returns 200
 filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name == 'wp-login.php' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '200'"
@@ -9,6 +9,11 @@ capacity: 5
 leakspeed: 10s
 blackhole: 5m
 labels:
- service: http
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "WordPress Bruteforce"
+  service: wordpress
+  remediation: true

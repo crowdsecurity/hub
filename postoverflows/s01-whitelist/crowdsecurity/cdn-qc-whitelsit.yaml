@@ -1,0 +1,12 @@
+name: crowdsecurity/quic-cdn-whitelist
+description: "Whitelist CDN provider QUIC.cloud"
+whitelist:
+  reason: "CDN provider QUIC.cloud"
+  expression: 
+    - "evt.Overflow.Alert.Source.IP in File('quic_cloud_ips.txt')"
+
+data:
+  - source_url: https://www.quic.cloud/ips?ln
+    dest_file: quic_cloud_ips.txt
+    type: string
+

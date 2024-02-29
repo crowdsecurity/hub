@@ -1,0 +1,22 @@
+onsuccess: next_stage
+filter: "Lower(evt.Parsed.program) in ['joplin-server']"
+name: xs539/joplin-server-logs
+description: "Parse Joplin Server logs"
+pattern_syntax:
+  JOPLIN_DATE: "%{YEAR}[/-]%{MONTHNUM2}[/-]%{DAY2} %{HOUR}:%{MINUTE}:%{SECOND}"
+nodes:
+  - grok:
+      pattern: '%{JOPLIN_DATE:timestamp}%{GREEDYDATA}/api/sessions: %{IPORHOST:remote_addr}%{GREEDYDATA}Invalid username or password%{GREEDYDATA}"%{EMAILADDRESS:target_user}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: joplin_server_failed_auth
+        - meta: target_user
+          expression: evt.Parsed.target_user
+statics:
+    - meta: service
+      value: joplin
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - meta: source_ip
+      expression: evt.Parsed.remote_addr

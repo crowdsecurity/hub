@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/nginx-logs
+- crowdsecurity/http-logs
+scenarios:
+- ./scenarios/crowdsecurity/http-dos-invalid-http-versions.yaml
+postoverflows:
+- ""
+log_file: http-dos-invalid-http-versions.log
+log_type: nginx
+labels: {}
+ignore_parsers: true
+override_statics: []

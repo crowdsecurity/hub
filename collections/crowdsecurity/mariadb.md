@@ -12,7 +12,7 @@ Example acquisition for this collection :
 filenames:
   - /var/log/mysql/error.log
 labels:
-  type: mysql
+  type: mariadb
 ```
 
 notes :

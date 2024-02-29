@@ -2,13 +2,21 @@ type: trigger
 name: crowdsecurity/aws-cis-benchmark-config-config-change
 description: "Detect AWS Config configuration change"
 filter: |
-    evt.Meta.log_type == 'aws-cloudtrail' && 
-    evt.Unmarshaled.cloudtrail.eventSource == "config.amazonaws.com" &&
-    (
-     evt.Meta.event_name == "StopConfigurationRecorder" ||
-     evt.Meta.event_name == "DeleteDeliveryChannel" ||
-     evt.Meta.event_name == "PutDeliveryChannel" ||
-     evt.Meta.event_name == "PutConfigurationRecorder"
-    )
+  evt.Meta.log_type == 'aws-cloudtrail' && 
+  evt.Unmarshaled.cloudtrail.eventSource == "config.amazonaws.com" &&
+  (
+   evt.Meta.event_name == "StopConfigurationRecorder" ||
+   evt.Meta.event_name == "DeleteDeliveryChannel" ||
+   evt.Meta.event_name == "PutDeliveryChannel" ||
+   evt.Meta.event_name == "PutConfigurationRecorder"
+  )
 labels:
-  type: compliance
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1070
+  behavior: "cloud:audit"
+  label: "AWS Config indicator removal"
+  service: aws
+  cti: false
+  remediation: false

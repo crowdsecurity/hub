@@ -1,55 +1,39 @@
-filter: "evt.Parsed.program startsWith 'caddy'"
+filter: "evt.Parsed.program startsWith 'caddy' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil]"
 onsuccess: next_stage
-# debug: true
 name: crowdsecurity/caddy-logs
 description: "Parse caddy logs"
-pattern_syntax:
- CUSTOMDATE: '%{DAY:day}, %{MONTHDAY:monthday} %{MONTH:month} %{YEAR:year} %{TIME:time} %{WORD:tz}'
-nodes:
-  - nodes:
-    - grok:
-        pattern: '%{NOTSPACE} %{NOTSPACE} %{NOTSPACE} \[%{HTTPDATE:timestamp}\]%{DATA}'
-        expression: JsonExtract(evt.Line.Raw, "common_log")
-        statics:
-          - target: evt.StrTime
-            expression: evt.Parsed.timestamp
-    - grok:
-        pattern: "%{CUSTOMDATE:timestamp}"
-        expression: JsonExtract(evt.Line.Raw, "resp_headers.Date[0]")
-        statics:
-          - target: evt.StrTime
-            expression: evt.Parsed.day + " " + evt.Parsed.month + " " + evt.Parsed.monthday + " " + evt.Parsed.time + ".000000" + " " + evt.Parsed.year
-    - grok:
-        pattern: '%{IPORHOST:remote_addr}:%{NUMBER}'
-        expression: JsonExtract(evt.Line.Raw, "request.remote_addr")
-    - grok:
-        pattern: '%{IPORHOST:remote_ip}'
-        expression: JsonExtract(evt.Line.Raw, "request.remote_ip")
-    - grok:
-        pattern: '\["%{NOTDQUOTE:http_user_agent}\"]'
-        expression: JsonExtract(evt.Line.Raw, "request.headers.User-Agent")
 statics:
   - meta: log_type
     value: http_access-log
+  - target: evt.StrTime
+    expression: |
+      Sprintf("%v", evt.Unmarshaled.caddy.ts) matches '^[0-9e\\.\\+]+$' ? int(evt.Unmarshaled.caddy.ts) : evt.Unmarshaled.caddy.ts
   - meta: service
     value: http
-  - meta: source_ip
-    expression: evt.Parsed.remote_addr
+  ##Caddy now sets client_ip to the value of X-Forwarded-For if users sets trusted proxies
+  - parsed: remote_ip
+    expression: evt.Unmarshaled.caddy.request.client_ip
+  - parsed: http_version
+    expression: "evt.Unmarshaled.caddy.request.proto != nil ? Split(evt.Unmarshaled.caddy.request.proto, '/')[1] : nil"
+  - parsed: remote_addr
+    expression: "evt.Unmarshaled.caddy.request.remote_addr != nil ? Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0] : nil"
   - meta: source_ip
     expression: evt.Parsed.remote_ip
   - meta: http_status
-    expression: JsonExtract(evt.Line.Raw, "status")
+    expression: int(evt.Unmarshaled.caddy.status)
   - meta: http_path
-    expression: JsonExtract(evt.Line.Raw, "request.uri")
-  - target: evt.Parsed.request #Add for http-logs enricher
-    expression: JsonExtract(evt.Line.Raw, "request.uri")
+    expression: evt.Unmarshaled.caddy.request.uri
+  - parsed: request #Add for http-logs enricher
+    expression: evt.Unmarshaled.caddy.request.uri
   - parsed: verb
-    expression: JsonExtract(evt.Line.Raw, "request.method")
+    expression: evt.Unmarshaled.caddy.request.method
   - meta: http_verb
-    expression: JsonExtract(evt.Line.Raw, "request.method")
+    expression: evt.Unmarshaled.caddy.request.method
+  - parsed: http_user_agent
+    expression: evt.Unmarshaled.caddy.request.headers['User-Agent'][0]
   - meta: http_user_agent
-    expression: evt.Parsed.http_user_agent
+    expression: evt.Unmarshaled.caddy.request.headers['User-Agent'][0]
   - meta: target_fqdn
-    expression: JsonExtract(evt.Line.Raw, "request.host")
+    expression: evt.Unmarshaled.caddy.request.host
   - meta: sub_type
-    expression: "JsonExtract(evt.Line.Raw, 'status') == '401' && JsonExtract(evt.Line.Raw, 'request.headers.Authorization[0]') startsWith 'Basic ' ? 'auth_fail' : ''"
+    expression: "evt.Meta.http_status == '401' && evt.Unmarshaled.request.headers.Authorization startsWith 'Basic ' ? 'auth_fail' : ''"

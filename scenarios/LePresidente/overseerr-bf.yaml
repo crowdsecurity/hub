@@ -1,0 +1,40 @@
+# overseerr BF scan
+name: LePresidente/overseerr-bf
+description: "Detect overseerr bruteforce"
+filter: "evt.Meta.log_type == 'overseerr_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "20s"
+capacity: 5
+blackhole: 1m
+labels:
+  service: overseerr
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Overseerr Bruteforce"
+  remediation: true
+---
+# overseerr user-enum
+type: leaky
+name: LePresidente/overseerr-bf_user-enum
+description: "Detect overseerr user enum bruteforce"
+filter: "evt.Meta.log_type == 'overseerr_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: overseerr
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1589
+    - attack.T1110
+  label: "Overseerr User Enumeration"
+  remediation: true

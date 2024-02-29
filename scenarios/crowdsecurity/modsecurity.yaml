@@ -5,8 +5,14 @@ description: "Web exploitation via modsecurity"
 #modsec for nginx only logs the numerical value of the severity
 filter: evt.Meta.log_type == 'modsecurity' && (evt.Parsed.ruleseverity == 'CRITICAL' || evt.Parsed.ruleseverity == '2')
 blackhole: 2m
+groupby: evt.Meta.source_ip
 labels:
-  type: web_attack
-  service: http
   remediation: true
-  scope: ip
+  classification:
+    - attack.T1595
+    - attack.T1190
+  behavior: "http:exploit"
+  label: "Modsecurity Alert"
+  spoofable: 0
+  confidence: 2
+  service: http

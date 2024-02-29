@@ -11,7 +11,7 @@ crowdsec with the following configuration:
 
 
 Example of `acquis.yaml` using s3 s3notifications through sqs:
-```
+```yaml
 source: s3
 polling_method: sqs
 sqs_name: <sqs_queue>
@@ -33,7 +33,7 @@ resources.
 Cloudtrail logs are arriving every few minutes, thus, we can't use the
 real time feature of crowdsec. That's the reason we are suggesting
 to use the time machine feature, to take into account the time when
-they occured and not when they are sent to CrowdSec.
+they occurred and not when they are sent to CrowdSec.
 
 Please have a look at the documentation
 https://docs.crowdsec.net/docs/next/data_sources/s3
@@ -43,7 +43,7 @@ https://docs.crowdsec.net/docs/next/data_sources/s3
 Cloudtrail logs can be sent to kinesis as well, and crowdsec supports
 such a source for cloudtrail logs:
 
-```
+```yaml
 source: kinesis
 stream_name: cloutrail_stream
 aws_region: eu-west-1

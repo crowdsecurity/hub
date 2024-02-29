@@ -22,7 +22,7 @@ nodes:
         - meta: http_status
           expression: evt.Parsed.response
         - meta: http_path
-          expression: evt.Parsed.request
+          expression: "evt.Parsed.request != '' ? evt.Parsed.request : evt.Parsed.rawrequest"
         - meta: http_verb
           expression: "evt.Parsed.verb"
         - meta: http_user_agent

@@ -5,7 +5,11 @@ filter: "evt.Meta.log_type == 'auth_bf_attempt'"
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.T1110
+  behavior: "http:bruteforce"
+  label: "cPanel Bruteforce"
   service: cpanel
-  type: bruteforce
   remediation: true
-

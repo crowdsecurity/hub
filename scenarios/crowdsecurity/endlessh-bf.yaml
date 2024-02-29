@@ -11,6 +11,11 @@ groupby: evt.Meta.source_ip
 blackhole: 120m
 reprocess: true
 labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:bruteforce"
+  label: "Endlessh Bruteforce"
   service: endlessh
-  type: bruteforce
   remediation: true

@@ -3,10 +3,15 @@ name: baudneo/gotify-bf
 description: "Detect bruteforce"
 filter: "evt.Meta.log_type  == 'gotify_failed_auth'"
 groupby: "evt.Meta.source_ip"
-capacity: 4
+capacity: 3
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: gotify
- type: bruteforce
- remediation: true
+  service: gotify
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Gotify Bruteforce"
+  remediation: true
