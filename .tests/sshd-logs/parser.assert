@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 15
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 16
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["program"] == "sshd"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["timestamp"] == "Feb 12 14:10:21"
@@ -135,7 +135,16 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Parsed["timestamp"] == "
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["datasource_path"] == "sshd-logs.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["machine"] == "node1"
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 15
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["pid"] == "1478159"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["timestamp"] == "Feb 8 17:15:01"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["message"] == "Connection reset by authenticating user root 80.94.92.63 port 49115 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["machine"] == "hostname"
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 16
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["pid"] == "16378"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["sshd_invalid_user"] == "pascal"
@@ -341,4 +350,19 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][14].Evt.Meta["log_type"] == "ssh
 results["s01-parse"]["crowdsecurity/sshd-logs"][14].Evt.Meta["machine"] == "node1"
 results["s01-parse"]["crowdsecurity/sshd-logs"][14].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][14].Evt.Meta["source_ip"] == "123.123.123.123"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["pid"] == "1478159"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["sshd_client_ip"] == "80.94.92.63"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["message"] == "Connection reset by authenticating user root 80.94.92.63 port 49115 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["sshd_invalid_user"] == "root"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Parsed["timestamp"] == "Feb 8 17:15:01"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["machine"] == "hostname"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["source_ip"] == "80.94.92.63"
+results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["target_user"] == "root"
 len(results["success"][""]) == 0

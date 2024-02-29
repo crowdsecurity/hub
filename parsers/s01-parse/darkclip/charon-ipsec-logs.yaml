@@ -1,0 +1,40 @@
+name: darkclip/charon-ipsec-logs
+#debug: true
+filter: "evt.Parsed.program == 'charon'"
+description: Parse Charon IPsec logs
+onsuccess: next_stage
+pattern_syntax:
+  IPSEC_ID: '<%{DATA}\|%{NUMBER}>'
+nodes:
+  - grok:
+      pattern: '^%{NUMBER:thread}\[%{WORD:subsys}\] %{IPSEC_ID:ipsec_id}.*verification.*failed.*'
+      apply_on: message
+    stash:
+      - name: charon_ipsec_logs
+        key: evt.Parsed.thread
+        value: evt.Parsed.ipsec_id
+        ttl: 5s
+        size: 10
+  - grok:
+      pattern: '^%{NUMBER:thread}\[%{WORD:subsys}\] %{IPSEC_ID:ipsec_id}.*authentication.*failed.*'
+      apply_on: message
+    stash:
+      - name: charon_ipsec_logs
+        key: evt.Parsed.thread
+        value: evt.Parsed.ipsec_id
+        ttl: 5s
+        size: 10
+  - grok:
+      pattern: '^%{NUMBER:thread}\[%{WORD:subsys}\] %{IPSEC_ID:ipsec_id} sending packet\: from %{IP:target_ip}\[%{NUMBER:target_port}\] to %{IP:source_ip}\[%{NUMBER:source_port}\].*'
+      apply_on: message
+    nodes:
+      - filter: "GetFromStash('charon_ipsec_logs', evt.Parsed.thread) != '' && GetFromStash('charon_ipsec_logs', evt.Parsed.thread) == evt.Parsed.ipsec_id"
+        statics:
+          - meta: log_type
+            value: charon_ipsec_auth_fail
+          - meta: source_ip
+            expression: evt.Parsed.source_ip
+
+statics:
+  - meta: service
+    value: charon_ipsec

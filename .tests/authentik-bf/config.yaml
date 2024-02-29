@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/firix/authentik-logs.yaml
+scenarios:
+- ./scenarios/firix/authentik-bf.yaml
+postoverflows:
+- ""
+log_file: authentik-bf.log
+log_type: authentik
+labels: {}
+ignore_parsers: true
+override_statics: []

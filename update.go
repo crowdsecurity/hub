@@ -9,11 +9,11 @@ import (
 	"strings"
 )
 
-func updateType(name string, dict map[string]typeInfo, filepath string, configType string) typeInfo {
+func updateType(name string, dict map[string]typeInfo, filepath string, configType string) (typeInfo, error) {
 	var tInfo typeInfo
 	tInfo = dict[name]
-	tInfo.generate(filepath, configType)
-	return tInfo
+	_, err := tInfo.generate(filepath, configType)
+	return tInfo, err
 }
 
 func updateIndex(configType string, idx map[string]map[string]typeInfo, tmpIdx map[string]map[string]typeInfo) {
@@ -46,7 +46,10 @@ func updateIndex(configType string, idx map[string]map[string]typeInfo, tmpIdx m
 				var hubName string
 				for name, info := range val {
 					if filepath == info.Path {
-						tInfo = updateType(name, val, filepath, configType)
+						tInfo, err = updateType(name, val, filepath, configType)
+						if err != nil {
+							fmt.Printf("skipping '%s' because: %s\n", name, err)
+						}
 						hubName = name
 						foundFile = true
 						break
@@ -59,7 +62,7 @@ func updateIndex(configType string, idx map[string]map[string]typeInfo, tmpIdx m
 					var tInfo typeInfo
 					hubName, err := tInfo.generate(filepath, configType)
 					if err != nil {
-						fmt.Printf("skipping '%s' because : %s\n", filepath, err.Error())
+						fmt.Printf("skipping '%s' for update because : %s\n", filepath, err.Error())
 					} else {
 						idx[configType][hubName] = tInfo
 					}

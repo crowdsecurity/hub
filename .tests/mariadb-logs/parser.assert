@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-11-09  5:13:12 8 [Warning] Access denied for user 'example-user'@'172.17.0.1' (using password: YES)"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "mariadb"
@@ -25,13 +25,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "2201
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "mariadb"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "mariadb-logs.log"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
-len(results["s01-parse"]["crowdsecurity/mariadb-logs"]) == 5
+len(results["s01-parse"]["crowdsecurity/mariadb-logs"]) == 6
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["day"] == "09"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][0].Evt.Parsed["source_ip"] == "172.17.0.1"
@@ -113,7 +113,7 @@ results["s01-parse"]["crowdsecurity/mariadb-logs"][4].Evt.Meta["log_type"] == "m
 results["s01-parse"]["crowdsecurity/mariadb-logs"][4].Evt.Meta["source_ip"] == "192.168.1.192"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][4].Evt.Meta["user"] == "root"
 results["s01-parse"]["crowdsecurity/mariadb-logs"][4].Evt.Meta["datasource_path"] == "mariadb-logs.log"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["thread_id"] == "8"
@@ -205,4 +205,21 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["user"] == "root"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "mariadb-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2022-01-09T14:49:17Z"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Success == true
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["user"] == "root"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["year"] == "2023"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["message"] == "2023-11-21 19:42:20 134334 [Warning] Access denied for user 'root'@'34.140.248.32' (using password: NO)"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["day"] == "21"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["month"] == "11"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["program"] == "mariadb"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["source_ip"] == "34.140.248.32"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["thread_id"] == "134334"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["time"] == "19:42:20"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["using_password"] == "NO"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Parsed["date"] == "2023-11-21"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Meta["log_type"] == "mariadb_failed_auth"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Meta["source_ip"] == "34.140.248.32"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Meta["user"] == "root"
+results["s01-parse"]["crowdsecurity/mariadb-logs"][5].Evt.Meta["datasource_path"] == "mariadb-logs.log"
 len(results["success"][""]) == 0

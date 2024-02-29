@@ -1,0 +1,10 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/geoip-enrich
+- ./parsers/s01-parse/crowdsecurity/sshd-success-logs.yaml
+scenarios:
+- "./scenarios/crowdsecurity/impossible-travel-user.yaml"
+log_file: sshd-success-logs.log
+log_type: syslog
+ignore_parsers: true

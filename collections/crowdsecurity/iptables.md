@@ -15,6 +15,16 @@ labels:
   type: syslog
 ```
 
+Debian 12 example (without rsyslog)
+
+```yaml
+source: journalctl
+journalctl_filter:
+ - "-k"
+labels:
+  type: syslog
+```
+
 notes :
  -  Depending on your distribution/OS, paths to log files might change
  -  Only relevant if you are manually installing collection

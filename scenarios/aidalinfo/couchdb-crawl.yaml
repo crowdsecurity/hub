@@ -1,0 +1,21 @@
+type: leaky
+name: aidalinfo/couchdb-crawl
+description: "Detect aggressive crawl on CouchDB"
+filter: evt.Meta.log_type == 'crawl-couchdb'
+distinct: evt.Meta.path_db
+leakspeed: 0.5s
+capacity: 40
+#debug: true
+#this limits the memory cache (and event_sequences in output) to five events
+cache_size: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: couchdb
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "http:crawl"
+  label: "CouchDB Crawl"
+  remediation: true

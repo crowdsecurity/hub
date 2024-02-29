@@ -5,12 +5,21 @@ filter: "evt.Parsed.program == 'grafana'"
 description: "Parse grafana logs"
 nodes:
   - grok:
-      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg="Invalid username or password" error="%{GREEDYDATA:error}" remote_addr=%{IP:remote_ip}'
+      pattern: 't=%{TIMESTAMP_ISO8601:timestamp} level=%{GREEDYDATA:loglevel} msg=("Invalid username or password"|Unauthorized) error="%{GREEDYDATA:error}" remote_addr=%{IP:remote_ip}'
       apply_on: message
       statics:
         - meta: log_type
           value: grafana_failed_auth
-
+  - filter: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "grafana") in ["", nil]
+    nodes:
+    - filter: evt.Unmarshaled.grafana.msg == 'Invalid username or password'
+      statics:
+        - meta: log_type
+          value: grafana_failed_auth
+        - parsed: remote_ip
+          expression: evt.Unmarshaled.grafana.remote_addr
+        - parsed: timestamp
+          expression: evt.Unmarshaled.grafana.t
 statics:
     - meta: service
       value: grafana

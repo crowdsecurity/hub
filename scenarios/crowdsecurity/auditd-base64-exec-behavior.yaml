@@ -17,7 +17,12 @@ capacity: -1
 blackhole: 1m
 labels:
   service: linux
-  type: post-exploitation
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1059.004
+  behavior: "linux:post-exploitation"
+  label: "Post Exploitation command execution from base64 encoded payload"
   remediation: false
 scope:
   type: pid

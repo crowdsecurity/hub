@@ -8,6 +8,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: thehive
- type: bruteforce
- remediation: true
+  service: http
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "The Hive Bruteforce"
+  remediation: true

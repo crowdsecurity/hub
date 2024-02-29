@@ -1,0 +1,40 @@
+onsuccess: next_stage
+#debug: false
+name: jbowdre/miniflux-logs
+description: "Parse Miniflux logs"
+filter: "evt.Parsed.program == 'miniflux'"
+
+nodes:
+  - grok:
+      pattern: '.*time=%{DATA:timestamp} .*authentication_failed=true client_ip=%{IP:source_ip} .*username=%{USERNAME:username} .*error="store: invalid password for \\"%{USERNAME}\\".*"'
+      # miniflux  | time=2024-01-12T22:55:30.265Z level=WARN msg="Incorrect username or password" authentication_failed=true client_ip=192.168.0.254 user_agent="Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" username=user1 error="store: invalid password for \"user1\" (crypto/bcrypt: hashedPassword is not the hash of the given password)"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: miniflux_failed_auth
+        - meta: log_subtype
+          value: miniflux_bad_password
+        - meta: evt.StrTimeFormat
+          value: "2006-01-02T15:04:05.999Z"
+  - grok:
+      pattern: '.*time=%{DATA:timestamp} .*authentication_failed=true client_ip=%{IP:source_ip} .*username=%{USERNAME:username} .*error="store: unable to find this user: %{USERNAME}"'
+      # miniflux  | time=2024-01-12T22:54:56.307Z level=WARN msg="Incorrect username or password" authentication_failed=true client_ip=192.168.0.254 user_agent="Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" username=hacker1 error="store: unable to find this user: hacker1"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: miniflux_failed_auth
+        - meta: log_subtype
+          value: miniflux_bad_user
+        - meta: evt.StrTimeFormat
+          value: "2006-01-02T15:04:05.999Z"
+
+statics:
+    - meta: service
+      value: miniflux
+    - meta: user
+      expression: evt.Parsed.username
+    - meta: source_ip
+      expression: evt.Parsed.source_ip
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+

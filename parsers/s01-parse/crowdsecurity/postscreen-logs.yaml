@@ -3,7 +3,7 @@ filter: "evt.Parsed.program in ['postfix/postscreen', 'haproxy/postscreen']"
 name: crowdsecurity/postscreen-logs
 pattern_syntax:
   POSTSCREEN_PREGREET: 'PREGREET'
-  POSTSCREEN_PREGREET_TIME_ATTEMPT: '\d+.\d+'
+  POSTSCREEN_PREGREET_TIME_ATTEMPT: '\d+(.\d+)?'
 description: "Parse postscreen logs"
 nodes:
   - grok:

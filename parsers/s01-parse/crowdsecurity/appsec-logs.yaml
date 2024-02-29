@@ -1,0 +1,27 @@
+onsuccess: next_stage
+format: 3.0
+#debug: true
+filter: "evt.Parsed.program == 'appsec'"
+name: crowdsecurity/appsec-logs
+description: "Parse Appsec events"
+statics:
+  - meta: service
+    value: appsec
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: target_host
+    expression: "evt.Parsed.target_host"
+  - meta: request_uuid
+    expression: "evt.Parsed.req_uuid"
+  - meta: target_uri
+    expression: "evt.Parsed.target_uri"
+#was the request blocked ?
+  - meta: log_type
+    expression: |
+      evt.Appsec.HasInBandMatches ? "appsec-block" : "appsec-info"
+  - meta: rule_name
+    expression: evt.Appsec.GetName()
+  - meta: rule_ids
+    expression: Sprintf("%+v", evt.Appsec.GetRuleIDs())
+  - meta: remediation_cmpt_ip
+    expression: "evt.Parsed.remediation_cmpt_ip"

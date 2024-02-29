@@ -12,9 +12,14 @@ groupby: evt.Meta.source_ip + '--' + evt.Meta.log_type
 blackhole: 5m
 reprocess: true
 labels:
-  service: nextcloud
-  type: bruteforce
   remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "NextCloud Bruteforce"
+  service: nextcloud
 ---
 type: leaky
 name: crowdsecurity/nextcloud-bf_user_enum
@@ -27,9 +32,14 @@ distinct: evt.Meta.target_user
 blackhole: 5m
 reprocess: true
 labels:
-  service: nextcloud
-  type: bruteforce
   remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "NextCloud Bruteforce"
+  service: nextcloud
 ---
 type: leaky
 name: crowdsecurity/nextcloud-bf_domain_error
@@ -41,6 +51,11 @@ groupby: evt.Meta.source_ip
 blackhole: 5m
 reprocess: true
 labels:
-  service: nextcloud
-  type: bruteforce
   remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "NextCloud Bruteforce"
+  service: nextcloud

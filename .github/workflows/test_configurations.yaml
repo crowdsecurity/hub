@@ -3,31 +3,41 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'scenarios/**.yaml'
-      - 'parsers/**.yaml'
-      - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - 'scenarios/**.yml'
-      - 'parsers/**.yml'
-      - 'postoverflows/**.yml'
       - 'collections/**.yml'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
+      - '!.github/workflows/update_taxonomy.yaml'
   push:
     branches: [ master ]
     paths:
-      - 'scenarios/**.yaml'
-      - 'parsers/**.yaml'
-      - 'postoverflows/**.yaml'
       - 'collections/**.yaml'
-      - 'scenarios/**.yml'
-      - 'parsers/**.yml'
-      - 'postoverflows/**.yml'
       - 'collections/**.yml'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
       - '.github/workflows/**.yaml'
       - '.github/workflows/**.yml'
       - '.tests/**'
+      - '!.github/workflows/update_taxonomy.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   run-hub-tests:
@@ -41,7 +51,7 @@ jobs:
       RESULTS_PATH: .
     steps:
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: run tests on last crowdsec tag
       run: |
         mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
