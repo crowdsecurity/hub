@@ -11,7 +11,7 @@ statics:
     - meta: log_type
       value: http_access-log
     - target: evt.StrTime
-      expression: "evt.Parsed.year + '-' + evt.Parsed.month + '-' + evt.Parsed.day + 'T' + evt.Parsed.time"
+      expression: "evt.Parsed.year + '-' + evt.Parsed.month + '-' + evt.Parsed.day + 'T' + evt.Parsed.time + 'Z'"
     - meta: source_ip
       expression: "evt.Parsed.c_ip"
     - meta: http_status
