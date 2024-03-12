@@ -31,7 +31,7 @@ nodes:
         value: authelia
 statics:
     - meta: user
-      expression: 'evt.Parsed.email != "" ? evt.Parsed.email : evt.Parsed.user'
+      expression: evt.Parsed.user
     - target: evt.StrTime
       expression: evt.Unmarshaled.authelia.time
     - meta: source_ip
