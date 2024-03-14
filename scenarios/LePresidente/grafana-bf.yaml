@@ -1,7 +1,7 @@
 # grafana BF scan
 name: LePresidente/grafana-bf
 description: "Detect grafana bruteforce"
-filter: "evt.Meta.log_type == 'grafana_failed_auth'"
+filter: "evt.Meta.service == 'grafana' && evt.Meta.log_type == 'auth_failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
