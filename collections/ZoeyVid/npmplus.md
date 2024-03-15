@@ -1,7 +1,7 @@
 ## NPMplus collection
 
 A collection to defend nginx against common attacks:
- - [NPMplus](https://github.com/NginxProxyManager/nginx-proxy-manager) parser
+ - [NPMplus](https://github.com/ZoeyVid/NPMplus) parser
  - base http scenarios (crawl, 404 scan, bf)
 
 ## Acquisition template
@@ -25,6 +25,13 @@ container_name:
  - npmplus
 labels:
   type: modsecurity
+---
+listen_addr: 0.0.0.0:7422
+appsec_config: crowdsecurity/virtual-patching
+name: myAppSecComponent
+source: appsec
+labels:
+  type: appsec
 ```
 
 
