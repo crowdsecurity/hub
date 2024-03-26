@@ -1,0 +1,28 @@
+onsuccess: next_stage
+name: crowdsecurity/amavis-logs
+description: "Parse amavis logs"
+filter: "evt.Parsed.program == 'amavis'"
+pattern_syntax:
+  AMAVIS_MESSAGEID: "Message-ID: <%{DATA:amavis_message-id}>"
+  AMAVIS_SIZE: "size: %{POSINT:amavis_size}"
+  AMAVIS_TESTS: 'Tests: \[%{DATA:amavis_tests}\]'
+  AMAVIS_FROM: "From: %{DATA:amavis_header_from}"
+  AMAVIS_HITS: "Hits: %{NUMBER:amavis_hits}"
+  AMAVIS_QUARANTINE: "quarantine: %{NOTSPACE:amavis_quarantine}"
+  AMAVIS_SUBJECT: 'Subject: "%{DATA:amavis_subject}"'
+  AMAVIS_KV: "((%{AMAVIS_MESSAGEID}|%{AMAVIS_SIZE}|%{AMAVIS_TESTS}|%{AMAVIS_FROM}|%{AMAVIS_HITS}|%{AMAVIS_QUARANTINE}|%{AMAVIS_SUBJECT}|%{DATA}), )*"
+  AMAVIS: '\(%{DATA:amavis_id}\) %{WORD:amavis_action} %{NOTSPACE:amavis_category}( \(%{DATA:amavis_match}\))( \{%{DATA:amavis_acions}\})?, \[(IPv6:)?%{IP:amavis_relay_ip}\]:%{POSINT:src_port} \[(IPv6:)?%{IP:amavis_amavis_origin_ip}\] <%{DATA:amavis_from}> -> <%{DATA:amavis_to}>, %{AMAVIS_KV}%{POSINT:amavis_elapsedtime} ms'
+grok:
+  name: "AMAVIS"
+  apply_on: message
+statics:
+  - meta: service
+    value: amavis
+  - meta: log_type
+    value: "amavis"
+  - meta: source_ip
+    expression: "evt.Parsed.amavis_relay_ip"
+  - meta: amavis_category
+    expression: "evt.Parsed.amavis_category"
+  - meta: amavis_match
+    expression: "evt.Parsed.amavis_match"
