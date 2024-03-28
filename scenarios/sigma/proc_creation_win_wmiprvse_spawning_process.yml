@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmiprvse_spawning_process
+description: |
+  Detects WmiPrvSE spawning a process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\WmiPrvSe.exe' && not ("int(evt.Parsed.LogonId)" == '0x3e7' || "int(evt.Parsed.LogonId)" == 'null' || evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI' || evt.Parsed.Image endsWith '\\WmiPrvSE.exe' || evt.Parsed.Image endsWith '\\WerFault.exe' || "int(evt.Parsed.LogonId)" == ''))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "WmiPrvSE Spawned A Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

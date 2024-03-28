@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_browsers_remote_debugging
+description: |
+  Detects browsers starting with the remote debugging flags. Which is a technique often used to perform browser injection attacks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' --remote-debugging-' || evt.Parsed.Image endsWith '\\firefox.exe' && evt.Parsed.CommandLine contains ' -start-debugger-server')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1185
+
+  label: "Browser Started with Remote Debugging"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

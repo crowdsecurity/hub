@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_net_share_and_sessions_enum
+description: |
+  Detects attempts to enumerate file shares, printer shares and sessions using "net.exe" with the "view" flag.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && evt.Parsed.CommandLine contains 'view' && not (evt.Parsed.CommandLine contains '\\\\'))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+#  classification:
+#  - attack.t1018
+
+  label: "Share And Session Enumeration Using Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

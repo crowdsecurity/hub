@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_user_discovery_get_aduser
+description: |
+  Detects usage of the Get-ADUser cmdlet to collect user information and output it to a file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.CommandLine contains 'Get-ADUser ' && evt.Parsed.CommandLine contains ' -Filter *' && (evt.Parsed.CommandLine contains ' > ' || evt.Parsed.CommandLine contains ' | Select ' || evt.Parsed.CommandLine contains 'Out-File' || evt.Parsed.CommandLine contains 'Set-Content' || evt.Parsed.CommandLine contains 'Add-Content'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1033
+
+  label: "User Discovery And Export Via Get-ADUser Cmdlet"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

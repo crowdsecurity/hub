@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_port_forwarding
+description: |
+  Detects the execution of netsh commands that configure a new port forwarding (PortProxy) rule
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && (evt.Parsed.CommandLine contains 'interface' && evt.Parsed.CommandLine contains 'portproxy' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'v4tov4' || evt.Parsed.CommandLine contains 'i ' && evt.Parsed.CommandLine contains 'p ' && evt.Parsed.CommandLine contains 'a ' && evt.Parsed.CommandLine contains 'v ' || evt.Parsed.CommandLine contains 'connectp' && evt.Parsed.CommandLine contains 'listena' && evt.Parsed.CommandLine contains 'c='))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1090
+
+  label: "New Port Forwarding Rule Added Via Netsh.EXX"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

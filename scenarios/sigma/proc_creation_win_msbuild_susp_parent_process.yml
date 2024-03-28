@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_msbuild_susp_parent_process
+description: |
+  Detects suspicious execution of 'Msbuild.exe' by a uncommon parent process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\MSBuild.exe' || evt.Parsed.OriginalFileName == 'MSBuild.exe') && not (evt.Parsed.ParentImage endsWith '\\devenv.exe' || evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\msbuild.exe' || evt.Parsed.ParentImage endsWith '\\python.exe' || evt.Parsed.ParentImage endsWith '\\explorer.exe' || evt.Parsed.ParentImage endsWith '\\nuget.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious Msbuild Execution By Uncommon Parent Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

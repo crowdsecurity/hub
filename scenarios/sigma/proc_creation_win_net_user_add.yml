@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_net_user_add
+description: |
+  Identifies the creation of local users via the net.exe command.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && evt.Parsed.CommandLine contains 'user' && evt.Parsed.CommandLine contains 'add')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1136.001
+
+  label: "New User Created Via Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

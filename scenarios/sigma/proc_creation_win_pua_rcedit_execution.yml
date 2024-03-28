@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_pua_rcedit_execution
+description: |
+  Detects the use of rcedit to potentially alter executable PE metadata properties, which could conceal efforts to rename system utilities for defense evasion.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rcedit-x64.exe' || evt.Parsed.Image endsWith '\\rcedit-x86.exe' || evt.Parsed.Description == 'Edit resources of exe' || evt.Parsed.Product == 'rcedit') && evt.Parsed.CommandLine contains '--set-' && (evt.Parsed.CommandLine contains 'OriginalFileName' || evt.Parsed.CommandLine contains 'CompanyName' || evt.Parsed.CommandLine contains 'FileDescription' || evt.Parsed.CommandLine contains 'ProductName' || evt.Parsed.CommandLine contains 'ProductVersion' || evt.Parsed.CommandLine contains 'LegalCopyright'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036.003
+#  - attack.t1036
+#  - attack.t1027.005
+#  - attack.t1027
+
+  label: "PUA - Potential PE Metadata Tamper Using Rcedit"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

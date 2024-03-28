@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_verclsid_runs_com
+description: |
+  Detects when verclsid.exe is used to run COM object via GUID
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\verclsid.exe' || evt.Parsed.OriginalFileName == 'verclsid.exe') && evt.Parsed.CommandLine contains '/S' && evt.Parsed.CommandLine contains '/C')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Verclsid.exe Runs COM Object"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

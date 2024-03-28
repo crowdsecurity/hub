@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_extexport
+description: |
+  Extexport.exe loads dll and is execute from other folder the original path
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Extexport.exe' || evt.Parsed.Image endsWith '\\Extexport.exe' || evt.Parsed.OriginalFileName == 'extexport.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Suspicious Extexport Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

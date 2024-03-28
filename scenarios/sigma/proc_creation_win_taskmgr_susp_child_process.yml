@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_taskmgr_susp_child_process
+description: |
+  Detects the creation of a process from Windows task manager
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\taskmgr.exe' && not (evt.Parsed.Image endsWith '\\resmon.exe' || evt.Parsed.Image endsWith '\\mmc.exe' || evt.Parsed.Image endsWith '\\taskmgr.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "Taskmgr as Parent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

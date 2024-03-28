@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regsvr32_susp_exec_path_1
+description: |
+  Detects execution of regsvr32 where the DLL is located in a potentially suspicious location.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && (evt.Parsed.CommandLine contains ':\\ProgramData\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.010
+
+  label: "Regsvr32 Execution From Potential Suspicious Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

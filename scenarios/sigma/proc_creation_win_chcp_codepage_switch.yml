@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_chcp_codepage_switch
+description: |
+  Detects a code page switch in command line or batch scripts to a rare language
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\chcp.com' && (evt.Parsed.CommandLine endsWith ' 936' || evt.Parsed.CommandLine endsWith ' 1258'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "Suspicious CodePage Switch Via CHCP"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

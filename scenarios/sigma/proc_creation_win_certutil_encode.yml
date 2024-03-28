@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_certutil_encode
+description: |
+  Detects the execution of certutil with the "encode" flag to encode a file to base64. This can be abused by threat actors and attackers for data exfiltration
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && (evt.Parsed.CommandLine contains '-encode' || evt.Parsed.CommandLine contains '/encode'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+
+  label: "File Encoded To Base64 Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_network_sniffing
+description: |
+  Detects potential network sniffing via use of network tools such as "tshark", "windump".
+  Network sniffing refers to using the network interface on a system to monitor or capture information sent over a wired or wireless connection.
+  An adversary may place a network interface into promiscuous mode to passively access data in transit over the network, or use span ports to capture a larger amount of data.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\tshark.exe' && evt.Parsed.CommandLine contains '-i' || evt.Parsed.Image endsWith '\\windump.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1040
+
+  label: "Potential Network Sniffing Activity Using Network Tools"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_process_creation
+description: |
+  Detects new process creation using WMIC via the "process call create" flag
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'process' && evt.Parsed.CommandLine contains 'call' && evt.Parsed.CommandLine contains 'create')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "New Process Created Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

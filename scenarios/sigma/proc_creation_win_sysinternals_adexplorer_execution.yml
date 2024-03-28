@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_adexplorer_execution
+description: |
+  Detects the execution of Sysinternals ADExplorer with the "-snapshot" flag in order to save a local copy of the active directory database.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ADExplorer.exe' || evt.Parsed.OriginalFileName == 'AdExp') && evt.Parsed.CommandLine contains 'snapshot')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1552.001
+#  - attack.t1003.003
+
+  label: "Active Directory Database Snapshot Via ADExplorer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

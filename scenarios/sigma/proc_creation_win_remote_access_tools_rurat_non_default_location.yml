@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_remote_access_tools_rurat_non_default_location
+description: |
+  Detects execution of Remote Utilities RAT (RURAT) from an unusual location (outside of 'C:\Program Files')
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rutserv.exe' || evt.Parsed.Image endsWith '\\rfusclient.exe' || evt.Parsed.Product == 'Remote Utilities') && not (evt.Parsed.Image startsWith 'C:\\Program Files\\Remote Utilities' || evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\Remote Utilities'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Remote Access Tool - RURAT Execution From Unusual Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

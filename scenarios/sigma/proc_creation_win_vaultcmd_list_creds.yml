@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_vaultcmd_list_creds
+description: |
+  List credentials currently stored in Windows Credential Manager via the native Windows utility vaultcmd.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\VaultCmd.exe' || evt.Parsed.OriginalFileName == 'VAULTCMD.EXE') && evt.Parsed.CommandLine contains '/listcreds:')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1555.004
+
+  label: "Windows Credential Manager Access via VaultCmd"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

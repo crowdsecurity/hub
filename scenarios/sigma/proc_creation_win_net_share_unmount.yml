@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_net_share_unmount
+description: |
+  Detects when when a mounted share is removed. Adversaries may remove share connections that are no longer useful in order to clean up traces of their operation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && evt.Parsed.CommandLine contains 'share' && evt.Parsed.CommandLine contains '/delete')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1070.005
+
+  label: "Unmount Share Via Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

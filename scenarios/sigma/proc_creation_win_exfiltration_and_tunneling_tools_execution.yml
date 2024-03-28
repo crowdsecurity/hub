@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_exfiltration_and_tunneling_tools_execution
+description: |
+  Execution of well known tools for data exfiltration and tunneling
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\plink.exe' || evt.Parsed.Image endsWith '\\socat.exe' || evt.Parsed.Image endsWith '\\stunnel.exe' || evt.Parsed.Image endsWith '\\httptunnel.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1041
+#  - attack.t1572
+#  - attack.t1071.001
+
+  label: "Exfiltration and Tunneling Tools Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

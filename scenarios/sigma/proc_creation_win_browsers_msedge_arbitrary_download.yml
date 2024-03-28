@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_browsers_msedge_arbitrary_download
+description: |
+  Detects usage of the "msedge.exe" binary as a LOLBIN to download arbitrary file via the CLI
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\msedge.exe' || evt.Parsed.OriginalFileName == 'msedge.exe') && (evt.Parsed.CommandLine contains '.exe http' || evt.Parsed.CommandLine contains 'msedge http'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Potential Arbitrary File Download Via MSEdge.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_odbcconf_response_file
+description: |
+  Detects execution of "odbcconf" with the "-f" flag in order to load a response file which might contain a malicious action.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\odbcconf.exe' || evt.Parsed.OriginalFileName == 'odbcconf.exe') && (evt.Parsed.CommandLine contains ' -f ' || evt.Parsed.CommandLine contains ' /f ') && evt.Parsed.CommandLine contains '.rsp')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.008
+
+  label: "Response File Execution Via Odbcconf.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_parent_explorer
+description: |
+  Detects suspicious start of rundll32.exe with a parent process of Explorer.exe. Variant of Raspberry Robin, as first reported by Red Canary.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.ParentImage endsWith '\\explorer.exe' && not (evt.Parsed.CommandLine contains ' C:\\Windows\\System32\\' || evt.Parsed.CommandLine endsWith ' -localserver 22d8c27b-47a1-48d1-ad08-7da7abd79617'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Rundll32 With Suspicious Parent Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

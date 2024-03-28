@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_extrac32_ads
+description: |
+  Extract data from cab file and hide it in an alternate data stream
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'extrac32.exe' && evt.Parsed.CommandLine contains '.cab' && evt.Parsed.CommandLine matches ':[^\\\\]')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Suspicious Extrac32 Alternate Data Stream Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

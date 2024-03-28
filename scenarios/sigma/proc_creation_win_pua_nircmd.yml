@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pua_nircmd
+description: |
+  Detects the use of NirCmd tool for command execution, which could be the result of legitimate administrative activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\NirCmd.exe' || evt.Parsed.OriginalFileName == 'NirCmd.exe' || evt.Parsed.CommandLine contains ' execmd ' || evt.Parsed.CommandLine contains '.exe script ' || evt.Parsed.CommandLine contains '.exe shexec ' || evt.Parsed.CommandLine contains ' runinteractive ' || (evt.Parsed.CommandLine contains ' exec ' || evt.Parsed.CommandLine contains ' exec2 ') && (evt.Parsed.CommandLine contains ' show ' || evt.Parsed.CommandLine contains ' hide '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1569.002
+
+  label: "PUA - NirCmd Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

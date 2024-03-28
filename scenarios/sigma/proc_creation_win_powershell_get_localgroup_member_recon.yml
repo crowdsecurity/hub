@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_get_localgroup_member_recon
+description: |
+  Detects suspicious reconnaissance command line activity on Windows systems using the PowerShell Get-LocalGroupMember Cmdlet
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Get-LocalGroupMember ' && (evt.Parsed.CommandLine contains 'domain admins' || evt.Parsed.CommandLine contains ' administrator' || evt.Parsed.CommandLine contains ' administrateur' || evt.Parsed.CommandLine contains 'enterprise admins' || evt.Parsed.CommandLine contains 'Exchange Trusted Subsystem' || evt.Parsed.CommandLine contains 'Remote Desktop Users' || evt.Parsed.CommandLine contains 'Utilisateurs du Bureau à distance' || evt.Parsed.CommandLine contains 'Usuarios de escritorio remoto'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1087.001
+
+  label: "Suspicious Reconnaissance Activity Using Get-LocalGroupMember Cmdlet"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
