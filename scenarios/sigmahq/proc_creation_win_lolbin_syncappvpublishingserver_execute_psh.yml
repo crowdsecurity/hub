@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_syncappvpublishingserver_execute_psh
+description: |
+  Executes arbitrary PowerShell code using SyncAppvPublishingServer.exe.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\SyncAppvPublishingServer.exe' || evt.Parsed.OriginalFileName == 'syncappvpublishingserver.exe') && evt.Parsed.CommandLine contains '"n; ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "SyncAppvPublishingServer Execute Arbitrary PowerShell Code"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
