@@ -4,9 +4,9 @@ name: crowdsecurity/suricata-fastlogs
 description: "Parse suricata fast.log"
 pattern_syntax:
   SURICATA_MARKER: '\[\*\*\]'
-  SURICATA_DATE: '%{DATE_US:date}-%{TIME:time}'
+  SURICATA_DATE: "%{DATE_US:date}-%{TIME:time}"
   SURICATA_RULE_ID: '\[%{NUMBER:suricata_rule_severity}:%{NUMBER:rule_id}:%{NUMBER:suricata_alert_signature_rev}\]'
-grok: 
+grok:
   pattern: '%{SURICATA_DATE}  %{SURICATA_MARKER} %{SURICATA_RULE_ID} %{DATA:suricata_alert_signature} %{SURICATA_MARKER} \[Classification: %{DATA:suricata_classification}\] \[Priority: %{NUMBER:suricata_priority}\] \{%{DATA:proto}\} %{IP:source_ip}:%{NUMBER:source_port} \-> %{IP:dest_ip}:%{NUMBER:dest_port}'
   apply_on: message
 statics:
@@ -15,7 +15,8 @@ statics:
   - meta: log_type
     value: suricata_alert
   - meta: sub_log_type
-    value: suricata_alert_fast_log
+    value:
+      suricata_alert_fast_log
       #we build back RFC3339 format
   - target: evt.Parsed.suricata_timestamp
     expression: evt.Parsed.date + ' ' + evt.Parsed.time
@@ -27,6 +28,10 @@ statics:
     expression: evt.Parsed.suricata_rule_severity
   - meta: source_ip
     expression: evt.Parsed.source_ip
+  - meta: suricata_alert_signature
+    expression: evt.Parsed.suricata_alert_signature
+  - meta: suricata_alert_category
+    expression: evt.Parsed.suricata_classification
 ---
 onsuccess: next_stage
 filter: |
@@ -34,7 +39,7 @@ filter: |
 name: crowdsecurity/suricata-evelogs
 description: "Parse suricata eve.json logs"
 pattern_syntax:
-  SURICATA_EVE_TS: '%{TIMESTAMP_ISO8601:time}'
+  SURICATA_EVE_TS: "%{TIMESTAMP_ISO8601:time}"
 nodes:
   - grok:
       pattern: '%{SURICATA_EVE_TS:time}(\-|\+)%{INT}'
@@ -64,7 +69,7 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "alert.rev")
   - target: evt.Parsed.suricata_alert_signature
     expression: JsonExtract(evt.Parsed.message, "alert.signature")
+  - target: evt.Parsed.suricata_alert_category
+    expression: JsonExtract(evt.Parsed.message, "alert.category")
   - target: evt.Meta.suricata_rule_severity
     expression: JsonExtract(evt.Parsed.message, "alert.severity")
-
-
