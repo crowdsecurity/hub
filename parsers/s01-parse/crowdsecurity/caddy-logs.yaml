@@ -30,10 +30,11 @@ statics:
   - meta: http_verb
     expression: evt.Unmarshaled.caddy.request.method
   - parsed: http_user_agent
-    expression: evt.Unmarshaled.caddy.request.headers['User-Agent'][0]
+    expression: "get(evt.Unmarshaled.caddy.request.headers, 'User-Agent') != nil ? evt.Unmarshaled.caddy.request.headers['User-Agent'][0] : nil"
   - meta: http_user_agent
-    expression: evt.Unmarshaled.caddy.request.headers['User-Agent'][0]
+    expression: evt.Parsed.http_user_agent
   - meta: target_fqdn
     expression: evt.Unmarshaled.caddy.request.host
   - meta: sub_type
-    expression: "evt.Meta.http_status == '401' && evt.Unmarshaled.request.headers.Authorization startsWith 'Basic ' ? 'auth_fail' : ''"
+    expression: "evt.Meta.http_status == '401' && get(evt.Unmarshaled.caddy.resp_headers, 'Www-Authenticate') != nil && any(get(evt.Unmarshaled.caddy.resp_headers, 'Www-Authenticate'), { # startsWith 'Basic' }) ? 'auth_fail' : nil"
+
