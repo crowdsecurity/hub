@@ -17,7 +17,7 @@ pattern_syntax:
   SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
 # in case there are blocked by /etc/ssh/sshd_config AllowUsers xx yy
-  SSHD_NOT_ALLOWED_USER: '(Failed password for invalid )?(User|user) %{USERNAME:sshd_invalid_user}? from %{IP:sshd_client_ip}( port \d+)?( not allowed because not listed in AllowUsers)?'
+  SSHD_NOT_ALLOWED_USER: '(Failed password for invalid )?(User|user) %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?( not allowed because not listed in AllowUsers)?'
 nodes:
   - grok:
       name: "SSHD_FAIL"
