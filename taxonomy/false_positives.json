@@ -24,6 +24,11 @@
         "label": "Fastly CDN",
         "name": "cdn:fastly_exit_node"
     },
+    "cdn:bunny_exit_node": {
+        "description": "IP is a Bunny CDN exit IP and should not be flagged as a threat.",
+        "label": "Bunny CDN",
+        "name": "cdn:bunny_exit_node"
+    },
     "cdn:exit_node": {
         "description": "IP is a CDN exit IP and should not be flagged as a threat.",
         "label": "CDN exit node",
@@ -75,8 +80,18 @@
         "name": "dns:public"
     },
     "scanner:enterprise": {
-        "description": "IP belongs to a company that scans its clients",
-        "label": "Legit Security Company",
+        "description": "IP address is linked to a company that conducts security scans on its customers.",
+        "label": "Corporate Security Scanner",
         "name": "scanner:enterprise"
+    },
+    "scanner:compliance": {
+        "description": "IP address is linked to a company that conducts compliance scans on its customers.",
+        "label": "Corporate Compliance Scanner",
+        "name": "scanner:compliance"
+    },
+    "ssl:renewal": {
+        "description": "IP belongs to SSL certificate renewal infrastructure for web servers.",
+        "label": "SSL Certificate Renewer",
+        "name": "ssl:renewal"
     }
 }

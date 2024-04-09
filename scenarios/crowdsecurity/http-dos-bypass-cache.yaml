@@ -2,7 +2,7 @@ type: leaky
 name: crowdsecurity/http-dos-bypass-cache
 description: "Detect DoS tools bypassing cache every request"
 #as seen in cc-attack tool
-filter: "evt.Meta.log_type == 'http_access-log' && int(evt.Meta.http_args_len) >= 7 && int(evt.Meta.http_args_len) <= 12 && evt.Parsed.http_args matches '^[0-9]+$' && evt.Parsed.static_ressource == 'false'"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_args_len != '' && int(evt.Meta.http_args_len) >= 7 && int(evt.Meta.http_args_len) <= 12 && evt.Parsed.http_args matches '^[0-9]+$' && evt.Parsed.static_ressource == 'false'"
 distinct: "evt.Parsed.http_args"
 leakspeed: 1s
 capacity: 30
@@ -18,4 +18,4 @@ labels:
   classification:
     - attack.T1498
   behavior: "http:dos"
-  label: "detection of http dos with cache bypass"
+  label: "HTTP DOS with cache bypass"

@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/http-wordpress_user-enum
-description: "detect wordpress probing : authors enumeration"
+description: "Detect WordPress probing: authors enumeration"
 debug: false
 filter: "evt.Meta.log_type == 'http_access-log' && Upper(evt.Parsed.http_args) contains 'AUTHOR='"
 groupby: evt.Meta.source_ip
@@ -15,7 +15,7 @@ labels:
     - attack.T1110
     - attack.T1595
   behavior: "http:scan"
-  label: "Wordpress User Enumeration"
+  label: "WordPress User Enumeration"
   spoofable: 0
   service: wordpress
   confidence: 3

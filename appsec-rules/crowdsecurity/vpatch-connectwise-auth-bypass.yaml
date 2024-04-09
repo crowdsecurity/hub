@@ -1,0 +1,21 @@
+name: crowdsecurity/vpatch-connectwise-auth-bypass
+description: "Detect exploitation of auth bypass in ConnectWise ScreenConnect"
+rules:
+  - zones:
+    - URI
+    transform:
+    - lowercase
+    match:
+      type: endsWith
+      value: /setupwizard.aspx/
+labels:
+  type: exploit
+  service: http
+  confidence: 3
+  spoofable: 0
+  behavior: "http:exploit"
+  label: "ConnectWise ScreenConnect - Auth Bypass"
+  classification:
+   - attack.T1595
+   - attack.T1190
+   - cve.CVE-2024-1709

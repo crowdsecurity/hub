@@ -1,4 +1,20 @@
 {
+  "crowdsecurity/generic-freemarker-ssti": {
+    "name": "crowdsecurity/generic-freemarker-ssti",
+    "description": "Generic FreeMarker SSTI",
+    "label": "Generic FreeMarker SSTI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http"
+  },
   "crowdsecurity/vpatch-CVE-2017-9841": {
     "name": "crowdsecurity/vpatch-CVE-2017-9841",
     "description": "PHPUnit RCE (CVE-2017-9841)",
@@ -197,6 +213,25 @@
       "CWE-98"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2022-22954": {
+    "name": "crowdsecurity/vpatch-CVE-2022-22954",
+    "description": "VMWare Workspace ONE Access RCE (CVE-2022-22954)",
+    "label": "VMWare Workspace ONE RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2022-22954"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2022-22965": {
     "name": "crowdsecurity/vpatch-CVE-2022-22965",
     "description": "Spring4Shell - RCE (CVE-2022-22965)",
@@ -376,6 +411,25 @@
       "CWE-284"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2023-22527": {
+    "name": "crowdsecurity/vpatch-CVE-2023-22527",
+    "description": "RCE using SSTI in Confluence (CVE-2023-22527)",
+    "label": "Confluence RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2023-22527"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2023-23752": {
     "name": "crowdsecurity/vpatch-CVE-2023-23752",
     "description": "Joomla! Webservice - Password Disclosure (CVE-2023-23752)",
@@ -485,6 +539,44 @@
     ],
     "cwes": [
       "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2023-35078": {
+    "name": "crowdsecurity/vpatch-CVE-2023-35078",
+    "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35078)",
+    "label": "MobileIron Core API",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2023-35078"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2023-35082": {
+    "name": "crowdsecurity/vpatch-CVE-2023-35082",
+    "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35082)",
+    "label": "MobileIron Core API",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2023-35082"
     ]
   },
   "crowdsecurity/vpatch-CVE-2023-3519": {
@@ -684,9 +776,50 @@
       "CVE-2023-7028"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-1212": {
+    "name": "crowdsecurity/vpatch-CVE-2024-1212",
+    "description": "Progress Kemp LoadMaster Unauthenticated Command Injection (CVE-2024-1212)",
+    "label": "LoadMaster UCI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-1212"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-22024": {
+    "name": "crowdsecurity/vpatch-CVE-2024-22024",
+    "description": "Ivanti Connect Secure - XXE (CVE-2024-22024)",
+    "label": "Ivanti Connect Secure - XXE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-22024"
+    ],
+    "cwes": [
+      "CWE-611"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-23897": {
     "name": "crowdsecurity/vpatch-CVE-2024-23897",
-    "description": "Jenkins CLI RCE (CVE-2023-50164)",
+    "description": "Jenkins CLI RCE (CVE-2024-23897)",
     "label": "Jenkins CLI RCE",
     "behaviors": [
       "http:exploit"
@@ -704,6 +837,25 @@
     ],
     "cwes": [
       "CWE-552"
+    ]
+  },
+  "crowdsecurity/vpatch-connectwise-auth-bypass": {
+    "name": "crowdsecurity/vpatch-connectwise-auth-bypass",
+    "description": "Detect exploitation of auth bypass in ConnectWise ScreenConnect",
+    "label": "ConnectWise ScreenConnect - Auth Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-1709"
     ]
   },
   "crowdsecurity/vpatch-env-access": {
@@ -742,6 +894,22 @@
       "CVE-2021-41714",
       "CVE-2019-17050"
     ]
+  },
+  "crowdsecurity/vpatch-symfony-profiler": {
+    "name": "crowdsecurity/vpatch-symfony-profiler",
+    "description": "Detect abuse of symfony profiler",
+    "label": "Access to symfony profiler",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http"
   },
   "Dominic-Wagner/vaultwarden-bf": {
     "name": "Dominic-Wagner/vaultwarden-bf",
@@ -992,7 +1160,7 @@
   "LePresidente/overseerr-bf": {
     "name": "LePresidente/overseerr-bf",
     "description": "Detect overseerr bruteforce",
-    "label": "overseerr Bruteforce",
+    "label": "Overseerr Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -1007,7 +1175,7 @@
   "LePresidente/overseerr-bf_user-enum": {
     "name": "LePresidente/overseerr-bf_user-enum",
     "description": "Detect overseerr user enum bruteforce",
-    "label": "overseerr User Enumeration",
+    "label": "Overseerr User Enumeration",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -1145,8 +1313,8 @@
   },
   "a1ad/mikrotik-scan-multi_ports": {
     "name": "a1ad/mikrotik-scan-multi_ports",
-    "description": "ban IPs that are scanning us",
-    "label": "Mikrotik Port Scanning",
+    "description": "Detect port scanning from single ip on MikroTik router",
+    "label": "MikroTik Port Scanning",
     "behaviors": [
       "tcp:scan"
     ],
@@ -1159,6 +1327,47 @@
     "spoofable": 2,
     "cti": true,
     "service": "mikrotik"
+  },
+  "aidalinfo/couchdb-slow-bf": {
+    "name": "aidalinfo/couchdb-slow-bf",
+    "description": "Detect slow Couchdb bruteforce/enum",
+    "label": "Couchdb low Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
+  },
+  "aidalinfo/couchdb-bf": {
+    "name": "aidalinfo/couchdb-bf",
+    "description": "Detect Couchdb bruteforce/enum",
+    "label": "Couchdb Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
+  },
+  "aidalinfo/couchdb-crawl": {
+    "name": "aidalinfo/couchdb-crawl",
+    "description": "Detect aggressive crawl on CouchDB",
+    "label": "CouchDB Crawl",
+    "behaviors": [
+      "http:crawl"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "couchdb"
   },
   "aidalinfo/tcpudp-flood-traefik": {
     "name": "aidalinfo/tcpudp-flood-traefik",
@@ -1381,6 +1590,25 @@
     "spoofable": 0,
     "cti": true,
     "service": "apache-guacamole"
+  },
+  "crowdsecurity/CVE-2017-9841": {
+    "name": "crowdsecurity/CVE-2017-9841",
+    "description": "Detect CVE-2017-9841 exploits",
+    "label": "PHP Unit Test Framework CVE-2017-9841",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "PHP",
+    "cves": [
+      "CVE-2017-9841"
+    ]
   },
   "crowdsecurity/CVE-2019-18935": {
     "name": "crowdsecurity/CVE-2019-18935",
@@ -1665,7 +1893,7 @@
   "crowdsecurity/CVE-2023-49103": {
     "name": "crowdsecurity/CVE-2023-49103",
     "description": "Detect owncloud CVE-2023-49103 exploitation attempts",
-    "label": "owncloud CVE-2023-49103",
+    "label": "ownCloud CVE-2023-49103",
     "behaviors": [
       "http:exploit"
     ],
@@ -1696,6 +1924,20 @@
     "cti": true,
     "service": "linux"
   },
+  "crowdsecurity/amavis-blocked": {
+    "name": "crowdsecurity/amavis-blocked",
+    "description": "Ban IPs that are blocked by amavis",
+    "label": "Infected Email",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0002:T1203",
+      "TA0002:T1204"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "amavis"
+  },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
     "name": "crowdsecurity/apache_log4j2_cve-2021-44228",
     "description": "Detect cve-2021-44228 exploitation attemps",
@@ -1717,8 +1959,8 @@
   },
   "crowdsecurity/appsec-vpatch": {
     "name": "crowdsecurity/appsec-vpatch",
-    "description": "Detect appsec attacks",
-    "label": "appsec blocked",
+    "description": "Identify attacks flagged by CrowdSec AppSec",
+    "label": "Blocked by CrowdSec AppSec",
     "behaviors": [
       "http:exploit"
     ],
@@ -1732,8 +1974,8 @@
   },
   "crowdsecurity/asterisk_bf": {
     "name": "crowdsecurity/asterisk_bf",
-    "description": "Detect asterisk user bruteforce",
-    "label": "Asterisk bruteforce",
+    "description": "Detect Asterisk user bruteforce",
+    "label": "Asterisk Bruteforce",
     "behaviors": [
       "sip:bruteforce"
     ],
@@ -1747,7 +1989,7 @@
   },
   "crowdsecurity/asterisk_user_enum": {
     "name": "crowdsecurity/asterisk_user_enum",
-    "description": "Detect asterisk user enum bruteforce",
+    "description": "Detect Asterisk user enumeration bruteforce",
     "label": "Asterisk User Enumeration",
     "behaviors": [
       "sip:bruteforce"
@@ -2128,7 +2370,7 @@
   "crowdsecurity/cpanel-bf-attempt": {
     "name": "crowdsecurity/cpanel-bf-attempt",
     "description": "Detect bruteforce attempt on cpanel login",
-    "label": "cpanel bruteforce",
+    "label": "cPanel Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2143,7 +2385,7 @@
   "crowdsecurity/cpanel-bf": {
     "name": "crowdsecurity/cpanel-bf",
     "description": "Detect bruteforce on cpanel login",
-    "label": "cpanel bruteforce",
+    "label": "cPanel Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2157,8 +2399,8 @@
   },
   "crowdsecurity/crowdsec-appsec-inband": {
     "name": "crowdsecurity/crowdsec-appsec-inband",
-    "description": "IP has triggered multiples In Band CrowdSec appsec rules",
-    "label": "Triggered multiple inband CrowdSec appsec rules",
+    "description": "IP has triggered multiples InBand CrowdSec appsec rules",
+    "label": "Triggered multiple InBand CrowdSec AppSec rules",
     "behaviors": [
       "http:exploit"
     ],
@@ -2184,7 +2426,7 @@
   "crowdsecurity/dovecot-spam": {
     "name": "crowdsecurity/dovecot-spam",
     "description": "detect errors on dovecot",
-    "label": "dovecot bruteforce",
+    "label": "Dovecot Bruteforce",
     "behaviors": [
       "pop3/imap:bruteforce"
     ],
@@ -2199,7 +2441,7 @@
   "crowdsecurity/endlessh-bf": {
     "name": "crowdsecurity/endlessh-bf",
     "description": "Detect SSH bruteforce caught by Endlessh",
-    "label": "endlessh bruteforce",
+    "label": "Endlessh Bruteforce",
     "behaviors": [
       "ssh:bruteforce"
     ],
@@ -2213,8 +2455,8 @@
   },
   "crowdsecurity/exchange-bf": {
     "name": "crowdsecurity/exchange-bf",
-    "description": "Detect exchange bruteforce (SMTP,IMAP,POP3)",
-    "label": "exchange bruteforce",
+    "description": "Detect Exchange bruteforce (SMTP,IMAP,POP3)",
+    "label": "Microsoft Exchange Bruteforce",
     "behaviors": [
       "pop3/imap:bruteforce"
     ],
@@ -2229,7 +2471,7 @@
   "crowdsecurity/exim-bf": {
     "name": "crowdsecurity/exim-bf",
     "description": "Detect Exim brute force",
-    "label": "Exim bruteforce",
+    "label": "Exim Bruteforce",
     "behaviors": [
       "pop3/imap:bruteforce"
     ],
@@ -2244,7 +2486,7 @@
   "crowdsecurity/exim-user-bf": {
     "name": "crowdsecurity/exim-user-bf",
     "description": "Detect Exim user email brute force",
-    "label": "Exim bruteforce",
+    "label": "Exim Bruteforce",
     "behaviors": [
       "pop3/imap:bruteforce"
     ],
@@ -2312,7 +2554,7 @@
   "crowdsecurity/freeswitch-bf": {
     "name": "crowdsecurity/freeswitch-bf",
     "description": "Detect freeswitch auth bruteforce",
-    "label": "freeswitch bruteforce",
+    "label": "Freeswitch Bruteforce",
     "behaviors": [
       "generic:bruteforce"
     ],
@@ -2327,7 +2569,7 @@
   "crowdsecurity/freeswitch-slow-bf": {
     "name": "crowdsecurity/freeswitch-slow-bf",
     "description": "Detect freeswitch auth bruteforce",
-    "label": "freeswitch bruteforce",
+    "label": "Freeswitch Bruteforce",
     "behaviors": [
       "generic:bruteforce"
     ],
@@ -2342,7 +2584,7 @@
   "crowdsecurity/freeswitch-user-enumeration": {
     "name": "crowdsecurity/freeswitch-user-enumeration",
     "description": "Detect freeswitch user enumeration",
-    "label": "Freeswitch user enumeration",
+    "label": "Freeswitch User Enumeration",
     "behaviors": [
       "generic:bruteforce"
     ],
@@ -2376,7 +2618,7 @@
   "crowdsecurity/home-assistant-bf": {
     "name": "crowdsecurity/home-assistant-bf",
     "description": "Detect Home Assistant bruteforce",
-    "label": "home assistant bruteforce",
+    "label": "Home Assistant Bruteforce",
     "behaviors": [
       "iot:bruteforce"
     ],
@@ -2390,8 +2632,8 @@
   },
   "crowdsecurity/http-admin-interface-probing": {
     "name": "crowdsecurity/http-admin-interface-probing",
-    "description": "Detect generic http interface probing",
-    "label": "http admin interface probing",
+    "description": "Detect generic HTTP admin interface probing",
+    "label": "HTTP Admin Interface Probing",
     "behaviors": [
       "http:scan"
     ],
@@ -2421,7 +2663,7 @@
   "crowdsecurity/http-backdoors-attempts": {
     "name": "crowdsecurity/http-backdoors-attempts",
     "description": "Detect attempt to common backdoors",
-    "label": "scanning for backdoors",
+    "label": "Scanning for backdoors",
     "behaviors": [
       "http:exploit"
     ],
@@ -2435,8 +2677,8 @@
   },
   "crowdsecurity/http-bad-user-agent": {
     "name": "crowdsecurity/http-bad-user-agent",
-    "description": "Detect bad user-agents",
-    "label": "detection of bad user-agents",
+    "description": "Detect usage of bad User Agent",
+    "label": "Bad User Agent",
     "behaviors": [
       "http:scan"
     ],
@@ -2450,8 +2692,8 @@
   },
   "crowdsecurity/http-bf-wordpress_bf": {
     "name": "crowdsecurity/http-bf-wordpress_bf",
-    "description": "detect wordpress bruteforce",
-    "label": "WP bruteforce",
+    "description": "Detect WordPress bruteforce on admin interface",
+    "label": "WordPress Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2480,8 +2722,8 @@
   },
   "crowdsecurity/http-crawl-non_statics": {
     "name": "crowdsecurity/http-crawl-non_statics",
-    "description": "Detect aggressive crawl from single ip",
-    "label": "detection of aggressive crawl",
+    "description": "Detect aggressive crawl on non static resources",
+    "label": "Aggressive Crawl",
     "behaviors": [
       "http:crawl"
     ],
@@ -2534,7 +2776,7 @@
   "crowdsecurity/http-dos-bypass-cache": {
     "name": "crowdsecurity/http-dos-bypass-cache",
     "description": "Detect DoS tools bypassing cache every request",
-    "label": "detection of http dos with cache bypass",
+    "label": "HTTP DOS with cache bypass",
     "behaviors": [
       "http:dos"
     ],
@@ -2549,7 +2791,7 @@
   "crowdsecurity/http-dos-invalid-http-versions": {
     "name": "crowdsecurity/http-dos-invalid-http-versions",
     "description": "Detect DoS tools using invalid HTTP versions",
-    "label": "detection of http dos with invalid http version",
+    "label": "HTTP DOS with invalid HTTP version",
     "behaviors": [
       "http:dos"
     ],
@@ -2564,7 +2806,7 @@
   "crowdsecurity/http-dos-random-uri": {
     "name": "crowdsecurity/http-dos-random-uri",
     "description": "Detect DoS tools using random uri",
-    "label": "detection of http dos via random uri",
+    "label": "HTTP DOS via random URI",
     "behaviors": [
       "http:dos"
     ],
@@ -2579,7 +2821,7 @@
   "crowdsecurity/http-dos-swithcing-ua": {
     "name": "crowdsecurity/http-dos-swithcing-ua",
     "description": "Detect DoS tools switching user-agent too fast",
-    "label": "detection of http dos with varying UA",
+    "label": "HTTP DOS with varying UA",
     "behaviors": [
       "http:dos"
     ],
@@ -2594,7 +2836,7 @@
   "crowdsecurity/http-generic-bf": {
     "name": "crowdsecurity/http-generic-bf",
     "description": "Detect generic http brute force",
-    "label": "http bruteforce",
+    "label": "HTTP Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2609,7 +2851,7 @@
   "LePresidente/http-generic-401-bf": {
     "name": "LePresidente/http-generic-401-bf",
     "description": "Detect generic 401 Authorization error brute force",
-    "label": "http bruteforce",
+    "label": "HTTP Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2624,7 +2866,7 @@
   "LePresidente/http-generic-403-bf": {
     "name": "LePresidente/http-generic-403-bf",
     "description": "Detect generic 403 Forbidden (Authorization) error brute force",
-    "label": "http bruteforce",
+    "label": "HTTP Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2638,8 +2880,8 @@
   },
   "crowdsecurity/http-magento-bf": {
     "name": "crowdsecurity/http-magento-bf",
-    "description": "detect Magento bruteforce",
-    "label": "http bruteforce",
+    "description": "Detect bruteforce on Magento admin interface",
+    "label": "Magento Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -2773,8 +3015,8 @@
   },
   "crowdsecurity/http-wordpress_user-enum": {
     "name": "crowdsecurity/http-wordpress_user-enum",
-    "description": "detect wordpress probing : authors enumeration",
-    "label": "Wordpress User Enumeration",
+    "description": "Detect WordPress probing: authors enumeration",
+    "label": "WordPress User Enumeration",
     "behaviors": [
       "http:scan"
     ],
@@ -2790,8 +3032,8 @@
   },
   "crowdsecurity/http-wordpress_wpconfig": {
     "name": "crowdsecurity/http-wordpress_wpconfig",
-    "description": "detect wordpress probing : variations around wp-config.php by wpscan",
-    "label": "Access to Wordpress wp-config.php",
+    "description": "Detect WordPress probing: variations around wp-config.php by wpscan",
+    "label": "Access to WordPress wp-config.php",
     "behaviors": [
       "http:scan"
     ],
@@ -3641,6 +3883,21 @@
     "cti": true,
     "service": "wireguard"
   },
+  "darkclip/charon-ipsec-bf": {
+    "name": "darkclip/charon-ipsec-bf",
+    "description": "Detect Charon IPsec slow bruteforce",
+    "label": "Charon IPsec Slow Bruteforce",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "charon_ipsec"
+  },
   "firewallservices/lemonldap-ng-bf": {
     "name": "firewallservices/lemonldap-ng-bf",
     "description": "Detect Lemonldap::NG bruteforce",
@@ -4045,7 +4302,7 @@
   "lourys/pterodactyl-wings-bf": {
     "name": "lourys/pterodactyl-wings-bf",
     "description": "Detect invalid_username_or_password ssh bruteforce",
-    "label": "Pterodactyl Wing bruteforce",
+    "label": "Pterodactyl Wing Bruteforce",
     "behaviors": [
       "http:bruteforce"
     ],
