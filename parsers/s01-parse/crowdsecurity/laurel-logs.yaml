@@ -11,24 +11,63 @@ nodes:
     grok:
       pattern: '%{FLOAT:timestamp}:%{INT:event_inc_id}'
       expression: evt.Unmarshaled.laurel.ID
+    nodes:
+      - filter: evt.Unmarshaled.laurel.SYSCALL != nil
+        statics:
+          - meta: service
+            value: laurel
+          - meta: log_type
+            expression: evt.Unmarshaled.laurel.SYSCALL.SYSCALL
+          - target: evt.StrTime
+            expression: evt.Parsed.timestamp
+          - meta: exe
+            expression: evt.Unmarshaled.laurel.SYSCALL.exe
+          - meta: uid
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.uid)
+          - meta: auditd_eventid
+            expression: evt.Parsed.event_inc_id
+          - meta: parent_progname
+            expression: evt.Unmarshaled.laurel.SYSCALL.PPID.exe
+          - meta: ppid
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.ppid)
+          - meta: auid
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.auid)
+          - meta: euid
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.euid)
+          - meta: tty
+            expression: evt.Unmarshaled.laurel.SYSCALL.tty
+          - meta: subj
+            expression: evt.Unmarshaled.laurel.SYSCALL.subj
+          - meta: pid
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.pid)
+          - meta: comm
+            expression: evt.Unmarshaled.laurel.SYSCALL.comm
+          - meta: sig
+            expression: evt.Unmarshaled.laurel.SYSCALL.sig
+          - meta: res
+            expression: evt.Unmarshaled.laurel.SYSCALL.res
+          - meta: str_UID
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.UID)
+          - meta: str_GID
+            expression: int(evt.Unmarshaled.laurel.SYSCALL.GID)
+      - filter: evt.Unmarshaled.laurel.ANOM_ABEND != nil
+        statics:
+          - meta: service
+            value: laurel
+          - meta: log_type
+            value: anom_abend
+          - meta: exe
+            expression: evt.Unmarshaled.laurel.ANOM_ABEND[0].exe
+          - meta: uid
+            expression: int(evt.Unmarshaled.laurel.ANOM_ABEND[0].uid)
+          - meta: auditd_eventid
+            expression: evt.Parsed.event_inc_id
+          - meta: pid
+            expression: int(evt.Unmarshaled.laurel.ANOM_ABEND[0].pid)
+          - meta: auid
+            expression: int(evt.Unmarshaled.laurel.ANOM_ABEND[0].auid)
+          - meta: sig
+            expression: Sprintf("%v", int(evt.Unmarshaled.laurel.ANOM_ABEND[0].sig))
 statics:
-  - meta: service
-    value: laurel
-  - meta: log_type
-    expression: evt.Unmarshaled.laurel.SYSCALL.SYSCALL
   - target: evt.StrTime
     expression: evt.Parsed.timestamp
-  - meta: exe
-    expression: evt.Unmarshaled.laurel.SYSCALL.exe
-  - meta: uid
-    expression: int(evt.Unmarshaled.laurel.SYSCALL.uid)
-  - meta: auditd_eventid
-    expression: evt.Parsed.event_inc_id
-  - meta: parent_progname
-    expression: evt.Unmarshaled.laurel.SYSCALL.PPID.exe
-  - meta: ppid
-    expression: int(evt.Unmarshaled.laurel.SYSCALL.ppid)
-  - meta: auid
-    expression: int(evt.Unmarshaled.laurel.SYSCALL.auid)
-  - meta: tty
-    expression: evt.Unmarshaled.laurel.SYSCALL.tty

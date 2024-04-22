@@ -1,0 +1,26 @@
+type: leaky
+format: 2.0
+#debug: true
+name: crowdsecurity/http-dos-random-uri
+description: "Detect DoS tools using random uri"
+#pattern seen in loic tool
+filter: |
+  evt.Meta.log_type == "http_access-log" &&
+  evt.Meta.http_verb == 'GET' &&
+  evt.Parsed.static_ressource == 'false' &&
+  Upper(evt.Parsed.file_frag) == evt.Parsed.file_frag &&
+  len(evt.Parsed.file_frag) == 6 &&
+  int(evt.Meta.http_args_len) == 0
+capacity: 30
+leakspeed: 1s
+groupby: "evt.Meta.source_ip"
+blackhole: 2m
+labels:
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "http:dos"
+  label: "HTTP DOS via random URI"
+  service: http
+  remediation: true

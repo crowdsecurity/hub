@@ -4,7 +4,14 @@ description: "Detect scan for open proxy"
 #apache returns 405, nginx 400
 filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_status in ['400','405'] && (evt.Parsed.verb == 'CONNECT' || evt.Parsed.request matches '^http[s]?://')"
 blackhole: 2m
+groupby: evt.Meta.source_ip
 labels:
- service: http
- type: scan
- remediation: true
+  service: http
+  type: scan
+  remediation: true
+  classification:
+    - attack.T1595
+  behavior: "http:scan"
+  label: "HTTP Open Proxy Probing"
+  spoofable: 0
+  confidence: 3

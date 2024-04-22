@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/asterisk_user_enum
-description: "Detect asterisk user enum bruteforce"
+description: "Detect Asterisk user enumeration bruteforce"
 filter: evt.Meta.log_type == 'asterisk_failed_auth'
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
@@ -9,5 +9,12 @@ capacity: 5
 blackhole: 1m
 labels:
   service: asterisk
-  type: bruteforce
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1087
+    - attack.T1589.001
+    - attack.T1110
+  behavior: "sip:bruteforce"
+  label: "Asterisk User Enumeration"
   remediation: true

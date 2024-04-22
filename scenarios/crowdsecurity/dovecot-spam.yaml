@@ -9,5 +9,11 @@ capacity: 3
 leakspeed: "360s"
 blackhole: 5m
 labels:
- type: scan
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  label: "Dovecot Bruteforce"
+  service: dovecot
+  remediation: true

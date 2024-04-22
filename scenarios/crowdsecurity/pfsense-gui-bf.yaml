@@ -1,0 +1,19 @@
+# pfsense web auth bruteforce
+type: leaky
+#debug: true
+name: crowdsecurity/pfsense-gui-bf
+description: "Detect bruteforce on pfsense web interface"
+filter: evt.Meta.log_type == 'pfsense-gui-failed-auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "pfSense GUI Bruteforce"
+  service: pfsense

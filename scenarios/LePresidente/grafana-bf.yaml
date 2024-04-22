@@ -1,7 +1,7 @@
 # grafana BF scan
 name: LePresidente/grafana-bf
 description: "Detect grafana bruteforce"
-filter: "evt.Meta.log_type == 'grafana_failed_auth'"
+filter: "evt.Meta.service == 'grafana' && evt.Meta.log_type == 'auth_failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -10,5 +10,10 @@ capacity: 5
 blackhole: 1m
 labels:
   service: grafana
-  type: bruteforce
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Grafana Bruteforce"
   remediation: true

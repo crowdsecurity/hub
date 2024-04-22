@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/aidalinfo/couchdb-logs.yaml
+scenarios:
+- ./scenarios/aidalinfo/couchdb-bf.yaml
+- ./scenarios/aidalinfo/couchdb-crawl.yaml
+postoverflows:
+- ""
+log_file: couchdb-logs.log
+log_type: couchdb
+labels: {}
+ignore_parsers: false
+override_statics: []

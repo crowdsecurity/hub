@@ -3,7 +3,7 @@ type: leaky
 format: 2.0
 name: crowdsecurity/http-sqli-probbing-detection
 data:
-  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/sqli_probe_patterns.txt
+  - source_url: https://hub-data.crowdsec.net/web/sqli_probe_patterns.txt
     dest_file: sqli_probe_patterns.txt
     type: string
 description: "A scenario that detects SQL injection probing with minimal false positives"
@@ -15,6 +15,11 @@ blackhole: 5m
 #low false positives approach : we require distinct payloads to avoid false positives
 distinct: evt.Parsed.http_args
 labels:
-  service: http
-  type: sqli_probing
   remediation: true
+  classification:
+    - attack.T1595.002
+  behavior: "http:exploit"
+  label: "SQL Injection Attempt"
+  spoofable: 0
+  service: http
+  confidence: 3

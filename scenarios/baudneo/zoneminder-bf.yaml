@@ -8,9 +8,15 @@ capacity: 4
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: zoneminder
- type: bruteforce
- remediation: true
+  service: zoneminder
+  type: bruteforce
+  spoofable: 0
+  confidence: 3
+  remediation: true
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Zoneminder bruteforce"
 ---
 # user enum
 type: leaky
@@ -23,6 +29,13 @@ capacity: 4
 leakspeed: "10s"
 blackhole: 1m
 labels:
- service: zoneminder
- type: bruteforce
- remediation: true
+  service: zoneminder
+  type: bruteforce
+  spoofable: 0
+  confidence: 3
+  remediation: true
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Zoneminder user enumeration"

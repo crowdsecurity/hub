@@ -3,7 +3,7 @@ type: leaky
 format: 2.0
 name: crowdsecurity/http-xss-probbing
 data:
-  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/master/web/xss_probe_patterns.txt
+  - source_url: https://hub-data.crowdsec.net/web/xss_probe_patterns.txt
     dest_file: xss_probe_patterns.txt
     type: string
 description: "A scenario that detects XSS probing with minimal false positives"
@@ -15,6 +15,11 @@ blackhole: 5m
 #low false positives approach : we require distinct payloads to avoid false positives
 distinct: evt.Parsed.http_args
 labels:
-  service: http
-  type: xss_probing
   remediation: true
+  classification:
+    - attack.T1595.002
+  behavior: "http:exploit"
+  label: "XSS Attempt"
+  spoofable: 0
+  service: http
+  confidence: 3

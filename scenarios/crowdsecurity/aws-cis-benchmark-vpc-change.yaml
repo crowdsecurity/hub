@@ -17,4 +17,12 @@ filter: |
      evt.Meta.event_name == "EnableVpcClassicLink"
      )
 labels:
-  type: compliance
+     confidence: 3
+     spoofable: 0
+     classification:
+          - attack.T1578
+     behavior: "cloud:audit"
+     label: "AWS VPC change"
+     service: aws
+     cti: false
+     remediation: false

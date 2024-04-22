@@ -10,7 +10,12 @@ blackhole: 1m
 reprocess: true
 labels:
   service: gitlab
-  type: bruteforce
+  behavior: "vcs:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Gitlab Bruteforce"
   remediation: true
 ---
 # gitlab user enum bruteforce
@@ -26,5 +31,11 @@ blackhole: 1m
 reprocess: true
 labels:
   service: gitlab
-  type: bruteforce
+  behavior: "vcs:bruteforce"
+  classification:
+    - attack.T1589
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Gitlab User Enumeration"
   remediation: true

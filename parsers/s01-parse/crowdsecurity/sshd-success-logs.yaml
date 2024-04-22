@@ -1,0 +1,21 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'sshd'"
+name: crowdsecurity/sshd-success-logs
+description: "Parse successful ssh logins"
+pattern_syntax:
+  IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+  IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
+nodes:
+  - grok:
+      pattern: "Accepted (publickey|password) for %{USERNAME:sshd_auth_user} from %{IP_WORKAROUND:sshd_client_ip} port %{NUMBER:sshd_client_port} ssh2%{GREEDYDATA:sshd_trail}"
+      apply_on: message
+statics:
+    - meta: service
+      value: ssh
+    - meta: source_ip
+      expression: "evt.Parsed.sshd_client_ip"
+    - meta: user
+      expression: "evt.Parsed.sshd_auth_user"
+    - meta: log_type
+      value: auth_success

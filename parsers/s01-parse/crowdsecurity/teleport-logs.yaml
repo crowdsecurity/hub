@@ -1,0 +1,24 @@
+name: crowdsecurity/teleport-logs
+description: "Parse teleport logs"
+filter: "evt.Parsed.program == 'teleport' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'teleport') in ['', nil]"
+#debug: true
+onsuccess: next_stage
+statics:
+  - meta: service
+    value: teleport
+  - meta: sub_type
+    expression: evt.Unmarshaled.teleport.event
+  - meta: success
+    expression: "evt.Unmarshaled.teleport.success ? 'true' : 'false'"
+## Set for impossible travel scenario
+  - meta: log_type
+    expression: "evt.Unmarshaled.teleport.success ? 'auth_success' : 'auth_failed'"
+##Converting a bool with sprintf is very slow, so we use a ternary expression
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.teleport.time
+  - meta: user
+    expression: evt.Unmarshaled.teleport.user
+  - meta: source_ip
+    expression: Split(evt.Unmarshaled.teleport["addr.remote"], ':')[0]
+  - meta: http_user_agent
+    expression: evt.Unmarshaled.teleport["user_agent"]

@@ -7,6 +7,11 @@ filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.file_name contains
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: http
- type: scan
- remediation: true
+  service: http
+  classification:
+    - attack.T1595
+  spoofable: 0
+  confidence: 3
+  behavior: "http:scan"
+  label: "w00t w00t Scanner"
+  remediation: true

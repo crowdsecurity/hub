@@ -1,4 +1,4 @@
- # emby bruteforce
+# emby bruteforce
 type: leaky
 name: LePresidente/emby-bf
 description: "Detect emby bruteforce"
@@ -9,6 +9,11 @@ groupby: evt.Meta.source_ip
 blackhole: 5m
 reprocess: true
 labels:
- service: emby
- type: bruteforce
- remediation: true
+  service: emby
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Emby Bruteforce"
+  remediation: true

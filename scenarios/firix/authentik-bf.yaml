@@ -1,0 +1,39 @@
+# Authentik BF scan
+type: leaky
+name: firix/authentik-bf
+description: "Detect authentik bruteforce"
+filter: evt.Meta.log_type in ['authentik_failed_auth', 'authentik_invalid_username']
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: authentik
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Authentik Bruteforce"
+  remediation: true
+---
+# Authentik user-enum
+type: leaky
+name: firix/authentik-bf_user-enum
+description: "Detect authentik user enum bruteforce"
+filter: evt.Meta.log_type in ['authentik_failed_auth', 'authentik_invalid_username']
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: authentik
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1589
+    - attack.T1110
+  label: "Authentik User Enumeration"
+  remediation: true 

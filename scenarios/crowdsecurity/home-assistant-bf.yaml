@@ -9,6 +9,11 @@ capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
- service: home-assistant
- type: bruteforce
- remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "iot:bruteforce"
+  label: "Home Assistant Bruteforce"
+  service: home-assistant
+  remediation: true

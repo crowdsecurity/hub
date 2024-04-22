@@ -1,0 +1,14 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/nginx-logs.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+scenarios:
+- ./scenarios/crowdsecurity/http-dos-bypass-cache.yaml
+postoverflows:
+- ""
+log_file: http_dos_bypass_cache.log
+log_type: nginx
+labels: {}
+ignore_parsers: true
+override_statics: []

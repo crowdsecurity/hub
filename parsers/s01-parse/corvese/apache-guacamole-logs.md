@@ -18,7 +18,7 @@ The default log format used by quacamole is not supported by crowdsec as there i
 
 - Create the following 'logback.xml' file in guacamole home dir to log with the correct Date format.
 STDOUT
-```
+```xml
 <configuration>
     <!-- Default appender -->
     <appender name="GUAC-DEFAULT" class="ch.qos.logback.core.ConsoleAppender">
@@ -36,7 +36,7 @@ STDOUT
 ```
 
 FILE:
-```
+```xml
 <configuration>
     <!-- Default appender -->
     <appender name="GUAC-DEFAULT" class="ch.qos.logback.core.FileAppender">
@@ -55,7 +55,7 @@ FILE:
 ```
 
 If using docker you will need to mount the following volume that links to the logback.xml file and set the GUACAMOLE_HOME variable
-```
+```yaml
     volumes:
     - ./logback.xml:/home/guacamole/temp/logback.xml:ro
     environment:

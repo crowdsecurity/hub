@@ -1,0 +1,84 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2023/09/23 09:58:54 [error] 298#298: *1093 FastCGI sent in stderr: \"PHP message: Failed login for user@example.com\" while reading response header from upstream, client: 1.2.3.4, server: _, request: \"POST /login HTTP/1.1\", upstream: \"fastcgi://127.0.0.1:9000\", host: \"bookstack.example.com\", referrer: \"https://bookstack.example.com/login\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "bookstack"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[Fri Mar 15 10:12:48.1234 2024] [php:notice] [pid 83429] [client 192.168.1.1:23006] Failed login for Does@not.exist, referer: http://0.0.0.0:9080/login"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "bookstack"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["xs539/bookstack-logs"]) == 2
+results["s01-parse"]["xs539/bookstack-logs"][0].Success == true
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Parsed["message"] == "2023/09/23 09:58:54 [error] 298#298: *1093 FastCGI sent in stderr: \"PHP message: Failed login for user@example.com\" while reading response header from upstream, client: 1.2.3.4, server: _, request: \"POST /login HTTP/1.1\", upstream: \"fastcgi://127.0.0.1:9000\", host: \"bookstack.example.com\", referrer: \"https://bookstack.example.com/login\""
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Parsed["program"] == "bookstack"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Parsed["target_user"] == "user@example.com"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Parsed["timestamp"] == "2023/09/23 09:58:54"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["log_type"] == "bookstack_failed_auth"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["service"] == "bookstack"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Meta["target_user"] == "user@example.com"
+results["s01-parse"]["xs539/bookstack-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["xs539/bookstack-logs"][1].Success == true
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["http_referer"] == "http://0.0.0.0:9080/login"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["log_level"] == "notice"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["message"] == "[Fri Mar 15 10:12:48.1234 2024] [php:notice] [pid 83429] [client 192.168.1.1:23006] Failed login for Does@not.exist, referer: http://0.0.0.0:9080/login"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["pid"] == "83429"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["program"] == "bookstack"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["remote_port"] == "23006"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["target_user"] == "Does@not.exist"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Parsed["timestamp"] == "Fri Mar 15 10:12:48.1234 2024"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["log_type"] == "bookstack_failed_auth"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["service"] == "bookstack"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Meta["target_user"] == "Does@not.exist"
+results["s01-parse"]["xs539/bookstack-logs"][1].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2023/09/23 09:58:54 [error] 298#298: *1093 FastCGI sent in stderr: \"PHP message: Failed login for user@example.com\" while reading response header from upstream, client: 1.2.3.4, server: _, request: \"POST /login HTTP/1.1\", upstream: \"fastcgi://127.0.0.1:9000\", host: \"bookstack.example.com\", referrer: \"https://bookstack.example.com/login\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "bookstack"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_user"] == "user@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023/09/23 09:58:54"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "bookstack_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "bookstack"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "user@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-09-23T09:58:54Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-09-23T09:58:54Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["http_referer"] == "http://0.0.0.0:9080/login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["log_level"] == "notice"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[Fri Mar 15 10:12:48.1234 2024] [php:notice] [pid 83429] [client 192.168.1.1:23006] Failed login for Does@not.exist, referer: http://0.0.0.0:9080/login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["pid"] == "83429"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "bookstack"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_port"] == "23006"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["target_user"] == "Does@not.exist"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "Fri Mar 15 10:12:48.1234 2024"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "bookstack-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "bookstack_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "bookstack"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "Does@not.exist"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2024-03-15T10:12:48.1234Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2024-03-15T10:12:48.1234Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+len(results["success"][""]) == 0

@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+- ./parsers/s01-parse/crowdsecurity/apache2-logs.yaml
+scenarios:
+- "crowdsecurity/http-probing"
+postoverflows:
+- ""
+collections: []
+log_file: apache2-logs.log
+log_type: apache2
