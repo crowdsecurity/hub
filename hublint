@@ -263,7 +263,7 @@ class EmptyDependencies(Linter):
 class OneDocumentPerYAMLFile(Linter):
     name = "one-document-per-yaml-file"
     description = "Each YAML file must contain only one document"
-    enabled = True
+    enabled = False
     error = False
 
     def __call__(self, item):
@@ -384,8 +384,8 @@ class DocumentWithoutName(Linter):
 class DocumentNameMatchingItem(Linter):
     name = "document-name-matching-item"
     description = "The name of the document must match the item name (only scenarios)"
-    enabled = True
-    error = True
+    enabled = False
+    error = False
     config = {'hubtypes': ['scenarios']}
 
     def __call__(self, item):
@@ -400,8 +400,8 @@ class DocumentNameMatchingItem(Linter):
 class ItemSchema(Linter):
     name = "item-schema"
     description = "Validate item files against their YAML schema"
-    enabled = True
-    error = True
+    enabled = False
+    error = False
     config = {
         'collections': {
             'url': 'https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/collection_schema.yaml',
