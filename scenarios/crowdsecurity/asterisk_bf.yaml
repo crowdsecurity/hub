@@ -4,7 +4,6 @@ description: "Detect Asterisk user bruteforce"
 filter: evt.Meta.log_type == 'asterisk_failed_auth'
 groupby: evt.Meta.source_ip
 leakspeed: 10s
-debug: true
 capacity: 5
 blackhole: 1m
 labels:
