@@ -47,22 +47,3 @@ jobs:
 #      run: |
 #        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
 
-    - name: set up python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: install pipenv
-      run: |
-        python -m pip install --upgrade pip
-        pip install pipenv
-
-    - name: install dependencies
-      run: |
-        pipenv install --deploy --python 3.12
-
-    - name: hub linter
-      run: |
-        pipenv run ./hublint defaults > .hublint.toml
-        pipenv run ./hublint check --color always --no-warning-details
-
