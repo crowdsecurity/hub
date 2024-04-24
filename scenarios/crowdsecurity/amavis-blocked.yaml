@@ -4,7 +4,6 @@ description: "Ban IPs that are blocked by amavis"
 filter: evt.Meta.log_type == 'amavis' && evt.Parsed.amavis_action == 'Blocked' && evt.Parsed.amavis_category == 'INFECTED'
 groupby: evt.Meta.source_ip
 blackhole: 5m
-debug: true
 labels:
   service: amavis
   confidence: 3
