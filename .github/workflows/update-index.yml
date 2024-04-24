@@ -100,7 +100,7 @@ jobs:
     needs: 
       - build
       - check-secret
-    if: needs.check.outputs.exists == 'true'
+    if: needs.check-secret.outputs.secret-exists == 'true'
     permissions:
       id-token: write
       contents: read
