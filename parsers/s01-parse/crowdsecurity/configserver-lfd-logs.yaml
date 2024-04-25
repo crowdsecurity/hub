@@ -2,7 +2,6 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'lfd'"
 name: crowdsecurity/configserver-lfd-logs
 description: "Parse ConfigServer LFD logs"
-debug: true
 grok:
   pattern: "Failed SSH login from %{IP:source_ip} \\(%{NOTSPACE:country_code}/%{GREEDYDATA:country_name}/%{NOTSPACE:source_rdns}\\): %{GREEDYDATA:reason}"
   apply_on: message

@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- "./parsers/s01-parse/crowdsecurity/caddy-logs.yaml"
+- crowdsecurity/http-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- "crowdsecurity/http-generic-bf"
+postoverflows:
+- ""
+collections: []
+log_file: caddy-logs.log
+log_type: caddy
+ignore_parsers: true

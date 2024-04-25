@@ -1,4 +1,20 @@
 {
+  "crowdsecurity/generic-freemarker-ssti": {
+    "name": "crowdsecurity/generic-freemarker-ssti",
+    "description": "Generic FreeMarker SSTI",
+    "label": "Generic FreeMarker SSTI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http"
+  },
   "crowdsecurity/vpatch-CVE-2017-9841": {
     "name": "crowdsecurity/vpatch-CVE-2017-9841",
     "description": "PHPUnit RCE (CVE-2017-9841)",
@@ -195,6 +211,25 @@
     ],
     "cwes": [
       "CWE-98"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2022-22954": {
+    "name": "crowdsecurity/vpatch-CVE-2022-22954",
+    "description": "VMWare Workspace ONE Access RCE (CVE-2022-22954)",
+    "label": "VMWare Workspace ONE RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2022-22954"
     ]
   },
   "crowdsecurity/vpatch-CVE-2022-22965": {
@@ -741,9 +776,50 @@
       "CVE-2023-7028"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-1212": {
+    "name": "crowdsecurity/vpatch-CVE-2024-1212",
+    "description": "Progress Kemp LoadMaster Unauthenticated Command Injection (CVE-2024-1212)",
+    "label": "LoadMaster UCI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-1212"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-22024": {
+    "name": "crowdsecurity/vpatch-CVE-2024-22024",
+    "description": "Ivanti Connect Secure - XXE (CVE-2024-22024)",
+    "label": "Ivanti Connect Secure - XXE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2024-22024"
+    ],
+    "cwes": [
+      "CWE-611"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-23897": {
     "name": "crowdsecurity/vpatch-CVE-2024-23897",
-    "description": "Jenkins CLI RCE (CVE-2023-50164)",
+    "description": "Jenkins CLI RCE (CVE-2024-23897)",
     "label": "Jenkins CLI RCE",
     "behaviors": [
       "http:exploit"
@@ -763,6 +839,28 @@
       "CWE-552"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-27198": {
+    "name": "crowdsecurity/vpatch-CVE-2024-27198",
+    "description": "Teamcity - Authentication Bypass (CVE-2024-27198)",
+    "label": "PHPUnit RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "cves": [
+      "CVE-2017-9841"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
   "crowdsecurity/vpatch-connectwise-auth-bypass": {
     "name": "crowdsecurity/vpatch-connectwise-auth-bypass",
     "description": "Detect exploitation of auth bypass in ConnectWise ScreenConnect",
@@ -777,7 +875,10 @@
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
-    "service": "http"
+    "service": "http",
+    "cves": [
+      "CVE-2024-1709"
+    ]
   },
   "crowdsecurity/vpatch-env-access": {
     "name": "crowdsecurity/vpatch-env-access",
@@ -1844,6 +1945,20 @@
     "spoofable": 0,
     "cti": true,
     "service": "linux"
+  },
+  "crowdsecurity/amavis-blocked": {
+    "name": "crowdsecurity/amavis-blocked",
+    "description": "Ban IPs that are blocked by amavis",
+    "label": "Infected Email",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0002:T1203",
+      "TA0002:T1204"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "amavis"
   },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
     "name": "crowdsecurity/apache_log4j2_cve-2021-44228",
@@ -2919,6 +3034,21 @@
     "spoofable": 0,
     "cti": true,
     "service": "http"
+  },
+  "crowdsecurity/http-wordpress-scan": {
+    "name": "crowdsecurity/http-wordpress-scan",
+    "description": "Detect WordPress scan: vuln hunting",
+    "label": "WordPress Vuln Hunting",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "wordpress"
   },
   "crowdsecurity/http-wordpress_user-enum": {
     "name": "crowdsecurity/http-wordpress_user-enum",

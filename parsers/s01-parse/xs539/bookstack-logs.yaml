@@ -8,12 +8,14 @@ nodes:
   - grok:
       pattern: '%{NGINXERRTIME:timestamp}%{GREEDYDATA}Failed login for %{BOOKSTACK_USER:target_user}%{GREEDYDATA}client: %{IPORHOST:remote_addr}'
       apply_on: message
-      statics:
-        - meta: log_type
-          value: bookstack_failed_auth
-        - meta: target_user
-          expression: evt.Parsed.target_user
+  - grok:
+      pattern: '\[%{APACHEERRORTIME:timestamp}\] \[php:%{WORD:log_level}\] \[pid %{INT:pid}\] \[client %{IPORHOST:remote_addr}(:%{INT:remote_port})?\] Failed login for %{BOOKSTACK_USER:target_user}(, referer: %{GREEDYDATA:http_referer})?'
+      apply_on: message
 statics:
+    - meta: log_type
+      value: bookstack_failed_auth
+    - meta: target_user
+      expression: evt.Parsed.target_user
     - meta: service
       value: bookstack
     - target: evt.StrTime
