@@ -1,0 +1,41 @@
+---
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'OWNCLOUD'"
+name: owncloud-logs
+description: "Parse owncloud logs"
+pattern_syntax:
+  OWNCLOUD_USER: '[a-zA-Z0-9\.\@\-\+_%]+'
+nodes:
+  - grok:
+      pattern: 'Login failed: ''%{OWNCLOUD_USER:target_user}'' \(Remote IP: ''%{IP:source_ip}''\)'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: target_user
+        expression: "evt.Parsed.target_user"
+      - meta: log_type
+        value: owncloud_failed_auth
+  - grok:
+      pattern: 'Bruteforce attempt from \\?"%{IP:source_ip}\\?" detected for action \\?"%{DATA:action}\\?"'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: action
+        expression: "evt.Parsed.action"
+      - meta: log_type
+        value: owncloud_bruteforce_attempt
+
+#{"reqId":"cdkLru24VO0QVWiuAqmy","level":2,"time":"2024-04-18T11:04:19+00:00","remoteAddr":"10.10.1.1","user":"--","app":"core","method":"POST","url":"\/login?user=admin","message":"Login failed: 'admin' (Remote IP: '10.10.1.1')"}
+
+  - grok:
+      pattern: 'Trusted domain error. \\"%{IP:source_ip}\\".*'
+      expression: JsonExtract(evt.Parsed.message, "message")
+    statics:
+      - meta: log_type
+        value: owncloud_domain_error
+
+statics:
+  - meta: service
+    value: owncloud
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "time")
