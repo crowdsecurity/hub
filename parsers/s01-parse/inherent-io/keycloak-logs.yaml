@@ -4,7 +4,7 @@ name: inherent-io/keycloak-logs
 description: "Parse keycloak logs"
 pattern_syntax:
   DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
-  LOG_LEVEL: "(WARN|ERROR|INFO)"
+  LOG_LEVEL: "(DEBUG|WARN|ERROR|INFO)"
   LOG_LINE: '^%{DATETIME:datetime} %{LOG_LEVEL:log_level}\s+\[org.*\]\s+\(executor-thread-\d+\)\s+%{GREEDYDATA:parsed_message}'
 nodes:
   - grok:
@@ -16,7 +16,7 @@ nodes:
           - meta: log_type
             expression: trimSuffix(evt.Unmarshaled.keycloak.type, ",")
           - meta: error
-            expression: trimSuffix(evt.Unmarshaled.keycloak.error, ",")
+            expression: trimSuffix(evt.Unmarshaled.keycloak.error ?? "", ",")
           - meta: source_ip
             expression: trimSuffix(evt.Unmarshaled.keycloak.ipAddress, ",")
           - meta: username
