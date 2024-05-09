@@ -3,12 +3,12 @@ onsuccess: next_stage
 name: inherent-io/keycloak-logs
 description: "Parse keycloak logs"
 pattern_syntax:
-  DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
-  LOG_LEVEL: "(DEBUG|WARN|ERROR|INFO)"
-  LOG_LINE: '^%{DATETIME:datetime} %{LOG_LEVEL:log_level}\s+\[org.*\]\s+\(executor-thread-\d+\)\s+%{GREEDYDATA:parsed_message}'
+  KEYCLOAK_DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
+  KEYCLOAK_LOG_LEVEL: "(DEBUG|WARN|ERROR|INFO)"
+  KEYCLOAK_LOG_LINE: '^%{KEYCLOAK_DATETIME:datetime} %{KEYCLOAK_LOG_LEVEL:log_level}\s+\[org.*\]\s+\(executor-thread-\d+\)\s+%{GREEDYDATA:parsed_message}'
 nodes:
   - grok:
-      name: "LOG_LINE"
+      name: "KEYCLOAK_LOG_LINE"
       apply_on: message
     nodes:
       - filter: ParseKV(evt.Parsed.parsed_message, evt.Unmarshaled, "keycloak") in ["", nil]
