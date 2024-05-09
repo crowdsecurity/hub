@@ -5,24 +5,25 @@ description: "Parse keycloak logs"
 pattern_syntax:
   DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
   LOG_LEVEL: "(WARN|ERROR|INFO)"
-  VALUE_TO_COMMA: "[^,]+"
-
-  LOGIN_ERROR_DATA: "realmId=%{VALUE_TO_COMMA:realmId}, clientId=%{VALUE_TO_COMMA:clientId}, userId=%{VALUE_TO_COMMA:userId}, ipAddress=%{VALUE_TO_COMMA:ipAddress}, error=%{VALUE_TO_COMMA:error}, auth_method=%{VALUE_TO_COMMA:auth_method}, auth_type=%{VALUE_TO_COMMA:auth_type}, redirect_uri=%{URI:redirect_uri}, code_id=%{VALUE_TO_COMMA:code_id}, username=%{VALUE_TO_COMMA:username}(, authSessionParentId=%{VALUE_TO_COMMA:authSessionParentId}, authSessionTabId=%{VALUE_TO_COMMA:authSessionTabId})?"
-  LOGIN_ERROR: "^%{DATETIME:datetime} %{LOG_LEVEL:log_level} [ ]*.+ type\\=LOGIN_ERROR, %{LOGIN_ERROR_DATA}$"
+  LOG_LINE: '^%{DATETIME:datetime} %{LOG_LEVEL:log_level}\s+\[org.*\]\s+\(executor-thread-\d+\)\s+%{GREEDYDATA:parsed_message}'
 nodes:
   - grok:
-      name: "LOGIN_ERROR"
-      apply_on: Line.Raw
-      statics:
-        - meta: log_type
-          value: LOGIN_ERROR
-        - meta: error
-          expression: evt.Parsed.error
-        - meta: source_ip
-          expression: evt.Parsed.ipAddress
-        - meta: username
-          expression: evt.Parsed.username
+      name: "LOG_LINE"
+      apply_on: message
+    nodes:
+      - filter: ParseKV(evt.Parsed.parsed_message, evt.Unmarshaled, "keycloak") in ["", nil]
+        statics:
+          - meta: log_type
+            expression: trimSuffix(evt.Unmarshaled.keycloak.type, ",")
+          - meta: error
+            expression: trimSuffix(evt.Unmarshaled.keycloak.error, ",")
+          - meta: source_ip
+            expression: trimSuffix(evt.Unmarshaled.keycloak.ipAddress, ",")
+          - meta: username
+            expression: trimSuffix(evt.Unmarshaled.keycloak.username, ",")
 statics:
+  - meta: service
+    value: keycloak
   - target: evt.StrTime
     expression: evt.Parsed.datetime
   - meta: log_level
