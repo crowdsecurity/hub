@@ -521,9 +521,12 @@ class ItemNameConflict(Linter):
     description = "The item name must be unique"
     enabled = True
     error = True
+    config = {'hubtypes': ['collections', 'parsers', 'postoverflows', 'appsec-rules', 'appsec-configs']}
     seen = {}
 
     def __call__(self, item):
+        if item.hubtype not in self.config['hubtypes']:
+            return
         docs = item.yaml_docs()
         for doc in docs:
             if 'name' not in doc:
