@@ -15,4 +15,5 @@ whitelist:
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/files_trashbin/preview' && evt.Parsed.http_args contains 'fileId=' && evt.Parsed.http_args contains '&file=' # 404 error thrown when preview is missing for files in trash bin
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '\\/apps\\/files\\/api\\/v1\\/thumbnail\\/(\\d+)/(\\d+)'
    - evt.Meta.http_status == '200' && evt.Parsed.static_ressource == 'false' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/remote.php/dav/files/' # Syncing files from desktop client
-   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_path matches '\\/apps\\/text\\/(public\\/)?session\\/(sync|push)$' # Editing files with Nextcloud Text app
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_path matches '\\/apps\\/text\\/(public\\/)?session\\/(\d+\\/)?(sync|push)$' # Editing files with Nextcloud Text app
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_request endsWith '/apps/text/attachments' # Editing files with Nextcloud Text app
