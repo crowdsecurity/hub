@@ -516,6 +516,25 @@ class ContentMatchFile(Linter):
         if from_field != from_file:
             yield self.err(f"Content field does not match the file: {item._spec.get('path')}")
 
+class ItemNameConflict(Linter):
+    name = "item-name-conflict"
+    description = "The item name must be unique"
+    enabled = True
+    error = True
+    config = {'hubtypes': ['collections', 'parsers', 'postoverflows', 'appsec-rules', 'appsec-configs']}
+    seen = {}
+
+    def __call__(self, item):
+        if item.hubtype not in self.config['hubtypes']:
+            return
+        docs = item.yaml_docs()
+        for doc in docs:
+            if 'name' not in doc:
+                continue
+            k = doc.get('name') + ':' + item.hubtype
+            if k in self.seen:
+                yield self.err(f"Item name conflict: {doc['name']} is defined in both {self.seen[k]} and {item._spec.get('path')}")
+            self.seen[k] = item._spec.get('path')
 
 # --------------------------------------------------------------------- #
 
