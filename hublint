@@ -383,10 +383,10 @@ class DocumentWithoutName(Linter):
 
 class DocumentNameMatchingItem(Linter):
     name = "document-name-matching-item"
-    description = "The name of the document must match the item name (only scenarios)"
+    description = "The name of the document must match the item name (only scenarios+appsec-configs)"
     enabled = False
     error = False
-    config = {'hubtypes': ['scenarios']}
+    config = {'hubtypes': ['scenarios', 'appsec-configs']}
 
     def __call__(self, item):
         if item.hubtype not in self.config['hubtypes']:
@@ -538,6 +538,9 @@ def linters_from_config(config):
                     linter.enabled = linter_cfg.get("enabled")
                 if linter_cfg.get("error") is not None:
                     linter.error = linter_cfg.get("error")
+                # XXX: default config for _each_ linter is not written to the TOML file
+                if linter_cfg.get("config") is not None:
+                    linter.config = linter_cfg.get("config")
                 yield linter
                 break
         else:
