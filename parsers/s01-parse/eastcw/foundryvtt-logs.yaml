@@ -1,0 +1,33 @@
+name: eastcw/foundryvtt-logs
+description: "Parse Foundry VTT logs"
+filter: "evt.Parsed.program == 'foundryvtt'"
+debug: true
+onsuccess: next_stage
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+
+nodes:
+  - grok:
+      pattern: '\{"ip":"%{IP:source_ip}","level":"warn","message":"Administrator authentication failed for session %{BASE16NUM:session_id}; invalid password","status":403,"timestamp":"%{DATE_YMD:date} %{TIME:time}"}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: foundryvtt_failed_admin_auth
+  - grok:
+      pattern: '\{"ip":"%{IP:source_ip}","level":"warn","message":"User authentication failed for user %{USERNAME:username}; invalid password","session":"%{BASE16NUM:session_id}","status":401,"timestamp":"%{DATE_YMD:date} %{TIME:time}"}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: foundryvtt_failed_game_auth
+        - meta: username
+          expression: evt.Parsed.username
+
+statics:
+  - meta: service
+    value: foundryvtt
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: source_session_id
+    expression: evt.Parsed.session_id
+  - target: evt.StrTime
+    expression: evt.Parsed.date + ' ' + evt.Parsed.time
