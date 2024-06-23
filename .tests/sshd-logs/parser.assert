@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 16
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 18
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["program"] == "sshd"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["timestamp"] == "Feb 12 14:10:21"
@@ -144,7 +144,26 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Parsed["message"] == "Co
 results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["datasource_path"] == "sshd-logs.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][15].Evt.Meta["machine"] == "hostname"
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 16
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Parsed["pid"] == "277078"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Parsed["timestamp"] == "Apr 05 16:29:20"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Parsed["message"] == "Connection closed by 87.236.176.236 port 52909"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Evt.Meta["machine"] == "hostname"
+
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Parsed["pid"] == "277079"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Parsed["timestamp"] == "Apr 05 16:29:20"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Parsed["message"] == "Connection closed by 87.236.176.236 port 44845 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["machine"] == "hostname"
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 18
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["pid"] == "16378"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["sshd_invalid_user"] == "pascal"
@@ -365,4 +384,31 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["machine"] == "host
 results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["source_ip"] == "80.94.92.63"
 results["s01-parse"]["crowdsecurity/sshd-logs"][15].Evt.Meta["target_user"] == "root"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["pid"] == "277078"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["sshd_client_ip"] == "87.236.176.236"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["message"] == "Connection closed by 87.236.176.236 port 52909"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Parsed["timestamp"] == "Apr 05 16:29:20"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["machine"] == "hostname"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][16].Evt.Meta["source_ip"] == "87.236.176.236"
+
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["pid"] == "277079"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["sshd_client_ip"] == "87.236.176.236"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["message"] == "Connection closed by 87.236.176.236 port 44845 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Parsed["timestamp"] == "Apr 05 16:29:20"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["machine"] == "hostname"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["source_ip"] == "87.236.176.236"
 len(results["success"][""]) == 0
