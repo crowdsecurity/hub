@@ -10,6 +10,8 @@ grok:
   pattern: "%{DATE_YMD.date} %{TIME.time}"
   expression: evt.Unmarshaled.foundryvtt.timestamp
 statics:
+  - meta: service
+    value: foundryvtt
   - meta: source_ip
     expression: evt.Unmarshaled.foundryvtt.ip
   - meta: level
