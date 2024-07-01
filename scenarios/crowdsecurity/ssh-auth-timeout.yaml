@@ -1,0 +1,21 @@
+# ssh bruteforce
+type: leaky
+debug: true
+name: crowdsecurity/ssh-auth-timeout
+description: "Detect ssh authentication timeout"
+filter: "evt.Meta.log_type == 'ssh_auth_timeout'"
+leakspeed: "180s"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: ssh
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1190
+    - cve.CVE-2024-6387
+  label: "SSH Bruteforce"
+  behavior: "ssh:bruteforce"
+  remediation: true
