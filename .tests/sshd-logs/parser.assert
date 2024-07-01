@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 18
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 19
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -180,7 +180,17 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["datasource_path"] 
 results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Meta["machine"] == "eve"
 results["s00-raw"]["crowdsecurity/syslog-logs"][17].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 18
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Parsed["message"] == "fatal: Timeout before authentication for 192.168.9.212 port 47056"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Parsed["pid"] == "8807"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Parsed["timestamp"] == "Jul  1 09:30:56"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["machine"] == "usbkey"
+results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 19
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -450,4 +460,18 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["source_ip"] == "192.168.1.2"
 results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Meta["target_user"] == "root"
 results["s01-parse"]["crowdsecurity/sshd-logs"][17].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["message"] == "fatal: Timeout before authentication for 192.168.9.212 port 47056"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["pid"] == "8807"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["sshd_client_ip"] == "192.168.9.212"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Parsed["timestamp"] == "Jul  1 09:30:56"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["log_type"] == "ssh_auth_timeout"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["machine"] == "usbkey"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["source_ip"] == "192.168.9.212"
+results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Whitelisted == false
 len(results["success"][""]) == 0
