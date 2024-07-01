@@ -16,8 +16,9 @@ pattern_syntax:
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
   SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
-# in case there are blocked by /etc/ssh/sshd_config AllowUsers xx yy
+# in case they are blocked by /etc/ssh/sshd_config AllowUsers xx yy
   SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
+  SSHD_AUTH_TIMEOUT: 'Timeout before authentication for %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
 nodes:
   - grok:
       name: "SSHD_FAIL"
@@ -103,6 +104,12 @@ nodes:
       statics:
         - meta: log_type
           value: ssh_bad_keyexchange
+  - grok:
+      name: "SSHD_AUTH_TIMEOUT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_auth_timeout
 statics:
     - meta: service
       value: ssh
