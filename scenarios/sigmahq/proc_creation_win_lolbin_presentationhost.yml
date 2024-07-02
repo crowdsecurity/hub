@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_presentationhost
+description: |
+  Detects usage of "PresentationHost" which is a utility that runs ".xbap" (Browser Applications) files. It can be abused to run malicious ".xbap" files any bypass AWL
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\presentationhost.exe' || evt.Parsed.OriginalFileName == 'PresentationHost.exe') && evt.Parsed.CommandLine contains '.xbap' && not (evt.Parsed.CommandLine contains 'C:\\Windows\\' || evt.Parsed.CommandLine contains 'C:\\Program Files'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Application Whitelisting Bypass via PresentationHost.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
