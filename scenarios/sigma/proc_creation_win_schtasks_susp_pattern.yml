@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_schtasks_susp_pattern
+description: |
+  Detects scheduled task creation using "schtasks" that contain potentially suspicious or uncommon commands
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\schtasks.exe' && evt.Parsed.CommandLine contains '/Create ' && ((evt.Parsed.CommandLine contains '/sc minute ' || evt.Parsed.CommandLine contains '/ru system ') && (evt.Parsed.CommandLine contains 'cmd /c' || evt.Parsed.CommandLine contains 'cmd /k' || evt.Parsed.CommandLine contains 'cmd /r' || evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd.exe /r ') || evt.Parsed.CommandLine contains ' -decode ' || evt.Parsed.CommandLine contains ' -enc ' || evt.Parsed.CommandLine contains ' -w hidden ' || evt.Parsed.CommandLine contains ' bypass ' || evt.Parsed.CommandLine contains ' IEX' || evt.Parsed.CommandLine contains '.DownloadData' || evt.Parsed.CommandLine contains '.DownloadFile' || evt.Parsed.CommandLine contains '.DownloadString' || evt.Parsed.CommandLine contains '/c start /min ' || evt.Parsed.CommandLine contains 'FromBase64String' || evt.Parsed.CommandLine contains 'mshta http' || evt.Parsed.CommandLine contains 'mshta.exe http' || evt.Parsed.CommandLine contains '\\AppData\\' && evt.Parsed.CommandLine contains '%AppData%' && evt.Parsed.CommandLine contains '%Temp%' && evt.Parsed.CommandLine contains '%tmp%' && evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\' && evt.Parsed.CommandLine contains '/xml C:\\Users\\' && evt.Parsed.CommandLine contains 'cscript' && evt.Parsed.CommandLine contains 'curl' && evt.Parsed.CommandLine contains 'wscript'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1053.005
+
+  label: "Suspicious Command Patterns In Scheduled Task Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

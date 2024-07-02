@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regsvr32_uncommon_extension
+description: |
+  Detects a "regsvr32" execution where the DLL doesn't contain a common file extension.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && not (evt.Parsed.CommandLine contains '.ax' || evt.Parsed.CommandLine contains '.cpl' || evt.Parsed.CommandLine contains '.dll' || evt.Parsed.CommandLine contains '.ocx' || evt.Parsed.CommandLine == '' || evt.Parsed.CommandLine == '') && not (evt.Parsed.CommandLine contains '.ppl' || evt.Parsed.CommandLine contains '.bav'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1574
+
+  label: "Regsvr32 DLL Execution With Uncommon Extension"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

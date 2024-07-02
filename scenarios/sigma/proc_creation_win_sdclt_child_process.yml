@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sdclt_child_process
+description: |
+  A General detection for sdclt spawning new processes. This could be an indicator of sdclt being used for bypass UAC techniques.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\sdclt.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1548.002
+
+  label: "Sdclt Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

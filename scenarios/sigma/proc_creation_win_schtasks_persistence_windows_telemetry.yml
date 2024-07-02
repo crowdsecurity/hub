@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_schtasks_persistence_windows_telemetry
+description: |
+  Detects manual execution of the "Microsoft Compatibility Appraiser" task via schtasks.
+  In order to trigger persistence stored in the "\AppCompatFlags\TelemetryController" registry key.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && evt.Parsed.CommandLine contains 'run ' && evt.Parsed.CommandLine contains '\\Application Experience\\Microsoft Compatibility Appraiser')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1053.005
+
+  label: "Potential Persistence Via Microsoft Compatibility Appraiser"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

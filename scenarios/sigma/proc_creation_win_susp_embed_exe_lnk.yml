@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_embed_exe_lnk
+description: |
+  Detects events that appear when a user click on a link file with a powershell command in it
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage == 'C:\\Windows\\explorer.exe' && evt.Parsed.Image == 'C:\\Windows\\System32\\cmd.exe' && evt.Parsed.CommandLine contains 'powershell' && evt.Parsed.CommandLine contains '.lnk')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Hidden Powershell in Link File Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

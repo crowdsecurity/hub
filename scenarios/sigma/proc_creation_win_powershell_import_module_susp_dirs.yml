@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_import_module_susp_dirs
+description: |
+  Detects powershell scripts that import modules from suspicious directories
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Import-Module "$Env:Temp\\' || evt.Parsed.CommandLine contains 'Import-Module \'$Env:Temp\\' || evt.Parsed.CommandLine contains 'Import-Module $Env:Temp\\' || evt.Parsed.CommandLine contains 'Import-Module "$Env:Appdata\\' || evt.Parsed.CommandLine contains 'Import-Module \'$Env:Appdata\\' || evt.Parsed.CommandLine contains 'Import-Module $Env:Appdata\\' || evt.Parsed.CommandLine contains 'Import-Module C:\\Users\\Public\\' || evt.Parsed.CommandLine contains 'ipmo "$Env:Temp\\' || evt.Parsed.CommandLine contains 'ipmo \'$Env:Temp\\' || evt.Parsed.CommandLine contains 'ipmo $Env:Temp\\' || evt.Parsed.CommandLine contains 'ipmo "$Env:Appdata\\' || evt.Parsed.CommandLine contains 'ipmo \'$Env:Appdata\\' || evt.Parsed.CommandLine contains 'ipmo $Env:Appdata\\' || evt.Parsed.CommandLine contains 'ipmo C:\\Users\\Public\\')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Import PowerShell Modules From Suspicious Directories - ProcCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

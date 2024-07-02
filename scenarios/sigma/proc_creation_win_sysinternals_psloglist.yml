@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_psloglist
+description: |
+  Detects usage of the PsLogList utility to dump event log in order to extract admin accounts and perform account discovery or delete events logs
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'psloglist.exe' || evt.Parsed.Image endsWith '\\psloglist.exe' || evt.Parsed.Image endsWith '\\psloglist64.exe') && (evt.Parsed.CommandLine contains ' security' || evt.Parsed.CommandLine contains ' application' || evt.Parsed.CommandLine contains ' system') && (evt.Parsed.CommandLine contains ' -d' || evt.Parsed.CommandLine contains ' /d' || evt.Parsed.CommandLine contains ' -x' || evt.Parsed.CommandLine contains ' /x' || evt.Parsed.CommandLine contains ' -s' || evt.Parsed.CommandLine contains ' /s' || evt.Parsed.CommandLine contains ' -c' || evt.Parsed.CommandLine contains ' /c' || evt.Parsed.CommandLine contains ' -g' || evt.Parsed.CommandLine contains ' /g'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1087
+#  - attack.t1087.001
+#  - attack.t1087.002
+
+  label: "Suspicious Use of PsLogList"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

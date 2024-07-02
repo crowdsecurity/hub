@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regsvr32_flags_anomaly
+description: |
+  Detects a potential command line flag anomaly related to "regsvr32" in which the "/i" flag is used without the "/n" which should be uncommon.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\regsvr32.exe' && (evt.Parsed.CommandLine contains ' /i:' || evt.Parsed.CommandLine contains ' -i:') && not (evt.Parsed.CommandLine contains ' /n ' || evt.Parsed.CommandLine contains ' -n '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218.010
+
+  label: "Potential Regsvr32 Commandline Flag Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

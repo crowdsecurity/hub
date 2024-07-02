@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_import_from_suspicious_paths
+description: |
+  Detects the import of '.reg' files from suspicious paths using the 'reg.exe' utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains ' import ' && (evt.Parsed.CommandLine contains 'C:\\Users\\' || evt.Parsed.CommandLine contains '%temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains '%appdata%' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\' || evt.Parsed.CommandLine contains 'C:\\ProgramData\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1112
+
+  label: "Potential Suspicious Registry File Imported Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

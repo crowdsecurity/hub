@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_dnscmd_discovery
+description: |
+  Detects an attempt to leverage dnscmd.exe to enumerate the DNS zones of a domain. DNS zones used to host the DNS records for a particular domain.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\dnscmd.exe' && (evt.Parsed.CommandLine contains '/enumrecords' || evt.Parsed.CommandLine contains '/enumzones' || evt.Parsed.CommandLine contains '/ZonePrint' || evt.Parsed.CommandLine contains '/info'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1543.003
+
+  label: "Potential Discovery Activity Via Dnscmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

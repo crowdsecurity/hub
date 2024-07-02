@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_msiexec_embedding
+description: |
+  Adversaries may abuse msiexec.exe to proxy the execution of malicious payloads
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cmd.exe') && evt.Parsed.ParentCommandLine contains 'MsiExec.exe' && evt.Parsed.ParentCommandLine contains '-Embedding ' && not (evt.Parsed.Image endsWith ':\\Windows\\System32\\cmd.exe' && evt.Parsed.CommandLine contains 'C:\\Program Files\\SplunkUniversalForwarder\\bin\\' || evt.Parsed.CommandLine contains '\\DismFoDInstall.cmd' || evt.Parsed.ParentCommandLine contains '\\MsiExec.exe -Embedding ' && evt.Parsed.ParentCommandLine contains 'Global\\MSI0000'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.007
+
+  label: "Suspicious MsiExec Embedding Parent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

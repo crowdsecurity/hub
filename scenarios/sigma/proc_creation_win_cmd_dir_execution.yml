@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_dir_execution
+description: |
+  Detects usage of the "dir" command that is part of Windows batch/cmd to collect information about directories
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'dir ' && evt.Parsed.CommandLine contains ' /s' && evt.Parsed.CommandLine contains ' /b')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1217
+
+  label: "Files And Subdirectories Listing Using Dir"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

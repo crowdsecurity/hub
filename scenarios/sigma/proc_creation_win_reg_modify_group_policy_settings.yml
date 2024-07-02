@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_modify_group_policy_settings
+description: |
+  Detect malicious GPO modifications can be used to implement many other malicious behaviors.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains '\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' && (evt.Parsed.CommandLine contains 'GroupPolicyRefreshTimeDC' || evt.Parsed.CommandLine contains 'GroupPolicyRefreshTimeOffsetDC' || evt.Parsed.CommandLine contains 'GroupPolicyRefreshTime' || evt.Parsed.CommandLine contains 'GroupPolicyRefreshTimeOffset' || evt.Parsed.CommandLine contains 'EnableSmartScreen' || evt.Parsed.CommandLine contains 'ShellSmartScreenLevel'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1484.001
+
+  label: "Modify Group Policy Settings"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

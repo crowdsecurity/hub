@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_chcp_codepage_lookup
+description: |
+  Detects use of chcp to look up the system locale value as part of host discovery
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\cmd.exe' && (evt.Parsed.ParentCommandLine contains ' /c ' || evt.Parsed.ParentCommandLine contains ' /r ' || evt.Parsed.ParentCommandLine contains ' /k ') && evt.Parsed.Image endsWith '\\chcp.com' && (evt.Parsed.CommandLine endsWith 'chcp' || evt.Parsed.CommandLine endsWith 'chcp ' || evt.Parsed.CommandLine endsWith 'chcp  '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1614.001
+
+  label: "Console CodePage Lookup Via CHCP"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

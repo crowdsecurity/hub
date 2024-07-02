@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_finger_usage
+description: |
+  Detects suspicious aged finger.exe tool execution often used in malware attacks nowadays
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'finger.exe' || evt.Parsed.Image endsWith '\\finger.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Finger.exe Suspicious Invocation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

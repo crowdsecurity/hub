@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_forfiles
+description: |
+  Execute commands and binaries from the context of "forfiles". This is used as a LOLBIN for example to bypass application whitelisting.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.OriginalFileName == 'forfiles.exe') && (evt.Parsed.CommandLine contains ' /p ' || evt.Parsed.CommandLine contains ' -p ') && (evt.Parsed.CommandLine contains ' /m ' || evt.Parsed.CommandLine contains ' -m ') && (evt.Parsed.CommandLine contains ' /c ' || evt.Parsed.CommandLine contains ' -c '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Use of Forfiles For Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

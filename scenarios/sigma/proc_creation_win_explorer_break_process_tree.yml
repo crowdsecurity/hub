@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_explorer_break_process_tree
+description: |
+  Detects a command line process that uses explorer.exe to launch arbitrary commands or binaries,
+  which is similar to cmd.exe /c, only it breaks the process tree and makes its parent a new instance of explorer spawning from "svchost"
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '/factory,{75dff2b7-6936-4c06-a8bb-676a7b00b24b}' || evt.Parsed.CommandLine contains 'explorer.exe' && evt.Parsed.CommandLine contains ' /root,')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "Explorer Process Tree Break"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

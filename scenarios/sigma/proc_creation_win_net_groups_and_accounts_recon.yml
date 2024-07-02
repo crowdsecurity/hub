@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_net_groups_and_accounts_recon
+description: |
+  Detects suspicious reconnaissance command line activity on Windows systems using Net.EXE
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && ((evt.Parsed.CommandLine contains ' group ' || evt.Parsed.CommandLine contains ' localgroup ') && (evt.Parsed.CommandLine contains 'domain admins' || evt.Parsed.CommandLine contains ' administrator' || evt.Parsed.CommandLine contains ' administrateur' || evt.Parsed.CommandLine contains 'enterprise admins' || evt.Parsed.CommandLine contains 'Exchange Trusted Subsystem' || evt.Parsed.CommandLine contains 'Remote Desktop Users' || evt.Parsed.CommandLine contains 'Utilisateurs du Bureau à distance' || evt.Parsed.CommandLine contains 'Usuarios de escritorio remoto' || evt.Parsed.CommandLine contains ' /do') && not (evt.Parsed.CommandLine contains ' /add') || evt.Parsed.CommandLine contains ' accounts ' && evt.Parsed.CommandLine contains ' /do'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1087.001
+#  - attack.t1087.002
+
+  label: "Suspicious Group And Account Reconnaissance Activity Using Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

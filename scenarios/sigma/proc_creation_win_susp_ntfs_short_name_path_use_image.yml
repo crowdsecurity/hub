@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_ntfs_short_name_path_use_image
+description: |
+  Detect use of the Windows 8.3 short name. Which could be used as a method to avoid Image detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '~1\\' || evt.Parsed.Image contains '~2\\') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\Dism.exe' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\cleanmgr.exe' || evt.Parsed.ParentImage endsWith '\\WebEx\\WebexHost.exe' || evt.Parsed.ParentImage endsWith '\\thor\\thor64.exe' || evt.Parsed.Product == 'InstallShield (R)' || evt.Parsed.Description == 'InstallShield (R) Setup Engine' || evt.Parsed.Company == 'InstallShield Software Corporation' || evt.Parsed.Image contains '\\AppData\\' && evt.Parsed.Image contains '\\Temp\\' || evt.Parsed.Image endsWith '~1\\unzip.exe' || evt.Parsed.Image endsWith '~1\\7zG.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Use Short Name Path in Image"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

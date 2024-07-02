@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_remote_execution
+description: |
+  Detects the execution of WMIC to query information on a remote system
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\WMIC.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains '/node:' && not (evt.Parsed.CommandLine contains '/node:127.0.0.1 ' || evt.Parsed.CommandLine contains '/node:localhost '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "WMIC Remote Command Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
