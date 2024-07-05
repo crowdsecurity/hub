@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 19
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 20
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -190,7 +190,17 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["datasource_path"] 
 results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Meta["machine"] == "usbkey"
 results["s00-raw"]["crowdsecurity/syslog-logs"][18].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 19
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Parsed["message"] == "ssh_dispatch_run_fatal: Connection from 192.168.9.213 port 48680: message authentication code incorrect [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Parsed["pid"] == "309785"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Parsed["timestamp"] == "Jul  2 11:32:16"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Meta["machine"] == "instance-20240401-2335"
+results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 20
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -474,4 +484,18 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["machine"] == "usbk
 results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Meta["source_ip"] == "192.168.9.212"
 results["s01-parse"]["crowdsecurity/sshd-logs"][18].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["message"] == "ssh_dispatch_run_fatal: Connection from 192.168.9.213 port 48680: message authentication code incorrect [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["pid"] == "309785"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["sshd_client_ip"] == "192.168.9.213"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Parsed["timestamp"] == "Jul  2 11:32:16"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["log_type"] == "ssh_dispatch_fatal"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["machine"] == "instance-20240401-2335"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["source_ip"] == "192.168.9.213"
+results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Whitelisted == false
 len(results["success"][""]) == 0
