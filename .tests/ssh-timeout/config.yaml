@@ -1,0 +1,9 @@
+parsers:
+    - ./parsers/s01-parse/crowdsecurity/sshd-logs.yaml
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/dateparse-enrich
+scenarios:
+    - ./scenarios/crowdsecurity/ssh-cve-2024-6387.yaml
+log_file: ssh-timeout.log
+log_type: syslog
+ignore_parsers: true
