@@ -1,0 +1,17 @@
+id: test-vpatch-git-config
+info:
+  name: test-vpatch-git-config
+  author: crowdsec
+  severity: info
+  description: test-vpatch-git-config testing
+  tags: appsec-testing
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/toto/.git/config"
+
+    cookie-reuse: true
+    matchers:
+      - type: status
+        status:
+          - 403
