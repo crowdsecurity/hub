@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_cl_invocation
+description: |
+  Detects Execution via SyncInvoke in CL_Invocation.ps1 module
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'CL_Invocation.ps1' && evt.Parsed.CommandLine contains 'SyncInvoke')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1216
+
+  label: "Execution via CL_Invocation.ps1"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
