@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_findstr_lnk
+description: |
+  Detects usage of findstr to identify and execute a lnk file as seen within the HHS redirect attack
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.OriginalFileName == 'FINDSTR.EXE') && evt.Parsed.CommandLine endsWith '.lnk')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+#  - attack.t1202
+#  - attack.t1027.003
+
+  label: "Findstr Launching .lnk File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

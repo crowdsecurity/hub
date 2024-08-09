@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_dumpminitool_execution
+description: |
+  Detects the use of "DumpMinitool.exe" a tool that allows the dump of process memory via the use of the "MiniDumpWriteDump"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\DumpMinitool.exe' || evt.Parsed.Image endsWith '\\DumpMinitool.x86.exe' || evt.Parsed.Image endsWith '\\DumpMinitool.arm64.exe' || evt.Parsed.OriginalFileName == 'DumpMinitool.exe' || evt.Parsed.OriginalFileName == 'DumpMinitool.x86.exe' || evt.Parsed.OriginalFileName == 'DumpMinitool.arm64.exe') && (evt.Parsed.CommandLine contains ' Full' || evt.Parsed.CommandLine contains ' Mini' || evt.Parsed.CommandLine contains ' WithHeap'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+#  - attack.t1003.001
+
+  label: "DumpMinitool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

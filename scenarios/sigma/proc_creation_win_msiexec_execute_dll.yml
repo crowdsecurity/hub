@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_msiexec_execute_dll
+description: |
+  Adversaries may abuse msiexec.exe to proxy execution of malicious payloads.
+  Msiexec.exe is the command-line utility for the Windows Installer and is thus commonly associated with executing installation packages (.msi)
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\msiexec.exe' && (evt.Parsed.CommandLine contains ' /y' || evt.Parsed.CommandLine contains ' -y') && not (evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y "C:\\Program Files\\Bonjour\\mdnsNSP.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y "C:\\Program Files (x86)\\Bonjour\\mdnsNSP.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y "C:\\Program Files (x86)\\Apple Software Update\\ScriptingObjectModel.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y "C:\\Program Files (x86)\\Apple Software Update\\SoftwareUpdateAdmin.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y "C:\\Windows\\CCM\\' || evt.Parsed.CommandLine contains '\\MsiExec.exe" /Y C:\\Windows\\CCM\\' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y "C:\\Program Files\\Bonjour\\mdnsNSP.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y "C:\\Program Files (x86)\\Bonjour\\mdnsNSP.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y "C:\\Program Files (x86)\\Apple Software Update\\ScriptingObjectModel.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y "C:\\Program Files (x86)\\Apple Software Update\\SoftwareUpdateAdmin.dll' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y "C:\\Windows\\CCM\\' || evt.Parsed.CommandLine contains '\\MsiExec.exe" -Y C:\\Windows\\CCM\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.007
+
+  label: "Suspicious Msiexec Execute Arbitrary DLL"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

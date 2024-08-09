@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_java_remote_debugging
+description: |
+  Detects a JAVA process running with remote debugging allowing more than just localhost to connect
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'transport=dt_socket,address=' && (evt.Parsed.CommandLine contains 'jre1.' || evt.Parsed.CommandLine contains 'jdk1.') && not (evt.Parsed.CommandLine contains 'address=127.0.0.1' || evt.Parsed.CommandLine contains 'address=localhost'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1203
+
+  label: "Java Running with Remote Debugging"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

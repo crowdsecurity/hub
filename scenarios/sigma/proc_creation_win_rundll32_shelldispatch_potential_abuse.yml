@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_shelldispatch_potential_abuse
+description: |
+  Detects potential "ShellDispatch.dll" functionality abuse to execute arbitrary binaries via "ShellExecute"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine contains 'RunDll_ShellExecuteW')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential ShellDispatch.DLL Functionality Abuse"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

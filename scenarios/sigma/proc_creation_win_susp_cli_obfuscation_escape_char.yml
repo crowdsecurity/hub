@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_cli_obfuscation_escape_char
+description: |
+  Detects potential commandline obfuscation using known escape characters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'h^t^t^p' || evt.Parsed.CommandLine contains 'h"t"t"p')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1140
+
+  label: "Potential Commandline Obfuscation Using Escape Characters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

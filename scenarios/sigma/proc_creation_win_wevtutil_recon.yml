@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_wevtutil_recon
+description: |
+  Detects usage of the wevtutil utility to perform reconnaissance
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wevtutil.exe' && (evt.Parsed.CommandLine contains ' qe ' || evt.Parsed.CommandLine contains ' query-events ') && (evt.Parsed.CommandLine contains 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational' || evt.Parsed.CommandLine contains 'Microsoft-Windows-Terminal-Services-RemoteConnectionManager/Operational' || evt.Parsed.CommandLine contains 'Security'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential Recon Activity Using Wevtutil"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_wermgr_susp_child_process
+description: |
+  Detects suspicious Windows Error Reporting manager (wermgr.exe) process patterns - suspicious parents / children, execution folders, command lines etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\wermgr.exe' && (evt.Parsed.Image endsWith '\\nslookup.exe' || evt.Parsed.Image endsWith '\\ipconfig.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.Image endsWith '\\netstat.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe') || evt.Parsed.Image endsWith '\\wermgr.exe' && not (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\' || evt.Parsed.Image startsWith 'C:\\Windows\\WinSxS\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious WERMGR Process Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

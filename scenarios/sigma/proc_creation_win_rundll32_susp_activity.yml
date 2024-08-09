@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_susp_activity
+description: |
+  Detects suspicious execution of rundll32, with specific calls to some DLLs with known LOLBIN functionalities
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'javascript:' && evt.Parsed.CommandLine contains '.RegisterXLL' || evt.Parsed.CommandLine contains 'url.dll' && evt.Parsed.CommandLine contains 'OpenURL' || evt.Parsed.CommandLine contains 'url.dll' && evt.Parsed.CommandLine contains 'OpenURLA' || evt.Parsed.CommandLine contains 'url.dll' && evt.Parsed.CommandLine contains 'FileProtocolHandler' || evt.Parsed.CommandLine contains 'zipfldr.dll' && evt.Parsed.CommandLine contains 'RouteTheCall' || evt.Parsed.CommandLine contains 'shell32.dll' && evt.Parsed.CommandLine contains 'Control_RunDLL' || evt.Parsed.CommandLine contains 'shell32.dll' && evt.Parsed.CommandLine contains 'ShellExec_RunDLL' || evt.Parsed.CommandLine contains 'mshtml.dll' && evt.Parsed.CommandLine contains 'PrintHTML' || evt.Parsed.CommandLine contains 'advpack.dll' && evt.Parsed.CommandLine contains 'LaunchINFSection' || evt.Parsed.CommandLine contains 'advpack.dll' && evt.Parsed.CommandLine contains 'RegisterOCX' || evt.Parsed.CommandLine contains 'ieadvpack.dll' && evt.Parsed.CommandLine contains 'LaunchINFSection' || evt.Parsed.CommandLine contains 'ieadvpack.dll' && evt.Parsed.CommandLine contains 'RegisterOCX' || evt.Parsed.CommandLine contains 'ieframe.dll' && evt.Parsed.CommandLine contains 'OpenURL' || evt.Parsed.CommandLine contains 'shdocvw.dll' && evt.Parsed.CommandLine contains 'OpenURL' || evt.Parsed.CommandLine contains 'syssetup.dll' && evt.Parsed.CommandLine contains 'SetupInfObjectInstallAction' || evt.Parsed.CommandLine contains 'setupapi.dll' && evt.Parsed.CommandLine contains 'InstallHinfSection' || evt.Parsed.CommandLine contains 'pcwutl.dll' && evt.Parsed.CommandLine contains 'LaunchApplication' || evt.Parsed.CommandLine contains 'dfshim.dll' && evt.Parsed.CommandLine contains 'ShOpenVerbApplication' || evt.Parsed.CommandLine contains 'dfshim.dll' && evt.Parsed.CommandLine contains 'ShOpenVerbShortcut' || evt.Parsed.CommandLine contains 'scrobj.dll' && evt.Parsed.CommandLine contains 'GenerateTypeLib' && evt.Parsed.CommandLine contains 'http' || evt.Parsed.CommandLine contains 'shimgvw.dll' && evt.Parsed.CommandLine contains 'ImageView_Fullscreen' && evt.Parsed.CommandLine contains 'http' || evt.Parsed.CommandLine contains 'comsvcs.dll' && evt.Parsed.CommandLine contains 'MiniDump') && not (evt.Parsed.CommandLine contains 'shell32.dll,Control_RunDLL desk.cpl,screensaver,@screensaver' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\control.exe' && evt.Parsed.ParentCommandLine contains '.cpl' && evt.Parsed.CommandLine contains 'Shell32.dll' && evt.Parsed.CommandLine contains 'Control_RunDLL' && evt.Parsed.CommandLine contains '.cpl' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\control.exe' && evt.Parsed.CommandLine startsWith '"C:\\Windows\\system32\\rundll32.exe" Shell32.dll,Control_RunDLL "C:\\Windows\\System32\\' && evt.Parsed.CommandLine endsWith '.cpl",'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218.011
+
+  label: "Potentially Suspicious Rundll32 Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

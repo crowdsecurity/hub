@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_disable_firewall
+description: |
+  Detects attempts to disable the Windows Firewall using PowerShell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\powershell_ise.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.CommandLine contains 'Set-NetFirewallProfile ' && evt.Parsed.CommandLine contains ' -Enabled ' && evt.Parsed.CommandLine contains ' False' && (evt.Parsed.CommandLine contains ' -All ' || evt.Parsed.CommandLine contains 'Public' || evt.Parsed.CommandLine contains 'Domain' || evt.Parsed.CommandLine contains 'Private'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562
+
+  label: "Windows Firewall Disabled via PowerShell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

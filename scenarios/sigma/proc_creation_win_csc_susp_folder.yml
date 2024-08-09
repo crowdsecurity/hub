@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_csc_susp_folder
+description: |
+  Detects a suspicious execution of csc.exe, which uses a source in a suspicious folder (e.g. AppData)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\csc.exe' && (evt.Parsed.CommandLine contains '\\AppData\\' || evt.Parsed.CommandLine contains '\\Windows\\Temp\\') && not (evt.Parsed.ParentImage startsWith 'C:\\Program Files' || evt.Parsed.ParentImage endsWith '\\sdiagnhost.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\choco.exe' || evt.Parsed.ParentCommandLine contains '\\ProgramData\\Microsoft\\Windows Defender Advanced Threat Protection'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1027.004
+
+  label: "Suspicious Csc.exe Source File Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

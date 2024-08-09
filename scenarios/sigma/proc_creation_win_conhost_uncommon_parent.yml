@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_conhost_uncommon_parent
+description: |
+  Detects when the Console Window Host (conhost.exe) process is spawned by an uncommon parent process, which could be indicative of potential code injection activity.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\conhost.exe' && (evt.Parsed.ParentImage endsWith '\\explorer.exe' || evt.Parsed.ParentImage endsWith '\\lsass.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\services.exe' || evt.Parsed.ParentImage endsWith '\\smss.exe' || evt.Parsed.ParentImage endsWith '\\spoolsv.exe' || evt.Parsed.ParentImage endsWith '\\svchost.exe' || evt.Parsed.ParentImage endsWith '\\userinit.exe' || evt.Parsed.ParentImage endsWith '\\wininit.exe' || evt.Parsed.ParentImage endsWith '\\winlogon.exe') && not (evt.Parsed.ParentCommandLine contains '-k apphost -s AppHostSvc' || evt.Parsed.ParentCommandLine contains '-k imgsvc' || evt.Parsed.ParentCommandLine contains '-k localService -p -s RemoteRegistry' || evt.Parsed.ParentCommandLine contains '-k LocalSystemNetworkRestricted -p -s NgcSvc' || evt.Parsed.ParentCommandLine contains '-k NetSvcs -p -s NcaSvc' || evt.Parsed.ParentCommandLine contains '-k netsvcs -p -s NetSetupSvc' || evt.Parsed.ParentCommandLine contains '-k netsvcs -p -s wlidsvc' || evt.Parsed.ParentCommandLine contains '-k NetworkService -p -s DoSvc' || evt.Parsed.ParentCommandLine contains '-k wsappx -p -s AppXSvc' || evt.Parsed.ParentCommandLine contains '-k wsappx -p -s ClipSVC') && not (evt.Parsed.ParentCommandLine contains 'C:\\Program Files (x86)\\Dropbox\\Client\\' || evt.Parsed.ParentCommandLine contains 'C:\\Program Files\\Dropbox\\Client\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Conhost Spawned By Uncommon Parent Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
