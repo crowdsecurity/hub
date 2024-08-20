@@ -38,4 +38,7 @@ nodes:
           expression: evt.Parsed.ruleid
         - meta: source_ip
           expression: evt.Parsed.client
+statics:
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, 'ts')
 
