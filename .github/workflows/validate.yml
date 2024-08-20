@@ -13,30 +13,38 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v4
-    - name: checkout hub
+
+    - name: checkout yaml schemas
       uses: actions/checkout@v4
       with:
         repository: 'crowdsecurity/crowdsec-yaml-schemas'
         path: crowdsec-yaml-schemas
+
     - name: transform to json all parsers/scenarios/collections/postovfw
       uses: mikefarah/yq@master
       with:
         cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
+
     - name: transform to json schema
       uses: mikefarah/yq@master
       with:
         cmd: for i in crowdsec-yaml-schema/*.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
+
     - name: validate parsers against schema
+    # Don't get confused by the version, the cli has a different schema than the library
       run: |
-        go install github.com/santhosh-tekuri/jsonschema/cmd/jv@latest
+        go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
         find .
         for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
+
     - name: validate scenarios against schema
       run: |
         for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.json $ITEM ; done
+
     - name: validate postoverflows against schema
       run: |
         for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
 #    - name: validate collections against schema
 #      run: |
 #        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
+

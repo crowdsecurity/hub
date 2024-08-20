@@ -1,55 +1,65 @@
-name: crowdsecurity/appsec-virtual-patching
-appsec-rules:
-  - crowdsecurity/base-config
-  - crowdsecurity/vpatch-env-access
-  - crowdsecurity/vpatch-CVE-2023-40044
-  - crowdsecurity/vpatch-CVE-2017-9841
-  - crowdsecurity/vpatch-CVE-2020-11738
-  - crowdsecurity/vpatch-CVE-2022-27926
-  - crowdsecurity/vpatch-CVE-2022-35914
-  - crowdsecurity/vpatch-CVE-2022-46169
-  - crowdsecurity/vpatch-CVE-2023-20198
-  - crowdsecurity/vpatch-CVE-2023-22515
-  - crowdsecurity/vpatch-CVE-2023-33617
-  - crowdsecurity/vpatch-CVE-2023-34362
-  - crowdsecurity/vpatch-CVE-2023-3519
-  - crowdsecurity/vpatch-CVE-2023-42793
-  - crowdsecurity/vpatch-CVE-2023-50164
-  - crowdsecurity/vpatch-CVE-2023-38205
-  - crowdsecurity/vpatch-CVE-2023-24489
-  - crowdsecurity/vpatch-CVE-2021-3129
-  - crowdsecurity/vpatch-CVE-2021-22941
-  - crowdsecurity/vpatch-CVE-2019-12989
-  - crowdsecurity/vpatch-CVE-2022-44877
-  - crowdsecurity/vpatch-CVE-2018-10562
-  - crowdsecurity/vpatch-CVE-2023-6553
-  - crowdsecurity/vpatch-CVE-2018-1000861
-  - crowdsecurity/vpatch-CVE-2019-1003030
-  - crowdsecurity/vpatch-CVE-2022-22965
-  - crowdsecurity/vpatch-CVE-2023-23752
-  - crowdsecurity/vpatch-CVE-2023-49070
-  - crowdsecurity/vpatch-laravel-debug-mode
-  - crowdsecurity/vpatch-CVE-2023-28121
-  - crowdsecurity/vpatch-CVE-2020-17496
-  - crowdsecurity/vpatch-CVE-2023-1389
-  - crowdsecurity/vpatch-CVE-2023-7028
-  - crowdsecurity/vpatch-CVE-2023-46805
-  - crowdsecurity/vpatch-CVE-2024-23897
-  - crowdsecurity/vpatch-CVE-2023-22527
-  - crowdsecurity/vpatch-CVE-2023-35078
-  - crowdsecurity/vpatch-CVE-2023-35082
-  - crowdsecurity/vpatch-CVE-2022-22954
-  - crowdsecurity/vpatch-CVE-2024-1212
-  - crowdsecurity/vpatch-symfony-profiler
-  - crowdsecurity/vpatch-connectwise-auth-bypass
-  - crowdsecurity/vpatch-CVE-2024-22024
 appsec-configs:
-  - crowdsecurity/virtual-patching
-  - crowdsecurity/appsec-default
-parsers:
-  - crowdsecurity/appsec-logs
-scenarios:
-  - crowdsecurity/appsec-vpatch
-description: "a generic virtual patching collection, suitable for most web servers."
+- crowdsecurity/virtual-patching
+- crowdsecurity/appsec-default
+appsec-rules:
+- crowdsecurity/base-config
+- crowdsecurity/vpatch-env-access
+- crowdsecurity/vpatch-CVE-2023-40044
+- crowdsecurity/vpatch-CVE-2017-9841
+- crowdsecurity/vpatch-CVE-2020-11738
+- crowdsecurity/vpatch-CVE-2022-27926
+- crowdsecurity/vpatch-CVE-2022-35914
+- crowdsecurity/vpatch-CVE-2022-46169
+- crowdsecurity/vpatch-CVE-2023-20198
+- crowdsecurity/vpatch-CVE-2023-22515
+- crowdsecurity/vpatch-CVE-2023-33617
+- crowdsecurity/vpatch-CVE-2023-34362
+- crowdsecurity/vpatch-CVE-2023-3519
+- crowdsecurity/vpatch-CVE-2023-42793
+- crowdsecurity/vpatch-CVE-2023-50164
+- crowdsecurity/vpatch-CVE-2023-38205
+- crowdsecurity/vpatch-CVE-2023-24489
+- crowdsecurity/vpatch-CVE-2021-3129
+- crowdsecurity/vpatch-CVE-2021-22941
+- crowdsecurity/vpatch-CVE-2019-12989
+- crowdsecurity/vpatch-CVE-2022-44877
+- crowdsecurity/vpatch-CVE-2018-10562
+- crowdsecurity/vpatch-CVE-2023-6553
+- crowdsecurity/vpatch-CVE-2018-1000861
+- crowdsecurity/vpatch-CVE-2019-1003030
+- crowdsecurity/vpatch-CVE-2022-22965
+- crowdsecurity/vpatch-CVE-2023-23752
+- crowdsecurity/vpatch-CVE-2023-49070
+- crowdsecurity/vpatch-laravel-debug-mode
+- crowdsecurity/vpatch-CVE-2023-28121
+- crowdsecurity/vpatch-CVE-2020-17496
+- crowdsecurity/vpatch-CVE-2023-1389
+- crowdsecurity/vpatch-CVE-2023-7028
+- crowdsecurity/vpatch-CVE-2023-46805
+- crowdsecurity/vpatch-CVE-2024-23897
+- crowdsecurity/vpatch-CVE-2023-22527
+- crowdsecurity/vpatch-CVE-2023-35078
+- crowdsecurity/vpatch-CVE-2023-35082
+- crowdsecurity/vpatch-CVE-2022-22954
+- crowdsecurity/vpatch-CVE-2024-1212
+- crowdsecurity/vpatch-symfony-profiler
+- crowdsecurity/vpatch-connectwise-auth-bypass
+- crowdsecurity/vpatch-CVE-2024-22024
+- crowdsecurity/vpatch-CVE-2024-27198
+- crowdsecurity/vpatch-CVE-2024-3273
+- crowdsecurity/vpatch-CVE-2024-4577
+- crowdsecurity/vpatch-CVE-2024-29849
+- crowdsecurity/vpatch-CVE-2023-47218
+- crowdsecurity/vpatch-git-config
+- crowdsecurity/vpatch-CVE-2024-32113
+- crowdsecurity/vpatch-CVE-2024-3272
+- crowdsecurity/vpatch-CVE-2024-28255
 author: crowdsecurity
-
+contexts:
+- crowdsecurity/appsec_base
+description: a generic virtual patching collection, suitable for most web servers.
+name: crowdsecurity/appsec-virtual-patching
+parsers:
+- crowdsecurity/appsec-logs
+scenarios:
+- crowdsecurity/appsec-vpatch

@@ -1,0 +1,23 @@
+type: leaky
+name: crowdsecurity/http-wordpress-scan
+description: "Detect WordPress scan: vuln hunting"
+filter: |
+  evt.Meta.service == 'http' and 
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and 
+  evt.Meta.http_status in ['404', '403'] and
+  Lower(evt.Meta.http_path) contains "/wp-" and
+  Lower(evt.Meta.http_path) endsWith ".php"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.http_path
+capacity: 3
+leakspeed: "10s"
+blackhole: 5m
+labels:
+  remediation: true
+  classification:
+    - attack.T1595
+  behavior: "http:scan"
+  label: "WordPress Vuln Hunting"
+  spoofable: 0
+  service: wordpress
+  confidence: 3
