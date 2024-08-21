@@ -14,3 +14,5 @@ whitelist:
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Parsed.request == '/ocs/v2.php/apps/text/workspace' && evt.Parsed.http_args contains 'path=%2F' #When opening folders in Nextcloud Files that don't contain a readme.md 404 error is thrown
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/files_trashbin/preview' && evt.Parsed.http_args contains 'fileId=' # 404 error thrown when preview is missing for files in trash bin
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '\\/apps\\/files\\/api\\/v1\\/thumbnail\\/(\\d+)/(\\d+)'
+   - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/bookmarks/bookmark' && (evt.Meta.http_path endsWith 'favicon' || evt.Meta.http_path endsWith 'image') #When loading NC bookmarks: some entries might have no favicon or no image
+   - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/bookmarks/folder' && evt.Meta.http_path endsWith 'publictoken' #When loading NC bookmarks: private folders have no publictoken
