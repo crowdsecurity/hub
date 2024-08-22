@@ -7,13 +7,13 @@ debug: false
 onsuccess: next_stage
 nodes:
   - grok:
-      pattern: '^WARN: \[%{PTERO_TIME:time}.*?\] failed to validate user credentials \(invalid format\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} subsystem=sftp username=%{USERNAME:username}$'
+      pattern: '^WARN: \[%{PTERO_TIME:time}.*?\] failed to validate user credentials \(invalid format\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} .*? username=%{USERNAME:username}$'
       apply_on: message
       statics:
         - meta: log_type
           value: pterodactly_wings_invalid_format
   - grok:
-      pattern: '^WARN: \[%{PTERO_TIME:time}.*?\] failed to validate user credentials \(invalid username or password\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} method=password subsystem=sftp username=%{USERNAME:username}$'
+      pattern: '^WARN: \[%{PTERO_TIME:time}.*?\] failed to validate user credentials \(invalid username or password\) ip=%{IPORHOST:source_ip}:%{NUMBER:source_port} .*? username=%{USERNAME:username}$'
       apply_on: message
       statics:
         - meta: log_type
