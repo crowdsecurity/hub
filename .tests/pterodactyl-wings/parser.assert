@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 15
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 16
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "WARN: [Jul  2 05:05:24.643] failed to validate user credentials (invalid format) ip=10.56.3.156:28050 subsystem=sftp username=admin"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "pterodactyl"
@@ -90,7 +90,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Parsed["program"] == "pte
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Meta["datasource_path"] == "pterodactyl-wings-bf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][14].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 15
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["message"] == "WARN: [Aug 22 08:32:21.074] failed to validate user credentials (invalid username or password) ip=10.87.200.23:52205 method=password subsystem=sftp username=rop0glbf.1f6a0e72"
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["program"] == "pterodactyl"
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_path"] == "pterodactyl-wings-bf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 16
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -106,7 +112,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][11].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][12].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Success == false
-len(results["s01-parse"]["lourys/pterodactyl-wings-logs"]) == 15
+results["s00-raw"]["crowdsecurity/syslog-logs"][15].Success == false
+len(results["s01-parse"]["lourys/pterodactyl-wings-logs"]) == 16
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][0].Success == true
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][0].Evt.Parsed["message"] == "WARN: [Jul  2 05:05:24.643] failed to validate user credentials (invalid format) ip=10.56.3.156:28050 subsystem=sftp username=admin"
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][0].Evt.Parsed["program"] == "pterodactyl"
@@ -317,7 +324,21 @@ results["s01-parse"]["lourys/pterodactyl-wings-logs"][14].Evt.Meta["service"] ==
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][14].Evt.Meta["source_ip"] == "10.56.3.156"
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][14].Evt.Meta["target_user"] == "administrator"
 results["s01-parse"]["lourys/pterodactyl-wings-logs"][14].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 15
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Success == true
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["message"] == "WARN: [Aug 22 08:32:21.074] failed to validate user credentials (invalid username or password) ip=10.87.200.23:52205 method=password subsystem=sftp username=rop0glbf.1f6a0e72"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["program"] == "pterodactyl"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["source_ip"] == "10.87.200.23"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["source_port"] == "52205"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["time"] == "Aug 22 08:32:21"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Parsed["username"] == "rop0glbf.1f6a0e72"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["datasource_path"] == "pterodactyl-wings-bf.log"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["log_type"] == "pterodactly_wings_invalid_username_or_password"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["service"] == "pterodactyl"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["source_ip"] == "10.87.200.23"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Meta["target_user"] == "rop0glbf.1f6a0e72"
+results["s01-parse"]["lourys/pterodactyl-wings-logs"][15].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 16
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "WARN: [Jul  2 05:05:24.643] failed to validate user credentials (invalid format) ip=10.56.3.156:28050 subsystem=sftp username=admin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "pterodactyl"
@@ -558,4 +579,20 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["target_use
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Meta["timestamp"] == "2024-07-02T05:33:46Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Enriched["MarshaledTime"] == "2024-07-02T05:33:46Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][14].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["message"] == "WARN: [Aug 22 08:32:21.074] failed to validate user credentials (invalid username or password) ip=10.87.200.23:52205 method=password subsystem=sftp username=rop0glbf.1f6a0e72"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["program"] == "pterodactyl"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["source_ip"] == "10.87.200.23"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["source_port"] == "52205"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["time"] == "Aug 22 08:32:21"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Parsed["username"] == "rop0glbf.1f6a0e72"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["datasource_path"] == "pterodactyl-wings-bf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["log_type"] == "pterodactly_wings_invalid_username_or_password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["service"] == "pterodactyl"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["source_ip"] == "10.87.200.23"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["target_user"] == "rop0glbf.1f6a0e72"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["timestamp"] == "2024-08-22T08:32:21Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Enriched["MarshaledTime"] == "2024-08-22T08:32:21Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Whitelisted == false
 len(results["success"][""]) == 0
