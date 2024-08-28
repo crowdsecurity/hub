@@ -27,3 +27,16 @@ In rare cases HTTP Probing will be triggered when opening multiple folders quick
 ### Creating files via WebDAV
 When uploading files via WebDAV, a PROPFIND request is sent to the server, which returns 404 if the file does not
 exist. Then the file is created. Uploading more than 10 files at a time will trigger http-probing.
+
+When syncing large amount of files via WebDAV, it could trigger http-probing so the expression also whitelists 200 response codes.
+
+---
+### Trashbin
+Whilst browsing deleted files in the trashbin, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
+
+---
+### Bookmarks
+Whilst browsing bookmarks a 404 response could be sent if the bookmarked page had no favicon or image attached.
+
+Whilst browsing private folder on the bookmark app a 404 response could be sent if the bookmarked page had no publictoken generated.
+
