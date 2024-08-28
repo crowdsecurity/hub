@@ -48,12 +48,18 @@ nodes:
           value: spam-attempt
   - grok:
       apply_on: message
-      pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{SMTP_RETURN_CODE:smtp_return_code} <%{DATA:helo}>: %{GREEDYDATA:reason}; %{GREEDYDATA:kvItems}'
+      pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{SMTP_RETURN_CODE:smtp_return_code} %{GREEDYDATA:reason}'
       statics:
-        - parsed: unused
-          expression: ParseKV(evt.Parsed.kvItems, evt.Unmarshaled, "postfix")
         - meta: action
           expression: "evt.Parsed.action"
+    nodes:
+      - filter: "evt.Parsed.reason != 'Service unavailable'"
+        grok:
+          apply_on: reason
+          pattern: "<%{DATA:helo}>: %{GREEDYDATA:reason}; %{GREEDYDATA:kvItems}"
+        statics:
+          - parsed: unused
+            expression: ParseKV(evt.Parsed.kvItems, evt.Unmarshaled, "postfix")
 statics:
     - meta: service
       value: postfix
