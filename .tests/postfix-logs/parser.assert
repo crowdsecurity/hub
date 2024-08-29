@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -40,7 +40,17 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_path"] =
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["machine"] == "machine"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/postfix-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["message"] == "NOQUEUE: reject: RCPT from static.1.1.168.192.client.domain.xyz[192.168.1.1]: 454 4.7.1 <spameri@tiscali.it>: Relay access denied; from=<spammer@domain.tld> to=<spammer@domain.tld> proto=ESMTP helo=<WIN-CLJ1B0GQ6JP>"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["pid"] == "3967801"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["program"] == "postfix/smtpd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["timestamp"] == "Jun 04 22:24:28"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_path"] == "postfix-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["machine"] == "machine"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/postfix-logs"]) == 5
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -103,6 +113,7 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["datasource_path"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["log_type"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["machine"] == "machine"
+results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["reason"] == "Helo command rejected: need fully-qualified hostname"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["service"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["source_hostname"] == "unknown"
 results["s01-parse"]["crowdsecurity/postfix-logs"][2].Evt.Meta["source_ip"] == "192.168.1.1"
@@ -132,6 +143,7 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["datasource_path"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["log_type"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["machine"] == "machine"
+results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["reason"] == "Relay access denied"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["service"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["source_hostname"] == "unknown"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["source_ip"] == "192.168.1.1"
@@ -140,7 +152,37 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Success == true
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["action"] == "reject"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["command"] == "RCPT"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["helo"] == "spameri@tiscali.it"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["kvItems"] == "from=<spammer@domain.tld> to=<spammer@domain.tld> proto=ESMTP helo=<WIN-CLJ1B0GQ6JP>"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["message"] == "NOQUEUE: reject: RCPT from static.1.1.168.192.client.domain.xyz[192.168.1.1]: 454 4.7.1 <spameri@tiscali.it>: Relay access denied; from=<spammer@domain.tld> to=<spammer@domain.tld> proto=ESMTP helo=<WIN-CLJ1B0GQ6JP>"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["pid"] == "3967801"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["program"] == "postfix/smtpd"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["reason"] == "Relay access denied"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["remote_host"] == "static.1.1.168.192.client.domain.xyz"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["smtp_basic_status_code"] == "454"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["smtp_enhanced_status_code"] == "4.7.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["smtp_return_codes"] == "454 4.7.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["timestamp"] == "Jun 04 22:24:28"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["action"] == "reject"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["datasource_path"] == "postfix-logs.log"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["log_type"] == "postfix"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["machine"] == "machine"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["reason"] == "Relay access denied"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["service"] == "postfix"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["source_hostname"] == "static.1.1.168.192.client.domain.xyz"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource"] == "syslog"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -207,6 +249,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["machine"] == "machine"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["reason"] == "Helo command rejected: need fully-qualified hostname"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_hostname"] == "unknown"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.1"
@@ -238,6 +281,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["machine"] == "machine"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["reason"] == "Relay access denied"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["service"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_hostname"] == "unknown"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "192.168.1.1"
@@ -248,4 +292,36 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["post
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["action"] == "reject"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["command"] == "RCPT"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["helo"] == "spameri@tiscali.it"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["kvItems"] == "from=<spammer@domain.tld> to=<spammer@domain.tld> proto=ESMTP helo=<WIN-CLJ1B0GQ6JP>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "NOQUEUE: reject: RCPT from static.1.1.168.192.client.domain.xyz[192.168.1.1]: 454 4.7.1 <spameri@tiscali.it>: Relay access denied; from=<spammer@domain.tld> to=<spammer@domain.tld> proto=ESMTP helo=<WIN-CLJ1B0GQ6JP>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["pid"] == "3967801"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "postfix/smtpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["reason"] == "Relay access denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_host"] == "static.1.1.168.192.client.domain.xyz"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["smtp_basic_status_code"] == "454"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["smtp_enhanced_status_code"] == "4.7.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["smtp_return_codes"] == "454 4.7.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "Jun 04 22:24:28"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["action"] == "reject"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "postfix-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["machine"] == "machine"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["reason"] == "Relay access denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_hostname"] == "static.1.1.168.192.client.domain.xyz"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2024-06-04T22:24:28Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2024-06-04T22:24:28Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
 len(results["success"][""]) == 0
