@@ -3,7 +3,7 @@ filter: |
   "source_ip" in evt.Meta &&
   (
     not ipv6Check &&
-    not (IpInRange(evt.Meta.source_ip, "127.0.0.0/8") || IpInRange(evt.Meta.source_ip, "192.168.0.0/16") || IpInRange(evt.Meta.source_ip, "172.16.0.0/12") || IpInRange(evt.Meta.source_ip, "10.0.0.0/8"))
+    not (IpInRange(evt.Meta.source_ip, "127.0.0.0/8") || IpInRange(evt.Meta.source_ip, "192.168.0.0/16") || IpInRange(evt.Meta.source_ip, "172.16.0.0/12") || IpInRange(evt.Meta.source_ip, "10.0.0.0/8") || IpInRange(evt.Meta.source_ip, "10.42.0.0/16") || IpInRange(evt.Meta.source_ip, "10.43.0.0/16"))
   ) ||
   (
     ipv6Check &&
