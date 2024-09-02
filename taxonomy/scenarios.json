@@ -4025,6 +4025,38 @@
     "cti": true,
     "service": "pgsql"
   },
+  "crowdsecurity/postfix-helo-rejected": {
+    "name": "crowdsecurity/postfix-helo-rejected",
+    "description": "Detect HELO rejections",
+    "label": "Postfix Helo Rejected",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0043:T1592"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix"
+  },
+  "crowdsecurity/postfix-relay-denied": {
+    "name": "crowdsecurity/postfix-relay-denied",
+    "description": "Detect multiple open relay attempts",
+    "label": "Postfix Relay Denied",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595",
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix"
+  },
   "crowdsecurity/proftpd-bf": {
     "name": "crowdsecurity/proftpd-bf",
     "description": "Detect proftpd bruteforce",
