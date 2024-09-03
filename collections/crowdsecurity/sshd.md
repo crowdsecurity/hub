@@ -18,7 +18,7 @@ labels:
 
 
 notes :
- -  If you are using `syslog`, set type to `syslog` instead
+ -  If the defined log file is not `syslog` format then the label should be updated to `sshd`
  -  Depending on your distribution/OS, paths to log files might change
  -  Only relevant if you are manually installing collection
 
