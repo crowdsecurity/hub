@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2023/02/21 08:05:56.233208 [error] POST 192.168.1.2 /control/login: invalid username or password"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "adguardhome"
@@ -18,11 +18,18 @@ results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "adgu
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "adguardhome-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "2024/09/12 09:15:43.126560 [error] POST some.domain.tld /control/login: from ip 192.168.1.1: invalid username or password"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "adguardhome"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "adguardhome-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
-len(results["s01-parse"]["LePresidente/adguardhome-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+len(results["s01-parse"]["LePresidente/adguardhome-logs"]) == 4
 results["s01-parse"]["LePresidente/adguardhome-logs"][0].Success == true
 results["s01-parse"]["LePresidente/adguardhome-logs"][0].Evt.Parsed["date"] == "2023/02/21"
 results["s01-parse"]["LePresidente/adguardhome-logs"][0].Evt.Parsed["message"] == "2023/02/21 08:05:56.233208 [error] POST 192.168.1.2 /control/login: invalid username or password"
@@ -48,7 +55,19 @@ results["s01-parse"]["LePresidente/adguardhome-logs"][1].Evt.Meta["service"] == 
 results["s01-parse"]["LePresidente/adguardhome-logs"][1].Evt.Meta["source_ip"] == "192.168.1.3"
 results["s01-parse"]["LePresidente/adguardhome-logs"][1].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/adguardhome-logs"][2].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Success == true
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Parsed["date"] == "2024/09/12"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Parsed["message"] == "2024/09/12 09:15:43.126560 [error] POST some.domain.tld /control/login: from ip 192.168.1.1: invalid username or password"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Parsed["program"] == "adguardhome"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Parsed["time"] == "09:15:43.126560"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Meta["datasource_path"] == "adguardhome-logs.log"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Meta["log_type"] == "adguardhome_failed_auth"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Meta["service"] == "adguardhome"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LePresidente/adguardhome-logs"][3].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["date"] == "2023/02/21"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2023/02/21 08:05:56.233208 [error] POST 192.168.1.2 /control/login: invalid username or password"
@@ -77,4 +96,18 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2024-01-26T06:43:57.223387Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2024-01-26T06:43:57.223387Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["date"] == "2024/09/12"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "2024/09/12 09:15:43.126560 [error] POST some.domain.tld /control/login: from ip 192.168.1.1: invalid username or password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "adguardhome"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["time"] == "09:15:43.126560"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "adguardhome-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "adguardhome_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "adguardhome"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2024-09-12T09:15:43.12656Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2024-09-12T09:15:43.12656Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 len(results["success"][""]) == 0
