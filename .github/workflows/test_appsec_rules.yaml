@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   run-appsec-rules-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
     - name: Start OpenResty Container
       run: |
-        docker-compose -f docker/appsec/docker-compose.yaml up -d --build
+        docker compose -f docker/appsec/docker-compose.yaml up -d --build
     - name: run tests on last crowdsec tag
       run: |
         cscli hubtest run --all --appsec --debug --target http://127.0.0.1:7822
@@ -67,5 +67,5 @@ jobs:
         color: ${{ env.APPSEC_RULE_BADGE_COLOR }}
     - name: Stop containers
       if: always()
-      run: docker-compose -f docker/appsec/docker-compose.yaml down
+      run: docker compose -f docker/appsec/docker-compose.yaml down
 
