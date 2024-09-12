@@ -27,8 +27,8 @@ labels:
   type: modsecurity
 ---
 listen_addr: 0.0.0.0:7422
-appsec_config: crowdsecurity/virtual-patching
-name: myAppSecComponent
+appsec_config: crowdsecurity/appsec-default
+name: appsec
 source: appsec
 labels:
   type: appsec
@@ -36,6 +36,5 @@ labels:
 
 
 notes:
- -  If you are using `syslog`, set type to `syslog` instead
  -  Depending on your configuration, paths to log files might change
- -  Only relevant if you are manually installing collection
+ -  please read more [here](https://github.com/ZoeyVid/NPMplus/?tab=readme-ov-file#crowdsec)
