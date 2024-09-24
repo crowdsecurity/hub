@@ -4746,6 +4746,24 @@
     "crowdsecurity/pgsql-bf"
    ]
   },
+  "crowdsecurity/plex": {
+   "path": "collections/crowdsecurity/plex.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "2361b10d19f3f5c4d84ca2c8a9fbbfc8522e1f28047b2e2b87bdfbab6d119de3",
+     "deprecated": false
+    }
+   },
+   "long_description": "QSBjb2xsZWN0aW9uIGZvciBbUGxleF0oaHR0cHM6Ly93d3cucGxleC50di8pLgoKQXMgcGxleCBhdXRoZW50aWNhdGlvbiBpcyBoYW5kbGVkIGJ5IHRoZWlyIHNlcnZlcnMsIHRoaXMgY29sbGVjdGlvbiBvbmx5IHByb3ZpZGVzIGFuIGFsbG93bGlzdA==",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcGxleC1hbGxvd2xpc3QKZGVzY3JpcHRpb246ICJwbGV4IHN1cHBvcnQ6IGFsbG93bGlzdCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBwbGV4CiAgLSBhbGxvd2xpc3QK",
+   "description": "plex support: allowlist",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/plex-allowlist"
+   ]
+  },
   "crowdsecurity/postfix": {
    "path": "collections/crowdsecurity/postfix.yaml",
    "version": "0.3",
@@ -7932,6 +7950,22 @@
    },
    "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ3BrZXhlYyciCm5hbWU6IGNyb3dkc2VjdXJpdHkvcGtleGVjLWxvZ3MKZGVzY3JpcHRpb246ICJQYXJzZSBwa2V4ZWMgbG9ncyBzcGVjaWZpY2FsbHkgZm9yIENWRS0yMDIxLTQwMzQiCnBhdHRlcm5fc3ludGF4OgogIFBXTktJVF9YUEw6ICcle0RBVEE6dXNlcn06IFRoZSB2YWx1ZSBmb3IgdGhlIFNIRUxMIHZhcmlhYmxlIHdhcyBub3QgZm91bmQgdGhlIC9ldGMvc2hlbGxzIGZpbGUnCmdyb2s6CiAgbmFtZTogIlBXTktJVF9YUEwiCiAgYXBwbHlfb246IG1lc3NhZ2UKc3RhdGljczoKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogQ1ZFLTIwMjEtNDAzNC14cGwKICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICBleHByZXNzaW9uOiAiZXZ0LlBhcnNlZC51c2VyIgo=",
    "description": "Parse pkexec logs specifically for CVE-2021-4034",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/plex-allowlist": {
+   "path": "parsers/s02-enrich/crowdsecurity/plex-allowlist.yaml",
+   "stage": "s02-enrich",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "38c6b298e8358e7d15145f9d34e1720596850342c705aa57e4764ccdf551bca4",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgUGxleCBBbGxvd2xpc3QKCkFsbG93bGlzdCBmb3IgUGxleCBNZWRpYSBTZXJ2ZXIuCgpBbGxvdyBldmVudHMgb24gdGhlIHZhcmlvdXMgdHJhbnNjb2RlIGVuZHBvaW50cywgdGltZWxpbmUgc2NydWJiaW5nIGFuZCBsaWJyYXJ5IG1ldGFkYXRhLg==",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9wbGV4LWFsbG93bGlzdApkZXNjcmlwdGlvbjogIkFsbG93bGlzdCBldmVudHMgZnJvbSBQbGV4IgpmaWx0ZXI6ICJldnQuTWV0YS5zZXJ2aWNlID09ICdodHRwJyAmJiBldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZycsICdodHRwX2Vycm9yLWxvZyddIgp3aGl0ZWxpc3Q6CiAgcmVhc29uOiAiUGxleCBBbGxvd2xpc3QiCiAgZXhwcmVzc2lvbjoKICAgLSBldnQuTWV0YS5odHRwX3N0YXR1cyA9PSAnMjAwJyAmJiBldnQuTWV0YS5odHRwX3ZlcmIgPT0gJ0dFVCcgJiYgZXZ0Lk1ldGEuaHR0cF9wYXRoIHN0YXJ0c1dpdGggJy92aWRlby86L3RyYW5zY29kZS8nCiAgIC0gZXZ0Lk1ldGEuaHR0cF9zdGF0dXMgPT0gJzIwMCcgJiYgZXZ0Lk1ldGEuaHR0cF92ZXJiID09ICdHRVQnICYmIGV2dC5NZXRhLmh0dHBfcGF0aCBzdGFydHNXaXRoICcvcGhvdG8vOi90cmFuc2NvZGUvJwogICAtIGV2dC5NZXRhLmh0dHBfc3RhdHVzID09ICcyMDAnICYmIGV2dC5NZXRhLmh0dHBfdmVyYiA9PSAnR0VUJyAmJiBldnQuTWV0YS5odHRwX3BhdGggc3RhcnRzV2l0aCAnLzovdGltZWxpbmUnCiAgIC0gZXZ0Lk1ldGEuaHR0cF9zdGF0dXMgPT0gJzIwMCcgJiYgZXZ0Lk1ldGEuaHR0cF92ZXJiID09ICdHRVQnICYmIGV2dC5NZXRhLmh0dHBfcGF0aCBtYXRjaGVzICdeL2xpYnJhcnkvbWV0YWRhdGEvXFxkKycKICAgLSBldnQuTWV0YS5odHRwX3N0YXR1cyA9PSAnMjAwJyAmJiBldnQuTWV0YS5odHRwX3ZlcmIgPT0gJ0dFVCcgJiYgZXZ0Lk1ldGEuaHR0cF9wYXRoID09ICcvc3RhdHVzL3Nlc3Npb25zJw==",
+   "description": "Allowlist events from Plex",
    "author": "crowdsecurity",
    "labels": null
   },
