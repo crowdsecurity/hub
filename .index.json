@@ -4955,15 +4955,19 @@
   },
   "crowdsecurity/suricata": {
    "path": "collections/crowdsecurity/suricata.yaml",
-   "version": "0.1",
+   "version": "0.2",
    "versions": {
     "0.1": {
      "digest": "6f5d4ed7c676be6082af86c8ff771a063808a5970cb56edb9c8161c9b8390466",
      "deprecated": false
+    },
+    "0.2": {
+     "digest": "dd64cd667d97c13485e0ca5c1274b1c33e9c98a0df76024cc12c88d461db1209",
+     "deprecated": false
     }
    },
    "long_description": "IyMgU3VyaWNhdGEgY29sbGVjdGlvbgoKQSBjb2xsZWN0aW9uIGZvciB0aGUgW1N1cmljYXRhXShodHRwczovL3N1cmljYXRhLmlvLykgSURTL0lQUy4KVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIDoKIC0gUGFyc2VycyBmb3IgU3VyaWNhdGEgbG9ncyAoYm90aCBgZmFzdC5sb2dgIGFuZCBgZXZlLmpzb25gIGZvcm1hdHMpCiAtIFNjZW5hcmlvcyBmb3IgU3VyaWNhdGEgYWxlcnRzIDoKICAgLSB0cmlnZ2VyIGJhbiBvbiAqTWFqb3IqIChzZXZlcml0eToxKSBydWxlcwogICAtIHRyaWdnZXIgYmFuIG9uID4yICoqZGlzdGluY3QqKiBydWxlcyBvZiBzZXZlcml0eSAyCgoKTm90ZTogVGVzdGVkIHdpdGggU3VyaWNhdGEgNgoKCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbApmaWxlbmFtZTogL3Zhci9sb2cvc3VyaWNhdGEvZXZlLmpzb24KbGFiZWxzOgogIHR5cGU6IHN1cmljYXRhLWV2ZWxvZ3MKYGBgCgoqKm9yKioKCmBgYHlhbWwKZmlsZW5hbWU6IC92YXIvbG9nL3N1cmljYXRhL2Zhc3QubG9nCmxhYmVsczoKICB0eXBlOiBzdXJpY2F0YS1mYXN0bG9ncwpgYGAKCm5vdGVzIDoKIC0gVXNpbmcgYm90aCBhY3F1aXNpdGlvbnMgc2ltdWx0YW5lb3VzbHkgd2lsbCBsZWFkIHRvIGRvdWJsZSBkZWNpc2lvbnMgb3IgdW5wcmVkaWN0YWJsZSBiZWhhdmlvci4gYGV2ZS5qc29uYCBzaG91bGQgYmUgcHJlZmVycmVkLgogLSBEZXBlbmRpbmcgb24geW91ciBkaXN0cmlidXRpb24vT1MsIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gT25seSByZWxldmFudCBpZiB5b3UgYXJlIG1hbnVhbGx5IGluc3RhbGxpbmcgY29sbGVjdGlvbgo=",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3VyaWNhdGEtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3N1cmljYXRhLWFsZXJ0cwpkZXNjcmlwdGlvbjogInN1cmljYXRhIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGF1dG9tYXRpYyByZW1lZGlhdGlvbiBvbiBoaWdoL21ham9yIGFsZXJ0cyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gc3VyaWNhdGEKICAtIElEUwoK",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3VyaWNhdGEtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L3N1cmljYXRhLWFsZXJ0cwpkZXNjcmlwdGlvbjogInN1cmljYXRhIHN1cHBvcnQgOiBwYXJzZXIgYW5kIGF1dG9tYXRpYyByZW1lZGlhdGlvbiBvbiBoaWdoL21ham9yIGFsZXJ0cyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CmNvbnRleHRzOgogIC0gY3Jvd2RzZWN1cml0eS9zdXJpY2F0YV9iYXNlCnRhZ3M6CiAgLSBsaW51eAogIC0gc3VyaWNhdGEKICAtIElEUwoK",
    "description": "suricata support : parser and automatic remediation on high/major alerts",
    "author": "crowdsecurity",
    "labels": null,
@@ -4972,6 +4976,9 @@
    ],
    "scenarios": [
     "crowdsecurity/suricata-alerts"
+   ],
+   "contexts": [
+    "crowdsecurity/suricata_base"
    ]
   },
   "crowdsecurity/synology-dsm": {
@@ -5963,6 +5970,23 @@
     }
    },
    "content": "Y29udGV4dDoKICB0aHJlYXRfaWQ6CiAgLSBldnQuTWV0YS50aHJlYXRfaWQKICBzZXZlcml0eToKICAtIGV2dC5NZXRhLnNldmVyaXR5CiAgcnVsZV9uYW1lOgogIC0gZXZ0Lk1ldGEucnVsZV9uYW1lCg==",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/suricata_base": {
+   "path": "contexts/crowdsecurity/suricata_base.yaml",
+   "version": "0.2",
+   "versions": {
+    "0.1": {
+     "digest": "a4fde8bbce311a7b128ead06027cf8651d1d611414b3cb3e08610671cf65f723",
+     "deprecated": false
+    },
+    "0.2": {
+     "digest": "e354b651c80c05f629930631fcbcb4c72f8e07a6ceacaccd0254cda777e027cb",
+     "deprecated": false
+    }
+   },
+   "content": "Y29udGV4dDoKICBhbGVydF9zaWduYXR1cmU6CiAgIC0gZXZ0LlBhcnNlZC5zdXJpY2F0YV9hbGVydF9zaWduYXR1cmUKICBkc3RfcG9ydDoKICAgIC0gZXZ0LlBhcnNlZC5kZXN0X3BvcnQKICAjIHNpZ25hdHVyZV9pZDoKICAjICAgLSBldnQuTWV0YS5zdXJpY2F0YV9hbGVydF9zaWduYXR1cmVfaWQK",
    "author": "crowdsecurity",
    "labels": null
   }
