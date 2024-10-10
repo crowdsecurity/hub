@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_tracker
+description: |
+  Detects potential DLL injection and execution using "Tracker.exe"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\tracker.exe' || evt.Parsed.Description == 'Tracker') && (evt.Parsed.CommandLine contains ' /d ' || evt.Parsed.CommandLine contains ' /c ') && not (evt.Parsed.CommandLine contains ' /ERRORREPORT:PROMPT ' || evt.Parsed.ParentImage endsWith '\\Msbuild\\Current\\Bin\\MSBuild.exe' || evt.Parsed.ParentImage endsWith '\\Msbuild\\Current\\Bin\\amd64\\MSBuild.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1055.001
+
+  label: "Potential DLL Injection Or Execution Using Tracker.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

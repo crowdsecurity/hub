@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_data_exfiltration_by_using_datasvcutil
+description: |
+  Detects when a user performs data exfiltration by using DataSvcUtil.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '/in:' || evt.Parsed.CommandLine contains '/out:' || evt.Parsed.CommandLine contains '/uri:') && (evt.Parsed.Image endsWith '\\DataSvcUtil.exe' || evt.Parsed.OriginalFileName == 'DataSvcUtil.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1567
+
+  label: "LOLBAS Data Exfiltration by DataSvcUtil.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
