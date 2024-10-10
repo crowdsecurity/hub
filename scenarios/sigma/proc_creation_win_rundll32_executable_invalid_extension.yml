@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_executable_invalid_extension
+description: |
+  Detects the execution of rundll32 with a command line that doesn't contain a .dll file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && not (evt.Parsed.CommandLine == '' || evt.Parsed.CommandLine contains '.dll' || evt.Parsed.CommandLine == '' || evt.Parsed.CommandLine startsWith 'C:\\Windows\\system32\\rundll32.exe C:\\Windows\\system32\\inetcpl.cpl,ClearMyTracksByProcess' || evt.Parsed.ParentImage endsWith ':\\Program Files\\Internet Explorer\\iexplore.exe' && evt.Parsed.CommandLine contains '.cpl' || evt.Parsed.ParentImage endsWith ':\\Windows\\SysWOW64\\msiexec.exe' && evt.Parsed.ParentCommandLine startsWith 'C:\\Windows\\syswow64\\MsiExec.exe -Embedding' || evt.Parsed.ParentImage endsWith ':\\Windows\\System32\\msiexec.exe' && evt.Parsed.ParentCommandLine startsWith 'C:\\Windows\\system32\\MsiExec.exe -Embedding' || evt.Parsed.ParentImage endsWith ':\\Windows\\System32\\cmd.exe' && evt.Parsed.ParentCommandLine contains ' C:\\Program Files\\SplunkUniversalForwarder\\' || evt.Parsed.CommandLine contains ' -localserver ' || evt.Parsed.ParentCommandLine startsWith 'C:\\Windows\\system32\\rundll32.exe" "C:\\Program Files\\McAfee\\MSC\\mcmscins.dll",DllUninstallFunction ' || evt.Parsed.CommandLine startsWith 'C:\\Windows\\system32\\rundll32.exe" /uninstall /longpath "C:\\Program Files\\McAfee\\MSC\\mscrem.inf' || evt.Parsed.ParentImage startsWith 'C:\\Users\\' && evt.Parsed.ParentImage contains '\\AppData\\Local\\Microsoft\\EdgeUpdate\\Install\\{' && evt.Parsed.ParentImage endsWith '\\setup.exe' && evt.Parsed.ParentCommandLine contains '\\setup.exe" --install-archive="C:\\Users\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Installer\\MSI' && evt.Parsed.CommandLine contains '.tmp' && evt.Parsed.CommandLine contains 'zzzzInvokeManagedCustomActionOutOfProc' && evt.Parsed.CommandLine contains 'Avira.OE.Setup'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Rundll32 Execution Without DLL File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

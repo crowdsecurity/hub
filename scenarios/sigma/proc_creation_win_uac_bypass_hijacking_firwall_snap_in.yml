@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_uac_bypass_hijacking_firwall_snap_in
+description: |
+  Detects attempts to bypass User Account Control (UAC) by hijacking the Microsoft Management Console (MMC) Windows Firewall snap-in
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\mmc.exe' && evt.Parsed.ParentCommandLine contains 'WF.msc' && not (evt.Parsed.Image endsWith '\\WerFault.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1548
+
+  label: "UAC Bypass via Windows Firewall Snap-In Hijack"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

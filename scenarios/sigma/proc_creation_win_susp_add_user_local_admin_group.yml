@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_add_user_local_admin_group
+description: |
+  Detects suspicious command line that adds an account to the local administrators/administrateurs group
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'localgroup ' && evt.Parsed.CommandLine contains ' /add' || evt.Parsed.CommandLine contains 'Add-LocalGroupMember ' && evt.Parsed.CommandLine contains ' -Group ') && (evt.Parsed.CommandLine contains ' administrators ' || evt.Parsed.CommandLine contains ' administrateur'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1098
+
+  label: "Add User to Local Administrators Group"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

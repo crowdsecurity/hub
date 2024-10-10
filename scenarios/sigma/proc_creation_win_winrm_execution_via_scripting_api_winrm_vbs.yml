@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_winrm_execution_via_scripting_api_winrm_vbs
+description: |
+  Detects an attempt to execute code or create service on remote host via winrm.vbs.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.OriginalFileName == 'cscript.exe') && evt.Parsed.CommandLine contains 'winrm' && evt.Parsed.CommandLine contains 'invoke Create wmicimv2/Win32_' && evt.Parsed.CommandLine contains '-r:http')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1216
+
+  label: "Remote Code Execute via Winrm.vbs"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

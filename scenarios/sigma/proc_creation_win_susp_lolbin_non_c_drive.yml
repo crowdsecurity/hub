@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_lolbin_non_c_drive
+description: |
+  Detects Wscript or Cscript executing from a drive other than C. This has been observed with Qakbot executing from within a mounted ISO file.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cscript.exe') && (evt.Parsed.CommandLine contains '.js' || evt.Parsed.CommandLine contains '.vbs' || evt.Parsed.CommandLine contains '.vbe') && evt.Parsed.CommandLine contains ':\\' && not (evt.Parsed.CommandLine contains ' C:\\' || evt.Parsed.CommandLine contains ' \'C:\\' || evt.Parsed.CommandLine contains ' "C:\\' || evt.Parsed.CommandLine contains '%' || evt.Parsed.CommandLine contains ' \\\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Wscript Execution from Non C Drive"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_git_susp_clone
+description: |
+  Detects execution of "git" in order to clone a remote repository that contain suspicious keywords which might be suspicious
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\git.exe' || evt.Parsed.Image endsWith '\\git-remote-https.exe' || evt.Parsed.OriginalFileName == 'git.exe') && (evt.Parsed.CommandLine contains ' clone ' || evt.Parsed.CommandLine contains 'git-remote-https ') && (evt.Parsed.CommandLine contains 'exploit' || evt.Parsed.CommandLine contains 'Vulns' || evt.Parsed.CommandLine contains 'vulnerability' || evt.Parsed.CommandLine contains 'RemoteCodeExecution' || evt.Parsed.CommandLine contains 'Invoke-' || evt.Parsed.CommandLine contains 'CVE-' || evt.Parsed.CommandLine contains 'poc-' || evt.Parsed.CommandLine contains 'ProofOfConcept' || evt.Parsed.CommandLine contains 'proxyshell' || evt.Parsed.CommandLine contains 'log4shell' || evt.Parsed.CommandLine contains 'eternalblue' || evt.Parsed.CommandLine contains 'eternal-blue' || evt.Parsed.CommandLine contains 'MS17-'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1593.003
+
+  label: "Suspicious Git Clone"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

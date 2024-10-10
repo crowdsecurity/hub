@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_dsim_remove
+description: |
+  Deployment Image Servicing and Management tool. DISM is used to enumerate, install, uninstall, configure, and update features and packages in Windows images
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\DismHost.exe' && evt.Parsed.ParentCommandLine contains '/Online' && evt.Parsed.ParentCommandLine contains '/Disable-Feature' || evt.Parsed.Image endsWith '\\Dism.exe' && evt.Parsed.CommandLine contains '/Online' && evt.Parsed.CommandLine contains '/Disable-Feature')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.001
+
+  label: "Dism Remove Online Package"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

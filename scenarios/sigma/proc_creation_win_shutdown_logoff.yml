@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_shutdown_logoff
+description: |
+  Detects the rare use of the command line tool shutdown to logoff a user
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\shutdown.exe' && evt.Parsed.CommandLine contains '/l')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1529
+
+  label: "Suspicious Execution of Shutdown to Log Out"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_run_locations
+description: |
+  Detects suspicious process run from unusual locations
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains ':\\RECYCLER\\' || evt.Parsed.Image contains ':\\SystemVolumeInformation\\' || evt.Parsed.Image startsWith 'C:\\Windows\\Tasks\\' || evt.Parsed.Image startsWith 'C:\\Windows\\debug\\' || evt.Parsed.Image startsWith 'C:\\Windows\\fonts\\' || evt.Parsed.Image startsWith 'C:\\Windows\\help\\' || evt.Parsed.Image startsWith 'C:\\Windows\\drivers\\' || evt.Parsed.Image startsWith 'C:\\Windows\\addins\\' || evt.Parsed.Image startsWith 'C:\\Windows\\cursors\\' || evt.Parsed.Image startsWith 'C:\\Windows\\system32\\tasks\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+
+  label: "Suspicious Process Start Locations"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

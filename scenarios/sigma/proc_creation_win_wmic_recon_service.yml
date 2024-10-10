@@ -1,0 +1,27 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_service
+description: |
+  An adversary might use WMI to check if a certain remote service is running on a remote device.
+  When the test completes, a service information will be displayed on the screen if it exists.
+  A common feedback message is that "No instance(s) Available" if the service queried is not running.
+  A common error message is "Node - (provided IP or default) ERROR Description =The RPC server is unavailable" if the provided remote host is unreachable
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\WMIC.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'service')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Service Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

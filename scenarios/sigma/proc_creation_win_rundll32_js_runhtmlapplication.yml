@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_js_runhtmlapplication
+description: |
+  Detects suspicious command line patterns used when rundll32 is used to run JavaScript code
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'rundll32' && evt.Parsed.CommandLine contains 'javascript' && evt.Parsed.CommandLine contains '..\\..\\mshtml,RunHTMLApplication' || evt.Parsed.CommandLine contains ';document.write();GetObject("script')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+
+  label: "Rundll32 JS RunHTMLApplication Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

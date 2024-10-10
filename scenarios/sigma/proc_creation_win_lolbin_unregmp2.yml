@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_unregmp2
+description: |
+  Detect usage of the "unregmp2.exe" binary as a proxy to launch a custom version of "wmpnscfg.exe"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\unregmp2.exe' || evt.Parsed.OriginalFileName == 'unregmp2.exe') && evt.Parsed.CommandLine contains ' /HideWMP')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Lolbin Unregmp2.exe Use As Proxy"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

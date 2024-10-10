@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_xor_commandline
+description: |
+  Detects presence of a potentially xor encoded powershell command
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll' || evt.Parsed.Description == 'Windows PowerShell' || evt.Parsed.Product == 'PowerShell Core 6') && evt.Parsed.CommandLine contains 'bxor' && (evt.Parsed.CommandLine contains 'ForEach' || evt.Parsed.CommandLine contains 'for(' || evt.Parsed.CommandLine contains 'for ' || evt.Parsed.CommandLine contains '-join ' || evt.Parsed.CommandLine contains '-join\'' || evt.Parsed.CommandLine contains '-join"' || evt.Parsed.CommandLine contains '-join`' || evt.Parsed.CommandLine contains '::Join' || evt.Parsed.CommandLine contains '[char]'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+#  - attack.t1140
+#  - attack.t1027
+
+  label: "Suspicious XOR Encoded PowerShell Command"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

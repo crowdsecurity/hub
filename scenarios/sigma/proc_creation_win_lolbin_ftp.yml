@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_ftp
+description: |
+  Detects execution of ftp.exe script execution with the "-s" flag and any child processes ran by ftp.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\ftp.exe' || (evt.Parsed.Image endsWith '\\ftp.exe' || evt.Parsed.OriginalFileName == 'ftp.exe') && evt.Parsed.CommandLine contains '-s:')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+#  - attack.t1202
+
+  label: "LOLBIN Execution Of The FTP.EXE Binary"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
