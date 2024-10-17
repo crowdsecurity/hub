@@ -149,6 +149,31 @@
     "type": "exploit"
    }
   },
+  "crowdsecurity/generic-wordpress-uploads-php": {
+   "path": "appsec-rules/crowdsecurity/generic-wordpress-uploads-php.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "6f367a1b94adcc96f3494a5703cddb325686b2a9ce1ed31949ca61076d5b80c6",
+     "deprecated": false
+    }
+   },
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLXBocApkZXNjcmlwdGlvbjogIkRldGVjdCBwaHAgZXhlY3V0aW9uIGluIHdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSIKcnVsZXM6CiAgLSBhbmQ6CiAgICAtIHpvbmVzOiAKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICAtIHVybGRlY29kZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiByZWdleAogICAgICAgIHZhbHVlOiAnL3dwLWNvbnRlbnQvdXBsb2Fkcy8uKlwuKGg/cGgocHx0bT9sP3xhcil8bW9kdWxlfHNodG1sKScKCmxhYmVsczoKICAgdHlwZTogZXhwbG9pdAogICBzZXJ2aWNlOiBodHRwCiAgIGNvbmZpZGVuY2U6IDIKICAgc3Bvb2ZhYmxlOiAwCiAgIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogICBsYWJlbDogIkRldGVjdCBXb3JkcHJlc3MgUEhQIGV4ZWN1dGlvbiBpbiB1cGxvYWRzIGRpcmVjdG9yeSIKICAgY2xhc3NpZmljYXRpb246CiAgICAgLSBhdHRhY2suVDE1OTUKICAgICAtIGF0dGFjay5UMTE5MA==",
+   "description": "Detect php execution in wordpress uploads directory",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "attack.T1595",
+     "attack.T1190"
+    ],
+    "confidence": 2,
+    "label": "Detect Wordpress PHP execution in uploads directory",
+    "service": "http",
+    "spoofable": 0,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/vpatch-CVE-2017-9841": {
    "path": "appsec-rules/crowdsecurity/vpatch-CVE-2017-9841.yaml",
    "version": "0.3",
@@ -3151,7 +3176,7 @@
   },
   "crowdsecurity/appsec-generic-rules": {
    "path": "collections/crowdsecurity/appsec-generic-rules.yaml",
-   "version": "0.5",
+   "version": "0.6",
    "versions": {
     "0.1": {
      "digest": "f538ca65415d016977a2ed77939df0cecdea212bb16c3e1c22f1df0b1ec2775b",
@@ -3172,10 +3197,14 @@
     "0.5": {
      "digest": "712078647aa7414a2447248cbf68a75919be37767452b14cb7e0b845e51d9972",
      "deprecated": false
+    },
+    "0.6": {
+     "digest": "7428b01d3f12284c6a5e4db84c641ee0bfa37672911e364fabe8ffea816fcd83",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgR2VuZXJpYyBSdWxlcwoKVGhpcyBjb2xsZWN0aW9uIGNvbnRhaW5zIGdlbmVyaWMgc2NlbmFyaW9zIGZvciBhcHBzZWMuIFRoZXNlIGdlbmVyaWMgcnVsZXMgdHJ5IHRvIGRldGVjdCBhdHRhY2sgdmVjdG9ycyB0aGF0IG1pZ2h0IGJlIHVzZWQgdG8gZXhwbG9pdCBuZXdseSBkaXNjb3ZlcmVkIHZ1bG5lcmFiaWxpdGllcy4gRm9yIGluc3RhbmNlLCBhIHNjZW5hcmlvIGNvdWxkIGxvb2sgZm9yIGNhbGxzIHN1Y2ggYXMgYGNhdCAvZXRjL3Bhc3N3ZGAuIFRoZSBnb2FsIG9mIHRoaXMgY29sbGVjdGlvbiBpcyB0byBwcm92aWRlIHNvbWUgbGV2ZWwgb2YgcHJvdGVjdGlvbiBpbiBjYXNlcyB3aGVyZSBhIHNjZW5hcmlvIGZvciB0aGUgc3BlY2lmaWMgdnVsbmVyYWJpbGl0eSBpcyBhYnNlbnQu",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtZ2VuZXJpYy1ydWxlcwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtZnJlZW1hcmtlci1zc3RpCmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXJ1bGVzCiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1kZWZhdWx0CnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjX2Jhc2UKZGVzY3JpcHRpb246ICJBIGNvbGxlY3Rpb24gb2YgZ2VuZXJpYyBhdHRhY2sgdmVjdG9ycyBmb3IgYWRkaXRpb25hbCBwcm90ZWN0aW9uLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cg==",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtZ2VuZXJpYy1ydWxlcwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtZnJlZW1hcmtlci1zc3RpCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtd29yZHByZXNzLXVwbG9hZHMtcGhwCmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXJ1bGVzCiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1kZWZhdWx0CnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaApjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjX2Jhc2UKZGVzY3JpcHRpb246ICJBIGNvbGxlY3Rpb24gb2YgZ2VuZXJpYyBhdHRhY2sgdmVjdG9ycyBmb3IgYWRkaXRpb25hbCBwcm90ZWN0aW9uLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cg==",
    "description": "A collection of generic attack vectors for additional protection.",
    "author": "crowdsecurity",
    "labels": null,
@@ -3187,7 +3216,8 @@
    ],
    "appsec-rules": [
     "crowdsecurity/base-config",
-    "crowdsecurity/generic-freemarker-ssti"
+    "crowdsecurity/generic-freemarker-ssti",
+    "crowdsecurity/generic-wordpress-uploads-php"
    ],
    "appsec-configs": [
     "crowdsecurity/generic-rules",
@@ -3447,7 +3477,7 @@
   },
   "crowdsecurity/appsec-wordpress": {
    "path": "collections/crowdsecurity/appsec-wordpress.yaml",
-   "version": "0.2",
+   "version": "0.3",
    "versions": {
     "0.1": {
      "digest": "6e7995f560a05aa0229b9aa7a4ff23d1d6418777ab4e732be74d52bea2d875f7",
@@ -3456,10 +3486,14 @@
     "0.2": {
      "digest": "6b682d61b32739dbea965b3dfc34d2c9f19577216fe49b7ea905d733d25c68e6",
      "deprecated": false
+    },
+    "0.3": {
+     "digest": "db408d5534c3d187fa010e2889f0e79a3ac840ae055bcd7f1d01e1f57a51dbaf",
+     "deprecated": false
     }
    },
    "long_description": "IyBBcHBTZWMgV29yZFByZXNzIFZpcnR1YWwgUGF0Y2hpbmcKClRoaXMgY29sbGVjdGlvbiBjb250YWlucyB2aXJ0dWFsIHBhdGNoaW5nIGZvciBrbm93biBXb3JkUHJlc3MgdnVsbmVyYWJpbGl0aWVzLiBUaGUgZ29hbCBpcyB0byBwcm92aWRlIHZpcnR1YWwgcGF0Y2hpbmcgY2FwYWJpbGl0aWVzIGZvciB0aGUgbW9zdCBvZnRlbiBleHBsb2l0ZWQgdnVsbmVyYWJpbGl0aWVzLgo=",
-   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtd29yZHByZXNzCmFwcHNlYy1ydWxlczoKICAtIGNyb3dkc2VjdXJpdHkvYmFzZS1jb25maWcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA2MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA5MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMDkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIzNDg4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMzQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDYzNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjM2MAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjU2NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjYyMwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA2MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA3MQphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpkZXNjcmlwdGlvbjogIkEgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgV29yZFByZXNzIHdlYnNpdGVzIgphdXRob3I6IGNyb3dkc2VjdXJpdHkK",
+   "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtd29yZHByZXNzCmFwcHNlYy1ydWxlczoKICAtIGNyb3dkc2VjdXJpdHkvYmFzZS1jb25maWcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA2MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA5MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMDkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIzNDg4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMzQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDYzNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjM2MAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjU2NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjYyMwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA2MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA3MQogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLXBocAphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpkZXNjcmlwdGlvbjogIkEgdmlydHVhbCBwYXRjaGluZyBjb2xsZWN0aW9uLCBzdWl0YWJsZSBmb3IgV29yZFByZXNzIHdlYnNpdGVzIgphdXRob3I6IGNyb3dkc2VjdXJpdHkK",
    "description": "A virtual patching collection, suitable for WordPress websites",
    "author": "crowdsecurity",
    "labels": null,
@@ -3475,7 +3509,8 @@
     "crowdsecurity/vpatch-CVE-2023-6567",
     "crowdsecurity/vpatch-CVE-2023-6623",
     "crowdsecurity/vpatch-CVE-2024-1061",
-    "crowdsecurity/vpatch-CVE-2024-1071"
+    "crowdsecurity/vpatch-CVE-2024-1071",
+    "crowdsecurity/generic-wordpress-uploads-php"
    ],
    "appsec-configs": [
     "crowdsecurity/virtual-patching"

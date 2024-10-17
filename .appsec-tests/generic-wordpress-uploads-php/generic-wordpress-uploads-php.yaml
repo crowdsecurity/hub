@@ -1,0 +1,50 @@
+id: generic-wordpress-uploads-php
+info:
+  name: generic-wordpress-uploads-php
+  author: crowdsec
+  severity: info
+  description: generic-wordpress-uploads-php testing
+  tags: appsec-testing
+http:
+  - raw:
+      - |
+        GET /wp-content/uploads/2024/10/test.php?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.phtml?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.hphp?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.shtml?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.module?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.phar?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.phtm?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.pht?exec=id HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/test.php7?exec=id HTTP/1.1
+        Host: {{Hostname}}
+    matchers:
+      - type: dsl
+        condition: and
+        dsl:
+          - "status_code_1 == 403"
+          - "status_code_2 == 403"
+          - "status_code_3 == 403"
+          - "status_code_4 == 403"
+          - "status_code_5 == 403"
+          - "status_code_6 == 403"
+          - "status_code_7 == 403"
+          - "status_code_8 == 403"
+          - "status_code_9 == 403"
+
