@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_winrar_execution
+description: |
+  Detects a suspicious winrar execution in a folder which is not the default installation folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rar.exe' || evt.Parsed.Image endsWith '\\winrar.exe' || evt.Parsed.Description == 'Command line RAR') && not (evt.Parsed.Image contains '\\WinRAR' || evt.Parsed.Image contains 'C:\\Windows\\Temp' || evt.Parsed.Image contains '\\UnRAR.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1560.001
+
+  label: "Winrar Execution in Non-Standard Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

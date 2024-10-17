@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_lodctr_performance_counter_tampering
+description: |
+  Detects the execution of "lodctr.exe" to rebuild the performance counter registry values. This can be abused by attackers by providing a malicious config file to overwrite performance counter configuration to confuse and evade monitoring and security solutions.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\lodctr.exe' && evt.Parsed.OriginalFileName == 'LODCTR.EXE' && (evt.Parsed.CommandLine contains ' /r' || evt.Parsed.CommandLine contains ' -r'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Rebuild Performance Counter Values Via Lodctr.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

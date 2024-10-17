@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_tpmvscmgr_add_virtual_smartcard
+description: |
+  Detects execution of "Tpmvscmgr.exe" to create a new virtual smart card.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\tpmvscmgr.exe' && evt.Parsed.OriginalFileName == 'TpmVscMgr.exe' && evt.Parsed.CommandLine contains 'create')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "New Virtual Smart Card Created Via TpmVscMgr.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

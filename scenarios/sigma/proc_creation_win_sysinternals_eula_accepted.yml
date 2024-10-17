@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_eula_accepted
+description: |
+  Detects command lines that contain the 'accepteula' flag which could be a sign of execution of one of the Sysinternals tools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' -accepteula' || evt.Parsed.CommandLine contains ' /accepteula')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1588.002
+
+  label: "Potential Execution of Sysinternals Tools"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

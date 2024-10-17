@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_7zip_exfil_dmp_files
+description: |
+  Detects a suspicious 7zip execution that involves a file with a ".dmp"/".dump" extension, which could be a step in a process of dump file exfiltration
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Description contains '7-Zip' || evt.Parsed.Image endsWith '\\7z.exe' || evt.Parsed.Image endsWith '\\7zr.exe' || evt.Parsed.Image endsWith '\\7za.exe' || evt.Parsed.OriginalFileName == '7z.exe' || evt.Parsed.OriginalFileName == '7za.exe') && (evt.Parsed.CommandLine contains '.dmp' || evt.Parsed.CommandLine contains '.dump'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1560.001
+
+  label: "7Zip Compressing Dump Files"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

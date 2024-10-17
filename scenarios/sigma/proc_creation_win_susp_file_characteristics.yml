@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_file_characteristics
+description: |
+  Detects Executables in the Downloads folder without FileVersion,Description,Product,Company likely created with py2exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Description == '?' && evt.Parsed.FileVersion == '?' || evt.Parsed.Description == '?' && evt.Parsed.Product == '?' || evt.Parsed.Description == '?' && evt.Parsed.Company == '?') && evt.Parsed.Image contains '\\Downloads\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.006
+
+  label: "Suspicious File Characteristics Due to Missing Fields"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

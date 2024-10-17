@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_winrar_dmp
+description: |
+  Detects a suspicious winrar execution that involves a file with a ".dmp"/".dump" extension, which could be a step in a process of dump file exfiltration
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rar.exe' || evt.Parsed.Image endsWith '\\winrar.exe' || evt.Parsed.Description == 'Command line RAR') && (evt.Parsed.CommandLine contains '.dmp' || evt.Parsed.CommandLine contains '.dump'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1560.001
+
+  label: "Winrar Compressing Dump Files"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

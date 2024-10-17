@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_renamed_autohotkey
+description: |
+  Detects execution of a renamed autohotkey.exe binary based on PE metadata fields
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Product contains 'AutoHotkey' || evt.Parsed.Description contains 'AutoHotkey' || evt.Parsed.OriginalFileName == 'AutoHotkey.exe' || evt.Parsed.OriginalFileName == 'AutoHotkey.rc') && not (evt.Parsed.Image endsWith '\\AutoHotkey.exe' || evt.Parsed.Image endsWith '\\AutoHotkey32.exe' || evt.Parsed.Image endsWith '\\AutoHotkey32_UIA.exe' || evt.Parsed.Image endsWith '\\AutoHotkey64.exe' || evt.Parsed.Image endsWith '\\AutoHotkey64_UIA.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyA32.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyA32_UIA.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyU32.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyU32_UIA.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyU64.exe' || evt.Parsed.Image endsWith '\\AutoHotkeyU64_UIA.exe' || evt.Parsed.Image contains '\\AutoHotkey'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+
+  label: "Renamed AutoHotkey.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

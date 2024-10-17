@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_hktl_sharp_ldap_monitor
+description: |
+  Detects execution of the SharpLDAPmonitor. Which can monitor the creation, deletion and changes to LDAP objects.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharpLDAPmonitor.exe' || evt.Parsed.OriginalFileName == 'SharpLDAPmonitor.exe' || evt.Parsed.CommandLine contains '/user:' && evt.Parsed.CommandLine contains '/pass:' && evt.Parsed.CommandLine contains '/dcip:')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "HackTool - SharpLDAPmonitor Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

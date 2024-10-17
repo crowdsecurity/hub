@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_susp_ps_appdata
+description: |
+  Detects a suspicious command line execution that invokes PowerShell with reference to an AppData folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'powershell.exe' || evt.Parsed.CommandLine contains '\\powershell' || evt.Parsed.CommandLine contains '\\pwsh' || evt.Parsed.CommandLine contains 'pwsh.exe') && evt.Parsed.CommandLine contains '/c ' && evt.Parsed.CommandLine contains '\\AppData\\' && (evt.Parsed.CommandLine contains 'Local\\' || evt.Parsed.CommandLine contains 'Roaming\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "PowerShell Script Run in AppData"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

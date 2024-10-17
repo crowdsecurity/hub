@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sdbinst_shim_persistence
+description: |
+  Detects installation of a new shim using sdbinst.exe. A shim can be used to load malicious DLLs into applications.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sdbinst.exe' && evt.Parsed.CommandLine contains '.sdb' && not (evt.Parsed.CommandLine contains 'iisexpressshim.sdb'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1546.011
+
+  label: "Possible Shim Database Persistence via sdbinst.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

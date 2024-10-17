@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_mstsc_remote_connection
+description: |
+  Detects the usage of "mstsc.exe" with the "/v" flag to initiate a connection to a remote server.
+  Adversaries may use valid accounts to log into a computer using the Remote Desktop Protocol (RDP). The adversary may then perform actions as the logged-on user.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mstsc.exe' || evt.Parsed.OriginalFileName == 'mstsc.exe') && evt.Parsed.CommandLine contains ' /v:' && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\lxss\\wslhost.exe' && evt.Parsed.CommandLine contains 'C:\\ProgramData\\Microsoft\\WSL\\wslg.rdp'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1021.001
+
+  label: "New Remote Desktop Connection Initiated Via Mstsc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_certutil_encode_susp_location
+description: |
+  Detects the execution of certutil with the "encode" flag to encode a file to base64 where the files are located in potentially suspicious locations
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && (evt.Parsed.CommandLine contains '-encode' || evt.Parsed.CommandLine contains '/encode') && (evt.Parsed.CommandLine contains '\\AppData\\Roaming\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\PerfLogs\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '$Recycle.Bin'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+
+  label: "File In Suspicious Location Encoded To Base64 Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

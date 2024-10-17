@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_esentutl_webcache
+description: |
+  One way Qbot steals sensitive information is by extracting browser data from Internet Explorer and Microsoft Edge by using the built-in utility esentutl.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\esentutl.exe' || evt.Parsed.OriginalFileName == 'esentutl.exe') && (evt.Parsed.CommandLine contains '/r' || evt.Parsed.CommandLine contains '-r') && evt.Parsed.CommandLine contains '\\Windows\\WebCache')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1005
+
+  label: "Esentutl Steals Browser Information"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
