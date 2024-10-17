@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_utilityfunctions
+description: |
+  Detects the use of a Microsoft signed script executing a managed DLL with PowerShell.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'UtilityFunctions.ps1' || evt.Parsed.CommandLine contains 'RegSnapin ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1216
+
+  label: "UtilityFunctions.ps1 Proxy Dll"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
