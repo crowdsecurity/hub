@@ -77,8 +77,9 @@ jobs:
       run: |
         sudo cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
         sudo cp appsec-rules/*/vpatch-*.yaml /etc/crowdsec/appsec-rules/
+        sudo cp appsec-rules/*/generic-*.yaml /etc/crowdsec/appsec-rules/
         sudo cp appsec-rules/crowdsecurity/base-config.yaml /etc/crowdsec/appsec-rules/
-        sudo cp appsec-configs/crowdsecurity/virtual-patching.yaml /etc/crowdsec/appsec-configs/
+        sudo cp appsec-configs/crowdsecurity/appsec-default.yaml /etc/crowdsec/appsec-configs/
         sudo systemctl restart crowdsec
     - name: Register Remediation Component API Key
       run: |
