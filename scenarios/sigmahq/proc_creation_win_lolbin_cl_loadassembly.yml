@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_cl_loadassembly
+description: |
+  Detects the use of a Microsoft signed script to execute commands and bypassing AppLocker.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\CL_LoadAssembly.ps1' || evt.Parsed.CommandLine contains 'LoadAssemblyFromPath ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1216
+
+  label: "CL_LoadAssembly.ps1 Proxy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

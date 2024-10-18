@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_pester_1
+description: |
+  Detects code execution via Pester.bat (Pester - Powershell Modulte for testing)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains 'Pester' && evt.Parsed.CommandLine contains 'Get-Help' || evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'pester' && evt.Parsed.CommandLine contains ';' && (evt.Parsed.CommandLine contains 'help' || Match('', evt.Parsed.CommandLine)))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+#  - attack.t1216
+
+  label: "Execute Code with Pester.bat"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_customshellhost
+description: |
+  Detects the execution of CustomShellHost binary where the child isn't located in 'C:\Windows\explorer.exe'
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\CustomShellHost.exe' && not (evt.Parsed.Image == 'C:\\Windows\\explorer.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1216
+
+  label: "Suspicious CustomShellHost Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
