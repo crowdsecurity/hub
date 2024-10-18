@@ -80,7 +80,7 @@ jobs:
         sudo cp appsec-rules/*/generic-*.yaml /etc/crowdsec/appsec-rules/
         sudo cp appsec-rules/crowdsecurity/base-config.yaml /etc/crowdsec/appsec-rules/
         sudo cp appsec-configs/crowdsecurity/appsec-default.yaml /etc/crowdsec/appsec-configs/
-        sudo systemctl restart crowdsec
+        sudo systemctl restart crowdsec || sudo cat /var/log/crowdsec.log
     - name: Register Remediation Component API Key
       run: |
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
