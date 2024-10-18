@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_non_interactive_execution
+description: |
+  Detects non-interactive PowerShell activity by looking at the "powershell" process with a non-user GUI process such as "explorer.exe" as a parent.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && not (evt.Parsed.ParentImage endsWith 'C:\\Windows\\explorer.exe' || evt.Parsed.ParentImage endsWith 'C:\\Windows\\System32\\CompatTelRunner.exe' || evt.Parsed.ParentImage endsWith 'C:\\Windows\\SysWOW64\\explorer.exe' || evt.Parsed.ParentImage == 'C:\\$WINDOWS.~BT\\Sources\\SetupHost.exe') && not (evt.Parsed.ParentImage startsWith 'C:\\Users\\' && evt.Parsed.ParentImage endsWith '\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe' && evt.Parsed.ParentCommandLine contains ' --ms-enable-electron-run-as-node '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Non Interactive PowerShell Process Spawned"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

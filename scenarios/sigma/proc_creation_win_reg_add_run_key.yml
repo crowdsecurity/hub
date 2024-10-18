@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_add_run_key
+description: |
+  Detects suspicious command line reg.exe tool adding key to RUN key in Registry
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'reg' && evt.Parsed.CommandLine contains ' ADD ' && evt.Parsed.CommandLine contains 'Software\\Microsoft\\Windows\\CurrentVersion\\Run')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1547.001
+
+  label: "Potential Persistence Attempt Via Run Keys Using Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

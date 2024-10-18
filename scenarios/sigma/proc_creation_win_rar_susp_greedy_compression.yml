@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rar_susp_greedy_compression
+description: |
+  Detects RAR usage that creates an archive from a suspicious folder, either a system folder or one of the folders often used by attackers for staging purposes
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rar.exe' || evt.Parsed.Description == 'Command line RAR' || evt.Parsed.CommandLine contains '.exe a ' || evt.Parsed.CommandLine contains ' a -m') && evt.Parsed.CommandLine contains ' -hp' && evt.Parsed.CommandLine contains ' -r ' && (evt.Parsed.CommandLine contains ' C:\\*.' || evt.Parsed.CommandLine contains ' C:\\\\*.' || evt.Parsed.CommandLine contains ' C:\\Users\\Public\\' || evt.Parsed.CommandLine contains ' %public%' || evt.Parsed.CommandLine contains ' C:\\Windows\\' || evt.Parsed.CommandLine contains ' C:\\PerfLogs\\' || evt.Parsed.CommandLine contains ' C:\\Temp' || evt.Parsed.CommandLine contains ' C:\\$Recycle.bin\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Suspicious Greedy Compression Using Rar.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

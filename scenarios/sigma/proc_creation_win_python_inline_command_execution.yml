@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_python_inline_command_execution
+description: |
+  Detects execution of python using the "-c" flag. This is could be used as a way to launch a reverse shell or execute live python code.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'python.exe' || evt.Parsed.Image endsWith 'python.exe' || evt.Parsed.Image endsWith 'python3.exe' || evt.Parsed.Image endsWith 'python2.exe') && evt.Parsed.CommandLine contains ' -c' && not (evt.Parsed.ParentImage startsWith 'C:\\Program Files\\Python' && evt.Parsed.ParentImage endsWith '\\python.exe' && evt.Parsed.ParentCommandLine contains '-E -s -m ensurepip -U --default-pip' || evt.Parsed.ParentImage endsWith '\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Python Inline Command Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_susp_copy_browser_data
+description: |
+  Adversaries may acquire credentials from web browsers by reading files specific to the target browser.
+  Web browsers commonly save credentials such as website usernames and passwords so that they do not need to be entered manually in the future.
+  Web browsers typically store the credentials in an encrypted format within a credential store.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'copy-item' || evt.Parsed.CommandLine contains 'copy ' || evt.Parsed.CommandLine contains 'cpi ' || evt.Parsed.CommandLine contains ' cp ' || evt.Parsed.CommandLine contains 'move ' || evt.Parsed.CommandLine contains 'move-item' || evt.Parsed.CommandLine contains ' mi ' || evt.Parsed.CommandLine contains ' mv ' || evt.Parsed.Image endsWith '\\xcopy.exe' || evt.Parsed.Image endsWith '\\robocopy.exe' || evt.Parsed.OriginalFileName == 'XCOPY.EXE' || evt.Parsed.OriginalFileName == 'robocopy.exe') && (evt.Parsed.CommandLine contains '\\Opera Software\\Opera Stable\\' || evt.Parsed.CommandLine contains '\\Mozilla\\Firefox\\Profiles' || evt.Parsed.CommandLine contains '\\Microsoft\\Edge\\User Data\\' || evt.Parsed.CommandLine contains '\\Google\\Chrome\\User Data\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1555.003
+
+  label: "Potential Browser Data Stealing"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

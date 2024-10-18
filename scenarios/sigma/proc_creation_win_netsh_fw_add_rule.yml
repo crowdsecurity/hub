@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_fw_add_rule
+description: |
+  Detects the addition of a new rule to the Windows firewall via netsh
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains ' firewall ' && evt.Parsed.CommandLine contains ' add ' && not (evt.Parsed.CommandLine contains '\\netsh.exe advfirewall firewall add rule name=Dropbox dir=in action=allow "program=C:\\Program Files (x86)\\Dropbox\\Client\\Dropbox.exe" enable=yes profile=Any' || evt.Parsed.CommandLine contains '\\netsh.exe advfirewall firewall add rule name=Dropbox dir=in action=allow "program=C:\\Program Files\\Dropbox\\Client\\Dropbox.exe" enable=yes profile=Any' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\Temp\\asgard2-agent\\' && evt.Parsed.ParentImage endsWith '\\thor64.exe' && evt.Parsed.CommandLine contains 'advfirewall firewall show rule name=all'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1562.004
+
+  label: "New Firewall Rule Added Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

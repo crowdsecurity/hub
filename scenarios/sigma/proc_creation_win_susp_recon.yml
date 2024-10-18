@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_recon
+description: |
+  Once established within a system or network, an adversary may use automated techniques for collecting internal data.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\tree.com' || evt.Parsed.Image endsWith '\\WMIC.exe' || evt.Parsed.Image endsWith '\\doskey.exe' || evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.OriginalFileName == 'DOSKEY.EXE' || evt.Parsed.OriginalFileName == 'sc.exe') && (evt.Parsed.ParentCommandLine contains ' > %TEMP%\\' || evt.Parsed.ParentCommandLine contains ' > %TMP%\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1119
+
+  label: "Recon Information for Export with Command Prompt"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

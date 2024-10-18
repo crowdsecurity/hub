@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_not_from_c_drive
+description: |
+  Detects LOLBINs executing from an abnormal drive such as a mounted ISO.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\installutil.exe' || evt.Parsed.Image endsWith '\\cmstp.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE' || evt.Parsed.OriginalFileName == 'CALC.EXE' || evt.Parsed.OriginalFileName == 'MSHTA.EXE' || evt.Parsed.OriginalFileName == 'cscript.exe' || evt.Parsed.OriginalFileName == 'wscript.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE' || evt.Parsed.OriginalFileName == 'installutil.exe' || evt.Parsed.OriginalFileName == 'CMSTP.EXE') && not (evt.Parsed.CurrentDirectory contains 'C:\\' || evt.Parsed.CurrentDirectory == '' || evt.Parsed.CurrentDirectory == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+
+  label: "LOLBIN From Abnormal Drive"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_protocolhandler_download
+description: |
+  Detects usage of "ProtocolHandler" to download files. Downloaded files will be located in the cache folder (for example - %LOCALAPPDATA%\Microsoft\Windows\INetCache\IE)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\protocolhandler.exe' || evt.Parsed.OriginalFileName == 'ProtocolHandler.exe') && (evt.Parsed.CommandLine contains '"ms-word' && evt.Parsed.CommandLine contains '.docx"' || evt.Parsed.CommandLine contains ' http'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "File Download Using ProtocolHandler.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

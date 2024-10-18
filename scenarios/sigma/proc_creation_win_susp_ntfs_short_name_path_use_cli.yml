@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_ntfs_short_name_path_use_cli
+description: |
+  Detect use of the Windows 8.3 short name. Which could be used as a method to avoid command-line detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '~1\\' || evt.Parsed.CommandLine contains '~2\\') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\Dism.exe' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\cleanmgr.exe' || evt.Parsed.ParentImage == 'C:\\Program Files\\GPSoftware\\Directory Opus\\dopus.exe' || evt.Parsed.ParentImage endsWith '\\WebEx\\WebexHost.exe' || evt.Parsed.ParentImage endsWith '\\thor\\thor64.exe' || evt.Parsed.ParentImage endsWith '\\veam.backup.shell.exe' || evt.Parsed.ParentImage endsWith '\\winget.exe' || evt.Parsed.ParentImage endsWith '\\Everything\\Everything.exe' || evt.Parsed.ParentImage contains '\\AppData\\Local\\Temp\\WinGet\\' || evt.Parsed.CommandLine contains '\\appdata\\local\\webex\\webex64\\meetings\\wbxreport.exe' || evt.Parsed.CommandLine contains 'C:\\Program Files\\Git\\post-install.bat' || evt.Parsed.CommandLine contains 'C:\\Program Files\\Git\\cmd\\scalar.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Use Short Name Path in Command Line"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

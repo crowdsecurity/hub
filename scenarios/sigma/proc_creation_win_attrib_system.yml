@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_attrib_system
+description: |
+  Detects the execution of "attrib" with the "+s" flag to mark files as system files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\attrib.exe' || evt.Parsed.OriginalFileName == 'ATTRIB.EXE') && evt.Parsed.CommandLine contains ' +s ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.001
+
+  label: "Set Files as System Files Using Attrib.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

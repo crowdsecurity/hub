@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_whoami_parent_anomaly
+description: |
+  Detects the execution of whoami.exe with suspicious parent processes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.OriginalFileName == 'whoami.exe') && not (evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\powershell_ise.exe' || evt.Parsed.ParentImage == 'C:\\Program Files\\Microsoft Monitoring Agent\\Agent\\MonitoringHost.exe' || evt.Parsed.ParentImage == '' || evt.Parsed.ParentImage == ''))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1033
+
+  label: "Whoami.EXE Execution Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_net_start_service
+description: |
+  Detects the usage of the "net.exe" command to start a service using the "start" flag
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && evt.Parsed.CommandLine contains ' start ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1569.002
+
+  label: "Start Windows Service Via Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

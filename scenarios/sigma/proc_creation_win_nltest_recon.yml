@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_nltest_recon
+description: |
+  Detects nltest commands that can be used for information discovery
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.OriginalFileName == 'nltestrk.exe') && (evt.Parsed.CommandLine contains '/server' && evt.Parsed.CommandLine contains '/query' || evt.Parsed.CommandLine contains '/dclist:' || evt.Parsed.CommandLine contains '/parentdomain' || evt.Parsed.CommandLine contains '/domain_trusts' || evt.Parsed.CommandLine contains '/all_trusts' || evt.Parsed.CommandLine contains '/trusted_domains' || evt.Parsed.CommandLine contains '/user'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1016
+#  - attack.t1482
+
+  label: "Potential Recon Activity Via Nltest.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

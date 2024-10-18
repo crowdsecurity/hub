@@ -1,0 +1,27 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_system_info_discovery
+description: |
+  Detects the use of the WMI command-line (WMIC) utility to identify and display various system information,
+  including OS, CPU, GPU, and disk drive names; memory capacity; display resolution; and baseboard, BIOS,
+  and GPU driver products/versions.
+  Some of these commands were used by Aurora Stealer in late 2022/early 2023.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Description == 'WMI Commandline Utility' || evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Image endsWith '\\WMIC.exe') && (evt.Parsed.CommandLine contains 'baseboard get product' || evt.Parsed.CommandLine contains 'baseboard get version' || evt.Parsed.CommandLine contains 'bios get SMBIOSBIOSVersion' || evt.Parsed.CommandLine contains 'cpu get name' || evt.Parsed.CommandLine contains 'DISKDRIVE get Caption' || evt.Parsed.CommandLine contains 'LOGICALDISK get Name,Size,FreeSpace' || evt.Parsed.CommandLine contains 'MEMPHYSICAL get MaxCapacity' || evt.Parsed.CommandLine contains 'OS get Caption,OSArchitecture,Version' || evt.Parsed.CommandLine contains 'path win32_VideoController get DriverVersion' || evt.Parsed.CommandLine contains 'path win32_VideoController get name' || evt.Parsed.CommandLine contains 'path win32_VideoController get VideoModeDescription'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1082
+
+  label: "Potential System Information Discovery Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

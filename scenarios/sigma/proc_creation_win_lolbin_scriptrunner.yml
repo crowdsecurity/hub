@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_scriptrunner
+description: |
+  The "ScriptRunner.exe" binary can be abused to proxy execution through it and bypass possible whitelisting
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ScriptRunner.exe' || evt.Parsed.OriginalFileName == 'ScriptRunner.exe') && evt.Parsed.CommandLine contains ' -appvscript ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Use of Scriptrunner.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

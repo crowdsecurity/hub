@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_msdeploy
+description: |
+  Detects file execution using the msdeploy.exe lolbin
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'verb:sync' && evt.Parsed.CommandLine contains '-source:RunCommand' && evt.Parsed.CommandLine contains '-dest:runCommand' && evt.Parsed.Image endsWith '\\msdeploy.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Execute Files with Msdeploy.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

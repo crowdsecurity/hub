@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_remote_access_tools_screenconnect_anomaly
+description: |
+  Detects suspicious sub processes started by the ScreenConnect client service, which indicates the use of the so-called Backstage mode
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith 'ScreenConnect.ClientService.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1219
+
+  label: "Remote Access Tool - ScreenConnect Backstage Mode Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

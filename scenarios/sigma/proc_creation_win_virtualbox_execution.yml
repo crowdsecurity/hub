@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_virtualbox_execution
+description: |
+  Adversaries can carry out malicious operations using a virtual instance to avoid detection. This rule is built to detect the registration of the Virtualbox driver or start of a Virtualbox VM.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'VBoxRT.dll,RTR3Init' || evt.Parsed.CommandLine contains 'VBoxC.dll' || evt.Parsed.CommandLine contains 'VBoxDrv.sys' || evt.Parsed.CommandLine contains 'startvm' || evt.Parsed.CommandLine contains 'controlvm')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.006
+#  - attack.t1564
+
+  label: "Detect Virtualbox Driver Installation OR Starting Of VMs"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_ntfs_short_name_use_image
+description: |
+  Detect use of the Windows 8.3 short name. Which could be used as a method to avoid Image based detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '~1.exe' || evt.Parsed.Image contains '~1.bat' || evt.Parsed.Image contains '~1.msi' || evt.Parsed.Image contains '~1.vbe' || evt.Parsed.Image contains '~1.vbs' || evt.Parsed.Image contains '~1.dll' || evt.Parsed.Image contains '~1.ps1' || evt.Parsed.Image contains '~1.js' || evt.Parsed.Image contains '~1.hta' || evt.Parsed.Image contains '~2.exe' || evt.Parsed.Image contains '~2.bat' || evt.Parsed.Image contains '~2.msi' || evt.Parsed.Image contains '~2.vbe' || evt.Parsed.Image contains '~2.vbs' || evt.Parsed.Image contains '~2.dll' || evt.Parsed.Image contains '~2.ps1' || evt.Parsed.Image contains '~2.js' || evt.Parsed.Image contains '~2.hta') && not (evt.Parsed.ParentImage == 'C:\\Windows\\explorer.exe' || evt.Parsed.ParentImage endsWith '\\WebEx\\WebexHost.exe' || evt.Parsed.ParentImage endsWith '\\thor\\thor64.exe' || evt.Parsed.ParentImage endsWith '-installer.exe' || evt.Parsed.Image == 'C:\\PROGRA~1\\WinZip\\WZPREL~1.EXE' || evt.Parsed.Image contains '\\vcredi'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Use NTFS Short Name in Image"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

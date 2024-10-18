@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_nslookup_poweshell_download
+description: |
+  Detects suspicious powershell download cradle using nslookup. This cradle uses nslookup to extract payloads from DNS records
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\nslookup.exe' || evt.Parsed.OriginalFileName == '\\nslookup.exe') && (evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains ' -q=txt ' || evt.Parsed.CommandLine contains ' -querytype=txt '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Nslookup PowerShell Download Cradle - ProcessCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

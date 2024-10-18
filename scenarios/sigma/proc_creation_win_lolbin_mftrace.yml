@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_mftrace
+description: |
+  The "Trace log generation tool for Media Foundation Tools" (Mftrace.exe) can be used to execute arbitrary binaries
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mftrace.exe' || evt.Parsed.OriginalFileName == 'mftrace.exe') && evt.Parsed.CommandLine contains '.exe ' && evt.Parsed.CommandLine endsWith '.exe' || evt.Parsed.ParentImage endsWith '\\mftrace.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1127
+
+  label: "Use of Mftrace.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

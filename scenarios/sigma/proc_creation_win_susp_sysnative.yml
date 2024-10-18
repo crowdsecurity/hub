@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_sysnative
+description: |
+  Detects process creation events that use the Sysnative folder (common for CobaltStrike spawns)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine startsWith 'C:\\Windows\\Sysnative\\')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1055
+
+  label: "Process Creation Using Sysnative Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
