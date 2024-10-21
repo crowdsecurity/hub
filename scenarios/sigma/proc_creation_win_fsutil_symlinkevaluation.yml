@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_fsutil_symlinkevaluation
+description: |
+  A symbolic link is a type of file that contains a reference to another file.
+  This is probably done to make sure that the ransomware is able to follow shortcuts on the machine in order to find the original file to encrypt
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\fsutil.exe' || evt.Parsed.OriginalFileName == 'fsutil.exe') && evt.Parsed.CommandLine contains 'behavior ' && evt.Parsed.CommandLine contains 'set ' && evt.Parsed.CommandLine contains 'SymlinkEvaluation')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Fsutil Behavior Set SymlinkEvaluation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

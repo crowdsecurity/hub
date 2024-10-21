@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_explorer_lolbin_execution
+description: |
+  Attackers can use explorer.exe for evading defense mechanisms
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\explorer.exe' && evt.Parsed.ParentImage endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'explorer.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Proxy Execution Via Explorer.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

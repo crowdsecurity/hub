@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_mstsc_run_local_rdp_file
+description: |
+  Detects potential RDP connection via Mstsc using a local ".rdp" file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mstsc.exe' || evt.Parsed.OriginalFileName == 'mstsc.exe') && (evt.Parsed.CommandLine endsWith '.rdp' || evt.Parsed.CommandLine endsWith '.rdp"') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\lxss\\wslhost.exe' && evt.Parsed.CommandLine contains 'C:\\ProgramData\\Microsoft\\WSL\\wslg.rdp'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1219
+
+  label: "Mstsc.EXE Execution With Local RDP File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

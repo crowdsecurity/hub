@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_copy_system32
+description: |
+  Detects a suspicious copy operation that tries to copy a program from a system (System32 or SysWOW64) directory to another on disk.
+  Often used to move LOLBINs such as 'certutil' or 'desktopimgdownldr' to a different location with a different name in order to bypass detections based on locations
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'copy ' || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains 'copy-item' || evt.Parsed.CommandLine contains ' copy ' || evt.Parsed.CommandLine contains 'cpi ' || evt.Parsed.CommandLine contains ' cp ') || evt.Parsed.Image endsWith '\\robocopy.exe' || evt.Parsed.Image endsWith '\\xcopy.exe' || evt.Parsed.OriginalFileName == 'robocopy.exe' || evt.Parsed.OriginalFileName == 'XCOPY.EXE') && (evt.Parsed.CommandLine contains '\\System32' || evt.Parsed.CommandLine contains '\\SysWOW64'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036.003
+
+  label: "Suspicious Copy From or To System32"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

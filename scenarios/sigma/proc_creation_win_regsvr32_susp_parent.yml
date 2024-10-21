@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regsvr32_susp_parent
+description: |
+  Detects various command line and scripting engines/processes such as "PowerShell", "Wscript", "Cmd", etc. spawning a "regsvr32" instance.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\powershell_ise.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe') && evt.Parsed.Image endsWith '\\regsvr32.exe' && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\cmd.exe' && evt.Parsed.CommandLine endsWith ' /s C:\\Windows\\System32\\RpcProxy\\RpcProxy.dll'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.010
+
+  label: "Scripting/CommandLine Process Spawned Regsvr32"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

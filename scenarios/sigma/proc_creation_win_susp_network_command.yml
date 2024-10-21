@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_network_command
+description: |
+  Adversaries may look for details about the network configuration and settings of systems they access or through information discovery of remote systems
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'ipconfig /all' || evt.Parsed.CommandLine contains 'netsh interface show interface' || evt.Parsed.CommandLine contains 'arp -a' || evt.Parsed.CommandLine contains 'nbtstat -n' || evt.Parsed.CommandLine contains 'net config' || evt.Parsed.CommandLine contains 'route print')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1016
+
+  label: "Suspicious Network Command"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

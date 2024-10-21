@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_packet_capture
+description: |
+  Detects the execution of netsh with the "trace" flag in order to start a network capture
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains 'trace' && evt.Parsed.CommandLine contains 'start')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1040
+
+  label: "New Network Trace Capture Started Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

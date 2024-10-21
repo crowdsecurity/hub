@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_xsl_script_processing
+description: |
+  Extensible Stylesheet Language (XSL) files are commonly used to describe the processing and rendering of data within XML files. Rule detects when adversaries abuse this functionality to execute arbitrary files while potentially bypassing application whitelisting defenses.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wmic.exe' && (evt.Parsed.CommandLine contains '/format' || evt.Parsed.CommandLine contains '-format') && not (evt.Parsed.CommandLine contains 'Format:List' || evt.Parsed.CommandLine contains 'Format:htable' || evt.Parsed.CommandLine contains 'Format:hform' || evt.Parsed.CommandLine contains 'Format:table' || evt.Parsed.CommandLine contains 'Format:mof' || evt.Parsed.CommandLine contains 'Format:value' || evt.Parsed.CommandLine contains 'Format:rawxml' || evt.Parsed.CommandLine contains 'Format:xml' || evt.Parsed.CommandLine contains 'Format:csv') || evt.Parsed.Image endsWith '\\msxsl.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1220
+
+  label: "XSL Script Processing"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

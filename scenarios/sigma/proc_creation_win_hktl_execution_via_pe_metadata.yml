@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_hktl_execution_via_pe_metadata
+description: |
+  Detects the execution of different Windows based hacktools via PE metadata (company, product, etc.) even if the files have been renamed
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Company == 'Cube0x0')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious Hacktool Execution - PE Metadata"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

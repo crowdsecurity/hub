@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_elevated_system_shell
+description: |
+  Detects when a shell program such as the Windows command prompt or PowerShell is launched with system privileges.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && "int(evt.Parsed.LogonId)" == '0x3e7' && not ((evt.Parsed.ParentImage startsWith 'C:\\Windows\\System32\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files (x86)\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files\\') && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe') || evt.Parsed.ParentImage == 'C:\\ManageEngine\\ADManager Plus\\pgsql\\bin\\postgres.exe' && evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\SysWOW64\\config\\systemprofile\\Citrix\\UpdaterBinaries\\' && evt.Parsed.ParentImage endsWith '\\CitrixReceiverUpdater.exe' && evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.CommandLine startsWith 'C:\\WINDOWS\\system32\\cmd.exe /c "' && evt.Parsed.CurrentDirectory contains 'C:\\WINDOWS\\Temp\\asgard2-agent\\' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\Temp' && evt.Parsed.ParentImage endsWith '\\invcol.exe' && evt.Parsed.ParentCommandLine contains 'C:\\ProgramData\\Dell\\UpdateService\\' && evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\WinSxS\\' && evt.Parsed.ParentImage endsWith '\\CompatTelRunner.exe' && evt.Parsed.ParentCommandLine startsWith 'C:\\Windows\\system32\\CompatTelRunner.exe -m:appraiser.dll -f:DoScheduledTelemetryRun' || evt.Parsed.ParentImage startsWith 'C:\\IBM\\SpectrumProtect\\webserver\\scripts\\' && evt.Parsed.CommandLine contains 'C:\\IBM\\SpectrumProtect\\webserver\\scripts\\' || evt.Parsed.ParentImage == 'C:\\Windows\\SysWOW64\\msiexec.exe' && evt.Parsed.ParentCommandLine startsWith 'C:\\Windows\\syswow64\\MsiExec.exe -Embedding' && evt.Parsed.CommandLine contains '\\RegisterMicrosoftUpdate.ps1' || evt.Parsed.CommandLine == 'powershell.exe -ExecutionPolicy Restricted -Command Write-Host \'Final result: 1\';' || evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains '/d /c C:\\Windows\\system32\\silcollector.cmd' || evt.Parsed.Image endsWith '\\cmd.exe' && (evt.Parsed.CommandLine endsWith 'cmd.exe /c btool server list replication_port --no-log' || evt.Parsed.CommandLine endsWith 'cmd.exe /c btool server list general --no-log') || evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'C:\\Windows\\system32\\reg.exe query hklm\\software\\microsoft\\windows\\softwareinventorylogging /v collectionstate /reg:64' || evt.Parsed.Image == 'C:\\Windows\\System32\\cmd.exe' && evt.Parsed.CommandLine == 'C:\\Windows\\system32\\cmd.exe /c PAUSE'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Suspicious Elevated System Shell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

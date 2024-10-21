@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sc_disable_service
+description: |
+  Detect the use of "sc.exe" to change the startup type of a service to "disabled" or "demand"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.OriginalFileName == 'sc.exe') && evt.Parsed.CommandLine contains ' config ' && evt.Parsed.CommandLine contains 'start' && (evt.Parsed.CommandLine contains 'disabled' || evt.Parsed.CommandLine contains 'demand'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.001
+
+  label: "Service StartupType Change Via Sc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

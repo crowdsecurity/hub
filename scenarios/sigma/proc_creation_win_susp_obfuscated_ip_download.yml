@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_obfuscated_ip_download
+description: |
+  Detects use of an encoded/obfuscated version of an IP address (hex, octal...) in an URL combined with a download command
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'wget ' || evt.Parsed.CommandLine contains 'curl ' || evt.Parsed.CommandLine contains 'DownloadFile' || evt.Parsed.CommandLine contains 'DownloadString') && (evt.Parsed.CommandLine contains '//0x' || evt.Parsed.CommandLine contains '.0x' || evt.Parsed.CommandLine contains '.00x' || evt.Parsed.CommandLine contains 'http://%' && evt.Parsed.CommandLine contains '%2e'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Obfuscated IP Download"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_webdav_client_execution
+description: |
+  Detects "svchost.exe" spawning "rundll32.exe" with command arguments like C:\windows\system32\davclnt.dll,DavSetCookie.
+  This could be an indicator of exfiltration or use of WebDav to launch code (hosted on WebDav Server).
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine contains 'C:\\windows\\system32\\davclnt.dll,DavSetCookie')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1048.003
+
+  label: "WebDav Client Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

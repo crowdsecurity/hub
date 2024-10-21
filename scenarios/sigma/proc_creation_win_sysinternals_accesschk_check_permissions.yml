@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_accesschk_check_permissions
+description: |
+  Detects the usage of the "Accesschk" utility, an access and privilege audit tool developed by SysInternal and often being abused by attacker to verify process privileges
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Product endsWith 'AccessChk' || evt.Parsed.Description contains 'Reports effective permissions' || evt.Parsed.Image endsWith '\\accesschk.exe' || evt.Parsed.Image endsWith '\\accesschk64.exe' || evt.Parsed.OriginalFileName == 'accesschk.exe') && (evt.Parsed.CommandLine contains 'uwcqv ' || evt.Parsed.CommandLine contains 'kwsu ' || evt.Parsed.CommandLine contains 'qwsu ' || evt.Parsed.CommandLine contains 'uwdqs '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1069.001
+
+  label: "Permission Check Via Accesschk.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

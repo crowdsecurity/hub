@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_conhost_legacy_option
+description: |
+  ForceV1 asks for information directly from the kernel space. Conhost connects to the console application. High IntegrityLevel means the process is running with elevated privileges, such as an Administrator context.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.IntegrityLevel == 'High' && evt.Parsed.CommandLine contains 'conhost.exe' && evt.Parsed.CommandLine contains '0xffffffff' && evt.Parsed.CommandLine contains '-ForceV1')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Suspicious High IntegrityLevel Conhost Legacy Option"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

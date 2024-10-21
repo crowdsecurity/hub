@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_dotnet
+description: |
+  dotnet.exe will execute any DLL and execute unsigned code
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\dotnet.exe' || evt.Parsed.OriginalFileName == '.NET Host') && (evt.Parsed.CommandLine endsWith '.dll' || evt.Parsed.CommandLine endsWith '.csproj'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Dotnet.exe Exec Dll and Execute Unsigned Code LOLBIN"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

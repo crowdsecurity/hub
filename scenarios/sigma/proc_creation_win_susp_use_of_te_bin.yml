@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_use_of_te_bin
+description: |
+  Windows Test Authoring and Execution Framework (TAEF) framework allows you to run automation by executing tests files written on different languages (C, C#, Microsoft COM Scripting interfaces
+  Adversaries may execute malicious code (such as WSC file with VBScript, dll and so on) directly by running te.exe
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\te.exe' || evt.Parsed.ParentImage endsWith '\\te.exe' || evt.Parsed.OriginalFileName == '\\te.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Malicious Windows Script Components File Execution by TAEF Detection"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

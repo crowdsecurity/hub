@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_certutil_download_file_sharing_domains
+description: |
+  Detects the execution of certutil with certain flags that allow the utility to download files from file-sharing websites.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && (evt.Parsed.CommandLine contains 'urlcache ' || evt.Parsed.CommandLine contains 'verifyctl ') && (evt.Parsed.CommandLine contains '.ghostbin.co/' || evt.Parsed.CommandLine contains '.hastebin.com' || evt.Parsed.CommandLine contains '.paste.ee' || evt.Parsed.CommandLine contains 'anonfiles.com' || evt.Parsed.CommandLine contains 'cdn.discordapp.com/attachments/' || evt.Parsed.CommandLine contains 'ddns.net' || evt.Parsed.CommandLine contains 'gist.githubusercontent.com' || evt.Parsed.CommandLine contains 'mediafire.com' || evt.Parsed.CommandLine contains 'mega.nz' || evt.Parsed.CommandLine contains 'paste.ee' || evt.Parsed.CommandLine contains 'pastebin.com' || evt.Parsed.CommandLine contains 'pastebin.pl' || evt.Parsed.CommandLine contains 'pastetext.net' || evt.Parsed.CommandLine contains 'privatlab.com' || evt.Parsed.CommandLine contains 'privatlab.net' || evt.Parsed.CommandLine contains 'raw.githubusercontent.com' || evt.Parsed.CommandLine contains 'send.exploit.in' || evt.Parsed.CommandLine contains 'sendspace.com' || evt.Parsed.CommandLine contains 'storage.googleapis.com' || evt.Parsed.CommandLine contains 'transfer.sh' || evt.Parsed.CommandLine contains 'ufile.io'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+
+  label: "Suspicious File Downloaded From File-Sharing Website Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
