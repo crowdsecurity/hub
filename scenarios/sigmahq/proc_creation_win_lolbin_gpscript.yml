@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_gpscript
+description: |
+  Detects the execution of the LOLBIN gpscript, which executes logon or startup scripts configured in Group Policy
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\gpscript.exe' || evt.Parsed.OriginalFileName == 'GPSCRIPT.EXE') && (evt.Parsed.CommandLine contains ' /logon' || evt.Parsed.CommandLine contains ' /startup') && not (evt.Parsed.ParentCommandLine == 'C:\\windows\\system32\\svchost.exe -k netsvcs -p -s gpsvc'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Gpscript Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

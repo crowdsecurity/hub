@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_aspnet_compiler
+description: |
+  Execute C# code with the Build Provider and proper folder structure in place.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains 'C:\\Windows\\Microsoft.NET\\Framework' && evt.Parsed.Image contains 'aspnet_compiler.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1127
+
+  label: "Suspicious aspnet_compiler.exe Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
