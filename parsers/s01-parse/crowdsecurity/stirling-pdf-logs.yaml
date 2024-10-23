@@ -1,0 +1,19 @@
+onsuccess: next_stage
+debug: false
+filter: "evt.Parsed.program == 'stirling-pdf'"
+name: crowdsecurity/stirling-pdf-logs
+description: "Parse Stirling PDF logs"
+nodes:
+  - grok:
+      pattern: "%{TIMESTAMP_ISO8601:timestamp} %{WORD:log_level} .*CustomAuthenticationFailureHandler \\[.*\\] Failed login attempt from IP: \\[?%{IP:source_ip}\\]?"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: failed_authentication
+statics:
+  - meta: service
+    value: stirling-pdf
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
