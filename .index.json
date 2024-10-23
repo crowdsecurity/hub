@@ -3958,6 +3958,30 @@
     "crowdsecurity/base-http-scenarios"
    ]
   },
+  "crowdsecurity/fortinet": {
+   "path": "collections/crowdsecurity/fortinet.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "190ec6987667d8812a9c78f48b6347da23211e5aafde2821dca42b798dcdd174",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyMgRm9ydGluZXQgY29sbGVjdGlvbgoKVGhpcyBjb2xsZWN0aW9uIHN1cHBvcnQ6CgotIFBhcnNlciBmb3IgW0ZvcnRpbmV0IExvZ10oaHR0cHM6Ly9kb2NzLmZvcnRpbmV0LmNvbS9kb2N1bWVudC9mb3J0aWdhdGUvNi40LjcvZm9ydGlvcy1sb2ctbWVzc2FnZS1yZWZlcmVuY2UvNTI0OTQwKQotIFNjZW5hcmlvIGZvciBkZXRlY3RpbmcgYnJ1dGVmb3JjZSBvbiBGb3J0aW5ldCBWUE4K",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvZm9ydGluZXQtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2ZvcnRpbmV0LXZwbi1icnV0ZWZvcmNlCmNvbnRleHRzOgogIC0gY3Jvd2RzZWN1cml0eS9mb3J0aW5ldApkZXNjcmlwdGlvbjogIkZvcnRpbmV0IHN1cHBvcnQgOiBQYXJzZXIgYW5kIHNjZW5hcmlvcyBmb3IgRm9ydGluZXQgTG9nIgphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGZvcnRpbmV0Cg==",
+   "description": "Fortinet support : Parser and scenarios for Fortinet Log",
+   "author": "crowdsecurity",
+   "labels": null,
+   "parsers": [
+    "crowdsecurity/fortinet-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/fortinet-vpn-bruteforce"
+   ],
+   "contexts": [
+    "crowdsecurity/fortinet"
+   ]
+  },
   "crowdsecurity/freebsd": {
    "path": "collections/crowdsecurity/freebsd.yaml",
    "version": "0.3",
@@ -6003,6 +6027,19 @@
    "author": "crowdsecurity",
    "labels": null
   },
+  "crowdsecurity/fortinet": {
+   "path": "contexts/crowdsecurity/fortinet.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "94562b25f19aa719f89bf9e91ba75d0e490e2faf7ce4f78ee7ebbfb147a59fd3",
+     "deprecated": false
+    }
+   },
+   "content": "Y29udGV4dDoKICBzdWJfdHlwZToKICAtIGV2dC5NZXRhLnN1Yl90eXBlCiAgYWN0aW9uOgogIC0gZXZ0Lk1ldGEuYWN0aW9uCiAgdHVubmVsX3R5cGU6CiAgLSBldnQuTWV0YS50dW5uZWxfdHlwZQogIHJlYXNvbjoKICAtIGV2dC5NZXRhLnJlYXNvbgogIHVzZXI6CiAgLSBldnQuTWV0YS50YXJnZXRfdXNlcg==",
+   "author": "crowdsecurity",
+   "labels": null
+  },
   "crowdsecurity/http_base": {
    "path": "contexts/crowdsecurity/http_base.yaml",
    "version": "0.2",
@@ -7215,6 +7252,22 @@
    "long_description": "UGFyc2VyIGZvciBmYXN0bHkgbG9ncyB3aXRoIGRlZmF1bHQgZm9ybWF0IFsoc2VlIGZhc2x0eSBkb2N1bWVudGF0aW9uKV0oaHR0cHM6Ly9kb2NzLmZhc3RseS5jb20vZW4vZ3VpZGVzL2ludGVncmF0aW9ucyNfbG9nZ2luZy1lbmRwb2ludHMpCgoqKk1hbmRhdG9yeSoqIFlvdSBuZWVkIHRvIGFkZCB0aG9zZSBsYWJlbHMgb24gdGhlIGFjcXVpc2l0aW9uOgpgYGB5YW1sCmxhYmVsczoKICB0eXBlOiBzeXNsb2cKICBleHRlcm5hbF9mb3JtYXQ6IGZhc3RseQpgYGA=",
    "content": "ZmlsdGVyOiAiZXZ0LkxpbmUuTGFiZWxzLmV4dGVybmFsX2Zvcm1hdCA9PSAnZmFzdGx5JyIKb25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpuYW1lOiBjcm93ZHNlY3VyaXR5L2Zhc3RseS1sb2dzCmRlc2NyaXB0aW9uOiBmYXN0bHkgbG9ncyBwYXJzZXIKcGF0dGVybl9zeW50YXg6CiAgRE9VQkxFX05VTTogIlswLTldezJ9Igpncm9rOgogIHBhdHRlcm46ICIle0dSRUVEWURBVEE6ZmFzdGx5X3RpbWVzdGFtcH1cXCsle0RPVUJMRV9OVU06dHpfcGFydDF9JXtET1VCTEVfTlVNOnR6X3BhcnQyfSIKICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJ0aW1lc3RhbXAiKQpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IGh0dHAKICAtIG1ldGE6IGxvZ190eXBlCiAgICB2YWx1ZTogaHR0cF9hY2Nlc3MtbG9nCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLmZhc3RseV90aW1lc3RhbXAgKyAiLjAwKyIgKyBldnQuUGFyc2VkLnR6X3BhcnQxICsgIjoiICsgZXZ0LlBhcnNlZC50el9wYXJ0MgogIC0gbWV0YTogc291cmNlX2lwCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJjbGllbnRfaXAiKQogIC0gdGFyZ2V0OiBldnQuUGFyc2VkLnJlcXVlc3QKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInVybCIpCiAgLSBtZXRhOiBodHRwX3BhdGgKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInVybCIpCiAgLSBwYXJzZWQ6IHZlcmIKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlcXVlc3RfbWV0aG9kIikKICAtIG1ldGE6IHZlcmIKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlcXVlc3RfbWV0aG9kIikKICAtIHBhcnNlZDogaHR0cF9yZWZlcmVyCiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJyZXF1ZXN0X3JlZmVyZXIiKQogIC0gcGFyc2VkOiBodHRwX3VzZXJfYWdlbnQKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlcXVlc3RfdXNlcl9hZ2VudCIpCiAgLSBtZXRhOiBodHRwX3VzZXJfYWdlbnQKICAgIGV4cHJlc3Npb246IEpzb25FeHRyYWN0KGV2dC5QYXJzZWQubWVzc2FnZSwgInJlcXVlc3RfdXNlcl9hZ2VudCIpCiAgLSBtZXRhOiBodHRwX3N0YXR1cwogICAgZXhwcmVzc2lvbjogSnNvbkV4dHJhY3QoZXZ0LlBhcnNlZC5tZXNzYWdlLCAicmVzcG9uc2Vfc3RhdHVzIikKICAtIHBhcnNlZDogYm9keV9ieXRlc19zZW50CiAgICBleHByZXNzaW9uOiBKc29uRXh0cmFjdChldnQuUGFyc2VkLm1lc3NhZ2UsICJyZXNwb25zZV9ib2R5X3NpemUiKQ==",
    "description": "fastly logs parser",
+   "author": "crowdsecurity",
+   "labels": null
+  },
+  "crowdsecurity/fortinet-logs": {
+   "path": "parsers/s01-parse/crowdsecurity/fortinet-logs.yaml",
+   "stage": "s01-parse",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "10915774f7b2f95706d966fddf128c76971bba7328c798957f2e6aa51200dd0d",
+     "deprecated": false
+    }
+   },
+   "long_description": "IyPCoEZvcnRpbmV0IExvZ3MgUGFyc2VyCgpGb3J0aW5ldCBsb2cgcGFyc2VyLgpNb3JlIGluZm9ybWF0aW9uIGluIFtGb3J0aW5ldCBkb2N1bWVudGF0aW9uXShodHRwczovL2RvY3MuZm9ydGluZXQuY29tL2RvY3VtZW50L2ZvcnRpZ2F0ZS82LjQuNy9mb3J0aW9zLWxvZy1tZXNzYWdlLXJlZmVyZW5jZS81MjQ5NDApCg==",
+   "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCiNkZWJ1ZzogdHJ1ZQpmaWx0ZXI6ICJldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2ZvcnRpbmV0JyAmJiBQYXJzZUtWKGV2dC5QYXJzZWQubWVzc2FnZSwgZXZ0LlVubWFyc2hhbGVkLCAnZm9ydGluZXQnKSBpbiBbbmlsLCAnJ10iCm5hbWU6IGNyb3dkc2VjdXJpdHkvZm9ydGluZXQtbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIGZvcnRpbmV0IGxvZ3MiCnN0YXRpY3M6CiAgLSBtZXRhOiBzZXJ2aWNlCiAgICB2YWx1ZTogZm9ydGluZXQKICAtIG1ldGE6IHN1Yl90eXBlCiAgICBleHByZXNzaW9uOiAiZXZ0LlVubWFyc2hhbGVkLmZvcnRpbmV0LnN1YnR5cGUiCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQuZGF0ZSArICcgJyArIGV2dC5Vbm1hcnNoYWxlZC5mb3J0aW5ldC50aW1lCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQucmVtaXAiCiAgLSBtZXRhOiBhY3Rpb24KICAgIGV4cHJlc3Npb246ICJldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQuYWN0aW9uIgogIC0gbWV0YTogdHVubmVsX3R5cGUKICAgIGV4cHJlc3Npb246ICJldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQudHVubmVsdHlwZSIKICAtIG1ldGE6IHJlYXNvbgogICAgZXhwcmVzc2lvbjogImV2dC5Vbm1hcnNoYWxlZC5mb3J0aW5ldC5yZWFzb24iCiAgLSBtZXRhOiBtc2cKICAgIGV4cHJlc3Npb246ICJldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQubXNnIgogIC0gbWV0YTogdGFyZ2V0X3VzZXIKICAgIGV4cHJlc3Npb246ICJldnQuVW5tYXJzaGFsZWQuZm9ydGluZXQudXNlciI=",
+   "description": "Parse fortinet logs",
    "author": "crowdsecurity",
    "labels": null
   },
@@ -12372,6 +12425,31 @@
     ],
     "confidence": 3,
     "label": "CVE-2018-13379",
+    "remediation": true,
+    "service": "fortinet",
+    "spoofable": 0
+   }
+  },
+  "crowdsecurity/fortinet-vpn-bruteforce": {
+   "path": "scenarios/crowdsecurity/fortinet-vpn-bruteforce.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "e31525a3301785fd8591c77482d4fabe1207f382eb94a1775645361286241cc0",
+     "deprecated": false
+    }
+   },
+   "long_description": "RGV0ZWN0IEZvcnRpbmV0IFZQTiBicnV0ZWZvcmNlCgpsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiA1Cg==",
+   "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9mb3J0aW5ldC12cG4tYnJ1dGVmb3JjZQpkZXNjcmlwdGlvbjogIkRldGVjdCBmb3J0aW5ldCBWUE4gYnJ1dGVmb3JjZSIKZGVidWc6IGZhbHNlCmZpbHRlcjogImV2dC5NZXRhLnNlcnZpY2UgPT0gJ2ZvcnRpbmV0JyAmJiBldnQuTWV0YS5zdWJfdHlwZSA9PSAndnBuJyAmJiBldnQuTWV0YS5hY3Rpb24gPT0gJ3NzbC1sb2dpbi1mYWlsJyAmJiBldnQuTWV0YS50dW5uZWxfdHlwZSA9PSAnc3NsLXdlYiciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogNQpsZWFrc3BlZWQ6IDJtCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJGb3J0aW5ldCBWUE4gQnJ1dGVmb3JjZSIKICBzZXJ2aWNlOiBmb3J0aW5ldAogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+   "description": "Detect fortinet VPN bruteforce",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:bruteforce",
+    "classification": [
+     "attack.T1110"
+    ],
+    "confidence": 3,
+    "label": "Fortinet VPN Bruteforce",
     "remediation": true,
     "service": "fortinet",
     "spoofable": 0
