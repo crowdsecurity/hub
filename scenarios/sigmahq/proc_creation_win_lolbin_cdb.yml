@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_cdb
+description: |
+  Detects usage of "cdb.exe" to launch 64-bit shellcode or arbitrary processes or commands from a debugger script file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cdb.exe' || evt.Parsed.OriginalFileName == 'CDB.Exe') && (evt.Parsed.CommandLine contains ' -c ' || evt.Parsed.CommandLine contains ' -cf '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1106
+#  - attack.t1218
+#  - attack.t1127
+
+  label: "WinDbg/CDB LOLBIN Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

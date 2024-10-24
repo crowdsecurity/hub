@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_dctask64_proc_inject
+description: |
+  Detects suspicious process injection using ZOHO's dctask64.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\dctask64.exe' && not (evt.Parsed.CommandLine contains 'DesktopCentral_Agent\\agent'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1055.001
+
+  label: "ZOHO Dctask64 Process Injection"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
