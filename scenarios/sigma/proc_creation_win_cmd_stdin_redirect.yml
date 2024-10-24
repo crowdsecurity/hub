@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_stdin_redirect
+description: |
+  Detect the use of "<" to read and potentially execute a file via cmd.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.Image endsWith '\\cmd.exe') && evt.Parsed.CommandLine contains '<')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.003
+
+  label: "Read Contents From Stdin Via Cmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

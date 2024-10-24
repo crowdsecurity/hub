@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_python_adidnsdump
+description: |
+  This tool enables enumeration and exporting of all DNS records in the zone for recon purposes of internal networks Python 3 and python.exe must be installed,
+  Usee to Query/modify DNS records for Active Directory integrated DNS via LDAP
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\python.exe' && evt.Parsed.CommandLine contains 'adidnsdump')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1018
+
+  label: "PUA - Adidnsdump Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

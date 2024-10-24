@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_squiblytwo_bypass
+description: |
+  Detects potential SquiblyTwo attack technique with possible renamed WMIC via Imphash and OriginalFileName fields
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Imphash == '1B1A3F43BF37B5BFE60751F2EE2F326E' || evt.Parsed.Imphash == '37777A96245A3C74EB217308F3546F4C' || evt.Parsed.Imphash == '9D87C9D67CE724033C0B40CC4CA1B206' || evt.Parsed.Hashes contains 'IMPHASH=1B1A3F43BF37B5BFE60751F2EE2F326E' || evt.Parsed.Hashes contains 'IMPHASH=37777A96245A3C74EB217308F3546F4C' || evt.Parsed.Hashes contains 'IMPHASH=9D87C9D67CE724033C0B40CC4CA1B206') && evt.Parsed.CommandLine contains 'format:' && evt.Parsed.CommandLine contains 'http')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+#  - attack.t1220
+#  - attack.t1059.005
+#  - attack.t1059.007
+
+  label: "Potential SquiblyTwo Technique Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

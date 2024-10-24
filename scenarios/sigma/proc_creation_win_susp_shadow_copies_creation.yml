@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_shadow_copies_creation
+description: |
+  Shadow Copies creation using operating systems utilities, possible credential access
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\vssadmin.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll' || evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.OriginalFileName == 'VSSADMIN.EXE') && evt.Parsed.CommandLine contains 'shadow' && evt.Parsed.CommandLine contains 'create')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1003
+#  - attack.t1003.002
+#  - attack.t1003.003
+
+  label: "Shadow Copies Creation Using Operating Systems Utilities"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

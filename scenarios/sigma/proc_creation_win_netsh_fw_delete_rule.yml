@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_fw_delete_rule
+description: |
+  Detects the removal of a port or application rule in the Windows Firewall configuration using netsh
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains 'firewall' && evt.Parsed.CommandLine contains 'delete ' && not (evt.Parsed.ParentImage endsWith '\\Dropbox.exe' && evt.Parsed.CommandLine contains 'name=Dropbox'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562.004
+
+  label: "Firewall Rule Deleted Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

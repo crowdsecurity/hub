@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_dosfuscation
+description: |
+  Detects possible payload obfuscation via the commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '^^' || evt.Parsed.CommandLine contains '^|^' || evt.Parsed.CommandLine contains ',;,' || evt.Parsed.CommandLine contains ';;;;' || evt.Parsed.CommandLine contains ';; ;;' || evt.Parsed.CommandLine contains '(,(,' || evt.Parsed.CommandLine contains '%COMSPEC:~' || evt.Parsed.CommandLine contains ' c^m^d' || evt.Parsed.CommandLine contains '^c^m^d' || evt.Parsed.CommandLine contains ' c^md' || evt.Parsed.CommandLine contains ' cm^d' || evt.Parsed.CommandLine contains '^cm^d' || evt.Parsed.CommandLine contains ' s^et ' || evt.Parsed.CommandLine contains ' s^e^t ' || evt.Parsed.CommandLine contains ' se^t ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Potential Dosfuscation Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

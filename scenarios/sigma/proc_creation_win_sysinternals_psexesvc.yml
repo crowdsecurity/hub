@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_psexesvc
+description: |
+  Detects launch of the PSEXESVC service, which means that this system was the target of a psexec remote execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image == 'C:\\Windows\\PSEXESVC.exe' || evt.Parsed.OriginalFileName == 'psexesvc.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "PsExec Service Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

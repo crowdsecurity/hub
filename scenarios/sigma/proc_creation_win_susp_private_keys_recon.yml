@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_private_keys_recon
+description: |
+  Adversaries may search for private key certificate files on compromised systems for insecurely stored credential
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '.key' || evt.Parsed.CommandLine contains '.pgp' || evt.Parsed.CommandLine contains '.gpg' || evt.Parsed.CommandLine contains '.ppk' || evt.Parsed.CommandLine contains '.p12' || evt.Parsed.CommandLine contains '.pem' || evt.Parsed.CommandLine contains '.pfx' || evt.Parsed.CommandLine contains '.cer' || evt.Parsed.CommandLine contains '.p7b' || evt.Parsed.CommandLine contains '.asc') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && evt.Parsed.CommandLine contains 'dir ' || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.CommandLine contains 'Get-ChildItem ' || evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.OriginalFileName == 'FINDSTR.EXE'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1552.004
+
+  label: "Private Keys Reconnaissance Via CommandLine Tools"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

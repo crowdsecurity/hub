@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_rasautou_dll_execution
+description: |
+  Detects using Rasautou.exe for loading arbitrary .DLL specified in -d option and executes the export specified in -p.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rasautou.exe' || evt.Parsed.OriginalFileName == 'rasdlui.exe') && evt.Parsed.CommandLine contains ' -d ' && evt.Parsed.CommandLine contains ' -p ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "DLL Execution via Rasautou.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

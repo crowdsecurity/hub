@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_sideload_link_binary
+description: |
+  Detects the execution utitilies often found in Visual Studio tools that hardcode the call to the binary "link.exe". They can be abused to sideload any binary with the same name
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\link.exe' && evt.Parsed.CommandLine contains 'LINK /' && not ((evt.Parsed.ParentImage startsWith 'C:\\Program Files\\Microsoft Visual Studio\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files (x86)\\Microsoft Visual Studio\\') && evt.Parsed.ParentImage contains '\\VC\\Tools\\MSVC\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Sideloading Link.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

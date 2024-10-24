@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rasdial_execution
+description: |
+  Detects suspicious process related to rasdial.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith 'rasdial.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Suspicious RASdial Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

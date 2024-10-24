@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_msiexec_web_install
+description: |
+  Detects suspicious msiexec process starts with web addresses as parameter
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' msiexec' && evt.Parsed.CommandLine contains '://')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218.007
+#  - attack.t1105
+
+  label: "MsiExec Web Install"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

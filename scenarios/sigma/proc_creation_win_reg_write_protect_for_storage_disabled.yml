@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_reg_write_protect_for_storage_disabled
+description: |
+  Looks for changes to registry to disable any write-protect property for storage devices. This could be a precursor to a ransomware attack and has been an observed technique used by cypherpunk group.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'reg add' && evt.Parsed.CommandLine contains '\\system\\currentcontrolset\\control' && evt.Parsed.CommandLine contains 'write protection' && evt.Parsed.CommandLine contains '0' && (evt.Parsed.CommandLine contains 'storage' || evt.Parsed.CommandLine contains 'storagedevicepolicies'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1562
+
+  label: "Write Protect For Storage Disabled"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_computersystem
+description: |
+  Detects execution of wmic utility with the "computersystem" flag in order to obtain information about the machine such as the domain, username, model, etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'computersystem')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Computer System Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

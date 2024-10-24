@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_hostname_execution
+description: |
+  Use of hostname to get information
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\HOSTNAME.EXE')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1082
+
+  label: "Suspicious Execution of Hostname"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

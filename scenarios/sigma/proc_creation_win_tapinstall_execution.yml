@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_tapinstall_execution
+description: |
+  Well-known TAP software installation. Possible preparation for data exfiltration using tunneling techniques
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\tapinstall.exe' && not (evt.Parsed.Image == 'C:\\Program Files\\Avast Software\\SecureLine VPN\\tapinstall.exe' || evt.Parsed.Image == 'C:\\Program Files (x86)\\Avast Software\\SecureLine VPN\\tapinstall.exe' || evt.Parsed.Image startsWith 'C:\\Program Files\\OpenVPN Connect\\drivers\\tap\\' || evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\Proton Technologies\\ProtonVPNTap\\installer\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1048
+
+  label: "Tap Installer Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pua_webbrowserpassview
+description: |
+  Detects the execution of WebBrowserPassView.exe. A password recovery tool that reveals the passwords stored by the following Web browsers, Internet Explorer (Version 4.0 - 11.0), Mozilla Firefox (All Versions), Google Chrome, Safari, and Opera
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Description == 'Web Browser Password Viewer' || evt.Parsed.Image endsWith '\\WebBrowserPassView.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1555.003
+
+  label: "PUA - WebBrowserPassView Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

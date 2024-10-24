@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_esentutl_params
+description: |
+  Conti recommendation to its affiliates to use esentutl to access NTDS dumped file. Trickbot also uses this utilities to get MSEdge info via its module pwgrab.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'esentutl' && evt.Parsed.CommandLine contains ' /p')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1003
+#  - attack.t1003.003
+
+  label: "Esentutl Gather Credentials"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

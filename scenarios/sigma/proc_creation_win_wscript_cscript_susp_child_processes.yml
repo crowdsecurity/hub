@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_wscript_cscript_susp_child_processes
+description: |
+  Detects suspicious child processes of Wscript/Cscript
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe') && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains 'mshta' && evt.Parsed.CommandLine contains 'http' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'msiexec'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Cscript/Wscript Suspicious Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

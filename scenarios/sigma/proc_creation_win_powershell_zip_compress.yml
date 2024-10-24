@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_zip_compress
+description: |
+  Use living off the land tools to zip a file and stage it in the Windows temporary folder for later exfiltration
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Compress-Archive ' && evt.Parsed.CommandLine contains ' -Path ' && evt.Parsed.CommandLine contains ' -DestinationPath ' && evt.Parsed.CommandLine contains '$env:TEMP\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1074.001
+
+  label: "Zip A Folder With PowerShell For Staging In Temp"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

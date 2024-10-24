@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_cli_obfuscation_unicode
+description: |
+  Detects potential commandline obfuscation using unicode characters.
+  Adversaries may attempt to make an executable or file difficult to discover or analyze by encrypting, encoding, or otherwise obfuscating its contents on the system or in transit.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'ˣ' || evt.Parsed.CommandLine contains '˪' || evt.Parsed.CommandLine contains 'ˢ' || evt.Parsed.CommandLine contains '∕' || evt.Parsed.CommandLine contains '⁄' || evt.Parsed.CommandLine contains '―' || evt.Parsed.CommandLine contains '—' || evt.Parsed.CommandLine contains 'â' || evt.Parsed.CommandLine contains '€' || evt.Parsed.CommandLine contains '£' || evt.Parsed.CommandLine contains '¯' || evt.Parsed.CommandLine contains '®' || evt.Parsed.CommandLine contains 'µ' || evt.Parsed.CommandLine contains '¶')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+
+  label: "Potential Commandline Obfuscation Using Unicode Characters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

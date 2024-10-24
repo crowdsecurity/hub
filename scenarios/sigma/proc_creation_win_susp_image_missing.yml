@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_image_missing
+description: |
+  Checks whether the image specified in a process creation event is not a full, absolute path (caused by process ghosting or other unorthodox methods to start a process)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (not (evt.Parsed.Image contains '\\') && not (evt.Parsed.Image == '' || evt.Parsed.Image == '-' || evt.Parsed.Image == '' || evt.Parsed.Image == 'System' || evt.Parsed.Image == 'Registry' || evt.Parsed.Image == 'MemCompression' || evt.Parsed.Image == 'vmmem' || evt.Parsed.CommandLine == 'Registry' || evt.Parsed.CommandLine == 'MemCompression' || evt.Parsed.CommandLine == 'vmmem'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Execution Of Non-Existing File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

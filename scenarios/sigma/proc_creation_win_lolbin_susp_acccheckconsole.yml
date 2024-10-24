@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_susp_acccheckconsole
+description: |
+  Detects suspicious LOLBIN AccCheckConsole execution with parameters as used to load an arbitrary DLL
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\AccCheckConsole.exe' || evt.Parsed.OriginalFileName == 'AccCheckConsole.exe') && evt.Parsed.CommandLine contains ' -window ' && evt.Parsed.CommandLine contains '.dll')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious LOLBIN AccCheckConsole"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

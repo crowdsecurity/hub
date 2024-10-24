@@ -1,0 +1,27 @@
+type: trigger
+name: sigma/proc_creation_win_homoglyph_cyrillic_lookalikes
+description: |
+  Detects the presence of unicode characters which are homoglyphs, or identical in appearance, to ASCII letter characters.
+  This is used as an obfuscation and masquerading techniques. Only "perfect" homoglyphs are included; these are characters that
+  are indistinguishable from ASCII characters and thus may make excellent candidates for homoglyph attack characters.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'А' || evt.Parsed.CommandLine contains 'В' || evt.Parsed.CommandLine contains 'Е' || evt.Parsed.CommandLine contains 'К' || evt.Parsed.CommandLine contains 'М' || evt.Parsed.CommandLine contains 'Н' || evt.Parsed.CommandLine contains 'О' || evt.Parsed.CommandLine contains 'Р' || evt.Parsed.CommandLine contains 'С' || evt.Parsed.CommandLine contains 'Т' || evt.Parsed.CommandLine contains 'Х' || evt.Parsed.CommandLine contains 'Ѕ' || evt.Parsed.CommandLine contains 'І' || evt.Parsed.CommandLine contains 'Ј' || evt.Parsed.CommandLine contains 'Ү' || evt.Parsed.CommandLine contains 'Ӏ' || evt.Parsed.CommandLine contains 'Ԍ' || evt.Parsed.CommandLine contains 'Ԛ' || evt.Parsed.CommandLine contains 'Ԝ' || evt.Parsed.CommandLine contains 'Α' || evt.Parsed.CommandLine contains 'Β' || evt.Parsed.CommandLine contains 'Ε' || evt.Parsed.CommandLine contains 'Ζ' || evt.Parsed.CommandLine contains 'Η' || evt.Parsed.CommandLine contains 'Ι' || evt.Parsed.CommandLine contains 'Κ' || evt.Parsed.CommandLine contains 'Μ' || evt.Parsed.CommandLine contains 'Ν' || evt.Parsed.CommandLine contains 'Ο' || evt.Parsed.CommandLine contains 'Ρ' || evt.Parsed.CommandLine contains 'Τ' || evt.Parsed.CommandLine contains 'Υ' || evt.Parsed.CommandLine contains 'Χ' || evt.Parsed.CommandLine contains 'а' || evt.Parsed.CommandLine contains 'е' || evt.Parsed.CommandLine contains 'о' || evt.Parsed.CommandLine contains 'р' || evt.Parsed.CommandLine contains 'с' || evt.Parsed.CommandLine contains 'х' || evt.Parsed.CommandLine contains 'ѕ' || evt.Parsed.CommandLine contains 'і' || evt.Parsed.CommandLine contains 'ӏ' || evt.Parsed.CommandLine contains 'ј' || evt.Parsed.CommandLine contains 'һ' || evt.Parsed.CommandLine contains 'ԁ' || evt.Parsed.CommandLine contains 'ԛ' || evt.Parsed.CommandLine contains 'ԝ' || evt.Parsed.CommandLine contains 'ο')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+#  - attack.t1036.003
+
+  label: "Potential Homoglyph Attack Using Lookalike Characters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

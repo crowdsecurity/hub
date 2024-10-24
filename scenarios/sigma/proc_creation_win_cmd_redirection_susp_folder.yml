@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_redirection_susp_folder
+description: |
+  Detects inline Windows shell commands redirecting output via the ">" symbol to a suspicious location
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && (evt.Parsed.CommandLine contains '> \\Users\\Public\\' || evt.Parsed.CommandLine contains '> %APPDATA%\\' || evt.Parsed.CommandLine contains '> %TEMP%\\' || evt.Parsed.CommandLine contains '> %TMP%\\' || evt.Parsed.CommandLine contains '> %USERPROFILE%\\' || evt.Parsed.CommandLine contains '> C:\\Temp\\' || evt.Parsed.CommandLine contains '> C:\\Users\\Public\\' || evt.Parsed.CommandLine contains '> C:\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '>\\Users\\Public\\' || evt.Parsed.CommandLine contains '>%APPDATA%\\' || evt.Parsed.CommandLine contains '>%TEMP%\\' || evt.Parsed.CommandLine contains '>%TMP%\\' || evt.Parsed.CommandLine contains '>%USERPROFILE%\\' || evt.Parsed.CommandLine contains '>C:\\Temp\\' || evt.Parsed.CommandLine contains '>C:\\Users\\Public\\' || evt.Parsed.CommandLine contains '>C:\\Windows\\Temp\\' || (evt.Parsed.CommandLine contains ' >' || evt.Parsed.CommandLine contains '">' || evt.Parsed.CommandLine contains '\'>') && evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Suspicious CMD Shell Output Redirect"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

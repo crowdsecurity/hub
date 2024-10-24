@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_msiexec_install_remote
+description: |
+  Detects usage of Msiexec.exe to install packages hosted remotely quietly
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.OriginalFileName == 'msiexec.exe') && (evt.Parsed.CommandLine contains '/i' || evt.Parsed.CommandLine contains '-i' || evt.Parsed.CommandLine contains '/package' || evt.Parsed.CommandLine contains '-package' || evt.Parsed.CommandLine contains '/a' || evt.Parsed.CommandLine contains '-a' || evt.Parsed.CommandLine contains '/j' || evt.Parsed.CommandLine contains '-j') && (evt.Parsed.CommandLine contains '/q' || evt.Parsed.CommandLine contains '-q') && (evt.Parsed.CommandLine contains 'http' || evt.Parsed.CommandLine contains '\\\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.007
+
+  label: "Suspicious Msiexec Quiet Install From Remote Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
