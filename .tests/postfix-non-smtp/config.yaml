@@ -1,0 +1,11 @@
+parsers:
+- crowdsecurity/postfix-logs
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/crowdsecurity/postfix-non-smtp-command.yaml
+postoverflows:
+- ""
+log_file: postfix-non-smtp.log
+log_type: syslog
+ignore_parsers: true
