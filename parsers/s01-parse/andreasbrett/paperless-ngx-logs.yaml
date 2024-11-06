@@ -4,10 +4,11 @@ name: andreasbrett/paperless-ngx-logs
 description: "Parse paperless-ngx logs"
 pattern_syntax:
     DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+    PAPERLESS_NGX_USER: "%{USERNAME}|%{EMAILADDRESS}"
 nodes:
     - grok:
           # Paperless-ngx v1.14.0 to v1.16.5
-          pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{USERNAME:username}` from (private )?IP `%{IP:source_ip}\.`'
+          pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{PAPERLESS_NGX_USER:username}` from (private )?IP `%{IP:source_ip}\.`'
           apply_on: message
           statics:
               - meta: log_type
@@ -16,7 +17,7 @@ nodes:
                 expression: evt.Parsed.username
     - grok:
           # Paperless-ngx v1.16.6+
-          pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{USERNAME:username}` from (private )?IP `%{IP:source_ip}`\.'
+          pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{PAPERLESS_NGX_USER:username}` from (private )?IP `%{IP:source_ip}`\.'
           apply_on: message
           statics:
               - meta: log_type

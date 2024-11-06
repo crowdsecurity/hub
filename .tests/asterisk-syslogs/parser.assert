@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "SECURITY[112882]: res_security_log.c:114 in security_event_stasis_cb: SecurityEvent=\"ChallengeResponseFailed\",EventTV=\"2024-07-08T22:25:10.826-0600\",Severity=\"Error\",Service=\"PJSIP\",EventVersion=\"1\",AccountID=\"<unknown>\",SessionID=\"9860f048-8b50-4c84-bd5e-4312b96b4e87\",LocalAddress=\"IPV4/TCP/192.168.100.62/5060\",RemoteAddress=\"IPV4/TCP/192.168.100.12/33021\",Challenge=\"1720499110/5cba35c3b3ffee6eeff6774ec97d9ac4\",Response=\"2e1688149cc8cc47fdf5c002598f21e9\",ExpectedResponse=\"\""
@@ -50,7 +50,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_path"] =
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["machine"] == "alba"
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 5
+len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 6
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["asterisk_service"] == "PJSIP"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["asterisk_session_id"] == "9860f048-8b50-4c84-bd5e-4312b96b4e87"
@@ -144,7 +144,7 @@ results["s01-parse"]["crowdsecurity/asterisk-logs"][4].Evt.Meta["session_id"] ==
 results["s01-parse"]["crowdsecurity/asterisk-logs"][4].Evt.Meta["source_ip"] == "192.168.100.12"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][4].Evt.Meta["target_user"] == "<unknown>"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][4].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["asterisk_service"] == "PJSIP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["asterisk_session_id"] == "9860f048-8b50-4c84-bd5e-4312b96b4e87"
