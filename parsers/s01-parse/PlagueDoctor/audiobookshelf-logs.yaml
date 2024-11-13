@@ -1,0 +1,22 @@
+onsuccess: next_stage
+filter: "Upper(evt.Parsed.program) == 'AUDIOBOOKSHELF'"
+name: PlagueDoctor/audiobookshelf-logs
+description: "Parse Audiobookshelf logs"
+pattern_syntax:
+    ABS_FAILED_AUTH: '"timestamp":"%{TIMESTAMP_ISO8601:timestamp}","source":"%{DATA:source}","message":"\[Auth\] Failed login attempt for username \\\"%{USERNAME:username}\\\" from ip %{IP:source_ip} \(%{GREEDYDATA:reason}\)","levelName":"%{LOGLEVEL:levelName}","level":%{INT:level}'
+nodes:
+    - grok:
+          pattern: "%{ABS_FAILED_AUTH}"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: abs_failed_auth
+              - meta: username
+                expression: evt.Parsed.username
+statics:
+    - meta: service
+      value: audiobookshelf
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
