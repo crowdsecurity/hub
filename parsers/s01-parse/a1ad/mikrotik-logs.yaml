@@ -4,8 +4,8 @@ filter: "evt.Parsed.program == 'mikrotik'"
 name: a1ad/mikrotik-logs
 description: "Parse Mikrotik logs"
 pattern_syntax:
-  MIKROTIK_FIREWALL_DROP: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* %{DATA:tag} input: in:%{DATA:if_in} out:%{DATA:if_out}, connection-state:%{DATA:connection_state} src-mac %{MAC:src_mac}, proto %{WORD:proto}.*, %{IP:source_ip}:%{INT:src_port}->%{IP:dst_ip}:%{INT:dst_port}, len %{INT:length}"
-  MIKROTIK_AUTH_FAILED: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} .* login failure for user %{USERNAME:invalid_user} from %{IP:source_ip}"
+  MIKROTIK_FIREWALL_DROP: "(%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp}) %{DATA:HOSTNAME} %{DATA:chain}: in:%{DATA:if_in} out:%{DATA:if_out}, ?(%{GREEDYDATA})? connection-state:%{DATA:connection_state}(?: src-mac %{MAC:src_mac},)? proto %{WORD:proto}?(%{GREEDYDATA})?, %{IP:source_ip}(?::%{INT:src_port})?->%{IP:dst_ip}(?::%{INT:dst_port})?"
+  MIKROTIK_AUTH_FAILED: "(%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp}) %{DATA:HOSTNAME} (AUTH_FAILED: )?login: failure for user %{USERNAME:invalid_user} from (%{MAC:source_mac}|%{IP:source_ip}) via %{DATA:application}"
 nodes:
   - grok:
      name: "MIKROTIK_FIREWALL_DROP"
