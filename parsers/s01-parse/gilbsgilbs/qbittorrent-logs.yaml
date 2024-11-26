@@ -1,0 +1,26 @@
+onsuccess: next_stage
+name: gilbsgilbs/qbittorrent-logs
+description: "Parse QBittorrent logs"
+filter: "evt.Parsed.program == 'qbittorrent'"
+nodes:
+  - grok:
+      # (W) 2024-11-26T13:56:41 - WebAPI login failure. Reason: invalid credentials, attempt count: 1, IP: b8ae:97b8:322f:20c6:c704:6441:0fbd:b782, username: someuser
+      # (W) 2024-11-26T13:37:27 - WebAPI login failure. Reason: IP has been banned, IP: b8ae:97b8:322f:20c6:c704:6441:0fbd:b782, username: someuser
+      pattern: >-
+        \(%{WORD:log_level}\) %{TIMESTAMP_ISO8601:timestamp}
+        - WebAPI login failure. Reason: %{GREEDYDATA:reason},
+        IP: %{IP:source_ip},
+        username: %{USERNAME:username}
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: qbittorrent_failed_auth
+        - meta: user
+          expression: evt.Parsed.username
+statics:
+  - meta: service
+    value: qbittorrent
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
