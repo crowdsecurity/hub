@@ -21,7 +21,7 @@ statics:
   - meta: event_audience
     expression: JsonExtract(evt.Parsed.message, "eventAudience")
   - meta: source_ip
-    expression: JsonExtract(evt.Parsed.message, "eventData.sourceIP")
+    expression: JsonExtract(evt.Parsed.message, "eventData.httpSourceId")
   - meta: event_confidence
     expression: JsonExtract(evt.Parsed.message, "eventData.eventConfidence")
   - meta: security_action
