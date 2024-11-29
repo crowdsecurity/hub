@@ -1,0 +1,19 @@
+type: trigger
+debug: true
+name: crowdsecurity/ml-anomaly-detection
+description: "Detect anomalous behavior using ML models"
+filter: IsAnomalous(evt.Meta.http_verb, evt.Meta.http_path)
+#filter:  
+data: 
+  - source_url: https://hub-data.crowdsec.net/ml/small-champion-model.tar
+    dest_file: anomaly_detection_bundle.tar
+    type: ml_roberta_model
+labels:
+  remediation: true
+  service: foo
+  classification:
+    - bar
+  behavior: "bar"
+  label: "foo"
+  spoofable: 0
+  confidence: 3
