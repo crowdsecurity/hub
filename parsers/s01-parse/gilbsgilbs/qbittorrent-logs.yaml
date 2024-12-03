@@ -1,0 +1,44 @@
+onsuccess: next_stage
+name: gilbsgilbs/qbittorrent-logs
+description: "Parse QBittorrent logs"
+filter: "evt.Parsed.program == 'qbittorrent'"
+nodes:
+  - grok:
+      # (W) 2024-11-26T13:56:41 - WebAPI login failure. Reason: invalid credentials, attempt count: 1, IP: b8ae:97b8:322f:20c6:c704:6441:0fbd:b782, username: someuser
+      # (W) 2024-11-26T13:37:27 - WebAPI login failure. Reason: IP has been banned, IP: b8ae:97b8:322f:20c6:c704:6441:0fbd:b782, username: someuser
+      pattern: >-
+        \(%{WORD:log_level}\) %{TIMESTAMP_ISO8601:timestamp}
+        - WebAPI login failure. Reason: %{GREEDYDATA:reason},
+        IP: %{IP:source_ip},
+        username: %{USERNAME:username}
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: qbittorrent_failed_auth
+        - meta: user
+          expression: evt.Parsed.username
+statics:
+  - meta: service
+    value: qbittorrent
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - target: evt.StrTime
+    # FIXME QBittorrent's ISO 8601 timestamps may or may not have an explicit
+    # timezone in logs depending on system configuration. However, it seems
+    # that CrowdSec's parser limits itself to RFC3339 (+ a few manually defined
+    # formats), which mandates a timezone.
+    #
+    # As I am not able to determine the unicity of the StrTimeFormat (I'd need
+    # to provide at least a timezone-aware and a timezone-naive one), this
+    # expression will attempt to detect timestamps that are already timezone
+    # aware and only add the UTC timezone to those which aren't.
+    #
+    # See this fix upstream: https://github.com/crowdsecurity/crowdsec/pull/3346
+    # Once this is merge and released, we can safely get rid of this hack as
+    # all known formats would be supported.
+    expression: |-
+      (evt.Parsed.timestamp matches `(Z|[+-]\d{2}(:?\d{2})?(\[[^\]]+\])?)$`)
+        // Already timezone aware.
+        ? evt.Parsed.timestamp
+        // Timezone naive. Assume UTC.
+        : (evt.Parsed.timestamp + "Z")
