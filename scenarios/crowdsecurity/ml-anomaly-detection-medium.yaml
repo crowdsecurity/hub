@@ -1,0 +1,18 @@
+type: trigger
+debug: true
+name: crowdsecurity/ml-anomaly-detection-medium
+description: "Detect anomalous behavior using the medium ML model"
+filter: IsAnomalous(evt.Meta.http_verb, evt.Meta.http_path)
+data: 
+  - source_url: https://hub-data.crowdsec.net/crowd2vec-detector-prod-medium.tar
+    dest_file: crowd2vec-detector-prod-medium.tar
+    type: ml_roberta_model
+labels:
+  remediation: true
+  service: foo
+  classification:
+    - bar
+  behavior: "bar"
+  label: "foo"
+  spoofable: 0
+  confidence: 3

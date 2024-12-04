@@ -1,0 +1,18 @@
+type: trigger
+debug: true
+name: crowdsecurity/ml-anomaly-detection-large
+description: "Detect anomalous behavior using the large ML model"
+filter: IsAnomalous(evt.Meta.http_verb, evt.Meta.http_path)
+data: 
+  - source_url: https://hub-data.crowdsec.net/crowd2vec-detector-prod-large.tar
+    dest_file: crowd2vec-detector-prod-large.tar
+    type: ml_roberta_model
+labels:
+  remediation: true
+  service: foo
+  classification:
+    - bar
+  behavior: "bar"
+  label: "foo"
+  spoofable: 0
+  confidence: 3
