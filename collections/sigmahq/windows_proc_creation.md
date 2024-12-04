@@ -4,6 +4,13 @@ This collection is an import from SigmaHQ (core) project rules related to Window
 
 Release: `r2024-11-10`
 
+## Pre Requisites
+
+The process creation detection relies on Sysmon.
+
+ - [Sysmon Download & Installation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+ - [Example Sysmon configuration by @SwiftOnSecurity](https://github.com/SwiftOnSecurity/sysmon-config)
+
 ## Acquisition template
 
 Example acquisition for this collection:
