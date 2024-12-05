@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_renamed_office_processes
+description: |
+  Detects the execution of a renamed office binary
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Excel.exe' || evt.Parsed.OriginalFileName == 'MSACCESS.EXE' || evt.Parsed.OriginalFileName == 'OneNote.exe' || evt.Parsed.OriginalFileName == 'POWERPNT.EXE' || evt.Parsed.OriginalFileName == 'WinWord.exe' || evt.Parsed.Description == 'Microsoft Access' || evt.Parsed.Description == 'Microsoft Excel' || evt.Parsed.Description == 'Microsoft OneNote' || evt.Parsed.Description == 'Microsoft PowerPoint' || evt.Parsed.Description == 'Microsoft Word') && not (evt.Parsed.Image endsWith '\\EXCEL.exe' || evt.Parsed.Image endsWith '\\MSACCESS.exe' || evt.Parsed.Image endsWith '\\ONENOTE.EXE' || evt.Parsed.Image endsWith '\\POWERPNT.EXE' || evt.Parsed.Image endsWith '\\WINWORD.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Renamed Office Binary Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

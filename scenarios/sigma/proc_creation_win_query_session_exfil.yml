@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_query_session_exfil
+description: |
+  Detects usage of "query.exe" a system binary to exfil information such as "sessions" and "processes" for later use
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith ':\\Windows\\System32\\query.exe' && (evt.Parsed.CommandLine contains 'session >' || evt.Parsed.CommandLine contains 'process >'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Query Usage To Exfil Data"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

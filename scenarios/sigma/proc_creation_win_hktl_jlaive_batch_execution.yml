@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_hktl_jlaive_batch_execution
+description: |
+  Detects the use of Jlaive to execute assemblies in a copied PowerShell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\cmd.exe' && evt.Parsed.ParentCommandLine endsWith '.bat' && (evt.Parsed.Image endsWith '\\xcopy.exe' && evt.Parsed.CommandLine contains 'powershell.exe' && evt.Parsed.CommandLine contains '.bat.exe' || evt.Parsed.Image endsWith '\\xcopy.exe' && evt.Parsed.CommandLine contains 'pwsh.exe' && evt.Parsed.CommandLine contains '.bat.exe' || evt.Parsed.Image endsWith '\\attrib.exe' && evt.Parsed.CommandLine contains '+s' && evt.Parsed.CommandLine contains '+h' && evt.Parsed.CommandLine contains '.bat.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059.003
+
+  label: "HackTool - Jlaive In-Memory Assembly Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

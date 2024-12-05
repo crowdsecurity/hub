@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_fltmc_unload_driver
+description: |
+  Detect filter driver unloading activity via fltmc.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\fltMC.exe' || evt.Parsed.OriginalFileName == 'fltMC.exe') && evt.Parsed.CommandLine contains 'unload' && not (evt.Parsed.CommandLine endsWith 'unload rtp_filesystem_filter'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1070
+#  - attack.t1562
+#  - attack.t1562.002
+
+  label: "Filter Driver Unloaded Via Fltmc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

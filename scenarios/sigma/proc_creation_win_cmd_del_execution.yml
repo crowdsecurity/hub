@@ -1,0 +1,27 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_del_execution
+description: |
+  Detects execution of the builtin "del"/"erase" commands in order to delete files.
+  Adversaries may delete files left behind by the actions of their intrusion activity.
+  Malware, tools, or other non-native files dropped or created on a system by an adversary may leave traces to indicate to what was done within a network and how.
+  Removal of these files can occur during an intrusion, or as part of a post-intrusion process to minimize the adversary's footprint.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && (evt.Parsed.CommandLine contains 'del ' || evt.Parsed.CommandLine contains 'erase ') && (evt.Parsed.CommandLine contains ' /f' || evt.Parsed.CommandLine contains ' /s' || evt.Parsed.CommandLine contains ' /q'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1070.004
+
+  label: "File Deletion Via Del"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

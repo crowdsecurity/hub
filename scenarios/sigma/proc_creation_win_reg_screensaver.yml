@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_reg_screensaver
+description: |
+  Adversaries may establish persistence by executing malicious content triggered by user inactivity.
+  Screensavers are programs that execute after a configurable time of user inactivity and consist of Portable Executable (PE) files with a .scr file extension
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\reg.exe' && (evt.Parsed.CommandLine contains 'HKEY_CURRENT_USER\\Control Panel\\Desktop' || evt.Parsed.CommandLine contains 'HKCU\\Control Panel\\Desktop') && (evt.Parsed.CommandLine contains '/v ScreenSaveActive' && evt.Parsed.CommandLine contains '/t REG_SZ' && evt.Parsed.CommandLine contains '/d 1' && evt.Parsed.CommandLine contains '/f' || evt.Parsed.CommandLine contains '/v ScreenSaveTimeout' && evt.Parsed.CommandLine contains '/t REG_SZ' && evt.Parsed.CommandLine contains '/d ' && evt.Parsed.CommandLine contains '/f' || evt.Parsed.CommandLine contains '/v ScreenSaverIsSecure' && evt.Parsed.CommandLine contains '/t REG_SZ' && evt.Parsed.CommandLine contains '/d 0' && evt.Parsed.CommandLine contains '/f' || evt.Parsed.CommandLine contains '/v SCRNSAVE.EXE' && evt.Parsed.CommandLine contains '/t REG_SZ' && evt.Parsed.CommandLine contains '/d ' && evt.Parsed.CommandLine contains '.scr' && evt.Parsed.CommandLine contains '/f'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1546.002
+
+  label: "Suspicious ScreenSave Change by Reg.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_http_appdata
+description: |
+  Detects a suspicious command line execution that includes an URL and AppData string in the command line parameters as used by several droppers (js/vbs > powershell)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'http' && evt.Parsed.CommandLine contains '://' && evt.Parsed.CommandLine contains '%AppData%')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.003
+#  - attack.t1059.001
+#  - attack.t1105
+
+  label: "Command Line Execution with Suspicious URL and AppData Strings"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

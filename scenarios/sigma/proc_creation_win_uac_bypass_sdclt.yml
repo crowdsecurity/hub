@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_uac_bypass_sdclt
+description: |
+  A General detection for sdclt being spawned as an elevated process. This could be an indicator of sdclt being used for bypass UAC techniques.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith 'sdclt.exe' && evt.Parsed.IntegrityLevel == 'High')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1548.002
+
+  label: "Potential UAC Bypass Via Sdclt.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

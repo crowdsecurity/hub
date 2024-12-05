@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_iis_appcmd_susp_module_install
+description: |
+  Detects suspicious IIS native-code module installations via command line
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\appcmd.exe' || evt.Parsed.OriginalFileName == 'appcmd.exe') && evt.Parsed.CommandLine contains 'install' && evt.Parsed.CommandLine contains 'module' && (evt.Parsed.CommandLine contains '/name:' || evt.Parsed.CommandLine contains '-name:') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\inetsrv\\iissetup.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1505.003
+
+  label: "IIS Native-Code Module Command Line Installation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

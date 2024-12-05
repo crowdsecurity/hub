@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_ntfs_short_name_use_cli
+description: |
+  Detect use of the Windows 8.3 short name. Which could be used as a method to avoid command-line detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '~1.exe' || evt.Parsed.CommandLine contains '~1.bat' || evt.Parsed.CommandLine contains '~1.msi' || evt.Parsed.CommandLine contains '~1.vbe' || evt.Parsed.CommandLine contains '~1.vbs' || evt.Parsed.CommandLine contains '~1.dll' || evt.Parsed.CommandLine contains '~1.ps1' || evt.Parsed.CommandLine contains '~1.js' || evt.Parsed.CommandLine contains '~1.hta' || evt.Parsed.CommandLine contains '~2.exe' || evt.Parsed.CommandLine contains '~2.bat' || evt.Parsed.CommandLine contains '~2.msi' || evt.Parsed.CommandLine contains '~2.vbe' || evt.Parsed.CommandLine contains '~2.vbs' || evt.Parsed.CommandLine contains '~2.dll' || evt.Parsed.CommandLine contains '~2.ps1' || evt.Parsed.CommandLine contains '~2.js' || evt.Parsed.CommandLine contains '~2.hta') && not (evt.Parsed.ParentImage endsWith '\\WebEx\\WebexHost.exe' || evt.Parsed.ParentImage endsWith '\\thor\\thor64.exe' || evt.Parsed.CommandLine contains 'C:\\xampp\\vcredist\\VCREDI~1.EXE'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1564.004
+
+  label: "Use NTFS Short Name in Command Line"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

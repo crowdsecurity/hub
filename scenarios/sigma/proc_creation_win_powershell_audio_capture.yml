@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_audio_capture
+description: |
+  Detects audio capture via PowerShell Cmdlet.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'WindowsAudioDevice-Powershell-Cmdlet' || evt.Parsed.CommandLine contains 'Toggle-AudioDevice' || evt.Parsed.CommandLine contains 'Get-AudioDevice ' || evt.Parsed.CommandLine contains 'Set-AudioDevice ' || evt.Parsed.CommandLine contains 'Write-AudioDevice ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1123
+
+  label: "Audio Capture via PowerShell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_susp_driver_installed_by_pnputil
+description: |
+  Detects when a possible suspicious driver is being installed via pnputil.exe lolbin
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '-i' || evt.Parsed.CommandLine contains '/install' || evt.Parsed.CommandLine contains '-a' || evt.Parsed.CommandLine contains '/add-driver' || evt.Parsed.CommandLine contains '.inf') && evt.Parsed.Image endsWith '\\pnputil.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1547
+
+  label: "Suspicious Driver Install by pnputil.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

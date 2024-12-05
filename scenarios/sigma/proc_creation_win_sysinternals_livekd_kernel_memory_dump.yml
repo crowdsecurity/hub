@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_livekd_kernel_memory_dump
+description: |
+  Detects execution of LiveKD with the "-m" flag to potentially dump the kernel memory
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\livekd.exe' || evt.Parsed.Image endsWith '\\livekd64.exe' || evt.Parsed.OriginalFileName == 'livekd.exe') && evt.Parsed.CommandLine contains ' /m' && evt.Parsed.CommandLine contains ' -m')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Kernel Memory Dump Via LiveKD"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

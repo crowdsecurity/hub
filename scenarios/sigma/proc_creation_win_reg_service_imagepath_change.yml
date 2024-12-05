@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_reg_service_imagepath_change
+description: |
+  Adversaries may execute their own malicious payloads by hijacking the Registry entries used by services.
+  Adversaries may use flaws in the permissions for registry to redirect from the originally specified executable to one that they control, in order to launch their own code at Service start.
+  Windows stores local service configuration information in the Registry under HKLM\SYSTEM\CurrentControlSet\Services
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\reg.exe' && evt.Parsed.CommandLine contains 'add ' && evt.Parsed.CommandLine contains 'SYSTEM\\CurrentControlSet\\Services\\' && evt.Parsed.CommandLine contains ' ImagePath ' && (evt.Parsed.CommandLine contains ' /d ' || evt.Parsed.CommandLine contains ' -d '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1574.011
+
+  label: "Changing Existing Service ImagePath Value Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

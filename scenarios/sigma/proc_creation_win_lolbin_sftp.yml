@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_sftp
+description: |
+  Detects the usage of the "sftp.exe" binary as a LOLBIN by abusing the "-D" flag
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sftp.exe' && (evt.Parsed.CommandLine contains ' -D ..' || evt.Parsed.CommandLine contains ' -D C:\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Use Of The SFTP.EXE Binary As A LOLBIN"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

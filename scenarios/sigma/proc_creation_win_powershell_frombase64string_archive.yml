@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_frombase64string_archive
+description: |
+  Detects attempts of decoding a base64 Gzip archive via PowerShell. This technique is often used as a method to load malicious content into memory afterward.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'FromBase64String' && evt.Parsed.CommandLine contains 'MemoryStream' && evt.Parsed.CommandLine contains 'H4sI')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious FromBase64String Usage On Gzip Archive - Process Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

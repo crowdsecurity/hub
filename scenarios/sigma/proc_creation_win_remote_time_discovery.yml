@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_remote_time_discovery
+description: |
+  Identifies use of various commands to query a systems time. This technique may be used before executing a scheduled task or to discover the time zone of a target system.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe') && evt.Parsed.CommandLine contains 'time' || evt.Parsed.Image endsWith '\\w32tm.exe' && evt.Parsed.CommandLine contains 'tz')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1124
+
+  label: "Discovery of a System Time"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

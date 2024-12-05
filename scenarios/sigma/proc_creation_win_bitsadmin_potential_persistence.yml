@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_bitsadmin_potential_persistence
+description: |
+  BITS will allow you to schedule a command to execute after a successful download to notify you that the job is finished. When the job runs on the system the command specified in the BITS job will be executed. This can be abused by actors to create a backdoor within the system and for persistence. It will be chained in a BITS job to schedule the download of malware/additional binaries and execute the program after being downloaded
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'bitsadmin' && evt.Parsed.CommandLine contains '/SetNotifyCmdLine' && (evt.Parsed.CommandLine contains '%COMSPEC%' || evt.Parsed.CommandLine contains 'cmd.exe' || evt.Parsed.CommandLine contains 'regsvr32.exe') || evt.Parsed.CommandLine contains 'bitsadmin' && evt.Parsed.CommandLine contains '/Addfile' && (evt.Parsed.CommandLine contains 'http:' || evt.Parsed.CommandLine contains 'https:' || evt.Parsed.CommandLine contains 'ftp:' || evt.Parsed.CommandLine contains 'ftps:'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1197
+
+  label: "Monitoring For Persistence Via BITS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

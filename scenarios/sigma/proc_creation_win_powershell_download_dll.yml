@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_download_dll
+description: |
+  Detects potential DLL files being downloaded using the PowerShell Invoke-WebRequest cmdlet
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'Invoke-WebRequest ' || evt.Parsed.CommandLine contains 'IWR ') && evt.Parsed.CommandLine contains 'http' && evt.Parsed.CommandLine contains 'OutFile' && evt.Parsed.CommandLine contains '.dll')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential DLL File Download Via PowerShell Invoke-WebRequest"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_susp_copy_lateral_movement
+description: |
+  Detects a suspicious copy command to or from an Admin share or remote
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '\\\\' && evt.Parsed.CommandLine contains '$' || evt.Parsed.CommandLine contains '\\Sysvol\\') && (evt.Parsed.Image endsWith '\\robocopy.exe' || evt.Parsed.Image endsWith '\\xcopy.exe' || evt.Parsed.OriginalFileName == 'robocopy.exe' || evt.Parsed.OriginalFileName == 'XCOPY.EXE' || (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && evt.Parsed.CommandLine contains 'copy' || (evt.Parsed.Image contains '\\powershell.exe' || evt.Parsed.Image contains '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && (evt.Parsed.CommandLine contains 'copy-item' || evt.Parsed.CommandLine contains 'copy ' || evt.Parsed.CommandLine contains 'cpi ' || evt.Parsed.CommandLine contains ' cp ' || evt.Parsed.CommandLine contains 'move ' || evt.Parsed.CommandLine contains 'move-item' || evt.Parsed.CommandLine contains ' mi ' || evt.Parsed.CommandLine contains ' mv ')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1039
+#  - attack.t1048
+#  - attack.t1021.002
+
+  label: "Copy from Admin Share"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

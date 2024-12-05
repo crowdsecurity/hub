@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_rundll32_script_run
+description: |
+  Detects suspicious process related to rundll32 based on arguments
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'rundll32' && (evt.Parsed.CommandLine contains 'mshtml,RunHTMLApplication' || evt.Parsed.CommandLine contains 'mshtml,#135') && (evt.Parsed.CommandLine contains 'javascript:' || evt.Parsed.CommandLine contains 'vbscript:'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.011
+
+  label: "Suspicious Rundll32 Script in CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

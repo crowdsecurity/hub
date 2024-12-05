@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_ntdsutil_susp_usage
+description: |
+  Detects execution of ntdsutil.exe to perform different actions such as restoring snapshots...etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ntdsutil.exe' || evt.Parsed.OriginalFileName == 'ntdsutil.exe') && (evt.Parsed.CommandLine contains 'snapshot' && evt.Parsed.CommandLine contains 'mount ' || evt.Parsed.CommandLine contains 'ac' && evt.Parsed.CommandLine contains ' i' && evt.Parsed.CommandLine contains ' ntds'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1003.003
+
+  label: "Suspicious Usage Of Active Directory Diagnostic Tool (ntdsutil.exe)"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

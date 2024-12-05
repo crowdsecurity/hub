@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmi_persistence_script_event_consumer
+description: |
+  Detects WMI script event consumers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image == 'C:\\WINDOWS\\system32\\wbem\\scrcons.exe' && evt.Parsed.ParentImage == 'C:\\Windows\\System32\\svchost.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1546.003
+
+  label: "WMI Persistence - Script Event Consumer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

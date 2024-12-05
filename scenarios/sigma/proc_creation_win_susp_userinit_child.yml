@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_userinit_child
+description: |
+  Detects a suspicious child process of userinit
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\userinit.exe' && not (evt.Parsed.CommandLine contains '\\netlogon\\' || evt.Parsed.Image endsWith '\\explorer.exe' || evt.Parsed.OriginalFileName == 'explorer.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1055
+
+  label: "Suspicious Userinit Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

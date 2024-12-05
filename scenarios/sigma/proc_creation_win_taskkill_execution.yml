@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_taskkill_execution
+description: |
+  Adversaries may stop services or processes in order to conduct Data Destruction or Data Encrypted for Impact on the data stores of services like Exchange and SQL Server.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\taskkill.exe' || evt.Parsed.OriginalFileName == 'taskkill.exe') && evt.Parsed.CommandLine contains ' /f' && evt.Parsed.CommandLine contains ' /im ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1489
+
+  label: "Suspicious Execution of Taskkill"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_ssh_port_forward
+description: |
+  Detects suspicious SSH tunnel port forwarding to a local port
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ssh.exe' && evt.Parsed.CommandLine contains ' -R ')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1572
+#  - attack.t1021.001
+#  - attack.t1021.004
+
+  label: "Port Forwarding Attempt Via SSH"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

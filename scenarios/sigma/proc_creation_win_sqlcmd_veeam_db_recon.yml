@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sqlcmd_veeam_db_recon
+description: |
+  Detects potentially suspicious SQL queries using SQLCmd targeting the Veeam backup databases in order to steal information.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sqlcmd.exe' && evt.Parsed.CommandLine contains 'VeeamBackup' && evt.Parsed.CommandLine contains 'From ' && (evt.Parsed.CommandLine contains 'BackupRepositories' || evt.Parsed.CommandLine contains 'Backups' || evt.Parsed.CommandLine contains 'Credentials' || evt.Parsed.CommandLine contains 'HostCreds' || evt.Parsed.CommandLine contains 'SmbFileShares' || evt.Parsed.CommandLine contains 'Ssh_creds' || evt.Parsed.CommandLine contains 'VSphereInfo'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1005
+
+  label: "Veeam Backup Database Suspicious Query"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

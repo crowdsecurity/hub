@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pua_nmap_zenmap
+description: |
+  Detects usage of namp/zenmap. Adversaries may attempt to get a listing of services running on remote hosts, including those that may be vulnerable to remote software exploitation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\nmap.exe' || evt.Parsed.Image endsWith '\\zennmap.exe' || evt.Parsed.OriginalFileName == 'nmap.exe' || evt.Parsed.OriginalFileName == 'zennmap.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1046
+
+  label: "PUA - Nmap/Zenmap Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

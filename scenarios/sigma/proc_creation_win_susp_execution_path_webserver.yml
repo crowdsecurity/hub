@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_execution_path_webserver
+description: |
+  Detects a suspicious program execution in a web service root folder (filter out false positives)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\wwwroot\\' || evt.Parsed.Image contains '\\wmpub\\' || evt.Parsed.Image contains '\\htdocs\\') && not ((evt.Parsed.Image contains 'bin\\' || evt.Parsed.Image contains '\\Tools\\' || evt.Parsed.Image contains '\\SMSComponent\\') && evt.Parsed.ParentImage endsWith '\\services.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1505.003
+
+  label: "Execution in Webserver Root Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_invoke_webrequest_download
+description: |
+  Detects a suspicious call to Invoke-WebRequest cmdlet where the and output is located in a suspicious location
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && (evt.Parsed.CommandLine contains 'curl ' || evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'wget ') && (evt.Parsed.CommandLine contains ' -ur' || evt.Parsed.CommandLine contains ' -o') && (evt.Parsed.CommandLine contains '\\AppData\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Temp\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '%AppData%' || evt.Parsed.CommandLine contains '%Public%' || evt.Parsed.CommandLine contains '%Temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains 'C:\\Windows\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1105
+
+  label: "Suspicious Invoke-WebRequest Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

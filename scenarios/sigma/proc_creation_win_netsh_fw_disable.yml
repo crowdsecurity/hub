@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_fw_disable
+description: |
+  Detects netsh commands that turns off the Windows firewall
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && (evt.Parsed.CommandLine contains 'firewall' && evt.Parsed.CommandLine contains 'set' && evt.Parsed.CommandLine contains 'opmode' && evt.Parsed.CommandLine contains 'disable' || evt.Parsed.CommandLine contains 'advfirewall' && evt.Parsed.CommandLine contains 'set' && evt.Parsed.CommandLine contains 'state' && evt.Parsed.CommandLine contains 'off'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1562.004
+
+  label: "Firewall Disabled via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

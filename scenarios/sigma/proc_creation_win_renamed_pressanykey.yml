@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_renamed_pressanykey
+description: |
+  Detects renamed execution of "Microsoft.NodejsTools.PressAnyKey.exe", which can be abused as a LOLBIN to execute arbitrary binaries
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'Microsoft.NodejsTools.PressAnyKey.exe' && not (evt.Parsed.Image endsWith '\\Microsoft.NodejsTools.PressAnyKey.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Visual Studio NodejsTools PressAnyKey Renamed Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

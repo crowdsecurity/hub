@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_takeown_recursive_own
+description: |
+  Adversaries can interact with the DACLs using built-in Windows commands takeown which can grant adversaries higher permissions on specific files and folders
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\takeown.exe' && evt.Parsed.CommandLine contains '/f ' && evt.Parsed.CommandLine contains '/r')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1222.001
+
+  label: "Suspicious Recursive Takeown"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

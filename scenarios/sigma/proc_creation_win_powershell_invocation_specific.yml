@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_invocation_specific
+description: |
+  Detects suspicious PowerShell invocation command parameters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '-nop' && evt.Parsed.CommandLine contains ' -w ' && evt.Parsed.CommandLine contains 'hidden' && evt.Parsed.CommandLine contains ' -c ' && evt.Parsed.CommandLine contains '[Convert]::FromBase64String' || evt.Parsed.CommandLine contains ' -w ' && evt.Parsed.CommandLine contains 'hidden' && evt.Parsed.CommandLine contains '-noni' && evt.Parsed.CommandLine contains '-nop' && evt.Parsed.CommandLine contains ' -c ' && evt.Parsed.CommandLine contains 'iex' && evt.Parsed.CommandLine contains 'New-Object' || evt.Parsed.CommandLine contains ' -w ' && evt.Parsed.CommandLine contains 'hidden' && evt.Parsed.CommandLine contains '-ep' && evt.Parsed.CommandLine contains 'bypass' && evt.Parsed.CommandLine contains '-Enc' || evt.Parsed.CommandLine contains 'powershell' && evt.Parsed.CommandLine contains 'reg' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains '\\software\\' || evt.Parsed.CommandLine contains 'bypass' && evt.Parsed.CommandLine contains '-noprofile' && evt.Parsed.CommandLine contains '-windowstyle' && evt.Parsed.CommandLine contains 'hidden' && evt.Parsed.CommandLine contains 'new-object' && evt.Parsed.CommandLine contains 'system.net.webclient' && evt.Parsed.CommandLine contains '.download' || evt.Parsed.CommandLine contains 'iex' && evt.Parsed.CommandLine contains 'New-Object' && evt.Parsed.CommandLine contains 'Net.WebClient' && evt.Parsed.CommandLine contains '.Download') && not (evt.Parsed.CommandLine contains '(New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1' || evt.Parsed.CommandLine contains 'Write-ChocolateyWarning'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious PowerShell Invocations - Specific - ProcessCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_dfsvc_suspicious_child_processes
+description: |
+  Detects potentially suspicious child processes of a ClickOnce deployment application
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage contains '\\AppData\\Local\\Apps\\2.0\\' && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\explorer.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\werfault.exe' || evt.Parsed.Image endsWith '\\wscript.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potentially Suspicious Child Process Of ClickOnce Application"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

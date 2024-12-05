@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_compression_params
+description: |
+  Detects suspicious command line arguments of common data compression tools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((Match('7z.exe', evt.Parsed.OriginalFileName) || evt.Parsed.OriginalFileName endsWith 'rar.exe' || Match('CommandLineRAR', evt.Parsed.OriginalFileName)) && (evt.Parsed.CommandLine contains ' -p' || evt.Parsed.CommandLine contains ' -ta' || evt.Parsed.CommandLine contains ' -tb' || evt.Parsed.CommandLine contains ' -sdel' || evt.Parsed.CommandLine contains ' -dw' || evt.Parsed.CommandLine contains ' -hp') && not (evt.Parsed.ParentImage startsWith 'C:\\Program'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1560.001
+
+  label: "Suspicious Compression Tool Parameters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

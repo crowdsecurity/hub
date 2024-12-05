@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_findstr_lsass
+description: |
+  Detects findstring commands that include the keyword lsass, which indicates recon actviity for the LSASS process PID
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.OriginalFileName == 'FINDSTR.EXE') && evt.Parsed.CommandLine contains 'lsass' || evt.Parsed.CommandLine contains ' /i lsass.exe' || evt.Parsed.CommandLine contains ' /i "lsass' || evt.Parsed.CommandLine contains 'findstr lsass' || evt.Parsed.CommandLine contains 'findstr.exe lsass' || evt.Parsed.CommandLine contains 'findstr "lsass' || evt.Parsed.CommandLine contains 'findstr.exe "lsass')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1552.006
+
+  label: "Findstr LSASS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

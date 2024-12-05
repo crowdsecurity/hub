@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pressanykey_lolbin_execution
+description: |
+  Detects child processes of Microsoft.NodejsTools.PressAnyKey.exe that can be used to execute any other binary
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\Microsoft.NodejsTools.PressAnyKey.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Visual Studio NodejsTools PressAnyKey Arbitrary Binary Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

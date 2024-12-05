@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_susp_network_scan_loop
+description: |
+  Adversaries may attempt to get a listing of other systems by IP address, hostname, or other logical identifier on a network that may be used for Lateral Movement from the current system
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'for ' || evt.Parsed.CommandLine contains 'foreach ') && (evt.Parsed.CommandLine contains 'nslookup' || evt.Parsed.CommandLine contains 'ping'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+#  - attack.t1018
+
+  label: "Suspicious Scan Loop Network"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

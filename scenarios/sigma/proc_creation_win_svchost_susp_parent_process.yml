@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_svchost_susp_parent_process
+description: |
+  Detects a suspicious svchost process start
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\svchost.exe' && not (evt.Parsed.ParentImage endsWith '\\services.exe' || evt.Parsed.ParentImage endsWith '\\MsMpEng.exe' || evt.Parsed.ParentImage endsWith '\\Mrt.exe' || evt.Parsed.ParentImage endsWith '\\rpcnet.exe' || evt.Parsed.ParentImage endsWith '\\ngen.exe' || evt.Parsed.ParentImage endsWith '\\TiWorker.exe' || evt.Parsed.ParentImage == '' || evt.Parsed.ParentImage == '' || evt.Parsed.ParentImage == '-'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1036.005
+
+  label: "Suspicious Svchost Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

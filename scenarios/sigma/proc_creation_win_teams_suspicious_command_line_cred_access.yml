@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_teams_suspicious_command_line_cred_access
+description: |
+  Detects an access to authentication tokens and accounts of Microsoft Teams desktop application.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '\\Microsoft\\Teams\\Cookies' || evt.Parsed.CommandLine contains '\\Microsoft\\Teams\\Local Storage\\leveldb') && not (evt.Parsed.Image endsWith '\\Microsoft\\Teams\\current\\Teams.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1528
+
+  label: "Suspicious Command With Teams Objects Paths"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

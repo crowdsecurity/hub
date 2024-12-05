@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_lolbin_visualuiaverifynative
+description: |
+  VisualUiaVerifyNative.exe is a Windows SDK that can be used for AWL bypass and is listed in Microsoft's recommended block rules.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\VisualUiaVerifyNative.exe' || evt.Parsed.OriginalFileName == 'VisualUiaVerifyNative.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Use of VisualUiaVerifyNative.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

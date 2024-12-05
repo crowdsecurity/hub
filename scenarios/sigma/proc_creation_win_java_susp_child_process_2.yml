@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_java_susp_child_process_2
+description: |
+  Detects shell spawned from Java host process, which could be a sign of exploitation (e.g. log4j exploitation)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\java.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && not (evt.Parsed.ParentImage contains 'build' && evt.Parsed.CommandLine contains 'build'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Shells Spawned by Java"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

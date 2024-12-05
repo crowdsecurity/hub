@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regini_execution
+description: |
+  Detects the execution of regini.exe which can be used to modify registry keys, the changes are imported from one or more text files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regini.exe' || evt.Parsed.OriginalFileName == 'REGINI.EXE') && not (evt.Parsed.CommandLine matches ':[^ \\\\]'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1112
+
+  label: "Registry Modification Via Regini.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

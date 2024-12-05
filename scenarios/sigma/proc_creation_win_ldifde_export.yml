@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_ldifde_export
+description: |
+  Detects the execution of "ldifde.exe" in order to export organizational Active Directory structure.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ldifde.exe' || evt.Parsed.OriginalFileName == 'ldifde.exe') && evt.Parsed.CommandLine contains '-f' && not (evt.Parsed.CommandLine contains ' -i'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Active Directory Structure Export Via Ldifde.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

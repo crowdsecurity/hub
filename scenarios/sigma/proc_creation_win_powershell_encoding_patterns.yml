@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_encoding_patterns
+description: |
+  Detects specific combinations of encoding methods in PowerShell via the commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'PowerShell.EXE' || evt.Parsed.OriginalFileName == 'pwsh.dll') && ((evt.Parsed.CommandLine contains 'ToInt' || evt.Parsed.CommandLine contains 'ToDecimal' || evt.Parsed.CommandLine contains 'ToByte' || evt.Parsed.CommandLine contains 'ToUint' || evt.Parsed.CommandLine contains 'ToSingle' || evt.Parsed.CommandLine contains 'ToSByte') && (evt.Parsed.CommandLine contains 'ToChar' || evt.Parsed.CommandLine contains 'ToString' || evt.Parsed.CommandLine contains 'String') || evt.Parsed.CommandLine contains 'char' && evt.Parsed.CommandLine contains 'join' || evt.Parsed.CommandLine contains 'split' && evt.Parsed.CommandLine contains 'join'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1027
+#  - attack.t1059.001
+
+  label: "Potential Encoded PowerShell Patterns In CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_uninstall_application
+description: |
+  Uninstall an application with wmic
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\WMIC.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && (evt.Parsed.CommandLine contains 'call' || evt.Parsed.CommandLine contains 'uninstall'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Application Removed Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

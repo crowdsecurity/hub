@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_cloudflared_tunnel_run
+description: |
+  Detects execution of the "cloudflared" tool to connect back to a tunnel. This was seen used by threat actors to maintain persistence and remote access to compromised networks.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' tunnel ' && evt.Parsed.CommandLine contains ' run ' && (evt.Parsed.CommandLine contains ' --config ' || evt.Parsed.CommandLine contains ' --credentials-contents ' || evt.Parsed.CommandLine contains ' --credentials-file ' || evt.Parsed.CommandLine contains ' --token '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1102
+#  - attack.t1090
+#  - attack.t1572
+
+  label: "Cloudflared Tunnel Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

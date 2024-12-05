@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_exec_data_file
+description: |
+  Detects inline execution of PowerShell code from a file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'iex ' || evt.Parsed.CommandLine contains 'Invoke-Expression ' || evt.Parsed.CommandLine contains 'Invoke-Command ' || evt.Parsed.CommandLine contains 'icm ') && (evt.Parsed.CommandLine contains 'cat ' || evt.Parsed.CommandLine contains 'get-content ' || evt.Parsed.CommandLine contains 'type ') && evt.Parsed.CommandLine contains ' -raw')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Powershell Inline Execution From A File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

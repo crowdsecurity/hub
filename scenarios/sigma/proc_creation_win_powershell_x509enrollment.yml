@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_x509enrollment
+description: |
+  Detect use of X509Enrollment
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'X509Enrollment.CBinaryConverter' || evt.Parsed.CommandLine contains '884e2002-217d-11da-b2a4-000e7bbb2b09')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious X509Enrollment - Process Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

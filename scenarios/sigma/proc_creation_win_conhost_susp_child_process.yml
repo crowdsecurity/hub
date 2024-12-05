@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_conhost_susp_child_process
+description: |
+  Detects uncommon "conhost" child processes. This could be a sign of "conhost" usage as a LOLBIN or potential process injection activity.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\conhost.exe' && not (evt.Parsed.ProviderName == 'SystemTraceProvider-Process' || evt.Parsed.ProviderName == 'Microsoft-Windows-Kernel-Process' && evt.Parsed.Image endsWith '\\git.exe' && (evt.Parsed.ParentCommandLine contains ' show --textconv ' || evt.Parsed.ParentCommandLine contains ' cat-file -s ') || evt.Parsed.ParentCommandLine contains 'C:\\WINDOWS\\system32\\conhost.exe 0x4' && (evt.Parsed.CommandLine contains ' show --textconv ' || evt.Parsed.CommandLine contains ' cat-file -s ') || evt.Parsed.ProviderName == 'Microsoft-Windows-Kernel-Process' && (evt.Parsed.ParentCommandLine contains ' cat-file -s ' || evt.Parsed.ParentCommandLine contains 'show --textconv') && evt.Parsed.Image == 'C:\\Windows\\System32\\conhost.exe' || (evt.Parsed.ParentCommandLine == '\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4' || evt.Parsed.ParentCommandLine == '\\??\\C:\\WINDOWS\\system32\\conhost.exe 0xffffffff -ForceV1') && evt.Parsed.Image == 'C:\\Windows\\System32\\conhost.exe' || (evt.Parsed.ParentCommandLine == '\\??\\C:\\WINDOWS\\system32\\conhost.exe 0xffffffff -ForceV1\'' || evt.Parsed.ParentCommandLine == '\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4\'') && evt.Parsed.Image == 'C:\\Program Files\\Git\\mingw64\\bin\\git.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Uncommon Child Process Of Conhost.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

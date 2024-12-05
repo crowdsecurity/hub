@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_winget_local_install_via_manifest
+description: |
+  Detects usage of winget to install applications via manifest file. Adversaries can abuse winget to download payloads remotely and execute them.
+  The manifest option enables you to install an application by passing in a YAML file directly to the client.
+  Winget can be used to download and install exe, msi or msix files later.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\winget.exe' || evt.Parsed.OriginalFileName == 'winget.exe') && (evt.Parsed.CommandLine contains 'install' || evt.Parsed.CommandLine contains ' add ') && (evt.Parsed.CommandLine contains '-m ' || evt.Parsed.CommandLine contains '--manifest'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Install New Package Via Winget Local Manifest"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

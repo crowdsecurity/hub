@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_sndvol_susp_child_processes
+description: |
+  Detects potentially uncommon child processes of SndVol.exe (the Windows volume mixer)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\SndVol.exe' && not (evt.Parsed.Image endsWith '\\rundll32.exe' && evt.Parsed.CommandLine contains ' shell32.dll,Control_RunDLL '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Uncommon Child Processes Of SndVol.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

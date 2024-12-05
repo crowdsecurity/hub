@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_php_inline_command_execution
+description: |
+  Detects execution of php using the "-r" flag. This is could be used as a way to launch a reverse shell or execute live php code.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\php.exe' || evt.Parsed.OriginalFileName == 'php.exe') && evt.Parsed.CommandLine contains ' -r')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1059
+
+  label: "Php Inline Command Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

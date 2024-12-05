@@ -1,0 +1,27 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_group
+description: |
+  Detects the execution of "wmic" with the "group" flag.
+  Adversaries may attempt to find local system groups and permission settings.
+  The knowledge of local system permission groups can help adversaries determine which groups exist and which users belong to a particular group.
+  Adversaries may use this information to determine which users have elevated permissions, such as the users found within the local administrators group.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains ' group')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1069.001
+
+  label: "Local Groups Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

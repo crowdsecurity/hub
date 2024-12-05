@@ -1,0 +1,32 @@
+type: trigger
+name: sigma/proc_creation_win_net_susp_execution
+description: |
+  Detects execution of Net.exe, whether suspicious or benign.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName == 'net.exe' || evt.Parsed.OriginalFileName == 'net1.exe') && (evt.Parsed.CommandLine contains ' group' || evt.Parsed.CommandLine contains ' localgroup' || evt.Parsed.CommandLine contains ' user' || evt.Parsed.CommandLine contains ' view' || evt.Parsed.CommandLine contains ' share' || evt.Parsed.CommandLine contains ' accounts' || evt.Parsed.CommandLine contains ' stop ' || evt.Parsed.CommandLine contains ' start'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1007
+#  - attack.t1049
+#  - attack.t1018
+#  - attack.t1135
+#  - attack.t1201
+#  - attack.t1069.001
+#  - attack.t1069.002
+#  - attack.t1087.001
+#  - attack.t1087.002
+#  - attack.t1021.002
+
+  label: "Net.exe Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

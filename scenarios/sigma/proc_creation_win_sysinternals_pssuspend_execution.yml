@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_pssuspend_execution
+description: |
+  Detects usage of Sysinternals PsSuspend which can be abused to suspend critical processes
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'pssuspend.exe' || evt.Parsed.Image endsWith '\\pssuspend.exe' || evt.Parsed.Image endsWith '\\pssuspend64.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1543.003
+
+  label: "Sysinternals PsSuspend Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

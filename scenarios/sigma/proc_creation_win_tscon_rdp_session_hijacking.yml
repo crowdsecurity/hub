@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_tscon_rdp_session_hijacking
+description: |
+  Detects potential RDP Session Hijacking activity on Windows systems
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\tscon.exe' || evt.Parsed.OriginalFileName == 'tscon.exe') && evt.Parsed.IntegrityLevel == 'SYSTEM')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential RDP Session Hijacking Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

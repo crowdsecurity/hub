@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_susp_web_request_cmd_and_cmdlets
+description: |
+  Detects the use of various web request commands with commandline tools and Windows PowerShell cmdlets (including aliases) via CommandLine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '[System.Net.WebRequest]::create' || evt.Parsed.CommandLine contains 'curl ' || evt.Parsed.CommandLine contains 'Invoke-RestMethod' || evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'Net.WebClient' || evt.Parsed.CommandLine contains 'Resume-BitsTransfer' || evt.Parsed.CommandLine contains 'Start-BitsTransfer' || evt.Parsed.CommandLine contains 'wget ' || evt.Parsed.CommandLine contains 'WinHttp.WinHttpRequest')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Usage Of Web Request Commands And Cmdlets"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

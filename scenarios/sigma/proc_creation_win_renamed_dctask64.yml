@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_renamed_dctask64
+description: |
+  Detects a renamed dctask64.exe used for process injection, command execution, process creation with a signed binary by ZOHO Corporation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Hashes contains '6834B1B94E49701D77CCB3C0895E1AFD' && not (evt.Parsed.Image endsWith '\\dctask64.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1036
+#  - attack.t1055.001
+#  - attack.t1202
+#  - attack.t1218
+
+  label: "Renamed ZOHO Dctask64 Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

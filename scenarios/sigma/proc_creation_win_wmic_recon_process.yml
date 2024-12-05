@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_process
+description: |
+  Detects the execution of "wmic" with the "process" flag, which adversary might use to list processes running on the compromised host or list installed software hotfixes and patches.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\WMIC.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'process' && not (evt.Parsed.CommandLine contains 'call' && evt.Parsed.CommandLine contains 'create'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Process Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

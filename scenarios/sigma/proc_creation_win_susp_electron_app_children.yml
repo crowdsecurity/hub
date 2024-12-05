@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_susp_electron_app_children
+description: |
+  Detects suspicious child processes of electron apps (teams, discord, slack...).
+  This could be a potential sign of ".asar" file tampering (See reference section for more information)
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\Teams.exe' || evt.Parsed.ParentImage endsWith '\\slack.exe' || evt.Parsed.ParentImage endsWith '\\discord.exe') && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe') && not (evt.Parsed.ParentImage endsWith '\\Discord.exe' && evt.Parsed.CommandLine contains '\\NVSMI\\nvidia-smi.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious Electron Application Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_print_remote_file_copy
+description: |
+  Attackers can use print.exe for remote file copy
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\print.exe' && evt.Parsed.CommandLine startsWith 'print' && evt.Parsed.CommandLine contains '/D' && evt.Parsed.CommandLine contains '.exe' && not (evt.Parsed.CommandLine contains 'print.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Abusing Print Executable"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

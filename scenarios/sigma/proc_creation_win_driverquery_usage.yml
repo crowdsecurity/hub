@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_driverquery_usage
+description: |
+  Detect usage of the "driverquery" utility. Which can be used to perform reconnaissance on installed drivers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith 'driverquery.exe' || evt.Parsed.OriginalFileName == 'drvqry.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "DriverQuery.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

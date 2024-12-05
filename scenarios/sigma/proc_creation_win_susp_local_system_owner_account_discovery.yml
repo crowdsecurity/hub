@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_susp_local_system_owner_account_discovery
+description: |
+  Local accounts, System Owner/User discovery using operating systems utilities
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains ' /c' && evt.Parsed.CommandLine contains 'dir ' && evt.Parsed.CommandLine contains '\\Users\\' && not (evt.Parsed.CommandLine contains ' rmdir ') || (evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe') && evt.Parsed.CommandLine contains 'user' && not (evt.Parsed.CommandLine contains '/domain' || evt.Parsed.CommandLine contains '/add' || evt.Parsed.CommandLine contains '/delete' || evt.Parsed.CommandLine contains '/active' || evt.Parsed.CommandLine contains '/expires' || evt.Parsed.CommandLine contains '/passwordreq' || evt.Parsed.CommandLine contains '/scriptpath' || evt.Parsed.CommandLine contains '/times' || evt.Parsed.CommandLine contains '/workstations') || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.Image endsWith '\\quser.exe' || evt.Parsed.Image endsWith '\\qwinsta.exe' || evt.Parsed.Image endsWith '\\wmic.exe' && evt.Parsed.CommandLine contains 'useraccount' && evt.Parsed.CommandLine contains 'get' || evt.Parsed.Image endsWith '\\cmdkey.exe' && evt.Parsed.CommandLine contains ' /l')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1033
+#  - attack.t1087.001
+
+  label: "Local Accounts Discovery"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

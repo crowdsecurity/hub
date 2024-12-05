@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_bcdedit_susp_execution
+description: |
+  Detects potential malicious and unauthorized usage of bcdedit.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bcdedit.exe' || evt.Parsed.OriginalFileName == 'bcdedit.exe') && (evt.Parsed.CommandLine contains 'delete' || evt.Parsed.CommandLine contains 'deletevalue' || evt.Parsed.CommandLine contains 'import' || evt.Parsed.CommandLine contains 'safeboot' || evt.Parsed.CommandLine contains 'network'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1070
+#  - attack.t1542.003
+
+  label: "Potential Ransomware or Unauthorized MBR Tampering Via Bcdedit.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

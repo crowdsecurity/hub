@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_setspn_spn_enumeration
+description: |
+  Detects service principal name (SPN) enumeration used for Kerberoasting
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\setspn.exe' || evt.Parsed.OriginalFileName == 'setspn.exe' || evt.Parsed.Description contains 'Query or reset the computer' && evt.Parsed.Description contains 'SPN attribute') && evt.Parsed.CommandLine contains '-q')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1558.003
+
+  label: "Potential SPN Enumeration Via Setspn.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

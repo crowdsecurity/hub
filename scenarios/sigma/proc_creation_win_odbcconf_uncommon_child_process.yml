@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_odbcconf_uncommon_child_process
+description: |
+  Detects an uncommon child process of "odbcconf.exe" binary which normally shouldn't have any child processes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\odbcconf.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.008
+
+  label: "Uncommon Child Process Spawned By Odbcconf.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

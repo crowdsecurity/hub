@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_gpg4win_susp_usage
+description: |
+  Detects usage of the Gpg4win to decrypt files located in suspicious locations from CLI
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\gpg2.exe' || evt.Parsed.Product == 'GNU Privacy Guard (GnuPG)' || evt.Parsed.Company == 'g10 Code GmbH') && evt.Parsed.CommandLine contains '-passphrase' && (evt.Parsed.CommandLine contains '\\AppData\\Roaming\\' || evt.Parsed.CommandLine contains 'C:\\Perflogs\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\' || evt.Parsed.CommandLine contains 'C:\\temp'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1219
+
+  label: "Gpg4Win Decrypt Files From Suspicious Locations"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

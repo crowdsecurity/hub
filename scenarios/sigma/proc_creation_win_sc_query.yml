@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_sc_query
+description: |
+  Detects execution of "sc.exe" to query information about registered services on the system
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sc.exe' && evt.Parsed.OriginalFileName endsWith 'sc.exe' && evt.Parsed.CommandLine contains ' query')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1007
+
+  label: "SC.EXE Query Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

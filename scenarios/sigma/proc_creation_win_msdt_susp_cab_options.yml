@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_msdt_susp_cab_options
+description: |
+  Detects execution of msdt.exe using the "cab" flag which could indicates suspicious diagcab files with embedded answer files leveraging CVE-2022-30190
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.OriginalFileName == 'msdt.exe') && (evt.Parsed.CommandLine contains ' /cab ' || evt.Parsed.CommandLine contains ' -cab '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Suspicious Cabinet File Execution Via Msdt.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

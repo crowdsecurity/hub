@@ -1,0 +1,24 @@
+type: trigger
+name: sigma/proc_creation_win_bitsadmin_download_file_sharing_domains
+description: |
+  Detects usage of bitsadmin downloading a file from a suspicious domain
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.OriginalFileName == 'bitsadmin.exe') && (evt.Parsed.CommandLine contains ' /transfer ' || evt.Parsed.CommandLine contains ' /create ' || evt.Parsed.CommandLine contains ' /addfile ') && (evt.Parsed.CommandLine contains '.ghostbin.co/' || evt.Parsed.CommandLine contains '.hastebin.com' || evt.Parsed.CommandLine contains '.paste.ee' || evt.Parsed.CommandLine contains 'anonfiles.com' || evt.Parsed.CommandLine contains 'cdn.discordapp.com/attachments/' || evt.Parsed.CommandLine contains 'ddns.net' || evt.Parsed.CommandLine contains 'gist.githubusercontent.com' || evt.Parsed.CommandLine contains 'mediafire.com' || evt.Parsed.CommandLine contains 'mega.nz' || evt.Parsed.CommandLine contains 'paste.ee' || evt.Parsed.CommandLine contains 'pastebin.com' || evt.Parsed.CommandLine contains 'pastebin.pl' || evt.Parsed.CommandLine contains 'pastetext.net' || evt.Parsed.CommandLine contains 'privatlab.com' || evt.Parsed.CommandLine contains 'privatlab.net' || evt.Parsed.CommandLine contains 'raw.githubusercontent.com' || evt.Parsed.CommandLine contains 'send.exploit.in' || evt.Parsed.CommandLine contains 'sendspace.com' || evt.Parsed.CommandLine contains 'storage.googleapis.com' || evt.Parsed.CommandLine contains 'transfer.sh' || evt.Parsed.CommandLine contains 'ufile.io'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1197
+#  - attack.t1036.003
+
+  label: "Suspicious Download From File-Sharing Website Via Bitsadmin"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

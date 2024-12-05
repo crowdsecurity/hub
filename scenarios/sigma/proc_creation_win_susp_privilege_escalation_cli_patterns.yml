@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_privilege_escalation_cli_patterns
+description: |
+  Detects suspicious command line flags that let the user set a target user and command as e.g. seen in PsExec-like tools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' -u system ' || evt.Parsed.CommandLine contains ' --user system ' || evt.Parsed.CommandLine contains ' -u NT' || evt.Parsed.CommandLine contains ' -u "NT' || evt.Parsed.CommandLine contains ' -u \'NT' || evt.Parsed.CommandLine contains ' --system ' || evt.Parsed.CommandLine contains ' -u administrator ') && (evt.Parsed.CommandLine contains ' -c cmd' || evt.Parsed.CommandLine contains ' -c "cmd' || evt.Parsed.CommandLine contains ' -c powershell' || evt.Parsed.CommandLine contains ' -c "powershell' || evt.Parsed.CommandLine contains ' --command cmd' || evt.Parsed.CommandLine contains ' --command powershell' || evt.Parsed.CommandLine contains ' -c whoami' || evt.Parsed.CommandLine contains ' -c wscript' || evt.Parsed.CommandLine contains ' -c cscript'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Suspicious RunAs-Like Flag Combination"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

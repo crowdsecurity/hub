@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_msiexec_install_quiet
+description: |
+  Adversaries may abuse msiexec.exe to proxy execution of malicious payloads.
+  Msiexec.exe is the command-line utility for the Windows Installer and is thus commonly associated with executing installation packages (.msi)
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.OriginalFileName == 'msiexec.exe') && (evt.Parsed.CommandLine contains '/i' || evt.Parsed.CommandLine contains '-i' || evt.Parsed.CommandLine contains '/package' || evt.Parsed.CommandLine contains '-package' || evt.Parsed.CommandLine contains '/a' || evt.Parsed.CommandLine contains '-a' || evt.Parsed.CommandLine contains '/j' || evt.Parsed.CommandLine contains '-j') && (evt.Parsed.CommandLine contains '/q' || evt.Parsed.CommandLine contains '-q') && not (evt.Parsed.ParentImage startsWith 'C:\\Users\\' && evt.Parsed.ParentImage contains '\\AppData\\Local\\Temp\\' || evt.Parsed.ParentImage startsWith 'C:\\Windows\\Temp\\' || evt.Parsed.ParentImage == 'C:\\Windows\\CCM\\Ccm32BitLauncher.exe' && evt.Parsed.IntegrityLevel == 'System'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.007
+
+  label: "Msiexec Quiet Installation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

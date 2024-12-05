@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_soundrecorder_audio_capture
+description: |
+  Detect attacker collecting audio via SoundRecorder application.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SoundRecorder.exe' && evt.Parsed.CommandLine contains '/FILE')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1123
+
+  label: "Audio Capture via SoundRecorder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

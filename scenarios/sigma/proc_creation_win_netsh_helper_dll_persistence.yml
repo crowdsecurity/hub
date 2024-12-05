@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_netsh_helper_dll_persistence
+description: |
+  Detects the execution of netsh with "add helper" flag in order to add a custom helper DLL. This technique can be abused to add a malicious helper DLL that can be used as a persistence proxy that gets called when netsh.exe is executed.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\netsh.exe' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'helper')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1546.007
+
+  label: "Potential Persistence Via Netsh Helper DLL"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

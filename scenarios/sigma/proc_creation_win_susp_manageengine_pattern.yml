@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_susp_manageengine_pattern
+description: |
+  Detects suspicious sub processes started by the Manage Engine ServiceDesk Plus Java web service process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage contains '\\ManageEngine\\ServiceDesk\\' && evt.Parsed.ParentImage contains '\\java.exe' && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\scrcons.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\mftrace.exe' || evt.Parsed.Image endsWith '\\AppVLP.exe' || evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\query.exe') && not ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe') && evt.Parsed.CommandLine contains ' stop'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Manage Engine Java Suspicious Sub Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

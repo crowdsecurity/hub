@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_susp_child_processes
+description: |
+  Detects potentially suspicious child processes spawned by PowerShell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\powershell_ise.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && (evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\hh.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\scrcons.exe' || evt.Parsed.Image endsWith '\\scriptrunner.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\wscript.exe') && not (evt.Parsed.ParentCommandLine contains '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\' && evt.Parsed.CommandLine contains '\\Program Files\\Amazon\\WorkspacesConfig\\Scripts\\'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potentially Suspicious PowerShell Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

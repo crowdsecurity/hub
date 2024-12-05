@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_wmic_recon_csproduct
+description: |
+  Detects the execution of WMIC with the "csproduct" which is used to obtain information such as hardware models and vendor information
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'csproduct')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1047
+
+  label: "Hardware Model Reconnaissance Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

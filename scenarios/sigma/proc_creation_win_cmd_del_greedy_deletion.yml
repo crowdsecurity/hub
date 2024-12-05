@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_cmd_del_greedy_deletion
+description: |
+  Detects execution of the "del" builtin command to remove files using greedy/wildcard expression. This is often used by malware to delete content of folders that perhaps contains the initial malware infection or to delete evidence.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && (evt.Parsed.CommandLine contains 'del ' || evt.Parsed.CommandLine contains 'erase ') && (evt.Parsed.CommandLine contains '\\*.dll' || evt.Parsed.CommandLine contains '\\*.exe'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1070.004
+
+  label: "Greedy File Deletion Using Del"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

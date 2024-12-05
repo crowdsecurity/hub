@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_pua_mouselock_execution
+description: |
+  In Kaspersky's 2020 Incident Response Analyst Report they listed legitimate tool "Mouse Lock" as being used for both credential access and collection in security incidents.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Product contains 'Mouse Lock' || evt.Parsed.Company contains 'Misc314' || evt.Parsed.CommandLine contains 'Mouse Lock_')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1056.002
+
+  label: "PUA - Mouse Lock Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

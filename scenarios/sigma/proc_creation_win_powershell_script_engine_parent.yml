@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_powershell_script_engine_parent
+description: |
+  Detects suspicious powershell invocations from interpreters or unusual programs
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe') && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && not (evt.Parsed.CurrentDirectory contains '\\Health Service State\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+
+  label: "Suspicious PowerShell Invocation From Script Engines"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

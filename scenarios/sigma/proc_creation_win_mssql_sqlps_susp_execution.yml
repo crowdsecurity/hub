@@ -1,0 +1,26 @@
+type: trigger
+name: sigma/proc_creation_win_mssql_sqlps_susp_execution
+description: |
+  This rule detects execution of a PowerShell code through the sqlps.exe utility, which is included in the standard set of utilities supplied with the MSSQL Server.
+  Script blocks are not logged in this case, so this utility helps to bypass protection mechanisms based on the analysis of these logs.
+  
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\sqlps.exe' || (evt.Parsed.Image endsWith '\\sqlps.exe' || evt.Parsed.OriginalFileName == 'sqlps.exe') && not (evt.Parsed.ParentImage endsWith '\\sqlagent.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1059.001
+#  - attack.t1127
+
+  label: "Detection of PowerShell Execution via Sqlps.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

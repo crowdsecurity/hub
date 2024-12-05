@@ -1,0 +1,25 @@
+type: trigger
+name: sigma/proc_creation_win_cloudflared_tunnel_cleanup
+description: |
+  Detects execution of the "cloudflared" tool with the tunnel "cleanup" flag in order to cleanup tunnel connections.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' tunnel ' && evt.Parsed.CommandLine contains 'cleanup ' && (evt.Parsed.CommandLine contains ' --config ' || evt.Parsed.CommandLine contains ' --connector-id '))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1102
+#  - attack.t1090
+#  - attack.t1572
+
+  label: "Cloudflared Tunnel Connections Cleanup"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

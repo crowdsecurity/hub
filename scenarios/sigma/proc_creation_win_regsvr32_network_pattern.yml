@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_regsvr32_network_pattern
+description: |
+  Detects regsvr32 execution to download/install/register new DLLs that are hosted on Web or FTP servers.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && (evt.Parsed.CommandLine contains ' /i' || evt.Parsed.CommandLine contains ' -i') && (evt.Parsed.CommandLine contains 'ftp' || evt.Parsed.CommandLine contains 'http'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218.010
+
+  label: "Potentially Suspicious Regsvr32 HTTP/FTP Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

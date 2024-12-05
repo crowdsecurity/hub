@@ -1,0 +1,22 @@
+type: trigger
+name: sigma/proc_creation_win_sysinternals_livekd_execution
+description: |
+  Detects execution of LiveKD based on PE metadata or image name
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\livekd.exe' || evt.Parsed.Image endsWith '\\livekd64.exe' || evt.Parsed.OriginalFileName == 'livekd.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Potential Memory Dumping Activity Via LiveKD"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

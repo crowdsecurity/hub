@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_ultravnc
+description: |
+  An adversary may use legitimate desktop support and remote access software,to establish an interactive command and control channel to target systems within networks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Description == 'VNCViewer' || evt.Parsed.Product == 'UltraVNC VNCViewer' || evt.Parsed.Company == 'UltraVNC' || evt.Parsed.OriginalFileName == 'VNCViewer.exe')
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1219
+
+  label: "Use of UltraVNC Remote Access Software"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

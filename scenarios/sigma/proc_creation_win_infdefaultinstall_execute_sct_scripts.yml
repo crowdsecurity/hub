@@ -1,0 +1,23 @@
+type: trigger
+name: sigma/proc_creation_win_infdefaultinstall_execute_sct_scripts
+description: |
+  Executes SCT script using scrobj.dll from a command in entered into a specially prepared INF file.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'InfDefaultInstall.exe ' && evt.Parsed.CommandLine contains '.inf')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "InfDefaultInstall.exe .inf Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
