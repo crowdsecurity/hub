@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_hidden_flag
+description: |
+  Detects base64 encoded strings used in hidden malicious PowerShell command lines
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && evt.Parsed.CommandLine contains ' hidden ' && (evt.Parsed.CommandLine contains 'AGkAdABzAGEAZABtAGkAbgAgAC8AdAByAGEAbgBzAGYAZQByA' || evt.Parsed.CommandLine contains 'aXRzYWRtaW4gL3RyYW5zZmVy' || evt.Parsed.CommandLine contains 'IAaQB0AHMAYQBkAG0AaQBuACAALwB0AHIAYQBuAHMAZgBlAHIA' || evt.Parsed.CommandLine contains 'JpdHNhZG1pbiAvdHJhbnNmZX' || evt.Parsed.CommandLine contains 'YgBpAHQAcwBhAGQAbQBpAG4AIAAvAHQAcgBhAG4AcwBmAGUAcg' || evt.Parsed.CommandLine contains 'Yml0c2FkbWluIC90cmFuc2Zlc' || evt.Parsed.CommandLine contains 'AGMAaAB1AG4AawBfAHMAaQB6AGUA' || evt.Parsed.CommandLine contains 'JABjAGgAdQBuAGsAXwBzAGkAegBlA' || evt.Parsed.CommandLine contains 'JGNodW5rX3Npem' || evt.Parsed.CommandLine contains 'QAYwBoAHUAbgBrAF8AcwBpAHoAZQ' || evt.Parsed.CommandLine contains 'RjaHVua19zaXpl' || evt.Parsed.CommandLine contains 'Y2h1bmtfc2l6Z' || evt.Parsed.CommandLine contains 'AE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4A' || evt.Parsed.CommandLine contains 'kATwAuAEMAbwBtAHAAcgBlAHMAcwBpAG8Abg' || evt.Parsed.CommandLine contains 'lPLkNvbXByZXNzaW9u' || evt.Parsed.CommandLine contains 'SQBPAC4AQwBvAG0AcAByAGUAcwBzAGkAbwBuA' || evt.Parsed.CommandLine contains 'SU8uQ29tcHJlc3Npb2' || evt.Parsed.CommandLine contains 'Ty5Db21wcmVzc2lvb' || evt.Parsed.CommandLine contains 'AE8ALgBNAGUAbQBvAHIAeQBTAHQAcgBlAGEAbQ' || evt.Parsed.CommandLine contains 'kATwAuAE0AZQBtAG8AcgB5AFMAdAByAGUAYQBtA' || evt.Parsed.CommandLine contains 'lPLk1lbW9yeVN0cmVhb' || evt.Parsed.CommandLine contains 'SQBPAC4ATQBlAG0AbwByAHkAUwB0AHIAZQBhAG0A' || evt.Parsed.CommandLine contains 'SU8uTWVtb3J5U3RyZWFt' || evt.Parsed.CommandLine contains 'Ty5NZW1vcnlTdHJlYW' || evt.Parsed.CommandLine contains '4ARwBlAHQAQwBoAHUAbgBrA' || evt.Parsed.CommandLine contains '5HZXRDaHVua' || evt.Parsed.CommandLine contains 'AEcAZQB0AEMAaAB1AG4Aaw' || evt.Parsed.CommandLine contains 'LgBHAGUAdABDAGgAdQBuAGsA' || evt.Parsed.CommandLine contains 'LkdldENodW5r' || evt.Parsed.CommandLine contains 'R2V0Q2h1bm' || evt.Parsed.CommandLine contains 'AEgAUgBFAEEARABfAEkATgBGAE8ANgA0A' || evt.Parsed.CommandLine contains 'QASABSAEUAQQBEAF8ASQBOAEYATwA2ADQA' || evt.Parsed.CommandLine contains 'RIUkVBRF9JTkZPNj' || evt.Parsed.CommandLine contains 'SFJFQURfSU5GTzY0' || evt.Parsed.CommandLine contains 'VABIAFIARQBBAEQAXwBJAE4ARgBPADYANA' || evt.Parsed.CommandLine contains 'VEhSRUFEX0lORk82N' || evt.Parsed.CommandLine contains 'AHIAZQBhAHQAZQBSAGUAbQBvAHQAZQBUAGgAcgBlAGEAZA' || evt.Parsed.CommandLine contains 'cmVhdGVSZW1vdGVUaHJlYW' || evt.Parsed.CommandLine contains 'MAcgBlAGEAdABlAFIAZQBtAG8AdABlAFQAaAByAGUAYQBkA' || evt.Parsed.CommandLine contains 'NyZWF0ZVJlbW90ZVRocmVhZ' || evt.Parsed.CommandLine contains 'Q3JlYXRlUmVtb3RlVGhyZWFk' || evt.Parsed.CommandLine contains 'QwByAGUAYQB0AGUAUgBlAG0AbwB0AGUAVABoAHIAZQBhAGQA' || evt.Parsed.CommandLine contains '0AZQBtAG0AbwB2AGUA' || evt.Parsed.CommandLine contains '1lbW1vdm' || evt.Parsed.CommandLine contains 'AGUAbQBtAG8AdgBlA' || evt.Parsed.CommandLine contains 'bQBlAG0AbQBvAHYAZQ' || evt.Parsed.CommandLine contains 'bWVtbW92Z' || evt.Parsed.CommandLine contains 'ZW1tb3Zl'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Malicious Base64 Encoded PowerShell Keywords in Command Lines"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

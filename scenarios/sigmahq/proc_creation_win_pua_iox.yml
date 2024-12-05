@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_iox
+description: |
+  Detects the use of IOX - a tool for port forwarding and intranet proxy purposes
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\iox.exe' || evt.Parsed.CommandLine contains '.exe fwd -l ' || evt.Parsed.CommandLine contains '.exe fwd -r ' || evt.Parsed.CommandLine contains '.exe proxy -l ' || evt.Parsed.CommandLine contains '.exe proxy -r ' || evt.Parsed.Hashes contains 'MD5=9DB2D314DD3F704A02051EF5EA210993' || evt.Parsed.Hashes contains 'SHA1=039130337E28A6623ECF9A0A3DA7D92C5964D8DD' || evt.Parsed.Hashes contains 'SHA256=C6CF82919B809967D9D90EA73772A8AA1C1EB3BC59252D977500F64F1A0D6731' || evt.Parsed.md5 == '9db2d314dd3f704a02051ef5ea210993' || evt.Parsed.sha1 == '039130337e28a6623ecf9a0a3da7d92c5964d8dd' || evt.Parsed.sha256 == 'c6cf82919b809967d9d90ea73772a8aa1c1eb3bc59252d977500f64f1a0d6731')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1090
+
+  label: "PUA- IOX Tunneling Tool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

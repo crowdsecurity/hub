@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_change
+description: |
+  Detects when an attacker tries to modify an already existing scheduled tasks to run from a suspicious location Attackers can create a simple looking task in order to avoid detection on creation as it's often the most focused on Instead they modify the task after creation to include their malicious payload 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\schtasks.exe' && evt.Parsed.CommandLine contains ' /Change ' && evt.Parsed.CommandLine contains ' /TN ' && (evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\WINDOWS\\Temp\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Temporary Internet' || evt.Parsed.CommandLine contains 'C:\\ProgramData\\' || evt.Parsed.CommandLine contains 'C:\\Perflogs\\' || evt.Parsed.CommandLine contains '%ProgramData%' || evt.Parsed.CommandLine contains '%appdata%' || evt.Parsed.CommandLine contains '%comspec%' || evt.Parsed.CommandLine contains '%localappdata%') && (evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd /k ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd.exe /r ' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'certutil' || evt.Parsed.CommandLine contains 'bitsadmin' || evt.Parsed.CommandLine contains 'bash.exe' || evt.Parsed.CommandLine contains 'bash ' || evt.Parsed.CommandLine contains 'scrcons' || evt.Parsed.CommandLine contains 'wmic ' || evt.Parsed.CommandLine contains 'wmic.exe' || evt.Parsed.CommandLine contains 'forfiles' || evt.Parsed.CommandLine contains 'scriptrunner' || evt.Parsed.CommandLine contains 'hh.exe' || evt.Parsed.CommandLine contains 'hh '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+
+  label: "Suspicious Modification Of Scheduled Tasks"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

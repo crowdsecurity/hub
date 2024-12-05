@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_werfault_lsass_shtinkering
+description: |
+  Detects potential credential dumping via Windows Error Reporting LSASS Shtinkering technique which uses the Windows Error Reporting to dump lsass
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\Werfault.exe' || evt.Parsed.OriginalFileName == 'WerFault.exe') && (evt.Parsed.ParentUser contains 'AUTHORI' || evt.Parsed.ParentUser contains 'AUTORI') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && evt.Parsed.CommandLine contains ' -u -p ' && evt.Parsed.CommandLine contains ' -ip ' && evt.Parsed.CommandLine contains ' -s ' && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\lsass.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "Potential Credential Dumping Via WER"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

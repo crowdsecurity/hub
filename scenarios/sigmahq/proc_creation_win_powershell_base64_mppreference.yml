@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_mppreference
+description: |
+  Detects base64 encoded "MpPreference" PowerShell cmdlet code that tries to modifies or tamper with Windows Defender AV
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'QWRkLU1wUHJlZmVyZW5jZS' || evt.Parsed.CommandLine contains 'FkZC1NcFByZWZlcmVuY2Ug' || evt.Parsed.CommandLine contains 'BZGQtTXBQcmVmZXJlbmNlI' || evt.Parsed.CommandLine contains 'U2V0LU1wUHJlZmVyZW5jZS' || evt.Parsed.CommandLine contains 'NldC1NcFByZWZlcmVuY2Ug' || evt.Parsed.CommandLine contains 'TZXQtTXBQcmVmZXJlbmNlI' || evt.Parsed.CommandLine contains 'YWRkLW1wcHJlZmVyZW5jZS' || evt.Parsed.CommandLine contains 'FkZC1tcHByZWZlcmVuY2Ug' || evt.Parsed.CommandLine contains 'hZGQtbXBwcmVmZXJlbmNlI' || evt.Parsed.CommandLine contains 'c2V0LW1wcHJlZmVyZW5jZS' || evt.Parsed.CommandLine contains 'NldC1tcHByZWZlcmVuY2Ug' || evt.Parsed.CommandLine contains 'zZXQtbXBwcmVmZXJlbmNlI' || evt.Parsed.CommandLine contains 'QQBkAGQALQBNAHAAUAByAGUAZgBlAHIAZQBuAGMAZQAgA' || evt.Parsed.CommandLine contains 'EAZABkAC0ATQBwAFAAcgBlAGYAZQByAGUAbgBjAGUAIA' || evt.Parsed.CommandLine contains 'BAGQAZAAtAE0AcABQAHIAZQBmAGUAcgBlAG4AYwBlACAA' || evt.Parsed.CommandLine contains 'UwBlAHQALQBNAHAAUAByAGUAZgBlAHIAZQBuAGMAZQAgA' || evt.Parsed.CommandLine contains 'MAZQB0AC0ATQBwAFAAcgBlAGYAZQByAGUAbgBjAGUAIA' || evt.Parsed.CommandLine contains 'TAGUAdAAtAE0AcABQAHIAZQBmAGUAcgBlAG4AYwBlACAA' || evt.Parsed.CommandLine contains 'YQBkAGQALQBtAHAAcAByAGUAZgBlAHIAZQBuAGMAZQAgA' || evt.Parsed.CommandLine contains 'EAZABkAC0AbQBwAHAAcgBlAGYAZQByAGUAbgBjAGUAIA' || evt.Parsed.CommandLine contains 'hAGQAZAAtAG0AcABwAHIAZQBmAGUAcgBlAG4AYwBlACAA' || evt.Parsed.CommandLine contains 'cwBlAHQALQBtAHAAcAByAGUAZgBlAHIAZQBuAGMAZQAgA' || evt.Parsed.CommandLine contains 'MAZQB0AC0AbQBwAHAAcgBlAGYAZQByAGUAbgBjAGUAIA' || evt.Parsed.CommandLine contains 'zAGUAdAAtAG0AcABwAHIAZQBmAGUAcgBlAG4AYwBlACAA')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Powershell Base64 Encoded MpPreference Cmdlet"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharpup
+description: |
+  Detects the use of SharpUp, a tool for local privilege escalation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharpUp.exe' || evt.Parsed.Description == 'SharpUp' || evt.Parsed.CommandLine contains 'HijackablePaths' || evt.Parsed.CommandLine contains 'UnquotedServicePath' || evt.Parsed.CommandLine contains 'ProcessDLLHijack' || evt.Parsed.CommandLine contains 'ModifiableServiceBinaries' || evt.Parsed.CommandLine contains 'ModifiableScheduledTask' || evt.Parsed.CommandLine contains 'DomainGPPPassword' || evt.Parsed.CommandLine contains 'CachedGPPPassword')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1615
+   - attack.t1569.002
+   - attack.t1574.005
+
+  label: "HackTool - SharpUp PrivEsc Tool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sc_change_sevice_image_path_by_non_admin
+description: |
+  Detection of sc.exe utility spawning by user with Medium integrity level to change service ImagePath or FailureCommand
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sc.exe' && evt.Parsed.IntegrityLevel == 'Medium' && (evt.Parsed.CommandLine contains 'config' && evt.Parsed.CommandLine contains 'binPath' || evt.Parsed.CommandLine contains 'failure' && evt.Parsed.CommandLine contains 'command'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.011
+
+  label: "Possible Privilege Escalation via Weak Service Permissions"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

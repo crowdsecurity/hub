@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_mshta_susp_execution
+description: |
+  Detection for mshta.exe suspicious execution patterns sometimes involving file polyglotism
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\mshta.exe' && (evt.Parsed.CommandLine contains 'vbscript' || evt.Parsed.CommandLine contains '.jpg' || evt.Parsed.CommandLine contains '.png' || evt.Parsed.CommandLine contains '.lnk' || evt.Parsed.CommandLine contains '.xls' || evt.Parsed.CommandLine contains '.doc' || evt.Parsed.CommandLine contains '.zip' || evt.Parsed.CommandLine contains '.dll'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1140
+   - attack.t1218.005
+   - attack.t1059.007
+
+  label: "MSHTA Suspicious Execution 01"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

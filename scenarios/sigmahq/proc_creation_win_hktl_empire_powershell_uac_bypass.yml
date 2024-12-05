@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_empire_powershell_uac_bypass
+description: |
+  Detects some Empire PowerShell UAC bypass methods
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' -NoP -NonI -w Hidden -c $x=$((gp HKCU:Software\\Microsoft\\Windows Update).Update)' || evt.Parsed.CommandLine contains ' -NoP -NonI -c $x=$((gp HKCU:Software\\Microsoft\\Windows Update).Update);')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "HackTool - Empire PowerShell UAC Bypass"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

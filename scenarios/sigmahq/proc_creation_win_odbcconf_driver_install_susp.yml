@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_odbcconf_driver_install_susp
+description: |
+  Detects execution of "odbcconf" with the "INSTALLDRIVER" action where the driver doesn't contain a ".dll" extension. This is often used as a defense evasion method.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\odbcconf.exe' || evt.Parsed.OriginalFileName == 'odbcconf.exe') && evt.Parsed.CommandLine contains 'INSTALLDRIVER ' && not (evt.Parsed.CommandLine contains '.dll'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.008
+
+  label: "Suspicious Driver/DLL Installation Via Odbcconf.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

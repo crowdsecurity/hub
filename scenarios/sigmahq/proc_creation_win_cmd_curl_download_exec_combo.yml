@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_curl_download_exec_combo
+description: |
+  Adversaries can use curl to download payloads remotely and execute them. Curl is included by default in Windows 10 build 17063 and later.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' -c ' || evt.Parsed.CommandLine contains ' /c ' || evt.Parsed.CommandLine contains ' –c ' || evt.Parsed.CommandLine contains ' —c ' || evt.Parsed.CommandLine contains ' ―c ') && evt.Parsed.CommandLine contains 'curl ' && evt.Parsed.CommandLine contains 'http' && evt.Parsed.CommandLine contains '-o' && evt.Parsed.CommandLine contains '&')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+   - attack.t1105
+
+  label: "Curl Download And Execute Combination"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_krbrelay
+description: |
+  Detects the use of KrbRelay, a Kerberos relaying tool
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\KrbRelay.exe' || evt.Parsed.OriginalFileName == 'KrbRelay.exe' || evt.Parsed.CommandLine contains ' -spn ' && evt.Parsed.CommandLine contains ' -clsid ' && evt.Parsed.CommandLine contains ' -rbcd ' || evt.Parsed.CommandLine contains 'shadowcred' && evt.Parsed.CommandLine contains 'clsid' && evt.Parsed.CommandLine contains 'spn' || evt.Parsed.CommandLine contains 'spn ' && evt.Parsed.CommandLine contains 'session ' && evt.Parsed.CommandLine contains 'clsid ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1558.003
+
+  label: "HackTool - KrbRelay Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

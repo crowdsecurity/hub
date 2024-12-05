@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_msdt_arbitrary_command_execution
+description: |
+  Detects processes leveraging the "ms-msdt" handler or the "msdt.exe" binary to execute arbitrary commands as seen in the follina (CVE-2022-30190) vulnerability
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.OriginalFileName == 'msdt.exe') && (evt.Parsed.CommandLine contains 'IT_BrowseForFile=' || evt.Parsed.CommandLine contains ' PCWDiagnostic' && (evt.Parsed.CommandLine contains ' -af ' || evt.Parsed.CommandLine contains ' /af ' || evt.Parsed.CommandLine contains ' –af ' || evt.Parsed.CommandLine contains ' —af ' || evt.Parsed.CommandLine contains ' ―af ')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Potential Arbitrary Command Execution Using Msdt.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
