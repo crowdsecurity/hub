@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 21
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 22
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -210,7 +210,17 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["datasource_path"] 
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["machine"] == "sd-126005"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 21
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["message"] == "Connection closed by 118.27.24.104 port 33594 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["pid"] == "36648"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["timestamp"] == "Nov 19 11:28:15"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 22
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -524,4 +534,18 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["source_ip"] == "35.188.49.176"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["target_user"] == "pascal5"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["message"] == "Connection closed by 118.27.24.104 port 33594 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["pid"] == "36648"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["sshd_client_ip"] == "118.27.24.104"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["timestamp"] == "Nov 19 11:28:15"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["source_ip"] == "118.27.24.104"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Whitelisted == false
 len(results["success"][""]) == 0
