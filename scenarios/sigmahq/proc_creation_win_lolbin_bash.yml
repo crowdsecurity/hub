@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_bash
+description: |
+  Performs execution of specified file, can be used for defensive evasion.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'bash.exe' && evt.Parsed.CommandLine contains '-c ' && not (evt.Parsed.ParentCommandLine contains 'C:\\Program Files\\Git\\post-install.bat' || evt.Parsed.ParentCommandLine contains 'C:\\Program Files (x86)\\Git\\post-install.bat' || Match('echo /etc/post-install/.post', evt.Parsed.ParentCommandLine) || Match('echo /etc/post-install/.post', evt.Parsed.CommandLine)))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Suspicious Subsystem for Linux Bash Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

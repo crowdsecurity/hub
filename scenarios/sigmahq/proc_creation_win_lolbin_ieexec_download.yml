@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_ieexec_download
+description: |
+  Detects execution of the IEExec utility to download payloads
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\IEExec.exe' || evt.Parsed.OriginalFileName == 'IEExec.exe') && (evt.Parsed.CommandLine contains 'https://' || evt.Parsed.CommandLine contains 'http://'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+
+  label: "Abusing IEExec To Download Payloads"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

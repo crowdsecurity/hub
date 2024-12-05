@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_squirrel
+description: |
+  Detects the usage of the "Squirrel.exe" binary as a LOLBIN. This binary is part of multiple software installations (Slack, Teams, Discord, etc.)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\squirrel.exe' || evt.Parsed.Image endsWith '\\update.exe') && ((evt.Parsed.CommandLine contains ' --download ' || evt.Parsed.CommandLine contains ' --update ' || evt.Parsed.CommandLine contains ' --updateRollback=') && evt.Parsed.CommandLine contains 'http' || evt.Parsed.CommandLine contains '--processStart' || evt.Parsed.CommandLine contains '--processStartAndWait' || evt.Parsed.CommandLine contains '--createShortcut') && not (evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\Discord\\Update.exe' && evt.Parsed.CommandLine contains ' --processStart' && evt.Parsed.CommandLine contains 'Discord.exe' || evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\GitHubDesktop\\Update.exe' && evt.Parsed.CommandLine contains 'GitHubDesktop.exe' && (evt.Parsed.CommandLine contains '--createShortcut' || evt.Parsed.CommandLine contains '--processStartAndWait') || evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\Microsoft\\Teams\\Update.exe' && evt.Parsed.CommandLine contains 'Teams.exe' && (evt.Parsed.CommandLine contains '--processStart' || evt.Parsed.CommandLine contains '--createShortcut') || evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\yammerdesktop\\Update.exe' && evt.Parsed.CommandLine contains 'Yammer.exe' && (evt.Parsed.CommandLine contains '--processStart' || evt.Parsed.CommandLine contains '--createShortcut')))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Use of Squirrel.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

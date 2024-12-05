@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_ssh
+description: |
+  Detect usage of the "ssh.exe" binary as a proxy to launch other programs
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\OpenSSH\\sshd.exe' || evt.Parsed.Image endsWith '\\ssh.exe' && (evt.Parsed.CommandLine contains 'ProxyCommand=' || evt.Parsed.CommandLine contains 'PermitLocalCommand' && evt.Parsed.CommandLine contains 'LocalCommand'))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1202
+
+  label: "Lolbin Ssh.exe Use As Proxy"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_ie4uinit
+description: |
+  Detect use of ie4uinit.exe to execute commands from a specially prepared ie4uinit.inf file from a directory other than the usual directories
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\ie4uinit.exe' || evt.Parsed.OriginalFileName == 'IE4UINIT.EXE') && not (evt.Parsed.CurrentDirectory == 'c:\\windows\\system32\\' || evt.Parsed.CurrentDirectory == 'c:\\windows\\sysWOW64\\' || evt.Parsed.CurrentDirectory == ''))
+blackhole: 2m
+#status: experimental
+labels:
+  service: windows
+  confidence: 0
+  spoofable: 0
+#  classification:
+#  - attack.t1218
+
+  label: "Ie4uinit Lolbin Use From Invalid Path"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
