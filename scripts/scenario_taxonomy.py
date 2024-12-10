@@ -260,6 +260,7 @@ def main():
             confidence = 0
             spoofable = 0
             in_cti = True
+            is_public = True
 
             if "label" in labels:
                 scenario_label = scenario["labels"]["label"]
@@ -275,6 +276,10 @@ def main():
             if "cti" in labels:
                 if not labels["cti"]:
                     in_cti = False
+
+            if "public" in labels:
+                if not labels["public"]:
+                    is_public = False
 
             if scenario_label == "":
                 desc = scenario["description"].lower()
@@ -320,6 +325,7 @@ def main():
                 "spoofable": spoofable,
                 "cti": in_cti,
                 "service": service,
+                "public": is_public,
             }
 
             if len(cves) > 0:
