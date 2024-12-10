@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_dllhost_no_cli_execution
+description: |
+  Detects a "dllhost" process spawning with no commandline arguments which is very rare to happen and could indicate process injection activity or malware mimicking similar system processes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\dllhost.exe' && (evt.Parsed.CommandLine in ['dllhost.exe', 'dllhost']) && not (evt.Parsed.CommandLine == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1055
+
+  label: "Dllhost.EXE Execution Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

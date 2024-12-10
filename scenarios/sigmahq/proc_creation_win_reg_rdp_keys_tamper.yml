@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_rdp_keys_tamper
+description: |
+  Detects the execution of "reg.exe" for enabling/disabling the RDP service on the host by tampering with the 'CurrentControlSet\Control\Terminal Server' values
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains ' add ' && evt.Parsed.CommandLine contains '\\CurrentControlSet\\Control\\Terminal Server' && evt.Parsed.CommandLine contains 'REG_DWORD' && evt.Parsed.CommandLine contains ' /f' && (evt.Parsed.CommandLine contains 'Licensing Core' && evt.Parsed.CommandLine contains 'EnableConcurrentSessions' || evt.Parsed.CommandLine contains 'WinStations\\RDP-Tcp' || evt.Parsed.CommandLine contains 'MaxInstanceCount' || evt.Parsed.CommandLine contains 'fEnableWinStation' || evt.Parsed.CommandLine contains 'TSUserEnabled' || evt.Parsed.CommandLine contains 'TSEnabled' || evt.Parsed.CommandLine contains 'TSAppCompat' || evt.Parsed.CommandLine contains 'IdleWinStationPoolCount' || evt.Parsed.CommandLine contains 'TSAdvertise' || evt.Parsed.CommandLine contains 'AllowTSConnections' || evt.Parsed.CommandLine contains 'fSingleSessionPerUser' || evt.Parsed.CommandLine contains 'fDenyTSConnections'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.001
+   - attack.t1112
+
+  label: "Potential Tampering With RDP Related Registry Keys Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

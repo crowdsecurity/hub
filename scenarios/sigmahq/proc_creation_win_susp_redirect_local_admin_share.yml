@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_redirect_local_admin_share
+description: |
+  Detects a suspicious output redirection to the local admins share, this technique is often found in malicious scripts or hacktool stagers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '>' && (evt.Parsed.CommandLine contains '\\\\127.0.0.1\\admin$\\' || evt.Parsed.CommandLine contains '\\\\localhost\\admin$\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1048
+
+  label: "Suspicious Redirection to Local Admin Share"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

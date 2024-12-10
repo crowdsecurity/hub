@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_wermgr_susp_exec_location
+description: |
+  Detects suspicious Windows Error Reporting manager (wermgr.exe) execution location.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wermgr.exe' && not (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\' || evt.Parsed.Image startsWith 'C:\\Windows\\WinSxS\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Execution Location Of Wermgr.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

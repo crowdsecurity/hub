@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_crackmapexec_powershell_obfuscation
+description: |
+  The CrachMapExec pentesting framework implements a PowerShell obfuscation with some static strings detected by this rule.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (Match('joinsplit', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains '( $ShellId[1]+$ShellId[13]+\'x\')' || Match('( $PSHome[]+$PSHOME[]+', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains '( $env:Public[13]+$env:Public[5]+\'x\')' || Match('( $env:ComSpec[4,,25]-Join\'\')', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains '[1,3]+\'x\'-Join\'\')'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1027.005
+
+  label: "HackTool - CrackMapExec PowerShell Obfuscation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

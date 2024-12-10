@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_without_parameters
+description: |
+  Detects rundll32 execution without parameters as observed when running Metasploit windows/smb/psexec exploit module
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine in ['rundll32.exe', 'rundll32'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.002
+   - attack.t1570
+   - attack.t1569.002
+
+  label: "Rundll32 Execution Without Parameters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

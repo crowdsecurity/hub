@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sqlcmd_veeam_dump
+description: |
+  Detects dump of credentials in VeeamBackup dbo
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\sqlcmd.exe' && evt.Parsed.CommandLine contains 'SELECT' && evt.Parsed.CommandLine contains 'TOP' && evt.Parsed.CommandLine contains '[VeeamBackup].[dbo].[Credentials]')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1005
+
+  label: "VeeamBackup Database Credentials Dump Via Sqlcmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

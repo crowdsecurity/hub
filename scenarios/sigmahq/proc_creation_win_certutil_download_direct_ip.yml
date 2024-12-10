@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_certutil_download_direct_ip
+description: |
+  Detects the execution of certutil with certain flags that allow the utility to download files from direct IPs.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && (evt.Parsed.CommandLine contains 'urlcache ' || evt.Parsed.CommandLine contains 'verifyctl ') && (evt.Parsed.CommandLine contains '://1' || evt.Parsed.CommandLine contains '://2' || evt.Parsed.CommandLine contains '://3' || evt.Parsed.CommandLine contains '://4' || evt.Parsed.CommandLine contains '://5' || evt.Parsed.CommandLine contains '://6' || evt.Parsed.CommandLine contains '://7' || evt.Parsed.CommandLine contains '://8' || evt.Parsed.CommandLine contains '://9') && not (evt.Parsed.CommandLine contains '://7-'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+
+  label: "Suspicious File Downloaded From Direct IP Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

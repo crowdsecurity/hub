@@ -38,6 +38,8 @@ jobs:
         run: |
           go build
           ./main -target configs
+          grep -v <.index.json >.index2.json '"classification": null'
+          mv .index2.json .index.json
       - uses: nelonoel/branch-name@v1.0.1
       - name: Commit files
         if: ${{ github.event_name == 'push'}}

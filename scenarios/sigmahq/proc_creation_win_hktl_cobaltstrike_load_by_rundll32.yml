@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_cobaltstrike_load_by_rundll32
+description: |
+  Rundll32 can be use by Cobalt Strike with StartW function to load DLLs from the command line.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE' || evt.Parsed.CommandLine contains 'rundll32.exe' || evt.Parsed.CommandLine contains 'rundll32 ') && evt.Parsed.CommandLine contains '.dll' && (evt.Parsed.CommandLine endsWith ' StartW' || evt.Parsed.CommandLine endsWith ',StartW'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "CobaltStrike Load by Rundll32"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_powershell_execution_via_dll
+description: |
+  Detects potential PowerShell execution from a DLL instead of the usual PowerShell process as seen used in PowerShdll. This detection assumes that PowerShell commands are passed via the CommandLine. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\InstallUtil.exe' || evt.Parsed.Image endsWith '\\RegAsm.exe' || evt.Parsed.Image endsWith '\\RegSvcs.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName in ['InstallUtil.exe', 'RegAsm.exe', 'RegSvcs.exe', 'REGSVR32.EXE', 'RUNDLL32.EXE']) && (evt.Parsed.CommandLine contains 'Default.GetString' || evt.Parsed.CommandLine contains 'DownloadString' || evt.Parsed.CommandLine contains 'FromBase64String' || evt.Parsed.CommandLine contains 'ICM ' || evt.Parsed.CommandLine contains 'IEX ' || evt.Parsed.CommandLine contains 'Invoke-Command' || evt.Parsed.CommandLine contains 'Invoke-Expression'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "Potential PowerShell Execution Via DLL"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

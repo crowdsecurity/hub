@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_uacme
+description: |
+  Detects the execution of UACMe, a tool used for UAC bypasses, via default PE metadata
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Product == 'UACMe' || evt.Parsed.Company in ['REvol Corp', 'APT 92', 'UG North', 'Hazardous Environments', 'CD Project Rekt'] || evt.Parsed.Description in ['UACMe main module', 'Pentesting utility'] || evt.Parsed.OriginalFileName in ['Akagi.exe', 'Akagi64.exe'] || evt.Parsed.Image endsWith '\\Akagi64.exe' || evt.Parsed.Image endsWith '\\Akagi.exe' || evt.Parsed.Hashes contains 'IMPHASH=767637C23BB42CD5D7397CF58B0BE688' || evt.Parsed.Hashes contains 'IMPHASH=14C4E4C72BA075E9069EE67F39188AD8' || evt.Parsed.Hashes contains 'IMPHASH=3C782813D4AFCE07BBFC5A9772ACDBDC' || evt.Parsed.Hashes contains 'IMPHASH=7D010C6BB6A3726F327F7E239166D127' || evt.Parsed.Hashes contains 'IMPHASH=89159BA4DD04E4CE5559F132A9964EB3' || evt.Parsed.Hashes contains 'IMPHASH=6F33F4A5FC42B8CEC7314947BD13F30F' || evt.Parsed.Hashes contains 'IMPHASH=5834ED4291BDEB928270428EBBAF7604' || evt.Parsed.Hashes contains 'IMPHASH=5A8A8A43F25485E7EE1B201EDCBC7A38' || evt.Parsed.Hashes contains 'IMPHASH=DC7D30B90B2D8ABF664FBED2B1B59894' || evt.Parsed.Hashes contains 'IMPHASH=41923EA1F824FE63EA5BEB84DB7A3E74' || evt.Parsed.Hashes contains 'IMPHASH=3DE09703C8E79ED2CA3F01074719906B' || evt.Parsed.Imphash in ['767637c23bb42cd5d7397cf58b0be688', '14c4e4c72ba075e9069ee67f39188ad8', '3c782813d4afce07bbfc5a9772acdbdc', '7d010c6bb6a3726f327f7e239166d127', '89159ba4dd04e4ce5559f132a9964eb3', '6f33f4a5fc42b8cec7314947bd13f30f', '5834ed4291bdeb928270428ebbaf7604', '5a8a8a43f25485e7ee1b201edcbc7a38', 'dc7d30b90b2d8abf664fbed2b1b59894', '41923ea1f824fe63ea5beb84db7a3e74', '3de09703c8e79ed2ca3f01074719906b'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "HackTool - UACMe Akagi Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

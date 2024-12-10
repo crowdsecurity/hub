@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_dism_enable_powershell_web_access_feature
+description: |
+  Detects the use of DISM to enable the PowerShell Web Access feature, which could be used for remote access and potential abuse
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\dism.exe' || evt.Parsed.OriginalFileName == 'DISM.EXE') && evt.Parsed.CommandLine contains 'WindowsPowerShellWebAccess' && evt.Parsed.CommandLine contains '/online' && evt.Parsed.CommandLine contains '/enable-feature')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "PowerShell Web Access Feature Enabled Via DISM"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

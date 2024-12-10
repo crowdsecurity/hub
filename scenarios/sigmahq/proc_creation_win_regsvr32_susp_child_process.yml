@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regsvr32_susp_child_process
+description: |
+  Detects potentially suspicious child processes of "regsvr32.exe".
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\regsvr32.exe' && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\explorer.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\werfault.exe' || evt.Parsed.Image endsWith '\\wscript.exe') && not (evt.Parsed.Image endsWith '\\werfault.exe' && evt.Parsed.CommandLine contains ' -u -p '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.010
+
+  label: "Potentially Suspicious Child Process Of Regsvr32"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

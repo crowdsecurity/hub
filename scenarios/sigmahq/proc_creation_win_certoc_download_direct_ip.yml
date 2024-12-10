@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_certoc_download_direct_ip
+description: |
+  Detects when a user downloads a file from an IP based URL using CertOC.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certoc.exe' || evt.Parsed.OriginalFileName == 'CertOC.exe') && evt.Parsed.CommandLine matches '://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}' && evt.Parsed.CommandLine contains '-GetCACAPS')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "File Download From IP Based URL Via CertOC.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
