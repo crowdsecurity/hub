@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_esentutl_sensitive_file_copy
+description: |
+  Files with well-known filenames (sensitive files with credential data) copying
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\esentutl.exe' || evt.Parsed.OriginalFileName == '\\esentutl.exe') && (evt.Parsed.CommandLine contains 'vss' || evt.Parsed.CommandLine contains ' -m ' || evt.Parsed.CommandLine contains ' /m ' || evt.Parsed.CommandLine contains ' –m ' || evt.Parsed.CommandLine contains ' —m ' || evt.Parsed.CommandLine contains ' ―m ' || evt.Parsed.CommandLine contains ' -y ' || evt.Parsed.CommandLine contains ' /y ' || evt.Parsed.CommandLine contains ' –y ' || evt.Parsed.CommandLine contains ' —y ' || evt.Parsed.CommandLine contains ' ―y ') || evt.Parsed.CommandLine contains '\\config\\RegBack\\sam' || evt.Parsed.CommandLine contains '\\config\\RegBack\\security' || evt.Parsed.CommandLine contains '\\config\\RegBack\\system' || evt.Parsed.CommandLine contains '\\config\\sam' || evt.Parsed.CommandLine contains '\\config\\security' || evt.Parsed.CommandLine contains '\\config\\system ' || evt.Parsed.CommandLine contains '\\repair\\sam' || evt.Parsed.CommandLine contains '\\repair\\security' || evt.Parsed.CommandLine contains '\\repair\\system' || evt.Parsed.CommandLine contains '\\windows\\ntds\\ntds.dit')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.002
+   - attack.t1003.003
+
+  label: "Copying Sensitive Files with Credential Data"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

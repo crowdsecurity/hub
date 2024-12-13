@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_ieexec_download
+description: |
+  Detects execution of the IEExec utility to download and execute files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\IEExec.exe' || evt.Parsed.OriginalFileName == 'IEExec.exe') && (evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "File Download And Execution Via IEExec.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

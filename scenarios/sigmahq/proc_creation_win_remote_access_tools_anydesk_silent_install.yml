@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_remote_access_tools_anydesk_silent_install
+description: |
+  Detects AnyDesk Remote Desktop silent installation. Which can be used by attackers to gain remote access.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '--install' && evt.Parsed.CommandLine contains '--start-with-win' && evt.Parsed.CommandLine contains '--silent')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1219
+
+  label: "Remote Access Tool - AnyDesk Silent Installation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

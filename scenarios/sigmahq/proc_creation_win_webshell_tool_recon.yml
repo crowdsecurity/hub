@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_webshell_tool_recon
+description: |
+  Detects processes spawned from web servers (PHP, Tomcat, IIS, etc.) that perform reconnaissance looking for the existence of popular scripting tools (perl, python, wget) on the system via the help commands 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\caddy.exe' || evt.Parsed.ParentImage endsWith '\\httpd.exe' || evt.Parsed.ParentImage endsWith '\\nginx.exe' || evt.Parsed.ParentImage endsWith '\\php-cgi.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\ws_tomcatservice.exe' || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.ParentImage contains '-tomcat-' || evt.Parsed.ParentImage contains '\\tomcat') || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.CommandLine contains 'CATALINA_HOME' || evt.Parsed.CommandLine contains 'catalina.jar')) && (evt.Parsed.CommandLine contains 'perl --help' || evt.Parsed.CommandLine contains 'perl -h' || evt.Parsed.CommandLine contains 'python --help' || evt.Parsed.CommandLine contains 'python -h' || evt.Parsed.CommandLine contains 'python3 --help' || evt.Parsed.CommandLine contains 'python3 -h' || evt.Parsed.CommandLine contains 'wget --help'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+
+  label: "Webshell Tool Reconnaissance Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

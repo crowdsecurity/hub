@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_mavinject
+description: |
+  Detects the execution of a renamed version of the "Mavinject" process. Which can be abused to perform process injection using the "/INJECTRUNNING" flag
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName in ['mavinject32.exe', 'mavinject64.exe']) && not (evt.Parsed.Image endsWith '\\mavinject32.exe' || evt.Parsed.Image endsWith '\\mavinject64.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1055.001
+   - attack.t1218.013
+
+  label: "Renamed Mavinject.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

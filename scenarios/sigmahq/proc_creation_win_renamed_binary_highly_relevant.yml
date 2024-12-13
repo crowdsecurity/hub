@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_binary_highly_relevant
+description: |
+  Detects the execution of a renamed binary often used by attackers or malware leveraging new Sysmon OriginalFileName datapoint.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Description == 'Execute processes remotely' || evt.Parsed.Product == 'Sysinternals PsExec' || evt.Parsed.Description startsWith 'Windows PowerShell' || evt.Parsed.Description startsWith 'pwsh' || evt.Parsed.OriginalFileName in ['certutil.exe', 'cmstp.exe', 'cscript.exe', 'mshta.exe', 'msiexec.exe', 'powershell_ise.exe', 'powershell.exe', 'psexec.c', 'psexec.exe', 'psexesvc.exe', 'pwsh.dll', 'reg.exe', 'regsvr32.exe', 'rundll32.exe', 'WerMgr', 'wmic.exe', 'wscript.exe']) && not (evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cmstp.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\powershell_ise.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\psexec.exe' || evt.Parsed.Image endsWith '\\psexec64.exe' || evt.Parsed.Image endsWith '\\PSEXESVC.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\wermgr.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\wscript.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036.003
+
+  label: "Potential Defense Evasion Via Rename Of Highly Relevant Binaries"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

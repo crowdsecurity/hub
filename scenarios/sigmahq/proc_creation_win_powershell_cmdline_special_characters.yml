@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_cmdline_special_characters
+description: |
+  Detects the PowerShell command lines with special characters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (evt.Parsed.CommandLine matches '\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+' || evt.Parsed.CommandLine matches '\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{' || evt.Parsed.CommandLine matches '\\^.*\\^.*\\^.*\\^.*\\^' || evt.Parsed.CommandLine matches '`.*`.*`.*`.*`') && not (evt.Parsed.ParentImage == 'C:\\Program Files\\Amazon\\SSM\\ssm-document-worker.exe' || evt.Parsed.CommandLine contains 'new EventSource("Microsoft.Windows.Sense.Client.Management"' || evt.Parsed.CommandLine contains 'public static extern bool InstallELAMCertificateInfo(SafeFileHandle handle);'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+   - attack.t1059.001
+
+  label: "Potential PowerShell Command Line Obfuscation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

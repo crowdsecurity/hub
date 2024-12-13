@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_imewbdld_download
+description: |
+  Detects usage of "IMEWDBLD.exe" to download arbitrary files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\IMEWDBLD.exe' || evt.Parsed.OriginalFileName == 'imewdbld.exe') && (evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Arbitrary File Download Via IMEWDBLD.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_wmiexec_default_powershell
+description: |
+  Detects the execution of PowerShell with a specific flag sequence that is used by the Wmiexec script
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '-NoP -NoL -sta -NonI -W Hidden -Exec Bypass -Enc')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "HackTool - Wmiexec Default Powershell Command"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

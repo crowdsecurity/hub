@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_dtrace_kernel_dump
+description: |
+  Detects suspicious way to dump the kernel on Windows systems using dtrace.exe, which is available on Windows systems since Windows 10 19H1
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\dtrace.exe' && evt.Parsed.CommandLine contains 'lkd(0)' || evt.Parsed.CommandLine contains 'syscall:::return' && evt.Parsed.CommandLine contains 'lkd(')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1082
+
+  label: "Suspicious Kernel Dump Using Dtrace"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

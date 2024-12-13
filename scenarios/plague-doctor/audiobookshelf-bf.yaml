@@ -1,0 +1,19 @@
+# Audiobookshelf bruteforce
+type: leaky
+name: plague-doctor/audiobookshelf-bf
+description: "Detect Audiobookshelf bruteforce attacks"
+filter: "evt.Meta.service == 'audiobookshelf' && evt.Meta.log_type == 'abs_failed_auth'"
+leakspeed: 1m
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+    service: audiobookshelf
+    type: bruteforce
+    classification:
+        - attack.T1110
+    remediation: true
+    behavior: http:bruteforce
+    spoofable: 0
+    confidence: 3

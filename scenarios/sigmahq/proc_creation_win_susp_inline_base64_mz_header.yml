@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_inline_base64_mz_header
+description: |
+  Detects encoded base64 MZ header in the commandline
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'TVqQAAMAAAAEAAAA' || evt.Parsed.CommandLine contains 'TVpQAAIAAAAEAA8A' || evt.Parsed.CommandLine contains 'TVqAAAEAAAAEABAA' || evt.Parsed.CommandLine contains 'TVoAAAAAAAAAAAAA' || evt.Parsed.CommandLine contains 'TVpTAQEAAAAEAAAA')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Base64 MZ Header In CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

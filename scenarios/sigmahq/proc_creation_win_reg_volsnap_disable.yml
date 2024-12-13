@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_volsnap_disable
+description: |
+  Detects commands that temporarily turn off Volume Snapshots
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\Services\\VSS\\Diag' && evt.Parsed.CommandLine contains '/d Disabled')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Disabled Volume Snapshots"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
