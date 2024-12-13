@@ -2,7 +2,7 @@ type: conditional
 #debug: true
 name: crowdsecurity/auditd-base64-exec-behavior
 description: "Detect post-exploitation behaviour : base64 + interpreter (perl/bash/python)"
-filter: evt.Meta.log_type == 'execve'
+filter: evt.Meta.log_type == 'syscall_execve'
 #grouping by ppid to track a processs invoking base64 and interpreter in sequence
 groupby: evt.Meta.ppid
 condition: |
