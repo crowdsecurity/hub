@@ -1,8 +1,17 @@
 #type=SYSCALL msg=audit(1672330955.273:4433): arch=c000003e syscall=263 success=no exit=-2 a0=ffffff9c a1=557162396590 a2=0 a3=0 items=1 ppid=144571 pid=145400 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts0 ses=79 comm="rm" exe="/usr/bin/rm" key="file_modification"
+
+
+#type=SYSCALL msg=audit(1734093141.455:922): arch=c000003e syscall=59 success=yes exit=0 a0=563db14c9800 a1=563db14c6370 a2=563db14c5e70 a3=8 items=2 ppid=1344351 pid=1344358 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts1 ses=5448 comm="id" exe="/usr/bin/id" key="recon"
+#type=EXECVE msg=audit(1734093141.455:922): argc=2 a0="id" a1="-a"
+#type=PATH msg=audit(1734093141.455:922): item=0 name="/usr/bin/id" inode=5505499 dev=08:02 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0
+#type=PATH msg=audit(1734093141.455:922): item=1 name="/lib64/ld-linux-x86-64.so.2" inode=5505904 dev=08:02 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0
+
+
 name: crowdsecurity/auditd-logs
 description: "Parse auditd logs"
 filter: "evt.Parsed.program == 'auditd'"
 onsuccess: next_stage
+debug: true
 pattern_syntax:
   FLOAT: '[0-9\.]+'
 
@@ -14,10 +23,23 @@ nodes:
           pattern: '%{WORD:msg_type}\(%{FLOAT:timestamp}:%{INT:event_inc_id}\):'
           expression: evt.Unmarshaled.auditd.msg
         nodes:
-          - filter: evt.Unmarshaled.auditd.type == "SYSCALL" and evt.Unmarshaled.auditd.arch == "c000003e" and evt.Unmarshaled.auditd.syscall == "59"
+# add EXECVE : 
+# type=EXECVE msg=audit(1734093713.565:1031): argc=101 a0="id" a1="1" a2="2" a3="3" a4="4" a5="5" a6="6" a7="7" a8="8" a9="9" a10="10" a11="11" a12="12" a13="13" a14="14" a15="15" a16="16" a17="17" a18="18" a19="19" a20="20" a21="21" a22="22" a23="23" a24="24" a25="25" a26="26" a27="27" a28="28" a29="29" a30="30" a31="31" a32="32" a33="33" a34="34" a35="35" a36="36" a37="37" a38="38" a39="39" a40="40" a41="41" a42="42" a43="43" a44="44" a45="45" a46="46" a47="47" a48="48" a49="49" a50="50" a51="51" a52="52" a53="53" a54="54" a55="55" a56="56" a57="57" a58="58" a59="59" a60="60" a61="61" a62="62" a63="63" a64="64" a65="65" a66="66" a67="67" a68="68" a69="69" a70="70" a71="71" a72="72" a73="73" a74="74" a75="75" a76="76" a77="77" a78="78" a79="79" a80="80" a81="81" a82="82" a83="83" a84="84" a85="85" a86="86" a87="87" a88="88" a89="89" a90="90" a91="91" a92="92" a93="93" a94="94" a95="95" a96="96" a97="97" a98="98" a99="99" a100="100"
+          - filter: evt.Unmarshaled.auditd.type == "EXECVE"
             statics:
               - meta: log_type
                 value: execve
+              - meta: execve_full_str
+                #we only keep the "a[0-9]+" keys and join them into a string
+                #we're not dealing yet with hex encoded arguments
+                expression: |
+                  let args = evt.Unmarshaled.auditd | keys() | filter(# matches "^a[0-9]+$");
+                  map(sortBy(args, { int(#[1:]) }, "asc"), get(evt.Unmarshaled.auditd, #)) | join(" ")
+
+          - filter: evt.Unmarshaled.auditd.type == "SYSCALL" and evt.Unmarshaled.auditd.arch == "c000003e" and evt.Unmarshaled.auditd.syscall == "59"
+            statics:
+              - meta: log_type
+                value: syscall_execve
               #let's hydrate with ppid process if we can :)
               - target: evt.Meta.parent_progname
                 expression: GetFromStash("auditd_pid_progname", evt.Unmarshaled.auditd.ppid)
