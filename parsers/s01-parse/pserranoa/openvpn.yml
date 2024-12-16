@@ -9,29 +9,29 @@ pattern_syntax:
     OPENVPN_TLS_CRYPT: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: tls-crypt unwrapping failed from.*"
     OPENVPN_TLS_PACKET: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: incoming packet authentication failed from.*"
     OPENVPN_TLS_HANDSHAKE: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: TLS handshake failed from.*"
-    OPENVPN_TLS_CERT: "%{TIMESTAMP_ISO8601:timestamp8601} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:source_port} OpenSSL: error:%{WORD}:.*verify failed"
+    OPENVPN_TLS_CERT: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:source_port} OpenSSL: error:%{WORD}:.*verify failed"
 nodes:
   - grok:
       name: "OPENVPN_TLS_AUTH_ERROR"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_AUTH_FAILED"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_AUTH_VERIFY_ERROR"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_TLS_CRYPT"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_TLS_PACKET"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_TLS_HANDSHAKE"
-      apply_on: Line.Raw
+      apply_on: message
   - grok:
       name: "OPENVPN_TLS_CERT"
-      apply_on: Line.Raw
+      apply_on: message
 statics:
   - meta: service
     value: openvpn

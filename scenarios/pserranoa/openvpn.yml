@@ -2,7 +2,7 @@
 type: leaky
 name: pserranoa/openvpn
 description: "Detect openvpn bruteforce"
-filter: "evt.Meta.log_type == 'auth_failed'"
+filter: "evt.Line.Labels.type == 'openvpn' &&  evt.Meta.log_type == 'auth_failed'"
 leakspeed: "1m"
 blackhole: 5m
 capacity: 3
