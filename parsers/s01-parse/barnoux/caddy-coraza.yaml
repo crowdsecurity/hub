@@ -1,0 +1,44 @@
+filter: "evt.Parsed.program startsWith 'caddy'"
+onsuccess: next_stage
+name: barnoux/caddy-coraza
+description: "Parse coraza, logs from the web server caddy"  
+pattern_syntax:
+  MODSECCADDYPREFIX: "\\[client \\\\\"%{IP:client}\\\\\"\\] Coraza: %{GREEDYDATA:modsecmessage}"
+  MODSECCADDYFILE: "\\[file \\\\\"%{DATA:rulefile}\\\\\"\\]"
+  MODSECCADDYLINE: "\\[line \\\\\"%{DATA:ruleline}\\\\\"\\]"
+  MODSECCADDYOFFSET: "\\[offset \\\\\"%{DATA:matchoffset}\\\\\"\\]"
+  MODSECCADDYID: "\\[id \\\\\"%{DATA:ruleid}\\\\\"\\]"
+  MODSECCADDYREV: "\\[rev \\\\\"%{DATA:rulerev}\\\\\"\\]"
+  MODSECCADDYMSG: "\\[msg \\\\\"%{DATA:rulemessage}\\\\\"\\]"
+  MODSECCADDYDATA: "\\[data \\\\\"%{DATA:ruledata}\\\\\"\\]"
+  MODSECCADDYSEVERITY: "\\[severity \\\\\"%{DATA:ruleseverity}\\\\\"\\]"
+  MODSECCADDYMATURITY: "\\[maturity \\\\\"%{DATA:maturity}\\\\\"\\]"
+  MODSECCADDYACCURACY: "\\[accuracy \\\\\"%{DATA:accuracy}\\\\\"\\]"
+  MODSECCADDYVERS: "\\[ver \\\\\"%{DATA:version}\\\\\"\\]"
+  MODSECCADDYTAGS: "(?:\\[tag \\\\\"%{DATA:ruletag0}\\\\\"\\] )?(?:\\[tag \\\\\\\"%{DATA:ruletag1}\\\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag2}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag3}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag4}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag5}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag6}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag7}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag8}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA:ruletag9}\\\\\"\\] )?(?:\\[tag \\\\\"%{DATA}\\\\\"\\] )*"
+  MODSECCADDYHOSTNAME: "\\[hostname \\\\['\\\"]%{DATA:targethost}\\\\[\\\"']\\]"
+  MODSECCADDYURI: "\\[uri \\\\[\\\"']%{DATA:targeturi}\\\\[\\\"']\\]"
+  MODSECCADDYUID: "\\[unique_id \\\\\"%{DATA:uniqueid}\\\\\"\\]"
+  MODSECCADDYREF: "\\[ref \\\\\"%{DATA:ref}\\\\\"\\]"
+  MODSECCADDYERROR: "%{MODSECCADDYPREFIX} %{MODSECCADDYFILE} %{MODSECCADDYLINE} (?:%{MODSECCADDYOFFSET} )?(?:%{MODSECCADDYID} )?(?:%{MODSECCADDYREV} )?(?:%{MODSECCADDYMSG} )?(?:%{MODSECCADDYDATA} )?(?:%{MODSECCADDYSEVERITY} )?(?:%{MODSECCADDYVERS} )?(?:%{MODSECCADDYMATURITY} )?(?:%{MODSECCADDYACCURACY} )?%{MODSECCADDYTAGS}%{MODSECCADDYHOSTNAME} %{MODSECCADDYURI} %{MODSECCADDYUID}"
+nodes:
+  - grok:
+      name: MODSECCADDYERROR
+      apply_on: Line.Raw
+      statics:
+        - meta: log_type
+          value: modsecurity
+        - meta: rule_id
+          expression: evt.Parsed.ruleid
+        - meta: modsec_ruledata
+          expression: evt.Parsed.ruledata
+        - meta: modsec_message
+          expression: evt.Parsed.rulemessage
+        - meta: rule_id
+          expression: evt.Parsed.ruleid
+        - meta: source_ip
+          expression: evt.Parsed.client
+statics:
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, 'ts')
+
