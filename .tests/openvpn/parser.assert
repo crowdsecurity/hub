@@ -1,5 +1,5 @@
 len(results) == 2
-len(results["s01-parse"]["pserranoa/openvpn"]) == 27
+len(results["s01-parse"]["pserranoa/openvpn"]) == 30
 results["s01-parse"]["pserranoa/openvpn"][0].Success == false
 results["s01-parse"]["pserranoa/openvpn"][1].Success == false
 results["s01-parse"]["pserranoa/openvpn"][2].Success == false
@@ -63,16 +63,27 @@ results["s01-parse"]["pserranoa/openvpn"][18].Evt.Meta["source_ip"] == "192.168.
 results["s01-parse"]["pserranoa/openvpn"][18].Evt.Whitelisted == false
 results["s01-parse"]["pserranoa/openvpn"][19].Success == false
 results["s01-parse"]["pserranoa/openvpn"][20].Success == false
-results["s01-parse"]["pserranoa/openvpn"][21].Success == false
-results["s01-parse"]["pserranoa/openvpn"][22].Success == true
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Parsed["source_ip"] == "192.168.1.35"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Parsed["sport"] == "46789"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Parsed["timestamp"] == "2024-12-15 14:15:02"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Meta["log_type"] == "auth_failed"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Meta["service"] == "openvpn"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Meta["source_ip"] == "192.168.1.35"
-results["s01-parse"]["pserranoa/openvpn"][22].Evt.Whitelisted == false
+results["s01-parse"]["pserranoa/openvpn"][21].Success == true
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Parsed["client"] == "client1"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Parsed["source_ip"] == "192.168.1.13"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Parsed["sport"] == "54321"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Parsed["timestamp"] == "2024-12-15 14:14:21"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Meta["log_type"] == "auth_failed"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Meta["service"] == "openvpn"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Meta["source_ip"] == "192.168.1.13"
+results["s01-parse"]["pserranoa/openvpn"][21].Evt.Whitelisted == false
+results["s01-parse"]["pserranoa/openvpn"][22].Success == false
 results["s01-parse"]["pserranoa/openvpn"][23].Success == false
 results["s01-parse"]["pserranoa/openvpn"][24].Success == false
-results["s01-parse"]["pserranoa/openvpn"][25].Success == false
+results["s01-parse"]["pserranoa/openvpn"][25].Success == true
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Parsed["source_ip"] == "192.168.1.35"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Parsed["sport"] == "46789"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Parsed["timestamp"] == "2024-12-15 14:15:02"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Meta["log_type"] == "auth_failed"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Meta["service"] == "openvpn"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Meta["source_ip"] == "192.168.1.35"
+results["s01-parse"]["pserranoa/openvpn"][25].Evt.Whitelisted == false
 results["s01-parse"]["pserranoa/openvpn"][26].Success == false
+results["s01-parse"]["pserranoa/openvpn"][27].Success == false
+results["s01-parse"]["pserranoa/openvpn"][28].Success == false
+results["s01-parse"]["pserranoa/openvpn"][29].Success == false

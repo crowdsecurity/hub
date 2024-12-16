@@ -3,13 +3,13 @@ onsuccess: next_stage
 name: pserranoa/openvpn
 description: "Parse openvpn logs"
 pattern_syntax:
-    OPENVPN_TLS_AUTH_ERROR: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:sport} TLS Auth Error:.*"
-    OPENVPN_AUTH_FAILED: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:sport} AUTH: Received controlmessage: \'AUTH_FAILED\'"
-    OPENVPN_AUTH_VERIFY_ERROR: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:source_port} VERIFY ERROR:.*"
-    OPENVPN_TLS_CRYPT: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:sport} TLS Error: tls-crypt unwrapping failed from.*"
-    OPENVPN_TLS_PACKET: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:sport} TLS Error: incoming packet authentication failed from.*"
-    OPENVPN_TLS_HANDSHAKE: "%{TIMESTAMP_ISO8601:timestamp} %{IPV4:source_ip}:%{INT:sport} TLS Error: TLS handshake failed from.*"
-    OPENVPN_TLS_CERT: "%{TIMESTAMP_ISO8601:timestamp8601} %{IPV4:source_ip}:%{INT:source_port} OpenSSL: error:%{WORD}:.*verify failed"
+    OPENVPN_TLS_AUTH_ERROR: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Auth Error:.*"
+    OPENVPN_AUTH_FAILED: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} AUTH: Received control message: AUTH_FAILED"
+    OPENVPN_AUTH_VERIFY_ERROR: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:source_port} VERIFY ERROR:.*"
+    OPENVPN_TLS_CRYPT: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: tls-crypt unwrapping failed from.*"
+    OPENVPN_TLS_PACKET: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: incoming packet authentication failed from.*"
+    OPENVPN_TLS_HANDSHAKE: "%{TIMESTAMP_ISO8601:timestamp} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:sport} TLS Error: TLS handshake failed from.*"
+    OPENVPN_TLS_CERT: "%{TIMESTAMP_ISO8601:timestamp8601} (?:%{WORD:client}/|)%{IPV4:source_ip}:%{INT:source_port} OpenSSL: error:%{WORD}:.*verify failed"
 nodes:
   - grok:
       name: "OPENVPN_TLS_AUTH_ERROR"
