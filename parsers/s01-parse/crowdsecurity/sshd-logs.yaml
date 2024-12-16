@@ -20,6 +20,7 @@ pattern_syntax:
   SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
   SSHD_AUTH_TIMEOUT: 'Timeout before authentication for %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
   SSHD_DISPATCH_FATAL: 'ssh_dispatch_run_fatal: Connection from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?: message authentication code incorrect \[preauth\]'
+  SSHD_REFUSED_CONN: 'refused connect from.*\((::ffff:)?%{IP_WORKAROUND:sshd_client_ip}\)'
 nodes:
   - grok:
       name: "SSHD_FAIL"
@@ -117,6 +118,12 @@ nodes:
       statics:
         - meta: log_type
           value: ssh_dispatch_fatal
+  - grok:
+      name: "SSHD_REFUSED_CONN"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_refused_conn
 statics:
   - meta: service
     value: ssh
