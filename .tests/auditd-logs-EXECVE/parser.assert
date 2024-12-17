@@ -1,0 +1,90 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734094314.009:1032): argc=2 a0=\"id\" a1=\"a=1\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "auditd"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734099855.076:1689): argc=3 a0=\"/bin/sh\" a1=\"/etc/update-motd.d/50-motd-news\" a2=\"--force\""
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "auditd"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734093676.086:1008): argc=14 a0=\"id\" a1=\"1\" a2=\"2\" a3=\"3\" a4=\"4\" a5=\"5\" a6=\"6\" a7=\"7\" a8=\"8\" a9=\"9\" a10=\"10\" a11=\"11\" a12=\"12\" a13=\"13\""
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "auditd"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["crowdsecurity/auditd-logs"]) == 3
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Parsed["event_inc_id"] == "1032"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734094314.009:1032): argc=2 a0=\"id\" a1=\"a=1\""
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Parsed["msg_type"] == "audit"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Parsed["program"] == "auditd"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Parsed["timestamp"] == "1734094314.009"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Meta["auditd_eventid"] == "1032"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Meta["execve_full_str"] == "id a=1"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Meta["log_type"] == "execve"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Unmarshaled["auditd"]["a0"] == "id"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Unmarshaled["auditd"]["a1"] == "a=1"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Unmarshaled["auditd"]["argc"] == "2"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Unmarshaled["auditd"]["msg"] == "audit(1734094314.009:1032):"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Unmarshaled["auditd"]["type"] == "EXECVE"
+results["s01-parse"]["crowdsecurity/auditd-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Parsed["event_inc_id"] == "1689"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734099855.076:1689): argc=3 a0=\"/bin/sh\" a1=\"/etc/update-motd.d/50-motd-news\" a2=\"--force\""
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Parsed["msg_type"] == "audit"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Parsed["program"] == "auditd"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Parsed["timestamp"] == "1734099855.076"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Meta["auditd_eventid"] == "1689"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Meta["execve_full_str"] == "/bin/sh /etc/update-motd.d/50-motd-news --force"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Meta["log_type"] == "execve"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["a0"] == "/bin/sh"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["a1"] == "/etc/update-motd.d/50-motd-news"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["a2"] == "--force"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["argc"] == "3"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["msg"] == "audit(1734099855.076:1689):"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Unmarshaled["auditd"]["type"] == "EXECVE"
+results["s01-parse"]["crowdsecurity/auditd-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Parsed["event_inc_id"] == "1008"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Parsed["message"] == "type=EXECVE msg=audit(1734093676.086:1008): argc=14 a0=\"id\" a1=\"1\" a2=\"2\" a3=\"3\" a4=\"4\" a5=\"5\" a6=\"6\" a7=\"7\" a8=\"8\" a9=\"9\" a10=\"10\" a11=\"11\" a12=\"12\" a13=\"13\""
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Parsed["msg_type"] == "audit"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Parsed["program"] == "auditd"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Parsed["timestamp"] == "1734093676.086"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Meta["auditd_eventid"] == "1008"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Meta["datasource_path"] == "auditd-logs-EXECVE.log"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Meta["execve_full_str"] == "id 1 2 3 4 5 6 7 8 9 10 11 12 13"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Meta["log_type"] == "execve"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a9"] == "9"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a10"] == "10"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a3"] == "3"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a4"] == "4"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a5"] == "5"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a8"] == "8"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["argc"] == "14"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["msg"] == "audit(1734093676.086:1008):"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["type"] == "EXECVE"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a0"] == "id"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a1"] == "1"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a12"] == "12"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a13"] == "13"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a6"] == "6"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a11"] == "11"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a2"] == "2"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Unmarshaled["auditd"]["a7"] == "7"
+results["s01-parse"]["crowdsecurity/auditd-logs"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0
