@@ -10,5 +10,10 @@ groupby: evt.Meta.source_ip
 reprocess: true
 labels:
  service: openvpn
- type: auth_failed
  remediation: true
+ confidence: 3
+ spoofable: 0
+ classification:
+   - attack.T1110
+ label: "OpenVPN Bruteforce"
+ behaviour: "generic:bruteforce"
