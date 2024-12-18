@@ -2,7 +2,7 @@
 
 ## Laurel collection
 
-A collection for laurel a post-processing plugin for auditd:
+A collection for [laurel](https://github.com/threathunters-io/laurel) a post-processing plugin for auditd:
  - laurel json log parser
  - post exploitation behavior detection
 
