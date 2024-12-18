@@ -1,16 +1,7 @@
-#type=SYSCALL msg=audit(1672330955.273:4433): arch=c000003e syscall=263 success=no exit=-2 a0=ffffff9c a1=557162396590 a2=0 a3=0 items=1 ppid=144571 pid=145400 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts0 ses=79 comm="rm" exe="/usr/bin/rm" key="file_modification"
-
-
-#type=EXECVE msg=audit(1734093141.455:922): argc=2 a0="id" a1="-a"
-#type=PATH msg=audit(1734093141.455:922): item=0 name="/usr/bin/id" inode=5505499 dev=08:02 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0
-#type=PATH msg=audit(1734093141.455:922): item=1 name="/lib64/ld-linux-x86-64.so.2" inode=5505904 dev=08:02 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0
-
-
 name: crowdsecurity/auditd-logs
 description: "Parse auditd logs"
 filter: "evt.Parsed.program == 'auditd'"
 onsuccess: next_stage
-debug: true
 pattern_syntax:
   FLOAT: '[0-9\.]+'
 
