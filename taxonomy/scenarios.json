@@ -5930,6 +5930,61 @@
     "cti": true,
     "service": "sonarr"
   },
+  "sigmahq/lnx_auditd_auditing_config_change": {
+    "name": "sigmahq/lnx_auditd_auditing_config_change",
+    "description": "Detect changes in auditd configuration files\n",
+    "label": "Auditing Configuration Changes on Linux Host",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "linux"
+  },
+  "sigmahq/lnx_auditd_find_cred_in_files": {
+    "name": "sigmahq/lnx_auditd_find_cred_in_files",
+    "description": "Detecting attempts to extract passwords with grep\n",
+    "label": "Credentials In Files - Linux",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "linux"
+  },
+  "sigmahq/lnx_auditd_ld_so_preload_mod": {
+    "name": "sigmahq/lnx_auditd_ld_so_preload_mod",
+    "description": "Identifies modification of ld.so.preload for shared object injection. This technique is used by attackers to load arbitrary code into processes.\n",
+    "label": "Modification of ld.so.preload",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "linux"
+  },
+  "sigmahq/lnx_auditd_load_module_insmod": {
+    "name": "sigmahq/lnx_auditd_load_module_insmod",
+    "description": "Detects loading of kernel modules with insmod command. Loadable Kernel Modules (LKMs) are pieces of code that can be loaded and unloaded into the kernel upon demand. Adversaries may use LKMs to obtain persistence within the system or elevate the privileges. \n",
+    "label": "Loading of Kernel Module via Insmod",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "linux"
+  },
+  "sigmahq/lnx_auditd_logging_config_change": {
+    "name": "sigmahq/lnx_auditd_logging_config_change",
+    "description": "Detect changes of syslog daemons configuration files\n",
+    "label": "Logging Configuration Changes on Linux Host",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "linux"
+  },
   "sigmahq/proc_creation_win_addinutil_suspicious_cmdline": {
     "name": "sigmahq/proc_creation_win_addinutil_suspicious_cmdline",
     "description": "Detects execution of the Add-In deployment cache updating utility (AddInutil.exe) with suspicious Addinroot or Pipelineroot paths. An adversary may execute AddinUtil.exe with uncommon Addinroot/Pipelineroot paths that point to the adversaries Addins.Store payload. \n",
