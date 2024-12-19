@@ -10,6 +10,6 @@ The following informations will be added to the event :
 
 
 This configuration includes GeoLite2 data created by MaxMind available from [https://www.maxmind.com](https://www.maxmind.com), it includes two data files: 
-* [GeoLite2-City.mmdb](https://dud8c11oe0bga.cloudfront.net/mmdb/GeoLite2-City.mmdb)
-* [GeoLite2-ASN.mmdb](https://dud8c11oe0bga.cloudfront.net/mmdb/GeoLite2-ASN.mmdb)
+* [GeoLite2-City.mmdb](http://dud8c11oe0bga.cloudfront.net/mmdb/GeoLite2-City.mmdb)
+* [GeoLite2-ASN.mmdb](http://dud8c11oe0bga.cloudfront.net/mmdb/GeoLite2-ASN.mmdb)
 

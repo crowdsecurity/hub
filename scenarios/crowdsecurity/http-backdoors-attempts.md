@@ -2,7 +2,7 @@ Detect attempts to access common backdoors such as c99.php ...
 
 ## Configuration
 
-This scenario will be trigger if an attacker requests a minimum of two differents file of [the list](https://dud8c11oe0bga.cloudfront.net/web/backdoors.txt)/
+This scenario will be trigger if an attacker requests a minimum of two differents file of [the list](http://dud8c11oe0bga.cloudfront.net/web/backdoors.txt)/
 
 Configuration:
 
@@ -15,4 +15,4 @@ Configuration:
 
 ### Data
 
-This scenario use the [following list backdoors.txt](https://dud8c11oe0bga.cloudfront.net/web/backdoors.txt) from [danielmiessler](https://github.com/danielmiessler/SecLists)
+This scenario use the [following list backdoors.txt](http://dud8c11oe0bga.cloudfront.net/web/backdoors.txt) from [danielmiessler](https://github.com/danielmiessler/SecLists)
