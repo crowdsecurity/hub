@@ -1,0 +1,16 @@
+type: trigger
+name: crowdsecurity/ssh-refused-conn
+description: "Detect sshd refused connections"
+filter: "evt.Meta.log_type == 'ssh_refused_conn'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: false
+labels:
+  service: ssh
+  confidence: 0
+  spoofable: 0
+  classification:
+    - attack.T1595
+  label: "SSH Refused Connection"
+  behavior: "generic:scan"
+  remediation: true
