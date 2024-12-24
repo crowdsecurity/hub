@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/lnx_auditd_find_cred_in_files
+description: |
+  Detecting attempts to extract passwords with grep
+filter: |
+  (evt.Parsed.program == 'auditd') && (evt.Meta.auditd_type == 'EXECVE' && evt.Line.Raw contains 'grep' && evt.Line.Raw contains 'password')
+blackhole: 2m
+#status: test
+labels:
+  service: linux
+  confidence: 1
+  spoofable: 0
+  label: "Credentials In Files - Linux"
+  behavior : "linux:audit"
+  remediation: false
+  classification:
+   - attack.t1552.001
+
+
+scope:
+  type: pid
+  expression: evt.Meta.ppid
+

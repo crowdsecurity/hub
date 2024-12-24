@@ -1,0 +1,11 @@
+parsers:
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/dateparse-enrich
+    - crowdsecurity/auditd-logs
+scenarios:
+    - ./scenarios/sigmahq/lnx_auditd_find_cred_in_files.yml
+postoverflows:
+    - ""
+log_file: lnx_auditd_find_cred_in_files.log
+log_type: auditd
+ignore_parsers: true
