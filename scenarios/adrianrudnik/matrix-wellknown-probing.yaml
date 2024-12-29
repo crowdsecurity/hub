@@ -1,0 +1,19 @@
+type: trigger
+#debug: true
+name: adrianrudnik/matrix-wellknown-probing
+description: "Detect matrix .well-known probing"
+filter: |
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
+  evt.Meta.http_status == '404' and
+  Upper(evt.Meta.http_path) contains Upper('/.well-known/matrix/')
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: http
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "http:ddos"
+  label: "HTTP DOS by matrix servers inquiring about decommission server"
