@@ -5,7 +5,7 @@ description: "Detect matrix .well-known probing"
 filter: |
   evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
   evt.Meta.http_status == '404' and
-  Upper(evt.Meta.http_path) contains Upper('/.well-known/matrix/')
+  Upper(evt.Meta.http_path) contains Upper('/.well-known/matrix/server')
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
@@ -15,5 +15,5 @@ labels:
   spoofable: 0
   classification:
     - attack.T1498
-  behavior: "http:ddos"
-  label: "HTTP DOS by matrix servers inquiring about decommission server"
+  behavior: "http:dos"
+  label: "HTTP DOS by matrix servers inquiring about possible server"
