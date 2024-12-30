@@ -2,7 +2,7 @@ type: trigger
 #debug: true
 name: crowdsecurity/auditd-sus-exec
 description: "Detect post-exploitation behaviour : exec from suspicious locations"
-filter: evt.Meta.log_type == 'syscall_execve' and ( evt.Meta.exe startsWith "/tmp/" or evt.Meta.exe contains "/." )
+filter: evt.Meta.log_type == 'auditd_syscall_execve' and ( evt.Meta.exe startsWith "/tmp/" or evt.Meta.exe contains "/." )
 labels:
   confidence: 2
   spoofable: 0
