@@ -17,7 +17,8 @@ nodes:
           - meta: service
             value: laurel
           - meta: log_type
-            expression: "auditd_syscall" + evt.Unmarshaled.laurel.SYSCALL.SYSCALL
+            expression: |
+              'auditd_syscall_' + evt.Unmarshaled.laurel.SYSCALL.SYSCALL
           - target: evt.StrTime
             expression: evt.Parsed.timestamp
           - meta: exe
