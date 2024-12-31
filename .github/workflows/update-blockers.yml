@@ -34,6 +34,36 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+
+  run-mkblockers:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pipenv'
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pipenv wheel
+          pipenv install --deploy
+      - name: run mkblockers
+        run: |
+          jq --sort-keys --indent 2 < blockers.json >blockers-sorted.json
+          pipenv run ./mkblockers
+          if ! (cmp -s blockers-sorted.json blockers-new.json); then
+              echo "Error: output from mkblockers differs from legacy blockers builder."
+              diff -u blockers-sorted.json blockers-new.json
+              exit 1
+          fi
+
   invalidate-cache:
     runs-on: ubuntu-latest
     if: |
