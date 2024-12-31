@@ -95,6 +95,9 @@ class Item:
         # XXX: ignore multiple documents after the first one
         if "labels" in content:
             self.labels = content["labels"]
+            # for sigma scenarios
+            if self.labels and 'classification' in self.labels and self.labels['classification'] is None:
+                del self.labels['classification']
         if "description" in content:
             self.description = content["description"]
         if "references" in content:
