@@ -46,8 +46,12 @@ def fetch_express_bouncer_download() -> int:
     now = datetime.now()
 
     while start_date < now:
-        end_date = min(start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30), now)
-        total_downloads += fetch_express_bouncer_download_from_date(start_date, end_date)
+        end_date = min(
+            start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30), now
+        )
+        total_downloads += fetch_express_bouncer_download_from_date(
+            start_date, end_date
+        )
         start_date = end_date
 
     return total_downloads
@@ -67,18 +71,23 @@ def load_json(file: str) -> List[ItemInfo]:
 def default_assets(latest_release, repo_url: str) -> List[Dict]:
     if latest_release.assets:
         return [
-            {"name": asset.name, "download_url": asset.browser_download_url, "asset_url": asset.url}
+            {
+                "name": asset.name,
+                "download_url": asset.browser_download_url,
+                "asset_url": asset.url,
+            }
             for asset in latest_release.assets
         ]
     return [
         {
             "name": "Tarball (source code)",
             "download_url": latest_release.tarball_url,
-            "asset_url": latest_release.tarball_url
-        }, {
+            "asset_url": latest_release.tarball_url,
+        },
+        {
             "name": "Zipball (source code)",
             "download_url": latest_release.zipball_url,
-            "asset_url": latest_release.zipball_url
+            "asset_url": latest_release.zipball_url,
         },
     ]
 
@@ -90,7 +99,9 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     item.stars = repo.stargazers_count
     item.url = repo.html_url
     item.description = repo.description or ""
-    item.readme_content = base64.b64encode(repo.get_readme().decoded_content).decode("utf-8")
+    item.readme_content = base64.b64encode(repo.get_readme().decoded_content).decode(
+        "utf-8"
+    )
 
     releases = repo.get_releases()
     if releases.totalCount > 0:
