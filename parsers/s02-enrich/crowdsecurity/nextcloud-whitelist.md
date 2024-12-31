@@ -23,6 +23,8 @@ When previews are missing for files in the trash bin, a 404 error is returned wh
 
 In rare cases HTTP Probing will be triggered when opening multiple folders quickly, Nextcloud checks for a ``readme.md`` file and if it doesn't exist a 404 error is thrown.
 
+Auto uploading or synchronizing files from mobile clients authenticated with app token and enabled ``auth.storeCryptedPassword`` option on nextcloud server throw a lot of 403 and 404 on '/remote.php/dav/files/FILENAME' and '/index.php/apps/files/api/v1/thumbnail/' when checking for existing and possibly already disappeared files.
+
 ---
 ### Creating files via WebDAV
 When uploading files via WebDAV, a PROPFIND request is sent to the server, which returns 404 if the file does not
