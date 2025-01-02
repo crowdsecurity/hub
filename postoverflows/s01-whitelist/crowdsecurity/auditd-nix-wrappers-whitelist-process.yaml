@@ -1,0 +1,7 @@
+name: crowdsecurity/auditd-nix-wrappers-whitelist-process
+description: "Whitelist wrapped binaries in the Nix store"
+whitelist:
+  reason: "Nix wrapped binaries"
+  expression:
+    - |
+      evt.Overflow.Alert.GetScenario() == 'crowdsecurity/auditd-sus-exec' && all(evt.Overflow.Alert.Events, {.GetMeta('exe') matches '^\\/nix\\/store\\/[^\\/]+\\/bin\\/\\.[^\\/]+-wrapped$'})

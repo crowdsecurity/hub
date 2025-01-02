@@ -110,7 +110,7 @@ def get_mitre_tactic_from_technique(technique, mitre_data):
 def get_mitre_techniques_from_label(labels, mitre_data):
     ret = list()
     errors = list()
-    if "classification" not in labels:
+    if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
     for classification in labels["classification"]:
@@ -133,7 +133,7 @@ def get_mitre_techniques_from_label(labels, mitre_data):
 def get_cwe_from_label(labels):
     ret = list()
     errors = list()
-    if "classification" not in labels:
+    if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
     for classification in labels["classification"]:
@@ -153,7 +153,7 @@ def get_cwe_from_label(labels):
 def get_cve_from_label(labels):
     ret = list()
     errors = list()
-    if "classification" not in labels:
+    if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
     for classification in labels["classification"]:
