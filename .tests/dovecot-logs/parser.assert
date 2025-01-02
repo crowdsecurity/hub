@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 14
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 15
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "auth-worker(24544): pam(toto,1.1.1.1): unknown user"
@@ -127,7 +127,16 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][13].Evt.Meta["datasource_path"] 
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Evt.Meta["machine"] == "mail"
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/dovecot-logs"]) == 14
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Parsed["message"] == "auth: passwd-file(karen@co.uk,192.168.1.1): unknown user (SHA1 of given password: 21bd12)"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Parsed["program"] == "dovecot"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Parsed["timestamp8601"] == "2025-01-01T17:05:06.533969+01:00"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["datasource_path"] == "dovecot-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Meta["machine"] == "mail2"
+results["s00-raw"]["crowdsecurity/syslog-logs"][14].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/dovecot-logs"]) == 15
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Parsed["dovecot_login_message"] == "unknown user"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Parsed["dovecot_remote_ip"] == "1.1.1.1"
@@ -145,7 +154,7 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Meta["machine"] == "ca
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][0].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Success == true
-results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Evt.Parsed["auth_worker_func"] == "pam_authenticate()"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Evt.Parsed["auth_func"] == "pam_authenticate()"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Evt.Parsed["dovecot_login_message"] == "Authentication failure (password mismatch?)"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Evt.Parsed["dovecot_remote_ip"] == "1.1.1.1"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][1].Evt.Parsed["dovecot_user"] == "toto"
@@ -279,7 +288,7 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][8].Evt.Meta["machine"] == "ca
 results["s01-parse"]["crowdsecurity/dovecot-logs"][8].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][8].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Success == true
-results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Parsed["auth_worker_func"] == "pam_authenticate()"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Parsed["auth_func"] == "pam_authenticate()"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Parsed["dovecot_login_message"] == "Authentication failure (Password mismatch?)"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Parsed["dovecot_remote_ip"] == "5.34.207.151"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Parsed["dovecot_user"] == "caliph@customdomaine.com"
@@ -296,7 +305,7 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Meta["machine"] == "ma
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Meta["source_ip"] == "5.34.207.151"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][9].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Success == true
-results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Evt.Parsed["auth_worker_func"] == "pam_authenticate()"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Evt.Parsed["auth_func"] == "pam_authenticate()"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Evt.Parsed["dovecot_login_message"] == "Authentication failure (Password mismatch?)"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Evt.Parsed["dovecot_remote_ip"] == "5.34.207.161"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][10].Evt.Parsed["dovecot_user"] == "needle"
@@ -360,4 +369,19 @@ results["s01-parse"]["crowdsecurity/dovecot-logs"][13].Evt.Meta["log_type"] == "
 results["s01-parse"]["crowdsecurity/dovecot-logs"][13].Evt.Meta["machine"] == "mail"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][13].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/dovecot-logs"][13].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Success == true
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["dovecot_login_message"] == "unknown user (SHA1 of given password: 21bd12)"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["dovecot_remote_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["dovecot_user"] == "karen@co.uk"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["message"] == "auth: passwd-file(karen@co.uk,192.168.1.1): unknown user (SHA1 of given password: 21bd12)"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["program"] == "dovecot"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Parsed["timestamp8601"] == "2025-01-01T17:05:06.533969+01:00"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["datasource_path"] == "dovecot-logs.log"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["dovecot_login_result"] == "auth_failed"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["log_type"] == "dovecot_logs"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["machine"] == "mail2"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/dovecot-logs"][14].Evt.Whitelisted == false
 len(results["success"][""]) == 0
