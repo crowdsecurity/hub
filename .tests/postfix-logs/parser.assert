@@ -157,10 +157,10 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["reason"] == "Rel
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["service"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["source_hostname"] == "unknown"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
-results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][3].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Success == true
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Parsed["action"] == "reject"
@@ -187,10 +187,10 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["reason"] == "Rel
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["service"] == "postfix"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["source_hostname"] == "static.1.1.168.192.client.domain.xyz"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Meta["source_ip"] == "192.168.1.1"
-results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
+results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
 results["s01-parse"]["crowdsecurity/postfix-logs"][4].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/postfix-logs"][5].Success == true
 results["s01-parse"]["crowdsecurity/postfix-logs"][5].Evt.Parsed["command"] == "GET / HTTP/1.1"
@@ -226,8 +226,8 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["machine"] =
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_hostname"] == "unknown"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2024-05-11T04:02:36Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2024-05-11T04:02:36Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-05-11T04:02:36Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-05-11T04:02:36Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["action"] == "reject"
@@ -251,8 +251,8 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["machine"] =
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_hostname"] == "unknown"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2024-05-11T04:02:37Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2024-05-11T04:02:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2025-05-11T04:02:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2025-05-11T04:02:37Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["action"] == "reject"
@@ -281,10 +281,10 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_host
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2024-08-26T01:33:38.572449Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2024-08-26T01:33:38.572449Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-9QL4SDRB93L>"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-9QL4SDRB93L>"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["action"] == "reject"
@@ -313,10 +313,10 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_host
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2024-08-25T12:31:56.154748Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2024-08-25T12:31:56.154748Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["action"] == "reject"
@@ -343,12 +343,12 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["reason"] ==
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "postfix"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_hostname"] == "static.1.1.168.192.client.domain.xyz"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "192.168.1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2024-06-04T22:24:28Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2024-06-04T22:24:28Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2025-06-04T22:24:28Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2025-06-04T22:24:28Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["proto"] == "ESMTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["to"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["from"] == "<spammer@domain.tld>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["postfix"]["helo"] == "<WIN-CLJ1B0GQ6JP>"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["command"] == "GET / HTTP/1.1"
