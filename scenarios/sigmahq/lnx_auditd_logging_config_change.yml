@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/lnx_auditd_logging_config_change
+description: |
+  Detect changes of syslog daemons configuration files
+filter: |
+  (evt.Parsed.program == 'auditd') && (evt.Meta.auditd_type == 'PATH' && (evt.Meta.name in ['/etc/syslog.conf', '/etc/rsyslog.conf', '/etc/syslog-ng/syslog-ng.conf']))
+blackhole: 2m
+#status: test
+labels:
+  service: linux
+  confidence: 1
+  spoofable: 0
+  label: "Logging Configuration Changes on Linux Host"
+  behavior : "linux:audit"
+  remediation: false
+  classification:
+   - attack.t1562.006
+
+
+scope:
+  type: pid
+  expression: evt.Meta.ppid
+
