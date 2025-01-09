@@ -1,0 +1,18 @@
+# Wazuh web auth bruteforce
+type: leaky
+name: bouddha/wazuh-bf
+description: "Detect bruteforce attempts on Wazuh web interface"
+filter: evt.Meta.log_type == 'wazuh_failed_auth'
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Wazuh Bruteforce"
+  service: wazuh
