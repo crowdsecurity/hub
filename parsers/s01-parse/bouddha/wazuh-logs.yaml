@@ -1,4 +1,4 @@
-name: crowdsecurity/wazuh-web-login
+name: bouddha/wazuh-logs
 description: "Parse Wazuh web interface logs for failed login attempts"
 filter: "evt.Parsed.program == 'opensearch-dashboards' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'wazuh') in ['', nil]"
 onsuccess: next_stage
