@@ -8,7 +8,13 @@ statics:
   - meta: source_ip
     expression: evt.Unmarshaled.wazuh.req.remoteAddress
   - meta: log_type
-    value: wazuh_failed_auth
+    expression: |
+        (
+          evt.Unmarshaled.wazuh.type == 'response' &&
+          evt.Unmarshaled.wazuh.method == 'post' &&
+          evt.Unmarshaled.wazuh.statusCode in [401, '401'] &&
+          evt.Unmarshaled.wazuh.req.url == '/auth/login'
+        ) ? 'wazuh_failed_auth' : ''
   - meta: timestamp
     expression: evt.Unmarshaled.wazuh['@timestamp']
   - meta: status_code
