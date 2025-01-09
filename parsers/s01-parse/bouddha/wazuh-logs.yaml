@@ -1,19 +1,19 @@
-onsuccess: next_stage
-name: bouddha/wazuh-logs
+name: crowdsecurity/wazuh-web-login
 description: "Parse Wazuh web interface logs for failed login attempts"
-filter: "evt.Parsed.program == 'opensearch-dashboards'"
-nodes:
-  - grok:
-      pattern: '{"type":"response","@timestamp":"%{TIMESTAMP_ISO8601:timestamp}","tags":\[],"pid":%{INT:pid},"method":"post","statusCode":401,"req":{"url":"/auth/login","method":"post","headers":{.*},"remoteAddress":"%{IP:source_ip}",.*},"message":"POST /auth/login 401 %{INT:response_time}ms - %{GREEDYDATA}"}'
-      apply_on: message
+filter: "evt.Parsed.program == 'opensearch-dashboards' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'wazuh') in ['', nil]"
+onsuccess: next_stage
 statics:
+  - meta: service
+    value: wazuh
+  - meta: source_ip
+    expression: evt.Unmarshaled.wazuh.req.remoteAddress
   - meta: log_type
     value: wazuh_failed_auth
-  - meta: source_ip
-    expression: "evt.Parsed.source_ip"
   - meta: timestamp
-    expression: "evt.Parsed.timestamp"
-  - meta: response_time
-    expression: "evt.Parsed.response_time"
+    expression: evt.Unmarshaled.wazuh['@timestamp']
+  - meta: status_code
+    expression: evt.Unmarshaled.wazuh.statusCode
+  - meta: url
+    expression: evt.Unmarshaled.wazuh.req.url
   - target: evt.StrTime
-    value: "${evt.Parsed.timestamp}"
+    expression: evt.Unmarshaled.wazuh['@timestamp']
