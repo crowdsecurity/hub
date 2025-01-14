@@ -1,0 +1,25 @@
+name: bouddha/wazuh-logs
+description: "Parse Wazuh web interface logs for failed login attempts"
+filter: "evt.Parsed.program == 'opensearch-dashboards' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'wazuh') in ['', nil]"
+onsuccess: next_stage
+statics:
+  - meta: service
+    value: wazuh
+  - meta: source_ip
+    expression: evt.Unmarshaled.wazuh.req.remoteAddress
+  - meta: log_type
+    expression: |
+        (
+          evt.Unmarshaled.wazuh.type == 'response' &&
+          evt.Unmarshaled.wazuh.method == 'post' &&
+          evt.Unmarshaled.wazuh.statusCode in [401, '401'] &&
+          evt.Unmarshaled.wazuh.req.url == '/auth/login'
+        ) ? 'wazuh_failed_auth' : ''
+  - meta: timestamp
+    expression: evt.Unmarshaled.wazuh['@timestamp']
+  - meta: status_code
+    expression: evt.Unmarshaled.wazuh.statusCode
+  - meta: url
+    expression: evt.Unmarshaled.wazuh.req.url
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.wazuh['@timestamp']
