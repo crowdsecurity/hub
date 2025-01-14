@@ -1,0 +1,16 @@
+type: leaky
+name: LearningSpot/open-webui-bf
+description: "Detect open webui bruteforce"
+filter: evt.Meta.log_type == 'open-webui_failed_auth'
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 3
+blackhole: 5m
+reprocess: true
+labels:
+  service: open-webui
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Open Web UI Bruteforce"
+  remediation: true
