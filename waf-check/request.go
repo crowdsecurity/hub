@@ -29,14 +29,14 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 
 	parsedBaseURL, err := url.Parse(baseURL)
 	if err != nil {
-		return *req, fmt.Errorf("error parsing base URL: %w", err)
+		return http.Request{}, fmt.Errorf("error parsing base URL: %w", err)
 	}
 
 	request.URL = fmt.Sprintf("/%s", strings.TrimLeft(request.URL, "/"))
 
 	parsedURI, err := url.Parse(request.URL)
 	if err != nil {
-		return *req, fmt.Errorf("error parsing URI: %w", err)
+		return http.Request{}, fmt.Errorf("error parsing URI: %w", err)
 	}
 
 	request.FullURL = parsedBaseURL.ResolveReference(parsedURI).String()
@@ -48,7 +48,7 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 	}
 
 	if err != nil {
-		return *req, err
+		return http.Request{}, err
 	}
 
 	for key, value := range request.Headers {
