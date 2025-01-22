@@ -13,7 +13,7 @@ statics:
           evt.Unmarshaled.wazuh.type == 'response' &&
           evt.Unmarshaled.wazuh.method == 'post' &&
           evt.Unmarshaled.wazuh.statusCode in [401, '401'] &&
-          evt.Unmarshaled.wazuh.req.url == '/auth/login'
+          evt.Unmarshaled.wazuh.req.url == '/auth/login?dataSourceId='
         ) ? 'wazuh_failed_auth' : ''
   - meta: timestamp
     expression: evt.Unmarshaled.wazuh['@timestamp']
