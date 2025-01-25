@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 21
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 23
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -202,7 +202,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Meta["machine"] == "inst
 results["s00-raw"]["crowdsecurity/syslog-logs"][19].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["logsource"] == "syslog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["message"] == "Invalid user pascal5 from 35.188.49.176 port 53502"
+results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["message"] == "Invalid user pascal5 from 192.168.1.3 port 53502"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["pid"] == "16379"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["program"] == "sshd-session"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Parsed["timestamp"] == "Feb 12 14:10:24"
@@ -210,7 +210,27 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["datasource_path"] 
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Meta["machine"] == "sd-126005"
 results["s00-raw"]["crowdsecurity/syslog-logs"][20].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 21
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["message"] == "refused connect from _U2FsdGVkX19P3BCJmFBHhjLza8BcMH06WCUVwttMHpE=_@::ffff:192.168.1.1 (::ffff:192.168.1.1)"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["pid"] == "16379"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Parsed["timestamp"] == "Dec 12 14:10:24"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][21].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Parsed["message"] == "refused connect from example.com (192.168.1.1)"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Parsed["pid"] == "16379"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Parsed["timestamp"] == "Dec 16 14:10:24"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][22].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 23
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -510,10 +530,10 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Meta["source_ip"] == "19
 results["s01-parse"]["crowdsecurity/sshd-logs"][19].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["logsource"] == "syslog"
-results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["message"] == "Invalid user pascal5 from 35.188.49.176 port 53502"
+results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["message"] == "Invalid user pascal5 from 192.168.1.3 port 53502"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["pid"] == "16379"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["program"] == "sshd-session"
-results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["sshd_client_ip"] == "35.188.49.176"
+results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["sshd_client_ip"] == "192.168.1.3"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["sshd_invalid_user"] == "pascal5"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Parsed["timestamp"] == "Feb 12 14:10:24"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["datasource_path"] == "sshd-logs.log"
@@ -521,7 +541,35 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["datasource_type"] 
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["log_type"] == "ssh_failed-auth"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["machine"] == "sd-126005"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["service"] == "ssh"
-results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["source_ip"] == "35.188.49.176"
+results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["source_ip"] == "192.168.1.3"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Meta["target_user"] == "pascal5"
 results["s01-parse"]["crowdsecurity/sshd-logs"][20].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["message"] == "refused connect from _U2FsdGVkX19P3BCJmFBHhjLza8BcMH06WCUVwttMHpE=_@::ffff:192.168.1.1 (::ffff:192.168.1.1)"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["pid"] == "16379"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["sshd_client_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Parsed["timestamp"] == "Dec 12 14:10:24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["log_type"] == "ssh_refused_conn"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][21].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["message"] == "refused connect from example.com (192.168.1.1)"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["pid"] == "16379"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["sshd_client_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Parsed["timestamp"] == "Dec 16 14:10:24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["datasource_path"] == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["log_type"] == "ssh_refused_conn"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][22].Evt.Whitelisted == false
 len(results["success"][""]) == 0
