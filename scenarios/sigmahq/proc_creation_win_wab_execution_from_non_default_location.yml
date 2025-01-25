@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_wab_execution_from_non_default_location
+description: |
+  Detects execution of wab.exe (Windows Contacts) and Wabmig.exe (Microsoft Address Book Import Tool) from non default locations as seen with bumblebee activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wab.exe' || evt.Parsed.Image endsWith '\\wabmig.exe') && not (evt.Parsed.Image startsWith 'C:\\Windows\\WinSxS\\' || evt.Parsed.Image startsWith 'C:\\Program Files\\Windows Mail\\' || evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\Windows Mail\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Wab Execution From Non Default Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

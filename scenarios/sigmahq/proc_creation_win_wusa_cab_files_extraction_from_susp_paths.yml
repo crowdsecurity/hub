@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_wusa_cab_files_extraction_from_susp_paths
+description: |
+  Detects the execution of the "wusa.exe" (Windows Update Standalone Installer) utility to extract ".cab" files using the "/extract" argument from potentially suspicious paths. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wusa.exe' && evt.Parsed.CommandLine contains '/extract:' && (evt.Parsed.CommandLine contains ':\\PerfLogs\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '\\Appdata\\Local\\Temp\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Cab File Extraction Via Wusa.EXE From Potentially Suspicious Paths"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_format_uncommon_filesystem_load
+description: |
+  Detects the execution of format.com with an uncommon filesystem selection that could indicate a defense evasion activity in which "format.com" is used to load malicious DLL files or other programs. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\format.com' && evt.Parsed.CommandLine contains '/fs:' && not (evt.Parsed.CommandLine contains '/fs:exFAT' || evt.Parsed.CommandLine contains '/fs:FAT' || evt.Parsed.CommandLine contains '/fs:NTFS' || evt.Parsed.CommandLine contains '/fs:ReFS' || evt.Parsed.CommandLine contains '/fs:UDF'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Uncommon FileSystem Load Attempt By Format.com"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

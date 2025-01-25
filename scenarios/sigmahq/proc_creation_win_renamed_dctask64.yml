@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_dctask64
+description: |
+  Detects a renamed "dctask64.exe" execution, a signed binary by ZOHO Corporation part of ManageEngine Endpoint Central. This binary can be abused for DLL injection, arbitrary command and process execution. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Hashes contains '6834B1B94E49701D77CCB3C0895E1AFD' || evt.Parsed.Hashes contains '1BB6F93B129F398C7C4A76BB97450BBA' || evt.Parsed.Hashes contains 'FAA2AC19875FADE461C8D89DCF2710A3' || evt.Parsed.Hashes contains 'F1039CED4B91572AB7847D26032E6BBF') && not (evt.Parsed.Image endsWith '\\dctask64.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+   - attack.t1055.001
+   - attack.t1202
+   - attack.t1218
+
+  label: "Renamed ZOHO Dctask64 Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

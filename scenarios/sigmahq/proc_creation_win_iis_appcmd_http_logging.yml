@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_iis_appcmd_http_logging
+description: |
+  Disables HTTP logging on a Windows IIS web server as seen by Threat Group 3390 (Bronze Union)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\appcmd.exe' || evt.Parsed.OriginalFileName == 'appcmd.exe') && evt.Parsed.CommandLine contains 'set' && evt.Parsed.CommandLine contains 'config' && evt.Parsed.CommandLine contains 'section:httplogging' && evt.Parsed.CommandLine contains 'dontLog:true')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.002
+
+  label: "Disable Windows IIS HTTP Logging"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

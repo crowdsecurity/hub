@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mshta_lethalhta_technique
+description: |
+  Detects potential LethalHTA technique where the "mshta.exe" is spawned by an "svchost.exe" process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\svchost.exe' && evt.Parsed.Image endsWith '\\mshta.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.005
+
+  label: "Potential LethalHTA Technique Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

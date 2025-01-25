@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_desktopimgdownldr_susp_execution
+description: |
+  Detects a suspicious Microsoft desktopimgdownldr execution with parameters used to download files from the Internet
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' /lockscreenurl:' && not (evt.Parsed.CommandLine contains '.jpg' || evt.Parsed.CommandLine contains '.jpeg' || evt.Parsed.CommandLine contains '.png') || evt.Parsed.CommandLine contains 'reg delete' && evt.Parsed.CommandLine contains '\\PersonalizationCSP')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "Suspicious Desktopimgdownldr Command"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

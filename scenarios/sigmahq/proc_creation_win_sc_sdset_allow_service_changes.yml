@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sc_sdset_allow_service_changes
+description: |
+  Detects suspicious DACL modifications to allow access to a service from a suspicious trustee. This can be used to override access restrictions set by previous ACLs.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.OriginalFileName == 'sc.exe') && evt.Parsed.CommandLine contains 'sdset' && evt.Parsed.CommandLine contains 'A;' && (evt.Parsed.CommandLine contains ';IU' || evt.Parsed.CommandLine contains ';SU' || evt.Parsed.CommandLine contains ';BA' || evt.Parsed.CommandLine contains ';SY' || evt.Parsed.CommandLine contains ';WD'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1543.003
+
+  label: "Allow Service Access Using Security Descriptor Tampering Via Sc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

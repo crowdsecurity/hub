@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_ntfs_reparse_point
+description: |
+  Detects the pattern of UAC Bypass using NTFS reparse point and wusa.exe DLL hijacking (UACMe 36)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine startsWith '"C:\\Windows\\system32\\wusa.exe"  /quiet C:\\Users\\' && evt.Parsed.CommandLine endsWith '\\AppData\\Local\\Temp\\update.msu' && (evt.Parsed.IntegrityLevel in ['High', 'System']) || evt.Parsed.ParentCommandLine == '"C:\\Windows\\system32\\dism.exe" /online /quiet /norestart /add-package /packagepath:"C:\\Windows\\system32\\pe386" /ignorecheck' && (evt.Parsed.IntegrityLevel in ['High', 'System']) && evt.Parsed.CommandLine contains 'C:\\Users\\' && evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' && evt.Parsed.CommandLine contains '\\dismhost.exe {' && evt.Parsed.Image endsWith '\\DismHost.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Using NTFS Reparse Point - Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

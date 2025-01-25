@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_advpack_obfuscated_ordinal_call
+description: |
+  Detects execution of "rundll32" calling "advpack.dll" with potential obfuscated ordinal calls in order to leverage the "RegisterOCX" function
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE' || evt.Parsed.CommandLine contains 'rundll32') && evt.Parsed.CommandLine contains 'advpack' && (evt.Parsed.CommandLine contains '#+' && evt.Parsed.CommandLine contains '12' || evt.Parsed.CommandLine contains '#-'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Advpack Call Via Rundll32.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

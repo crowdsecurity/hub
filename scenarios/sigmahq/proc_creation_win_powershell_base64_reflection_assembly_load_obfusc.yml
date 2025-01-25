@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_reflection_assembly_load_obfusc
+description: |
+  Detects suspicious base64 encoded and obfuscated "LOAD" keyword used in .NET "reflection.assembly"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'OgA6ACgAIgBMACIAKwAiAG8AYQBkACIAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACIATAAiACsAIgBvAGEAZAAiACkA' || evt.Parsed.CommandLine contains '6ADoAKAAiAEwAIgArACIAbwBhAGQAIgApA' || evt.Parsed.CommandLine contains 'OgA6ACgAIgBMAG8AIgArACIAYQBkACIAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACIATABvACIAKwAiAGEAZAAiACkA' || evt.Parsed.CommandLine contains '6ADoAKAAiAEwAbwAiACsAIgBhAGQAIgApA' || evt.Parsed.CommandLine contains 'OgA6ACgAIgBMAG8AYQAiACsAIgBkACIAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACIATABvAGEAIgArACIAZAAiACkA' || evt.Parsed.CommandLine contains '6ADoAKAAiAEwAbwBhACIAKwAiAGQAIgApA' || evt.Parsed.CommandLine contains 'OgA6ACgAJwBMACcAKwAnAG8AYQBkACcAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACcATAAnACsAJwBvAGEAZAAnACkA' || evt.Parsed.CommandLine contains '6ADoAKAAnAEwAJwArACcAbwBhAGQAJwApA' || evt.Parsed.CommandLine contains 'OgA6ACgAJwBMAG8AJwArACcAYQBkACcAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACcATABvACcAKwAnAGEAZAAnACkA' || evt.Parsed.CommandLine contains '6ADoAKAAnAEwAbwAnACsAJwBhAGQAJwApA' || evt.Parsed.CommandLine contains 'OgA6ACgAJwBMAG8AYQAnACsAJwBkACcAKQ' || evt.Parsed.CommandLine contains 'oAOgAoACcATABvAGEAJwArACcAZAAnACkA' || evt.Parsed.CommandLine contains '6ADoAKAAnAEwAbwBhACcAKwAnAGQAJwApA')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1027
+
+  label: "Suspicious Encoded And Obfuscated Reflection Assembly Load Function Call"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_safetykatz
+description: |
+  Detects the execution of the hacktool SafetyKatz via PE information and default Image name
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SafetyKatz.exe' || evt.Parsed.OriginalFileName == 'SafetyKatz.exe' || evt.Parsed.Description == 'SafetyKatz')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - SafetyKatz Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

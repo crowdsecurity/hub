@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_netsh_fw_allow_program_in_susp_location
+description: |
+  Detects Netsh command execution that whitelists a program located in a suspicious location in the Windows Firewall
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && (evt.Parsed.CommandLine contains 'firewall' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'allowedprogram' || evt.Parsed.CommandLine contains 'advfirewall' && evt.Parsed.CommandLine contains 'firewall' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'rule' && evt.Parsed.CommandLine contains 'action=allow' && evt.Parsed.CommandLine contains 'program=') && (evt.Parsed.CommandLine contains ':\\$Recycle.bin\\' || evt.Parsed.CommandLine contains ':\\RECYCLER.BIN\\' || evt.Parsed.CommandLine contains ':\\RECYCLERS.BIN\\' || evt.Parsed.CommandLine contains ':\\SystemVolumeInformation\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Users\\Default\\' || evt.Parsed.CommandLine contains ':\\Users\\Desktop\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\addins\\' || evt.Parsed.CommandLine contains ':\\Windows\\cursors\\' || evt.Parsed.CommandLine contains ':\\Windows\\debug\\' || evt.Parsed.CommandLine contains ':\\Windows\\drivers\\' || evt.Parsed.CommandLine contains ':\\Windows\\fonts\\' || evt.Parsed.CommandLine contains ':\\Windows\\help\\' || evt.Parsed.CommandLine contains ':\\Windows\\system32\\tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Local Settings\\Temporary Internet Files\\' || evt.Parsed.CommandLine contains '\\Temporary Internet Files\\Content.Outlook\\' || evt.Parsed.CommandLine contains '%Public%\\' || evt.Parsed.CommandLine contains '%TEMP%' || evt.Parsed.CommandLine contains '%TMP%'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.004
+
+  label: "Suspicious Program Location Whitelisted In Firewall Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

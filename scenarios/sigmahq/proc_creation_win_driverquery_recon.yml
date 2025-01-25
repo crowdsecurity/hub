@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_driverquery_recon
+description: |
+  Detect usage of the "driverquery" utility to perform reconnaissance on installed drivers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith 'driverquery.exe' || evt.Parsed.OriginalFileName == 'drvqry.exe') && (evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage contains '\\AppData\\Local\\' || evt.Parsed.ParentImage contains '\\Users\\Public\\' || evt.Parsed.ParentImage contains '\\Windows\\Temp\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Potential Recon Activity Using DriverQuery.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

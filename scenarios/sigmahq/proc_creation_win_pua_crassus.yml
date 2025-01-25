@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_crassus
+description: |
+  Detects Crassus, a Windows privilege escalation discovery tool, based on PE metadata characteristics.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Crassus.exe' || evt.Parsed.OriginalFileName == 'Crassus.exe' || evt.Parsed.Description contains 'Crassus')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1590.001
+
+  label: "PUA - Crassus Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
