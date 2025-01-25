@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_sysmon_uninstall
+description: |
+  Detects the removal of Sysmon, which could be a potential attempt at defense evasion
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\Sysmon64.exe' || evt.Parsed.Image endsWith '\\Sysmon.exe' || evt.Parsed.Description == 'System activity monitor') && (evt.Parsed.CommandLine contains '-u' || evt.Parsed.CommandLine contains '/u' || evt.Parsed.CommandLine contains '–u' || evt.Parsed.CommandLine contains '—u' || evt.Parsed.CommandLine contains '―u'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Uninstall Sysinternals Sysmon"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_dumping_sensitive_hives
+description: |
+  Detects the usage of "reg.exe" in order to dump sensitive registry hives. This includes SAM, SYSTEM and SECURITY hives.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && (evt.Parsed.CommandLine contains ' save ' || evt.Parsed.CommandLine contains ' export ' || evt.Parsed.CommandLine contains ' ˢave ' || evt.Parsed.CommandLine contains ' eˣport ') && (evt.Parsed.CommandLine contains 'hklm' || evt.Parsed.CommandLine contains 'hk˪m' || evt.Parsed.CommandLine contains 'hkey_local_machine' || evt.Parsed.CommandLine contains 'hkey_˪ocal_machine' || evt.Parsed.CommandLine contains 'hkey_loca˪_machine' || evt.Parsed.CommandLine contains 'hkey_˪oca˪_machine') && (evt.Parsed.CommandLine contains '\\system' || evt.Parsed.CommandLine contains '\\sam' || evt.Parsed.CommandLine contains '\\security' || evt.Parsed.CommandLine contains '\\ˢystem' || evt.Parsed.CommandLine contains '\\syˢtem' || evt.Parsed.CommandLine contains '\\ˢyˢtem' || evt.Parsed.CommandLine contains '\\ˢam' || evt.Parsed.CommandLine contains '\\ˢecurity'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.002
+   - attack.t1003.004
+   - attack.t1003.005
+
+  label: "Dumping of Sensitive Hives Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

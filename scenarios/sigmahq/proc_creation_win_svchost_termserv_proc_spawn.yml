@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_svchost_termserv_proc_spawn
+description: |
+  Detects a process spawned by the terminal service server process (this could be an indicator for an exploitation of CVE-2019-0708)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentCommandLine contains '\\svchost.exe' && evt.Parsed.ParentCommandLine contains 'termsvcs' && not (evt.Parsed.Image endsWith '\\rdpclip.exe' || evt.Parsed.Image endsWith ':\\Windows\\System32\\csrss.exe' || evt.Parsed.Image endsWith ':\\Windows\\System32\\wininit.exe' || evt.Parsed.Image endsWith ':\\Windows\\System32\\winlogon.exe' || evt.Parsed.Image == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1190
+   - attack.t1210
+
+  label: "Terminal Service Process Spawn"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

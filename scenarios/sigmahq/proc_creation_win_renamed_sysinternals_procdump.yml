@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_sysinternals_procdump
+description: |
+  Detects the execution of a renamed ProcDump executable. This often done by attackers or malware in order to evade defensive mechanisms. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'procdump' || (evt.Parsed.CommandLine contains ' -ma ' || evt.Parsed.CommandLine contains ' /ma ' || evt.Parsed.CommandLine contains ' –ma ' || evt.Parsed.CommandLine contains ' —ma ' || evt.Parsed.CommandLine contains ' ―ma ' || evt.Parsed.CommandLine contains ' -mp ' || evt.Parsed.CommandLine contains ' /mp ' || evt.Parsed.CommandLine contains ' –mp ' || evt.Parsed.CommandLine contains ' —mp ' || evt.Parsed.CommandLine contains ' ―mp ') && (evt.Parsed.CommandLine contains ' -accepteula' || evt.Parsed.CommandLine contains ' /accepteula' || evt.Parsed.CommandLine contains ' –accepteula' || evt.Parsed.CommandLine contains ' —accepteula' || evt.Parsed.CommandLine contains ' ―accepteula')) && not (evt.Parsed.Image endsWith '\\procdump.exe' || evt.Parsed.Image endsWith '\\procdump64.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036.003
+
+  label: "Renamed ProcDump Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

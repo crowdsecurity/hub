@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_logman_disable_eventlog
+description: |
+  Detects the execution of "logman" utility in order to disable or delete Windows trace sessions
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\logman.exe' || evt.Parsed.OriginalFileName == 'Logman.exe') && (evt.Parsed.CommandLine contains 'stop ' || evt.Parsed.CommandLine contains 'delete ') && (evt.Parsed.CommandLine contains 'Circular Kernel Context Logger' || evt.Parsed.CommandLine contains 'EventLog-' || evt.Parsed.CommandLine contains 'SYSMON TRACE' || evt.Parsed.CommandLine contains 'SysmonDnsEtwSession'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+   - attack.t1070.001
+
+  label: "Suspicious Windows Trace ETW Session Tamper Via Logman.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

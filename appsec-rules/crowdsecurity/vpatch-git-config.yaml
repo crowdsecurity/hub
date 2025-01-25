@@ -1,0 +1,19 @@
+name: crowdsecurity/vpatch-git-config
+description: "Detect access to .git files"
+rules:
+  - zones:
+      - URI
+    transform:
+      - lowercase
+    match:
+      type: contains
+      value: /.git/config
+labels:
+  type: scan
+  service: http
+  confidence: 3
+  spoofable: 0
+  behavior: "http:scan"
+  label: "Access to .git file"
+  classification:
+    - attack.T1595

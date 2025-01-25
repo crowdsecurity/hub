@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_rclone_execution
+description: |
+  Detects execution of RClone utility for exfiltration as used by various ransomwares strains like REvil, Conti, FiveHands, etc
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '--config ' && evt.Parsed.CommandLine contains '--no-check-certificate ' && evt.Parsed.CommandLine contains ' copy ' || (evt.Parsed.Image endsWith '\\rclone.exe' || evt.Parsed.Description == 'Rsync for cloud storage') && (evt.Parsed.CommandLine contains 'pass' || evt.Parsed.CommandLine contains 'user' || evt.Parsed.CommandLine contains 'copy' || evt.Parsed.CommandLine contains 'sync' || evt.Parsed.CommandLine contains 'config' || evt.Parsed.CommandLine contains 'lsd' || evt.Parsed.CommandLine contains 'remote' || evt.Parsed.CommandLine contains 'ls' || evt.Parsed.CommandLine contains 'mega' || evt.Parsed.CommandLine contains 'pcloud' || evt.Parsed.CommandLine contains 'ftp' || evt.Parsed.CommandLine contains 'ignore-existing' || evt.Parsed.CommandLine contains 'auto-confirm' || evt.Parsed.CommandLine contains 'transfers' || evt.Parsed.CommandLine contains 'multi-thread-streams' || evt.Parsed.CommandLine contains 'no-check-certificate '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1567.002
+
+  label: "PUA - Rclone Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

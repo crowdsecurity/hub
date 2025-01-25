@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_conhost_path_traversal
+description: |
+  detects the usage of path traversal in conhost.exe indicating possible command/argument confusion/hijacking
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentCommandLine contains 'conhost' && evt.Parsed.CommandLine contains '/../../')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.003
+
+  label: "Conhost.exe CommandLine Path Traversal"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_msxsl_remote_execution
+description: |
+  Detects the execution of the "msxsl" binary with an "http" keyword in the command line. This might indicate a potential remote execution of XSL files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\msxsl.exe' && evt.Parsed.CommandLine contains 'http')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1220
+
+  label: "Remote XSL Execution Via Msxsl.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

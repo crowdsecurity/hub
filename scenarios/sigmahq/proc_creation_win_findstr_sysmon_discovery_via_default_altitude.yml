@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_findstr_sysmon_discovery_via_default_altitude
+description: |
+  Detects usage of "findstr" with the argument "385201". Which could indicate potential discovery of an installed Sysinternals Sysmon service using the default driver altitude (even if the name is changed).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\find.exe' || evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.OriginalFileName in ['FIND.EXE', 'FINDSTR.EXE']) && evt.Parsed.CommandLine contains ' 385201')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1518.001
+
+  label: "Sysmon Discovery Via Default Driver Altitude Using Findstr.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

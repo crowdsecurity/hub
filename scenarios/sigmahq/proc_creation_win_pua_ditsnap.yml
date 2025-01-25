@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_ditsnap
+description: |
+  Detects the use of Ditsnap tool, an inspection tool for Active Directory database, ntds.dit.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ditsnap.exe' || evt.Parsed.CommandLine contains 'ditsnap.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.003
+
+  label: "PUA - DIT Snapshot Viewer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

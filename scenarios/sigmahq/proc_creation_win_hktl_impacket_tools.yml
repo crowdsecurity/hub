@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_impacket_tools
+description: |
+  Detects the execution of different compiled Windows binaries of the impacket toolset (based on names or part of their names - could lead to false positives)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains '\\goldenPac' || evt.Parsed.Image contains '\\karmaSMB' || evt.Parsed.Image contains '\\kintercept' || evt.Parsed.Image contains '\\ntlmrelayx' || evt.Parsed.Image contains '\\rpcdump' || evt.Parsed.Image contains '\\samrdump' || evt.Parsed.Image contains '\\secretsdump' || evt.Parsed.Image contains '\\smbexec' || evt.Parsed.Image contains '\\smbrelayx' || evt.Parsed.Image contains '\\wmiexec' || evt.Parsed.Image contains '\\wmipersist' || evt.Parsed.Image endsWith '\\atexec_windows.exe' || evt.Parsed.Image endsWith '\\dcomexec_windows.exe' || evt.Parsed.Image endsWith '\\dpapi_windows.exe' || evt.Parsed.Image endsWith '\\findDelegation_windows.exe' || evt.Parsed.Image endsWith '\\GetADUsers_windows.exe' || evt.Parsed.Image endsWith '\\GetNPUsers_windows.exe' || evt.Parsed.Image endsWith '\\getPac_windows.exe' || evt.Parsed.Image endsWith '\\getST_windows.exe' || evt.Parsed.Image endsWith '\\getTGT_windows.exe' || evt.Parsed.Image endsWith '\\GetUserSPNs_windows.exe' || evt.Parsed.Image endsWith '\\ifmap_windows.exe' || evt.Parsed.Image endsWith '\\mimikatz_windows.exe' || evt.Parsed.Image endsWith '\\netview_windows.exe' || evt.Parsed.Image endsWith '\\nmapAnswerMachine_windows.exe' || evt.Parsed.Image endsWith '\\opdump_windows.exe' || evt.Parsed.Image endsWith '\\psexec_windows.exe' || evt.Parsed.Image endsWith '\\rdp_check_windows.exe' || evt.Parsed.Image endsWith '\\sambaPipe_windows.exe' || evt.Parsed.Image endsWith '\\smbclient_windows.exe' || evt.Parsed.Image endsWith '\\smbserver_windows.exe' || evt.Parsed.Image endsWith '\\sniff_windows.exe' || evt.Parsed.Image endsWith '\\sniffer_windows.exe' || evt.Parsed.Image endsWith '\\split_windows.exe' || evt.Parsed.Image endsWith '\\ticketer_windows.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1557.001
+
+  label: "HackTool - Impacket Tools Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
