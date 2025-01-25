@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_double_extension_parent
+description: |
+  Detect execution of suspicious double extension files in ParentCommandLine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '.doc.lnk' || evt.Parsed.ParentImage endsWith '.docx.lnk' || evt.Parsed.ParentImage endsWith '.xls.lnk' || evt.Parsed.ParentImage endsWith '.xlsx.lnk' || evt.Parsed.ParentImage endsWith '.ppt.lnk' || evt.Parsed.ParentImage endsWith '.pptx.lnk' || evt.Parsed.ParentImage endsWith '.rtf.lnk' || evt.Parsed.ParentImage endsWith '.pdf.lnk' || evt.Parsed.ParentImage endsWith '.txt.lnk' || evt.Parsed.ParentImage endsWith '.doc.js' || evt.Parsed.ParentImage endsWith '.docx.js' || evt.Parsed.ParentImage endsWith '.xls.js' || evt.Parsed.ParentImage endsWith '.xlsx.js' || evt.Parsed.ParentImage endsWith '.ppt.js' || evt.Parsed.ParentImage endsWith '.pptx.js' || evt.Parsed.ParentImage endsWith '.rtf.js' || evt.Parsed.ParentImage endsWith '.pdf.js' || evt.Parsed.ParentImage endsWith '.txt.js' || evt.Parsed.ParentCommandLine contains '.doc.lnk' || evt.Parsed.ParentCommandLine contains '.docx.lnk' || evt.Parsed.ParentCommandLine contains '.xls.lnk' || evt.Parsed.ParentCommandLine contains '.xlsx.lnk' || evt.Parsed.ParentCommandLine contains '.ppt.lnk' || evt.Parsed.ParentCommandLine contains '.pptx.lnk' || evt.Parsed.ParentCommandLine contains '.rtf.lnk' || evt.Parsed.ParentCommandLine contains '.pdf.lnk' || evt.Parsed.ParentCommandLine contains '.txt.lnk' || evt.Parsed.ParentCommandLine contains '.doc.js' || evt.Parsed.ParentCommandLine contains '.docx.js' || evt.Parsed.ParentCommandLine contains '.xls.js' || evt.Parsed.ParentCommandLine contains '.xlsx.js' || evt.Parsed.ParentCommandLine contains '.ppt.js' || evt.Parsed.ParentCommandLine contains '.pptx.js' || evt.Parsed.ParentCommandLine contains '.rtf.js' || evt.Parsed.ParentCommandLine contains '.pdf.js' || evt.Parsed.ParentCommandLine contains '.txt.js')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036.007
+
+  label: "Suspicious Parent Double Extension File Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

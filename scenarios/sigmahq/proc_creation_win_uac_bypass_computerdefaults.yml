@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_computerdefaults
+description: |
+  Detects tools such as UACMe used to bypass UAC with computerdefaults.exe (UACMe 59)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.IntegrityLevel in ['High', 'System']) && evt.Parsed.Image == 'C:\\Windows\\System32\\ComputerDefaults.exe' && not (evt.Parsed.ParentImage contains ':\\Windows\\System32' || evt.Parsed.ParentImage contains ':\\Program Files'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Tools Using ComputerDefaults"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,28 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_bloodhound_sharphound
+description: |
+  Detects command line parameters used by Bloodhound and Sharphound hack tools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Product contains 'SharpHound' || evt.Parsed.Description contains 'SharpHound' || evt.Parsed.Company contains 'SpecterOps' || evt.Parsed.Company contains 'evil corp' || evt.Parsed.Image contains '\\Bloodhound.exe' || evt.Parsed.Image contains '\\SharpHound.exe' || evt.Parsed.CommandLine contains ' -CollectionMethod All ' || evt.Parsed.CommandLine contains ' --CollectionMethods Session ' || evt.Parsed.CommandLine contains ' --Loop --Loopduration ' || evt.Parsed.CommandLine contains ' --PortScanTimeout ' || evt.Parsed.CommandLine contains '.exe -c All -d ' || evt.Parsed.CommandLine contains 'Invoke-Bloodhound' || evt.Parsed.CommandLine contains 'Get-BloodHoundData' || evt.Parsed.CommandLine contains ' -JsonFolder ' && evt.Parsed.CommandLine contains ' -ZipFileName ' || evt.Parsed.CommandLine contains ' DCOnly ' && evt.Parsed.CommandLine contains ' --NoSaveCache ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1087.001
+   - attack.t1087.002
+   - attack.t1482
+   - attack.t1069.001
+   - attack.t1069.002
+   - attack.t1059.001
+
+  label: "HackTool - Bloodhound/Sharphound Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

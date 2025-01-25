@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_vmware_toolbox_cmd_persistence_susp
+description: |
+  Detects execution of the "VMwareToolBoxCmd.exe" with the "script" and "set" flag to setup a specific script that's located in a potentially suspicious location to run for a specific VM state
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\VMwareToolBoxCmd.exe' || evt.Parsed.OriginalFileName == 'toolbox-cmd.exe') && evt.Parsed.CommandLine contains ' script ' && evt.Parsed.CommandLine contains ' set ' && (evt.Parsed.CommandLine contains ':\\PerfLogs\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Suspicious Persistence Via VMwareToolBoxCmd.EXE VM State Change Script"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

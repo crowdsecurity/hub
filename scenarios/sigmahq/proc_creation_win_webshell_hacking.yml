@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_webshell_hacking
+description: |
+  Detects certain parent child patterns found in cases in which a web shell is used to perform certain credential dumping or exfiltration activities on a compromised system 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\caddy.exe' || evt.Parsed.ParentImage endsWith '\\httpd.exe' || evt.Parsed.ParentImage endsWith '\\nginx.exe' || evt.Parsed.ParentImage endsWith '\\php-cgi.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\ws_tomcatservice.exe' || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.ParentImage contains '-tomcat-' || evt.Parsed.ParentImage contains '\\tomcat') || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.CommandLine contains 'catalina.jar' || evt.Parsed.CommandLine contains 'CATALINA_HOME')) && (evt.Parsed.CommandLine contains 'rundll32' && evt.Parsed.CommandLine contains 'comsvcs' || evt.Parsed.CommandLine contains ' -hp' && evt.Parsed.CommandLine contains ' a ' && evt.Parsed.CommandLine contains ' -m' || evt.Parsed.CommandLine contains 'net' && evt.Parsed.CommandLine contains ' user ' && evt.Parsed.CommandLine contains ' /add' || evt.Parsed.CommandLine contains 'net' && evt.Parsed.CommandLine contains ' localgroup ' && evt.Parsed.CommandLine contains ' administrators ' && evt.Parsed.CommandLine contains '/add' || evt.Parsed.Image endsWith '\\ntdsutil.exe' || evt.Parsed.Image endsWith '\\ldifde.exe' || evt.Parsed.Image endsWith '\\adfind.exe' || evt.Parsed.Image endsWith '\\procdump.exe' || evt.Parsed.Image endsWith '\\Nanodump.exe' || evt.Parsed.Image endsWith '\\vssadmin.exe' || evt.Parsed.Image endsWith '\\fsutil.exe' || evt.Parsed.CommandLine contains ' -decode ' || evt.Parsed.CommandLine contains ' -NoP ' || evt.Parsed.CommandLine contains ' -W Hidden ' || evt.Parsed.CommandLine contains ' /decode ' || evt.Parsed.CommandLine contains ' /ticket:' || evt.Parsed.CommandLine contains ' sekurlsa' || evt.Parsed.CommandLine contains '.dmp full' || evt.Parsed.CommandLine contains '.downloadfile(' || evt.Parsed.CommandLine contains '.downloadstring(' || evt.Parsed.CommandLine contains 'FromBase64String' || evt.Parsed.CommandLine contains 'process call create' || evt.Parsed.CommandLine contains 'reg save ' || evt.Parsed.CommandLine contains 'whoami /priv'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+   - attack.t1018
+   - attack.t1033
+   - attack.t1087
+
+  label: "Webshell Hacking Activity Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

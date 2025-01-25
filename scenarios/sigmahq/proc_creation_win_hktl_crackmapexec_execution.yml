@@ -1,0 +1,28 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_crackmapexec_execution
+description: |
+  This rule detect common flag combinations used by CrackMapExec in order to detect its use even if the binary has been replaced.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\crackmapexec.exe' || evt.Parsed.CommandLine contains ' -M pe_inject ' || evt.Parsed.CommandLine contains ' --local-auth' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -x ' || evt.Parsed.CommandLine contains ' --local-auth' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -p ' && evt.Parsed.CommandLine contains ' -H \'NTHASH\'' || evt.Parsed.CommandLine contains ' mssql ' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -p ' && evt.Parsed.CommandLine contains ' -M ' && evt.Parsed.CommandLine contains ' -d ' || evt.Parsed.CommandLine contains ' smb ' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -H ' && evt.Parsed.CommandLine contains ' -M ' && evt.Parsed.CommandLine contains ' -o ' || evt.Parsed.CommandLine contains ' smb ' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -p ' && evt.Parsed.CommandLine contains ' --local-auth' || evt.Parsed.CommandLine contains ' --local-auth' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -p ' && evt.Parsed.CommandLine contains ' 10.' && evt.Parsed.CommandLine contains ' 192.168.' && evt.Parsed.CommandLine contains '/24 ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1053
+   - attack.t1059.003
+   - attack.t1059.001
+   - attack.t1110
+   - attack.t1201
+
+  label: "HackTool - CrackMapExec Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

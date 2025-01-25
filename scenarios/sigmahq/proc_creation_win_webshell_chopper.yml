@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_webshell_chopper
+description: |
+  Detects patterns found in process executions cause by China Chopper like tiny (ASPX) webshells
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe') && (evt.Parsed.CommandLine contains '&ipconfig&echo' || evt.Parsed.CommandLine contains '&quser&echo' || evt.Parsed.CommandLine contains '&whoami&echo' || evt.Parsed.CommandLine contains '&c:&echo' || evt.Parsed.CommandLine contains '&cd&echo' || evt.Parsed.CommandLine contains '&dir&echo' || evt.Parsed.CommandLine contains '&echo [E]' || evt.Parsed.CommandLine contains '&echo [S]'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+   - attack.t1018
+   - attack.t1033
+   - attack.t1087
+
+  label: "Chopper Webshell Process Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

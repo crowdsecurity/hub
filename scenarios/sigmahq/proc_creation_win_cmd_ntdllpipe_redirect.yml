@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_ntdllpipe_redirect
+description: |
+  Detects command that type the content of ntdll.dll to a different file or a pipe in order to evade AV / EDR detection. As seen being used in the POC NtdllPipe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'type %windir%\\system32\\ntdll.dll' || evt.Parsed.CommandLine contains 'type %systemroot%\\system32\\ntdll.dll' || evt.Parsed.CommandLine contains 'type c:\\windows\\system32\\ntdll.dll' || evt.Parsed.CommandLine contains '\\ntdll.dll > \\\\.\\pipe\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "NtdllPipe Like Activity Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

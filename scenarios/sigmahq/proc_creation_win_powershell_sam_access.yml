@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_sam_access
+description: |
+  Detects suspicious PowerShell scripts accessing SAM hives
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\HarddiskVolumeShadowCopy' && evt.Parsed.CommandLine contains 'System32\\config\\sam' && (evt.Parsed.CommandLine contains 'Copy-Item' || evt.Parsed.CommandLine contains 'cp $_.' || evt.Parsed.CommandLine contains 'cpi $_.' || evt.Parsed.CommandLine contains 'copy $_.' || evt.Parsed.CommandLine contains '.File]::Copy('))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.002
+
+  label: "PowerShell SAM Copy"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

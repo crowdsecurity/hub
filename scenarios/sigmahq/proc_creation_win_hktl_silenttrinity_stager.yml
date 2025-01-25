@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_silenttrinity_stager
+description: |
+  Detects SILENTTRINITY stager use via PE metadata
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Description contains 'st2stager')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1071
+
+  label: "HackTool - SILENTTRINITY Stager Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

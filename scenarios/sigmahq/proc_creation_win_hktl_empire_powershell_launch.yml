@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_empire_powershell_launch
+description: |
+  Detects suspicious powershell command line parameters used in Empire
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' -NoP -sta -NonI -W Hidden -Enc ' || evt.Parsed.CommandLine contains ' -noP -sta -w 1 -enc ' || evt.Parsed.CommandLine contains ' -NoP -NonI -W Hidden -enc ' || evt.Parsed.CommandLine contains ' -noP -sta -w 1 -enc' || evt.Parsed.CommandLine contains ' -enc  SQB' || evt.Parsed.CommandLine contains ' -nop -exec bypass -EncodedCommand ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "HackTool - Empire PowerShell Launch Parameters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
