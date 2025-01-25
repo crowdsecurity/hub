@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_reg_loader_encoded
+description: |
+  Detects the creation of a schtask that potentially executes a base64 encoded payload stored in the Windows Registry using PowerShell.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && evt.Parsed.CommandLine contains '/Create' && (evt.Parsed.CommandLine contains 'FromBase64String' || evt.Parsed.CommandLine contains 'encodedcommand') && (evt.Parsed.CommandLine contains 'Get-ItemProperty' || evt.Parsed.CommandLine contains ' gp ') && (evt.Parsed.CommandLine contains 'HKCU:' || evt.Parsed.CommandLine contains 'HKLM:' || evt.Parsed.CommandLine contains 'registry::' || evt.Parsed.CommandLine contains 'HKEY_'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+   - attack.t1059.001
+
+  label: "Scheduled Task Executing Encoded Payload from Registry"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_sensitive_file_access_shadowcopy
+description: |
+  Detects a command that accesses the VolumeShadowCopy in order to extract sensitive files such as the Security or SAM registry hives or the AD database (ntds.dit) 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy' && (evt.Parsed.CommandLine contains '\\NTDS.dit' || evt.Parsed.CommandLine contains '\\SYSTEM' || evt.Parsed.CommandLine contains '\\SECURITY'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1490
+
+  label: "Sensitive File Access Via Volume Shadow Copy Backup"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

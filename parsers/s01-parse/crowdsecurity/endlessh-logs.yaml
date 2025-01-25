@@ -3,9 +3,19 @@ filter: "evt.Parsed.program == 'endlessh'"
 name: crowdsecurity/endlessh-logs
 description: "Parse Endlessh logs"
 pattern_syntax:
+  ENDLESSH_GO_DATE: "%{MONTHNUM2}%{DAY2} %{TIME}"
+  ENDLESSH_GO_LINE: "I%{ENDLESSH_GO_DATE:timestamp}.*\\] ACCEPT host=%{IP:source_ip} "
   ENDLESSH_ACCEPT_V4: "%{TIMESTAMP_ISO8601:timestamp}? ACCEPT host=(::ffff:)?%{IPV4:source_ip} "
   ENDLESSH_ACCEPT_V6: "%{TIMESTAMP_ISO8601:timestamp}? ACCEPT host=%{IPV6:source_ip} "
 nodes:
+  - grok:
+      name: "ENDLESSH_GO_LINE"
+      apply_on: Line.Raw
+      statics:
+        - meta: log_type
+          value: endlessh_accept
+        - target: evt.StrTimeFormat
+          value: "0102 15:04:05"
   - grok:
       name: "ENDLESSH_ACCEPT_V4"
       apply_on: Line.Raw
@@ -18,6 +28,7 @@ nodes:
       statics:
         - meta: log_type
           value: endlessh_accept
+
 statics:
   - meta: service
     value: endlessh

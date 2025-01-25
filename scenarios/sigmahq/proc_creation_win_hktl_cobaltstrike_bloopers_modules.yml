@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_cobaltstrike_bloopers_modules
+description: |
+  Detects Cobalt Strike module/commands accidentally entered in CMD shell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.Image endsWith '\\cmd.exe') && (evt.Parsed.CommandLine contains 'Invoke-UserHunter' || evt.Parsed.CommandLine contains 'Invoke-ShareFinder' || evt.Parsed.CommandLine contains 'Invoke-Kerberoast' || evt.Parsed.CommandLine contains 'Invoke-SMBAutoBrute' || evt.Parsed.CommandLine contains 'Invoke-Nightmare' || evt.Parsed.CommandLine contains 'zerologon' || evt.Parsed.CommandLine contains 'av_query'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.003
+
+  label: "Operator Bloopers Cobalt Strike Modules"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

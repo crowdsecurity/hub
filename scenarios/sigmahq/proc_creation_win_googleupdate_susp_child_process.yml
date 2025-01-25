@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_googleupdate_susp_child_process
+description: |
+  Detects potentially suspicious child processes of "GoogleUpdate.exe"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\GoogleUpdate.exe' && not (evt.Parsed.Image contains '\\Google' || evt.Parsed.Image endsWith '\\setup.exe' || evt.Parsed.Image endsWith 'chrome_updater.exe' || evt.Parsed.Image endsWith 'chrome_installer.exe' || evt.Parsed.Image == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Potentially Suspicious GoogleUpdate Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_certoc_load_dll_susp_locations
+description: |
+  Detects when a user installs certificates by using CertOC.exe to load the target DLL file.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certoc.exe' || evt.Parsed.OriginalFileName == 'CertOC.exe') && (evt.Parsed.CommandLine contains ' -LoadDLL ' || evt.Parsed.CommandLine contains ' /LoadDLL ' || evt.Parsed.CommandLine contains ' –LoadDLL ' || evt.Parsed.CommandLine contains ' —LoadDLL ' || evt.Parsed.CommandLine contains ' ―LoadDLL ') && (evt.Parsed.CommandLine contains '\\Appdata\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Suspicious DLL Loaded via CertOC.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

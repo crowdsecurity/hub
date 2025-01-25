@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_nsudo
+description: |
+  Detects the use of NSudo tool for command execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\NSudo.exe' || evt.Parsed.Image endsWith '\\NSudoLC.exe' || evt.Parsed.Image endsWith '\\NSudoLG.exe' || evt.Parsed.OriginalFileName in ['NSudo.exe', 'NSudoLC.exe', 'NSudoLG.exe']) && (evt.Parsed.CommandLine contains '-U:S ' || evt.Parsed.CommandLine contains '-U:T ' || evt.Parsed.CommandLine contains '-U:E ' || evt.Parsed.CommandLine contains '-P:E ' || evt.Parsed.CommandLine contains '-M:S ' || evt.Parsed.CommandLine contains '-M:H ' || evt.Parsed.CommandLine contains '-U=S ' || evt.Parsed.CommandLine contains '-U=T ' || evt.Parsed.CommandLine contains '-U=E ' || evt.Parsed.CommandLine contains '-P=E ' || evt.Parsed.CommandLine contains '-M=S ' || evt.Parsed.CommandLine contains '-M=H ' || evt.Parsed.CommandLine contains '-ShowWindowMode:Hide'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1569.002
+
+  label: "PUA - NSudo Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

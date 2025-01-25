@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
@@ -85,7 +85,7 @@ jobs:
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
     - name: Start OpenResty Container
       run: |
-        docker-compose -f docker/appsec/docker-compose.yaml up -d --build
+        docker compose -f docker/appsec/docker-compose.yaml up -d --build
         sleep 3
     - name: Build and Run Waf Check
       run: |

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_csi_use_of_csharp_console
+description: |
+  Detects the execution of CSharp interactive console by PowerShell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\csi.exe' && (evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\powershell_ise.exe') && evt.Parsed.OriginalFileName == 'csi.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1127
+
+  label: "Suspicious Use of CSharp Interactive Console"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

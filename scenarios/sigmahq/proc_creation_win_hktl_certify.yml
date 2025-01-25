@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_certify
+description: |
+  Detects Certify a tool for Active Directory certificate abuse based on PE metadata characteristics and common command line arguments.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Certify.exe' || evt.Parsed.OriginalFileName == 'Certify.exe' || evt.Parsed.Description contains 'Certify' || (evt.Parsed.CommandLine contains '.exe cas ' || evt.Parsed.CommandLine contains '.exe find ' || evt.Parsed.CommandLine contains '.exe pkiobjects ' || evt.Parsed.CommandLine contains '.exe request ' || evt.Parsed.CommandLine contains '.exe download ') && (evt.Parsed.CommandLine contains ' /vulnerable' || evt.Parsed.CommandLine contains ' /template:' || evt.Parsed.CommandLine contains ' /altname:' || evt.Parsed.CommandLine contains ' /domain:' || evt.Parsed.CommandLine contains ' /path:' || evt.Parsed.CommandLine contains ' /ca:'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1649
+
+  label: "HackTool - Certify Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

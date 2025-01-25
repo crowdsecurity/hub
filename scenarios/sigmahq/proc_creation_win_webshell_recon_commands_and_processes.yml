@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_webshell_recon_commands_and_processes
+description: |
+  Detects certain command line parameters often used during reconnaissance activity via web shells
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\php-cgi.exe' || evt.Parsed.ParentImage endsWith '\\nginx.exe' || evt.Parsed.ParentImage endsWith '\\httpd.exe' || evt.Parsed.ParentImage endsWith '\\caddy.exe' || evt.Parsed.ParentImage endsWith '\\ws_tomcatservice.exe' || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.ParentImage contains '-tomcat-' || evt.Parsed.ParentImage contains '\\tomcat') || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.CommandLine contains 'catalina.jar' || evt.Parsed.CommandLine contains 'CATALINA_HOME')) && ((evt.Parsed.OriginalFileName in ['net.exe', 'net1.exe']) && (evt.Parsed.CommandLine contains ' user ' || evt.Parsed.CommandLine contains ' use ' || evt.Parsed.CommandLine contains ' group ') || evt.Parsed.OriginalFileName == 'ping.exe' && evt.Parsed.CommandLine contains ' -n ' || evt.Parsed.CommandLine contains '&cd&echo' || evt.Parsed.CommandLine contains 'cd /d ' || evt.Parsed.OriginalFileName == 'wmic.exe' && evt.Parsed.CommandLine contains ' /node:' || evt.Parsed.Image endsWith '\\dsquery.exe' || evt.Parsed.Image endsWith '\\find.exe' || evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.Image endsWith '\\ipconfig.exe' || evt.Parsed.Image endsWith '\\netstat.exe' || evt.Parsed.Image endsWith '\\nslookup.exe' || evt.Parsed.Image endsWith '\\pathping.exe' || evt.Parsed.Image endsWith '\\quser.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\tasklist.exe' || evt.Parsed.Image endsWith '\\tracert.exe' || evt.Parsed.Image endsWith '\\ver.exe' || evt.Parsed.Image endsWith '\\wevtutil.exe' || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.OriginalFileName in ['dsquery.exe', 'find.exe', 'findstr.exe', 'ipconfig.exe', 'netstat.exe', 'nslookup.exe', 'pathping.exe', 'quser.exe', 'schtasks.exe', 'sysinfo.exe', 'tasklist.exe', 'tracert.exe', 'ver.exe', 'VSSADMIN.EXE', 'wevtutil.exe', 'whoami.exe'] || evt.Parsed.CommandLine contains ' Test-NetConnection ' || evt.Parsed.CommandLine contains 'dir \\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+   - attack.t1018
+   - attack.t1033
+   - attack.t1087
+
+  label: "Webshell Detection With Command Line Keywords"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
