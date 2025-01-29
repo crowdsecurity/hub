@@ -1,11 +1,22 @@
 # SEO Bots Whitelist
 
-Configuration based on `crowdsecurity/rdns` to whitelist following benign SEO bots:
+Configuration based on `crowdsecurity/rdns` to whitelist following:
+
+**SEO bots:**
+* babbar
+* amazon
+
+**Social network:**
+* pinterest
+* facebook
+
+**Search engine:**
 * duckduckBot
 * googlebot
 * yandex
 * bing
 * baidu
-* yahoo
-* pinterest
 * qwant
+* yahoo
+* sogou
+
