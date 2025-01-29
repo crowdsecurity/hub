@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_set_acl_susp_location
+description: |
+  Detects PowerShell scripts to set the ACL to a file in the Windows folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll'] || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains 'Set-Acl ' && evt.Parsed.CommandLine contains '-AclObject ' && (evt.Parsed.CommandLine contains '-Path "C:\\Windows' || evt.Parsed.CommandLine contains '-Path \'C:\\Windows' || evt.Parsed.CommandLine contains '-Path %windir%' || evt.Parsed.CommandLine contains '-Path $env:windir') && (evt.Parsed.CommandLine contains 'FullControl' || evt.Parsed.CommandLine contains 'Allow'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "PowerShell Set-Acl On Windows Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_psexesvc_as_system
+description: |
+  Detects suspicious launch of the PSEXESVC service on this system and a sub process run as LOCAL_SYSTEM (-s), which means that someone remotely started a command on this system running it with highest privileges and not only the privileges of the login user account (e.g. the administrator account)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage == 'C:\\Windows\\PSEXESVC.exe' && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "PsExec Service Child Process Execution as LOCAL SYSTEM"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

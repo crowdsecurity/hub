@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_no_params
+description: |
+  Detects suspicious start of rundll32.exe without any parameters as found in CobaltStrike beacon activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine endsWith '\\rundll32.exe' || evt.Parsed.CommandLine endsWith '\\rundll32.exe"' || evt.Parsed.CommandLine endsWith '\\rundll32') && not (evt.Parsed.ParentImage contains '\\AppData\\Local\\' || evt.Parsed.ParentImage contains '\\Microsoft\\Edge\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Rundll32 Execution Without CommandLine Parameters"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

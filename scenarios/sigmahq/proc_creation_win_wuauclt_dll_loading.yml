@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wuauclt_dll_loading
+description: |
+  Detects the use of the Windows Update Client binary (wuauclt.exe) for proxy execution.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wuauclt.exe' || evt.Parsed.OriginalFileName == 'wuauclt.exe') && evt.Parsed.CommandLine contains 'UpdateDeploymentProvider' && evt.Parsed.CommandLine contains 'RunHandlerComServer' && not (evt.Parsed.CommandLine contains ' /UpdateDeploymentProvider UpdateDeploymentProvider.dll ' || evt.Parsed.CommandLine contains ' wuaueng.dll ' || evt.Parsed.CommandLine contains ':\\Windows\\UUS\\Packages\\Preview\\amd64\\updatedeploy.dll /ClassId' || evt.Parsed.CommandLine contains ':\\Windows\\UUS\\amd64\\UpdateDeploy.dll /ClassId' || evt.Parsed.CommandLine contains ':\\Windows\\WinSxS\\' && evt.Parsed.CommandLine contains '\\UpdateDeploy.dll /ClassId '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Proxy Execution Via Wuauclt.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

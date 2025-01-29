@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_abusing_debug_privilege
+description: |
+  Detection of unusual child processes by different system processes
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\winlogon.exe' || evt.Parsed.ParentImage endsWith '\\services.exe' || evt.Parsed.ParentImage endsWith '\\lsass.exe' || evt.Parsed.ParentImage endsWith '\\csrss.exe' || evt.Parsed.ParentImage endsWith '\\smss.exe' || evt.Parsed.ParentImage endsWith '\\wininit.exe' || evt.Parsed.ParentImage endsWith '\\spoolsv.exe' || evt.Parsed.ParentImage endsWith '\\searchindexer.exe') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll', 'Cmd.Exe']) && not (evt.Parsed.CommandLine contains ' route ' && evt.Parsed.CommandLine contains ' ADD '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548
+
+  label: "Abused Debug Privilege by Arbitrary Parent Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
