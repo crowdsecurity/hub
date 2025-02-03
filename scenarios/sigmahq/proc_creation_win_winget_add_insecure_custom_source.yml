@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_winget_add_insecure_custom_source
+description: |
+  Detects usage of winget to add a new insecure (http) download source. Winget will not allow the addition of insecure sources, hence this could indicate potential suspicious activity (or typos) 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\winget.exe' || evt.Parsed.OriginalFileName == 'winget.exe') && evt.Parsed.CommandLine contains 'source ' && evt.Parsed.CommandLine contains 'add ' && evt.Parsed.CommandLine contains 'http://')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Add Insecure Download Source To Winget"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

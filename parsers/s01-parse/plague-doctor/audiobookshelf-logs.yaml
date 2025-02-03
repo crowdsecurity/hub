@@ -1,0 +1,31 @@
+onsuccess: next_stage
+#debug: true
+filter: "Upper(evt.Parsed.program) == 'AUDIOBOOKSHELF'"
+name: plague-doctor/audiobookshelf-logs
+description: "Parse Audiobookshelf logs"
+pattern_syntax:
+    ABS_FAILED_AUTH: '\[Auth\] Failed login attempt for username \\?"%{USERNAME:username}\\?" from ip %{IP:source_ip} \(%{DATA:reason}\)'
+nodes:
+    - grok:
+        pattern: '\[%{TIMESTAMP_ISO8601:timestamp}\] ERROR: %{ABS_FAILED_AUTH}'
+        apply_on: message
+      statics:
+        - meta: log_type
+          value: abs_failed_auth
+    - filter: 'UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "abs") in ["", nil]'
+      grok:
+        pattern: "%{ABS_FAILED_AUTH}"
+        expression: evt.Unmarshaled.abs.message
+        statics:
+          - meta: log_type
+            value: abs_failed_auth
+statics:
+    - meta: service
+      value: audiobookshelf
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: 'evt.Parsed.timestamp != "" ? evt.Parsed.timestamp : evt.Unmarshaled.abs.timestamp'
+    ## We check if the parser parsed the timestamp or if it within the json output
+    - meta: username
+      expression: "evt.Parsed.username"

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_quarks_pwdump
+description: |
+  Detects usage of the Quarks PwDump tool via commandline arguments
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\QuarksPwDump.exe' || evt.Parsed.CommandLine in [' -dhl', ' --dump-hash-local', ' -dhdc', ' --dump-hash-domain-cached', ' --dump-bitlocker', ' -dhd ', ' --dump-hash-domain ', '--ntds-file'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.002
+
+  label: "HackTool - Quarks PwDump Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

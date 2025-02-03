@@ -1,0 +1,18 @@
+# stirling pdf bruteforce
+type: leaky
+name: crowdsecurity/stirling-pdf-bf
+description: "Detect stirling pdf bruteforce"
+filter: "evt.Meta.service == 'stirling-pdf' && evt.Meta.log_type == 'failed_authentication'"
+leakspeed: "10s"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: stirling-pdf
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Stirling PDF Bruteforce"
+  behavior: "generic:bruteforce"
+  remediation: true

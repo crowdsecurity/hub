@@ -1,0 +1,14 @@
+name: crowdsecurity/plex-allowlist
+description: "Allowlist events from Plex"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Plex Allowlist"
+  expression:
+   - evt.Meta.http_status in ['200', '404'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/video/:/transcode/'
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/photo/:/transcode/'
+   - evt.Meta.http_status in ['200', '400'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/:/timeline'
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '^/library/metadata/\\d+'
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path == '/status/sessions'
+   - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/playQueues/'
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Parsed.request == '/log' && evt.Parsed.http_args contains 'X-Plex-Product=Plex%20Cast&X-Plex-Version='
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/music/:/transcode/universal/session/'

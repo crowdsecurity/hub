@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_susp_download_patterns
+description: |
+  Detects suspicious PowerShell download patterns that are often used in malicious scripts, stagers or downloaders (make sure that your backend applies the strings case-insensitive)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'IEX ((New-Object Net.WebClient).DownloadString' || evt.Parsed.CommandLine contains 'IEX (New-Object Net.WebClient).DownloadString' || evt.Parsed.CommandLine contains 'IEX((New-Object Net.WebClient).DownloadString' || evt.Parsed.CommandLine contains 'IEX(New-Object Net.WebClient).DownloadString' || evt.Parsed.CommandLine contains ' -command (New-Object System.Net.WebClient).DownloadFile(' || evt.Parsed.CommandLine contains ' -c (New-Object System.Net.WebClient).DownloadFile(')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Suspicious PowerShell Download and Execute Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

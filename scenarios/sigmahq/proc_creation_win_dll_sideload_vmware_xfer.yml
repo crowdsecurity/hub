@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_dll_sideload_vmware_xfer
+description: |
+  Detects execution of VMware Xfer utility (VMwareXferlogs.exe) from the non-default directory which may be an attempt to sideload arbitrary DLL
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\VMwareXferlogs.exe' && not (evt.Parsed.Image startsWith 'C:\\Program Files\\VMware\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.002
+
+  label: "DLL Sideloading by VMware Xfer Utility"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

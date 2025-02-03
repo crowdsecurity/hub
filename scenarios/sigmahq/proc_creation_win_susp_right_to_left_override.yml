@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_right_to_left_override
+description: |
+  Detects the presence of the "u202+E" character, which causes a terminal, browser, or operating system to render text in a right-to-left sequence. This is used as an obfuscation and masquerading techniques. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '‮')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036.002
+
+  label: "Potential Defense Evasion Via Right-to-Left Override"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

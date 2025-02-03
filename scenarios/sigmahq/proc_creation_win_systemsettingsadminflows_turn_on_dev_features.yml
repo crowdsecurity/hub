@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_systemsettingsadminflows_turn_on_dev_features
+description: |
+  Detects when a user enable developer features such as "Developer Mode" or "Application Sideloading". Which allows the user to install untrusted packages.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\SystemSettingsAdminFlows.exe' || evt.Parsed.OriginalFileName == 'SystemSettingsAdminFlows.EXE') && evt.Parsed.CommandLine contains 'TurnOnDeveloperFeatures' && (evt.Parsed.CommandLine contains 'DeveloperUnlock' || evt.Parsed.CommandLine contains 'EnableSideloading'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Potential Signing Bypass Via Windows Developer Features"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

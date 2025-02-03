@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regsvr32_susp_exec_path_2
+description: |
+  Detects execution of regsvr32 where the DLL is located in a highly suspicious locations
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && (evt.Parsed.CommandLine contains ':\\PerfLogs\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains '\\Windows\\Registration\\CRMLog' || evt.Parsed.CommandLine contains '\\Windows\\System32\\com\\dmp\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\FxsTmp\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\Microsoft\\Crypto\\RSA\\MachineKeys\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\spool\\drivers\\color\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\spool\\PRINTERS\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\spool\\SERVERS\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\Tasks_Migrated\\' || evt.Parsed.CommandLine contains '\\Windows\\System32\\Tasks\\Microsoft\\Windows\\SyncCenter\\' || evt.Parsed.CommandLine contains '\\Windows\\SysWOW64\\com\\dmp\\' || evt.Parsed.CommandLine contains '\\Windows\\SysWOW64\\FxsTmp\\' || evt.Parsed.CommandLine contains '\\Windows\\SysWOW64\\Tasks\\Microsoft\\Windows\\PLA\\System\\' || evt.Parsed.CommandLine contains '\\Windows\\SysWOW64\\Tasks\\Microsoft\\Windows\\SyncCenter\\' || evt.Parsed.CommandLine contains '\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains '\\Windows\\Tracing\\' || (evt.Parsed.CommandLine contains ' "C:\\' || evt.Parsed.CommandLine contains ' C:\\' || evt.Parsed.CommandLine contains ' \'C:\\' || evt.Parsed.CommandLine contains 'D:\\') && not (evt.Parsed.CommandLine contains 'C:\\Program Files (x86)\\' || evt.Parsed.CommandLine contains 'C:\\Program Files\\' || evt.Parsed.CommandLine contains 'C:\\ProgramData\\' || evt.Parsed.CommandLine contains 'C:\\Users\\' || evt.Parsed.CommandLine contains ' C:\\Windows\\' || evt.Parsed.CommandLine contains ' "C:\\Windows\\' || evt.Parsed.CommandLine contains ' \'C:\\Windows\\')) && not (evt.Parsed.CommandLine == '' || evt.Parsed.CommandLine == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.010
+
+  label: "Regsvr32 Execution From Highly Suspicious Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

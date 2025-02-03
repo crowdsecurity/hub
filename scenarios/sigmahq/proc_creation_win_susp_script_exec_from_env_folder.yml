@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_script_exec_from_env_folder
+description: |
+  Detects a suspicious script execution in temporary folders or folders accessible by environment variables
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.CommandLine contains ' -ep bypass ' || evt.Parsed.CommandLine contains ' -ExecutionPolicy bypass ' || evt.Parsed.CommandLine contains ' -w hidden ' || evt.Parsed.CommandLine contains '/e:javascript ' || evt.Parsed.CommandLine contains '/e:Jscript ' || evt.Parsed.CommandLine contains '/e:vbscript ' || evt.Parsed.OriginalFileName in ['cscript.exe', 'mshta.exe', 'wscript.exe']) && (evt.Parsed.CommandLine contains ':\\Perflogs\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\Temp' || evt.Parsed.CommandLine contains '\\Temporary Internet' || evt.Parsed.CommandLine contains '\\Windows\\Temp' || evt.Parsed.CommandLine contains ':\\Users\\' && evt.Parsed.CommandLine contains '\\Favorites\\' || evt.Parsed.CommandLine contains ':\\Users\\' && evt.Parsed.CommandLine contains '\\Favourites\\' || evt.Parsed.CommandLine contains ':\\Users\\' && evt.Parsed.CommandLine contains '\\Contacts\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Script Interpreter Execution From Suspicious Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

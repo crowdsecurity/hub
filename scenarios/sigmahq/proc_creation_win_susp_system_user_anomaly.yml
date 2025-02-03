@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_system_user_anomaly
+description: |
+  Detects a suspicious process creation as SYSTEM user (suspicious program or command line parameter)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.IntegrityLevel == 'System' && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\hh.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\ping.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.CommandLine contains ' -NoP ' || evt.Parsed.CommandLine contains ' -W Hidden ' || evt.Parsed.CommandLine contains ' -decode ' || evt.Parsed.CommandLine contains ' /decode ' || evt.Parsed.CommandLine contains ' /urlcache ' || evt.Parsed.CommandLine contains ' -urlcache ' || Match(' -e JAB', evt.Parsed.CommandLine) || Match(' -e SUVYI', evt.Parsed.CommandLine) || Match(' -e SQBFAFgA', evt.Parsed.CommandLine) || Match(' -e aWV4I', evt.Parsed.CommandLine) || Match(' -e IAB', evt.Parsed.CommandLine) || Match(' -e PAA', evt.Parsed.CommandLine) || Match(' -e aQBlAHgA', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains 'vssadmin delete shadows' || evt.Parsed.CommandLine contains 'reg SAVE HKLM' || evt.Parsed.CommandLine contains ' -ma ' || evt.Parsed.CommandLine contains 'Microsoft\\Windows\\CurrentVersion\\Run' || evt.Parsed.CommandLine contains '.downloadstring(' || evt.Parsed.CommandLine contains '.downloadfile(' || evt.Parsed.CommandLine contains ' /ticket:' || evt.Parsed.CommandLine contains 'dpapi::' || evt.Parsed.CommandLine contains 'event::clear' || evt.Parsed.CommandLine contains 'event::drop' || evt.Parsed.CommandLine contains 'id::modify' || evt.Parsed.CommandLine contains 'kerberos::' || evt.Parsed.CommandLine contains 'lsadump::' || evt.Parsed.CommandLine contains 'misc::' || evt.Parsed.CommandLine contains 'privilege::' || evt.Parsed.CommandLine contains 'rpc::' || evt.Parsed.CommandLine contains 'sekurlsa::' || evt.Parsed.CommandLine contains 'sid::' || evt.Parsed.CommandLine contains 'token::' || evt.Parsed.CommandLine contains 'vault::cred' || evt.Parsed.CommandLine contains 'vault::list' || evt.Parsed.CommandLine contains ' p::d ' || evt.Parsed.CommandLine contains ';iex(' || evt.Parsed.CommandLine contains 'MiniDump' || evt.Parsed.CommandLine contains 'net user ') && not (evt.Parsed.CommandLine contains 'ping 127.0.0.1 -n' || evt.Parsed.Image endsWith '\\PING.EXE' && evt.Parsed.ParentCommandLine contains '\\DismFoDInstall.cmd' || evt.Parsed.ParentImage contains ':\\Packages\\Plugins\\Microsoft.GuestConfiguration.ConfigurationforWindows\\' || (evt.Parsed.ParentImage contains ':\\Program Files (x86)\\Java\\' || evt.Parsed.ParentImage contains ':\\Program Files\\Java\\') && evt.Parsed.ParentImage endsWith '\\bin\\javaws.exe' && (evt.Parsed.Image contains ':\\Program Files (x86)\\Java\\' || evt.Parsed.Image contains ':\\Program Files\\Java\\') && evt.Parsed.Image endsWith '\\bin\\jp2launcher.exe' && evt.Parsed.CommandLine contains ' -ma '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134
+   - attack.t1003
+   - attack.t1027
+
+  label: "Suspicious SYSTEM User Process Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

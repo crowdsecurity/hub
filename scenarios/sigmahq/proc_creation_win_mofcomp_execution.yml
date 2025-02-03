@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mofcomp_execution
+description: |
+  Detects execution of the "mofcomp" utility as a child of a suspicious shell or script running utility or by having a suspicious path in the commandline. The "mofcomp" utility parses a file containing MOF statements and adds the classes and class instances defined in the file to the WMI repository. Attackers abuse this utility to install malicious MOF scripts 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mofcomp.exe' || evt.Parsed.OriginalFileName == 'mofcomp.exe') && (evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\wsl.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\WINDOWS\\Temp\\' || evt.Parsed.CommandLine contains '%temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains '%appdata%') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\wbem\\WmiPrvSE.exe' && evt.Parsed.CommandLine contains 'C:\\Windows\\TEMP\\' && evt.Parsed.CommandLine endsWith '.mof') && not (evt.Parsed.CommandLine contains 'C:\\Windows\\TEMP\\' && evt.Parsed.CommandLine endsWith '.mof'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Potential Suspicious Mofcomp Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

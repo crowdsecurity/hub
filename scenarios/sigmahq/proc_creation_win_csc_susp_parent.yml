@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_csc_susp_parent
+description: |
+  Detects a potentially suspicious parent of "csc.exe", which could be a sign of payload delivery.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\csc.exe' || evt.Parsed.OriginalFileName == 'csc.exe') && (evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\excel.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\onenote.exe' || evt.Parsed.ParentImage endsWith '\\outlook.exe' || evt.Parsed.ParentImage endsWith '\\powerpnt.exe' || evt.Parsed.ParentImage endsWith '\\winword.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe' || (evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && (evt.Parsed.ParentCommandLine contains '-Encoded ' || evt.Parsed.ParentCommandLine contains 'FromBase64String') || evt.Parsed.ParentCommandLine matches '([Pp]rogram[Dd]ata|%([Ll]ocal)?[Aa]pp[Dd]ata%|\\\\[Aa]pp[Dd]ata\\\\([Ll]ocal([Ll]ow)?|[Rr]oaming))\\\\[^\\\\]{1,256}$' || evt.Parsed.ParentCommandLine contains ':\\PerfLogs\\' || evt.Parsed.ParentCommandLine contains ':\\Users\\Public\\' || evt.Parsed.ParentCommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.ParentCommandLine contains '\\Temporary Internet' || evt.Parsed.ParentCommandLine contains ':\\Users\\' && evt.Parsed.ParentCommandLine contains '\\Favorites\\' || evt.Parsed.ParentCommandLine contains ':\\Users\\' && evt.Parsed.ParentCommandLine contains '\\Favourites\\' || evt.Parsed.ParentCommandLine contains ':\\Users\\' && evt.Parsed.ParentCommandLine contains '\\Contacts\\' || evt.Parsed.ParentCommandLine contains ':\\Users\\' && evt.Parsed.ParentCommandLine contains '\\Pictures\\') && not (evt.Parsed.ParentImage startsWith 'C:\\Program Files (x86)\\' || evt.Parsed.ParentImage startsWith 'C:\\Program Files\\' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\sdiagnhost.exe' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\inetsrv\\w3wp.exe') && not (evt.Parsed.ParentImage == 'C:\\ProgramData\\chocolatey\\choco.exe' || evt.Parsed.ParentCommandLine contains '\\ProgramData\\Microsoft\\Windows Defender Advanced Threat Protection' || evt.Parsed.ParentCommandLine contains 'JwB7ACIAZgBhAGkAbABlAGQAIgA6AHQAcgB1AGUALAAiAG0AcwBnACIAOgAiAEEAbgBzAGkAYgBsAGUAIAByAGUAcQB1AGkAcgBlAHMAIABQAG8AdwBlAHIAUwBoAGUAbABsACAAdgAzAC4AMAAgAG8AcgAgAG4AZQB3AGUAcgAiAH0AJw' || evt.Parsed.ParentCommandLine contains 'cAewAiAGYAYQBpAGwAZQBkACIAOgB0AHIAdQBlACwAIgBtAHMAZwAiADoAIgBBAG4AcwBpAGIAbABlACAAcgBlAHEAdQBpAHIAZQBzACAAUABvAHcAZQByAFMAaABlAGwAbAAgAHYAMwAuADAAIABvAHIAIABuAGUAdwBlAHIAIgB9ACcA' || evt.Parsed.ParentCommandLine contains 'nAHsAIgBmAGEAaQBsAGUAZAAiADoAdAByAHUAZQAsACIAbQBzAGcAIgA6ACIAQQBuAHMAaQBiAGwAZQAgAHIAZQBxAHUAaQByAGUAcwAgAFAAbwB3AGUAcgBTAGgAZQBsAGwAIAB2ADMALgAwACAAbwByACAAbgBlAHcAZQByACIAfQAnA'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.005
+   - attack.t1059.007
+   - attack.t1218.005
+   - attack.t1027.004
+
+  label: "Csc.EXE Execution Form Potentially Suspicious Parent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_pssuspend_susp_execution
+description: |
+  Detects suspicious execution of Sysinternals PsSuspend, where the utility is used to suspend critical processes such as AV or EDR to bypass defenses
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'pssuspend.exe' || evt.Parsed.Image endsWith '\\pssuspend.exe' || evt.Parsed.Image endsWith '\\pssuspend64.exe') && evt.Parsed.CommandLine contains 'msmpeng.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Sysinternals PsSuspend Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

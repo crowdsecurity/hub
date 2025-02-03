@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_net_user_add_never_expire
+description: |
+  Detects creation of local users via the net.exe command with the option "never expire"
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName in ['net.exe', 'net1.exe']) && evt.Parsed.CommandLine contains 'user' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'expires:never')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1136.001
+
+  label: "New User Created Via Net.EXE With Never Expire Option"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

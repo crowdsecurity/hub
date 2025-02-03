@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_stordiag_susp_child_process
+description: |
+  Detects the use of stordiag.exe to execute schtasks.exe systeminfo.exe and fltmc.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\stordiag.exe' && (evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\fltmc.exe') && not (evt.Parsed.ParentImage startsWith 'c:\\windows\\system32\\' || evt.Parsed.ParentImage startsWith 'c:\\windows\\syswow64\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Execution via stordiag.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
