@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/lnx_auditd_ld_so_preload_mod
+description: |
+  Identifies modification of ld.so.preload for shared object injection. This technique is used by attackers to load arbitrary code into processes.
+filter: |
+  (evt.Parsed.program == 'auditd') && (evt.Meta.auditd_type == 'PATH' && evt.Meta.name == '/etc/ld.so.preload')
+blackhole: 2m
+#status: test
+labels:
+  service: linux
+  confidence: 1
+  spoofable: 0
+  label: "Modification of ld.so.preload"
+  behavior : "linux:audit"
+  remediation: false
+  classification:
+   - attack.t1574.006
+
+
+scope:
+  type: pid
+  expression: evt.Meta.ppid
+
