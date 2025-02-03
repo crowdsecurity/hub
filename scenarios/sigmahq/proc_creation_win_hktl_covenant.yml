@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_covenant
+description: |
+  Detects suspicious command lines used in Covenant luanchers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '-Sta' && evt.Parsed.CommandLine contains '-Nop' && evt.Parsed.CommandLine contains '-Window' && evt.Parsed.CommandLine contains 'Hidden' && (evt.Parsed.CommandLine contains '-Command' || evt.Parsed.CommandLine contains '-EncodedCommand') || evt.Parsed.CommandLine contains 'sv o (New-Object IO.MemorySteam);sv d ' || evt.Parsed.CommandLine contains 'mshta file.hta' || evt.Parsed.CommandLine contains 'GruntHTTP' || evt.Parsed.CommandLine contains '-EncodedCommand cwB2ACAAbwAgA')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1564.003
+
+  label: "HackTool - Covenant PowerShell Launcher"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

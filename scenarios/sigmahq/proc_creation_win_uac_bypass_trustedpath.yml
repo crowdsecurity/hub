@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_trustedpath
+description: |
+  Detects indicators of a UAC bypass method by mocking directories
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains 'C:\\Windows \\System32\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "TrustedPath UAC Bypass Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

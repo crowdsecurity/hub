@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_idiagnostic_profile
+description: |
+  Detects the "IDiagnosticProfileUAC" UAC bypass technique
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\DllHost.exe' && evt.Parsed.ParentCommandLine contains ' /Processid:{12C21EA7-2EB8-4B55-9249-AC243DA8C666}' && (evt.Parsed.IntegrityLevel in ['High', 'System']))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Using IDiagnostic Profile"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

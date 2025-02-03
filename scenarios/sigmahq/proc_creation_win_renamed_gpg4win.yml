@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_gpg4win
+description: |
+  Detects the execution of a renamed "gpg.exe". Often used by ransomware and loaders to decrypt/encrypt data.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'gpg.exe' && not (evt.Parsed.Image endsWith '\\gpg.exe' || evt.Parsed.Image endsWith '\\gpg2.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1486
+
+  label: "Renamed Gpg.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_localpotato
+description: |
+  Detects the execution of the LocalPotato POC based on basic PE metadata information and default CLI examples
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\LocalPotato.exe' || evt.Parsed.CommandLine contains '.exe -i C:\\' && evt.Parsed.CommandLine contains '-o Windows\\' || evt.Parsed.Hashes contains 'IMPHASH=E1742EE971D6549E8D4D81115F88F1FC' || evt.Parsed.Hashes contains 'IMPHASH=DD82066EFBA94D7556EF582F247C8BB5' || evt.Parsed.Imphash in ['E1742EE971D6549E8D4D81115F88F1FC', 'DD82066EFBA94D7556EF582F247C8BB5'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "HackTool - LocalPotato Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

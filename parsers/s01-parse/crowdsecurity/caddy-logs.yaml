@@ -1,4 +1,7 @@
-filter: "evt.Parsed.program startsWith 'caddy' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil]"
+filter: |
+      evt.Parsed.program startsWith 'caddy' &&
+      UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil] &&
+      (evt.Unmarshaled.caddy.logger == nil || evt.Unmarshaled.caddy.logger != 'http.handlers.waf')
 onsuccess: next_stage
 name: crowdsecurity/caddy-logs
 description: "Parse caddy logs"

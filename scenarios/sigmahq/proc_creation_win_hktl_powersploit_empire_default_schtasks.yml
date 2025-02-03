@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_powersploit_empire_default_schtasks
+description: |
+  Detects the creation of a schtask via PowerSploit or Empire Default Configuration.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && evt.Parsed.Image endsWith '\\schtasks.exe' && evt.Parsed.CommandLine contains '/Create' && evt.Parsed.CommandLine contains 'powershell.exe -NonI' && evt.Parsed.CommandLine contains '/TN Updater /TR' && (evt.Parsed.CommandLine contains '/SC ONLOGON' || evt.Parsed.CommandLine contains '/SC DAILY /ST' || evt.Parsed.CommandLine contains '/SC ONIDLE' || evt.Parsed.CommandLine contains '/SC HOURLY'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+   - attack.t1059.001
+
+  label: "HackTool - Default PowerSploit/Empire Scheduled Task Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

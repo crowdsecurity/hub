@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_eventlog_clear
+description: |
+  Detects the clearing or configuration tampering of EventLog using utilities such as "wevtutil", "powershell" and "wmic". This technique were seen used by threat actors and ransomware strains in order to evade defenses. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wevtutil.exe' && (evt.Parsed.CommandLine contains 'clear-log ' || evt.Parsed.CommandLine contains ' cl ' || evt.Parsed.CommandLine contains 'set-log ' || evt.Parsed.CommandLine contains ' sl ' || evt.Parsed.CommandLine contains 'lfn:') || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains 'Clear-EventLog ' || evt.Parsed.CommandLine contains 'Remove-EventLog ' || evt.Parsed.CommandLine contains 'Limit-EventLog ' || evt.Parsed.CommandLine contains 'Clear-WinEvent ') || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wmic.exe') && evt.Parsed.CommandLine contains 'ClearEventLog') && not ((evt.Parsed.ParentImage in ['C:\\Windows\\SysWOW64\\msiexec.exe', 'C:\\Windows\\System32\\msiexec.exe']) && evt.Parsed.CommandLine contains ' sl '))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1070.001
+   - attack.t1562.002
+
+  label: "Suspicious Eventlog Clearing or Configuration Change Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

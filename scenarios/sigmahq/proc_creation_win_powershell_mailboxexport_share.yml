@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_mailboxexport_share
+description: |
+  Detects usage of the powerShell New-MailboxExportRequest Cmdlet to exports a mailbox to a remote or local share, as used in ProxyShell exploitations
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'New-MailboxExportRequest' && evt.Parsed.CommandLine contains ' -Mailbox ' && evt.Parsed.CommandLine contains ' -FilePath \\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious PowerShell Mailbox Export to Share"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

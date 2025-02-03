@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_mssql_veaam_susp_child_processes
+description: |
+  Detects suspicious child processes of the Veeam service process. This could indicate potential RCE or SQL Injection.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\sqlservr.exe' && evt.Parsed.ParentCommandLine contains 'VEEAMSQL' && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wsl.exe' || evt.Parsed.Image endsWith '\\wt.exe') && (evt.Parsed.CommandLine contains '-ex ' || evt.Parsed.CommandLine contains 'bypass' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'DownloadString' || evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'copy ') || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\netstat.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\ping.exe' || evt.Parsed.Image endsWith '\\tasklist.exe' || evt.Parsed.Image endsWith '\\whoami.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Child Process Of Veeam Dabatase"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

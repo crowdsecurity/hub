@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_email_exfil
+description: |
+  Detects email exfiltration via powershell cmdlets
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains 'Add-PSSnapin' && evt.Parsed.CommandLine contains 'Get-Recipient' && evt.Parsed.CommandLine contains '-ExpandProperty' && evt.Parsed.CommandLine contains 'EmailAddresses' && evt.Parsed.CommandLine contains 'SmtpAddress' && evt.Parsed.CommandLine contains '-hidetableheaders')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Email Exifiltration Via Powershell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

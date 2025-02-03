@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_gup_suspicious_execution
+description: |
+  Detects execution of the Notepad++ updater in a suspicious directory, which is often used in DLL side-loading attacks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\GUP.exe' && not (evt.Parsed.Image endsWith '\\Program Files\\Notepad++\\updater\\GUP.exe' || evt.Parsed.Image endsWith '\\Program Files (x86)\\Notepad++\\updater\\GUP.exe' || evt.Parsed.Image contains '\\Users\\' && (evt.Parsed.Image endsWith '\\AppData\\Local\\Notepad++\\updater\\GUP.exe' || evt.Parsed.Image endsWith '\\AppData\\Roaming\\Notepad++\\updater\\GUP.exe')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.002
+
+  label: "Suspicious GUP Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

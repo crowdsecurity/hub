@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_sdelete
+description: |
+  Detects the use of SDelete to erase a file not the free space
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'sdelete.exe' && not (evt.Parsed.CommandLine contains ' -h' || evt.Parsed.CommandLine contains ' -c' || evt.Parsed.CommandLine contains ' -z' || evt.Parsed.CommandLine contains ' /?'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1485
+
+  label: "Potential File Overwrite Via Sysinternals SDelete"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

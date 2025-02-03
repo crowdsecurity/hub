@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_htran_or_natbypass
+description: |
+  Detects executable names or flags used by Htran or Htran-like tools (e.g. NATBypass)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\htran.exe' || evt.Parsed.Image endsWith '\\lcx.exe' || evt.Parsed.CommandLine contains '.exe -tran ' || evt.Parsed.CommandLine contains '.exe -slave ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1090
+
+  label: "HackTool - Htran/NATBypass Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_fltmc_unload_driver_sysmon
+description: |
+  Detects possible Sysmon filter driver unloaded via fltmc.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\fltMC.exe' || evt.Parsed.OriginalFileName == 'fltMC.exe') && evt.Parsed.CommandLine contains 'unload' && evt.Parsed.CommandLine contains 'sysmon')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1070
+   - attack.t1562
+   - attack.t1562.002
+
+  label: "Sysmon Driver Unloaded Via Fltmc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

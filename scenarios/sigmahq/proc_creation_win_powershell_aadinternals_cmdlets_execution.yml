@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_aadinternals_cmdlets_execution
+description: |
+  Detects ADDInternals Cmdlet execution. A tool for administering Azure AD and Office 365. Which can be abused by threat actors to attack Azure AD or Office 365.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.Exe', 'pwsh.dll']) && (evt.Parsed.CommandLine contains 'Add-AADInt' || evt.Parsed.CommandLine contains 'ConvertTo-AADInt' || evt.Parsed.CommandLine contains 'Disable-AADInt' || evt.Parsed.CommandLine contains 'Enable-AADInt' || evt.Parsed.CommandLine contains 'Export-AADInt' || evt.Parsed.CommandLine contains 'Get-AADInt' || evt.Parsed.CommandLine contains 'Grant-AADInt' || evt.Parsed.CommandLine contains 'Install-AADInt' || evt.Parsed.CommandLine contains 'Invoke-AADInt' || evt.Parsed.CommandLine contains 'Join-AADInt' || evt.Parsed.CommandLine contains 'New-AADInt' || evt.Parsed.CommandLine contains 'Open-AADInt' || evt.Parsed.CommandLine contains 'Read-AADInt' || evt.Parsed.CommandLine contains 'Register-AADInt' || evt.Parsed.CommandLine contains 'Remove-AADInt' || evt.Parsed.CommandLine contains 'Restore-AADInt' || evt.Parsed.CommandLine contains 'Search-AADInt' || evt.Parsed.CommandLine contains 'Send-AADInt' || evt.Parsed.CommandLine contains 'Set-AADInt' || evt.Parsed.CommandLine contains 'Start-AADInt' || evt.Parsed.CommandLine contains 'Update-AADInt'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "AADInternals PowerShell Cmdlets Execution - ProccessCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

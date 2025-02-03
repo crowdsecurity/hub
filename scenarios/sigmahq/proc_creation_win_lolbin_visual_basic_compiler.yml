@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_visual_basic_compiler
+description: |
+  Detects successful code compilation via Visual Basic Command Line Compiler that utilizes Windows Resource to Object Converter.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\vbc.exe' && evt.Parsed.Image endsWith '\\cvtres.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027.004
+
+  label: "Visual Basic Command Line Compiler Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_aspnet_compiler_susp_child_process
+description: |
+  Detects potentially suspicious child processes of "aspnet_compiler.exe".
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\aspnet_compiler.exe' && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image contains '\\Users\\Public\\' || evt.Parsed.Image contains '\\AppData\\Local\\Temp\\' || evt.Parsed.Image contains '\\AppData\\Local\\Roaming\\' || evt.Parsed.Image contains ':\\Temp\\' || evt.Parsed.Image contains ':\\Windows\\Temp\\' || evt.Parsed.Image contains ':\\Windows\\System32\\Tasks\\' || evt.Parsed.Image contains ':\\Windows\\Tasks\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1127
+
+  label: "Suspicious Child Process of AspNetCompiler"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

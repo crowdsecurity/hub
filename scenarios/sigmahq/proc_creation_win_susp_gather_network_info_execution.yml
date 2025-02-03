@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_gather_network_info_execution
+description: |
+  Detects execution of the built-in script located in "C:\Windows\System32\gatherNetworkInfo.vbs". Which can be used to gather information about the target machine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'gatherNetworkInfo.vbs' && not (evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1615
+   - attack.t1059.005
+
+  label: "Suspicious Reconnaissance Activity Via GatherNetworkInfo.VBS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

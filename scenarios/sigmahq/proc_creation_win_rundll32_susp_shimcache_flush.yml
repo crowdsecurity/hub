@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_susp_shimcache_flush
+description: |
+  Detects actions that clear the local ShimCache and remove forensic evidence
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'rundll32' && evt.Parsed.CommandLine contains 'apphelp.dll' && (evt.Parsed.CommandLine contains 'ShimFlushCache' || evt.Parsed.CommandLine contains '#250') || evt.Parsed.CommandLine contains 'rundll32' && evt.Parsed.CommandLine contains 'kernel32.dll' && (evt.Parsed.CommandLine contains 'BaseFlushAppcompatCache' || evt.Parsed.CommandLine contains '#46'))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1112
+
+  label: "ShimCache Flush"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
