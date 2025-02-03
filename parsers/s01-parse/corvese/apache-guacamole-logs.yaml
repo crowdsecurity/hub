@@ -4,9 +4,10 @@ filter: "evt.Parsed.program == 'apache-guacamole'"
 onsuccess: next_stage
 pattern_syntax:
   GUAC_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
+  GUAC_TIMESTAMP: "(%{TIMESTAMP_ISO8601}|%{TIME})"
 nodes:
   - grok:
-      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{GUAC_CUSTOMUSER:username}" failed'
+      pattern: '%{GUAC_TIMESTAMP:timestamp}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{GUAC_CUSTOMUSER:username}" failed'
       apply_on: message
       statics:
         - meta: log_type
