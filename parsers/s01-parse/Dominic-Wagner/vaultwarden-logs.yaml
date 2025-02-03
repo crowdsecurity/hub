@@ -6,7 +6,7 @@ pattern_syntax:
   DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
   - grok:
-      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::identity\]\[ERROR\] Username or password is incorrect\. Try again\. IP: %{IP:source_ip}\. Username: %{EMAILADDRESS:username}\.$'
+      pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::identity\]\[ERROR\] Username or password is incorrect\. Try again\. IP: %{IP:source_ip}\. Username: %{EMAILADDRESS:username}\.$'
       apply_on: message
       statics:
         - meta: log_type
@@ -14,13 +14,13 @@ nodes:
         - meta: username
           expression: evt.Parsed.username
   - grok:
-      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::admin\]\[ERROR\] Invalid admin token. IP: %{IP:source_ip}'
+      pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::admin\]\[ERROR\] Invalid admin token. IP: %{IP:source_ip}'
       apply_on: message
       statics:
         - meta: log_type
           value: vaultwarden_failed_admin_auth
   - grok:
-      pattern: '^\[%{DATE_YMD:date} %{TIME:time}\]\[vaultwarden::api::core::two_factor::authenticator\]\[ERROR\] Invalid TOTP code! Server time: %{DATE_YMD:server_date} %{TIME:server_time} %{TZ:server_tz} IP: %{IP:source_ip}'
+      pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::core::two_factor::authenticator\]\[ERROR\] Invalid TOTP code! Server time: %{DATE_YMD:server_date} %{TIME:server_time} %{TZ:server_tz} IP: %{IP:source_ip}'
       apply_on: message
       statics:
         - meta: log_type
@@ -31,5 +31,7 @@ statics:
       value: vaultwarden
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
+    - target: evt.StrTimeFormat
+      value: "2006-01-02 15:04:05.000-0700"
     - target: evt.StrTime
-      expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
+      expression: evt.Parsed.datetimestamp
