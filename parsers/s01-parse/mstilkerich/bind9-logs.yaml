@@ -22,7 +22,7 @@ nodes:
       pattern: '^%{BIND9_PREFIX}bad zone transfer request: ''\S+/IN'': non-authoritative zone (?:denied|\(NOTAUTH\))\s*$'
       apply_on: message
   - grok:
-      pattern: '^%{BIND9_PREFIX}(?:view (?:internal|external): )?query(?: \(cache\))? .* (?:denied|\(NOTAUTH\))\s*$'
+      pattern: '^%{BIND9_PREFIX}(?:view (?:internal|external): )?query(?: \(cache\))? .* (?:denied|\(NOTAUTH\)).*$'
       apply_on: message
 statics:
   - meta: service
