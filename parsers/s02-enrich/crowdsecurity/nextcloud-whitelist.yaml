@@ -17,3 +17,4 @@ whitelist:
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '\\/apps\\/files\\/api\\/v1\\/thumbnail\\/(\\d+)/(\\d+)'
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/bookmarks/bookmark' && (evt.Meta.http_path endsWith 'favicon' || evt.Meta.http_path endsWith 'image') #When loading NC bookmarks: some entries might have no favicon or no image
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/bookmarks/folder' && evt.Meta.http_path endsWith 'publictoken' #When loading NC bookmarks: private folders have no publictoken
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb in ['GET', 'PUT'] && evt.Meta.http_path matches '\\/apps\\/mail\\/api\\/messages\\/(\\d+)\\/(flags|dkim|itineraries)' #When loading mail messages, some requests are forbidden due to message deletion by another user in shared inboxes
