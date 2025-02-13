@@ -3667,7 +3667,7 @@
   },
   "crowdsecurity/appsec-crs": {
    "path": "collections/crowdsecurity/appsec-crs.yaml",
-   "version": "0.4",
+   "version": "0.5",
    "versions": {
     "0.1": {
      "digest": "61d5e358aa86b872300e540be39b066c278567c4948bb74d4e4f339bbb126154",
@@ -3684,15 +3684,22 @@
     "0.4": {
      "digest": "a9f36fac18d19edcb0c3a2a4ff3d58570fc407ac39fb9447e9dac7510184fd47",
      "deprecated": false
+    },
+    "0.5": {
+     "digest": "be79c745b92be435cdb23856701ab5894b769e4a560184c8c22ab1eaeb64cbe8",
+     "deprecated": false
     }
    },
    "long_description": "IyBNb2RTZWN1cml0eSBDUlMKCg==",
-   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L2NycwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2NycwpkZXNjcmlwdGlvbjogIkFwcHNlYzogTW9kc2VjdXJpdHkgY29yZSBydWxlIHNldCBydWxlcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBsaW51eAogIC0gaHR0cAogIC0gYXBwc2VjCiAgLSBtb2RzZWN1cml0eQo=",
+   "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L2NycwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2NycwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2Nyb3dkc2VjLWFwcHNlYy1vdXRvZmJhbmQKZGVzY3JpcHRpb246ICJBcHBzZWM6IE1vZHNlY3VyaXR5IGNvcmUgcnVsZSBzZXQgcnVsZXMiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gbGludXgKICAtIGh0dHAKICAtIGFwcHNlYwogIC0gbW9kc2VjdXJpdHkK",
    "description": "Appsec: Modsecurity core rule set rules",
    "author": "crowdsecurity",
    "labels": null,
    "parsers": [
     "crowdsecurity/appsec-logs"
+   ],
+   "scenarios": [
+    "crowdsecurity/crowdsec-appsec-outofband"
    ],
    "appsec-rules": [
     "crowdsecurity/crs"
@@ -13676,7 +13683,7 @@
   },
   "crowdsecurity/crowdsec-appsec-outofband": {
    "path": "scenarios/crowdsecurity/crowdsec-appsec-outofband.yaml",
-   "version": "0.3",
+   "version": "0.5",
    "versions": {
     "0.1": {
      "digest": "1e9a7f01a451b2322f1125b0dfba3c5cdd3dca53e69eb38f245a3e25af6952df",
@@ -13689,13 +13696,29 @@
     "0.3": {
      "digest": "47b3cd0887f58785c2b6a064f4da46e36a17a6e7d34c4893b0bd8308271fe0be",
      "deprecated": false
+    },
+    "0.4": {
+     "digest": "206efc8015d2f6de4873b9f7609906f5763663977922e417a22a81601bc9da81",
+     "deprecated": false
+    },
+    "0.5": {
+     "digest": "a2dea8ad3253e1327c9cbdc65f5274103c0d7d5ea62a4b05f32328613de1823f",
+     "deprecated": false
     }
    },
-   "content": "IyBqdXN0IGNvdW50IGRpc3RpbmN0IG51bWJlciBvZiByZXF1ZXN0cyBnZXR0aW5nIGJsb2NrZWQKdHlwZTogbGVha3kKZmlsdGVyOiBldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2Nyb3dkc2VjLXdhYXAnICYmIGV2dC5BcHBzZWMuSGFzSW5CYW5kTWF0Y2hlcyA9PSBmYWxzZSAmJiBldnQuUGFyc2VkLmFjdGlvbiBpbiBbImRlbnkiLCAiZHJvcCJdCm5hbWU6IGNyb3dkc2VjdXJpdHkvY3Jvd2RzZWMtYXBwc2VjLW91dG9mYmFuZApkZXNjcmlwdGlvbjogSVAgaGFzIHRyaWdnZXJlZCBtb3JlIHRoYW4gNSBDcm93ZFNlYyBPdXQgT2YgQmFuZCBXYWFwIHJ1bGVzCmJsYWNraG9sZTogMm0KbGVha3NwZWVkOiAzMHMKY2FwYWNpdHk6IDUKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgojLS0tCiMgYXQgbGVhc3QgcmVxdWVzdHMgYmxvY2tlZCBvbiAzIGRpc3RpbmN0IFVSSXMKI3R5cGU6IGxlYWt5CiNkZWJ1ZzogdHJ1ZQojZmlsdGVyOiBldnQuUGFyc2VkLnByb2dyYW0gPT0gJ2Nyb3dkc2VjLXdhYXAnICYmIGV2dC5QYXJzZWQuYWN0aW9uID09ICJkZW55IgojbmFtZTogY3Jvd2RzZWN1cml0eS93YWYtcHJvYmluZwojZGVzY3JpcHRpb246ICJXQUYgcHJvYmluZyIKI2JsYWNraG9sZTogMm0KI2xlYWtzcGVlZDogNjBzCiNjYXBhY2l0eTogNQojZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCArIGV2dC5QYXJzZWQudGFyZ2V0X3VyaSIKI2xhYmVsczoKIyAgdHlwZTogZXhwbG9pdAojICByZW1lZGlhdGlvbjogdHJ1ZQojLS0tCiMgIyBhdCBsZWFzdCA1IHJlcXVlc3RzIGJsb2NrZWQgd2l0aCAqKmRpc3RpbmN0KiogSURzCiN0eXBlOiBjb25kaXRpb25hbAojZGVidWc6IHRydWUKI25hbWU6IGNyb3dkc2VjdXJpdHkveHNzLXByb2JpbmcKI2Rlc2NyaXB0aW9uOiBhdCBsZWFzdCA1IGRpZmZlcmVudCBYU1MgcnVsZXMKI2ZpbHRlcjogZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdjcm93ZHNlYy13YWFwJyAmJiBldnQuUGFyc2VkLmFjdGlvbiA9PSAiZGVueSIKI2NvbmRpdGlvbjogbGVuKCBkaXN0aW5jdCggbWVyZ2UoIGFsbChldnQuUXVldWUsIHsgIy5XYWFwLkdldElEcygpfSkgKSApICkgPiA1CiNjb25kaXRpb246IHwKIyAgTG9nSW5mbygiJSt2IiwgRmxhdHRlbkRpc3RpbmN0KCAKIyAgICAgIG1hcCggcXVldWUuUXVldWUsIAojICAgICAgIy5XYWFwLkJ5VGFnUngoIi4qeHNzLioiKS5HZXRSdWxlSURzKCkKIyAgICAgICkgCiMgICAgKSkgJiYKIyAgbGVuKCAKIyAgICBGbGF0dGVuRGlzdGluY3QoIAojICAgICAgbWFwKCBxdWV1ZS5RdWV1ZSwgCiMgICAgICAjLldhYXAuQnlUYWdSeCgiLip4c3MuKiIpLkdldFJ1bGVJRHMoKQojICAgICAgKSAKIyAgICApKSA+IDUKI2NvbmRpdGlvbjogJ0Rpc3RhbmNlKCJhYSIsICJiYiIsICJjYyIsIHsgIy5QYXJzZWQudG90byA9PSAxIH0pJwojY2FwYWNpdHk6IC0xCiNjYWNoZV9zaXplOiAxMDAwCiNsZWFrc3BlZWQ6IDMwcwojZGlzdGluY3Q6IGV2dC5NZXRhLnNvdXJjZV9pcA==",
-   "description": "IP has triggered more than 5 CrowdSec Out Of Band Waap rules",
+   "content": "dHlwZTogbGVha3kKZmlsdGVyOiBldnQuUGFyc2VkLnNvdXJjZSA9PSAnY3Jvd2RzZWMtYXBwc2VjJyAmJiBldnQuQXBwc2VjLkhhc091dEJhbmRNYXRjaGVzID09IHRydWUgJiYgZXZ0LlBhcnNlZC5vdXRvZmJhbmRfYWN0aW9uIGluIFsiZGVueSIsICJkcm9wIl0KbmFtZTogY3Jvd2RzZWN1cml0eS9jcm93ZHNlYy1hcHBzZWMtb3V0b2ZiYW5kCmRlc2NyaXB0aW9uOiBJUCBoYXMgbWFkZSBtb3JlIHRoYW4gNSByZXF1ZXN0cyB0aGF0IHRyaWdnZXJlZCBvdXQtb2YtYmFuZCBhcHBzZWMgcnVsZXMKYmxhY2tob2xlOiAybQpsZWFrc3BlZWQ6IDMwcwpjYXBhY2l0eTogNQpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMQogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExOTAKICBsYWJlbDogIlRyaWdnZXJlZCBtdWx0aXBsZSBPdXRPZkJhbmQgQ3Jvd2RTZWMgQXBwU2VjIHJ1bGVzIgogIHNlcnZpY2U6IGh0dHAKICAKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKIy0tLQojIGF0IGxlYXN0IHJlcXVlc3RzIGJsb2NrZWQgb24gMyBkaXN0aW5jdCBVUklzCiN0eXBlOiBsZWFreQojZGVidWc6IHRydWUKI2ZpbHRlcjogZXZ0LlBhcnNlZC5wcm9ncmFtID09ICdjcm93ZHNlYy13YWFwJyAmJiBldnQuUGFyc2VkLmFjdGlvbiA9PSAiZGVueSIKI25hbWU6IGNyb3dkc2VjdXJpdHkvd2FmLXByb2JpbmcKI2Rlc2NyaXB0aW9uOiAiV0FGIHByb2JpbmciCiNibGFja2hvbGU6IDJtCiNsZWFrc3BlZWQ6IDYwcwojY2FwYWNpdHk6IDUKI2dyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAgKyBldnQuUGFyc2VkLnRhcmdldF91cmkiCiNsYWJlbHM6CiMgIHR5cGU6IGV4cGxvaXQKIyAgcmVtZWRpYXRpb246IHRydWUKIy0tLQojICMgYXQgbGVhc3QgNSByZXF1ZXN0cyBibG9ja2VkIHdpdGggKipkaXN0aW5jdCoqIElEcwojdHlwZTogY29uZGl0aW9uYWwKI2RlYnVnOiB0cnVlCiNuYW1lOiBjcm93ZHNlY3VyaXR5L3hzcy1wcm9iaW5nCiNkZXNjcmlwdGlvbjogYXQgbGVhc3QgNSBkaWZmZXJlbnQgWFNTIHJ1bGVzCiNmaWx0ZXI6IGV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnY3Jvd2RzZWMtd2FhcCcgJiYgZXZ0LlBhcnNlZC5hY3Rpb24gPT0gImRlbnkiCiNjb25kaXRpb246IGxlbiggZGlzdGluY3QoIG1lcmdlKCBhbGwoZXZ0LlF1ZXVlLCB7ICMuV2FhcC5HZXRJRHMoKX0pICkgKSApID4gNQojY29uZGl0aW9uOiB8CiMgIExvZ0luZm8oIiUrdiIsIEZsYXR0ZW5EaXN0aW5jdCggCiMgICAgICBtYXAoIHF1ZXVlLlF1ZXVlLCAKIyAgICAgICMuV2FhcC5CeVRhZ1J4KCIuKnhzcy4qIikuR2V0UnVsZUlEcygpCiMgICAgICApIAojICAgICkpICYmCiMgIGxlbiggCiMgICAgRmxhdHRlbkRpc3RpbmN0KCAKIyAgICAgIG1hcCggcXVldWUuUXVldWUsIAojICAgICAgIy5XYWFwLkJ5VGFnUngoIi4qeHNzLioiKS5HZXRSdWxlSURzKCkKIyAgICAgICkgCiMgICAgKSkgPiA1CiNjb25kaXRpb246ICdEaXN0YW5jZSgiYWEiLCAiYmIiLCAiY2MiLCB7ICMuUGFyc2VkLnRvdG8gPT0gMSB9KScKI2NhcGFjaXR5OiAtMQojY2FjaGVfc2l6ZTogMTAwMAojbGVha3NwZWVkOiAzMHMKI2Rpc3RpbmN0OiBldnQuTWV0YS5zb3VyY2VfaXA=",
+   "description": "IP has made more than 5 requests that triggered out-of-band appsec rules",
    "author": "crowdsecurity",
    "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "attack.T1190"
+    ],
+    "confidence": 1,
+    "label": "Triggered multiple OutOfBand CrowdSec AppSec rules",
     "remediation": true,
+    "service": "http",
+    "spoofable": 0,
     "type": "exploit"
    }
   },

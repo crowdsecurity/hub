@@ -1,14 +1,21 @@
-# just count distinct number of requests getting blocked
 type: leaky
-filter: evt.Parsed.program == 'crowdsec-waap' && evt.Appsec.HasInBandMatches == false && evt.Parsed.action in ["deny", "drop"]
+filter: evt.Parsed.source == 'crowdsec-appsec' && evt.Appsec.HasOutBandMatches == true && evt.Parsed.outofband_action in ["deny", "drop"]
 name: crowdsecurity/crowdsec-appsec-outofband
-description: IP has triggered more than 5 CrowdSec Out Of Band Waap rules
+description: IP has made more than 5 requests that triggered out-of-band appsec rules
 blackhole: 2m
 leakspeed: 30s
 capacity: 5
 labels:
   type: exploit
+  behavior: "http:exploit"
   remediation: true
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1190
+  label: "Triggered multiple OutOfBand CrowdSec AppSec rules"
+  service: http
+  
 groupby: "evt.Meta.source_ip"
 #---
 # at least requests blocked on 3 distinct URIs

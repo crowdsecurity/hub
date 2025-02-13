@@ -3522,14 +3522,18 @@
   },
   "crowdsecurity/crowdsec-appsec-outofband": {
     "name": "crowdsecurity/crowdsec-appsec-outofband",
-    "description": "IP has triggered more than 5 CrowdSec Out Of Band Waap rules",
-    "label": "IP HAS Triggered More Than 5 Crowdsec OUT OF Band Waap Rules",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
+    "description": "IP has made more than 5 requests that triggered out-of-band appsec rules",
+    "label": "Triggered multiple OutOfBand CrowdSec AppSec rules",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 1,
     "spoofable": 0,
     "cti": true,
-    "service": null
+    "service": "http"
   },
   "crowdsecurity/dovecot-spam": {
     "name": "crowdsecurity/dovecot-spam",
