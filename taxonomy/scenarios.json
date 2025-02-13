@@ -3523,13 +3523,17 @@
   "crowdsecurity/crowdsec-appsec-outofband": {
     "name": "crowdsecurity/crowdsec-appsec-outofband",
     "description": "IP has made more than 5 requests that triggered out-of-band appsec rules",
-    "label": "IP HAS Made More Than 5 Requests That Triggered Out-of-band Appsec Rules",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "label": "Triggered multiple OutOfBand CrowdSec AppSec rules",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
     "confidence": 1,
     "spoofable": 0,
     "cti": true,
-    "service": null
+    "service": "http"
   },
   "crowdsecurity/dovecot-spam": {
     "name": "crowdsecurity/dovecot-spam",
