@@ -7,9 +7,15 @@ leakspeed: 30s
 capacity: 5
 labels:
   type: exploit
+  behavior: "http:exploit"
   remediation: true
   confidence: 1
   spoofable: 0
+  classification:
+    - attack.T1190
+  label: "Triggered multiple OutOfBand CrowdSec AppSec rules"
+  service: http
+  
 groupby: "evt.Meta.source_ip"
 #---
 # at least requests blocked on 3 distinct URIs
