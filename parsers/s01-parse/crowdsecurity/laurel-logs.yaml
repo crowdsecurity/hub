@@ -1,5 +1,4 @@
 onsuccess: next_stage
-#debug: true
 name: crowdsecurity/laurel-logs
 description: "Parse laurel json logs"
 ## 1.5.2 returns "" , 1.5.3 returns nil
@@ -17,7 +16,8 @@ nodes:
           - meta: service
             value: laurel
           - meta: log_type
-            expression: evt.Unmarshaled.laurel.SYSCALL.SYSCALL
+            expression: |
+              'auditd_syscall_' + evt.Unmarshaled.laurel.SYSCALL.SYSCALL
           - target: evt.StrTime
             expression: evt.Parsed.timestamp
           - meta: exe
@@ -55,7 +55,7 @@ nodes:
           - meta: service
             value: laurel
           - meta: log_type
-            value: anom_abend
+            value: auditd_anom_abend
           - meta: exe
             expression: evt.Unmarshaled.laurel.ANOM_ABEND[0].exe
           - meta: uid
