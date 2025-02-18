@@ -16,9 +16,18 @@ A collection for auditd:
    - repeated/fast invokation of `rm` 
    - repeated/fast invokation of `kill` / `pkill`
 
+
 ### Local exploitation
 
  - detect a root suid binary that crashes soon after startup with a SIGSEGV, SIGABRT, SIGBUS or SIGTRAP.
+
+### Suspicious post-exploitation related activities
+
+ - detect changes to logging configuration
+ - detect changes to auditd configuration
+ - detect changes to ld.preload configuration
+ - detect `grep`ing passwords in files
+ - detect kernel module loading (`insmod`)
 
 ## Acquisition template
 
