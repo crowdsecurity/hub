@@ -1,8 +1,8 @@
 type: leaky
 format: 3.0
-name: crowdsecurity/appsec-vpatch
-description: "Identify attacks flagged by CrowdSec AppSec"
-filter: "evt.Meta.log_type == 'appsec-block' && evt.Meta.rule_name not startsWith 'native_rule'"
+name: crowdsecurity/appsec-native
+description: "Identify attacks flagged by CrowdSec AppSec via native rules"
+filter: "evt.Meta.log_type == 'appsec-block' && evt.Meta.rule_name startsWith 'native_rule'"
 distinct: evt.Meta.rule_name
 leakspeed: "60s"
 capacity: 1
@@ -10,7 +10,7 @@ groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
   service: http
-  confidence: 3
+  confidence: 1
   spoofable: 0
   classification:
     - attack.T1110
