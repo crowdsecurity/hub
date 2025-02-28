@@ -1,0 +1,24 @@
+---
+#debug: true
+filter: evt.Parsed.program == 'navidrome'
+onsuccess: next_stage
+name: sdwilsh/navidrome-logs
+description: Parses logs from Navidrome
+nodes:
+  - grok:
+      pattern: time="%{TIMESTAMP_ISO8601:timestamp}".*/auth/login.*httpStatus=401 remoteAddr=%{IP:source_ip}.*userAgent="%{NOTDQUOTE:http_user_agent}"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: navidrome_failed_auth
+        - meta: http_status
+          value: "401"
+statics:
+  - meta: service
+    value: navidrome
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: http_user_agent
+    expression: evt.Parsed.http_user_agent
