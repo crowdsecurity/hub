@@ -1,0 +1,61 @@
+---
+type: leaky
+name: owncloud-bf
+description: "Detect Owncloud bruteforce"
+filter: "evt.Meta.log_type in ['owncloud_failed_auth', 'owncloud_bruteforce_attempt']"
+leakspeed: "1m"
+capacity: 5
+# if we have bruteforce protection enabled in owncloud, the same login attempt
+# can log # both login failure and bruteforce attempt at the same time, so
+# keep them in seperate buckets
+groupby: evt.Meta.source_ip + '--' + evt.Meta.log_type
+blackhole: 5m
+reprocess: true
+labels:
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "OwnCloud Bruteforce"
+  service: owncloud
+---
+type: leaky
+name: owncloud-bf_user_enum
+description: "Detect Owncloud user enum bruteforce"
+filter: "evt.Meta.log_type == 'owncloud_failed_auth'"
+leakspeed: "1m"
+capacity: 5
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+blackhole: 5m
+reprocess: true
+labels:
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "OwnCloud Bruteforce"
+  service: owncloud
+---
+type: leaky
+name: owncloud-bf_domain_error
+description: "Detect Owncloud domain error"
+filter: "evt.Meta.log_type == 'owncloud_domain_error'"
+leakspeed: "1m"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "OwnCloud Bruteforce"
+  service: owncloud
