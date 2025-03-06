@@ -34,14 +34,15 @@ type ItemInfo struct {
 	Owner string `json:"author"`
 	Logo  string `json:"logo"`
 	//Main infos about repo
-	URL           string  `json:"url"`
-	Description   string  `json:"description"`
-	Stargazers    int     `json:"stars"`
-	DownloadCount int     `json:"downloads"`
-	ReadmeContent string  `json:"readme_content"`
-	Status        string  `json:"status"`
-	LastVersion   string  `json:"version"`
-	Assets        []Asset `json:"assets"`
+	URL           string           `json:"url"`
+	Description   string           `json:"description"`
+	Stargazers    int              `json:"stars"`
+	DownloadCount int              `json:"downloads"`
+	ReadmeContent string           `json:"readme_content"`
+	Status        string           `json:"status"`
+	LastVersion   string           `json:"version"`
+	ReleaseDate   github.Timestamp `json:"release_date"`
+	Assets        []Asset          `json:"assets"`
 }
 
 type Asset struct {
@@ -186,7 +187,8 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 				gotLatestRelease = true
 				item.Status = "stable"
 				item.LastVersion = *release.TagName
-				log.Printf("LastVersion : %s", item.LastVersion)
+				item.ReleaseDate = release.GetPublishedAt()
+				log.Printf("LastVersion : %s | Date: %s", item.LastVersion, item.ReleaseDate)
 				for _, releaseAsset := range release.Assets {
 					item.Assets = append(item.Assets, Asset{
 						Name:        *releaseAsset.Name,
@@ -216,7 +218,8 @@ func UpdateItem(item ItemInfo) (ItemInfo, error) {
 				gotLatestRelease = true
 				item.Status = "unstable"
 				item.LastVersion = *release.TagName
-				log.Printf("LastVersion : %s", item.LastVersion)
+				item.ReleaseDate = release.GetPublishedAt()
+				log.Printf("LastVersion : %s | Date: %s", item.LastVersion, item.ReleaseDate)
 				for _, releaseAsset := range release.Assets {
 					item.Assets = append(item.Assets, Asset{
 						Name:        *releaseAsset.Name,
