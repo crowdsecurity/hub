@@ -12,7 +12,8 @@ filter: |
   (
   Lower(evt.Meta.http_path) contains "/wp-content/plugins" and
   Lower(evt.Meta.http_path) matches "\\.(txt|md)$"
-  )groupby: evt.Meta.source_ip
+  )
+groupby: evt.Meta.source_ip
 distinct: evt.Meta.http_path
 capacity: 3
 leakspeed: "10s"
