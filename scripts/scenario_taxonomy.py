@@ -7,6 +7,8 @@ import yaml
 import argparse
 from yaml.loader import SafeLoader
 from itertools import chain
+from datetime import datetime
+import subprocess
 
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
@@ -148,6 +150,33 @@ def get_cwe_from_label(labels):
         ret.append(cwe)
 
     return ret, errors
+
+
+def get_file_creation_date(file_path: str, root_folder: str) -> str:
+    cmd = [
+        "git",
+        "log",
+        "--diff-filter=A",
+        "--follow",
+        "--format=%aI",
+        "-1",
+        "--",
+        file_path,
+    ]
+
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, check=True, cwd=root_folder
+        )
+        creation_date = result.stdout.strip()
+        if creation_date:
+            dt = datetime.fromisoformat(creation_date)
+            return dt.strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            return None
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        return None
 
 
 def get_cve_from_label(labels):
@@ -310,6 +339,8 @@ def main():
             else:
                 stats["scenarios_ok"].append(scenario["name"])
 
+            creation_date = get_file_creation_date(filepath, args.hub)
+
             scenarios_taxonomy[scenario["name"]] = {
                 "name": scenario["name"],
                 "description": scenario["description"],
@@ -320,6 +351,7 @@ def main():
                 "spoofable": spoofable,
                 "cti": in_cti,
                 "service": service,
+                "created_at": creation_date,
             }
 
             if len(cves) > 0:
