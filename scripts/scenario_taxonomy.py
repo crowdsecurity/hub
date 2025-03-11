@@ -170,7 +170,7 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
         )
         creation_date = result.stdout.strip()
         if creation_date:
-            dt = datetime.fromisoformat(creation_date)
+            dt = datetime.fromisoformat(creation_date.replace("Z", "+00:00"))
             return dt.strftime("%Y-%m-%d %H:%M:%S")
         else:
             return None
