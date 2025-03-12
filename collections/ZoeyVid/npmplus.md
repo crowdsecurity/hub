@@ -10,19 +10,12 @@ Example acquisition for this collection:
 
 ```yaml
 filenames:
-  - /opt/npm/nginx/access.log
+  - /opt/npmplus/nginx/*.log
 labels:
   type: npmplus
 ---
-source: docker
-container_name:
- - npmplus
-labels:
-  type: npmplus
----
-source: docker
-container_name:
- - npmplus
+filenames:
+  - /opt/npmplus/nginx/*.log
 labels:
   type: modsecurity
 ---
@@ -32,6 +25,13 @@ name: appsec
 source: appsec
 labels:
   type: appsec
+# if you use openappsec you can enable this
+#---
+#source: file
+#filenames:
+# - /opt/openappsec/logs/cp-nano-http-transaction-handler.log*
+#labels:
+#  type: openappsec
 ```
 
 
