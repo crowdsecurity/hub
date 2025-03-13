@@ -82,6 +82,33 @@
   }
  },
  "appsec-rules": {
+  "crowdsecurity/CVE-2024-13161": {
+   "path": "appsec-rules/crowdsecurity/CVE-2024-13161.yaml",
+   "version": "0.1",
+   "versions": {
+    "0.1": {
+     "digest": "41f466138b8d048daf753f58a541eeb67271e8c48f1b60fa39b43b4f540b6074",
+     "deprecated": false
+    }
+   },
+   "content": "IyMgYXV0b2dlbmVyYXRlZCBvbiAyMDI1LTAzLTEzIDE3OjI1OjMzCm5hbWU6IGNyb3dkc2VjdXJpdHkvQ1ZFLTIwMjQtMTMxNjEKZGVzY3JpcHRpb246ICdEZXRlY3RzIE5UTE0gY3JlZGVudGlhbCBjb2VyY2lvbiB2aWEgd2lsZGNhcmQgcGFyYW1ldGVyIGluIEl2YW50aSBFUE0gR2V0SGFzaEZvclNpbmdsZUZpbGUgZW5kcG9pbnQnCnJ1bGVzOgogIC0gYW5kOgogICAgICAtIHpvbmVzOgogICAgICAgICAgLSBVUkkKICAgICAgICB0cmFuc2Zvcm06CiAgICAgICAgICAtIGxvd2VyY2FzZQogICAgICAgIG1hdGNoOgogICAgICAgICAgdHlwZTogZXF1YWxzCiAgICAgICAgICB2YWx1ZTogL3dzdnVsbmVyYWJpbGl0eWNvcmUvdnVsY29yZS5hc214CiAgICAgIC0gem9uZXM6CiAgICAgICAgICAtIEJPRFkKICAgICAgICB0cmFuc2Zvcm06CiAgICAgICAgICAtIGxvd2VyY2FzZQogICAgICAgIG1hdGNoOgogICAgICAgICAgdHlwZTogcmVnZXgKICAgICAgICAgIHZhbHVlOiAnPHdpbGRjYXJkPlxcXFwuKlxcdG1wXFwuKlwudHh0PFwvd2lsZGNhcmQ+JwogICAgICAtIHpvbmVzOgogICAgICAgICAgLSBIRUFERVJTCiAgICAgICAgdmFyaWFibGVzOgogICAgICAgICAgLSBTb2FwYWN0aW9uCiAgICAgICAgdHJhbnNmb3JtOgogICAgICAgICAgLSBsb3dlcmNhc2UKICAgICAgICBtYXRjaDoKICAgICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgICAgdmFsdWU6ICdodHRwOi8vdGVtcHVyaS5vcmcvZ2V0aGFzaGZvcnNpbmdsZWZpbGUnCgpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHNlcnZpY2U6IGh0dHAKICBjb25maWRlbmNlOiBoaWdoCiAgc3Bvb2ZhYmxlOiBubwogIGJlaGF2aW9yOiAnaHR0cDpleHBsb2l0JwogIGxhYmVsOiAnSXZhbnRpIEVQTSBDcmVkZW50aWFsIENvZXJjaW9uJwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBjdmUuQ1ZFLTIwMjQtMTMxNjEKICAgIC0gYXR0YWNrLlQxNTk1CiAgICAtIGF0dGFjay5UMTIxMAogICAgLSBjd2UuQ1dFLTM2",
+   "description": "Detects NTLM credential coercion via wildcard parameter in Ivanti EPM GetHashForSingleFile endpoint",
+   "author": "crowdsecurity",
+   "labels": {
+    "behavior": "http:exploit",
+    "classification": [
+     "cve.CVE-2024-13161",
+     "attack.T1595",
+     "attack.T1210",
+     "cwe.CWE-36"
+    ],
+    "confidence": "high",
+    "label": "Ivanti EPM Credential Coercion",
+    "service": "http",
+    "spoofable": false,
+    "type": "exploit"
+   }
+  },
   "crowdsecurity/base-config": {
    "path": "appsec-rules/crowdsecurity/base-config.yaml",
    "version": "0.1",
