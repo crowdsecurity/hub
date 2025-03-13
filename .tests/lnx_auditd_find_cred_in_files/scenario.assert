@@ -1,0 +1,16 @@
+len(results) == 1
+"" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources[""].IP == ""
+results[0].Overflow.Sources[""].Range == ""
+results[0].Overflow.Sources[""].GetScope() == "pid"
+results[0].Overflow.Sources[""].GetValue() == ""
+results[0].Overflow.Alert.Events[0].GetMeta("auditd_eventid") == "25676"
+results[0].Overflow.Alert.Events[0].GetMeta("auditd_type") == "EXECVE"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "lnx_auditd_find_cred_in_files.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("execve_full_str") == "grep --color=auto password /tmp/foo"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "auditd_execve"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2024-12-17T16:23:56Z"
+results[0].Overflow.Alert.GetScenario() == "sigmahq/lnx_auditd_find_cred_in_files"
+results[0].Overflow.Alert.Remediation == false
+results[0].Overflow.Alert.GetEventsCount() == 1
