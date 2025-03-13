@@ -5,7 +5,7 @@ len(results["s00-raw"]["crowdsecurity/windows-non-eventlog"]) == 1
 results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Success == true
 results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Evt.Parsed["message"] == "2022-07-20T21:28:50.530Z,000000000000000E,2,192.168.9.241:143,192.168.9.212:35070,testuser,168,31,31,authenticate,PLAIN,\"R=\"\"2 NO AUTHENTICATE failed.\"\";Msg=\"\"AuthFailed:LogonDenied,User: testuser\"\";ErrMsg=AuthFailed:LogonDenied\","
 results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Evt.Parsed["program"] == "exchange-imap"
-results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Evt.Meta["datasource_path"] == "exchange-imap-logs.log"
+basename(results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Evt.Meta["datasource_path"]) == "exchange-imap-logs.log"
 results["s00-raw"]["crowdsecurity/windows-non-eventlog"][0].Evt.Meta["datasource_type"] == "file"
 len(results["s01-parse"]["crowdsecurity/exchange-imap-logs"]) == 1
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Success == true
@@ -26,7 +26,7 @@ results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Parsed["message"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Parsed["server_ip"] == "192.168.9.241"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["source_ip"] == "192.168.9.212"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["sub_type"] == "auth_fail"
-results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["datasource_path"] == "exchange-imap-logs.log"
+basename(results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["datasource_path"]) == "exchange-imap-logs.log"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["log_type"] == "imap"
 results["s01-parse"]["crowdsecurity/exchange-imap-logs"][0].Evt.Meta["service"] == "exchange"
@@ -47,7 +47,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["session_i
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022-07-20T21:28:50.530Z,000000000000000E,2,192.168.9.241:143,192.168.9.212:35070,testuser,168,31,31,authenticate,PLAIN,\"R=\"\"2 NO AUTHENTICATE failed.\"\";Msg=\"\"AuthFailed:LogonDenied,User: testuser\"\";ErrMsg=AuthFailed:LogonDenied\","
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["parameters"] == "PLAIN"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["server_port"] == "143"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "exchange-imap-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "exchange-imap-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "imap"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "exchange"

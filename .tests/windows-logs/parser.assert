@@ -6,7 +6,7 @@ results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Parsed["Channel"] ==
 results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Parsed["Computer"] == "exchange-1.mydomain.test"
 results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Parsed["EventID"] == "4625"
 results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Parsed["Source"] == "Microsoft-Windows-Security-Auditing"
-results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Meta["datasource_path"] == "windows-logs.log"
+basename(results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Meta["datasource_path"]) == "windows-logs.log"
 results["s00-raw"]["crowdsecurity/windows-eventlog"][0].Evt.Meta["datasource_type"] == "wineventlog"
 len(results["s00-raw"]["overrides"]) == 1
 results["s00-raw"]["overrides"][0].Success == true
@@ -17,7 +17,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["Channel"] == "Security"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["Computer"] == "exchange-1.mydomain.test"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["EventID"] == "4625"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "windows-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "windows-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "wineventlog"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-04-28T16:09:28.9443547Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-04-28T16:09:28.9443547Z"
