@@ -1,0 +1,10 @@
+---
+parsers:
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/dateparse-enrich
+  - ./parsers/s01-parse/sdwilsh/navidrome-logs.yaml
+scenarios:
+  - ./scenarios/sdwilsh/navidrome-bf.yaml
+log_file: navidrome-bf.log
+log_type: navidrome
+ignore_parsers: true
