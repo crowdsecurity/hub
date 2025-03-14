@@ -3,12 +3,12 @@ len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2023-07-06T08:11:40+02:00 paloalto.test.host 1,2023/07/06 08:11:40,016401002737,THREAT,vulnerability,2561,2023/07/06 08:11:40,1.2.3.2,1.2.3.3,1.2.3.2,2.2.2.3,TestruleName0,,,ssh,vsys123,Untrust,DMZ,vlan.123,aaa.1,to-Test,2023/07/06 08:11:40,238810,23,47094,22,47094,22,0x402400,tcp,reset-both,,SSH User Authentication Brute Force Attempt(40015),any,high,client-to-server,7204134051344758260,0x8000000000000000,Germany,France,,,0,,,0,,,,,,,,0,163,0,0,0,,FW-PA-111,,,,,0,,0,,N/A,brute-force,AppThreat-8727-8140,0x0,0,4294967295,,,123458,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,2023-07-06T08:11:40.288+02:00,,,,encrypted-tunnel,networking,client-server,4,\"used-by-malware,able-to-transfer-file,has-known-vulnerability,tunnel-other-application,pervasive-use\",,ssh,no,no"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "palo-alto-threat"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2023-07-05T14:14:33+02:00 paloalto.test.host 1,2023/07/05 14:14:33,016401002737,THREAT,vulnerability,2561,2023/07/05 14:14:33,1.2.3.6,1.2.3.7,1.2.3.6,1.2.3.7,Test Rule Name,,,web-browsing,vsys123,Untrust,Untrust,vlan.123,vlan.123,to-Test,2023/07/05 14:14:33,1475349,3,32362,80,32362,28869,0x402000,tcp,alert,\"1.2.3.5/nmaplowercheck1688559266\",Nmap Scripting Engine Detection(58433),medium-risk,medium,client-to-server,7204134051339790802,0x8000000000000000,France,France,,,0,,,1,,,,,,,,0,163,0,0,0,,FW-PA-111,,,,,0,,0,,N/A,hacktool,AppThreat-8727-8140,0x0,0,4294967295,,,1221332322,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,2023-07-05T14:14:33.325+02:00,,,,internet-utility,general-internet,browser-based,4,\"used-by-malware,able-to-transfer-file,has-known-vulnerability,tunnel-other-application,pervasive-use\",,web-browsing,no,no"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "palo-alto-threat"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
@@ -56,7 +56,7 @@ results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Parsed["nat_sr
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Parsed["severity"] == "high"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Parsed["syslog_timestamp"] == "2023-07-06T08:11:40+02:00"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Parsed["unparsed_data"] == ",0,,,,,,,,0,163,0,0,0,,FW-PA-111,,,,,0,,0,,N/A,brute-force,AppThreat-8727-8140,0x0,0,4294967295,,,123458,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,2023-07-06T08:11:40.288+02:00,,,,encrypted-tunnel,networking,client-server,4,\"used-by-malware,able-to-transfer-file,has-known-vulnerability,tunnel-other-application,pervasive-use\",,ssh,no,no"
-results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Meta["destination_location"] == "France"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][0].Evt.Meta["log_type"] == "palo_alto"
@@ -113,7 +113,7 @@ results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Parsed["vsys"]
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["threat_id"] == "Nmap Scripting Engine Detection(58433)"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["threat_type"] == "Nmap Scripting Engine Detection(58433)"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["application"] == "web-browsing"
-results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["source_ip"] == "1.2.3.6"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["source_location"] == "France"
 results["s01-parse"]["crowdsecurity/palo-alto-threat-log"][1].Evt.Meta["severity"] == "medium"
@@ -166,7 +166,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["pan_log_f
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["unparsed_data"] == ",0,,,,,,,,0,163,0,0,0,,FW-PA-111,,,,,0,,0,,N/A,brute-force,AppThreat-8727-8140,0x0,0,4294967295,,,123458,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,2023-07-06T08:11:40.288+02:00,,,,encrypted-tunnel,networking,client-server,4,\"used-by-malware,able-to-transfer-file,has-known-vulnerability,tunnel-other-application,pervasive-use\",,ssh,no,no"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["threat_id"] == "SSH User Authentication Brute Force Attempt(40015)"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["threat_type"] == "SSH User Authentication Brute Force Attempt(40015)"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["severity"] == "high"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.2"
@@ -230,7 +230,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_loca
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["threat_id"] == "Nmap Scripting Engine Detection(58433)"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["threat_type"] == "Nmap Scripting Engine Detection(58433)"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-07-05T14:14:33+02:00"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "palo-alto-threat.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "palo-alto-threat.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.2.3.6"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-07-05T14:14:33+02:00"
 len(results["success"][""]) == 0
