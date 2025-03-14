@@ -1,14 +1,21 @@
-#!/usr/bin/env python3
-
 import base64
 import decimal
 from dataclasses import dataclass
 import hashlib
 import itertools
 import json
+import os
+import stat
+import sys
+import time
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable
 import yaml
+
+
+def add_subparser(subparsers):
+    parser = subparsers.add_parser("mkindex", description='Create an index file')
+    return parser
 
 
 class HubType(str):
@@ -236,11 +243,8 @@ def iter_types(
 
 
 def main():
-    prev_index = json.loads(Path(".index.json").read_text())
+    prev_index_content = Path(".index.json").read_text()
+    prev_index = json.loads(prev_index_content)
     up = IndexUpdater(prev_index)
     up.parse_dir(Path("."))
     print(up.index_json())
-
-
-if __name__ == "__main__":
-    main()
