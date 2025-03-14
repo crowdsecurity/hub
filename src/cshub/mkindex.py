@@ -11,6 +11,10 @@ import yaml
 
 def add_subparser(subparsers):
     parser = subparsers.add_parser("mkindex", description='Create an index file')
+    parser.add_argument('--in', dest="in_file", default='.index.json', type=str,
+                        help='The index file to read')
+    parser.add_argument('--out', default='.index.json', type=str,
+                        help='The index file to write')
     return parser
 
 
@@ -238,9 +242,11 @@ def iter_types(
             yield HubType(hubtype.name), stage_name, author, name, item
 
 
-def main():
-    prev_index_content = Path(".index.json").read_text()
-    prev_index = json.loads(prev_index_content)
+def main(args):
+    prev_index = json.loads(Path(args.in_file).read_text())
     up = IndexUpdater(prev_index)
     up.parse_dir(Path("."))
-    print(up.index_json())
+    new_content = up.index_json()
+    with open(Path(args.out), "w") as f:
+        print(f"Writing to {args.out}")
+        print(new_content, file=f)

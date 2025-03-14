@@ -19,9 +19,9 @@ def main() -> None:
 
     try:
         if args.subcommand == "mkindex":
-            mkindex.main()
+            mkindex.main(args)
         elif args.subcommand == "mkblockers":
-            mkblockers.main()
+            mkblockers.main(args)
         elif args.subcommand == "hublint":
             hublint.main(args, hublint_parser)
     except KeyboardInterrupt:

@@ -51,9 +51,7 @@ jobs:
       - name: update .index.json
         run: |
           uv sync --all-extras --dev --locked
-          ls -la
-          head .index.json
-          uv run cshub mkindex >.index.json
+          uv run cshub mkindex
 
       - uses: nelonoel/branch-name@v1.0.1
       - name: Commit files

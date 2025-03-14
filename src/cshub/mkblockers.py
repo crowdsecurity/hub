@@ -4,7 +4,7 @@ import base64
 import requests
 from datetime import datetime, timedelta
 from github import Github
-from typing import List, Dict
+from pathlib import Path
 from dataclasses import dataclass, field, asdict
 
 NPM_API_MAX_DURATION_MONTH = 17
@@ -13,6 +13,8 @@ EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 def add_subparser(subparsers):
     parser = subparsers.add_parser("mkblockers", description='Create blockers.json')
+    parser.add_argument('--out', default='blockers.json', type=str,
+                        help='The json file to write')
     return parser
 
 
@@ -28,7 +30,7 @@ class ItemInfo:
     readme_content: str = ""
     status: str = ""
     version: str = ""
-    assets: List[Dict] = field(default_factory=list)
+    assets: list[dict] = field(default_factory=list)
 
     def to_dict(self):
         return asdict(self)
@@ -60,18 +62,13 @@ def fetch_express_bouncer_download() -> int:
     return total_downloads
 
 
-def dump_json(file: str, items: List[ItemInfo]) -> None:
-    with open(file, "w") as f:
-        json.dump([item.to_dict() for item in items], f, indent=2, sort_keys=True)
-
-
-def load_json(file: str) -> List[ItemInfo]:
+def load_json(file: str) -> list[ItemInfo]:
     with open(file, "r") as f:
         data = json.load(f)
     return [ItemInfo(**item) for item in data]
 
 
-def default_assets(latest_release, repo_url: str) -> List[Dict]:
+def default_assets(latest_release, repo_url: str) -> list[dict]:
     if latest_release.assets:
         return [
             {
@@ -134,7 +131,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     return item
 
 
-def main():
+def main(args):
     blockers = load_json("blockers/list.json")
     print(f"Loaded {len(blockers)} blockers")
 
@@ -145,5 +142,6 @@ def main():
         print(f"{i + 1}/{len(blockers)}")
         blockers[i] = update_item(blocker, github_client)
 
-    dump_json("blockers.json", blockers)
-    print("Dumped updated items")
+    with open(Path(args.out), "w") as f:
+        print(f"Writing to {args.out}")
+        json.dump([item.to_dict() for item in blockers], f, indent=2, sort_keys=True)
