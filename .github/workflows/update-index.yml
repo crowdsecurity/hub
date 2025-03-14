@@ -52,6 +52,7 @@ jobs:
         run: |
           uv sync --all-extras --dev --locked
           ls -la
+          head .index.json
           uv run cshub mkindex >.index.json
 
       - uses: nelonoel/branch-name@v1.0.1
