@@ -1,0 +1,22 @@
+name: Build Developer Container
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .devcontainer/**
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .devcontainer/**
+
+jobs: 
+  devcontainer-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build devcontainer image
+        uses: devcontainers/ci@v0.3
