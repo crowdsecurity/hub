@@ -25,9 +25,11 @@ on:
       - 'scenarios/**.yaml'
       - 'scenarios/**.yml'
       - '.github/workflows/update-index.yml'
+      - '.github/workflows/update-blockers.yml'
       - "src/**"
       - "pyproject.toml"
       - "uv.lock"
+      - 'blockers/list.json'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -52,6 +54,7 @@ jobs:
         run: |
           uv sync --all-extras --dev --locked
           uv run cshub mkindex
+          uv run cshub mkblockers
 
       - uses: nelonoel/branch-name@v1.0.1
       - name: Commit files
