@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import argparse
 import base64
 import collections
@@ -780,26 +778,25 @@ def print_default_config():
         print(f"error = {linter.error.__str__().lower()}")
         print("")
 
+def add_subparser(subparsers):
+    parser = subparsers.add_parser("hublint", description='Validate hub index files',
+                                   formatter_class=argparse.RawTextHelpFormatter,
+                                   epilog=textwrap.dedent("""
+                                   Example:
 
-def main(argv):
-    parser = argparse.ArgumentParser(description='Validate hub index files',
-                                     formatter_class=argparse.RawTextHelpFormatter,
-                                     epilog=textwrap.dedent("""
-                                     Example:
+                                   # generate the initial configuration
+                                   hublint defaults > .hublint.toml
 
-                                     # generate the initial configuration
-                                     hublint defaults > .hublint.toml
+                                   # validate an index file
+                                   hublint check --index .index.json
+                                   """))
 
-                                     # validate an index file
-                                     hublint check --index .index.json
-                                     """))
+    hublint_subparsers = parser.add_subparsers(dest='command')
 
-    subparsers = parser.add_subparsers(dest='command')
-
-    parser_linters = subparsers.add_parser('linters', help='Show all the available linters')
+    parser_linters = hublint_subparsers.add_parser('linters', help='Show all the available linters')
     add_config_argument(parser_linters)
 
-    parser_check = subparsers.add_parser('check', help='Validate an index file')
+    parser_check = hublint_subparsers.add_parser('check', help='Validate an index file')
     parser_check.add_argument('--index', default='.index.json', type=argparse.FileType(),
                               help='The index file to validate')
     parser_check.add_argument('--color', choices=['always', 'never', 'auto'], default='auto',
@@ -817,7 +814,7 @@ def main(argv):
 
     add_config_argument(parser_check)
 
-    subparsers.add_parser('defaults', help='Show the default configuration',
+    hublint_subparsers.add_parser('defaults', help='Show the default configuration',
                           epilog=textwrap.dedent("""
                           Example:
 
@@ -825,7 +822,10 @@ def main(argv):
                           hublint defaults > .hublint.toml
                           """))
 
-    args = parser.parse_args()
+    return parser
+
+
+def main(args, parser):
 
     if args.command not in [None, 'defaults']:
         print(f"Using config: {args.config.name}")
@@ -860,11 +860,4 @@ def main(argv):
         sys.exit(0)
     else:
         parser.print_help()
-        sys.exit(1)
-
-
-if __name__ == "__main__":
-    try:
-        main(sys.argv)
-    except KeyboardInterrupt:
         sys.exit(1)
