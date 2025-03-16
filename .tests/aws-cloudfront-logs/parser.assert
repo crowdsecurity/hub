@@ -3,13 +3,13 @@ len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2024-03-12	15:22:28	CDG50-P2	703	1.2.3.4	GET	d6rcaj0q1hys9.cloudfront.net	/testseb	400	-	curl/7.81.0	query_param=42	-	Error	375WZmnR4hhhnlZKNn0D_LvkWhAqvWvBsUqySq8f_GOoAPP3k8R8fw==	hub-cdn.crowdsec.net	https	62	0.113	-	TLSv1.3	TLS_AES_128_GCM_SHA256	Error	HTTP/2.0	-	-	51754	0.113	Error	text/plain;%20charset=utf-8	20	-	-"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "aws-cloudfront"
-basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2024-03-12	15:22:28	CDG50-P2	703	1.2.3.4	GET	d6rcaj0q1hys9.cloudfront.net	/testseb	400	-	curl/7.81.0	query_param=42	-	Error	375WZmnR4hhhnlZKNn0D_LvkWhAqvWvBsUqySq8f_GOoAPP3k8R8fw==	hub-cdn.crowdsec.net	https	62	0.113	-	TLSv1.3	TLS_AES_128_GCM_SHA256	Error	HTTP/2.0	-	-	51754	0.113	Error	text/plain;%20charset=utf-8	-	-	-"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "aws-cloudfront"
-basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
@@ -52,7 +52,7 @@ results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Parsed["x_edge_resul
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Parsed["x_forwarded_for"] == "-"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Parsed["x_host_header"] == "hub-cdn.crowdsec.net"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Parsed["year"] == "2024"
-basename(results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Meta["http_path"] == "/testseb?query_param=42"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][0].Evt.Meta["http_status"] == "400"
@@ -99,7 +99,7 @@ results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Parsed["x_edge_resul
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Parsed["x_forwarded_for"] == "-"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Parsed["x_host_header"] == "hub-cdn.crowdsec.net"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Parsed["year"] == "2024"
-basename(results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Meta["http_path"] == "/testseb?query_param=42"
 results["s01-parse"]["crowdsecurity/aws-cloudfront"][1].Evt.Meta["http_status"] == "400"
@@ -147,7 +147,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["x_edge_re
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["x_forwarded_for"] == "-"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["x_host_header"] == "hub-cdn.crowdsec.net"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["year"] == "2024"
-basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["http_path"] == "/testseb?query_param=42"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["http_status"] == "400"
@@ -196,7 +196,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["x_edge_re
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["x_forwarded_for"] == "-"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["x_host_header"] == "hub-cdn.crowdsec.net"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["year"] == "2024"
-basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "aws-cloudfront-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "aws-cloudfront-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["http_path"] == "/testseb?query_param=42"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["http_status"] == "400"
