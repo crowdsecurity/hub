@@ -30,6 +30,7 @@ class ItemInfo:
     readme_content: str = ""
     status: str = ""
     version: str = ""
+    release_date: str = ""
     assets: list[dict] = field(default_factory=list)
 
     def to_dict(self):
@@ -114,6 +115,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
         item.downloads = sum(
             asset.download_count for release in releases for asset in release.assets
         )
+        item.release_date = latest_release.published_at.strftime("%Y-%m-%dT%H:%M:%SZ")
     else:
         item.status = "development"
         item.version = "no release"
