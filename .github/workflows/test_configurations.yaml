@@ -43,7 +43,7 @@ jobs:
   run-hub-tests:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/crowdsecurity/crowdsec
+      image: ghcr.io/crowdsecurity/crowdsec:dev
       options: "--entrypoint bash"
       env:
         DISABLE_LOCAL_API: "true"
@@ -52,7 +52,7 @@ jobs:
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
-    - name: run tests on last crowdsec tag
+    - name: run tests with crowdsec from master branch
       run: |
         mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
         cscli hubtest run --all --clean
