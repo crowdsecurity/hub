@@ -1,6 +1,13 @@
 name: Update Blockers Meta
 
 on:
+  push:
+    paths:
+      - '.github/workflows/update-blockers.yml'
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - 'blockers/list.json'
   schedule:
     - cron: '0 6 * * *'
     - cron: '0 18 * * *'
@@ -32,11 +39,14 @@ jobs:
           uv sync --all-extras --dev --locked
           uv run cshub mkblockers
 
+      - uses: nelonoel/branch-name@v1.0.1
+
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Update blockers meta" blockers.json || exit 0
+          git pull --rebase origin ${BRANCH_NAME}
 
       - name: Push changes
         uses: ad-m/github-push-action@master

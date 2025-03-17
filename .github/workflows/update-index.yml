@@ -54,9 +54,9 @@ jobs:
         run: |
           uv sync --all-extras --dev --locked
           uv run cshub mkindex
-          uv run cshub mkblockers
 
       - uses: nelonoel/branch-name@v1.0.1
+
       - name: Commit files
         if: ${{ github.event_name == 'push'}}
         run: |
