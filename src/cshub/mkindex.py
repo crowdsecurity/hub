@@ -1,20 +1,21 @@
 import base64
 import decimal
-from dataclasses import dataclass
 import hashlib
 import itertools
 import json
-from pathlib import Path
 from collections.abc import Iterable
+from dataclasses import dataclass
+from pathlib import Path
+
 import yaml
 
 
 def add_subparser(subparsers):
-    parser = subparsers.add_parser("mkindex", description='Create an index file')
-    parser.add_argument('--in', dest="in_file", default='.index.json', type=str,
-                        help='The index file to read')
-    parser.add_argument('--out', default='.index.json', type=str,
-                        help='The index file to write')
+    parser = subparsers.add_parser("mkindex", description="Create an index file")
+    parser.add_argument("--in", dest="in_file", default=".index.json", type=str,
+                        help="The index file to read")
+    parser.add_argument("--out", default=".index.json", type=str,
+                        help="The index file to write")
     return parser
 
 
@@ -78,10 +79,9 @@ class Item:
 
         for version_number, detail in prev_versions.items():
             version_decimal = decimal.Decimal(version_number)
-            if version_decimal > last_version:
-                last_version = version_decimal
+            last_version = max(last_version, version_decimal)
             self.versions[version_number] = VersionDetail(
-                deprecated=detail.get("deprecated", False), digest=detail["digest"]
+                deprecated=detail.get("deprecated", False), digest=detail["digest"],
             )
             if content_hash == detail["digest"]:
                 self.version = version_number
@@ -90,7 +90,7 @@ class Item:
             last_version += decimal.Decimal("0.1")
             self.version = str(last_version)
             self.versions[self.version] = VersionDetail(
-                deprecated=False, digest=content_hash
+                deprecated=False, digest=content_hash,
             )
 
     def content_as_dicts(self):
@@ -103,8 +103,8 @@ class Item:
         if "labels" in content:
             self.labels = content["labels"]
             # for sigma scenarios
-            if self.labels and 'classification' in self.labels and self.labels['classification'] is None:
-                del self.labels['classification']
+            if self.labels and "classification" in self.labels and self.labels["classification"] is None:
+                del self.labels["classification"]
         if "description" in content:
             self.description = content["description"]
         if "references" in content:
@@ -185,7 +185,7 @@ class IndexUpdater:
 
 
 def iter_items(
-    authordir: Path, stage_name: str | None
+    authordir: Path, stage_name: str | None,
 ) -> Iterable[tuple[AuthorName, ItemName, Item]]:
     for p in itertools.chain(authordir.glob("*/*.yaml"), authordir.glob("*/*.yml")):
         content = Content(base64.b64encode(p.read_bytes()).decode())
@@ -201,7 +201,7 @@ def iter_items(
 
         try:
             long_description = base64.b64encode(
-                p.parent.joinpath(name + ".md").read_bytes()
+                p.parent.joinpath(name + ".md").read_bytes(),
             ).decode()
         except FileNotFoundError:
             long_description = None
@@ -245,7 +245,7 @@ def iter_types(
 def main(args):
     prev_index = json.loads(Path(args.in_file).read_text())
     up = IndexUpdater(prev_index)
-    up.parse_dir(Path("."))
+    up.parse_dir(Path())
     new_content = up.index_json()
     with open(Path(args.out), "w") as f:
         print(f"Writing to {args.out}")

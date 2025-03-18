@@ -1,20 +1,21 @@
-import os
-import json
 import base64
-import requests
+import json
+import os
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
-from github import Github
 from pathlib import Path
-from dataclasses import dataclass, field, asdict
+
+import requests
+from github import Github
 
 NPM_API_MAX_DURATION_MONTH = 17
 EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
 def add_subparser(subparsers):
-    parser = subparsers.add_parser("mkblockers", description='Create blockers.json')
-    parser.add_argument('--out', default='blockers.json', type=str,
-                        help='The json file to write')
+    parser = subparsers.add_parser("mkblockers", description="Create blockers.json")
+    parser.add_argument("--out", default="blockers.json", type=str,
+                        help="The json file to write")
     return parser
 
 
@@ -38,7 +39,7 @@ class ItemInfo:
 
 
 def fetch_express_bouncer_download_from_date(
-    start_date: datetime, end_date: datetime
+    start_date: datetime, end_date: datetime,
 ) -> int:
     url = f"https://api.npmjs.org/downloads/point/{start_date.strftime('%Y-%m-%d')}:{end_date.strftime('%Y-%m-%d')}/@crowdsec/express-bouncer"
     response = requests.get(url)
@@ -53,10 +54,10 @@ def fetch_express_bouncer_download() -> int:
 
     while start_date < now:
         end_date = min(
-            start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30), now
+            start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30), now,
         )
         total_downloads += fetch_express_bouncer_download_from_date(
-            start_date, end_date
+            start_date, end_date,
         )
         start_date = end_date
 
@@ -64,7 +65,7 @@ def fetch_express_bouncer_download() -> int:
 
 
 def load_json(file: str) -> list[ItemInfo]:
-    with open(file, "r") as f:
+    with open(file) as f:
         data = json.load(f)
     return [ItemInfo(**item) for item in data]
 
@@ -101,13 +102,13 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     item.url = repo.html_url
     item.description = repo.description or ""
     item.readme_content = base64.b64encode(repo.get_readme().decoded_content).decode(
-        "utf-8"
+        "utf-8",
     )
 
     releases = repo.get_releases()
     if releases.totalCount > 0:
         latest_release = next(
-            (release for release in releases if not release.prerelease), releases[0]
+            (release for release in releases if not release.prerelease), releases[0],
         )
         item.status = "stable" if not latest_release.prerelease else "unstable"
         item.version = latest_release.tag_name
@@ -124,7 +125,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
                 "name": "no release",
                 "download_url": repo.html_url + "/tags",
                 "asset_url": repo.html_url + "/tags",
-            }
+            },
         ]
 
     if item.name == "cs-express-bouncer":

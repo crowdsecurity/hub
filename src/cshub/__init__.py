@@ -1,13 +1,13 @@
 import argparse
 import sys
 
-from cshub import mkblockers, mkindex, hublint
+from cshub import hublint, mkblockers, mkindex
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="cshub",
-        description="cshub tool with subcommands: mkindex, mkblockers, and hublint."
+        description="cshub tool with subcommands: mkindex, mkblockers, and hublint.",
     )
     subparsers = parser.add_subparsers(dest="subcommand", required=True)
 
