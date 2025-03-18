@@ -44,3 +44,7 @@ Whilst browsing bookmarks a 404 response could be sent if the bookmarked page ha
 
 Whilst browsing private folder on the bookmark app a 404 response could be sent if the bookmarked page had no publictoken generated.
 
+---
+### File Sharing
+When sharing a file, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
+
