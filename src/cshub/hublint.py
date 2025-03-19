@@ -626,7 +626,7 @@ class MarkDownReporter:
         report.append("Issues were found by the following linters.")
         report.append("")
 
-        failed_linters = set(i.linter.name for i in errors + warnings)
+        failed_linters = {i.linter.name for i in errors + warnings}
 
         for linter in failed_linters:
             report.append(f"## {linter}")
