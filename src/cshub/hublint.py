@@ -9,6 +9,7 @@ import time
 import tomllib
 from http import HTTPMethod
 from pathlib import Path
+import typing
 
 import jsonschema
 import requests
@@ -367,7 +368,7 @@ class DocumentWithoutName(Linter):
     enabled = True
     error = True
     # XXX: we could make linters configurable from the toml file
-    config = {"hubtypes": ["scenarios"]}
+    config: typing.ClassVar = {"hubtypes": ["scenarios"]}
 
     def __call__(self, item):
         if item.hubtype not in self.config["hubtypes"]:
@@ -382,7 +383,7 @@ class DocumentNameMatchingItem(Linter):
     description = "The name of the document must match the item name (only scenarios+appsec-configs)"
     enabled = False
     error = False
-    config = {"hubtypes": ["scenarios", "appsec-configs"]}
+    config: typing.ClassVar = {"hubtypes": ["scenarios", "appsec-configs"]}
 
     def __call__(self, item):
         if item.hubtype not in self.config["hubtypes"]:
@@ -398,7 +399,7 @@ class ItemSchema(Linter):
     description = "Validate item files against their YAML schema"
     enabled = False
     error = False
-    config = {
+    config: typing.ClassVar = {
         "collections": {
             "url": "https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/collection_schema.yaml",
         },
@@ -543,7 +544,7 @@ def linters_from_config(config):
 
 
 class TTYReporter:
-    spinner = ["▹▹▹▹▹", "▸▹▹▹▹", "▹▸▹▹▹", "▹▹▸▹▹", "▹▹▹▸▹", "▹▹▹▹▸"]
+    spinner: typing.ClassVar = ["▹▹▹▹▹", "▸▹▹▹▹", "▹▸▹▹▹", "▹▹▸▹▹", "▹▹▹▸▹", "▹▹▹▹▸"]
 
     def __init__(self, no_warnings, show_location, print_ok=False):
         self.no_warnings = no_warnings
