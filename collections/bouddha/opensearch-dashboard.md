@@ -1,4 +1,4 @@
-Parser for Opensearch Dashboard.
+Collection for Opensearch Dashboard parser and bruteforce detection.
 
 Typically you may find other software using this such as Wazuh.
 
