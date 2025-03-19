@@ -7,6 +7,7 @@ import subprocess
 import sys
 from datetime import datetime
 from itertools import chain
+from pathlib import Path
 
 import yaml
 from yaml.loader import SafeLoader
@@ -218,7 +219,7 @@ def main():
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     ignore_list = list()
-    if os.path.exists(args.ignore):
+    if Path(args.ignore).exists():
         ignore_list = open(args.ignore).read().split("\n")
 
     errors = dict()
