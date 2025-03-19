@@ -49,7 +49,7 @@ labels:
   classification:
     - attack.TXXXX
 ```
- 
+
 ## CVEs
 
 If your scenario covers a specific CVE (Common Vulnerabilities and Exposures), please add it.
