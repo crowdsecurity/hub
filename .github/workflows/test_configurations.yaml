@@ -55,7 +55,7 @@ jobs:
     - name: run tests with crowdsec from master branch
       run: |
         mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
-        cscli hubtest run --all --clean
+        cscli hubtest run --all --clean --max-jobs 8
         echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         PARSERS_COV_NUMBER=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')

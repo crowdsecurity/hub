@@ -1,0 +1,29 @@
+[project]
+name = "cshub"
+version = "0.1.0"
+description = "cshub tool to manage index, blockers and lint configuration"
+readme = "README.md"
+authors = [
+    { email = "marco@crowdsec.net" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jsonschema>=4.23.0",
+    "pygithub>=2.6.1",
+    "python-dateutil>=2.9.0.post0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+cshub = "cshub:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.28.1",
+    "ruff>=0.11.0",
+]

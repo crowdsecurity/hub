@@ -1,15 +1,15 @@
-import os
-import re
-import sys
+import argparse
 import csv
 import json
-import yaml
-import argparse
-from yaml.loader import SafeLoader
-from itertools import chain
-from datetime import datetime
+import os
+import re
 import subprocess
+import sys
+from datetime import datetime
+from itertools import chain
 
+import yaml
+from yaml.loader import SafeLoader
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
 CWE_RE = re.compile(r"CWE-\d{2,6}")
@@ -98,7 +98,7 @@ def get_behavior_from_label(labels):
     if service == "" and "os" in labels:
         service = labels["os"]
 
-    return "{service}:{attack_type}".format(service=service, attack_type=attack_type)
+    return f"{service}:{attack_type}"
 
 
 def get_mitre_tactic_from_technique(technique, mitre_data):
@@ -120,14 +120,14 @@ def get_mitre_techniques_from_label(labels, mitre_data):
         if split_attack[0] != "attack":
             continue
         if len(split_attack) < 2:
-            errors.append("bad mitre format: {}".format(classification))
+            errors.append(f"bad mitre format: {classification}")
             continue
         technique = split_attack[1]
         tactic = get_mitre_tactic_from_technique(technique, mitre_data)
         if tactic is None:
-            errors.append("unknown mitre technique: {}".format(technique))
+            errors.append(f"unknown mitre technique: {technique}")
             continue
-        ret.append("{}:{}".format(tactic, technique))
+        ret.append(f"{tactic}:{technique}")
 
     return ret, errors
 
@@ -145,7 +145,7 @@ def get_cwe_from_label(labels):
         cwe = split_cwe[1].upper()
 
         if CWE_RE.match(cwe) == None:
-            errors.append("bad CWE format: {}".format(cwe))
+            errors.append(f"bad CWE format: {cwe}")
             continue
         ret.append(cwe)
 
@@ -167,14 +167,13 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, check=True, cwd=root_folder
+            cmd, capture_output=True, text=True, check=True, cwd=root_folder,
         )
         creation_date = result.stdout.strip()
         if creation_date:
             dt = datetime.fromisoformat(creation_date.replace("Z", "+00:00"))
             return dt.strftime("%Y-%m-%d %H:%M:%S")
-        else:
-            return None
+        return None
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
         return None
@@ -193,7 +192,7 @@ def get_cve_from_label(labels):
         cve = split_cve[1].upper()
 
         if CVE_RE.match(cve) == None:
-            errors.append("bad CVE format: {}".format(cve))
+            errors.append(f"bad CVE format: {cve}")
             continue
         ret.append(cve)
 
@@ -211,9 +210,9 @@ def main():
         changed_files = []
         print("[-] No changed files found, run on all files.")
     else:
-        print("[+] Changed files: {}".format(changed_files))
-    mitre_data = json.load(open(args.mitre, "r"))
-    behavior_data = json.load(open(args.behaviors, "r"))
+        print(f"[+] Changed files: {changed_files}")
+    mitre_data = json.load(open(args.mitre))
+    behavior_data = json.load(open(args.behaviors))
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
@@ -237,8 +236,8 @@ def main():
     cpt = 0
     mitres = dict()
     for filepath in filepath_list:
-        print("[+] Processing {}".format(filepath))
-        f = open(filepath, "r")
+        print(f"[+] Processing {filepath}")
+        f = open(filepath)
         data = list(yaml.load_all(f, Loader=SafeLoader))
 
         for scenario in data:
@@ -256,7 +255,7 @@ def main():
             labels = scenario["labels"]
             behavior = get_behavior_from_label(labels)
             mitre_techniques, mitre_errors = get_mitre_techniques_from_label(
-                labels, mitre_data
+                labels, mitre_data,
             )
             scenario_errors.extend(mitre_errors)
             if behavior == "":
@@ -327,7 +326,7 @@ def main():
 
             behaviors = list()
             if behavior not in behavior_data:
-                scenario_errors.append("Unknown behaviors: {}".format(behavior))
+                scenario_errors.append(f"Unknown behaviors: {behavior}")
             else:
                 behaviors.append(behavior)
 
@@ -368,9 +367,9 @@ def main():
         f = open(args.errors, "w")
         f.write(INTRO_STR)
         for scenario, errors in errors.items():
-            f.write("**{}**:\n".format(scenario))
+            f.write(f"**{scenario}**:\n")
             for error in errors:
-                f.write("  - {}\n".format(error))
+                f.write(f"  - {error}\n")
             f.write("\n")
         f.write(HELP_STR)
         f.close()
@@ -381,7 +380,7 @@ def main():
 
     print("Supported Mitre ATT&CK Techniques:")
     for technique in stats["mitre"]:
-        print("\t{}".format(technique))
+        print(f"\t{technique}")
 
     total_scenario = len(stats["scenarios_ok"]) + len(stats["scenarios_nok"])
     print("\nStats:")
@@ -403,7 +402,7 @@ def main():
         for tactic, tactic_info in mitres.items():
             ta_info = lookup_tactic(tactic, mitre_data)
             if len(ta_info) == 0:
-                print("Tactic {} not found, skipping".format(tactic))
+                print(f"Tactic {tactic} not found, skipping")
                 continue
             for technique, technique_info in tactic_info.items():
                 tec_info = lookup_technique(technique, mitre_data)
@@ -428,12 +427,12 @@ def lookup_technique(technique_id, mitre_db):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Generate CrowdSec Scenarios taxonomy file"
+        description="Generate CrowdSec Scenarios taxonomy file",
     )
 
     parser.add_argument("--hub", type=str, help="Hub folder path", default="")
     parser.add_argument(
-        "-o", "--output", type=str, help="Output file path", default="./scenarios.json"
+        "-o", "--output", type=str, help="Output file path", default="./scenarios.json",
     )
     parser.add_argument("-r", "--report", type=str, help="Report file path", default="")
     parser.add_argument(
@@ -463,13 +462,11 @@ def parse_args():
         "--ignore",
         type=str,
         help="File where ignored scenarios are specified",
-        default="{}/.scenariosignore".format(
-            os.path.dirname(os.path.realpath(__file__))
-        ),
+        default=f"{os.path.dirname(os.path.realpath(__file__))}/.scenariosignore",
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False
+        "-v", "--verbose", action="store_true", help="Verbose mode", default=False,
     )
 
     return parser.parse_args()
