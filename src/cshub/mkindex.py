@@ -1,4 +1,5 @@
 import base64
+import contextlib
 import decimal
 import hashlib
 import itertools
@@ -170,10 +171,8 @@ class IndexUpdater:
         for hubtype, items in index.items():
             for full_name, item in items.items():
                 prev_versions = {}
-                try:
+                with contextlib.suppress(KeyError):
                     prev_versions = self.prev_index[hubtype][full_name]["versions"]
-                except KeyError:
-                    pass
 
                 item.set_versions(prev_versions)
                 item.set_meta_from_content()
