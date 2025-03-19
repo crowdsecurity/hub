@@ -8,6 +8,7 @@ import textwrap
 import time
 import tomllib
 from http import HTTPMethod
+from pathlib import Path
 
 import jsonschema
 import requests
@@ -164,7 +165,7 @@ class Item:
         except KeyError:
             return ""
         try:
-            with open(pth) as file:
+            with Path(pth).open() as file:
                 return file.read()
         except FileNotFoundError:
             return ""
@@ -288,7 +289,7 @@ class MissingItemFile(Linter):
 
     def __call__(self, item):
         try:
-            with open(item._spec["path"]):
+            with Path(item._spec["path"]).open():
                 pass
         except FileNotFoundError:
             yield self.err(f"File '{item._spec['path']}' does not exist")

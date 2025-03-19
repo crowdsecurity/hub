@@ -1,5 +1,7 @@
 import argparse
 import os
+import sys
+from pathlib import Path
 
 import yaml
 from yaml.loader import SafeLoader
@@ -51,28 +53,28 @@ def main():
         print(f"[+] Changed files: {changed_files}")
 
     vpatch_collection = yaml.load(
-        open(VPATCH_COLLECTION_FILEPATH), Loader=SafeLoader,
+        Path(VPATCH_COLLECTION_FILEPATH).open(), Loader=SafeLoader,
     )
     vpatch_collection_rules = vpatch_collection["appsec-rules"]
-    missing_rules = list()
+    missing_rules = []
 
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     for r, d, f in os.walk(hub_appsecrules_path):
         for file in f:
-            if file.endswith(".yaml") or file.endswith(".yml"):
+            if file.endswith((".yaml", ".yml")):
                 if len(changed_files) == 0 or (
                     len(changed_files) > 0 and file_in_pathlist(file, changed_files)
                 ):
                     if not file.startswith("vpatch-"):
                         continue
-                    f = open(os.path.join(r, file))
+                    f = Path(os.path.join(r, file)).open()
                     data = list(yaml.load_all(f, Loader=SafeLoader))
                     print(f"[*] Processing rule '{file}'")
                     for rule in data:
                         if rule["name"] not in vpatch_collection_rules:
                             missing_rules.append(rule["name"])
 
-    f = open(args.errors, "w")
+    f = Path(args.errors).open("w")
     if len(missing_rules) > 0:
         f.write(INTRO_STR)
         for rule in missing_rules:

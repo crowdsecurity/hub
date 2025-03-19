@@ -1,5 +1,6 @@
 import argparse
 import json
+from pathlib import Path
 
 import requests
 
@@ -7,18 +8,18 @@ TACTIC_TYPE = "x-mitre-tactic"
 TECHNIQUES_TYPE = "attack-pattern"
 IS_SUBTECHNIQUE_KEY = "x_mitre_is_subtechnique"
 
-MAP_TACTICS_ID_NAME = dict()
+MAP_TACTICS_ID_NAME = {}
 
 
 def get_tactics(data):
-    ret = dict()
+    ret = {}
 
     for obj in data["objects"]:
         if "type" not in obj:
             continue
 
-        type = obj["type"]
-        if type == TACTIC_TYPE:
+        typ = obj["type"]
+        if typ == TACTIC_TYPE:
             tactic_id = obj["external_references"][0]["external_id"]
             ret[tactic_id] = {
                 "id" : tactic_id,
@@ -39,8 +40,8 @@ def get_techniques(data, tactics):
         if "type" not in obj:
             continue
 
-        type = obj["type"]
-        if type != TECHNIQUES_TYPE:
+        typ = obj["type"]
+        if typ != TECHNIQUES_TYPE:
             continue
 
         if obj[IS_SUBTECHNIQUE_KEY]:
@@ -86,10 +87,8 @@ def main():
     tactics = get_tactics(data)
     tactics = get_techniques(data, tactics)
 
-
-    f = open(args.output, "w")
-    f.write(json.dumps(tactics, indent=2))
-    f.close()
+    with Path(args.output).open("w") as f:
+        json.dump(tactics, f, indent=2)
 
     nb_tactics = len(tactics.keys())
     print(f"[*] Found {nb_tactics} tactics")

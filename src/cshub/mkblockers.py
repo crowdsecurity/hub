@@ -65,7 +65,7 @@ def fetch_express_bouncer_download() -> int:
 
 
 def load_json(file: str) -> list[ItemInfo]:
-    with open(file) as f:
+    with Path(file).open() as f:
         data = json.load(f)
     return [ItemInfo(**item) for item in data]
 
@@ -145,6 +145,6 @@ def main(args):
         print(f"{i + 1}/{len(blockers)}")
         blockers[i] = update_item(blocker, github_client)
 
-    with open(Path(args.out), "w") as f:
+    with Path(args.out).open("w") as f:
         print(f"Writing to {args.out}")
         json.dump([item.to_dict() for item in blockers], f, indent=2, sort_keys=True)

@@ -7,6 +7,7 @@ import subprocess
 import sys
 from datetime import datetime
 from itertools import chain
+from pathlib import Path
 
 import yaml
 from yaml.loader import SafeLoader
@@ -49,7 +50,7 @@ labels:
   classification:
     - attack.TXXXX
 ```
- 
+
 ## CVEs
 
 If your scenario covers a specific CVE (Common Vulnerabilities and Exposures), please add it.
@@ -110,8 +111,8 @@ def get_mitre_tactic_from_technique(technique, mitre_data):
 
 
 def get_mitre_techniques_from_label(labels, mitre_data):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -133,8 +134,8 @@ def get_mitre_techniques_from_label(labels, mitre_data):
 
 
 def get_cwe_from_label(labels):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -144,7 +145,7 @@ def get_cwe_from_label(labels):
             continue
         cwe = split_cwe[1].upper()
 
-        if CWE_RE.match(cwe) == None:
+        if CWE_RE.match(cwe) is None:
             errors.append(f"bad CWE format: {cwe}")
             continue
         ret.append(cwe)
@@ -180,8 +181,8 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
 
 
 def get_cve_from_label(labels):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -191,7 +192,7 @@ def get_cve_from_label(labels):
             continue
         cve = split_cve[1].upper()
 
-        if CVE_RE.match(cve) == None:
+        if CVE_RE.match(cve) is None:
             errors.append(f"bad CVE format: {cve}")
             continue
         ret.append(cve)
@@ -211,41 +212,41 @@ def main():
         print("[-] No changed files found, run on all files.")
     else:
         print(f"[+] Changed files: {changed_files}")
-    mitre_data = json.load(open(args.mitre))
-    behavior_data = json.load(open(args.behaviors))
+    mitre_data = json.load(Path(args.mitre).open())
+    behavior_data = json.load(Path(args.behaviors).open())
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
-    ignore_list = list()
-    if os.path.exists(args.ignore):
-        ignore_list = open(args.ignore).read().split("\n")
+    ignore_list = []
+    if Path(args.ignore).exists():
+        ignore_list = Path(args.ignore).open().read().split("\n")
 
-    errors = dict()
-    scenarios_taxonomy = dict()
+    errors = {}
+    scenarios_taxonomy = {}
     filepath_list = []
 
     for r, d, f in chain.from_iterable(
         os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
     ):
         for file in f:
-            if file.endswith(".yaml") or file.endswith(".yml"):
+            if file.endswith((".yaml", ".yml")):
                 filepath_list.append(os.path.join(r, file))
 
     filepath_list.sort()
     cpt = 0
-    mitres = dict()
+    mitres = {}
     for filepath in filepath_list:
         print(f"[+] Processing {filepath}")
-        f = open(filepath)
-        data = list(yaml.load_all(f, Loader=SafeLoader))
+        with Path(filepath).open() as f:
+            data = list(yaml.load_all(f, Loader=SafeLoader))
 
         for scenario in data:
             if scenario["name"] in ignore_list:
                 continue
 
             cpt += 1
-            scenario_errors = list()
+            scenario_errors = []
             if "labels" not in scenario:
                 scenario_errors.append("`labels` not found")
                 errors[scenario["name"]] = scenario_errors
@@ -270,13 +271,13 @@ def main():
                     stats["mitre"].append(m)
                 ta, te = m.split(":")[0], m.split(":")[1]
                 if ta not in mitres:
-                    mitres[ta] = dict()
+                    mitres[ta] = {}
 
                 if te not in mitres[ta]:
-                    mitres[ta][te] = dict()
+                    mitres[ta][te] = {}
 
                 if "scenarios" not in mitres[ta][te]:
-                    mitres[ta][te]["scenarios"] = list()
+                    mitres[ta][te]["scenarios"] = []
 
                 mitres[ta][te]["scenarios"].append(scenario["name"])
 
@@ -310,7 +311,7 @@ def main():
                 if desc.startswith("detect "):
                     desc = desc.replace("detect ", "")
                 desc_words = desc.split(" ")
-                tmp = list()
+                tmp = []
                 for w in desc_words:
                     if len(w) <= 3:
                         w = w.upper()
@@ -324,7 +325,7 @@ def main():
             if scenario_label == "":
                 scenario_errors.append("`label` key not found in labels")
 
-            behaviors = list()
+            behaviors = []
             if behavior not in behavior_data:
                 scenario_errors.append(f"Unknown behaviors: {behavior}")
             else:
@@ -359,12 +360,11 @@ def main():
             if len(cwes) > 0:
                 scenarios_taxonomy[scenario["name"]]["cwes"] = cwes
 
-    f = open(args.output, "w")
-    f.write(json.dumps(scenarios_taxonomy, indent=2))
-    f.close()
+    with Path(args.output).open("w") as f:
+        json.dump(scenarios_taxonomy, f, indent=2)
 
     if len(errors) > 0:
-        f = open(args.errors, "w")
+        f = Path(args.errors).open("w")
         f.write(INTRO_STR)
         for scenario, errors in errors.items():
             f.write(f"**{scenario}**:\n")
@@ -374,9 +374,8 @@ def main():
         f.write(HELP_STR)
         f.close()
     else:
-        f = open(args.errors, "w")
-        f.write(OK_STR)
-        f.close()
+        with Path(args.errors).open("w") as f:
+            f.write(OK_STR)
 
     print("Supported Mitre ATT&CK Techniques:")
     for technique in stats["mitre"]:
@@ -391,14 +390,14 @@ def main():
 
     # write the report about the supported techniques only if the path is specified
     if args.report != "":
-        CSV_HEADERS = [
+        csv_headers = [
             "Tactic ID",
             "Tactic Name",
             "Technique",
             "Technique Name",
         ]
 
-        rows = list()
+        rows = []
         for tactic, tactic_info in mitres.items():
             ta_info = lookup_tactic(tactic, mitre_data)
             if len(ta_info) == 0:
@@ -408,9 +407,9 @@ def main():
                 tec_info = lookup_technique(technique, mitre_data)
                 rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
 
-        with open(args.report, "w", encoding="UTF-8") as f:
+        with Path(args.report).open("w", encoding="UTF-8") as f:
             writer = csv.writer(f)
-            writer.writerow(CSV_HEADERS)
+            writer.writerow(csv_headers)
             writer.writerows(rows)
 
 
@@ -423,6 +422,7 @@ def lookup_technique(technique_id, mitre_db):
         for technique in tactic_info["techniques"]:
             if technique_id == technique["name"]:
                 return technique
+    return None
 
 
 def parse_args():
@@ -462,7 +462,7 @@ def parse_args():
         "--ignore",
         type=str,
         help="File where ignored scenarios are specified",
-        default=f"{os.path.dirname(os.path.realpath(__file__))}/.scenariosignore",
+        default=f"{Path(os.path.realpath(__file__)).parent}/.scenariosignore",
     )
 
     parser.add_argument(
