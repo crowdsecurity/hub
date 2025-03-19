@@ -55,7 +55,7 @@ def main():
         open(VPATCH_COLLECTION_FILEPATH), Loader=SafeLoader,
     )
     vpatch_collection_rules = vpatch_collection["appsec-rules"]
-    missing_rules = list()
+    missing_rules = []
 
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     for r, d, f in os.walk(hub_appsecrules_path):

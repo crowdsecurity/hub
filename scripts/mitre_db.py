@@ -7,11 +7,11 @@ TACTIC_TYPE = "x-mitre-tactic"
 TECHNIQUES_TYPE = "attack-pattern"
 IS_SUBTECHNIQUE_KEY = "x_mitre_is_subtechnique"
 
-MAP_TACTICS_ID_NAME = dict()
+MAP_TACTICS_ID_NAME = {}
 
 
 def get_tactics(data):
-    ret = dict()
+    ret = {}
 
     for obj in data["objects"]:
         if "type" not in obj:

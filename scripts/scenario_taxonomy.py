@@ -111,8 +111,8 @@ def get_mitre_tactic_from_technique(technique, mitre_data):
 
 
 def get_mitre_techniques_from_label(labels, mitre_data):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -134,8 +134,8 @@ def get_mitre_techniques_from_label(labels, mitre_data):
 
 
 def get_cwe_from_label(labels):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -181,8 +181,8 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
 
 
 def get_cve_from_label(labels):
-    ret = list()
-    errors = list()
+    ret = []
+    errors = []
     if "classification" not in labels or not labels["classification"]:
         return ret, errors
 
@@ -218,12 +218,12 @@ def main():
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
-    ignore_list = list()
+    ignore_list = []
     if Path(args.ignore).exists():
         ignore_list = open(args.ignore).read().split("\n")
 
-    errors = dict()
-    scenarios_taxonomy = dict()
+    errors = {}
+    scenarios_taxonomy = {}
     filepath_list = []
 
     for r, d, f in chain.from_iterable(
@@ -235,7 +235,7 @@ def main():
 
     filepath_list.sort()
     cpt = 0
-    mitres = dict()
+    mitres = {}
     for filepath in filepath_list:
         print(f"[+] Processing {filepath}")
         f = open(filepath)
@@ -246,7 +246,7 @@ def main():
                 continue
 
             cpt += 1
-            scenario_errors = list()
+            scenario_errors = []
             if "labels" not in scenario:
                 scenario_errors.append("`labels` not found")
                 errors[scenario["name"]] = scenario_errors
@@ -271,13 +271,13 @@ def main():
                     stats["mitre"].append(m)
                 ta, te = m.split(":")[0], m.split(":")[1]
                 if ta not in mitres:
-                    mitres[ta] = dict()
+                    mitres[ta] = {}
 
                 if te not in mitres[ta]:
-                    mitres[ta][te] = dict()
+                    mitres[ta][te] = {}
 
                 if "scenarios" not in mitres[ta][te]:
-                    mitres[ta][te]["scenarios"] = list()
+                    mitres[ta][te]["scenarios"] = []
 
                 mitres[ta][te]["scenarios"].append(scenario["name"])
 
@@ -311,7 +311,7 @@ def main():
                 if desc.startswith("detect "):
                     desc = desc.replace("detect ", "")
                 desc_words = desc.split(" ")
-                tmp = list()
+                tmp = []
                 for w in desc_words:
                     if len(w) <= 3:
                         w = w.upper()
@@ -325,7 +325,7 @@ def main():
             if scenario_label == "":
                 scenario_errors.append("`label` key not found in labels")
 
-            behaviors = list()
+            behaviors = []
             if behavior not in behavior_data:
                 scenario_errors.append(f"Unknown behaviors: {behavior}")
             else:
@@ -399,7 +399,7 @@ def main():
             "Technique Name",
         ]
 
-        rows = list()
+        rows = []
         for tactic, tactic_info in mitres.items():
             ta_info = lookup_tactic(tactic, mitre_data)
             if len(ta_info) == 0:
