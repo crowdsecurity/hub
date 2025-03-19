@@ -144,7 +144,7 @@ def get_cwe_from_label(labels):
             continue
         cwe = split_cwe[1].upper()
 
-        if CWE_RE.match(cwe) == None:
+        if CWE_RE.match(cwe) is None:
             errors.append(f"bad CWE format: {cwe}")
             continue
         ret.append(cwe)
@@ -191,7 +191,7 @@ def get_cve_from_label(labels):
             continue
         cve = split_cve[1].upper()
 
-        if CVE_RE.match(cve) == None:
+        if CVE_RE.match(cve) is None:
             errors.append(f"bad CVE format: {cve}")
             continue
         ret.append(cve)
