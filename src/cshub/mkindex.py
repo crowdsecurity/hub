@@ -1,4 +1,3 @@
-import argparse
 import base64
 import contextlib
 import decimal
@@ -8,12 +7,12 @@ import json
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import yaml
 
-
 if TYPE_CHECKING:
+    import argparse
     _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
 else:
     _SubparserType = Any

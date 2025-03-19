@@ -1,11 +1,10 @@
-import argparse
 import base64
 import json
 import os
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import requests
 from github import Github
@@ -15,6 +14,7 @@ EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
 if TYPE_CHECKING:
+    import argparse
     _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
 else:
     _SubparserType = Any

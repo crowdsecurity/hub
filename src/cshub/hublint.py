@@ -10,7 +10,7 @@ import tomllib
 import typing
 from http import HTTPMethod
 from pathlib import Path
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import jsonschema
 import requests
