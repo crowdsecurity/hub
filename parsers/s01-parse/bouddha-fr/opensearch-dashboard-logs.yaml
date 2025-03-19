@@ -1,4 +1,4 @@
-name: bouddha/opensearch-dashboard-logs
+name: bouddha-fr/opensearch-dashboard-logs
 description: "Parse OpenSearch web interface logs for failed login attempts"
 filter: "evt.Parsed.program == 'opensearch-dashboards' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'opensearch') in ['', nil]"
 onsuccess: next_stage
