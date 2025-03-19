@@ -392,7 +392,7 @@ def main():
 
     # write the report about the supported techniques only if the path is specified
     if args.report != "":
-        CSV_HEADERS = [
+        csv_headers = [
             "Tactic ID",
             "Tactic Name",
             "Technique",
@@ -411,7 +411,7 @@ def main():
 
         with open(args.report, "w", encoding="UTF-8") as f:
             writer = csv.writer(f)
-            writer.writerow(CSV_HEADERS)
+            writer.writerow(csv_headers)
             writer.writerows(rows)
 
 
