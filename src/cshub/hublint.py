@@ -87,9 +87,9 @@ class TrackingLoader(yaml.SafeLoader):
 
 
 class Index:
-    def __init__(self, content, enabled_linters):
-        # self._index = json.loads(content)
-        self._index, self._yaml_locations = TrackingLoader.load(content)
+    def __init__(self, index_content, enabled_linters):
+        # self._index = json.loads(index_content)
+        self._index, self._yaml_locations = TrackingLoader.load(index_content)
         self.hubtypes = list(self._index.keys())
         # cache for http requests, by method and url
         self._http_cache = {}
