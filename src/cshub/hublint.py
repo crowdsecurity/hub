@@ -175,8 +175,7 @@ class Item:
         content = self.yaml_content()
         if not content:
             return
-        for doc in yaml.safe_load_all(content):
-            yield doc
+        yield from yaml.safe_load_all(content)
 
     def data_urls(self):
         for doc in self.yaml_docs():
