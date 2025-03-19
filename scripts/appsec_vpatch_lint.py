@@ -27,10 +27,7 @@ Hello @{author},
 
 
 def file_in_pathlist(filename, path_list):
-    for path in path_list:
-        if filename in path:
-            return True
-    return False
+    return any(filename in path for path in path_list)
 
 
 def main():
@@ -52,9 +49,9 @@ def main():
     else:
         print(f"[+] Changed files: {changed_files}")
 
-    vpatch_collection = yaml.load(
-        Path(VPATCH_COLLECTION_FILEPATH).open(), Loader=SafeLoader,
-    )
+    with Path(VPATCH_COLLECTION_FILEPATH).open() as f:
+        vpatch_collection = yaml.load(f, Loader=SafeLoader)
+
     vpatch_collection_rules = vpatch_collection["appsec-rules"]
     missing_rules = []
 
@@ -67,22 +64,22 @@ def main():
                 ):
                     if not file.startswith("vpatch-"):
                         continue
-                    f = Path(os.path.join(r, file)).open()
-                    data = list(yaml.load_all(f, Loader=SafeLoader))
+
+                    with Path(os.path.join(r, file)).open() as f:
+                        data = list(yaml.load_all(f, Loader=SafeLoader))
+
                     print(f"[*] Processing rule '{file}'")
                     for rule in data:
                         if rule["name"] not in vpatch_collection_rules:
                             missing_rules.append(rule["name"])
 
-    f = Path(args.errors).open("w")
-    if len(missing_rules) > 0:
-        f.write(INTRO_STR)
-        for rule in missing_rules:
-            f.write(f":red_circle: **{rule}** :red_circle:\n")
-    else:
-        f.write(OK_STR)
-
-    f.close()
+    with Path(args.errors).open("w") as f:
+        if len(missing_rules) > 0:
+            f.write(INTRO_STR)
+            for rule in missing_rules:
+                f.write(f":red_circle: **{rule}** :red_circle:\n")
+        else:
+            f.write(OK_STR)
 
 
 def parse_args():
@@ -99,7 +96,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False,
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode",
+        default=False,
     )
 
     return parser.parse_args()

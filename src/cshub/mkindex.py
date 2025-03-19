@@ -1,4 +1,6 @@
+import argparse
 import base64
+import contextlib
 import decimal
 import hashlib
 import itertools
@@ -6,16 +8,29 @@ import json
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, TYPE_CHECKING
 
 import yaml
 
 
-def add_subparser(subparsers):
+if TYPE_CHECKING:
+    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
+else:
+    _SubparserType = Any
+
+
+def add_subparser(subparsers: _SubparserType):
     parser = subparsers.add_parser("mkindex", description="Create an index file")
-    parser.add_argument("--in", dest="in_file", default=".index.json", type=str,
-                        help="The index file to read")
-    parser.add_argument("--out", default=".index.json", type=str,
-                        help="The index file to write")
+    _ = parser.add_argument(
+        "--in",
+        dest="in_file",
+        default=".index.json",
+        type=str,
+        help="The index file to read",
+    )
+    _ = parser.add_argument(
+        "--out", default=".index.json", type=str, help="The index file to write"
+    )
     return parser
 
 
@@ -81,7 +96,8 @@ class Item:
             version_decimal = decimal.Decimal(version_number)
             last_version = max(last_version, version_decimal)
             self.versions[version_number] = VersionDetail(
-                deprecated=detail.get("deprecated", False), digest=detail["digest"],
+                deprecated=detail.get("deprecated", False),
+                digest=detail["digest"],
             )
             if content_hash == detail["digest"]:
                 self.version = version_number
@@ -90,7 +106,8 @@ class Item:
             last_version += decimal.Decimal("0.1")
             self.version = str(last_version)
             self.versions[self.version] = VersionDetail(
-                deprecated=False, digest=content_hash,
+                deprecated=False,
+                digest=content_hash,
             )
 
     def content_as_dicts(self):
@@ -103,7 +120,11 @@ class Item:
         if "labels" in content:
             self.labels = content["labels"]
             # for sigma scenarios
-            if self.labels and "classification" in self.labels and self.labels["classification"] is None:
+            if (
+                self.labels
+                and "classification" in self.labels
+                and self.labels["classification"] is None
+            ):
                 del self.labels["classification"]
         if "description" in content:
             self.description = content["description"]
@@ -170,10 +191,8 @@ class IndexUpdater:
         for hubtype, items in index.items():
             for full_name, item in items.items():
                 prev_versions = {}
-                try:
+                with contextlib.suppress(KeyError):
                     prev_versions = self.prev_index[hubtype][full_name]["versions"]
-                except KeyError:
-                    pass
 
                 item.set_versions(prev_versions)
                 item.set_meta_from_content()
@@ -185,7 +204,8 @@ class IndexUpdater:
 
 
 def iter_items(
-    authordir: Path, stage_name: str | None,
+    authordir: Path,
+    stage_name: str | None,
 ) -> Iterable[tuple[AuthorName, ItemName, Item]]:
     for p in itertools.chain(authordir.glob("*/*.yaml"), authordir.glob("*/*.yml")):
         content = Content(base64.b64encode(p.read_bytes()).decode())
@@ -206,14 +226,18 @@ def iter_items(
         except FileNotFoundError:
             long_description = None
 
-        yield author, name, Item(
-            path=p.as_posix(),
-            author=author,
-            content=content,
-            version="",
-            versions={},
-            long_description=long_description,
-            stage=stage_name,
+        yield (
+            author,
+            name,
+            Item(
+                path=p.as_posix(),
+                author=author,
+                content=content,
+                version="",
+                versions={},
+                long_description=long_description,
+                stage=stage_name,
+            ),
         )
 
 

@@ -1,4 +1,5 @@
 import argparse
+import contextlib
 import csv
 import json
 import os
@@ -168,7 +169,11 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, check=True, cwd=root_folder,
+            cmd,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=root_folder,
         )
         creation_date = result.stdout.strip()
         if creation_date:
@@ -212,15 +217,20 @@ def main():
         print("[-] No changed files found, run on all files.")
     else:
         print(f"[+] Changed files: {changed_files}")
-    mitre_data = json.load(Path(args.mitre).open())
-    behavior_data = json.load(Path(args.behaviors).open())
+
+    with Path(args.mitre).open() as f:
+        mitre_data = json.load(f)
+
+    with Path(args.behaviors).open() as f:
+        behavior_data = json.load(f)
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     ignore_list = []
-    if Path(args.ignore).exists():
-        ignore_list = Path(args.ignore).open().read().split("\n")
+
+    with contextlib.suppress(FileNotFoundError), Path(args.ignore).open() as f:
+        ignore_list = f.read().split("\n")
 
     errors = {}
     scenarios_taxonomy = {}
@@ -256,7 +266,8 @@ def main():
             labels = scenario["labels"]
             behavior = get_behavior_from_label(labels)
             mitre_techniques, mitre_errors = get_mitre_techniques_from_label(
-                labels, mitre_data,
+                labels,
+                mitre_data,
             )
             scenario_errors.extend(mitre_errors)
             if behavior == "":
@@ -364,15 +375,14 @@ def main():
         json.dump(scenarios_taxonomy, f, indent=2)
 
     if len(errors) > 0:
-        f = Path(args.errors).open("w")
-        f.write(INTRO_STR)
-        for scenario, errors in errors.items():
-            f.write(f"**{scenario}**:\n")
-            for error in errors:
-                f.write(f"  - {error}\n")
-            f.write("\n")
-        f.write(HELP_STR)
-        f.close()
+        with Path(args.errors).open("w") as f:
+            f.write(INTRO_STR)
+            for scenario, errors in errors.items():
+                f.write(f"**{scenario}**:\n")
+                for error in errors:
+                    f.write(f"  - {error}\n")
+                f.write("\n")
+            f.write(HELP_STR)
     else:
         with Path(args.errors).open("w") as f:
             f.write(OK_STR)
@@ -403,7 +413,7 @@ def main():
             if len(ta_info) == 0:
                 print(f"Tactic {tactic} not found, skipping")
                 continue
-            for technique, technique_info in tactic_info.items():
+            for technique in tactic_info:
                 tec_info = lookup_technique(technique, mitre_data)
                 rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
 
@@ -418,7 +428,7 @@ def lookup_tactic(tactic_id, mitre_db):
 
 
 def lookup_technique(technique_id, mitre_db):
-    for tactic, tactic_info in mitre_db.items():
+    for tactic_info in mitre_db.values():
         for technique in tactic_info["techniques"]:
             if technique_id == technique["name"]:
                 return technique
@@ -432,7 +442,11 @@ def parse_args():
 
     parser.add_argument("--hub", type=str, help="Hub folder path", default="")
     parser.add_argument(
-        "-o", "--output", type=str, help="Output file path", default="./scenarios.json",
+        "-o",
+        "--output",
+        type=str,
+        help="Output file path",
+        default="./scenarios.json",
     )
     parser.add_argument("-r", "--report", type=str, help="Report file path", default="")
     parser.add_argument(
@@ -466,7 +480,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False,
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode",
+        default=False,
     )
 
     return parser.parse_args()

@@ -1,9 +1,11 @@
+import argparse
 import base64
 import json
 import os
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any, TYPE_CHECKING
 
 import requests
 from github import Github
@@ -12,10 +14,17 @@ NPM_API_MAX_DURATION_MONTH = 17
 EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
-def add_subparser(subparsers):
+if TYPE_CHECKING:
+    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
+else:
+    _SubparserType = Any
+
+
+def add_subparser(subparsers: _SubparserType):
     parser = subparsers.add_parser("mkblockers", description="Create blockers.json")
-    parser.add_argument("--out", default="blockers.json", type=str,
-                        help="The json file to write")
+    _ = parser.add_argument(
+        "--out", default="blockers.json", type=str, help="The json file to write"
+    )
     return parser
 
 
@@ -39,7 +48,8 @@ class ItemInfo:
 
 
 def fetch_express_bouncer_download_from_date(
-    start_date: datetime, end_date: datetime,
+    start_date: datetime,
+    end_date: datetime,
 ) -> int:
     url = f"https://api.npmjs.org/downloads/point/{start_date.strftime('%Y-%m-%d')}:{end_date.strftime('%Y-%m-%d')}/@crowdsec/express-bouncer"
     response = requests.get(url)
@@ -54,10 +64,12 @@ def fetch_express_bouncer_download() -> int:
 
     while start_date < now:
         end_date = min(
-            start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30), now,
+            start_date + timedelta(days=NPM_API_MAX_DURATION_MONTH * 30),
+            now,
         )
         total_downloads += fetch_express_bouncer_download_from_date(
-            start_date, end_date,
+            start_date,
+            end_date,
         )
         start_date = end_date
 
@@ -108,7 +120,8 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     releases = repo.get_releases()
     if releases.totalCount > 0:
         latest_release = next(
-            (release for release in releases if not release.prerelease), releases[0],
+            (release for release in releases if not release.prerelease),
+            releases[0],
         )
         item.status = "stable" if not latest_release.prerelease else "unstable"
         item.version = latest_release.tag_name
