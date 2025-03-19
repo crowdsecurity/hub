@@ -1,8 +1,8 @@
-# Wazuh web auth bruteforce
+# OpenSearch web auth bruteforce
 type: leaky
-name: bouddha/wazuh-bf
-description: "Detect bruteforce attempts on Wazuh web interface"
-filter: evt.Meta.log_type == 'wazuh_failed_auth'
+name: bouddha/opensearch-dashboard-bf
+description: "Detect bruteforce attempts on OpenSearch web interface"
+filter: evt.Meta.log_type == 'opensearch_failed_auth'
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -14,5 +14,5 @@ labels:
   classification:
     - attack.T1110
   behavior: "http:bruteforce"
-  label: "Wazuh Bruteforce"
-  service: wazuh
+  label: "OpenSearch Bruteforce"
+  service: opensearch
