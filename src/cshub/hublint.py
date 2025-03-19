@@ -7,9 +7,9 @@ import sys
 import textwrap
 import time
 import tomllib
+import typing
 from http import HTTPMethod
 from pathlib import Path
-import typing
 
 import jsonschema
 import requests
@@ -651,8 +651,8 @@ def run_linters(index_file, enabled_linters, no_warnings, show_location, markdow
     t0 = time.time()
 
     try:
-        content = index_file.read()
-        index = Index(content, enabled_linters=enabled_linters)
+        index_content = index_file.read()
+        index = Index(index_content, enabled_linters=enabled_linters)
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}", file=sys.stderr)
         sys.exit(1)
