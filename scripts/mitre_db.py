@@ -1,5 +1,6 @@
 import argparse
 import json
+from pathlib import Path
 
 import requests
 
@@ -86,10 +87,8 @@ def main():
     tactics = get_tactics(data)
     tactics = get_techniques(data, tactics)
 
-
-    f = open(args.output, "w")
-    f.write(json.dumps(tactics, indent=2))
-    f.close()
+    with Path(args.output).open("w") as f:
+        json.dump(tactics, f, indent=2)
 
     nb_tactics = len(tactics.keys())
     print(f"[*] Found {nb_tactics} tactics")

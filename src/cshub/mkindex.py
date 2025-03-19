@@ -247,6 +247,6 @@ def main(args):
     up = IndexUpdater(prev_index)
     up.parse_dir(Path())
     new_content = up.index_json()
-    with open(Path(args.out), "w") as f:
+    with Path(args.out).open("w") as f:
         print(f"Writing to {args.out}")
         print(new_content, file=f)

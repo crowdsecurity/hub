@@ -212,15 +212,15 @@ def main():
         print("[-] No changed files found, run on all files.")
     else:
         print(f"[+] Changed files: {changed_files}")
-    mitre_data = json.load(open(args.mitre))
-    behavior_data = json.load(open(args.behaviors))
+    mitre_data = json.load(Path(args.mitre).open())
+    behavior_data = json.load(Path(args.behaviors).open())
 
     stats = {"scenarios_ok": [], "scenarios_nok": [], "mitre": [], "behaviors": []}
     hub_scenarios_path = os.path.join(args.hub, "scenarios")
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     ignore_list = []
     if Path(args.ignore).exists():
-        ignore_list = open(args.ignore).read().split("\n")
+        ignore_list = Path(args.ignore).open().read().split("\n")
 
     errors = {}
     scenarios_taxonomy = {}
@@ -238,8 +238,8 @@ def main():
     mitres = {}
     for filepath in filepath_list:
         print(f"[+] Processing {filepath}")
-        f = open(filepath)
-        data = list(yaml.load_all(f, Loader=SafeLoader))
+        with Path(filepath).open() as f:
+            data = list(yaml.load_all(f, Loader=SafeLoader))
 
         for scenario in data:
             if scenario["name"] in ignore_list:
@@ -360,12 +360,11 @@ def main():
             if len(cwes) > 0:
                 scenarios_taxonomy[scenario["name"]]["cwes"] = cwes
 
-    f = open(args.output, "w")
-    f.write(json.dumps(scenarios_taxonomy, indent=2))
-    f.close()
+    with Path(args.output).open("w") as f:
+        json.dump(scenarios_taxonomy, f, indent=2)
 
     if len(errors) > 0:
-        f = open(args.errors, "w")
+        f = Path(args.errors).open("w")
         f.write(INTRO_STR)
         for scenario, errors in errors.items():
             f.write(f"**{scenario}**:\n")
@@ -375,9 +374,8 @@ def main():
         f.write(HELP_STR)
         f.close()
     else:
-        f = open(args.errors, "w")
-        f.write(OK_STR)
-        f.close()
+        with Path(args.errors).open("w") as f:
+            f.write(OK_STR)
 
     print("Supported Mitre ATT&CK Techniques:")
     for technique in stats["mitre"]:
@@ -409,7 +407,7 @@ def main():
                 tec_info = lookup_technique(technique, mitre_data)
                 rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
 
-        with open(args.report, "w", encoding="UTF-8") as f:
+        with Path(args.report).open("w", encoding="UTF-8") as f:
             writer = csv.writer(f)
             writer.writerow(csv_headers)
             writer.writerows(rows)
