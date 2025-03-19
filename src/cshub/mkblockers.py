@@ -1,3 +1,4 @@
+import argparse
 import base64
 import json
 import os
@@ -12,10 +13,10 @@ NPM_API_MAX_DURATION_MONTH = 17
 EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
-def add_subparser(subparsers):
+def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
     parser = subparsers.add_parser("mkblockers", description="Create blockers.json")
-    parser.add_argument("--out", default="blockers.json", type=str,
-                        help="The json file to write")
+    _ = parser.add_argument("--out", default="blockers.json", type=str,
+                            help="The json file to write")
     return parser
 
 

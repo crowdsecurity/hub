@@ -776,7 +776,8 @@ def print_default_config():
         print(f"error = {linter.error.__str__().lower()}")
         print()
 
-def add_subparser(subparsers):
+
+def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
     parser = subparsers.add_parser("hublint", description="Validate hub index files",
                                    formatter_class=argparse.RawTextHelpFormatter,
                                    epilog=textwrap.dedent("""
@@ -795,30 +796,30 @@ def add_subparser(subparsers):
     add_config_argument(parser_linters)
 
     parser_check = hublint_subparsers.add_parser("check", help="Validate an index file")
-    parser_check.add_argument("--index", default=".index.json", type=argparse.FileType(),
-                              help="The index file to validate")
-    parser_check.add_argument("--color", choices=["always", "never", "auto"], default="auto",
-                              help="Force colored output")
-    parser_check.add_argument("--no-warning-details", action="store_true",
-                              help="Do not show warning details (still, count them)")
-    parser_check.add_argument("--show-location", action="store_true",
-                              help="Show the location of the error/warning")
-    parser_check.add_argument("--markdown", type=argparse.FileType("w"),
-                              help="Generate a markdown report")
-    parser_check.add_argument("--quick", action="store_true", help="Quick mode (default when stdout is redirected)")
-    parser_check.add_argument("--lint-only", type=str, nargs="+", help="Run only the specified linters")
+    _ = parser_check.add_argument("--index", default=".index.json", type=argparse.FileType(),
+                                  help="The index file to validate")
+    _ = parser_check.add_argument("--color", choices=["always", "never", "auto"], default="auto",
+                                  help="Force colored output")
+    _ = parser_check.add_argument("--no-warning-details", action="store_true",
+                                  help="Do not show warning details (still, count them)")
+    _ = parser_check.add_argument("--show-location", action="store_true",
+                                  help="Show the location of the error/warning")
+    _ = parser_check.add_argument("--markdown", type=argparse.FileType("w"),
+                                  help="Generate a markdown report")
+    _ = parser_check.add_argument("--quick", action="store_true", help="Quick mode (default when stdout is redirected)")
+    _ = parser_check.add_argument("--lint-only", type=str, nargs="+", help="Run only the specified linters")
 
     # XXX: --debug option, for logger and to keep stack trace on CTRL+C
 
     add_config_argument(parser_check)
 
-    hublint_subparsers.add_parser("defaults", help="Show the default configuration",
-                          epilog=textwrap.dedent("""
-                          Example:
+    _ = hublint_subparsers.add_parser("defaults", help="Show the default configuration",
+                                      epilog=textwrap.dedent("""
+                                      Example:
 
-                          #generate an initial configuration file
-                          hublint defaults > .hublint.toml
-                          """))
+                                      #generate an initial configuration file
+                                      hublint defaults > .hublint.toml
+                                      """))
 
     return parser
 

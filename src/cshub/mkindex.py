@@ -1,3 +1,4 @@
+import argparse
 import base64
 import contextlib
 import decimal
@@ -11,12 +12,12 @@ from pathlib import Path
 import yaml
 
 
-def add_subparser(subparsers):
+def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
     parser = subparsers.add_parser("mkindex", description="Create an index file")
-    parser.add_argument("--in", dest="in_file", default=".index.json", type=str,
-                        help="The index file to read")
-    parser.add_argument("--out", default=".index.json", type=str,
-                        help="The index file to write")
+    _ = parser.add_argument("--in", dest="in_file", default=".index.json", type=str,
+                            help="The index file to read")
+    _ = parser.add_argument("--out", default=".index.json", type=str,
+                            help="The index file to write")
     return parser
 
 

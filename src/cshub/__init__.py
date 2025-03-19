@@ -12,8 +12,8 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="subcommand", required=True)
 
     hublint_parser = hublint.add_subparser(subparsers)
-    mkindex.add_subparser(subparsers)
-    mkblockers.add_subparser(subparsers)
+    _ = mkindex.add_subparser(subparsers)
+    _ = mkblockers.add_subparser(subparsers)
 
     args = parser.parse_args()
 
