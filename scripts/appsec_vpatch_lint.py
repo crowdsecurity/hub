@@ -27,10 +27,7 @@ Hello @{author},
 
 
 def file_in_pathlist(filename, path_list):
-    for path in path_list:
-        if filename in path:
-            return True
-    return False
+    return any(filename in path for path in path_list)
 
 
 def main():
