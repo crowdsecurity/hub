@@ -8,11 +8,18 @@ import json
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, TYPE_CHECKING
 
 import yaml
 
 
-def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
+if TYPE_CHECKING:
+    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
+else:
+    _SubparserType = Any
+
+
+def add_subparser(subparsers: _SubparserType):
     parser = subparsers.add_parser("mkindex", description="Create an index file")
     _ = parser.add_argument("--in", dest="in_file", default=".index.json", type=str,
                             help="The index file to read")

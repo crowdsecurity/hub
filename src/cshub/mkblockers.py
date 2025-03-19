@@ -5,6 +5,7 @@ import os
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any, TYPE_CHECKING
 
 import requests
 from github import Github
@@ -13,7 +14,13 @@ NPM_API_MAX_DURATION_MONTH = 17
 EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
-def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
+if TYPE_CHECKING:
+    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
+else:
+    _SubparserType = Any
+
+
+def add_subparser(subparsers: _SubparserType):
     parser = subparsers.add_parser("mkblockers", description="Create blockers.json")
     _ = parser.add_argument("--out", default="blockers.json", type=str,
                             help="The json file to write")

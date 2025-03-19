@@ -10,6 +10,7 @@ import tomllib
 import typing
 from http import HTTPMethod
 from pathlib import Path
+from typing import Any, TYPE_CHECKING
 
 import jsonschema
 import requests
@@ -777,7 +778,13 @@ def print_default_config():
         print()
 
 
-def add_subparser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]):  # pyright: ignore[reportPrivateUsage]
+if TYPE_CHECKING:
+    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
+else:
+    _SubparserType = Any
+
+
+def add_subparser(subparsers: _SubparserType):
     parser = subparsers.add_parser("hublint", description="Validate hub index files",
                                    formatter_class=argparse.RawTextHelpFormatter,
                                    epilog=textwrap.dedent("""
