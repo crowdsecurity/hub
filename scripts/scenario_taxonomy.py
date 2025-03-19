@@ -462,7 +462,7 @@ def parse_args():
         "--ignore",
         type=str,
         help="File where ignored scenarios are specified",
-        default=f"{os.path.dirname(os.path.realpath(__file__))}/.scenariosignore",
+        default=f"{Path(os.path.realpath(__file__)).parent}/.scenariosignore",
     )
 
     parser.add_argument(
