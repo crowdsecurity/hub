@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_registry_office_disable_python_security_warnings
+description: |
+  Detects changes to the registry value "PythonFunctionWarnings" that would prevent any warnings or alerts from showing when Python functions are about to be executed. Threat actors could run malicious code through the new Microsoft Excel feature that allows Python to run within the spreadsheet. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\Microsoft\\Office\\' && evt.Parsed.CommandLine contains '\\Excel\\Security' && evt.Parsed.CommandLine contains 'PythonFunctionWarnings' && evt.Parsed.CommandLine contains ' 0')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Python Function Execution Security Warning Disabled In Excel"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

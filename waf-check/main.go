@@ -60,7 +60,7 @@ func main() {
 	fmt.Printf("%v to process '%s' dataset\n", timeElapsed.Round(time.Second), config.DatasetFolder)
 
 	if err := GetResult(manager.resultsChan, config.OutputFolder); err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	fmt.Printf("everything went well!\n")

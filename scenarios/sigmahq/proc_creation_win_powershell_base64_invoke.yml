@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_invoke
+description: |
+  Detects UTF-8 and UTF-16 Base64 encoded powershell 'Invoke-' calls
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && evt.Parsed.CommandLine contains ' -e' && (evt.Parsed.CommandLine contains 'SQBuAHYAbwBrAGUALQ' || evt.Parsed.CommandLine contains 'kAbgB2AG8AawBlAC0A' || evt.Parsed.CommandLine contains 'JAG4AdgBvAGsAZQAtA' || evt.Parsed.CommandLine contains 'SW52b2tlL' || evt.Parsed.CommandLine contains 'ludm9rZS' || evt.Parsed.CommandLine contains 'JbnZva2Ut'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1027
+
+  label: "PowerShell Base64 Encoded Invoke Keyword"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

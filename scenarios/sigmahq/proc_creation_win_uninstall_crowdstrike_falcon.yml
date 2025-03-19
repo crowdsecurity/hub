@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uninstall_crowdstrike_falcon
+description: |
+  Adversaries may disable security tools to avoid possible detection of their tools and activities by uninstalling Crowdstrike Falcon
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\WindowsSensor.exe' && evt.Parsed.CommandLine contains ' /uninstall' && evt.Parsed.CommandLine contains ' /quiet')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Uninstall Crowdstrike Falcon Sensor"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

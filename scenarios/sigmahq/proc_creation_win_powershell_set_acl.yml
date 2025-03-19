@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_set_acl
+description: |
+  Detects PowerShell execution to set the ACL of a file or a folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll'] || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains 'Set-Acl ' && evt.Parsed.CommandLine contains '-AclObject ' && evt.Parsed.CommandLine contains '-Path ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "PowerShell Script Change Permission Via Set-Acl"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

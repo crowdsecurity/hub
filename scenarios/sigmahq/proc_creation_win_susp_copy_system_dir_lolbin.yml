@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_copy_system_dir_lolbin
+description: |
+  Detects a suspicious copy operation that tries to copy a known LOLBIN from system (System32, SysWOW64, WinSxS) directories to another on disk in order to bypass detections based on locations. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'copy ' || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains 'copy-item' || evt.Parsed.CommandLine contains ' copy ' || evt.Parsed.CommandLine contains 'cpi ' || evt.Parsed.CommandLine contains ' cp ') || evt.Parsed.Image endsWith '\\robocopy.exe' || evt.Parsed.Image endsWith '\\xcopy.exe' || evt.Parsed.OriginalFileName in ['robocopy.exe', 'XCOPY.EXE']) && (evt.Parsed.CommandLine contains '\\System32' || evt.Parsed.CommandLine contains '\\SysWOW64' || evt.Parsed.CommandLine contains '\\WinSxS') && (evt.Parsed.CommandLine contains '\\bitsadmin.exe' || evt.Parsed.CommandLine contains '\\calc.exe' || evt.Parsed.CommandLine contains '\\certutil.exe' || evt.Parsed.CommandLine contains '\\cmdl32.exe' || evt.Parsed.CommandLine contains '\\cscript.exe' || evt.Parsed.CommandLine contains '\\mshta.exe' || evt.Parsed.CommandLine contains '\\rundll32.exe' || evt.Parsed.CommandLine contains '\\wscript.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036.003
+
+  label: "LOL-Binary Copied From System Directory"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_psexec_remote_execution
+description: |
+  Detects potential psexec command that initiate execution on a remote systems via common commandline flags used by the utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'accepteula' && evt.Parsed.CommandLine contains ' -u ' && evt.Parsed.CommandLine contains ' -p ' && evt.Parsed.CommandLine contains ' \\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1587.001
+
+  label: "Potential PsExec Remote Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

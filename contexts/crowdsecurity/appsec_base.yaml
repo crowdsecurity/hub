@@ -3,14 +3,14 @@ context:
     - evt.Meta.rule_name
   target_uri:
     - evt.Meta.target_uri
-    - match.uri
+    - "match.uri != nil ? match.uri : ''"
   id:
-   - match.id
+    - "match.id != nil ? match.id : ''"
   name:
-   - match.name
+    - "match.name != nil ? match.name : ''"
   method:
-   - match.method
+    - "match.method != nil ? match.method : ''"
   matched_zones:
-   - match.matched_zones
+    - "match.matched_zones != nil ? match.matched_zones : ''"
   msg:
-   - match.msg
+    - "match.msg != nil ? match.msg : ''"

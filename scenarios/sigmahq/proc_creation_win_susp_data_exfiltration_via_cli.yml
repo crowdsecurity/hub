@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_data_exfiltration_via_cli
+description: |
+  Detects the use of various CLI utilities exfiltrating data via web requests
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cmd.exe') && (evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'wget ' || evt.Parsed.CommandLine contains 'curl ') && evt.Parsed.CommandLine contains ' -ur' && evt.Parsed.CommandLine contains ' -me' && evt.Parsed.CommandLine contains ' -b' && evt.Parsed.CommandLine contains ' POST ' || evt.Parsed.Image endsWith '\\curl.exe' && evt.Parsed.CommandLine contains '--ur' && (evt.Parsed.CommandLine contains ' -d ' || evt.Parsed.CommandLine contains ' --data ') || evt.Parsed.Image endsWith '\\wget.exe' && (evt.Parsed.CommandLine contains '--post-data' || evt.Parsed.CommandLine contains '--post-file')) && (evt.Parsed.CommandLine contains 'Get-Content' || evt.Parsed.CommandLine contains 'GetBytes' || evt.Parsed.CommandLine contains 'hostname' || evt.Parsed.CommandLine contains 'ifconfig' || evt.Parsed.CommandLine contains 'ipconfig' || evt.Parsed.CommandLine contains 'net view' || evt.Parsed.CommandLine contains 'netstat' || evt.Parsed.CommandLine contains 'nltest' || evt.Parsed.CommandLine contains 'qprocess' || evt.Parsed.CommandLine contains 'sc query' || evt.Parsed.CommandLine contains 'systeminfo' || evt.Parsed.CommandLine contains 'tasklist' || evt.Parsed.CommandLine contains 'ToBase64String' || evt.Parsed.CommandLine contains 'whoami' || evt.Parsed.CommandLine contains 'type ' && evt.Parsed.CommandLine contains ' > ' && evt.Parsed.CommandLine contains ' C:\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Potential Data Exfiltration Activity Via CommandLine Tools"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

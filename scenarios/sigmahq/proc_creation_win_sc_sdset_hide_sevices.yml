@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_sc_sdset_hide_sevices
+description: |
+  Detects usage of the "sc.exe" utility adding a new service with special permission seen used by threat actors which makes the service hidden and unremovable.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.OriginalFileName == 'sc.exe') && evt.Parsed.CommandLine contains 'sdset' && evt.Parsed.CommandLine contains 'DCLCWPDTSD')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.011
+
+  label: "Service DACL Abuse To Hide Services Via Sc.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

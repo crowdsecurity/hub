@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_token_obfuscation
+description: |
+  Detects TOKEN OBFUSCATION technique from Invoke-Obfuscation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine matches '\\w+`(\\w+|-|.)`[\\w+|\\s]' || evt.Parsed.CommandLine matches '"(\\{\\d\\})+"\\s*-f' || evt.Parsed.CommandLine matches '(?i)\\$\\{`?e`?n`?v`?:`?p`?a`?t`?h`?\\}') && not (evt.Parsed.CommandLine contains '${env:path}'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027.009
+
+  label: "Powershell Token Obfuscation - Process Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_adfind_enumeration
+description: |
+  Detects active directory enumeration activity using known AdFind CLI flags
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'lockoutduration' || evt.Parsed.CommandLine contains 'lockoutthreshold' || evt.Parsed.CommandLine contains 'lockoutobservationwindow' || evt.Parsed.CommandLine contains 'maxpwdage' || evt.Parsed.CommandLine contains 'minpwdage' || evt.Parsed.CommandLine contains 'minpwdlength' || evt.Parsed.CommandLine contains 'pwdhistorylength' || evt.Parsed.CommandLine contains 'pwdproperties' || evt.Parsed.CommandLine contains '-sc admincountdmp' || evt.Parsed.CommandLine contains '-sc exchaddresses')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1087.002
+
+  label: "PUA - Suspicious ActiveDirectory Enumeration Via AdFind.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

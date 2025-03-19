@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_powershell_persistence
+description: |
+  Detects suspicious powershell execution via a schedule task where the command ends with an suspicious flags to hide the powershell instance instead of executeing scripts or commands. This could be a sign of persistence via PowerShell "Get-Variable" technique as seen being used in Colibri Loader
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage == 'C:\\WINDOWS\\System32\\svchost.exe' && evt.Parsed.ParentCommandLine contains '-k netsvcs' && evt.Parsed.ParentCommandLine contains '-s Schedule' && (evt.Parsed.CommandLine endsWith ' -windowstyle hidden' || evt.Parsed.CommandLine endsWith ' -w hidden' || evt.Parsed.CommandLine endsWith ' -ep bypass' || evt.Parsed.CommandLine endsWith ' -noni'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+   - attack.t1059.001
+
+  label: "Potential Persistence Via Powershell Search Order Hijacking - Task"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

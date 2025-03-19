@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_adplus_memory_dump
+description: |
+  Detects execution of "AdPlus.exe", a binary that is part of the Windows SDK that can be used as a LOLBIN in order to dump process memory and execute arbitrary commands.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\adplus.exe' || evt.Parsed.OriginalFileName == 'Adplus.exe') && (evt.Parsed.CommandLine contains ' -hang ' || evt.Parsed.CommandLine contains ' -pn ' || evt.Parsed.CommandLine contains ' -pmn ' || evt.Parsed.CommandLine contains ' -p ' || evt.Parsed.CommandLine contains ' -po ' || evt.Parsed.CommandLine contains ' -c ' || evt.Parsed.CommandLine contains ' -sc '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "Potential Adplus.EXE Abuse"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

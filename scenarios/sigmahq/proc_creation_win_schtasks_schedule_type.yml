@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_schedule_type
+description: |
+  Detects scheduled task creations or modification on a suspicious schedule type
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && (evt.Parsed.CommandLine contains ' ONLOGON ' || evt.Parsed.CommandLine contains ' ONSTART ' || evt.Parsed.CommandLine contains ' ONCE ' || evt.Parsed.CommandLine contains ' ONIDLE ') && not (evt.Parsed.CommandLine contains 'NT AUT' || evt.Parsed.CommandLine contains ' SYSTEM' || evt.Parsed.CommandLine contains 'HIGHEST'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+
+  label: "Suspicious Schtasks Schedule Types"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_outlook_execution_from_temp
+description: |
+  Detects a suspicious program execution in Outlook temp folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains '\\Temporary Internet Files\\Content.Outlook\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1566.001
+
+  label: "Suspicious Execution From Outlook Temporary Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_taskmgr_localsystem
+description: |
+  Detects the creation of taskmgr.exe process in context of LOCAL_SYSTEM
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && evt.Parsed.Image endsWith '\\taskmgr.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Taskmgr as LOCAL_SYSTEM"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

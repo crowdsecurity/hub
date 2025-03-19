@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmdkey_recon
+description: |
+  Detects usage of cmdkey to look for cached credentials on the system
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmdkey.exe' || evt.Parsed.OriginalFileName == 'cmdkey.exe') && (evt.Parsed.CommandLine contains ' -l' || evt.Parsed.CommandLine contains ' /l' || evt.Parsed.CommandLine contains ' –l' || evt.Parsed.CommandLine contains ' —l' || evt.Parsed.CommandLine contains ' ―l'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.005
+
+  label: "Potential Reconnaissance For Cached Credentials Via Cmdkey.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_plink_susp_tunneling
+description: |
+  Execution of plink to perform data exfiltration and tunneling
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\plink.exe' && evt.Parsed.CommandLine contains ':127.0.0.1:3389' || evt.Parsed.Image endsWith '\\plink.exe' && evt.Parsed.CommandLine contains ':3389' && (evt.Parsed.CommandLine contains ' -P 443' || evt.Parsed.CommandLine contains ' -P 22'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1572
+
+  label: "Potential RDP Tunneling Via Plink"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharpersist
+description: |
+  Detects the execution of the hacktool SharPersist - used to deploy various different kinds of persistence mechanisms
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharPersist.exe' || evt.Parsed.Product == 'SharPersist' || evt.Parsed.CommandLine contains ' -t schtask -c ' || evt.Parsed.CommandLine contains ' -t startupfolder -c ' || evt.Parsed.CommandLine contains ' -t reg -c ' && evt.Parsed.CommandLine contains ' -m add' || evt.Parsed.CommandLine contains ' -t service -c ' && evt.Parsed.CommandLine contains ' -m add' || evt.Parsed.CommandLine contains ' -t schtask -c ' && evt.Parsed.CommandLine contains ' -m add')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053
+
+  label: "HackTool - SharPersist Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

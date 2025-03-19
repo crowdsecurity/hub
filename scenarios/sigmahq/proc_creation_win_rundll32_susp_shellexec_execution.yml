@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_susp_shellexec_execution
+description: |
+  Detects suspicious usage of the ShellExec_RunDLL function to launch other commands as seen in the the raspberry-robin attack
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'ShellExec_RunDLL' && (evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'msiexec' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains 'odbcconf' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Temp\\' || evt.Parsed.CommandLine contains 'Invoke-' || evt.Parsed.CommandLine contains 'iex' || evt.Parsed.CommandLine contains 'comspec'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Usage Of ShellExec_RunDLL"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

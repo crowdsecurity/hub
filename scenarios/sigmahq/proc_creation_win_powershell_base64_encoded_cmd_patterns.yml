@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_encoded_cmd_patterns
+description: |
+  Detects PowerShell command line patterns in combincation with encoded commands that often appear in malware infection chains
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.Exe', 'pwsh.dll']) && (evt.Parsed.CommandLine contains ' -e ' || evt.Parsed.CommandLine contains ' -en ' || evt.Parsed.CommandLine contains ' -enc ' || evt.Parsed.CommandLine contains ' -enco') && (evt.Parsed.CommandLine contains ' JAB' || evt.Parsed.CommandLine contains ' SUVYI' || evt.Parsed.CommandLine contains ' SQBFAFgA' || evt.Parsed.CommandLine contains ' aWV4I' || evt.Parsed.CommandLine contains ' IAB' || evt.Parsed.CommandLine contains ' PAA' || evt.Parsed.CommandLine contains ' aQBlAHgA') && not (evt.Parsed.ParentImage contains 'C:\\Packages\\Plugins\\Microsoft.GuestConfiguration.ConfigurationforWindows\\' || evt.Parsed.ParentImage contains '\\gc_worker.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Suspicious PowerShell Encoded Command Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

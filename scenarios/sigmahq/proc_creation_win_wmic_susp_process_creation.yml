@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmic_susp_process_creation
+description: |
+  Detects WMIC executing "process call create" with suspicious calls to processes such as "rundll32", "regsrv32", etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'process ' && evt.Parsed.CommandLine contains 'call ' && evt.Parsed.CommandLine contains 'create ' && (evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'bitsadmin' || evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd.exe /r ' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd /k ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'pwsh' || evt.Parsed.CommandLine contains 'certutil' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\Windows\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\' || evt.Parsed.CommandLine contains '%temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains '%ProgramData%' || evt.Parsed.CommandLine contains '%appdata%' || evt.Parsed.CommandLine contains '%comspec%' || evt.Parsed.CommandLine contains '%localappdata%'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1047
+
+  label: "Suspicious Process Created Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

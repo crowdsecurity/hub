@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_iex
+description: |
+  Detects usage of a base64 encoded "IEX" cmdlet in a process command line
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'SUVYIChb' || evt.Parsed.CommandLine contains 'lFWCAoW' || evt.Parsed.CommandLine contains 'JRVggKF' || evt.Parsed.CommandLine contains 'aWV4IChb' || evt.Parsed.CommandLine contains 'lleCAoW' || evt.Parsed.CommandLine contains 'pZXggKF' || evt.Parsed.CommandLine contains 'aWV4IChOZX' || evt.Parsed.CommandLine contains 'lleCAoTmV3' || evt.Parsed.CommandLine contains 'pZXggKE5ld' || evt.Parsed.CommandLine contains 'SUVYIChOZX' || evt.Parsed.CommandLine contains 'lFWCAoTmV3' || evt.Parsed.CommandLine contains 'JRVggKE5ld' || evt.Parsed.CommandLine contains 'SUVYKF' || evt.Parsed.CommandLine contains 'lFWChb' || evt.Parsed.CommandLine contains 'JRVgoW' || evt.Parsed.CommandLine contains 'aWV4KF' || evt.Parsed.CommandLine contains 'lleChb' || evt.Parsed.CommandLine contains 'pZXgoW' || evt.Parsed.CommandLine contains 'aWV4KE5ld' || evt.Parsed.CommandLine contains 'lleChOZX' || evt.Parsed.CommandLine contains 'pZXgoTmV3' || evt.Parsed.CommandLine contains 'SUVYKE5ld' || evt.Parsed.CommandLine contains 'lFWChOZX' || evt.Parsed.CommandLine contains 'JRVgoTmV3' || evt.Parsed.CommandLine contains 'SUVYKCgn' || evt.Parsed.CommandLine contains 'lFWCgoJ' || evt.Parsed.CommandLine contains 'JRVgoKC' || evt.Parsed.CommandLine contains 'aWV4KCgn' || evt.Parsed.CommandLine contains 'lleCgoJ' || evt.Parsed.CommandLine contains 'pZXgoKC' || evt.Parsed.CommandLine contains 'SQBFAFgAIAAoAFsA' || evt.Parsed.CommandLine contains 'kARQBYACAAKABbA' || evt.Parsed.CommandLine contains 'JAEUAWAAgACgAWw' || evt.Parsed.CommandLine contains 'aQBlAHgAIAAoAFsA' || evt.Parsed.CommandLine contains 'kAZQB4ACAAKABbA' || evt.Parsed.CommandLine contains 'pAGUAeAAgACgAWw' || evt.Parsed.CommandLine contains 'aQBlAHgAIAAoAE4AZQB3A' || evt.Parsed.CommandLine contains 'kAZQB4ACAAKABOAGUAdw' || evt.Parsed.CommandLine contains 'pAGUAeAAgACgATgBlAHcA' || evt.Parsed.CommandLine contains 'SQBFAFgAIAAoAE4AZQB3A' || evt.Parsed.CommandLine contains 'kARQBYACAAKABOAGUAdw' || evt.Parsed.CommandLine contains 'JAEUAWAAgACgATgBlAHcA')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "PowerShell Base64 Encoded IEX Cmdlet"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

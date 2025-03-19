@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_nteventlogfile_usage
+description: |
+  Detects usage of the WMI class "Win32_NTEventlogFile" in a potentially suspicious way (delete, backup, change permissions, etc.) from a PowerShell script
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Win32_NTEventlogFile' && (evt.Parsed.CommandLine contains '.BackupEventlog(' || evt.Parsed.CommandLine contains '.ChangeSecurityPermissions(' || evt.Parsed.CommandLine contains '.ChangeSecurityPermissionsEx(' || evt.Parsed.CommandLine contains '.ClearEventLog(' || evt.Parsed.CommandLine contains '.Delete(' || evt.Parsed.CommandLine contains '.DeleteEx(' || evt.Parsed.CommandLine contains '.Rename(' || evt.Parsed.CommandLine contains '.TakeOwnerShip(' || evt.Parsed.CommandLine contains '.TakeOwnerShipEx('))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Potentially Suspicious Call To Win32_NTEventlogFile Class"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

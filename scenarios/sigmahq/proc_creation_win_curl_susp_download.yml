@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_curl_susp_download
+description: |
+  Detects a suspicious curl process start on Windows and outputs the requested document to a local file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Product == 'The curl executable') && (evt.Parsed.CommandLine contains '%AppData%' || evt.Parsed.CommandLine contains '%Public%' || evt.Parsed.CommandLine contains '%Temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains '\\AppData\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Temp\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains 'C:\\PerfLogs\\' || evt.Parsed.CommandLine contains 'C:\\ProgramData\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\' || evt.Parsed.CommandLine endsWith '.dll' || evt.Parsed.CommandLine endsWith '.gif' || evt.Parsed.CommandLine endsWith '.jpeg' || evt.Parsed.CommandLine endsWith '.jpg' || evt.Parsed.CommandLine endsWith '.png' || evt.Parsed.CommandLine endsWith '.temp' || evt.Parsed.CommandLine endsWith '.tmp' || evt.Parsed.CommandLine endsWith '.txt' || evt.Parsed.CommandLine endsWith '.vbe' || evt.Parsed.CommandLine endsWith '.vbs') && not (evt.Parsed.ParentImage == 'C:\\Program Files\\Git\\usr\\bin\\sh.exe' && evt.Parsed.Image == 'C:\\Program Files\\Git\\mingw64\\bin\\curl.exe' && evt.Parsed.CommandLine contains '--silent --show-error --output ' && evt.Parsed.CommandLine contains 'gfw-httpget-' && evt.Parsed.CommandLine contains 'AppData'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "Suspicious Curl.EXE Download"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

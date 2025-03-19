@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_iis_susp_module_registration
+description: |
+  Detects a suspicious IIS module registration as described in Microsoft threat report on IIS backdoors
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\w3wp.exe' && (evt.Parsed.CommandLine contains 'appcmd.exe add module' || evt.Parsed.CommandLine contains ' system.enterpriseservices.internal.publish' && evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.CommandLine contains 'gacutil' && evt.Parsed.CommandLine contains ' /I'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.004
+
+  label: "Suspicious IIS Module Registration"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

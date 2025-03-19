@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_netsh_port_forwarding_3389
+description: |
+  Detects the execution of netsh to configure a port forwarding of port 3389 (RDP) rule
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains ' i' && evt.Parsed.CommandLine contains ' p' && evt.Parsed.CommandLine contains '=3389' && evt.Parsed.CommandLine contains ' c')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1090
+
+  label: "RDP Port Forwarding Rule Added Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

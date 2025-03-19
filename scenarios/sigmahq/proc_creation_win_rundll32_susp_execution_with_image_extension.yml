@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_susp_execution_with_image_extension
+description: |
+  Detects the execution of Rundll32.exe with DLL files masquerading as image files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.exe') && (evt.Parsed.CommandLine contains '.bmp' || evt.Parsed.CommandLine contains '.cr2' || evt.Parsed.CommandLine contains '.eps' || evt.Parsed.CommandLine contains '.gif' || evt.Parsed.CommandLine contains '.ico' || evt.Parsed.CommandLine contains '.jpeg' || evt.Parsed.CommandLine contains '.jpg' || evt.Parsed.CommandLine contains '.nef' || evt.Parsed.CommandLine contains '.orf' || evt.Parsed.CommandLine contains '.png' || evt.Parsed.CommandLine contains '.raw' || evt.Parsed.CommandLine contains '.sr2' || evt.Parsed.CommandLine contains '.tif' || evt.Parsed.CommandLine contains '.tiff'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "Suspicious Rundll32 Execution With Image Extension"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

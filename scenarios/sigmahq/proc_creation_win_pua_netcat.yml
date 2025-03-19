@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_netcat
+description: |
+  Detects execution of Netcat. Adversaries may use a non-application layer protocol for communication between host and C2 server or among infected hosts within a network
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\nc.exe' || evt.Parsed.Image endsWith '\\ncat.exe' || evt.Parsed.Image endsWith '\\netcat.exe' || evt.Parsed.CommandLine contains ' -lvp ' || evt.Parsed.CommandLine contains ' -lvnp' || evt.Parsed.CommandLine contains ' -l -v -p ' || evt.Parsed.CommandLine contains ' -lv -p ' || evt.Parsed.CommandLine contains ' -l --proxy-type http ' || evt.Parsed.CommandLine contains ' -vnl --exec ' || evt.Parsed.CommandLine contains ' -vnl -e ' || evt.Parsed.CommandLine contains ' --lua-exec ' || evt.Parsed.CommandLine contains ' --sh-exec ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1095
+
+  label: "PUA - Netcat Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_ngrok
+description: |
+  Detects the use of Ngrok, a utility used for port forwarding and tunneling, often used by threat actors to make local protected services publicly available. Involved domains are bin.equinox.io for download and *.ngrok.io for connections. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' tcp 139' || evt.Parsed.CommandLine contains ' tcp 445' || evt.Parsed.CommandLine contains ' tcp 3389' || evt.Parsed.CommandLine contains ' tcp 5985' || evt.Parsed.CommandLine contains ' tcp 5986' || evt.Parsed.CommandLine contains ' start ' && evt.Parsed.CommandLine contains '--all' && evt.Parsed.CommandLine contains '--config' && evt.Parsed.CommandLine contains '.yml' || evt.Parsed.Image endsWith 'ngrok.exe' && (evt.Parsed.CommandLine contains ' tcp ' || evt.Parsed.CommandLine contains ' http ' || evt.Parsed.CommandLine contains ' authtoken ') || evt.Parsed.CommandLine contains '.exe authtoken ' || evt.Parsed.CommandLine contains '.exe start --all')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1572
+
+  label: "PUA - Ngrok Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

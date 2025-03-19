@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_bcdedit_boot_conf_tamper
+description: |
+  Detects the use of the bcdedit command to tamper with the boot configuration data. This technique is often times used by malware or attackers as a destructive way before launching ransomware.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bcdedit.exe' || evt.Parsed.OriginalFileName == 'bcdedit.exe') && evt.Parsed.CommandLine contains 'set' && (evt.Parsed.CommandLine contains 'bootstatuspolicy' && evt.Parsed.CommandLine contains 'ignoreallfailures' || evt.Parsed.CommandLine contains 'recoveryenabled' && evt.Parsed.CommandLine contains 'no'))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1490
+
+  label: "Boot Configuration Tampering Via Bcdedit.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

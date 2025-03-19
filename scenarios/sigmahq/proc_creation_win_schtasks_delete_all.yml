@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_delete_all
+description: |
+  Detects the usage of schtasks with the delete flag and the asterisk symbol to delete all tasks from the schedule of the local computer, including tasks scheduled by other users.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\schtasks.exe' && evt.Parsed.CommandLine contains ' /delete ' && evt.Parsed.CommandLine contains '/tn *' && evt.Parsed.CommandLine contains ' /f')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1489
+
+  label: "Delete All Scheduled Tasks"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

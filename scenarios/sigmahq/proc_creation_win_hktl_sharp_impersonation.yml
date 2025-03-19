@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharp_impersonation
+description: |
+  Detects execution of the SharpImpersonation tool. Which can be used to manipulate tokens on a Windows computers remotely (PsExec/WmiExec) or interactively
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharpImpersonation.exe' || evt.Parsed.OriginalFileName == 'SharpImpersonation.exe' || evt.Parsed.CommandLine contains ' user:' && evt.Parsed.CommandLine contains ' binary:' || evt.Parsed.CommandLine contains ' user:' && evt.Parsed.CommandLine contains ' shellcode:' || evt.Parsed.CommandLine contains ' technique:CreateProcessAsUserW' || evt.Parsed.CommandLine contains ' technique:ImpersonateLoggedOnuser')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134.001
+   - attack.t1134.003
+
+  label: "HackTool - SharpImpersonation Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

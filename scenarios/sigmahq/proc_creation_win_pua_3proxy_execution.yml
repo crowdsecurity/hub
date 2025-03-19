@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_3proxy_execution
+description: |
+  Detects the use of 3proxy, a tiny free proxy server
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\3proxy.exe' || evt.Parsed.Description == '3proxy - tiny proxy server' || evt.Parsed.CommandLine contains '.exe -i127.0.0.1 -p')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1572
+
+  label: "PUA - 3Proxy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

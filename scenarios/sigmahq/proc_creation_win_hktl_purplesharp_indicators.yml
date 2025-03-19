@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_purplesharp_indicators
+description: |
+  Detects the execution of the PurpleSharp adversary simulation tool
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains '\\purplesharp' || evt.Parsed.OriginalFileName == 'PurpleSharp.exe' || evt.Parsed.CommandLine contains 'xyz123456.exe' || evt.Parsed.CommandLine contains 'PurpleSharp')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1587
+
+  label: "HackTool - PurpleSharp Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_tscon_rdp_redirect
+description: |
+  Detects a suspicious RDP session redirect using tscon.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' /dest:rdp-tcp#')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1563.002
+   - attack.t1021.001
+
+  label: "Suspicious RDP Redirect Using TSCON"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

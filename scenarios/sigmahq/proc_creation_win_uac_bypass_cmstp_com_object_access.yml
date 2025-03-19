@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_cmstp_com_object_access
+description: |
+  Detects UAC Bypass Attempt Using Microsoft Connection Manager Profile Installer Autoelevate-capable COM Objects (e.g. UACMe ID of 41, 43, 58 or 65)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\DllHost.exe' && (evt.Parsed.ParentCommandLine contains ' /Processid:{3E5FC7F9-9A51-4367-9063-A120244FBEC7}' || evt.Parsed.ParentCommandLine contains ' /Processid:{3E000D72-A845-4CD9-BD83-80C07C3B881F}' || evt.Parsed.ParentCommandLine contains ' /Processid:{BD54C901-076B-434E-B6C7-17C531F4AB41}' || evt.Parsed.ParentCommandLine contains ' /Processid:{D2E7041B-2927-42FB-8E9F-7CE93B6DC937}' || evt.Parsed.ParentCommandLine contains ' /Processid:{E9495B87-D950-4AB5-87A5-FF6D70BF3E90}') && (evt.Parsed.IntegrityLevel in ['High', 'System']))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+   - attack.t1218.003
+
+  label: "CMSTP UAC Bypass via COM Object Access"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

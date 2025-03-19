@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mpcmdrun_dll_sideload_defender
+description: |
+  Detects potential sideloading of "mpclient.dll" by Windows Defender processes ("MpCmdRun" and "NisSrv") from their non-default directory.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\MpCmdRun.exe' || evt.Parsed.Image endsWith '\\NisSrv.exe') && not (evt.Parsed.Image startsWith 'C:\\Program Files (x86)\\Windows Defender\\' || evt.Parsed.Image startsWith 'C:\\Program Files\\Microsoft Security Client\\' || evt.Parsed.Image startsWith 'C:\\Program Files\\Windows Defender\\' || evt.Parsed.Image startsWith 'C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\' || evt.Parsed.Image startsWith 'C:\\Windows\\WinSxS\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.002
+
+  label: "Potential Mpclient.DLL Sideloading Via Defender Binaries"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

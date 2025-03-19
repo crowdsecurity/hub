@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_bitlocker
+description: |
+  Detects suspicious addition to BitLocker related registry keys via the reg.exe utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'REG' && evt.Parsed.CommandLine contains 'ADD' && evt.Parsed.CommandLine contains '\\SOFTWARE\\Policies\\Microsoft\\FVE' && evt.Parsed.CommandLine contains '/v' && evt.Parsed.CommandLine contains '/f' && (evt.Parsed.CommandLine contains 'EnableBDEWithNoTPM' || evt.Parsed.CommandLine contains 'UseAdvancedStartup' || evt.Parsed.CommandLine contains 'UseTPM' || evt.Parsed.CommandLine contains 'UseTPMKey' || evt.Parsed.CommandLine contains 'UseTPMKeyPIN' || evt.Parsed.CommandLine contains 'RecoveryKeyMessageSource' || evt.Parsed.CommandLine contains 'UseTPMPIN' || evt.Parsed.CommandLine contains 'RecoveryKeyMessage'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1486
+
+  label: "Suspicious Reg Add BitLocker"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

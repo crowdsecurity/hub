@@ -1,0 +1,16 @@
+type: trigger
+name: barnoux/crs-anomaly-score
+description: "Web exploitation detected via Core Rule Set inbound anomaly scoring set by the user in crs-setup.conf"
+filter: evt.Meta.log_type == 'modsecurity' && evt.Parsed.ruleid == '949110'
+groupby: evt.Meta.source_ip
+blackhole: 2m
+labels:
+  remediation: true
+  classification:
+    - attack.T1595
+    - attack.T1190
+  behavior: "http:exploit"
+  label: "CRS Anomaly Alert"
+  spoofable: 0
+  confidence: 2
+  service: http

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_script_exec_from_temp
+description: |
+  Detects a suspicious script executions from temporary folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cscript.exe') && (evt.Parsed.CommandLine contains '\\Windows\\Temp' || evt.Parsed.CommandLine contains '\\Temporary Internet' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\Temp' || evt.Parsed.CommandLine contains '%TEMP%' || evt.Parsed.CommandLine contains '%TMP%' || evt.Parsed.CommandLine contains '%LocalAppData%\\Temp') && not (evt.Parsed.CommandLine contains ' >' || evt.Parsed.CommandLine contains 'Out-File' || evt.Parsed.CommandLine contains 'ConvertTo-Json' || evt.Parsed.CommandLine contains '-WindowStyle hidden -Verb runAs' || evt.Parsed.CommandLine contains '\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Temp\\Amazon\\EC2-Windows\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Suspicious Script Execution From Temp Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

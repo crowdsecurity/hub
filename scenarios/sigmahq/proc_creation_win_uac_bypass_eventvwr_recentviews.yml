@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_eventvwr_recentviews
+description: |
+  Detects the pattern of UAC Bypass using Event Viewer RecentViews
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '\\Event Viewer\\RecentViews' || evt.Parsed.CommandLine contains '\\EventV~1\\RecentViews') && evt.Parsed.CommandLine contains '>')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "UAC Bypass Using Event Viewer RecentViews"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

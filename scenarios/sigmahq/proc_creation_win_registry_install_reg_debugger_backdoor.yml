@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_registry_install_reg_debugger_backdoor
+description: |
+  Detects the registration of a debugger for a program that is available in the logon screen (sticky key backdoor).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\CurrentVersion\\Image File Execution Options\\' && (evt.Parsed.CommandLine contains 'sethc.exe' || evt.Parsed.CommandLine contains 'utilman.exe' || evt.Parsed.CommandLine contains 'osk.exe' || evt.Parsed.CommandLine contains 'magnify.exe' || evt.Parsed.CommandLine contains 'narrator.exe' || evt.Parsed.CommandLine contains 'displayswitch.exe' || evt.Parsed.CommandLine contains 'atbroker.exe' || evt.Parsed.CommandLine contains 'HelpPane.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.008
+
+  label: "Suspicious Debugger Registration Cmdline"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

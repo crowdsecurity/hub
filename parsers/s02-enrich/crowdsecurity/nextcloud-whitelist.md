@@ -31,6 +31,10 @@ exist. Then the file is created. Uploading more than 10 files at a time will tri
 When syncing large amount of files via WebDAV, it could trigger http-probing so the expression also whitelists 200 response codes.
 
 ---
+### Reshares via federation
+When shared files via federation are reshared, the federated instance can scan each directory to find `readme.md` file with a `PROPFIND`, even if it doesn't exist.
+
+---
 ### Trashbin
 Whilst browsing deleted files in the trashbin, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
 
@@ -39,4 +43,8 @@ Whilst browsing deleted files in the trashbin, a 404 error is thrown when a file
 Whilst browsing bookmarks a 404 response could be sent if the bookmarked page had no favicon or image attached.
 
 Whilst browsing private folder on the bookmark app a 404 response could be sent if the bookmarked page had no publictoken generated.
+
+---
+### File Sharing
+When sharing a file, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
 

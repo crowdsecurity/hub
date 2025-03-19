@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_add_user_privileged_group
+description: |
+  Detects addition of users to highly privileged groups via "Net" or "Add-LocalGroupMember".
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'localgroup ' && evt.Parsed.CommandLine contains ' /add' || evt.Parsed.CommandLine contains 'Add-LocalGroupMember ' && evt.Parsed.CommandLine contains ' -Group ') && (evt.Parsed.CommandLine contains 'Group Policy Creator Owners' || evt.Parsed.CommandLine contains 'Schema Admins'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1098
+
+  label: "User Added To Highly Privileged Group"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

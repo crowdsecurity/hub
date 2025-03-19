@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wbadmin_delete_all_backups
+description: |
+  Detects the deletion of all backups or system state backups via "wbadmin.exe". This technique is used by numerous ransomware families and actors. This may only be successful on server platforms that have Windows Backup enabled. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wbadmin.exe' || evt.Parsed.OriginalFileName == 'WBADMIN.EXE') && evt.Parsed.CommandLine contains 'delete' && evt.Parsed.CommandLine contains 'backup' && evt.Parsed.CommandLine contains 'keepVersions:0')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1490
+
+  label: "All Backups Deleted Via Wbadmin.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

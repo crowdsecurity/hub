@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_whoami_execution_from_high_priv_process
+description: |
+  Detects the execution of "whoami.exe" by privileged accounts that are often abused by threat actors
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'whoami.exe' || evt.Parsed.Image endsWith '\\whoami.exe') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI' || evt.Parsed.User contains 'TrustedInstaller'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1033
+
+  label: "Whoami.EXE Execution From Privileged Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

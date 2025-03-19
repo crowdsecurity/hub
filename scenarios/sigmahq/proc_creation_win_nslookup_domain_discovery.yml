@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_nslookup_domain_discovery
+description: |
+  Detects a set of suspicious network related commands often used in recon stages
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'nslookup' && evt.Parsed.CommandLine contains '_ldap._tcp.dc._msdcs.')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1087
+   - attack.t1082
+
+  label: "Network Reconnaissance Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

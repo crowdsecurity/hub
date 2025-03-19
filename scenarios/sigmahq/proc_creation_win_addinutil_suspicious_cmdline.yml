@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_addinutil_suspicious_cmdline
+description: |
+  Detects execution of the Add-In deployment cache updating utility (AddInutil.exe) with suspicious Addinroot or Pipelineroot paths. An adversary may execute AddinUtil.exe with uncommon Addinroot/Pipelineroot paths that point to the adversaries Addins.Store payload. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\addinutil.exe' || evt.Parsed.OriginalFileName == 'AddInUtil.exe') && ((evt.Parsed.CommandLine contains '-AddInRoot:' || evt.Parsed.CommandLine contains '-PipelineRoot:') && (evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\Windows\\Temp\\') || (evt.Parsed.CommandLine contains '-AddInRoot:.' || evt.Parsed.CommandLine contains '-AddInRoot:"."' || evt.Parsed.CommandLine contains '-PipelineRoot:.' || evt.Parsed.CommandLine contains '-PipelineRoot:"."') && (evt.Parsed.CurrentDirectory contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CurrentDirectory contains '\\Desktop\\' || evt.Parsed.CurrentDirectory contains '\\Downloads\\' || evt.Parsed.CurrentDirectory contains '\\Users\\Public\\' || evt.Parsed.CurrentDirectory contains '\\Windows\\Temp\\')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Suspicious AddinUtil.EXE CommandLine Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

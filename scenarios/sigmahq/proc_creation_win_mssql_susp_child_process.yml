@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_mssql_susp_child_process
+description: |
+  Detects suspicious child processes of the SQLServer process. This could indicate potential RCE or SQL Injection.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\sqlservr.exe' && (evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\netstat.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\ping.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\tasklist.exe' || evt.Parsed.Image endsWith '\\wsl.exe') && not (evt.Parsed.ParentImage startsWith 'C:\\Program Files\\Microsoft SQL Server\\' && evt.Parsed.ParentImage endsWith 'DATEV_DBENGINE\\MSSQL\\Binn\\sqlservr.exe' && evt.Parsed.Image == 'C:\\Windows\\System32\\cmd.exe' && evt.Parsed.CommandLine startsWith '"C:\\Windows\\system32\\cmd.exe" '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+   - attack.t1190
+
+  label: "Suspicious Child Process Of SQL Server"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_svchost_execution_with_no_cli_flags
+description: |
+  It is extremely abnormal for svchost.exe to spawn without any CLI arguments and is normally observed when a malicious process spawns the process and injects code into the process memory space.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine endsWith 'svchost.exe' && evt.Parsed.Image endsWith '\\svchost.exe' && not (evt.Parsed.ParentImage endsWith '\\rpcnet.exe' || evt.Parsed.ParentImage endsWith '\\rpcnetp.exe' || evt.Parsed.CommandLine == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1055
+
+  label: "Suspect Svchost Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

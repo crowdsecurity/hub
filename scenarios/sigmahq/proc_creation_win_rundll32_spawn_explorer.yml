@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_spawn_explorer
+description: |
+  Detects RunDLL32.exe spawning explorer.exe as child, which is very uncommon, often observes Gamarue spawning the explorer.exe process in an unusual way
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\rundll32.exe' && evt.Parsed.Image endsWith '\\explorer.exe' && not (evt.Parsed.ParentCommandLine contains '\\shell32.dll,Control_RunDLL'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "RunDLL32 Spawning Explorer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

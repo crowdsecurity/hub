@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regedit_import_keys_ads
+description: |
+  Detects the import of a alternate datastream to the registry with regedit.exe.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regedit.exe' || evt.Parsed.OriginalFileName == 'REGEDIT.EXE') && (evt.Parsed.CommandLine contains ' /i ' || evt.Parsed.CommandLine contains '.reg') && evt.Parsed.CommandLine matches ':[^ \\\\]' && not (evt.Parsed.CommandLine contains ' -e ' || evt.Parsed.CommandLine contains ' /e ' || evt.Parsed.CommandLine contains ' –e ' || evt.Parsed.CommandLine contains ' —e ' || evt.Parsed.CommandLine contains ' ―e ' || evt.Parsed.CommandLine contains ' -a ' || evt.Parsed.CommandLine contains ' /a ' || evt.Parsed.CommandLine contains ' –a ' || evt.Parsed.CommandLine contains ' —a ' || evt.Parsed.CommandLine contains ' ―a ' || evt.Parsed.CommandLine contains ' -c ' || evt.Parsed.CommandLine contains ' /c ' || evt.Parsed.CommandLine contains ' –c ' || evt.Parsed.CommandLine contains ' —c ' || evt.Parsed.CommandLine contains ' ―c '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1112
+
+  label: "Imports Registry Key From an ADS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

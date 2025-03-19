@@ -1,0 +1,30 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_winpwn
+description: |
+  Detects commandline keywords indicative of potential usge of the tool WinPwn. A tool for Windows and Active Directory reconnaissance and exploitation. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Offline_Winpwn' || evt.Parsed.CommandLine contains 'WinPwn ' || evt.Parsed.CommandLine contains 'WinPwn.exe' || evt.Parsed.CommandLine contains 'WinPwn.ps1')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1046
+   - attack.t1082
+   - attack.t1106
+   - attack.t1518
+   - attack.t1548.002
+   - attack.t1552.001
+   - attack.t1555
+   - attack.t1555.003
+
+  label: "HackTool - WinPwn Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

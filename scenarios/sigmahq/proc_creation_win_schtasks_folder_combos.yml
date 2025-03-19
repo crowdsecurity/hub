@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_folder_combos
+description: |
+  Detects scheduled task creations that have suspicious action command and folder combinations
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && evt.Parsed.CommandLine contains ' /create ' && (evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'pwsh' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd /k ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd.exe /r ') && (evt.Parsed.CommandLine contains 'C:\\ProgramData\\' || evt.Parsed.CommandLine contains '%ProgramData%'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+
+  label: "Schtasks From Suspicious Folders"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

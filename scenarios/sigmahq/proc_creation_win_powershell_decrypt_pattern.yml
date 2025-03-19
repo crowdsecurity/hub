@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_decrypt_pattern
+description: |
+  Detects PowerShell commands that decrypt an ".LNK" "file to drop the next stage of the malware.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (evt.Parsed.CommandLine contains 'Get-ChildItem ' || evt.Parsed.CommandLine contains 'dir ' || evt.Parsed.CommandLine contains 'gci ' || evt.Parsed.CommandLine contains 'ls ') && (evt.Parsed.CommandLine contains 'Get-Content ' || evt.Parsed.CommandLine contains 'gc ' || evt.Parsed.CommandLine contains 'cat ' || evt.Parsed.CommandLine contains 'type ' || evt.Parsed.CommandLine contains 'ReadAllBytes') && (evt.Parsed.CommandLine contains ' ^| ' && evt.Parsed.CommandLine contains '*.lnk' && evt.Parsed.CommandLine contains '-Recurse' && evt.Parsed.CommandLine contains '-Skip ' || evt.Parsed.CommandLine contains ' -ExpandProperty ' && evt.Parsed.CommandLine contains '*.lnk' && evt.Parsed.CommandLine contains 'WriteAllBytes' && evt.Parsed.CommandLine contains ' .length '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "PowerShell Execution With Potential Decryption Capabilities"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

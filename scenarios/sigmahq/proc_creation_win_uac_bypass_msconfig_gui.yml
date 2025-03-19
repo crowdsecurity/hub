@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_msconfig_gui
+description: |
+  Detects the pattern of UAC Bypass using a msconfig GUI hack (UACMe 55)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.IntegrityLevel in ['High', 'System']) && evt.Parsed.ParentImage endsWith '\\AppData\\Local\\Temp\\pkgmgr.exe' && evt.Parsed.CommandLine == '"C:\\Windows\\system32\\msconfig.exe" -5')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Using MSConfig Token Modification - Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

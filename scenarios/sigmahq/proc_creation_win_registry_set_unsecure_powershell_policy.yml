@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_registry_set_unsecure_powershell_policy
+description: |
+  Detects changes to the PowerShell execution policy registry key in order to bypass signing requirements for script execution from the CommandLine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '\\ShellIds\\Microsoft.PowerShell\\ExecutionPolicy' || evt.Parsed.CommandLine contains '\\Policies\\Microsoft\\Windows\\PowerShell\\ExecutionPolicy') && (evt.Parsed.CommandLine contains 'Bypass' || evt.Parsed.CommandLine contains 'RemoteSigned' || evt.Parsed.CommandLine contains 'Unrestricted'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Potential PowerShell Execution Policy Tampering - ProcCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_inveigh
+description: |
+  Detects the use of Inveigh a cross-platform .NET IPv4/IPv6 machine-in-the-middle tool
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Inveigh.exe' || evt.Parsed.OriginalFileName in ['\\Inveigh.exe', '\\Inveigh.dll'] || evt.Parsed.Description == 'Inveigh' || evt.Parsed.CommandLine contains ' -SpooferIP' || evt.Parsed.CommandLine contains ' -ReplyToIPs ' || evt.Parsed.CommandLine contains ' -ReplyToDomains ' || evt.Parsed.CommandLine contains ' -ReplyToMACs ' || evt.Parsed.CommandLine contains ' -SnifferIP')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - Inveigh Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

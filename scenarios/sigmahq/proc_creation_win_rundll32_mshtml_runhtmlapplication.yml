@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_mshtml_runhtmlapplication
+description: |
+  Detects execution of commands that leverage the "mshtml.dll" RunHTMLApplication export to run arbitrary code via different protocol handlers (vbscript, javascript, file, http...) 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\..\\' && evt.Parsed.CommandLine contains 'mshtml' && (evt.Parsed.CommandLine contains '#135' || evt.Parsed.CommandLine contains 'RunHTMLApplication'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Mshtml.DLL RunHTMLApplication Suspicious Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

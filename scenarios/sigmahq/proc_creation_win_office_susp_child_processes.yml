@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_susp_child_processes
+description: |
+  Detects a suspicious process spawning from one of the Microsoft Office suite products (Word, Excel, PowerPoint, Publisher, Visio, etc.)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\EQNEDT32.EXE' || evt.Parsed.ParentImage endsWith '\\EXCEL.EXE' || evt.Parsed.ParentImage endsWith '\\MSACCESS.EXE' || evt.Parsed.ParentImage endsWith '\\MSPUB.exe' || evt.Parsed.ParentImage endsWith '\\ONENOTE.EXE' || evt.Parsed.ParentImage endsWith '\\POWERPNT.exe' || evt.Parsed.ParentImage endsWith '\\VISIO.exe' || evt.Parsed.ParentImage endsWith '\\WINWORD.EXE' || evt.Parsed.ParentImage endsWith '\\wordpad.exe' || evt.Parsed.ParentImage endsWith '\\wordview.exe') && (evt.Parsed.OriginalFileName in ['bitsadmin.exe', 'CertOC.exe', 'CertUtil.exe', 'Cmd.Exe', 'CMSTP.EXE', 'cscript.exe', 'curl.exe', 'HH.exe', 'IEExec.exe', 'InstallUtil.exe', 'javaw.exe', 'Microsoft.Workflow.Compiler.exe', 'msdt.exe', 'MSHTA.EXE', 'msiexec.exe', 'Msxsl.exe', 'odbcconf.exe', 'pcalua.exe', 'PowerShell.EXE', 'RegAsm.exe', 'RegSvcs.exe', 'REGSVR32.exe', 'RUNDLL32.exe', 'schtasks.exe', 'ScriptRunner.exe', 'wmic.exe', 'WorkFolders.exe', 'wscript.exe'] || evt.Parsed.Image endsWith '\\AppVLP.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\certoc.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cmstp.exe' || evt.Parsed.Image endsWith '\\control.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\hh.exe' || evt.Parsed.Image endsWith '\\ieexec.exe' || evt.Parsed.Image endsWith '\\installutil.exe' || evt.Parsed.Image endsWith '\\javaw.exe' || evt.Parsed.Image endsWith '\\mftrace.exe' || evt.Parsed.Image endsWith '\\Microsoft.Workflow.Compiler.exe' || evt.Parsed.Image endsWith '\\msbuild.exe' || evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\msidb.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\msxsl.exe' || evt.Parsed.Image endsWith '\\odbcconf.exe' || evt.Parsed.Image endsWith '\\pcalua.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regasm.exe' || evt.Parsed.Image endsWith '\\regsvcs.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\scrcons.exe' || evt.Parsed.Image endsWith '\\scriptrunner.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\svchost.exe' || evt.Parsed.Image endsWith '\\verclsid.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\workfolders.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image contains '\\AppData\\' || evt.Parsed.Image contains '\\Users\\Public\\' || evt.Parsed.Image contains '\\ProgramData\\' || evt.Parsed.Image contains '\\Windows\\Tasks\\' || evt.Parsed.Image contains '\\Windows\\Temp\\' || evt.Parsed.Image contains '\\Windows\\System32\\Tasks\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1204.002
+   - attack.t1218.010
+
+  label: "Suspicious Microsoft Office Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

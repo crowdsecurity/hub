@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regedit_export_critical_keys
+description: |
+  Detects the export of a crital Registry key to a file.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regedit.exe' || evt.Parsed.OriginalFileName == 'REGEDIT.EXE') && (evt.Parsed.CommandLine contains ' -E ' || evt.Parsed.CommandLine contains ' /E ' || evt.Parsed.CommandLine contains ' –E ' || evt.Parsed.CommandLine contains ' —E ' || evt.Parsed.CommandLine contains ' ―E ') && (evt.Parsed.CommandLine contains 'hklm' || evt.Parsed.CommandLine contains 'hkey_local_machine') && (evt.Parsed.CommandLine endsWith '\\system' || evt.Parsed.CommandLine endsWith '\\sam' || evt.Parsed.CommandLine endsWith '\\security'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1012
+
+  label: "Exports Critical Registry Keys To a File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

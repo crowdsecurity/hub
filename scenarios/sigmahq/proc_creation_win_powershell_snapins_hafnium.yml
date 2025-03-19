@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_snapins_hafnium
+description: |
+  Detects adding and using Exchange PowerShell snap-ins to export mailbox data. As seen used by HAFNIUM and APT27
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && evt.Parsed.CommandLine contains 'Add-PSSnapin' && (evt.Parsed.CommandLine contains 'Microsoft.Exchange.Powershell.Snapin' || evt.Parsed.CommandLine contains 'Microsoft.Exchange.Management.PowerShell.SnapIn') && not (evt.Parsed.ParentImage == 'C:\\Windows\\System32\\msiexec.exe' && evt.Parsed.CommandLine contains '$exserver=Get-ExchangeServer ([Environment]::MachineName) -ErrorVariable exerr 2> $null'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1114
+
+  label: "Exchange PowerShell Snap-Ins Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

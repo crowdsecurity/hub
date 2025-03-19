@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_assoc_tamper_exe_file_association
+description: |
+  Detects when a program changes the default file association of any extension to an executable. When a file is opened, the default program used to open the file (also called the file association or handler) is checked. File association selections are stored in the Windows Registry and can be edited by users, administrators, or programs that have Registry access or by administrators using the built-in assoc utility. Applications can modify the file association for a given file extension to call an arbitrary program when a file with the given extension is opened. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && evt.Parsed.CommandLine contains 'assoc ' && evt.Parsed.CommandLine contains 'exefile' && not (evt.Parsed.CommandLine contains '.exe=exefile'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.001
+
+  label: "Change Default File Association To Executable Via Assoc"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

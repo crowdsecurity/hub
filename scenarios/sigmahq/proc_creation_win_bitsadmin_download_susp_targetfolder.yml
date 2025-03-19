@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_bitsadmin_download_susp_targetfolder
+description: |
+  Detects usage of bitsadmin downloading a file to a suspicious target folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.OriginalFileName == 'bitsadmin.exe') && (evt.Parsed.CommandLine contains ' /transfer ' || evt.Parsed.CommandLine contains ' /create ' || evt.Parsed.CommandLine contains ' /addfile ') && (evt.Parsed.CommandLine contains ':\\Perflogs' || evt.Parsed.CommandLine contains ':\\ProgramData\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '%ProgramData%' || evt.Parsed.CommandLine contains '%public%'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1197
+   - attack.t1036.003
+
+  label: "File Download Via Bitsadmin To A Suspicious Target Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

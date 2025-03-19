@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_eventvwr_susp_child_process
+description: |
+  Detects uncommon or suspicious child processes of "eventvwr.exe" which might indicate a UAC bypass attempt
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\eventvwr.exe' && not (evt.Parsed.Image endsWith ':\\Windows\\System32\\mmc.exe' || evt.Parsed.Image endsWith ':\\Windows\\System32\\WerFault.exe' || evt.Parsed.Image endsWith ':\\Windows\\SysWOW64\\WerFault.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "Potentially Suspicious Event Viewer Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

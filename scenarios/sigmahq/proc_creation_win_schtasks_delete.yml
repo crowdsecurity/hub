@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_delete
+description: |
+  Detects when adversaries stop services or processes by deleting their respective scheduled tasks in order to conduct data destructive activities
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\schtasks.exe' && evt.Parsed.CommandLine contains '/delete' && evt.Parsed.CommandLine contains '/tn' && (evt.Parsed.CommandLine contains '\\Windows\\BitLocker' || evt.Parsed.CommandLine contains '\\Windows\\ExploitGuard' || evt.Parsed.CommandLine contains '\\Windows\\SystemRestore\\SR' || evt.Parsed.CommandLine contains '\\Windows\\UpdateOrchestrator\\' || evt.Parsed.CommandLine contains '\\Windows\\Windows Defender\\' || evt.Parsed.CommandLine contains '\\Windows\\WindowsBackup\\' || evt.Parsed.CommandLine contains '\\Windows\\WindowsUpdate\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1489
+
+  label: "Delete Important Scheduled Task"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

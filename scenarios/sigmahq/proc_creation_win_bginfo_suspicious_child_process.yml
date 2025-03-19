@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_bginfo_suspicious_child_process
+description: |
+  Detects suspicious child processes of "BgInfo.exe" which could be a sign of potential abuse of the binary to proxy execution via external VBScript
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\bginfo.exe' || evt.Parsed.ParentImage endsWith '\\bginfo64.exe') && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image contains '\\AppData\\Local\\' || evt.Parsed.Image contains '\\AppData\\Roaming\\' || evt.Parsed.Image contains ':\\Users\\Public\\' || evt.Parsed.Image contains ':\\Temp\\' || evt.Parsed.Image contains ':\\Windows\\Temp\\' || evt.Parsed.Image contains ':\\PerfLogs\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.005
+   - attack.t1218
+   - attack.t1202
+
+  label: "Suspicious Child Process Of BgInfo.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

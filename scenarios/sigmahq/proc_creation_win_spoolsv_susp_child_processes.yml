@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_spoolsv_susp_child_processes
+description: |
+  Detects suspicious print spool service (spoolsv.exe) child processes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\spoolsv.exe' && evt.Parsed.IntegrityLevel == 'System' && (evt.Parsed.Image endsWith '\\gpupdate.exe' || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\taskkill.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\taskmgr.exe' || evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.Image endsWith '\\findstr.exe' || evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Image endsWith '\\wget.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\accesschk.exe' || evt.Parsed.Image endsWith '\\wevtutil.exe' || evt.Parsed.Image endsWith '\\bcdedit.exe' || evt.Parsed.Image endsWith '\\fsutil.exe' || evt.Parsed.Image endsWith '\\cipher.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\write.exe' || evt.Parsed.Image endsWith '\\wuauclt.exe' || evt.Parsed.Image endsWith '\\systeminfo.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\query.exe' || (evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe') && not (evt.Parsed.CommandLine contains 'start') || evt.Parsed.Image endsWith '\\cmd.exe' && not (evt.Parsed.CommandLine contains '.spl' || evt.Parsed.CommandLine contains 'route add' || evt.Parsed.CommandLine contains 'program files') || evt.Parsed.Image endsWith '\\netsh.exe' && not (evt.Parsed.CommandLine contains 'add portopening' || evt.Parsed.CommandLine contains 'rule name') || (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && not (evt.Parsed.CommandLine contains '.spl') || (evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine endsWith 'rundll32.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1203
+   - attack.t1068
+
+  label: "Suspicious Spool Service Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_sdiagnhost_susp_child
+description: |
+  Detects sdiagnhost.exe calling a suspicious child process (e.g. used in exploits for Follina / CVE-2022-30190)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\sdiagnhost.exe' && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\taskkill.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\calc.exe') && not (evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains 'bits' || evt.Parsed.Image endsWith '\\powershell.exe' && (evt.Parsed.CommandLine endsWith '-noprofile -' || evt.Parsed.CommandLine endsWith '-noprofile')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+   - attack.t1218
+
+  label: "Sdiagnhost Calling Suspicious Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_arbitrary_cli_download
+description: |
+  Detects potential arbitrary file download using a Microsoft Office application
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\EXCEL.EXE' || evt.Parsed.Image endsWith '\\POWERPNT.EXE' || evt.Parsed.Image endsWith '\\WINWORD.exe' || evt.Parsed.OriginalFileName in ['Excel.exe', 'POWERPNT.EXE', 'WinWord.exe']) && (evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Potential Arbitrary File Download Using Office Application"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

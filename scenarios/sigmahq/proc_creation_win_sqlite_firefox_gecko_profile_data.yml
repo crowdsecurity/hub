@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_sqlite_firefox_gecko_profile_data
+description: |
+  Detect usage of the "sqlite" binary to query databases in Firefox and other Gecko-based browsers for potential data stealing.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Product == 'SQLite' || evt.Parsed.Image endsWith '\\sqlite.exe' || evt.Parsed.Image endsWith '\\sqlite3.exe') && (evt.Parsed.CommandLine contains 'cookies.sqlite' || evt.Parsed.CommandLine contains 'places.sqlite'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1539
+   - attack.t1005
+
+  label: "SQLite Firefox Profile Data DB Access"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_sqlite_chromium_profile_data
+description: |
+  Detect usage of the "sqlite" binary to query databases in Chromium-based browsers for potential data stealing.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Product == 'SQLite' || evt.Parsed.Image endsWith '\\sqlite.exe' || evt.Parsed.Image endsWith '\\sqlite3.exe') && (evt.Parsed.CommandLine contains '\\User Data\\' || evt.Parsed.CommandLine contains '\\Opera Software\\' || evt.Parsed.CommandLine contains '\\ChromiumViewer\\') && (evt.Parsed.CommandLine contains 'Login Data' || evt.Parsed.CommandLine contains 'Cookies' || evt.Parsed.CommandLine contains 'Web Data' || evt.Parsed.CommandLine contains 'History' || evt.Parsed.CommandLine contains 'Bookmarks'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1539
+   - attack.t1555.003
+   - attack.t1005
+
+  label: "SQLite Chromium Profile Data DB Access"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

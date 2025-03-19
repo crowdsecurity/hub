@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_wsudo_susp_execution
+description: |
+  Detects usage of wsudo (Windows Sudo Utility). Which is a tool that let the user execute programs with different permissions (System, Trusted Installer, Administrator...etc)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\wsudo.exe' || evt.Parsed.OriginalFileName == 'wsudo.exe' || evt.Parsed.Description == 'Windows sudo utility' || evt.Parsed.ParentImage endsWith '\\wsudo-bridge.exe' || evt.Parsed.CommandLine contains '-u System' || evt.Parsed.CommandLine contains '-uSystem' || evt.Parsed.CommandLine contains '-u TrustedInstaller' || evt.Parsed.CommandLine contains '-uTrustedInstaller' || evt.Parsed.CommandLine contains ' --ti ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "PUA - Wsudo Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

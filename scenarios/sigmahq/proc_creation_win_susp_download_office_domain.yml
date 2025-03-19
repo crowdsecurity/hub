@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_download_office_domain
+description: |
+  Detects suspicious ways to download files from Microsoft domains that are used to store attachments in Emails or OneNote documents
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Image endsWith '\\wget.exe' || evt.Parsed.CommandLine contains 'Invoke-WebRequest' || evt.Parsed.CommandLine contains 'iwr ' || evt.Parsed.CommandLine contains 'curl ' || evt.Parsed.CommandLine contains 'wget ' || evt.Parsed.CommandLine contains 'Start-BitsTransfer' || evt.Parsed.CommandLine contains '.DownloadFile(' || evt.Parsed.CommandLine contains '.DownloadString(') && (evt.Parsed.CommandLine contains 'https://attachment.outlook.live.net/owa/' || evt.Parsed.CommandLine contains 'https://onenoteonlinesync.onenote.com/onenoteonlinesync/'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+   - attack.t1608
+
+  label: "Suspicious Download from Office Domain"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

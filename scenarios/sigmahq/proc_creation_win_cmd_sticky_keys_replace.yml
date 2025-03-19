@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_sticky_keys_replace
+description: |
+  By replacing the sticky keys executable with the local admins CMD executable, an attacker is able to access a privileged windows console session without authenticating to the system. When the sticky keys are "activated" the privilleged shell is launched. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'copy ' && evt.Parsed.CommandLine contains '/y ' && evt.Parsed.CommandLine contains 'C:\\windows\\system32\\cmd.exe C:\\windows\\system32\\sethc.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.008
+
+  label: "Persistence Via Sticky Key Backdoor"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

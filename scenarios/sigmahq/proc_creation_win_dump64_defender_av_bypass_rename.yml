@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_dump64_defender_av_bypass_rename
+description: |
+  Detects when a user is potentially trying to bypass the Windows Defender AV by renaming a tool to dump64.exe and placing it in the Visual Studio folder. Currently the rule is covering only usage of procdump but other utilities can be added in order to increase coverage. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image startsWith ':\\Program Files' && evt.Parsed.Image contains '\\Microsoft Visual Studio\\' && evt.Parsed.Image endsWith '\\dump64.exe' && (evt.Parsed.OriginalFileName == 'procdump' || evt.Parsed.CommandLine contains ' -ma ' || evt.Parsed.CommandLine contains ' -mp '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "Potential Windows Defender AV Bypass Via Dump64.EXE Rename"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

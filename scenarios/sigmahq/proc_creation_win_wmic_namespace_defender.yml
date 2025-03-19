@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmic_namespace_defender
+description: |
+  Detects potential tampering with Windows Defender settings such as adding exclusion using wmic
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'wmic.exe' || evt.Parsed.Image endsWith '\\WMIC.exe') && evt.Parsed.CommandLine contains '/Namespace:\\\\root\\Microsoft\\Windows\\Defender')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.008
+
+  label: "Potential Windows Defender Tampering Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
