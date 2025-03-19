@@ -169,7 +169,11 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, check=True, cwd=root_folder,
+            cmd,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=root_folder,
         )
         creation_date = result.stdout.strip()
         if creation_date:
@@ -262,7 +266,8 @@ def main():
             labels = scenario["labels"]
             behavior = get_behavior_from_label(labels)
             mitre_techniques, mitre_errors = get_mitre_techniques_from_label(
-                labels, mitre_data,
+                labels,
+                mitre_data,
             )
             scenario_errors.extend(mitre_errors)
             if behavior == "":
@@ -437,7 +442,11 @@ def parse_args():
 
     parser.add_argument("--hub", type=str, help="Hub folder path", default="")
     parser.add_argument(
-        "-o", "--output", type=str, help="Output file path", default="./scenarios.json",
+        "-o",
+        "--output",
+        type=str,
+        help="Output file path",
+        default="./scenarios.json",
     )
     parser.add_argument("-r", "--report", type=str, help="Report file path", default="")
     parser.add_argument(
@@ -471,7 +480,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False,
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode",
+        default=False,
     )
 
     return parser.parse_args()

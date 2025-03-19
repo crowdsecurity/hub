@@ -96,7 +96,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False,
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode",
+        default=False,
     )
 
     return parser.parse_args()

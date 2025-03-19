@@ -22,11 +22,11 @@ def get_tactics(data):
         if typ == TACTIC_TYPE:
             tactic_id = obj["external_references"][0]["external_id"]
             ret[tactic_id] = {
-                "id" : tactic_id,
-                "name" : obj["name"],
-                "description" : obj["description"],
-                "references" : [obj["external_references"][0]["url"]],
-                "techniques" : [],
+                "id": tactic_id,
+                "name": obj["name"],
+                "description": obj["description"],
+                "references": [obj["external_references"][0]["url"]],
+                "techniques": [],
             }
 
             # we do this to attribute techniques to tactics later
@@ -34,6 +34,7 @@ def get_tactics(data):
             MAP_TACTICS_ID_NAME[short_name] = tactic_id
 
     return ret
+
 
 def get_techniques(data, tactics):
     for obj in data["objects"]:
@@ -54,10 +55,10 @@ def get_techniques(data, tactics):
             continue
 
         technique = {
-            "name" : obj["external_references"][0]["external_id"],
-            #"references" : [obj["external_references"][0]["url"]],
-            "label" : obj["name"],
-            "description" : obj["description"],
+            "name": obj["external_references"][0]["external_id"],
+            # "references" : [obj["external_references"][0]["url"]],
+            "label": obj["name"],
+            "description": obj["description"],
         }
 
         for kc_phases in obj["kill_chain_phases"]:
@@ -100,11 +101,27 @@ def main():
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Generate mitre attacks tactics and techniques file")
+    parser = argparse.ArgumentParser(
+        description="Generate mitre attacks tactics and techniques file"
+    )
 
-    parser.add_argument("-u", "--url", type=str, help="URL of the Mitre Attack database file", default="https://github.com/mitre/cti/raw/master/enterprise-attack/enterprise-attack.json")
-    parser.add_argument("-o", "--output", type=str, help="Output file path", default="./mitre_attack.json")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)
+    parser.add_argument(
+        "-u",
+        "--url",
+        type=str,
+        help="URL of the Mitre Attack database file",
+        default="https://github.com/mitre/cti/raw/master/enterprise-attack/enterprise-attack.json",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        help="Output file path",
+        default="./mitre_attack.json",
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Verbose mode", default=False
+    )
     return parser.parse_args()
 
 
