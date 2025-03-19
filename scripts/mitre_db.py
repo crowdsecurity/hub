@@ -17,8 +17,8 @@ def get_tactics(data):
         if "type" not in obj:
             continue
 
-        type = obj["type"]
-        if type == TACTIC_TYPE:
+        typ = obj["type"]
+        if typ == TACTIC_TYPE:
             tactic_id = obj["external_references"][0]["external_id"]
             ret[tactic_id] = {
                 "id" : tactic_id,
@@ -39,8 +39,8 @@ def get_techniques(data, tactics):
         if "type" not in obj:
             continue
 
-        type = obj["type"]
-        if type != TECHNIQUES_TYPE:
+        typ = obj["type"]
+        if typ != TECHNIQUES_TYPE:
             continue
 
         if obj[IS_SUBTECHNIQUE_KEY]:
