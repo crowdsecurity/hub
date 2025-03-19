@@ -403,7 +403,7 @@ def main():
             if len(ta_info) == 0:
                 print(f"Tactic {tactic} not found, skipping")
                 continue
-            for technique, technique_info in tactic_info.items():
+            for technique in tactic_info.keys():
                 tec_info = lookup_technique(technique, mitre_data)
                 rows.append([tactic, ta_info["name"], technique, tec_info["label"]])
 
@@ -418,7 +418,7 @@ def lookup_tactic(tactic_id, mitre_db):
 
 
 def lookup_technique(technique_id, mitre_db):
-    for tactic, tactic_info in mitre_db.items():
+    for tactic_info in mitre_db.values():
         for technique in tactic_info["techniques"]:
             if technique_id == technique["name"]:
                 return technique
