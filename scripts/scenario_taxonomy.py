@@ -424,6 +424,7 @@ def lookup_technique(technique_id, mitre_db):
         for technique in tactic_info["techniques"]:
             if technique_id == technique["name"]:
                 return technique
+    return None
 
 
 def parse_args():
