@@ -230,7 +230,7 @@ def main():
         os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
     ):
         for file in f:
-            if file.endswith(".yaml") or file.endswith(".yml"):
+            if file.endswith((".yaml", ".yml")):
                 filepath_list.append(os.path.join(r, file))
 
     filepath_list.sort()
