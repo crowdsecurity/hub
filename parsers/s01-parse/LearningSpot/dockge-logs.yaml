@@ -4,7 +4,7 @@ filter: "evt.Parsed.program == 'dockge'"
 onsuccess: next_stage
 nodes:
  - grok:
-     pattern: '%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username} IP=%{IP:source_ip}'
+     pattern: '%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username}.? IP=%{IP:source_ip}'
      apply_on: message
      statics:
        - meta: log_type
