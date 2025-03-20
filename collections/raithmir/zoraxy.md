@@ -1,6 +1,6 @@
 ## Zoraxy collection
 
-A collection to defend nginx against common attacks :
+A collection to defend Zoraxy against common attacks :
  - [Zoraxy](https://github.com/tobychui/zoraxy) parser
  - base http scenarios (crawl, 404 scan, bf)
 
