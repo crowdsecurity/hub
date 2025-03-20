@@ -1,6 +1,9 @@
-import os
-import yaml
 import argparse
+import os
+import sys
+from pathlib import Path
+
+import yaml
 from yaml.loader import SafeLoader
 
 VPATCH_COLLECTION_FILEPATH = "./collections/crowdsecurity/appsec-virtual-patching.yaml"
@@ -24,10 +27,7 @@ Hello @{author},
 
 
 def file_in_pathlist(filename, path_list):
-    for path in path_list:
-        if filename in path:
-            return True
-    return False
+    return any(filename in path for path in path_list)
 
 
 def main():
@@ -47,44 +47,44 @@ def main():
         changed_files = []
         print("[-] No changed files found, run on all files.")
     else:
-        print("[+] Changed files: {}".format(changed_files))
+        print(f"[+] Changed files: {changed_files}")
 
-    vpatch_collection = yaml.load(
-        open(VPATCH_COLLECTION_FILEPATH, "r"), Loader=SafeLoader
-    )
+    with Path(VPATCH_COLLECTION_FILEPATH).open() as f:
+        vpatch_collection = yaml.load(f, Loader=SafeLoader)
+
     vpatch_collection_rules = vpatch_collection["appsec-rules"]
-    missing_rules = list()
+    missing_rules = []
 
     hub_appsecrules_path = os.path.join(args.hub, "appsec-rules")
     for r, d, f in os.walk(hub_appsecrules_path):
         for file in f:
-            if file.endswith(".yaml") or file.endswith(".yml"):
+            if file.endswith((".yaml", ".yml")):
                 if len(changed_files) == 0 or (
                     len(changed_files) > 0 and file_in_pathlist(file, changed_files)
                 ):
                     if not file.startswith("vpatch-"):
                         continue
-                    f = open(os.path.join(r, file), "r")
-                    data = list(yaml.load_all(f, Loader=SafeLoader))
-                    print("[*] Processing rule '{}'".format(file))
+
+                    with Path(os.path.join(r, file)).open() as f:
+                        data = list(yaml.load_all(f, Loader=SafeLoader))
+
+                    print(f"[*] Processing rule '{file}'")
                     for rule in data:
                         if rule["name"] not in vpatch_collection_rules:
                             missing_rules.append(rule["name"])
 
-    f = open(args.errors, "w")
-    if len(missing_rules) > 0:
-        f.write(INTRO_STR)
-        for rule in missing_rules:
-            f.write(":red_circle: **{}** :red_circle:\n".format(rule))
-    else:
-        f.write(OK_STR)
-
-    f.close()
+    with Path(args.errors).open("w") as f:
+        if len(missing_rules) > 0:
+            f.write(INTRO_STR)
+            for rule in missing_rules:
+                f.write(f":red_circle: **{rule}** :red_circle:\n")
+        else:
+            f.write(OK_STR)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Generate CrowdSec Scenarios taxonomy file"
+        description="Generate CrowdSec Scenarios taxonomy file",
     )
     parser.add_argument("--hub", type=str, help="Hub folder path", default=".")
     parser.add_argument(
@@ -96,7 +96,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode",
+        default=False,
     )
 
     return parser.parse_args()

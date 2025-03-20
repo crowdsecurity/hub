@@ -2,7 +2,8 @@ type: leaky
 format: 3.0
 name: crowdsecurity/appsec-vpatch
 description: "Identify attacks flagged by CrowdSec AppSec"
-filter: "evt.Meta.log_type == 'appsec-block'"
+## See appsec-native.yaml for reasons why we created a negative startsWith here, we want to ignore is native_rules but catch any of our DSL rules.
+filter: "evt.Meta.log_type == 'appsec-block' && evt.Meta.rule_name not startsWith 'native_rule'"
 distinct: evt.Meta.rule_name
 leakspeed: "60s"
 capacity: 1

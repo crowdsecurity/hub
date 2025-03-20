@@ -23,7 +23,7 @@ type: leaky
 #debug: true
 name: LePresidente/http-generic-401-bf
 description: "Detect generic 401 Authorization error brute force"
-filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_status == '401' && evt.Meta.sub_type != 'auth_fail' && evt.Parsed.verb not in ['OPTIONS', 'PROPFIND', 'REPORT']"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '401'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: "10s"
@@ -43,7 +43,7 @@ type: leaky
 #debug: true
 name: LePresidente/http-generic-403-bf
 description: "Detect generic 403 Forbidden (Authorization) error brute force"
-filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.http_status == '403' && evt.Meta.sub_type != 'auth_fail' && evt.Parsed.verb not in ['OPTIONS', 'PROPFIND', 'REPORT']"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '403'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: "10s"
@@ -57,4 +57,3 @@ labels:
   label: "HTTP Bruteforce"
   service: http
   remediation: true
-
