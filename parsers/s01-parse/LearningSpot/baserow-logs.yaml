@@ -9,8 +9,6 @@ nodes:
       statics:
         - meta: log_type
           value: baserow_login
-        - target: evt.StrTime
-          expression: evt.Parsed.timestamp
 statics:
   - meta: service
     value: baserow
@@ -18,5 +16,5 @@ statics:
     expression: evt.Parsed.source_ip
   - meta: status
     expression: evt.Parsed.status
-  - meta: evt.StrTime
+  - target: evt.StrTime
     expression: evt.Parsed.timestamp
