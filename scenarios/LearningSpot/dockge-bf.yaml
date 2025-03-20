@@ -1,0 +1,35 @@
+type: leaky
+name: LearningSpot/dockge-bf
+description: "Detect Dockge Bruteforce"
+filter: evt.Meta.log_type == 'dockge_failed_auth'
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 5
+blackhole: 5m
+reprocess: true
+labels:
+  service: dockge
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Dockge Bruteforce"
+  remediation: true
+---
+type: leaky
+name: LearningSpot/dockge_bf_user_enum
+description: "Detect Dockge User Enumeration Bruteforce"
+filter: evt.Meta.log_type == 'dockge_failed_auth'
+distinct: evt.Meta.target_user
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 5
+blackhole: 5m
+reprocess: true
+labels:
+  service: dockge
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Dockge User Enumeration"
+  remediation: true
