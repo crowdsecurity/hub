@@ -74,7 +74,7 @@ def get_techniques(data, tactics):
     return tactics
 
 
-def download_data(url):
+def download_data(url: str):
     r = requests.get(url)
     return r.json()
 
