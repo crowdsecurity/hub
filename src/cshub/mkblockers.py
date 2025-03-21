@@ -4,28 +4,20 @@ import os
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
 
 import requests
 from github import Github
+from tap import Tap
 
 NPM_API_MAX_DURATION_MONTH = 17
 EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 
 
-if TYPE_CHECKING:
-    import argparse
-    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
-else:
-    _SubparserType = Any
+class Parser(Tap):
+    output: Path
 
-
-def add_subparser(subparsers: _SubparserType):
-    parser = subparsers.add_parser("mkblockers", description="Create blockers.json")
-    _ = parser.add_argument(
-        "--out", default="blockers.json", type=str, help="The json file to write"
-    )
-    return parser
+    def configure(self) -> None:
+        self.add_argument("--output", default="blockers.json", help="The json file to write")
 
 
 @dataclass
@@ -126,9 +118,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
         item.status = "stable" if not latest_release.prerelease else "unstable"
         item.version = latest_release.tag_name
         item.assets = default_assets(latest_release, repo.html_url)
-        item.downloads = sum(
-            asset.download_count for release in releases for asset in release.assets
-        )
+        item.downloads = sum(asset.download_count for release in releases for asset in release.assets)
         item.release_date = latest_release.published_at.strftime("%Y-%m-%dT%H:%M:%SZ")
     else:
         item.status = "development"
@@ -147,7 +137,10 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     return item
 
 
-def main(args):
+def main():
+    parser = Parser("mkindex", description="Create blockers.json")
+    args = parser.parse_args()
+
     blockers = load_json("blockers/list.json")
     print(f"Loaded {len(blockers)} blockers")
 
@@ -158,6 +151,6 @@ def main(args):
         print(f"{i + 1}/{len(blockers)}")
         blockers[i] = update_item(blocker, github_client)
 
-    with Path(args.out).open("w") as f:
-        print(f"Writing to {args.out}")
+    with Path(args.output).open("w") as f:
+        print(f"Writing to {args.output}")
         json.dump([item.to_dict() for item in blockers], f, indent=2, sort_keys=True)

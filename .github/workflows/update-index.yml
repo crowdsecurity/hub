@@ -53,7 +53,7 @@ jobs:
       - name: update .index.json
         run: |
           uv sync --all-extras --dev --locked
-          uv run cshub mkindex
+          uv run mkindex
 
       - uses: nelonoel/branch-name@v1.0.1
 
@@ -98,5 +98,5 @@ jobs:
       - name: run hublint
         run: |
           uv sync --all-extras --dev --locked
-          uv run cshub hublint defaults > .hublint.toml
-          uv run cshub hublint check --color always --no-warning-details
+          uv run hublint defaults > .hublint.toml
+          uv run hublint check --color always --no-warning-details

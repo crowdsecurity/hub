@@ -10,11 +10,11 @@ import tomllib
 import typing
 from http import HTTPMethod
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
 
 import jsonschema
 import requests
 import yaml
+from tap import Tap
 
 RED = ""
 GREEN = ""
@@ -43,7 +43,7 @@ ERASETOEOL = "\033[0K"
 isatty = sys.stdout.isatty
 
 
-def init_colors(force):
+def init_colors(force: str):
     global RED, GREEN, YELLOW, BLUE, RESET, UNDERLINE
     if force == "always" or (force == "auto" and isatty()):
         RED = "\033[91m"
@@ -250,9 +250,7 @@ class OnlyCollectionHaveDependencies(Linter):
 
 class EmptyDependencies(Linter):
     name = "empty-dependencies"
-    description = (
-        "An item (collection) contains an explicit empty dependency (ex. parsers=[])"
-    )
+    description = "An item (collection) contains an explicit empty dependency (ex. parsers=[])"
     enabled = True
     error = False
 
@@ -274,9 +272,7 @@ class OneDocumentPerYAMLFile(Linter):
     def __call__(self, item):
         names = [doc.get("name") for doc in item.yaml_docs()]
         if len(names) > 1:
-            yield self.err(
-                f"File {item._spec['path']} contains more than one document: {names}"
-            )
+            yield self.err(f"File {item._spec['path']} contains more than one document: {names}")
 
 
 class MissingAuthor(Linter):
@@ -287,9 +283,7 @@ class MissingAuthor(Linter):
 
     def __call__(self, item):
         if not item._spec.get("author"):
-            yield self.err(
-                "Missing 'author' field", self.index._index[item.hubtype][item.key]
-            )
+            yield self.err("Missing 'author' field", self.index._index[item.hubtype][item.key])
 
 
 class MissingItemFile(Linter):
@@ -305,9 +299,7 @@ class MissingItemFile(Linter):
         except FileNotFoundError:
             yield self.err(f"File '{item._spec['path']}' does not exist")
         except KeyError:
-            yield self.err(
-                "Missing 'path' field", self.index._index[item.hubtype][item.key]
-            )
+            yield self.err("Missing 'path' field", self.index._index[item.hubtype][item.key])
 
 
 class MissingDependencies(Linter):
@@ -358,9 +350,7 @@ class MissingPath(Linter):
 
     def __call__(self, item):
         if not item._spec.get("path"):
-            yield self.err(
-                "Missing 'path' field", self.index._index[item.hubtype][item.key]
-            )
+            yield self.err("Missing 'path' field", self.index._index[item.hubtype][item.key])
 
 
 class AuthorMatchkey(Linter):
@@ -375,9 +365,7 @@ class AuthorMatchkey(Linter):
             ob = self.index._index[item.hubtype][item.key]
             if "author" in ob:
                 ob = ob["author"]
-            yield self.err(
-                f"Author field '{author}' does not match the item key '{item.key}'", ob
-            )
+            yield self.err(f"Author field '{author}' does not match the item key '{item.key}'", ob)
 
 
 class DocumentWithoutName(Linter):
@@ -409,9 +397,7 @@ class DocumentNameMatchingItem(Linter):
         for doc in item.yaml_docs():
             if doc.get("name") == item.key:
                 return
-        yield self.err(
-            f"YAML file {item._spec.get('path')} does not have a document named: {item.key}"
-        )
+        yield self.err(f"YAML file {item._spec.get('path')} does not have a document named: {item.key}")
 
 
 class ItemSchema(Linter):
@@ -455,9 +441,7 @@ class ItemSchema(Linter):
             try:
                 jsonschema.validate(doc, schema)
             except jsonschema.ValidationError as e:
-                yield self.err(
-                    f"File {item._spec.get('path')} does not match the schema: {e.message}"
-                )
+                yield self.err(f"File {item._spec.get('path')} does not match the schema: {e.message}")
 
 
 class DataFilesExist(Linter):
@@ -486,9 +470,7 @@ class DataFilesLastModified(Linter):
     """This is implemented as a separate linter to allow for a warning instead of an error"""
 
     name = "data-files-last-modified"
-    description = (
-        "Check the last-modified header of the data files declared in the item"
-    )
+    description = "Check the last-modified header of the data files declared in the item"
     enabled = False
     error = False
 
@@ -500,9 +482,7 @@ class DataFilesLastModified(Linter):
                 r = self.index.proxy(HTTPMethod.HEAD, url)
                 r.raise_for_status()
                 if not r.headers.get("last-modified"):
-                    yield self.err(
-                        f"Data file {url} does not have a 'last-modified' header"
-                    )
+                    yield self.err(f"Data file {url} does not have a 'last-modified' header")
             except requests.RequestException as e:
                 # if the other linter is enabled, we don't report the error here
                 if DataFilesExist.name in self.index.enabled_linters:
@@ -535,9 +515,7 @@ class ContentMatchFile(Linter):
         from_file = base64.b64encode(from_file).decode("utf-8")
         from_field = item._spec.get("content")
         if from_field != from_file:
-            yield self.err(
-                f"Content field does not match the file: {item._spec.get('path')}"
-            )
+            yield self.err(f"Content field does not match the file: {item._spec.get('path')}")
 
 
 # --------------------------------------------------------------------- #
@@ -588,7 +566,7 @@ class TTYReporter:
         if isatty():
             print(f" {wheel} [{idx}/{tot}] {item}{ERASETOEOL}{BOL}", end="")
 
-    def item_feedback(self, item, index, index_file):
+    def item_feedback(self, item, index, index_path):
         print_feedback = False
 
         if any(i.severity == Severity.ERROR for i in item._issues):
@@ -613,11 +591,9 @@ class TTYReporter:
             if print_feedback or self.print_ok:
                 print()
             for issue in item._issues:
-                file = index_file.name
+                file = index_path.name
                 if issue.location and self.show_location:
-                    location = (
-                        f" {file}:{issue.location[0] + 1}:{issue.location[1] + 1}:"
-                    )
+                    location = f" {file}:{issue.location[0] + 1}:{issue.location[1] + 1}:"
                 else:
                     location = ""
                 sev = RED if issue.severity == Severity.ERROR else YELLOW
@@ -637,12 +613,8 @@ class MarkDownReporter:
     def report(self, index, enabled_linters):
         linters_desc = {linter.name: linter.description for linter in enabled_linters}
 
-        errors = [
-            i for item in index for i in item._issues if i.severity == Severity.ERROR
-        ]
-        warnings = [
-            i for item in index for i in item._issues if i.severity == Severity.WARNING
-        ]
+        errors = [i for item in index for i in item._issues if i.severity == Severity.ERROR]
+        warnings = [i for item in index for i in item._issues if i.severity == Severity.WARNING]
 
         report = [
             "# Hublint Validation Report",
@@ -673,23 +645,19 @@ class MarkDownReporter:
                     if issue.severity == Severity.ERROR:
                         report.append(f"  - :x: {issue.linter.name}: {issue.message}")
                     elif issue.severity == Severity.WARNING:
-                        report.append(
-                            f"  - :warning: {issue.linter.name}: {issue.message}"
-                        )
+                        report.append(f"  - :warning: {issue.linter.name}: {issue.message}")
 
         return "\n".join(report)
 
 
-def run_linters(
-    index_file, enabled_linters, no_warnings, show_location, markdown, quick
-):
+def run_linters(index_path: Path, enabled_linters, no_warnings, show_location, markdown, quick):
     ttyrep = TTYReporter(no_warnings, show_location)
     mdrep = MarkDownReporter(markdown)
 
     t0 = time.time()
 
     try:
-        index_content = index_file.read()
+        index_content = index_path.read_text()
         index = Index(index_content, enabled_linters=enabled_linters)
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}", file=sys.stderr)
@@ -712,7 +680,7 @@ def run_linters(
         ttyrep.update_status(idx, tot, item)
         item.validate(enabled_linters)
 
-        ttyrep.item_feedback(item, index, index_file)
+        ttyrep.item_feedback(item, index, index_path)
 
         errors = [i for i in item._issues if i.severity == Severity.ERROR]
         tot_errors += len(errors)
@@ -761,9 +729,7 @@ def run_linters(
             #  More importantly, it allows the developer to make the application faster in a new version.
 
     elapsed = time.time() - t0
-    print(
-        f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors in {elapsed:.2}s{ERASETOEOL}"
-    )
+    print(f"Checked {tot} items: {tot_warnings} warnings, {tot_errors} errors in {elapsed:.2}s{ERASETOEOL}")
     print()
 
     if len(errors_by_linter) > 0:
@@ -781,12 +747,13 @@ def run_linters(
     return tot_errors
 
 
-def read_config(config_file=None):
-    try:
-        return tomllib.load(config_file)
-    except tomllib.TOMLDecodeError as e:
-        print(f"Error parsing TOML: {e}", file=sys.stderr)
-        sys.exit(1)
+def read_config(config: Path):
+    with config.open("rb") as config_file:
+        try:
+            return tomllib.load(config_file)
+        except tomllib.TOMLDecodeError as e:
+            print(f"Error parsing TOML: {e}", file=sys.stderr)
+            sys.exit(1)
 
 
 def print_linters(linters):
@@ -802,15 +769,6 @@ def print_linters(linters):
                 print("   warning")
 
 
-def add_config_argument(parser):
-    parser.add_argument(
-        "--config",
-        default=".hublint.toml",
-        type=argparse.FileType("rb"),
-        help="The configuration file",
-    )
-
-
 def print_default_config():
     linters = list(Linter.__subclasses__())
     for linter in linters:
@@ -821,89 +779,92 @@ def print_default_config():
         print()
 
 
-if TYPE_CHECKING:
-    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
-else:
-    _SubparserType = Any
+class LinterParser(Tap):
+    config: Path
+
+    def configure(self):
+        self.add_argument("--config", default=".hublint.toml", help="The configuration file")
 
 
-def add_subparser(subparsers: _SubparserType):
-    parser = subparsers.add_parser(
-        "hublint",
+class CheckParser(Tap):
+    config: Path
+    index: Path
+    color: str
+    no_warning_details: bool
+    show_location: bool
+    markdown: Path
+    quick: bool
+    lint_only: list[str]
+
+    def configure(self):
+        self.add_argument("--config", default=".hublint.toml", required=False, help="The configuration file")
+
+        self.add_argument("--index", default=".index.json", required=False, help="The index file to validate")
+
+        self.add_argument("--color", choices=["always", "never", "auto"], default="auto", help="Force colored output")
+
+        self.add_argument(
+            "--no-warning-details",
+            default=False,
+            action="store_true",
+            required=False,
+            help="Do not show warning details (still, count them)",
+        )
+
+        self.add_argument(
+            "--show-location", default=False, required=False, action="store_true", help="Show the location of the error/warning"
+        )
+
+        self.add_argument("--markdown", required=False, help="Generate a markdown report")
+
+        self.add_argument(
+            "--quick", default=False, required=False, action="store_true", help="Quick mode (default when stdout is redirected)"
+        )
+
+        self.add_argument("--lint-only", required=False, nargs="+", help="Run only the specified linters")
+
+
+class DefaultsParser(Tap):
+    pass
+
+
+class Parser(Tap):
+    def configure(self) -> None:
+        self.add_subparsers(dest="command")
+        self.add_subparser("linters", LinterParser, help="Show all the available linters")
+        self.add_subparser("check", CheckParser, help="Validate an index file")
+        self.add_subparser(
+            "defaults",
+            DefaultsParser,
+            help="Show the default configuration",
+            formatter_class=argparse.RawTextHelpFormatter,
+            epilog=textwrap.dedent("""
+                                      Example:
+
+                                        # generate an initial configuration file
+                                        hublint defaults > .hublint.toml
+                                      """),
+        )
+
+
+def main():
+    parser = Parser(
+        prog="hublint",
         description="Validate hub index files",
         formatter_class=argparse.RawTextHelpFormatter,
         epilog=textwrap.dedent("""
-                                   Example:
+                        Example:
 
-                                   # generate the initial configuration
-                                   hublint defaults > .hublint.toml
+                        # generate the initial configuration
+                        hublint defaults > .hublint.toml
 
-                                   # validate an index file
-                                   hublint check --index .index.json
-                                   """),
+                        # validate an index file
+                        hublint check --index .index.json
+                        """),
     )
 
-    hublint_subparsers = parser.add_subparsers(dest="command")
+    args = parser.parse_args()
 
-    parser_linters = hublint_subparsers.add_parser(
-        "linters", help="Show all the available linters"
-    )
-    add_config_argument(parser_linters)
-
-    parser_check = hublint_subparsers.add_parser("check", help="Validate an index file")
-    _ = parser_check.add_argument(
-        "--index",
-        default=".index.json",
-        type=argparse.FileType(),
-        help="The index file to validate",
-    )
-    _ = parser_check.add_argument(
-        "--color",
-        choices=["always", "never", "auto"],
-        default="auto",
-        help="Force colored output",
-    )
-    _ = parser_check.add_argument(
-        "--no-warning-details",
-        action="store_true",
-        help="Do not show warning details (still, count them)",
-    )
-    _ = parser_check.add_argument(
-        "--show-location",
-        action="store_true",
-        help="Show the location of the error/warning",
-    )
-    _ = parser_check.add_argument(
-        "--markdown", type=argparse.FileType("w"), help="Generate a markdown report"
-    )
-    _ = parser_check.add_argument(
-        "--quick",
-        action="store_true",
-        help="Quick mode (default when stdout is redirected)",
-    )
-    _ = parser_check.add_argument(
-        "--lint-only", type=str, nargs="+", help="Run only the specified linters"
-    )
-
-    # XXX: --debug option, for logger and to keep stack trace on CTRL+C
-
-    add_config_argument(parser_check)
-
-    _ = hublint_subparsers.add_parser(
-        "defaults",
-        help="Show the default configuration",
-        epilog=textwrap.dedent("""
-                                      Example:
-
-                                      #generate an initial configuration file
-                                      hublint defaults > .hublint.toml
-                                      """),
-    )
-
-    return parser
-
-
-def main(args, parser):
     if args.command not in [None, "defaults"]:
         print(f"Using config: {args.config.name}")
         config = read_config(args.config)
