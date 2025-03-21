@@ -12,12 +12,24 @@ jobs:
   update-taxonomy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - uses: actions/checkout@v4
+
+      - name: checkout repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: 0.5.24
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
       - name: Get changed files
         run: |
           changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
@@ -26,8 +38,8 @@ jobs:
         env:
           AUTHOR: ${{ github.actor }}
         run: |
-          pip install requests pyyaml mdutils
-          python ./scripts/appsec_vpatch_lint.py -e appsec_vpatch_cve_error.md --hub ./
+          uv sync --all-extras --dev --locked
+          uv run appsec-vpatch-lint -e appsec_vpatch_cve_error.md --hub ./
           [ -f "appsec_vpatch_cve_error.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
