@@ -10,6 +10,7 @@ import tomllib
 import typing
 from http import HTTPMethod
 from pathlib import Path
+from typing import override
 
 import jsonschema
 import requests
@@ -43,7 +44,7 @@ ERASETOEOL = "\033[0K"
 isatty = sys.stdout.isatty
 
 
-def init_colors(force: str):
+def init_colors(force: str) -> None:
     global RED, GREEN, YELLOW, BLUE, RESET, UNDERLINE
     if force == "always" or (force == "auto" and isatty()):
         RED = "\033[91m"
@@ -56,9 +57,9 @@ def init_colors(force: str):
 
 # tweaked from https://github.com/yaml/pyyaml/issues/456
 class TrackingLoader(yaml.SafeLoader):
-    def __init__(self, stream):
+    def __init__(self, stream: str) -> None:
         super().__init__(stream)
-        self.locations = {}
+        self.locations: dict[int, tuple[int, int]] = {}
 
     def compose_node(self, parent, index):
         # Get the start position before composing the node
@@ -88,13 +89,42 @@ class TrackingLoader(yaml.SafeLoader):
             loader.dispose()
 
 
+class Linter:
+    def __init__(self) -> None:
+        # XXX: this is mandatory
+        self.index = None
+        cls = self.__class__.__name__
+        if not hasattr(self, "name"):
+            raise ValueError(f"Linter {cls} must have a name")
+        if not hasattr(self, "description"):
+            raise ValueError(f"Linter {cls} must have a description")
+        if not hasattr(self, "enabled"):
+            raise ValueError(f"Linter {cls} must have a default 'enabled' attribute")
+        if not hasattr(self, "error"):
+            raise ValueError(f"Linter {cls} must have a default 'error' attribute")
+        if not callable(self):
+            raise ValueError(f"Linter {cls} must have a __call__ method")
+
+    def err(self, message: str, ob=None):
+        location = None
+        if ob:
+            location = self.index.locate(ob)
+        return Issue(self, message, Severity.ERROR, location)
+
+    def warn(self, message: str, ob=None):
+        location = None
+        if ob:
+            location = self.index.locate(ob)
+        return Issue(self, message, Severity.WARNING, location)
+
+
 class Index:
-    def __init__(self, index_content, enabled_linters):
+    def __init__(self, index_content: str, enabled_linters: list[Linter]) -> None:
         # self._index = json.loads(index_content)
         self._index, self._yaml_locations = TrackingLoader.load(index_content)
         self.hubtypes = list(self._index.keys())
         # cache for http requests, by method and url
-        self._http_cache = {}
+        self._http_cache: dict[tuple[str, str], requests.Response] = {}
         # some linter may skip some checks if they are covered by others
         self.enabled_linters = enabled_linters
         # eager creation of items, so we can store stuff if needed
@@ -110,8 +140,8 @@ class Index:
         # TODO: return file path too
         return self._yaml_locations.get(id(ob))
 
-    def proxy(self, method, url):
-        """Return a cached request, if it exists"""
+    def proxy(self, method: HTTPMethod, url: str) -> requests.Response:
+        """Return a cached reponse, if it exists"""
         try:
             return self._http_cache[(url, method)]
         except KeyError:
@@ -126,16 +156,16 @@ class Severity(enum.StrEnum):
 
 
 class Issue:
-    def __init__(self, linter, message, severity, location=None):
-        self.linter = linter
-        self.message = message
+    def __init__(self, linter: Linter, message: str, severity: Severity, location=None) -> None:
+        self.linter: Linter = linter
+        self.message: str = message
         self.location = location
-        self._reported_severity = severity
+        self._reported_severity: Severity = severity
         # set by the Item after the Issue is created
         self.item = None
 
     @property
-    def severity(self):
+    def severity(self) -> Severity:
         # the severity can be ERROR only if the linter is in error mode
         if self.linter.error:
             return self._reported_severity
@@ -160,11 +190,12 @@ class Item:
                 issue.item = self
                 self._issues.append(issue)
 
-    def yaml_content(self):
+    def yaml_content(self) -> str:
         try:
             pth = self._spec["path"]
         except KeyError:
             return ""
+
         try:
             with Path(pth).open() as file:
                 return file.read()
@@ -186,41 +217,12 @@ class Item:
                     yield data["source_url"]
 
 
-class Linter:
-    def __init__(self):
-        # XXX: this is mandatory
-        self.index = None
-        cls = self.__class__.__name__
-        if not hasattr(self, "name"):
-            raise ValueError(f"Linter {cls} must have a name")
-        if not hasattr(self, "description"):
-            raise ValueError(f"Linter {cls} must have a description")
-        if not hasattr(self, "enabled"):
-            raise ValueError(f"Linter {cls} must have a default 'enabled' attribute")
-        if not hasattr(self, "error"):
-            raise ValueError(f"Linter {cls} must have a default 'error' attribute")
-        if not callable(self):
-            raise ValueError(f"Linter {cls} must have a __call__ method")
-
-    def err(self, message, ob=None):
-        location = None
-        if ob:
-            location = self.index.locate(ob)
-        return Issue(self, message, Severity.ERROR, location)
-
-    def warn(self, message, ob=None):
-        location = None
-        if ob:
-            location = self.index.locate(ob)
-        return Issue(self, message, Severity.WARNING, location)
-
-
 # yeah, it's a joke/example
 class NotLinux(Linter):
-    name = "not-linux"
-    description = "Item name must not contain 'linux'"
-    enabled = False
-    error = False
+    name: str = "not-linux"
+    description: str = "Item name must not contain 'linux'"
+    enabled: bool = False
+    error: bool = False
 
     def __call__(self, item):
         if "linux" in item.key:
@@ -231,10 +233,10 @@ class NotLinux(Linter):
 
 
 class OnlyCollectionHaveDependencies(Linter):
-    name = "only-collection-have-dependencies"
-    description = "Only collections can have dependencies"
-    enabled = True
-    error = True
+    name: str = "only-collection-have-dependencies"
+    description: str = "Only collections can have dependencies"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         if item.hubtype == "collections":
@@ -249,10 +251,10 @@ class OnlyCollectionHaveDependencies(Linter):
 
 
 class EmptyDependencies(Linter):
-    name = "empty-dependencies"
-    description = "An item (collection) contains an explicit empty dependency (ex. parsers=[])"
-    enabled = True
-    error = False
+    name: str = "empty-dependencies"
+    description: str = "An item (collection) contains an explicit empty dependency (ex. parsers=[])"
+    enabled: bool = True
+    error: bool = False
 
     def __call__(self, item):
         for typ in self.index.hubtypes:
@@ -264,10 +266,10 @@ class EmptyDependencies(Linter):
 
 
 class OneDocumentPerYAMLFile(Linter):
-    name = "one-document-per-yaml-file"
-    description = "Each YAML file must contain only one document"
-    enabled = False
-    error = False
+    name: str = "one-document-per-yaml-file"
+    description: str = "Each YAML file must contain only one document"
+    enabled: bool = False
+    error: bool = False
 
     def __call__(self, item):
         names = [doc.get("name") for doc in item.yaml_docs()]
@@ -276,10 +278,10 @@ class OneDocumentPerYAMLFile(Linter):
 
 
 class MissingAuthor(Linter):
-    name = "missing-author"
-    description = "Each item must have an author field"
-    enabled = True
-    error = True
+    name: str = "missing-author"
+    description: str = "Each item must have an author field"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         if not item._spec.get("author"):
@@ -287,10 +289,10 @@ class MissingAuthor(Linter):
 
 
 class MissingItemFile(Linter):
-    name = "missing-item-file"
-    description = "The item file is missing"
-    enabled = True
-    error = True
+    name: str = "missing-item-file"
+    description: str = "The item file is missing"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         try:
@@ -303,10 +305,10 @@ class MissingItemFile(Linter):
 
 
 class MissingDependencies(Linter):
-    name = "missing-dependencies"
-    description = "An item declares a dependency that does not exist"
-    enabled = True
-    error = True
+    name: str = "missing-dependencies"
+    description: str = "An item declares a dependency that does not exist"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         for typ in self.index.hubtypes:
@@ -319,10 +321,10 @@ class MissingDependencies(Linter):
 
 
 class BadPath(Linter):
-    name = "bad-path"
-    description = "The path must match the item type, stage (if it exists) and name"
-    enabled = True
-    error = False
+    name: str = "bad-path"
+    description: str = "The path must match the item type, stage (if it exists) and name"
+    enabled: bool = True
+    error: bool = False
 
     def __call__(self, item):
         stage = item._spec.get("stage")
@@ -343,10 +345,10 @@ class BadPath(Linter):
 
 
 class MissingPath(Linter):
-    name = "missing-path"
-    description = "Each item must have a path field"
-    enabled = True
-    error = True
+    name: str = "missing-path"
+    description: str = "Each item must have a path field"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         if not item._spec.get("path"):
@@ -354,10 +356,10 @@ class MissingPath(Linter):
 
 
 class AuthorMatchkey(Linter):
-    name = "author-match-key"
-    description = "The author field must match the item key"
-    enabled = True
-    error = True
+    name: str = "author-match-key"
+    description: str = "The author field must match the item key"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         author = item._spec.get("author", "")
@@ -369,10 +371,10 @@ class AuthorMatchkey(Linter):
 
 
 class DocumentWithoutName(Linter):
-    name = "document-without-name"
-    description = "Each section of a YAML file must have a name (only scenarios)"
-    enabled = True
-    error = True
+    name: str = "document-without-name"
+    description: str = "Each section of a YAML file must have a name (only scenarios)"
+    enabled: bool = True
+    error: bool = True
     # XXX: we could make linters configurable from the toml file
     config: typing.ClassVar = {"hubtypes": ["scenarios"]}
 
@@ -385,10 +387,10 @@ class DocumentWithoutName(Linter):
 
 
 class DocumentNameMatchingItem(Linter):
-    name = "document-name-matching-item"
-    description = "The name of the document must match the item name (only scenarios+appsec-configs)"
-    enabled = False
-    error = False
+    name: str = "document-name-matching-item"
+    description: str = "The name of the document must match the item name (only scenarios+appsec-configs)"
+    enabled: bool = False
+    error: bool = False
     config: typing.ClassVar = {"hubtypes": ["scenarios", "appsec-configs"]}
 
     def __call__(self, item):
@@ -401,10 +403,10 @@ class DocumentNameMatchingItem(Linter):
 
 
 class ItemSchema(Linter):
-    name = "item-schema"
-    description = "Validate item files against their YAML schema"
-    enabled = False
-    error = False
+    name: str = "item-schema"
+    description: str = "Validate item files against their YAML schema"
+    enabled: bool = False
+    error: bool = False
     config: typing.ClassVar = {
         "collections": {
             "url": "https://raw.githubusercontent.com/crowdsecurity/crowdsec-yaml-schemas/main/collection_schema.yaml",
@@ -445,10 +447,10 @@ class ItemSchema(Linter):
 
 
 class DataFilesExist(Linter):
-    name = "data-files-exist"
-    description = "Check the source_url of the data files declared in the item"
-    enabled = False
-    error = True
+    name: str = "data-files-exist"
+    description: str = "Check the source_url of the data files declared in the item"
+    enabled: bool = False
+    error: bool = True
 
     def __call__(self, item):
         for url in item.data_urls():
@@ -469,10 +471,10 @@ class DataFilesExist(Linter):
 class DataFilesLastModified(Linter):
     """This is implemented as a separate linter to allow for a warning instead of an error"""
 
-    name = "data-files-last-modified"
-    description = "Check the last-modified header of the data files declared in the item"
-    enabled = False
-    error = False
+    name: str = "data-files-last-modified"
+    description: str = "Check the last-modified header of the data files declared in the item"
+    enabled: bool = False
+    error: bool = False
 
     def __call__(self, item):
         for url in item.data_urls():
@@ -490,10 +492,10 @@ class DataFilesLastModified(Linter):
 
 
 class NoDebugMode(Linter):
-    name = "no-debug-mode"
-    description = "The item must not be in debug mode"
-    enabled = True
-    error = True
+    name: str = "no-debug-mode"
+    description: str = "The item must not be in debug mode"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         for doc in item.yaml_docs():
@@ -503,10 +505,10 @@ class NoDebugMode(Linter):
 
 
 class ContentMatchFile(Linter):
-    name = "content-match-file"
-    description = "The content of the item must match the file"
-    enabled = True
-    error = True
+    name: str = "content-match-file"
+    description: str = "The content of the item must match the file"
+    enabled: bool = True
+    error: bool = True
 
     def __call__(self, item):
         # TODO: handle file or field not present
@@ -566,7 +568,7 @@ class TTYReporter:
         if isatty():
             print(f" {wheel} [{idx}/{tot}] {item}{ERASETOEOL}{BOL}", end="")
 
-    def item_feedback(self, item, index, index_path):
+    def item_feedback(self, item, index, index_path: Path):
         print_feedback = False
 
         if any(i.severity == Severity.ERROR for i in item._issues):
@@ -782,7 +784,8 @@ def print_default_config():
 class LinterParser(Tap):
     config: Path
 
-    def configure(self):
+    @override
+    def configure(self) -> None:
         self.add_argument("--config", default=".hublint.toml", help="The configuration file")
 
 
@@ -796,10 +799,11 @@ class CheckParser(Tap):
     quick: bool
     lint_only: list[str]
 
+    @override
     def configure(self):
-        self.add_argument("--config", default=".hublint.toml", required=False, help="The configuration file")
+        self.add_argument("--config", default=".hublint.toml", help="The configuration file")
 
-        self.add_argument("--index", default=".index.json", required=False, help="The index file to validate")
+        self.add_argument("--index", default=".index.json", help="The index file to validate")
 
         self.add_argument("--color", choices=["always", "never", "auto"], default="auto", help="Force colored output")
 
@@ -807,19 +811,14 @@ class CheckParser(Tap):
             "--no-warning-details",
             default=False,
             action="store_true",
-            required=False,
             help="Do not show warning details (still, count them)",
         )
 
-        self.add_argument(
-            "--show-location", default=False, required=False, action="store_true", help="Show the location of the error/warning"
-        )
+        self.add_argument("--show-location", default=False, action="store_true", help="Show the location of the error/warning")
 
         self.add_argument("--markdown", required=False, help="Generate a markdown report")
 
-        self.add_argument(
-            "--quick", default=False, required=False, action="store_true", help="Quick mode (default when stdout is redirected)"
-        )
+        self.add_argument("--quick", default=False, action="store_true", help="Quick mode (default when stdout is redirected)")
 
         self.add_argument("--lint-only", required=False, nargs="+", help="Run only the specified linters")
 
@@ -829,10 +828,13 @@ class DefaultsParser(Tap):
 
 
 class Parser(Tap):
+    @override
     def configure(self) -> None:
         self.add_subparsers(dest="command")
         self.add_subparser("linters", LinterParser, help="Show all the available linters")
-        self.add_subparser("check", CheckParser, help="Validate an index file")
+        self.add_subparser(
+            "check", CheckParser, help="Validate an index file", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        )
         self.add_subparser(
             "defaults",
             DefaultsParser,
@@ -849,7 +851,6 @@ class Parser(Tap):
 
 def main():
     parser = Parser(
-        prog="hublint",
         description="Validate hub index files",
         formatter_class=argparse.RawTextHelpFormatter,
         epilog=textwrap.dedent("""
