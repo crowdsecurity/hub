@@ -101,9 +101,7 @@ def main():
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Generate mitre attacks tactics and techniques file"
-    )
+    parser = argparse.ArgumentParser(description="Generate mitre attacks tactics and techniques file")
 
     parser.add_argument(
         "-u",
@@ -119,9 +117,7 @@ def parse_args():
         help="Output file path",
         default="./mitre_attack.json",
     )
-    parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Verbose mode", default=False
-    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)
     return parser.parse_args()
 
 

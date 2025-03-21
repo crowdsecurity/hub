@@ -1,7 +1,7 @@
 [project]
 name = "cshub"
 version = "0.1.0"
-description = "cshub tool to manage index, blockers and lint configuration"
+description = "tools to manage index, blockers and lint configuration"
 readme = "README.md"
 authors = [
     { email = "marco@crowdsec.net" }
@@ -13,10 +13,13 @@ dependencies = [
     "python-dateutil>=2.9.0.post0",
     "pyyaml>=6.0.2",
     "requests>=2.32.3",
+    "typed-argument-parser>=1.10.1",
 ]
 
 [project.scripts]
-cshub = "cshub:main"
+hublint = "cshub.hublint:main"
+mkindex = "cshub.mkindex:main"
+mkblockers = "cshub.mkblockers:main"
 
 [build-system]
 requires = ["hatchling"]

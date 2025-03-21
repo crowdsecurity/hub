@@ -1,4 +1,3 @@
-import argparse
 import base64
 import contextlib
 import decimal
@@ -8,30 +7,19 @@ import json
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, TYPE_CHECKING
 
 import yaml
+from tap import Tap
 
 
-if TYPE_CHECKING:
-    _SubparserType = argparse._SubParsersAction[argparse.ArgumentParser]  # pyright: ignore[reportPrivateUsage]
-else:
-    _SubparserType = Any
+class Parser(Tap):
+    input: Path
+    output: Path
 
+    def configure(self) -> None:
+        self.add_argument("--input", default=".index.json", required=False, help="The index file to read")
 
-def add_subparser(subparsers: _SubparserType):
-    parser = subparsers.add_parser("mkindex", description="Create an index file")
-    _ = parser.add_argument(
-        "--in",
-        dest="in_file",
-        default=".index.json",
-        type=str,
-        help="The index file to read",
-    )
-    _ = parser.add_argument(
-        "--out", default=".index.json", type=str, help="The index file to write"
-    )
-    return parser
+        self.add_argument("--output", default=".index.json", help="The index file to write")
 
 
 class HubType(str):
@@ -120,11 +108,7 @@ class Item:
         if "labels" in content:
             self.labels = content["labels"]
             # for sigma scenarios
-            if (
-                self.labels
-                and "classification" in self.labels
-                and self.labels["classification"] is None
-            ):
+            if self.labels and "classification" in self.labels and self.labels["classification"] is None:
                 del self.labels["classification"]
         if "description" in content:
             self.description = content["description"]
@@ -266,11 +250,13 @@ def iter_types(
             yield HubType(hubtype.name), stage_name, author, name, item
 
 
-def main(args):
-    prev_index = json.loads(Path(args.in_file).read_text())
+def main():
+    parser = Parser("mkindex", description="Create an index file")
+    args = parser.parse_args()
+    prev_index = json.loads(args.input.read_text())
     up = IndexUpdater(prev_index)
     up.parse_dir(Path())
     new_content = up.index_json()
-    with Path(args.out).open("w") as f:
-        print(f"Writing to {args.out}")
+    with args.output.open("w") as f:
+        print(f"Writing to {args.output}")
         print(new_content, file=f)

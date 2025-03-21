@@ -236,9 +236,7 @@ def main():
     scenarios_taxonomy = {}
     filepath_list = []
 
-    for r, d, f in chain.from_iterable(
-        os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
-    ):
+    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]):
         for file in f:
             if file.endswith((".yaml", ".yml")):
                 filepath_list.append(os.path.join(r, file))
