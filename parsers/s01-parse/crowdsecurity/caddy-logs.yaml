@@ -15,29 +15,29 @@ statics:
     value: http
   ##Caddy now sets client_ip to the value of X-Forwarded-For if users sets trusted proxies
   - parsed: remote_ip
-    expression: evt.Unmarshaled.caddy.request.client_ip
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.client_ip != nil ? evt.Unmarshaled.caddy.request.client_ip : nil"
   - parsed: http_version
-    expression: "evt.Unmarshaled.caddy.request.proto != nil ? Split(evt.Unmarshaled.caddy.request.proto, '/')[1] : nil"
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.proto != nil ? Split(evt.Unmarshaled.caddy.request.proto, '/')[1] : nil"
   - parsed: remote_addr
-    expression: "evt.Unmarshaled.caddy.request.remote_addr != nil ? Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0] : nil"
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.remote_addr != nil ? Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0] : nil"
   - meta: source_ip
     expression: evt.Parsed.remote_ip
   - meta: http_status
-    expression: int(evt.Unmarshaled.caddy.status)
+    expression: "evt.Unmarshaled.caddy.status != nil ? int(evt.Unmarshaled.caddy.status) : nil"
   - meta: http_path
-    expression: evt.Unmarshaled.caddy.request.uri
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.uri != nil ? evt.Unmarshaled.caddy.request.uri : nil"
   - parsed: request #Add for http-logs enricher
-    expression: evt.Unmarshaled.caddy.request.uri
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.uri != nil ? evt.Unmarshaled.caddy.request.uri : nil"
   - parsed: verb
-    expression: evt.Unmarshaled.caddy.request.method
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.method != nil ? evt.Unmarshaled.caddy.request.method : nil"
   - meta: http_verb
-    expression: evt.Unmarshaled.caddy.request.method
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.method != nil ? evt.Unmarshaled.caddy.request.method : nil"
   - parsed: http_user_agent
-    expression: "get(evt.Unmarshaled.caddy.request.headers, 'User-Agent') != nil ? evt.Unmarshaled.caddy.request.headers['User-Agent'][0] : nil"
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.headers != nil && get(evt.Unmarshaled.caddy.request.headers, 'User-Agent') != nil ? evt.Unmarshaled.caddy.request.headers['User-Agent'][0] : nil"
   - meta: http_user_agent
     expression: evt.Parsed.http_user_agent
   - meta: target_fqdn
-    expression: evt.Unmarshaled.caddy.request.host
+    expression: "evt.Unmarshaled.caddy.request != nil && evt.Unmarshaled.caddy.request.host != nil ? evt.Unmarshaled.caddy.request.host : nil"
   - meta: sub_type
     expression: "evt.Meta.http_status == '401' && get(evt.Unmarshaled.caddy.resp_headers, 'Www-Authenticate') != nil && any(get(evt.Unmarshaled.caddy.resp_headers, 'Www-Authenticate'), { # startsWith 'Basic' }) ? 'auth_fail' : nil"
 
