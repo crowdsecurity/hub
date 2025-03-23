@@ -1,6 +1,6 @@
 name: LearningSpot/baserow-logs
 description: "Parse Baserow login logs"
-filter: "evt.Parsed.program == 'baserow_service'"
+filter: "evt.Parsed.program == 'baserow'"
 onsuccess: next_stage
 nodes:
   - grok:
@@ -8,7 +8,7 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: baserow_login
+          value: baserow_failed_login
 statics:
   - meta: service
     value: baserow
