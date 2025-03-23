@@ -1,7 +1,7 @@
 type: leaky
 name: LearningSpot/baserow-bf
-description: "Detect failed login attempts to Baserow service"
-filter: "evt.Meta.log_type == 'baserow_login' && evt.Meta.status == '401'"
+description: "Detect failed login for Baserow"
+filter: "evt.Meta.log_type == 'baserow_failed_login' && evt.Meta.status == '401'"
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5
@@ -11,5 +11,5 @@ labels:
   classification:
     - attack.T1110
   behavior: "http:bruteforce"
-  label: "Baserow Service Failed Auth"
+  label: "Baserow Failed Login"
   remediation: true
