@@ -59,7 +59,7 @@ def init_colors(force: str) -> None:
 class TrackingLoader(yaml.SafeLoader):
     def __init__(self, stream: str) -> None:
         super().__init__(stream)
-        self.locations: dict[int, tuple[int, int]] = {}
+        self.locations: dict[int, tuple[int, int] | None] = {}
 
     def compose_node(self, parent, index):
         # Get the start position before composing the node

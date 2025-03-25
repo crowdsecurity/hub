@@ -2,8 +2,10 @@ import argparse
 import os
 import sys
 from pathlib import Path
+from typing import override
 
 import yaml
+from tap import Tap
 from yaml.loader import SafeLoader
 
 VPATCH_COLLECTION_FILEPATH = "./collections/crowdsecurity/appsec-virtual-patching.yaml"
@@ -26,12 +28,41 @@ Hello @{author},
 """
 
 
-def file_in_pathlist(filename, path_list):
+def file_in_pathlist(filename: str, path_list: list[str]) -> bool:
     return any(filename in path for path in path_list)
 
 
-def main():
-    args = parse_args()
+class Parser(Tap):
+    hub: str
+    errors: str
+
+    @override
+    def configure(self) -> None:
+        self.add_argument("--hub", help="Hub folder path", default=".")
+
+        self.add_argument(
+            "-e",
+            "--errors",
+            help="Output errors file path",
+            default="./appsec_vpatch_cve_error.md",
+        )
+
+        self.add_argument(
+            "-v",
+            "--verbose",
+            action="store_true",
+            help="Verbose mode",
+            default=False,
+        )
+
+
+def main() -> None:
+    parser = Parser(
+        description="Generate CrowdSec Scenarios taxonomy file",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    args = parser.parse_args()
+
     if args.hub == "":
         print("[-] Please provide the hub path with the --hub argument")
         sys.exit(1)
@@ -71,36 +102,10 @@ def main():
 
     with Path(args.errors).open("w") as f:
         if len(missing_rules) > 0:
-            f.write(INTRO_STR)
+            _ = f.write(INTRO_STR)
             for rule in missing_rules:
-                f.write(f":red_circle: **{rule}** :red_circle:\n")
+                _ = f.write(f":red_circle: **{rule}** :red_circle:\n")
         else:
-            f.write(OK_STR)
+            _ = f.write(OK_STR)
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Generate CrowdSec Scenarios taxonomy file",
-    )
-    parser.add_argument("--hub", type=str, help="Hub folder path", default=".")
-    parser.add_argument(
-        "-e",
-        "--errors",
-        type=str,
-        help="Output errors file path",
-        default="./appsec_vpatch_cve_error.md",
-    )
-
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="Verbose mode",
-        default=False,
-    )
-
-    return parser.parse_args()
-
-
-if __name__ == "__main__":
-    main()
