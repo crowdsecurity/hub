@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 11
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"level\":\"info\",\"ts\":1693840791.7564995,\"logger\":\"http.log.access\",\"msg\":\"handled request\",\"request\":{\"remote_ip\":\"172.17.0.1\",\"remote_port\":\"44790\",\"client_ip\":\"127.0.0.1\",\"proto\":\"HTTP/1.0\",\"method\":\"GET\",\"host\":\"127.0.0.1:8080\",\"uri\":\"/\",\"headers\":{\"X-Forwarded-Port\":[\"80\"],\"X-Real-Ip\":[\"127.0.0.1\"],\"Forwarded\":[\"for=127.0.0.1\"],\"X-Forwarded-Host\":[\"127.0.0.1\"],\"User-Agent\":[\"curl/7.74.0\"],\"Accept\":[\"*/*\"],\"Connection\":[\"close\"],\"X-Forwarded-For\":[\"127.0.0.1\"],\"X-Forwarded-Proto\":[\"http\"]}},\"bytes_read\":0,\"user_id\":\"\",\"duration\":0.000002701,\"size\":0,\"status\":0,\"resp_headers\":{\"Server\":[\"Caddy\"]}}"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "caddy"
@@ -60,7 +60,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "cadd
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"] == "caddy-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["message"] == "{\"level\":\"debug\",\"ts\":1742400753.0547564,\"logger\":\"http.handlers.reverse_proxy\",\"msg\":\"selected upstream\",\"dial\":\"immich_server:2283\",\"total_upstreams\":1}"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["program"] == "caddy"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_path"] == "caddy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 11
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -71,7 +77,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
-len(results["s01-parse"]["crowdsecurity/caddy-logs"]) == 10
+results["s00-raw"]["crowdsecurity/syslog-logs"][10].Success == false
+len(results["s01-parse"]["crowdsecurity/caddy-logs"]) == 11
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["http_version"] == "1.0"
@@ -90,22 +97,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
-results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "44790"
-results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
+results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -125,22 +132,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45750"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["user_id"] == ""
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
+results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][1].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -160,22 +167,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["level"] == "info"
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45764"
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45764"
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
 results["s01-parse"]["crowdsecurity/caddy-logs"][2].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -195,22 +202,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42876"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["size"] == 0
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["ts"], 1693840839.657635)
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["status"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][3].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -231,20 +238,20 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Meta["service"] == "http
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
+results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42884"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
-results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][4].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Success == true
@@ -265,22 +272,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["user_id"] == ""
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42892"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42892"
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["status"] == 0
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["ts"], 1693840840.557973)
-results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][5].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -300,22 +307,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["ts"], 1693840840.896227)
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42894"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["user_id"] == ""
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["ts"], 1693840840.896227)
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s01-parse"]["crowdsecurity/caddy-logs"][6].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -336,22 +343,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Meta["service"] == "http
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Meta["sub_type"] == "auth_fail"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Meta["target_fqdn"] == "localhost:9080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["duration"], 0.782670)
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["status"] == 401
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["ts"], 1711741798.039133)
-results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "46944"
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s01-parse"]["crowdsecurity/caddy-logs"][7].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -372,22 +379,22 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Meta["service"] == "http
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Meta["sub_type"] == "auth_fail"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Meta["target_fqdn"] == "localhost:9080"
+results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["ts"], 1711741827.962629)
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["user_id"] == ""
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["duration"], 0.000034)
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["status"] == 401
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["ts"], 1711741827.962629)
-results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "54462"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["status"] == 401
+results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["duration"], 0.000034)
+results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Unmarshaled["caddy"]["level"] == "error"
 results["s01-parse"]["crowdsecurity/caddy-logs"][8].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -407,23 +414,24 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Meta["source_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Meta["target_fqdn"] == "localhost:9080"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["status"] == 200
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
+FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
+results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "43498"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["status"] == 200
-FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
-results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/caddy-logs"][10].Success == false
 len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -445,22 +453,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-09-04T15:19:51Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:51Z"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "44790"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -482,22 +490,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-09-04T15:19:52Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:52Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45750"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45750"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -519,22 +527,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2023-09-04T15:19:52Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:52Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45764"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45764"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -556,22 +564,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2023-09-04T15:20:39Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:39Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["ts"], 1693840839.657635)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42876"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42876"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["ts"], 1693840839.657635)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -593,22 +601,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42884"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42884"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -630,6 +638,13 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["ts"], 1693840840.557973)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
@@ -638,14 +653,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["cadd
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42892"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["ts"], 1693840840.557973)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -667,22 +675,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["ts"], 1693840840.896227)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42894"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -705,22 +713,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["sub_type"] 
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"] == "2024-03-29T19:49:58Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:49:58Z"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["duration"], 0.782670)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["level"] == "error"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["duration"], 0.782670)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "46944"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "46944"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["status"] == 401
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["ts"], 1711741798.039133)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -743,22 +751,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["sub_type"] 
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["timestamp"] == "2024-03-29T19:50:27Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:50:27Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["ts"], 1711741827.962629)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "54462"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["status"] == 401
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["ts"], 1711741827.962629)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["duration"], 0.000034)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["status"] == 401
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["http_user_agent"] == "curl/7.88.1"
@@ -780,22 +788,22 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2024-03-29T19:51:04Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:51:04Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "43498"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["level"] == "info"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["status"] == 200
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
 len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 10
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
@@ -822,22 +830,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["source_ip"] == "12
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["timestamp"] == "2023-09-04T15:19:51Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:51Z"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["ts"], 1693840791.756500)
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["status"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "44790"
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "44790"
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Parsed["file_dir"] == "/"
@@ -863,22 +871,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["source_ip"] == "12
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["timestamp"] == "2023-09-04T15:19:52Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:52Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45750"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["ts"], 1693840792.194299)
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Parsed["file_dir"] == "/"
@@ -904,22 +912,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Meta["source_ip"] == "12
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Meta["timestamp"] == "2023-09-04T15:19:52Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:19:52Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.0"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "45764"
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["duration"], 0.000002)
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Unmarshaled["caddy"]["ts"], 1693840792.588603)
 results["s02-enrich"]["crowdsecurity/http-logs"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Parsed["file_dir"] == "/"
@@ -945,22 +953,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Meta["source_ip"] == "17
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Meta["timestamp"] == "2023-09-04T15:20:39Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:39Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["ts"], 1693840839.657635)
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42876"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42876"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["ts"], 1693840839.657635)
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["status"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/http-logs"][3].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Parsed["file_dir"] == "/"
@@ -986,22 +994,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Meta["source_ip"] == "17
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["user_id"] == ""
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42884"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["status"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["level"] == "info"
-results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["ts"], 1693840840.232161)
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
 results["s02-enrich"]["crowdsecurity/http-logs"][4].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Parsed["file_dir"] == "/"
@@ -1027,22 +1035,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Meta["source_ip"] == "17
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["size"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["ts"], 1693840840.557973)
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42892"
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["status"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["ts"], 1693840840.557973)
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
 results["s02-enrich"]["crowdsecurity/http-logs"][5].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Parsed["file_dir"] == "/"
@@ -1068,21 +1076,21 @@ results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Meta["source_ip"] == "17
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Meta["target_fqdn"] == "127.0.0.1:8080"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Meta["timestamp"] == "2023-09-04T15:20:40Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Enriched["MarshaledTime"] == "2023-09-04T15:20:40Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access"
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["size"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["ts"], 1693840840.896227)
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "172.17.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "42894"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "172.17.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["status"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["host"] == "127.0.0.1:8080"
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["user_id"] == ""
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["duration"], 0.000003)
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["status"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["ts"], 1693840840.896227)
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Success == true
@@ -1110,21 +1118,21 @@ results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Meta["sub_type"] == "aut
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Meta["timestamp"] == "2024-03-29T19:49:58Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:49:58Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["size"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["user_id"] == ""
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["ts"], 1711741798.039133)
+results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["user_id"] == ""
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["duration"], 0.782670)
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["size"] == 0
+results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "46944"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Unmarshaled["caddy"]["status"] == 401
 results["s02-enrich"]["crowdsecurity/http-logs"][7].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Success == true
@@ -1152,22 +1160,22 @@ results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Meta["sub_type"] == "aut
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Meta["timestamp"] == "2024-03-29T19:50:27Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:50:27Z"
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["duration"], 0.000034)
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["level"] == "error"
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "54462"
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "54462"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["user_id"] == ""
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["level"] == "error"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["size"] == 0
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["status"] == 401
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["ts"], 1711741827.962629)
-results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["duration"], 0.000034)
+results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Unmarshaled["caddy"]["user_id"] == ""
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["file_dir"] == "/"
@@ -1193,21 +1201,21 @@ results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["source_ip"] == "12
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["target_fqdn"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["timestamp"] == "2024-03-29T19:51:04Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Enriched["MarshaledTime"] == "2024-03-29T19:51:04Z"
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["level"] == "info"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["msg"] == "handled request"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["host"] == "localhost:9080"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["method"] == "GET"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["proto"] == "HTTP/1.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["remote_port"] == "43498"
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["uri"] == "/"
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["request"]["client_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["status"] == 200
-FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["user_id"] == "Bob"
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["bytes_read"] == 0
-results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["logger"] == "http.log.access.log0"
+FloatApproxEqual(results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0
