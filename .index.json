@@ -700,6 +700,32 @@
         }
       }
     },
+    "crowdsecurity/vpatch-CVE-2022-25488": {
+      "author": "crowdsecurity",
+      "content": "IyMgYXV0b2dlbmVyYXRlZCBvbiAyMDI1LTAzLTI2IDA5OjQxOjI1Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI1NDg4CmRlc2NyaXB0aW9uOiAnRGV0ZWN0cyBTUUwgSW5qZWN0aW9uIGluIEF0b20gQ01TIHYyLjAgdmlhIHRoZSBpZCBwYXJhbWV0ZXIgaW4gL2FkbWluL2FqYXgvYXZhdGFyLnBocCcKcnVsZXM6CiAgLSBhbmQ6CiAgICAtIHpvbmVzOgogICAgICAgIC0gVVJJCiAgICAgIHRyYW5zZm9ybToKICAgICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBjb250YWlucwogICAgICAgIHZhbHVlOiAvYWRtaW4vYWpheC9hdmF0YXIucGhwCiAgICAtIHpvbmVzOgogICAgICAgIC0gQVJHUwogICAgICB2YXJpYWJsZXM6CiAgICAgICAgLSBpZAogICAgICB0cmFuc2Zvcm06CiAgICAgICAgLSBsb3dlcmNhc2UKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogcmVnZXgKICAgICAgICB2YWx1ZTogJ14tMVxzK3VuaW9uXHMrc2VsZWN0XHMrLiokJwoKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAnaHR0cDpleHBsb2l0JwogIGxhYmVsOiAnQXRvbSBDTVMgU1FMaScKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gY3ZlLkNWRS0yMDIyLTI1NDg4CiAgICAtIGF0dGFjay5UMTE5MAogICAgLSBjd2UuQ1dFLTg5",
+      "description": "Detects SQL Injection in Atom CMS v2.0 via the id parameter in /admin/ajax/avatar.php",
+      "labels": {
+        "behavior": "http:exploit",
+        "classification": [
+          "cve.CVE-2022-25488",
+          "attack.T1190",
+          "cwe.CWE-89"
+        ],
+        "confidence": 3,
+        "label": "Atom CMS SQLi",
+        "service": "http",
+        "spoofable": 0,
+        "type": "exploit"
+      },
+      "path": "appsec-rules/crowdsecurity/vpatch-CVE-2022-25488.yaml",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "7a184ffedf155ae543330cdaf91b49aeb3a5f526e4a4075e2f81b910f5b82f5d"
+        }
+      }
+    },
     "crowdsecurity/vpatch-CVE-2022-26134": {
       "author": "crowdsecurity",
       "content": "Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIyLTI2MTM0CmRlc2NyaXB0aW9uOiAiQ29uZmx1ZW5jZSAtIFJDRSAoQ1ZFLTIwMjItMjYxMzQpIgpydWxlczoKICAtIGFuZDoKICAgIC0gem9uZXM6CiAgICAgIC0gTUVUSE9ECiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgIHZhbHVlOiBHRVQKICAgIC0gem9uZXM6CiAgICAgIC0gVVJJCiAgICAgIHRyYW5zZm9ybToKICAgICAgLSBsb3dlcmNhc2UKICAgICAgLSB1cmxkZWNvZGUKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogc3RhcnRzV2l0aAogICAgICAgIHZhbHVlOiAnLyR7JwogICAgLSB6b25lczoKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICAtIHVybGRlY29kZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBjb250YWlucwogICAgICAgIHZhbHVlOiAiQGphdmEubGFuZy5ydW50aW1lIgogICAgLSB6b25lczoKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICAtIHVybGRlY29kZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBjb250YWlucwogICAgICAgIHZhbHVlOiAiQG9yZy5hcGFjaGUuY29tbW9ucy5pby5pb3V0aWxzIgpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHNlcnZpY2U6IGh0dHAKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgYmVoYXZpb3I6ICJodHRwOmV4cGxvaXQiCiAgbGFiZWw6ICJDb25mbHVlbmNlIC0gUkNFIgogIGNsYXNzaWZpY2F0aW9uOgogICAtIGN2ZS5DVkUtMjAyMi0yNjEzNAogICAtIGF0dGFjay5UMTU5NQogICAtIGF0dGFjay5UMTE5MAogICAtIGN3ZS5DV0UtOTE3Cg==",
