@@ -1,9 +1,11 @@
+import argparse
 import base64
 import json
 import os
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Self, override
 
 import requests
 from github import Github
@@ -16,7 +18,8 @@ EXPRESS_BOUNCER_RELEASE_DATE = datetime(2021, 1, 1)
 class Parser(Tap):
     output: Path
 
-    def configure(self) -> None:
+    @override
+    def configure(self: Self) -> None:
         self.add_argument("--output", default="blockers.json", help="The json file to write")
 
 
@@ -138,7 +141,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
 
 
 def main():
-    parser = Parser("mkindex", description="Create blockers.json")
+    parser = Parser(description="Create blockers.json", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     args = parser.parse_args()
 
     blockers = load_json("blockers/list.json")

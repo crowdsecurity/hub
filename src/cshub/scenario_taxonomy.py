@@ -9,8 +9,10 @@ import sys
 from datetime import datetime
 from itertools import chain
 from pathlib import Path
+from typing import override
 
 import yaml
+from tap import Tap
 from yaml.loader import SafeLoader
 
 CVE_RE = re.compile(r"CVE-\d{4}-\d{4,7}")
@@ -206,7 +208,11 @@ def get_cve_from_label(labels):
 
 
 def main():
-    args = parse_args()
+    parser = Parser(
+        description="Generate CrowdSec Scenarios taxonomy file", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    args = parser.parse_args()
+
     if args.hub == "":
         print("[-] Please provide the hub path with the --hub argument")
         sys.exit(1)
@@ -434,60 +440,30 @@ def lookup_technique(technique_id, mitre_db):
     return None
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Generate CrowdSec Scenarios taxonomy file",
-    )
+class Parser(Tap):
+    hub: str
+    output: str
+    report: str
+    errors: str
+    behaviors: str
+    mitre: str
+    ignore: str
+    verbose: bool
 
-    parser.add_argument("--hub", type=str, help="Hub folder path", default="")
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        help="Output file path",
-        default="./scenarios.json",
-    )
-    parser.add_argument("-r", "--report", type=str, help="Report file path", default="")
-    parser.add_argument(
-        "-e",
-        "--errors",
-        type=str,
-        help="Output errors file path",
-        default="./scenario_taxonomy_errors.md",
-    )
-    parser.add_argument(
-        "-b",
-        "--behaviors",
-        type=str,
-        help="behaviors.json filepath",
-        default="./behaviors.json",
-    )
-    parser.add_argument(
-        "-m",
-        "--mitre",
-        type=str,
-        help="mitre_attack.json filepath",
-        default="./mitre_attack.json",
-    )
+    @override
+    def configure(self) -> None:
+        self.add_argument("--hub", help="Hub folder path", default="")
+        self.add_argument("-o", "--output", help="Output file path", default="./scenarios.json")
+        self.add_argument("-r", "--report", help="Report file path", default="")
+        self.add_argument("-e", "--errors", help="Output errors file path", default="./scenario_taxonomy_errors.md")
+        self.add_argument("-b", "--behaviors", help="behaviors.json filepath", default="./behaviors.json")
+        self.add_argument("-m", "--mitre", help="mitre_attack.json filepath", default="./mitre_attack.json")
 
-    parser.add_argument(
-        "-i",
-        "--ignore",
-        type=str,
-        help="File where ignored scenarios are specified",
-        default=f"{Path(os.path.realpath(__file__)).parent}/.scenariosignore",
-    )
+        self.add_argument(
+            "-i",
+            "--ignore",
+            help="File where ignored scenarios are specified",
+            default=f"{Path(os.path.realpath(__file__)).parent}/.scenariosignore",
+        )
 
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="Verbose mode",
-        default=False,
-    )
-
-    return parser.parse_args()
-
-
-if __name__ == "__main__":
-    main()
+        self.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)

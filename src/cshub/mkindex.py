@@ -1,3 +1,4 @@
+import argparse
 import base64
 import contextlib
 import decimal
@@ -7,6 +8,7 @@ import json
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import override
 
 import yaml
 from tap import Tap
@@ -16,8 +18,9 @@ class Parser(Tap):
     input: Path
     output: Path
 
+    @override
     def configure(self) -> None:
-        self.add_argument("--input", default=".index.json", required=False, help="The index file to read")
+        self.add_argument("--input", default=".index.json", help="The index file to read")
 
         self.add_argument("--output", default=".index.json", help="The index file to write")
 
@@ -251,7 +254,7 @@ def iter_types(
 
 
 def main():
-    parser = Parser("mkindex", description="Create an index file")
+    parser = Parser(description="Create an index file", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     args = parser.parse_args()
     prev_index = json.loads(args.input.read_text())
     up = IndexUpdater(prev_index)

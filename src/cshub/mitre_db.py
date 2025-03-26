@@ -1,8 +1,10 @@
 import argparse
 import json
 from pathlib import Path
+from typing import override
 
 import requests
+from tap import Tap
 
 TACTIC_TYPE = "x-mitre-tactic"
 TECHNIQUES_TYPE = "attack-pattern"
@@ -80,7 +82,11 @@ def download_data(url: str):
 
 
 def main():
-    args = parse_args()
+    parser = Parser(
+        description="Generate mitre attacks tactics and techniques file", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    args = parser.parse_args()
+
     data = download_data(args.url)
 
     # we need to get tactics before techniques, and I'm not sure about how the enterprise-attack.json file is sorted
@@ -100,26 +106,18 @@ def main():
                 print("    - {}  : {}".format(technique["id"], technique["name"]))
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(description="Generate mitre attacks tactics and techniques file")
+class Parser(Tap):
+    url: str
+    output: str
+    verbose: bool
 
-    parser.add_argument(
-        "-u",
-        "--url",
-        type=str,
-        help="URL of the Mitre Attack database file",
-        default="https://github.com/mitre/cti/raw/master/enterprise-attack/enterprise-attack.json",
-    )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        help="Output file path",
-        default="./mitre_attack.json",
-    )
-    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)
-    return parser.parse_args()
-
-
-if __name__ == "__main__":
-    main()
+    @override
+    def configure(self) -> None:
+        self.add_argument(
+            "-u",
+            "--url",
+            help="URL of the Mitre Attack database file",
+            default="https://github.com/mitre/cti/raw/master/enterprise-attack/enterprise-attack.json",
+        )
+        self.add_argument("-o", "--output", help="Output file path", default="./mitre_attack.json")
+        self.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)
