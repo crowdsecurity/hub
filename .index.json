@@ -2176,14 +2176,14 @@
     },
     "crowdsecurity/vpatch-CVE-2024-27292": {
       "author": "crowdsecurity",
-      "content": "IyMgYXV0b2dlbmVyYXRlZCBvbiAyMDI1LTAzLTMxIDE1OjU5OjU3Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDI0LTI3MjkyCmRlc2NyaXB0aW9uOiAnRGV0ZWN0cyBMb2NhbCBGaWxlIEluY2x1c2lvbiAoTEZJKSB2dWxuZXJhYmlsaXR5IGluIERvY2Fzc2VtYmxlIHZlcnNpb25zIDEuNC41MyB0byAxLjQuOTYnCnJ1bGVzOgogIC0gYW5kOgogICAgICAtIHpvbmVzOgogICAgICAgICAgLSBVUkkKICAgICAgICB0cmFuc2Zvcm06CiAgICAgICAgICAtIGxvd2VyY2FzZQogICAgICAgIG1hdGNoOgogICAgICAgICAgdHlwZTogY29udGFpbnMKICAgICAgICAgIHZhbHVlOiAvaW50ZXJ2aWV3P2k9L2V0Yy9wYXNzd2QKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAnaHR0cDpleHBsb2l0JwogIGxhYmVsOiAnRG9jYXNzZW1ibGUgTEZJJwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBjdmUuQ1ZFLTIwMjQtMjcyOTIKICAgIC0gYXR0YWNrLlQxMTkwCiAgICAtIGN3ZS5DV0UtNzA2",
-      "description": "Detects Local File Inclusion (LFI) vulnerability in Docassemble versions 1.4.53 to 1.4.96",
+      "content": "IyMgYXV0b2dlbmVyYXRlZCBvbiAyMDI1LTAzLTMxIDE1OjU5OjU3Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDI0LTI3MjkyCmRlc2NyaXB0aW9uOiAnTG9jYWwgRmlsZSBJbmNsdXNpb24gLSBEb2Nhc3NlbWJsZScKcnVsZXM6CiAgLSBhbmQ6CiAgICAgIC0gem9uZXM6CiAgICAgICAgICAtIFVSSQogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiBjb250YWlucwogICAgICAgICAgdmFsdWU6IC9pbnRlcnZpZXcKICAgICAgLSB6b25lczoKICAgICAgICAgIC0gQVJHUwogICAgICAgIHZhcmlhYmxlczoKICAgICAgICAgIC0gaQogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiBzdGFydHNXaXRoCiAgICAgICAgICB2YWx1ZTogLwoKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICBzZXJ2aWNlOiBodHRwCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGJlaGF2aW9yOiAnaHR0cDpleHBsb2l0JwogIGxhYmVsOiAnRG9jYXNzZW1ibGUgTEZJJwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBjdmUuQ1ZFLTIwMjQtMjcyOTIKICAgIC0gY3dlLkNXRS03MDYKICAgIC0gYXR0YWNrLlQxNTkyCg==",
+      "description": "Local File Inclusion - Docassemble",
       "labels": {
         "behavior": "http:exploit",
         "classification": [
           "cve.CVE-2024-27292",
-          "attack.T1190",
-          "cwe.CWE-706"
+          "cwe.CWE-706",
+          "attack.T1592"
         ],
         "confidence": 3,
         "label": "Docassemble LFI",
@@ -2192,11 +2192,15 @@
         "type": "exploit"
       },
       "path": "appsec-rules/crowdsecurity/vpatch-CVE-2024-27292.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "a554e40ac6e5b00d6dd99a1a794143ea5be00ad14f9ad5d96007c9ec9c3e7a28"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "6a9ce8f5e45bcb11570389fb28778581bf9311c78554dde5174621d95b41116a"
         }
       }
     },
