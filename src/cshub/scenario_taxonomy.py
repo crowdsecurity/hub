@@ -319,7 +319,7 @@ def main():
             if "confidence" in labels:
                 if not isinstance(labels["confidence"], int):
                     scenario_errors.append("`confidence` key should be an integer")
-                if labels["confidence"] < 0 or labels["confidence"] > 3:
+                elif labels["confidence"] < 0 or labels["confidence"] > 3:
                     scenario_errors.append("`confidence` key should be between 0 and 3")
                 else:
                     confidence = labels["confidence"]
