@@ -209,7 +209,8 @@ def get_cve_from_label(labels):
 
 def main():
     parser = Parser(
-        description="Generate CrowdSec Scenarios taxonomy file", formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description="Generate CrowdSec Scenarios taxonomy file",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     args = parser.parse_args()
 
@@ -243,7 +244,9 @@ def main():
     scenarios_taxonomy = {}
     filepath_list = []
 
-    for r, d, f in chain.from_iterable(os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]):
+    for r, d, f in chain.from_iterable(
+        os.walk(path) for path in [hub_scenarios_path, hub_appsecrules_path]
+    ):
         for file in f:
             if file.endswith((".yaml", ".yml")):
                 filepath_list.append(os.path.join(r, file))
@@ -314,7 +317,12 @@ def main():
             else:
                 scenario_errors.append("`spoofable` key not found in labels")
             if "confidence" in labels:
-                confidence = labels["confidence"]
+                if not isinstance(labels["confidence"], int):
+                    scenario_errors.append("`confidence` key should be an integer")
+                if labels["confidence"] < 0 or labels["confidence"] > 3:
+                    scenario_errors.append("`confidence` key should be between 0 and 3")
+                else:
+                    confidence = labels["confidence"]
             else:
                 scenario_errors.append("`confidence` key not found in labels")
 
@@ -453,11 +461,28 @@ class Parser(Tap):
     @override
     def configure(self) -> None:
         self.add_argument("--hub", help="Hub folder path", default="")
-        self.add_argument("-o", "--output", help="Output file path", default="./scenarios.json")
+        self.add_argument(
+            "-o", "--output", help="Output file path", default="./scenarios.json"
+        )
         self.add_argument("-r", "--report", help="Report file path", default="")
-        self.add_argument("-e", "--errors", help="Output errors file path", default="./scenario_taxonomy_errors.md")
-        self.add_argument("-b", "--behaviors", help="behaviors.json filepath", default="./behaviors.json")
-        self.add_argument("-m", "--mitre", help="mitre_attack.json filepath", default="./mitre_attack.json")
+        self.add_argument(
+            "-e",
+            "--errors",
+            help="Output errors file path",
+            default="./scenario_taxonomy_errors.md",
+        )
+        self.add_argument(
+            "-b",
+            "--behaviors",
+            help="behaviors.json filepath",
+            default="./behaviors.json",
+        )
+        self.add_argument(
+            "-m",
+            "--mitre",
+            help="mitre_attack.json filepath",
+            default="./mitre_attack.json",
+        )
 
         self.add_argument(
             "-i",
@@ -466,4 +491,6 @@ class Parser(Tap):
             default=f"{Path(os.path.realpath(__file__)).parent}/.scenariosignore",
         )
 
-        self.add_argument("-v", "--verbose", action="store_true", help="Verbose mode", default=False)
+        self.add_argument(
+            "-v", "--verbose", action="store_true", help="Verbose mode", default=False
+        )
