@@ -1,6 +1,34 @@
 name: Lint
 
 on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'appsec-configs/**.md'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.md'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - 'collections/**.md'
+      - 'collections/**.yaml'
+      - 'collections/**.yml'
+      - 'contexts/**.md'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.md'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.md'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.md'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
+      - '.github/workflows/lint-index.yml'
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
   push:
     paths:
       - 'appsec-configs/**.md'
