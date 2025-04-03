@@ -48,3 +48,7 @@ Whilst browsing private folder on the bookmark app a 404 response could be sent 
 ### File Sharing
 When sharing a file, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
 
+---
+### Text session
+When pushes changes to a text session, a 403 error is thrown if the user session has expired. 
+
