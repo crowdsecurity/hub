@@ -1,11 +1,7 @@
-name: Update index
+name: Lint
 
 on:
   push:
-    branches:
-      - "master"
-      - "v[0-9]+.[0-9]+.[0-9]+*"
-      - "test*"
     paths:
       - 'appsec-configs/**.md'
       - 'appsec-configs/**.yaml'
@@ -28,17 +24,21 @@ on:
       - 'scenarios/**.md'
       - 'scenarios/**.yaml'
       - 'scenarios/**.yml'
-      - '.github/workflows/update-index.yml'
+      - '.github/workflows/lint-index.yml'
       - "src/**"
       - "pyproject.toml"
       - "uv.lock"
 jobs:
-  build:
+  run-linter:
     runs-on: ubuntu-latest
+    needs: build
     steps:
 
       - name: checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -52,24 +52,8 @@ jobs:
         with:
           python-version-file: ".python-version"
 
-      - name: update .index.json
+      - name: run hublint
         run: |
           uv sync --all-extras --dev --locked
-          uv run mkindex
-
-      - uses: nelonoel/branch-name@v1.0.1
-
-      - name: Commit files
-        if: ${{ github.event_name == 'push'}}
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Update index" .index.json || exit 0
-          git pull --rebase origin ${BRANCH_NAME}
-
-      - name: Push changes
-        if: ${{ github.event_name == 'push'}}
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          uv run hublint defaults > .hublint.toml
+          uv run hublint check --color always --no-warning-details
