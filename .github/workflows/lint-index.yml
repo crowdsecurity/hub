@@ -80,8 +80,9 @@ jobs:
         with:
           python-version-file: ".python-version"
 
-      - name: run hublint
+      - name: run hublint on new index
         run: |
           uv sync --all-extras --dev --locked
+          uv run mkindex
           uv run hublint defaults > .hublint.toml
           uv run hublint check --color always --no-warning-details
