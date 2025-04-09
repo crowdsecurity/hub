@@ -1,0 +1,39 @@
+# Hestiacp Bruteforce
+type: leaky
+name: LearningSpot/hestiacp-bf
+description: "Detect Hestiacp Bruteforce"
+filter: evt.Meta.log_type == 'hestiacp_failed_auth'
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 5
+blackhole: 1m
+labels:
+  service: hestiacp
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  confidence: 3
+  spoofable: 0
+  label: "hestiacp Bruteforce"
+  remediation: true
+---
+# Hestiacp User Enumeration
+type: leaky
+name: LearningSpot/hestiacp-bf-user-enum
+description: "Detect Hestiacp User Enumeration Bruteforce"
+filter: evt.Meta.log_type == 'hestiacp_failed_auth'
+distinct: evt.Meta.target_user
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 5
+blackhole: 1m
+labels:
+  service: hestiacp
+  classification:
+    - attack.T1589
+    - attack.T1110
+  behavior: "http:bruteforce"
+  confidence: 3
+  spoofable: 0
+  label: "Hestiacp User Enumeration"
+  remediation: true
