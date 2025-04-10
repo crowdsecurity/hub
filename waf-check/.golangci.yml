@@ -1,0 +1,145 @@
+version: "2"
+
+linters:
+  default: all
+  disable:
+    - errcheck
+    - errorlint
+    - exhaustruct
+    - forbidigo
+    - ineffassign
+    - intrange
+    - musttag
+    - noctx
+    - perfsprint
+    - unparam
+    - usestdlibvars
+    - wastedassign
+
+    - cyclop    # revive
+    - funlen    # revive
+    - gocognit  # revive
+    - gocyclo   # revive
+    - lll       # revive
+
+    - gosec                 # (gas): Inspects source code for security problems
+    - wrapcheck             # Checks that errors returned from external packages are wrapped
+    - mnd                   # An analyzer to detect magic numbers.
+    - nlreturn              # nlreturn checks for a new line before return and branch statements to increase code clarity
+    - whitespace            # Whitespace is a linter that checks for unnecessary newlines at the start and end of functions, if, for, etc.
+    - wsl                   # add or remove empty lines
+    - err113                # Go linter to check the errors handling expressions
+    - tagliatelle           # Checks the struct tags.
+    - varnamelen            # checks that the length of a variable's name matches its scope
+
+  settings:
+
+    depguard:
+      rules:
+        yaml:
+          files:
+            - '!**/config.go'
+          deny:
+            - pkg: gopkg.in/yaml.v2
+              desc: yaml.v2 is deprecated for new code in favor of yaml.v3
+
+    errcheck:
+      check-type-assertions: false
+
+    gocritic:
+      enable-all: true
+      disabled-checks:
+        - httpNoBody
+        - hugeParam
+        - paramTypeCombine
+        - exitAfterDefer
+
+    govet:
+      disable:
+        - fieldalignment
+      enable-all: true
+
+    misspell:
+      locale: US
+
+    nlreturn:
+      block-size: 5
+
+    nolintlint:
+      require-explanation: false  # don't require an explanation for nolint directives
+      require-specific: false     # don't require nolint directives to be specific about which linter is being skipped
+      allow-unused: false         # report any unused nolint directives
+
+    revive:
+      severity: error
+      enable-all-rules: true
+      rules:
+        - name: add-constant
+          disabled: true
+        - name: cognitive-complexity
+          arguments:
+            # lower this after refactoring
+            - 17
+        - name: cyclomatic
+          arguments:
+            # lower this after refactoring
+            - 12
+        - name: deep-exit
+          disabled: true
+        - name: empty-lines
+          disabled: true
+        - name: increment-decrement
+          disabled: true
+        - name: line-length-limit
+          arguments:
+            # lower this after refactoring
+            - 111
+        - name: struct-tag
+          disabled: true
+
+    staticcheck:
+      checks:
+        - all
+        - -SA4006
+
+    wsl:
+      # Allow blocks to end with comments
+      allow-trailing-comment: true
+
+  exclusions:
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+
+      - linters:
+          - govet
+        text: 'shadow: declaration of "(err|ctx)" shadows declaration'
+
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+formatters:
+  enable:
+    - gci
+    - gofumpt
+
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+
+  exclusions:
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

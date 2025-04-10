@@ -95,7 +95,6 @@ func (m *Manager) processFile(file string) {
 	}
 
 	m.resultsChan <- result
-
 }
 
 func NewManager(config Config, filesList []string) Manager {

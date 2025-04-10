@@ -22,7 +22,6 @@ func listJSONFiles(folderPath string) ([]string, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return filesList, fmt.Errorf("error walking '%s': %s", folderPath, err)
 	}
@@ -71,7 +70,7 @@ func unzip(src, dest string) error {
 	}
 	defer r.Close()
 
-	os.MkdirAll(dest, 0755)
+	os.MkdirAll(dest, 0o755)
 
 	for _, f := range r.File {
 		fPath := filepath.Join(dest, f.Name)

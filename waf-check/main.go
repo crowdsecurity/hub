@@ -64,5 +64,4 @@ func main() {
 	}
 
 	fmt.Printf("everything went well!\n")
-
 }

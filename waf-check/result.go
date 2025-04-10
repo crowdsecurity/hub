@@ -33,7 +33,7 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 			if err != nil {
 				log.Fatalf("unable to marshal: %+v", result)
 			}
-			if err := os.WriteFile(failedTestsPath, jsonData, 0644); err != nil {
+			if err := os.WriteFile(failedTestsPath, jsonData, 0o644); err != nil {
 				log.Fatalf("unable to write failed report '%s': %s", failedTestsPath, err)
 			}
 			fmt.Printf("  - failed tests report: '%s'\n", failedTestsPath)
