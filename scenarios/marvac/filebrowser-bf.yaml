@@ -1,0 +1,12 @@
+type: leaky
+name: marvac/filebrowser-bf
+description: "Detect FileBrowser bruteforce login attempts"
+filter: evt.Meta.log_type == 'filebrowser_failed_auth'
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: filebrowser
+  type: bruteforce
+  remediation: true
