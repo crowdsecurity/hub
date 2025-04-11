@@ -14,11 +14,11 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 	totalFileRun := 0
 	totalTestFail := 0
 	for result := range resultsChan {
-		totalFileRun += 1
+		totalFileRun++
 		totalTestRun += result.DoneTests
 		totalTestFail += len(result.FailedTests)
 
-		resultCpt += 1
+		resultCpt++
 
 		percentage := (100.0 * float32(len(result.FailedTests))) / float32(result.DoneTests)
 		fmt.Printf("'%s' result:\n", result.Filename)

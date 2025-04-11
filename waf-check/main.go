@@ -24,6 +24,9 @@ func main() {
 		}
 	} else {
 		filesList, err = listJSONFiles(config.DatasetFolder)
+		if err != nil {
+			log.Fatalf("fail listing files: %s", err)
+		}
 	}
 
 	if len(filesList) == 0 {

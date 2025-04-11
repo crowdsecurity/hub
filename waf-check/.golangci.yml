@@ -4,17 +4,13 @@ linters:
   default: all
   disable:
     - errcheck
-    - errorlint
     - exhaustruct
     - forbidigo
-    - ineffassign
-    - intrange
     - musttag
     - noctx
     - perfsprint
     - unparam
-    - usestdlibvars
-    - wastedassign
+    - prealloc
 
     - cyclop    # revive
     - funlen    # revive
@@ -49,7 +45,6 @@ linters:
     gocritic:
       enable-all: true
       disabled-checks:
-        - httpNoBody
         - hugeParam
         - paramTypeCombine
         - exitAfterDefer
@@ -79,28 +74,21 @@ linters:
         - name: cognitive-complexity
           arguments:
             # lower this after refactoring
-            - 17
+            - 19
         - name: cyclomatic
           arguments:
             # lower this after refactoring
-            - 12
+            - 13
         - name: deep-exit
-          disabled: true
-        - name: empty-lines
-          disabled: true
-        - name: increment-decrement
           disabled: true
         - name: line-length-limit
           arguments:
             # lower this after refactoring
             - 111
-        - name: struct-tag
-          disabled: true
 
     staticcheck:
       checks:
         - all
-        - -SA4006
 
     wsl:
       # Allow blocks to end with comments

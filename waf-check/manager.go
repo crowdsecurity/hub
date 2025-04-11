@@ -90,8 +90,7 @@ func (m *Manager) processFile(file string) {
 			result.FailedTests = append(result.FailedTests, failedTest)
 		}
 		resp.Body.Close()
-		result.DoneTests += 1
-
+		result.DoneTests++
 	}
 
 	m.resultsChan <- result
@@ -110,7 +109,7 @@ func NewManager(config Config, filesList []string) Manager {
 }
 
 func (m *Manager) Run() error {
-	for i := 0; i < m.NbWorker; i++ {
+	for range m.NbWorker {
 		go func() {
 			for file := range m.filesChan {
 				m.processFile(file)
