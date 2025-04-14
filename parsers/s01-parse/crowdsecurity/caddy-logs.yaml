@@ -19,8 +19,6 @@ statics:
     expression: "evt.Unmarshaled.caddy.request.client_ip"
   - parsed: http_version
     expression: "Split(evt.Unmarshaled.caddy.request.proto, '/')[1]"
-  - parsed: remote_addr
-    expression: "Split(evt.Unmarshaled.caddy.request.remote_addr, ':')[0]"
   - meta: source_ip
     expression: evt.Parsed.remote_ip
   - meta: http_status
