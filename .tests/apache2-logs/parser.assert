@@ -265,8 +265,7 @@ results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Meta["sub_type"] == "a
 results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Meta["username"] == "sss"
 results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Success == true
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["client"] == "192.168.1.1"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["errorcode"] == "AH02043"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["errorcode"] == "ssl_engine_kernel.c(2320)"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["loglevel"] == "debug"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["message"] == "[client 192.168.1.1] AH02043: SSL handshake stopped: TLSv1.2, client"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["module"] == "ssl"
@@ -277,11 +276,10 @@ basename(results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["datasou
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["log_type"] == "http_error-log"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["service"] == "http"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["sub_type"] == "ssl_handshake_stopped"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Success == true
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["client"] == "::1"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["errorcode"] == "AH02043"
+results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["errorcode"] == "ssl_engine_kernel.c(2320)"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["loglevel"] == "debug"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["message"] == "[client ::1] AH02043: SSL handshake stopped: TLSv1.2, client"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["module"] == "ssl"
@@ -292,6 +290,6 @@ basename(results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["datasou
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["log_type"] == "http_error-log"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["service"] == "http"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["source_ip"] == "::1"
+results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["sub_type"] == "ssl_handshake_stopped"
 results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0

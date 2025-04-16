@@ -78,11 +78,10 @@ nodes:
             expression: evt.Parsed.target_uri
           - meta: sub_type
             value: "permission_denied"
-      - filter: "evt.Parsed.module == 'ssl'"
-        onsuccess: next_stage
-        grok:
-          pattern: '\[client %{IPORHOST:client}(:%{INT:port})?\] %{DATA:errorcode}: SSL handshake stopped'
-          apply_on: message
+      - filter: "evt.Parsed.module == 'ssl' && evt.Parsed.message contains 'SSL handshake stopped'"
+        statics:
+          - meta: sub_type
+            value: "ssl_handshake_stopped"
             
     statics:
       - meta: log_type
