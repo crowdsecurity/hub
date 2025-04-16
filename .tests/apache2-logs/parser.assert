@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 9
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "93.43.209.58 - - [08/Jun/2020:06:49:01 +0000] \"GET / HTTP/1.0\" 500 803 \"-\" \"-\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "apache2"
@@ -49,18 +49,12 @@ basename(results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "[Wed Apr 10 14:25:12.654789 2024] [ssl:debug] [pid 12346] ssl_engine_kernel.c(2320): [client 192.168.1.1] AH02043: SSL handshake stopped: TLSv1.2, client"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "[Wed Apr 16 16:09:40.056610 2025] [ssl:info] [pid 120974:tid 120974] (70014)End of file found: [client 192.168.1.1:17036] AH02006: SSL handshake stopped: connection was closed"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "apache2"
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"]) == "apache2-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Whitelisted == false
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "[Wed Apr 10 14:25:12.654789 2024] [ssl:debug] [pid 12346] ssl_engine_kernel.c(2320): [client ::1] AH02043: SSL handshake stopped: TLSv1.2, client"
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "apache2"
-basename(results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"]) == "apache2-logs.log"
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 9
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -70,8 +64,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
-results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
-len(results["s01-parse"]["crowdsecurity/apache2-logs"]) == 10
+len(results["s01-parse"]["crowdsecurity/apache2-logs"]) == 9
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Evt.Parsed["auth"] == "-"
 results["s01-parse"]["crowdsecurity/apache2-logs"][0].Evt.Parsed["bytes"] == "803"
@@ -265,31 +258,23 @@ results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Meta["sub_type"] == "a
 results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Meta["username"] == "sss"
 results["s01-parse"]["crowdsecurity/apache2-logs"][7].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Success == true
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["errorcode"] == "ssl_engine_kernel.c(2320)"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["loglevel"] == "debug"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["message"] == "[client 192.168.1.1] AH02043: SSL handshake stopped: TLSv1.2, client"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["client"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["clientport"] == "17036"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["errorcode"] == "AH02006"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["loglevel"] == "info"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["message"] == "SSL handshake stopped: connection was closed"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["module"] == "ssl"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["pid"] == "12346"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["pid"] == "120974"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["program"] == "apache2"
-results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["timestamp"] == "Wed Apr 10 14:25:12.654789 2024"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["proxy_errorcode"] == "70014"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["proxy_errormessage"] == "End of file found"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["tid"] == "120974"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Parsed["timestamp"] == "Wed Apr 16 16:09:40.056610 2025"
 basename(results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["datasource_path"]) == "apache2-logs.log"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["log_type"] == "http_error-log"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Meta["sub_type"] == "ssl_handshake_stopped"
 results["s01-parse"]["crowdsecurity/apache2-logs"][8].Evt.Whitelisted == false
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Success == true
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["errorcode"] == "ssl_engine_kernel.c(2320)"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["loglevel"] == "debug"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["message"] == "[client ::1] AH02043: SSL handshake stopped: TLSv1.2, client"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["module"] == "ssl"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["pid"] == "12346"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["program"] == "apache2"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Parsed["timestamp"] == "Wed Apr 10 14:25:12.654789 2024"
-basename(results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["datasource_path"]) == "apache2-logs.log"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["log_type"] == "http_error-log"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["service"] == "http"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Meta["sub_type"] == "ssl_handshake_stopped"
-results["s01-parse"]["crowdsecurity/apache2-logs"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0
