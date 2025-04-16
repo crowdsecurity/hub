@@ -33,3 +33,15 @@ labels:
   type: filebrowser
   program: filebrowser
 ```
+
+## Test collection against your log
+```bash
+sudo cscli explain -t filebrowser -f /path/to/your/filebrowser.log
+```
+
+## Support
+
+This collection is created and maintained by marek@vach.cz Feel free to message me with any ideas or user experience if you wish to help improve this.
+
+
+
