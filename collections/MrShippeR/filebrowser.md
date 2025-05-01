@@ -31,7 +31,6 @@ filenames:
   - /var/log/filebrowser.log
 labels:
   type: filebrowser
-  program: filebrowser
 ```
 
 ## Test collection against your log
