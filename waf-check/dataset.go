@@ -5,9 +5,7 @@ import (
 	"os"
 )
 
-const (
-	datasetURL = "https://downloads.openappsec.io/waf-comparison-project/legitimate.zip"
-)
+const datasetURL = "https://downloads.openappsec.io/waf-comparison-project/legitimate.zip"
 
 func DownloadDataset(datasetFolder string) ([]string, error) {
 	fmt.Printf("Downloading dataset to '%s'\n", datasetFolder)

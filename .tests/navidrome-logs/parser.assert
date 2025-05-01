@@ -1,0 +1,26 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "time=\"2025-01-30T05:07:37Z\" level=warning msg=\"HTTP: POST http://example.com/auth/login\" elapsedTime=\"792.538µs\" httpStatus=401 remoteAddr=198.51.100.31 requestId=navidrome-statefulset-0/YzKDTM4yVE-001467 responseSize=40 userAgent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "navidrome"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "navidrome-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+len(results["s01-parse"]["sdwilsh/navidrome-logs"]) == 1
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Success == true
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Parsed["message"] == "time=\"2025-01-30T05:07:37Z\" level=warning msg=\"HTTP: POST http://example.com/auth/login\" elapsedTime=\"792.538µs\" httpStatus=401 remoteAddr=198.51.100.31 requestId=navidrome-statefulset-0/YzKDTM4yVE-001467 responseSize=40 userAgent=\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0\""
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Parsed["program"] == "navidrome"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Parsed["source_ip"] == "198.51.100.31"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Parsed["timestamp"] == "2025-01-30T05:07:37Z"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["datasource_path"] == "navidrome-logs.log"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["http_status"] == "401"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["log_type"] == "navidrome_failed_auth"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["service"] == "navidrome"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Meta["source_ip"] == "198.51.100.31"
+results["s01-parse"]["sdwilsh/navidrome-logs"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0

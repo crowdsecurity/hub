@@ -1,0 +1,29 @@
+len(results) == 2
+"192.168.1.2" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["192.168.1.2"].IP == "192.168.1.2"
+results[0].Overflow.Sources["192.168.1.2"].Range == ""
+results[0].Overflow.Sources["192.168.1.2"].GetScope() == "Ip"
+results[0].Overflow.Sources["192.168.1.2"].GetValue() == "192.168.1.2"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "coraza.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "modsecurity"
+results[0].Overflow.Alert.Events[0].GetMeta("modsec_message") == "Inbound Anomaly Score Exceeded (Total Score: 7)"
+results[0].Overflow.Alert.Events[0].GetMeta("rule_id") == "949110"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.1.2"
+results[0].Overflow.Alert.GetScenario() == "barnoux/crs-anomaly-score"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
+"192.168.1.1" in results[1].Overflow.GetSources()
+results[1].Overflow.Sources["192.168.1.1"].IP == "192.168.1.1"
+results[1].Overflow.Sources["192.168.1.1"].Range == ""
+results[1].Overflow.Sources["192.168.1.1"].GetScope() == "Ip"
+results[1].Overflow.Sources["192.168.1.1"].GetValue() == "192.168.1.1"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_path") == "coraza.log"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[1].Overflow.Alert.Events[0].GetMeta("log_type") == "modsecurity"
+results[1].Overflow.Alert.Events[0].GetMeta("modsec_message") == "Inbound Anomaly Score Exceeded (Total Score: 5)"
+results[1].Overflow.Alert.Events[0].GetMeta("rule_id") == "949110"
+results[1].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.1.1"
+results[1].Overflow.Alert.GetScenario() == "barnoux/crs-anomaly-score"
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 1

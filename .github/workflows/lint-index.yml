@@ -1,0 +1,87 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'appsec-configs/**.md'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.md'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - 'collections/**.md'
+      - 'collections/**.yaml'
+      - 'collections/**.yml'
+      - 'contexts/**.md'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.md'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.md'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.md'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
+      - '.github/workflows/lint-index.yml'
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
+  push:
+    paths:
+      - 'appsec-configs/**.md'
+      - 'appsec-configs/**.yaml'
+      - 'appsec-configs/**.yml'
+      - 'appsec-rules/**.md'
+      - 'appsec-rules/**.yaml'
+      - 'appsec-rules/**.yml'
+      - 'collections/**.md'
+      - 'collections/**.yaml'
+      - 'collections/**.yml'
+      - 'contexts/**.md'
+      - 'contexts/**.yaml'
+      - 'contexts/**.yml'
+      - 'parsers/**.md'
+      - 'parsers/**.yaml'
+      - 'parsers/**.yml'
+      - 'postoverflows/**.md'
+      - 'postoverflows/**.yaml'
+      - 'postoverflows/**.yml'
+      - 'scenarios/**.md'
+      - 'scenarios/**.yaml'
+      - 'scenarios/**.yml'
+      - '.github/workflows/lint-index.yml'
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
+jobs:
+  run-linter:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: 0.5.24
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: run hublint on new index
+        run: |
+          uv sync --all-extras --dev --locked
+          uv run mkindex
+          uv run hublint defaults > .hublint.toml
+          uv run hublint check --color always --no-warning-details

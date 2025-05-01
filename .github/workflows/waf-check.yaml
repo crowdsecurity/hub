@@ -27,13 +27,16 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
       with:
-        go-version: '1.22'
+        fetch-depth: 0
+
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: waf-check/go.mod
     - name: Split dateset
       run: |
         cd waf-check && go build -o waf-check
