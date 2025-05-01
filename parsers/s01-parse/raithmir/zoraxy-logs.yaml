@@ -7,7 +7,7 @@ debug: true
 
 nodes:
  - grok:
-     pattern: '\[%{TIMESTAMP_ISO8601:time_stamp}\] \[router:(?:host-http|whitelist|blacklist|subdomain-http|host-websocket|vdir-http|vdir-websocket|redirect|root-no_resp)\] \[origin:%{IPORHOST:target_server}?\] \[client: %{IPORHOST:>
+     pattern: '\[%{TIMESTAMP_ISO8601:time_stamp}\] \[router:(?:host-http|whitelist|blacklist|subdomain-http|host-websocket|vdir-http|vdir-websocket|redirect|root-no_resp)\] \[origin:%{IPORHOST:target_server}?\] \[client: %{IPORHOST:remote_addr}\] \[useragent: %{DATA:http_user_agent}\] %{WORD:verb} %{DATA:request} %{NUMBER:status}'
      apply_on: message
      statics:
        - meta: log_type
