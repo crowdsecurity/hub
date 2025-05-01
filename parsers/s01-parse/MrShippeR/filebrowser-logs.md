@@ -6,7 +6,6 @@ filenames:
   - /home/shipper/docker/filebrowser/config/filebrowser.log  # Nahraď správnou cestou
 labels:
   type: filebrowser
-  program: filebrowser
 ```
 
 
@@ -17,5 +16,5 @@ source: docker
 container_name:
  - filebrowser_container_name
 labels:
-  type: filebrowsec
+  type: filebrowser
 ```
