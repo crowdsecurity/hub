@@ -11,8 +11,8 @@ It includes:
 
 | Type     | Name                               | Description                               |
 |----------|------------------------------------|-------------------------------------------|
-| Parser   | `marvac/filebrowser-logs`   | Parse failed authentication logs from FileBrowser |
-| Scenario | `marvac/filebrowser_bf`     | Detect brute-force login attempts detection       |
+| Parser   | `MrShippeR/filebrowser-logs`   | Parse failed authentication logs from FileBrowser |
+| Scenario | `MrShippeR/filebrowser_bf`     | Detect brute-force login attempts detection       |
 
 ## Alert log example
 2025/04/10 12:34:56 /api/login: 403 192.168.1.100 <nil>
@@ -21,7 +21,7 @@ It includes:
 You can install this collection with:
 
 ```bash
-sudo cscli collections install marvac/filebrowser
+sudo cscli collections install MrShippeR/filebrowser
 ```
 
 ## Usage
