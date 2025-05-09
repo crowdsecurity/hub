@@ -481,6 +481,28 @@
       "CWE-94"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2022-1388": {
+    "name": "crowdsecurity/vpatch-CVE-2022-1388",
+    "description": "Detects F5 BIG-IP iControl REST authentication bypass and RCE via crafted POST to /mgmt/tm/util/bash with X-F5-Auth-Token header.",
+    "label": "F5 BIG-IP iControl REST - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-04-24 17:03:55",
+    "cves": [
+      "CVE-2022-1388"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2022-22954": {
     "name": "crowdsecurity/vpatch-CVE-2022-22954",
     "description": "VMWare Workspace ONE Access RCE (CVE-2022-22954)",
@@ -1839,6 +1861,28 @@
       "CVE-2024-3273"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-32870": {
+    "name": "crowdsecurity/vpatch-CVE-2024-32870",
+    "description": "Detects unauthorized access to iTop Hub Connector information disclosure endpoint.",
+    "label": "ITop - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-05-09 11:41:10",
+    "cves": [
+      "CVE-2024-32870"
+    ],
+    "cwes": [
+      "CWE-200"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-34102": {
     "name": "crowdsecurity/vpatch-CVE-2024-34102",
     "description": "Adobe Commerce & Magento - XXE (CVE-2024-34102)",
@@ -2209,6 +2253,28 @@
       "CWE-95"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-28367": {
+    "name": "crowdsecurity/vpatch-CVE-2025-28367",
+    "description": "Detects directory traversal in mojoPortal BetterImageGallery API Controller (CVE-2025-28367)",
+    "label": "MojoPortal - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0005:T1006"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-05-09 11:39:12",
+    "cves": [
+      "CVE-2025-28367"
+    ],
+    "cwes": [
+      "CWE-284"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-29927": {
     "name": "crowdsecurity/vpatch-CVE-2025-29927",
     "description": "Next.js Middleware Bypass - (CVE-2025-29927)",
@@ -2230,6 +2296,28 @@
     ],
     "cwes": [
       "CWE-285"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-3248": {
+    "name": "crowdsecurity/vpatch-CVE-2025-3248",
+    "description": "Detects unauthenticated remote code execution in Langflow via /api/v1/validate/code endpoint.",
+    "label": "Langflow - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-05-09 11:38:09",
+    "cves": [
+      "CVE-2025-3248"
+    ],
+    "cwes": [
+      "CWE-306"
     ]
   },
   "crowdsecurity/vpatch-connectwise-auth-bypass": {
@@ -2668,6 +2756,22 @@
     "service": "ssh",
     "created_at": "2023-10-06 15:17:26"
   },
+  "LearningSpot/baserow-bf": {
+    "name": "LearningSpot/baserow-bf",
+    "description": "Detect failed login for Baserow",
+    "label": "Baserow Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "baserow",
+    "created_at": "2025-05-02 09:01:36"
+  },
   "LearningSpot/dockge-bf": {
     "name": "LearningSpot/dockge-bf",
     "description": "Detect Dockge Bruteforce",
@@ -2701,6 +2805,55 @@
     "service": "dockge",
     "created_at": "2025-03-24 17:00:57"
   },
+  "LearningSpot/hestiacp-bf": {
+    "name": "LearningSpot/hestiacp-bf",
+    "description": "Detect Hestiacp Bruteforce",
+    "label": "hestiacp Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "hestiacp",
+    "created_at": "2025-05-01 18:24:27"
+  },
+  "LearningSpot/hestiacp-bf-user-enum": {
+    "name": "LearningSpot/hestiacp-bf-user-enum",
+    "description": "Detect Hestiacp User Enumeration Bruteforce",
+    "label": "Hestiacp User Enumeration",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "hestiacp",
+    "created_at": "2025-05-01 18:24:27"
+  },
+  "LearningSpot/litellm-bf": {
+    "name": "LearningSpot/litellm-bf",
+    "description": "Detect bruteforce attempts to Litellm",
+    "label": "Litellm Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "litellm",
+    "created_at": "2025-05-01 19:03:17"
+  },
   "MariuszKociubinski/bitwarden-bf": {
     "name": "MariuszKociubinski/bitwarden-bf",
     "description": "Detect bitwarden bruteforce",
@@ -2716,6 +2869,22 @@
     "cti": true,
     "service": "bitwarden",
     "created_at": "2023-10-06 15:17:26"
+  },
+  "MrShippeR/filebrowser-bf": {
+    "name": "MrShippeR/filebrowser-bf",
+    "description": "Detect FileBrowser bruteforce login attempts",
+    "label": "Filebrowser bruteforce",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "filebrowser",
+    "created_at": "2025-05-01 12:29:44"
   },
   "a1ad/meshcentral-bf": {
     "name": "a1ad/meshcentral-bf",
