@@ -1,0 +1,28 @@
+name: MrShippeR/filebrowser-logs
+description: "Parse Filebrowser authentication failures"
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'filebrowser'"
+
+pattern_syntax:
+  FILEBROWSER_FAILED_AUTH: "%{NGINXERRTIME:event_timestamp} /api/login: 403 %{IPV4:source_ip} <nil>"
+
+nodes:
+  - grok:
+      name: "FILEBROWSER_FAILED_AUTH"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: filebrowser_failed_auth
+        - meta: log_subtype
+          value: filebrowser_invalid_credentials
+        - target: evt.StrTime
+          expression: evt.Parsed.event_timestamp
+
+
+statics:
+  - meta: service
+    value: filebrowser
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: timestamp
+    expression: "evt.StrTime"

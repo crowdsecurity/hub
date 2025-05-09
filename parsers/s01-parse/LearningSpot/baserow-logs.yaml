@@ -1,0 +1,20 @@
+name: LearningSpot/baserow-logs
+description: "Parse Baserow login logs"
+filter: "evt.Parsed.program == 'baserow'"
+onsuccess: next_stage
+nodes:
+  - grok:
+      pattern: '^ \[BACKEND\]\[%{TIMESTAMP_ISO8601:timestamp}\] %{IP:source_ip}:%{NUMBER:length} - "POST /api/user/token-auth/ HTTP/1.1" %{NUMBER:status}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: baserow_failed_login
+statics:
+  - meta: service
+    value: baserow
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: status
+    expression: evt.Parsed.status
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
