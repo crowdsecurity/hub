@@ -2,6 +2,10 @@ name: Update index
 
 on:
   push:
+    branches:
+      - "master"
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+      - "test*"
     paths:
       - 'appsec-configs/**.md'
       - 'appsec-configs/**.yaml'
@@ -25,22 +29,36 @@ on:
       - 'scenarios/**.yaml'
       - 'scenarios/**.yml'
       - '.github/workflows/update-index.yml'
-      - "*.go"
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v1
+
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          go-version: 1.19
-      - uses: actions/checkout@v4
-      - name: Create local changes
+          version: 0.5.24
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: update .index.json
         run: |
-          go build
-          ./main -target configs
-          grep -v <.index.json >.index2.json '"classification": null'
-          mv .index2.json .index.json
+          uv sync --all-extras --dev --locked
+          uv run mkindex
+
       - uses: nelonoel/branch-name@v1.0.1
+
       - name: Commit files
         if: ${{ github.event_name == 'push'}}
         run: |
@@ -48,94 +66,10 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m "Update index" .index.json || exit 0
           git pull --rebase origin ${BRANCH_NAME}
+
       - name: Push changes
         if: ${{ github.event_name == 'push'}}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-
-  check-secret:
-    runs-on: ubuntu-latest
-    outputs:
-      secret-exists: ${{ steps.check.outputs.exists }}
-    steps:
-      - name: Check for Secret availability
-        id: check
-        shell: bash
-        run: |
-          if [ "${{ secrets.CF_DISTRIBUTION_ID }}" != '' ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT;
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT;
-          fi
-  
-  run-linter:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: set up python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.ref }}
-      - name: install pipenv
-        run: |
-          python -m pip install --upgrade pip
-          pip install pipenv
-      - name: install dependencies
-        run: |
-          pipenv install --deploy --python 3.12
-      - name: hub linter
-        run: |
-          pipenv run ./hublint defaults > .hublint.toml
-          pipenv run ./hublint check --color always --no-warning-details
-
-
-  invalidate-cache:
-    runs-on: ubuntu-latest
-    needs: 
-      - build
-      - check-secret
-      - run-linter
-    if: needs.check-secret.outputs.secret-exists == 'true'
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.CF_AWS_ROLE }}
-          role-session-name: github-action
-          aws-region: eu-west-1
-          mask-aws-account-id: true
-      - name: Get branch name
-        run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-      - name: Get changed files
-        run: |
-          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
-          echo "changed_files=${changed_files}" >> $GITHUB_ENV
-      - name: Invalidate cache
-        run: |
-          create_invalidation() {
-            #$1 is not quotted on purpose, so it can be expanded to multiple arguments
-            aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths $1
-          }
-          PATHS="/${{ env.version }}/.index.json"
-          IFS=',' read -ra FILE <<< "${{ env.changed_files }}"
-          for i in "${FILE[@]}"; do
-            PATHS="$PATHS /${{ env.version }}/$i"
-          done
-          echo "Invalidating paths: $PATHS"
-          for ((i=0; i < 3; i++)); do
-            create_invalidation "$PATHS" && break || echo "Invalidation failed, retrying in 5 seconds..."
-            sleep 5
-          done

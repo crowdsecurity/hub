@@ -9,6 +9,9 @@ nodes:
   - grok: 
       pattern: "Login attempt for nonexistent user from %{IP:source_ip}:%{INT:port}"
       apply_on: message
+  - grok: 
+      pattern: "Exit before auth from <%{IP:source_ip}:%{INT:port}>:"
+      apply_on: message
 statics:
   - meta: service
     value: dropbear
