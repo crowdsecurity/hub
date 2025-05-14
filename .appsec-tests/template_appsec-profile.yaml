@@ -3,8 +3,3 @@ log_level: debug
 inband_rules:
  - "crowdsecurity/*" # all rules
 default_remediation: ban
-post_eval:
- - filter: IsInBand == true
-   apply:
-     - DumpRequest().NoFilters().WithBody().ToJSON()
-
