@@ -1,0 +1,22 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'cowrie'"
+name: Kornelius777/cowrie
+description: "Parse Cowrie Honeypot logs"
+pattern_syntax:
+  COWRIE_COMMAND_ATTEMPT: "%{DATA:time} \\[SSHChannel session \\(%{NUMBER}\\) on SSHService b.ssh-connection. on HoneyPotSSHTransport,%{NUMBER},%{IPV4:validIP}\\] Command found: %{GREEDYDATA}"
+nodes:
+  - grok:
+      name: "COWRIE_COMMAND_ATTEMPT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: cowrie_command_attempt
+statics:
+    - meta: log_type
+      value: cowrie_command_attempt
+    - meta: service
+      value: cowrie
+    - meta: source_ip
+      expression: evt.Parsed.validIP
+    - target: evt.StrTime
+      expression: evt.Parsed.time
