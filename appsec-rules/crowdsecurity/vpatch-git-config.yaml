@@ -6,8 +6,8 @@ rules:
     transform:
       - lowercase
     match:
-      type: contains
-      value: /.git/config
+      type: matches
+      value: '/\.git/(config|head|index)$'
 labels:
   type: scan
   service: http
