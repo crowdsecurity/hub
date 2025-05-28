@@ -16,6 +16,7 @@ It includes:
 
 ## Alert log example
 2025/04/10 12:34:56 /api/login: 403 192.168.1.100 <nil>
+2025/05/27 12:18:16 /api/login: 403 2405:8100:8000:5ca1::229:8abd <nil>
 
 ## Installation
 You can install this collection with:
