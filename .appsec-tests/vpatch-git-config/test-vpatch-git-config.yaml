@@ -9,9 +9,26 @@ http:
   - method: GET
     path:
       - "{{BaseURL}}/toto/.git/config"
+      - "{{BaseURL}}/toto/.git/HEAD"
+      - "{{BaseURL}}/toto/.git/foobarlol"
+      - "{{BaseURL}}/toto/.svn/wc.db"
+      - "{{BaseURL}}/toto/.svn/entries"
+      - "{{BaseURL}}/toto/.svn/foobar"
+      - "{{BaseURL}}/toto/.hg/hgrc"
+      - "{{BaseURL}}/toto/.hg/foobar"
+      - "{{BaseURL}}/toto/.hg/"
 
     cookie-reuse: true
     matchers:
-      - type: status
-        status:
-          - 403
+    - type: dsl
+      condition: and
+      dsl:
+        - 'status_code_1 == 403'
+        - 'status_code_2 == 403' 
+        - 'status_code_3 == 404' # git/foobarlol
+        - 'status_code_4 == 403'
+        - 'status_code_5 == 403'
+        - 'status_code_6 == 404' # svn/foobar
+        - 'status_code_7 == 403'
+        - 'status_code_8 == 404' # hg/foobar
+        - 'status_code_9 == 403'
