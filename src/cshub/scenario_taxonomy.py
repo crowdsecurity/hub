@@ -160,11 +160,9 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
     cmd = [
         "git",
         "log",
+        "--diff-filter=A",
         "--follow",
         "--format=%aI",
-        "--date",
-        "default",
-        "-1",
         "--",
         file_path,
     ]
