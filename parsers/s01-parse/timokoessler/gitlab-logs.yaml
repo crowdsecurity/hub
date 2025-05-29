@@ -4,30 +4,31 @@ name: timokoessler/gitlab-logs
 description: "Parse GitLab Logs"
 nodes:
   - filter: |
-     JsonExtract(evt.Parsed.message, "method") == 'POST' &&
-     JsonExtract(evt.Parsed.message, "path") in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
-     any(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'user' && .value.login != ''}) &&
-     (JsonExtract(evt.Parsed.message, 'status') == '0' || JsonExtract(evt.Parsed.message, 'action') == 'failure')
+      UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'gitlab') in ['', nil] &&
+      evt.Unmarshaled.gitlab.method == 'POST' &&
+      evt.Unmarshaled.gitlab.path in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
+      any(evt.Unmarshaled.gitlab.params, {.key == 'user' && .value.login != ''}) &&
+      (evt.Unmarshaled.gitlab.status == 0 || evt.Unmarshaled.gitlab.action == 'failure')
     statics:
       - meta: log_type
         value: "gitlab_failed_password"
       - meta: username
-        expression: filter(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'user' && .value.login != ''})[0]['value']['login']
+        expression: filter(evt.Unmarshaled.gitlab.params, {.key == 'user' && .value.login != ''})[0]['value']['login']
   - filter: |
-     JsonExtract(evt.Parsed.message, "method") == 'POST' &&
-     JsonExtract(evt.Parsed.message, "path") in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
-     any(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'username' && .value != ''}) &&
-     (JsonExtract(evt.Parsed.message, 'status') == '0' || JsonExtract(evt.Parsed.message, 'action') == 'failure')
+      evt.Unmarshaled.gitlab.method == 'POST' &&
+      evt.Unmarshaled.gitlab.path in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
+      any(evt.Unmarshaled.gitlab.params, {.key == 'username' && .value != ''}) &&
+      (evt.Unmarshaled.gitlab.status == 0 || evt.Unmarshaled.gitlab.action == 'failure')
     statics:
       - meta: log_type
         value: "gitlab_failed_password"
       - meta: username
-        expression: filter(JsonExtractSlice(evt.Parsed.message, "params"), {.key == 'username' && .value != ''})[0]['value']
+        expression: filter(evt.Unmarshaled.gitlab.params, {.key == 'username' && .value != ''})[0]['value']
   - filter: |
-     JsonExtract(evt.Parsed.message, "method") == 'POST' &&
-     JsonExtract(evt.Parsed.message, "path") == '/users/sign_in' &&
-     JsonExtract(evt.Parsed.message, 'params') contains 'otp_attempt' &&
-     JsonExtract(evt.Parsed.message, 'status') != '302'
+      evt.Unmarshaled.gitlab.method == 'POST' &&
+      evt.Unmarshaled.gitlab.path == '/users/sign_in' &&
+      any(evt.Unmarshaled.gitlab.params, {.key == 'user' && .value.otp_attempt != nil}) &&
+      evt.Unmarshaled.gitlab.status != 302
     statics:
       - meta: log_type
         value: "gitlab_failed_totp"
@@ -36,8 +37,8 @@ statics:
   - meta: service
     value: gitlab
   - meta: source_ip
-    expression: JsonExtract(evt.Parsed.message, "remote_ip")
+    expression: evt.Unmarshaled.gitlab.remote_ip
   - parsed: timestamp
-    expression: JsonExtract(evt.Parsed.message, "time")
+    expression: evt.Unmarshaled.gitlab.time
   - target: evt.StrTime
     expression: "evt.Parsed.timestamp"
