@@ -1,30 +1,280 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/sign_in\",\"format\":\"html\",\"controller\":\"SessionsController\",\"action\":\"create\",\"status\":0,\"time\":\"2022-04-15T12:59:36.195Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"user\",\"value\":{\"login\":\"test\",\"password\":\"[FILTERED]\",\"remember_me\":\"0\"}}],\"correlation_id\":\"...\",\"meta.client_id\":\"ip/1.1.1.1\",\"meta.caller_id\":\"SessionsController#create\",\"meta.remote_ip\":\"1.1.1.1\",\"meta.feature_category\":\"authentication_and_authorization\",\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39\",\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":7,\"redis_duration_s\":0.001104,\"redis_read_bytes\":314,\"redis_write_bytes\":706,\"redis_cache_calls\":1,\"redis_cache_duration_s\":0.000253,\"redis_cache_read_bytes\":203,\"redis_cache_write_bytes\":56,\"redis_rate_limiting_calls\":5,\"redis_rate_limiting_duration_s\":0.000659,\"redis_rate_limiting_read_bytes\":7,\"redis_rate_limiting_write_bytes\":565,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.000192,\"redis_sessions_read_bytes\":104,\"redis_sessions_write_bytes\":85,\"db_count\":3,\"db_write_count\":0,\"db_cached_count\":1,\"db_replica_count\":0,\"db_primary_count\":3,\"db_main_count\":3,\"db_main_replica_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":1,\"db_main_cached_count\":1,\"db_main_replica_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_main_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_main_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_replica_duration_s\":0.0,\"db_primary_duration_s\":0.002,\"db_main_duration_s\":0.002,\"db_main_replica_duration_s\":0.0,\"rack_attack_redis_count\":2,\"rack_attack_redis_duration_s\":0.0009385757148265839,\"cpu_s\":0.025067,\"mem_objects\":11660,\"mem_bytes\":1589176,\"mem_mallocs\":2902,\"mem_total_bytes\":2055576,\"pid\":26740,\"db_duration_s\":0.00145,\"view_duration_s\":0.0,\"duration_s\":0.01291}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "gitlab"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/sign_in\",\"format\":\"html\",\"controller\":\"SessionsController\",\"action\":\"create\",\"status\":200,\"time\":\"2022-04-15T14:19:00.060Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"user\",\"value\":{\"remember_me\":\"0\",\"otp_attempt\":\"[FILTERED]\"}}],\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39\",\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":12,\"redis_duration_s\":0.002224,\"redis_read_bytes\":1561,\"redis_write_bytes\":959,\"redis_cache_calls\":7,\"redis_cache_duration_s\":0.001336,\"redis_cache_read_bytes\":1334,\"redis_cache_write_bytes\":430,\"redis_rate_limiting_calls\":4,\"redis_rate_limiting_duration_s\":0.000692,\"redis_rate_limiting_read_bytes\":7,\"redis_rate_limiting_write_bytes\":444,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.000196,\"redis_sessions_read_bytes\":220,\"redis_sessions_write_bytes\":85,\"db_count\":13,\"db_write_count\":3,\"db_cached_count\":2,\"db_replica_count\":0,\"db_primary_count\":13,\"db_main_count\":13,\"db_main_replica_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":2,\"db_main_cached_count\":2,\"db_main_replica_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_main_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_main_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_replica_duration_s\":0.0,\"db_primary_duration_s\":0.023,\"db_main_duration_s\":0.023,\"db_main_replica_duration_s\":0.0,\"rack_attack_redis_count\":2,\"rack_attack_redis_duration_s\":0.0009961440227925777,\"cpu_s\":0.793243,\"mem_objects\":89022,\"mem_bytes\":19227752,\"mem_mallocs\":76488,\"mem_total_bytes\":22788632,\"pid\":26842,\"correlation_id\":\"...\",\"db_duration_s\":0.06362,\"view_duration_s\":0.0,\"duration_s\":0.01291}"  
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "gitlab"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/auth/ldapmain/callback\",\"format\":\"html\",\"controller\":\"OmniauthCallbacksController\",\"action\":\"failure\",\"status\":302,\"location\":\"https://gitlab.***/users/sign_in\",\"time\":\"2025-05-22T04:26:59.798Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"username\",\"value\":\"zzz\"},{\"key\":\"password\",\"value\":\"[FILTERED]\"},{\"key\":\"remember_me\",\"value\":\"0\"}],\"correlation_id\":\"ABC\",\"meta.organization_id\":1,\"meta.feature_category\":\"system_access\",\"meta.remote_ip\":\"1.1.1.1\",\"meta.client_id\":\"ip/1.1.1.1\",\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36\",\"queue_duration_s\":0.013066,\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":1,\"redis_duration_s\":0.00018,\"redis_read_bytes\":172,\"redis_write_bytes\":85,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.00018,\"redis_sessions_read_bytes\":172,\"redis_sessions_write_bytes\":85,\"db_count\":2,\"db_write_count\":0,\"db_cached_count\":0,\"db_txn_count\":0,\"db_replica_txn_count\":0,\"db_primary_txn_count\":0,\"db_replica_count\":0,\"db_primary_count\":2,\"db_replica_write_count\":0,\"db_primary_write_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_replica_txn_max_duration_s\":0,\"db_primary_txn_max_duration_s\":0,\"db_replica_txn_duration_s\":0,\"db_primary_txn_duration_s\":0,\"db_replica_duration_s\":0,\"db_primary_duration_s\":0.012,\"db_main_txn_count\":0,\"db_ci_txn_count\":0,\"db_main_replica_txn_count\":0,\"db_ci_replica_txn_count\":0,\"db_main_count\":2,\"db_ci_count\":0,\"db_main_replica_count\":0,\"db_ci_replica_count\":0,\"db_main_write_count\":0,\"db_ci_write_count\":0,\"db_main_replica_write_count\":0,\"db_ci_replica_write_count\":0,\"db_main_cached_count\":0,\"db_ci_cached_count\":0,\"db_main_replica_cached_count\":0,\"db_ci_replica_cached_count\":0,\"db_main_wal_count\":0,\"db_ci_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_ci_replica_wal_count\":0,\"db_main_wal_cached_count\":0,\"db_ci_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_ci_replica_wal_cached_count\":0,\"db_main_txn_max_duration_s\":0,\"db_ci_txn_max_duration_s\":0,\"db_main_replica_txn_max_duration_s\":0,\"db_ci_replica_txn_max_duration_s\":0,\"db_main_txn_duration_s\":0,\"db_ci_txn_duration_s\":0,\"db_main_replica_txn_duration_s\":0,\"db_ci_replica_txn_duration_s\":0,\"db_main_duration_s\":0.012,\"db_ci_duration_s\":0,\"db_main_replica_duration_s\":0,\"db_ci_replica_duration_s\":0,\"cpu_s\":0.047342,\"mem_objects\":12883,\"mem_bytes\":1846040,\"mem_mallocs\":4033,\"mem_total_bytes\":2361360,\"pid\":557,\"worker_id\":\"puma_0\",\"rate_limiting_gates\":[],\"db_duration_s\":0.01236,\"view_duration_s\":0,\"duration_s\":0.04234}"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "gitlab"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 len(results["s01-parse"]["timokoessler/gitlab-logs"]) == 3
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Success == true
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/sign_in\",\"format\":\"html\",\"controller\":\"SessionsController\",\"action\":\"create\",\"status\":0,\"time\":\"2022-04-15T12:59:36.195Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"user\",\"value\":{\"login\":\"test\",\"password\":\"[FILTERED]\",\"remember_me\":\"0\"}}],\"correlation_id\":\"...\",\"meta.client_id\":\"ip/1.1.1.1\",\"meta.caller_id\":\"SessionsController#create\",\"meta.remote_ip\":\"1.1.1.1\",\"meta.feature_category\":\"authentication_and_authorization\",\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39\",\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":7,\"redis_duration_s\":0.001104,\"redis_read_bytes\":314,\"redis_write_bytes\":706,\"redis_cache_calls\":1,\"redis_cache_duration_s\":0.000253,\"redis_cache_read_bytes\":203,\"redis_cache_write_bytes\":56,\"redis_rate_limiting_calls\":5,\"redis_rate_limiting_duration_s\":0.000659,\"redis_rate_limiting_read_bytes\":7,\"redis_rate_limiting_write_bytes\":565,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.000192,\"redis_sessions_read_bytes\":104,\"redis_sessions_write_bytes\":85,\"db_count\":3,\"db_write_count\":0,\"db_cached_count\":1,\"db_replica_count\":0,\"db_primary_count\":3,\"db_main_count\":3,\"db_main_replica_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":1,\"db_main_cached_count\":1,\"db_main_replica_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_main_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_main_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_replica_duration_s\":0.0,\"db_primary_duration_s\":0.002,\"db_main_duration_s\":0.002,\"db_main_replica_duration_s\":0.0,\"rack_attack_redis_count\":2,\"rack_attack_redis_duration_s\":0.0009385757148265839,\"cpu_s\":0.025067,\"mem_objects\":11660,\"mem_bytes\":1589176,\"mem_mallocs\":2902,\"mem_total_bytes\":2055576,\"pid\":26740,\"db_duration_s\":0.00145,\"view_duration_s\":0.0,\"duration_s\":0.01291}"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Parsed["program"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Parsed["timestamp"] == "2022-04-15T12:59:36.195Z"
-results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["datasource_path"] == "gitlab-logs.log"
+basename(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["log_type"] == "gitlab_failed_password"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["service"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Meta["username"] == "test"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["meta.client_id"] == "ip/1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_cached_count"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["controller"] == "SessionsController"
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_duration_s"], 0.001450)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_primary_count"] == 3
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_primary_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["rack_attack_redis_count"] == 2
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["rack_attack_redis_duration_s"], 0.000939)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_cache_write_bytes"] == 56
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["target_duration_s"] == 1
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_duration_s"], 0.002000)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_primary_cached_count"] == 1
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["mem_total_bytes"], 2055576.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_write_bytes"] == 706
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_calls"] == 5
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["action"] == "create"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_read_bytes"] == 7
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_read_bytes"] == 314
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["meta.feature_category"] == "authentication_and_authorization"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_sessions_read_bytes"] == 104
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["status"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["view_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_count"] == 3
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["path"] == "/users/sign_in"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_count"] == 3
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_write_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["mem_bytes"], 1589176.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["method"] == "POST"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_cache_read_bytes"] == 203
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_main_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["correlation_id"] == "..."
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_primary_duration_s"], 0.002000)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_primary_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_cache_calls"] == 1
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_duration_s"], 0.001104)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_sessions_write_bytes"] == 85
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_sessions_duration_s"], 0.000192)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_duration_s"], 0.000659)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_write_bytes"] == 565
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["request_urgency"] == "default"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["time"] == "2022-04-15T12:59:36.195Z"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_cached_count"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["format"] == "html"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["mem_objects"] == 11660
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["meta.remote_ip"] == "1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["pid"] == 26740
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_sessions_calls"] == 1
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["cpu_s"], 0.025067)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["duration_s"], 0.012910)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["mem_mallocs"] == 2902
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["meta.caller_id"] == "SessionsController#create"
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_cache_duration_s"], 0.000253)
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["remote_ip"] == "1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_replica_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["db_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["redis_calls"] == 7
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Unmarshaled["gitlab"]["ua"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39"
+results["s01-parse"]["timokoessler/gitlab-logs"][0].Evt.Whitelisted == false
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Success == true
-results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/sign_in\",\"format\":\"html\",\"controller\":\"SessionsController\",\"action\":\"create\",\"status\":200,\"time\":\"2022-04-15T14:19:00.060Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"user\",\"value\":{\"remember_me\":\"0\",\"otp_attempt\":\"[FILTERED]\"}}],\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39\",\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":12,\"redis_duration_s\":0.002224,\"redis_read_bytes\":1561,\"redis_write_bytes\":959,\"redis_cache_calls\":7,\"redis_cache_duration_s\":0.001336,\"redis_cache_read_bytes\":1334,\"redis_cache_write_bytes\":430,\"redis_rate_limiting_calls\":4,\"redis_rate_limiting_duration_s\":0.000692,\"redis_rate_limiting_read_bytes\":7,\"redis_rate_limiting_write_bytes\":444,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.000196,\"redis_sessions_read_bytes\":220,\"redis_sessions_write_bytes\":85,\"db_count\":13,\"db_write_count\":3,\"db_cached_count\":2,\"db_replica_count\":0,\"db_primary_count\":13,\"db_main_count\":13,\"db_main_replica_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":2,\"db_main_cached_count\":2,\"db_main_replica_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_main_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_main_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_replica_duration_s\":0.0,\"db_primary_duration_s\":0.023,\"db_main_duration_s\":0.023,\"db_main_replica_duration_s\":0.0,\"rack_attack_redis_count\":2,\"rack_attack_redis_duration_s\":0.0009961440227925777,\"cpu_s\":0.793243,\"mem_objects\":89022,\"mem_bytes\":19227752,\"mem_mallocs\":76488,\"mem_total_bytes\":22788632,\"pid\":26842,\"correlation_id\":\"...\",\"db_duration_s\":0.06362,\"view_duration_s\":0.0,\"duration_s\":0.01291}"  
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/sign_in\",\"format\":\"html\",\"controller\":\"SessionsController\",\"action\":\"create\",\"status\":200,\"time\":\"2022-04-15T14:19:00.060Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"user\",\"value\":{\"remember_me\":\"0\",\"otp_attempt\":\"[FILTERED]\"}}],\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39\",\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":12,\"redis_duration_s\":0.002224,\"redis_read_bytes\":1561,\"redis_write_bytes\":959,\"redis_cache_calls\":7,\"redis_cache_duration_s\":0.001336,\"redis_cache_read_bytes\":1334,\"redis_cache_write_bytes\":430,\"redis_rate_limiting_calls\":4,\"redis_rate_limiting_duration_s\":0.000692,\"redis_rate_limiting_read_bytes\":7,\"redis_rate_limiting_write_bytes\":444,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.000196,\"redis_sessions_read_bytes\":220,\"redis_sessions_write_bytes\":85,\"db_count\":13,\"db_write_count\":3,\"db_cached_count\":2,\"db_replica_count\":0,\"db_primary_count\":13,\"db_main_count\":13,\"db_main_replica_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":2,\"db_main_cached_count\":2,\"db_main_replica_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_main_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_main_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_replica_duration_s\":0.0,\"db_primary_duration_s\":0.023,\"db_main_duration_s\":0.023,\"db_main_replica_duration_s\":0.0,\"rack_attack_redis_count\":2,\"rack_attack_redis_duration_s\":0.0009961440227925777,\"cpu_s\":0.793243,\"mem_objects\":89022,\"mem_bytes\":19227752,\"mem_mallocs\":76488,\"mem_total_bytes\":22788632,\"pid\":26842,\"correlation_id\":\"...\",\"db_duration_s\":0.06362,\"view_duration_s\":0.0,\"duration_s\":0.01291}"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Parsed["program"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Parsed["timestamp"] == "2022-04-15T14:19:00.060Z"
+basename(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["log_type"] == "gitlab_failed_totp"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["service"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Meta["datasource_path"] == "gitlab-logs.log"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_primary_cached_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_primary_count"] == 13
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["request_urgency"] == "default"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_count"] == 13
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_cached_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["rack_attack_redis_duration_s"], 0.000996)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_cache_duration_s"], 0.001336)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_duration_s"], 0.063620)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["mem_objects"] == 89022
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["method"] == "POST"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_cache_calls"] == 7
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_cached_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["format"] == "html"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["action"] == "create"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_count"] == 13
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_sessions_write_bytes"] == 85
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_primary_duration_s"], 0.023000)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_replica_wal_cached_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["mem_bytes"], 19227752.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["status"] == 200
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_duration_s"], 0.000692)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_write_bytes"] == 959
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["controller"] == "SessionsController"
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["cpu_s"], 0.793243)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_cache_read_bytes"] == 1334
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_cache_write_bytes"] == 430
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_read_bytes"] == 1561
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_sessions_read_bytes"] == 220
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_primary_wal_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["duration_s"], 0.012910)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["rack_attack_redis_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_write_count"] == 3
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["mem_mallocs"] == 76488
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_sessions_calls"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_primary_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_calls"] == 4
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_read_bytes"] == 7
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_rate_limiting_write_bytes"] == 444
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["remote_ip"] == "1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["ua"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36 Edg/100.0.1185.39"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_replica_cached_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["mem_total_bytes"], 22788632.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["pid"] == 26842
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_calls"] == 12
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_duration_s"], 0.002224)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["redis_sessions_duration_s"], 0.000196)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["correlation_id"] == "..."
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["target_duration_s"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["view_duration_s"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_main_duration_s"], 0.023000)
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["path"] == "/users/sign_in"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["time"] == "2022-04-15T14:19:00.060Z"
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_cached_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Unmarshaled["gitlab"]["db_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][1].Evt.Whitelisted == false
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Success == true
-results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/auth/ldapmain/callback\",\"format\":\"html\",\"controller\":\"OmniauthCallbacksController\",\"action\":\"failure\",\"status\":302,\"location\":\"https://gitlab.***/users/sign_in\",\"time\":\"2025-05-22T04:26:59.798Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"username\",\"value\":\"zzz\"},{\"key\":\"password\",\"value\":\"[FILTERED]\"},{\"key\":\"remember_me\",\"value\":\"0\"}],\"correlation_id\":\"ABC\",\"meta.organization_id\":1,\"meta.feature_category\":\"system_access\",\"meta.remote_ip\":\"1.1.1.1\",\"meta.client_id\":\"ip/1.1.1.1\",\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36\",\"queue_duration_s\":0.013066,\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":1,\"redis_duration_s\":0.00018,\"redis_read_bytes\":172,\"redis_write_bytes\":85,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.00018,\"redis_sessions_read_bytes\":172,\"redis_sessions_write_bytes\":85,\"db_count\":2,\"db_write_count\":0,\"db_cached_count\":0,\"db_txn_count\":0,\"db_replica_txn_count\":0,\"db_primary_txn_count\":0,\"db_replica_count\":0,\"db_primary_count\":2,\"db_replica_write_count\":0,\"db_primary_write_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_replica_txn_max_duration_s\":0,\"db_primary_txn_max_duration_s\":0,\"db_replica_txn_duration_s\":0,\"db_primary_txn_duration_s\":0,\"db_replica_duration_s\":0,\"db_primary_duration_s\":0.012,\"db_main_txn_count\":0,\"db_ci_txn_count\":0,\"db_main_replica_txn_count\":0,\"db_ci_replica_txn_count\":0,\"db_main_count\":2,\"db_ci_count\":0,\"db_main_replica_count\":0,\"db_ci_replica_count\":0,\"db_main_write_count\":0,\"db_ci_write_count\":0,\"db_main_replica_write_count\":0,\"db_ci_replica_write_count\":0,\"db_main_cached_count\":0,\"db_ci_cached_count\":0,\"db_main_replica_cached_count\":0,\"db_ci_replica_cached_count\":0,\"db_main_wal_count\":0,\"db_ci_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_ci_replica_wal_count\":0,\"db_main_wal_cached_count\":0,\"db_ci_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_ci_replica_wal_cached_count\":0,\"db_main_txn_max_duration_s\":0,\"db_ci_txn_max_duration_s\":0,\"db_main_replica_txn_max_duration_s\":0,\"db_ci_replica_txn_max_duration_s\":0,\"db_main_txn_duration_s\":0,\"db_ci_txn_duration_s\":0,\"db_main_replica_txn_duration_s\":0,\"db_ci_replica_txn_duration_s\":0,\"db_main_duration_s\":0.012,\"db_ci_duration_s\":0,\"db_main_replica_duration_s\":0,\"db_ci_replica_duration_s\":0,\"cpu_s\":0.047342,\"mem_objects\":12883,\"mem_bytes\":1846040,\"mem_mallocs\":4033,\"mem_total_bytes\":2361360,\"pid\":557,\"worker_id\":\"puma_0\",\"rate_limiting_gates\":[],\"db_duration_s\":0.01236,\"view_duration_s\":0,\"duration_s\":0.04234}"  
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Parsed["message"] == "{\"method\":\"POST\",\"path\":\"/users/auth/ldapmain/callback\",\"format\":\"html\",\"controller\":\"OmniauthCallbacksController\",\"action\":\"failure\",\"status\":302,\"location\":\"https://gitlab.***/users/sign_in\",\"time\":\"2025-05-22T04:26:59.798Z\",\"params\":[{\"key\":\"authenticity_token\",\"value\":\"[FILTERED]\"},{\"key\":\"username\",\"value\":\"zzz\"},{\"key\":\"password\",\"value\":\"[FILTERED]\"},{\"key\":\"remember_me\",\"value\":\"0\"}],\"correlation_id\":\"ABC\",\"meta.organization_id\":1,\"meta.feature_category\":\"system_access\",\"meta.remote_ip\":\"1.1.1.1\",\"meta.client_id\":\"ip/1.1.1.1\",\"remote_ip\":\"1.1.1.1\",\"ua\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36\",\"queue_duration_s\":0.013066,\"request_urgency\":\"default\",\"target_duration_s\":1,\"redis_calls\":1,\"redis_duration_s\":0.00018,\"redis_read_bytes\":172,\"redis_write_bytes\":85,\"redis_sessions_calls\":1,\"redis_sessions_duration_s\":0.00018,\"redis_sessions_read_bytes\":172,\"redis_sessions_write_bytes\":85,\"db_count\":2,\"db_write_count\":0,\"db_cached_count\":0,\"db_txn_count\":0,\"db_replica_txn_count\":0,\"db_primary_txn_count\":0,\"db_replica_count\":0,\"db_primary_count\":2,\"db_replica_write_count\":0,\"db_primary_write_count\":0,\"db_replica_cached_count\":0,\"db_primary_cached_count\":0,\"db_replica_wal_count\":0,\"db_primary_wal_count\":0,\"db_replica_wal_cached_count\":0,\"db_primary_wal_cached_count\":0,\"db_replica_txn_max_duration_s\":0,\"db_primary_txn_max_duration_s\":0,\"db_replica_txn_duration_s\":0,\"db_primary_txn_duration_s\":0,\"db_replica_duration_s\":0,\"db_primary_duration_s\":0.012,\"db_main_txn_count\":0,\"db_ci_txn_count\":0,\"db_main_replica_txn_count\":0,\"db_ci_replica_txn_count\":0,\"db_main_count\":2,\"db_ci_count\":0,\"db_main_replica_count\":0,\"db_ci_replica_count\":0,\"db_main_write_count\":0,\"db_ci_write_count\":0,\"db_main_replica_write_count\":0,\"db_ci_replica_write_count\":0,\"db_main_cached_count\":0,\"db_ci_cached_count\":0,\"db_main_replica_cached_count\":0,\"db_ci_replica_cached_count\":0,\"db_main_wal_count\":0,\"db_ci_wal_count\":0,\"db_main_replica_wal_count\":0,\"db_ci_replica_wal_count\":0,\"db_main_wal_cached_count\":0,\"db_ci_wal_cached_count\":0,\"db_main_replica_wal_cached_count\":0,\"db_ci_replica_wal_cached_count\":0,\"db_main_txn_max_duration_s\":0,\"db_ci_txn_max_duration_s\":0,\"db_main_replica_txn_max_duration_s\":0,\"db_ci_replica_txn_max_duration_s\":0,\"db_main_txn_duration_s\":0,\"db_ci_txn_duration_s\":0,\"db_main_replica_txn_duration_s\":0,\"db_ci_replica_txn_duration_s\":0,\"db_main_duration_s\":0.012,\"db_ci_duration_s\":0,\"db_main_replica_duration_s\":0,\"db_ci_replica_duration_s\":0,\"cpu_s\":0.047342,\"mem_objects\":12883,\"mem_bytes\":1846040,\"mem_mallocs\":4033,\"mem_total_bytes\":2361360,\"pid\":557,\"worker_id\":\"puma_0\",\"rate_limiting_gates\":[],\"db_duration_s\":0.01236,\"view_duration_s\":0,\"duration_s\":0.04234}"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Parsed["program"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Parsed["timestamp"] == "2025-05-22T04:26:59.798Z"
+basename(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["datasource_path"]) == "gitlab-logs.log"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["log_type"] == "gitlab_failed_password"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["service"] == "gitlab"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["datasource_path"] == "gitlab-logs.log"
 results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Meta["username"] == "zzz"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["controller"] == "OmniauthCallbacksController"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_wal_cached_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["queue_duration_s"], 0.013066)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_txn_max_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_txn_max_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["meta.organization_id"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["view_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["location"] == "https://gitlab.***/users/sign_in"
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["mem_bytes"], 1846040.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["mem_objects"] == 12883
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["request_urgency"] == "default"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_duration_s"], 0.012360)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_duration_s"], 0.012000)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_txn_max_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["meta.remote_ip"] == "1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["pid"] == 557
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["status"] == 302
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["format"] == "html"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["method"] == "POST"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_sessions_read_bytes"] == 172
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["target_duration_s"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["action"] == "failure"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_cached_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_duration_s"], 0.000180)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_sessions_write_bytes"] == 85
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_write_bytes"] == 85
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["worker_id"] == "puma_0"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["remote_ip"] == "1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["correlation_id"] == "ABC"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_wal_count"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["duration_s"], 0.042340)
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_duration_s"], 0.012000)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_txn_max_duration_s"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["cpu_s"], 0.047342)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_wal_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["meta.feature_category"] == "system_access"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_read_bytes"] == 172
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_replica_txn_max_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_ci_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_cached_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_write_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_calls"] == 1
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_sessions_duration_s"], 0.000180)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["ua"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"      
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_count"] == 2
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_replica_wal_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["mem_mallocs"] == 4033
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["path"] == "/users/auth/ldapmain/callback"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_replica_txn_duration_s"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_main_txn_max_duration_s"] == 0
+FloatApproxEqual(results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["mem_total_bytes"], 2361360.000000)
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["meta.client_id"] == "ip/1.1.1.1"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["redis_sessions_calls"] == 1
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["db_primary_txn_count"] == 0
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Unmarshaled["gitlab"]["time"] == "2025-05-22T04:26:59.798Z"
+results["s01-parse"]["timokoessler/gitlab-logs"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0

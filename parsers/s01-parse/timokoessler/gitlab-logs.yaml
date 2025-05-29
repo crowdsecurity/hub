@@ -1,10 +1,9 @@
 onsuccess: next_stage
-filter: "Upper(evt.Parsed.program) == 'GITLAB'"
+filter: "Upper(evt.Parsed.program) == 'GITLAB' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'gitlab') in ['', nil]"
 name: timokoessler/gitlab-logs
 description: "Parse GitLab Logs"
 nodes:
   - filter: |
-      UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'gitlab') in ['', nil] &&
       evt.Unmarshaled.gitlab.method == 'POST' &&
       evt.Unmarshaled.gitlab.path in ['/users/sign_in', '/users/auth/ldapmain/callback'] &&
       any(evt.Unmarshaled.gitlab.params, {.key == 'user' && .value.login != ''}) &&
