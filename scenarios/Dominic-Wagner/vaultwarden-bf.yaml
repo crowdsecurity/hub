@@ -2,7 +2,7 @@
 type: leaky
 name: Dominic-Wagner/vaultwarden-bf
 description: "Detect vaultwarden bruteforce"
-filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_totp']"
+filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_2fa_totp', 'vaultwarden_failed_2fa_email']"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip
