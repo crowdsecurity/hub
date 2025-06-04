@@ -1,0 +1,30 @@
+name: Raithmir/zoraxy-logs
+description: "Parse Zoraxy logs"
+filter: "evt.Parsed.program == 'zoraxy'"
+onsuccess: next_stage
+#debug: true
+nodes:
+ - grok:
+     pattern: '\[%{TIMESTAMP_ISO8601:time_stamp}\] \[router:(?:host-http|whitelist|blacklist|subdomain-http|host-websocket|vdir-http|vdir-websocket|redirect|root-no_resp)\] \[origin:%{IPORHOST:target_server}?\] \[client: %{IPORHOST:remote_addr}\] \[useragent: %{DATA:http_user_agent}\] %{WORD:verb} %{DATA:request} %{NUMBER:status}'
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: http_access-log
+       - target: evt.StrTime
+         expression: evt.Parsed.time_stamp
+
+statics:
+   - meta: service
+     value: http
+   - meta: source_ip
+     expression: evt.Parsed.remote_addr
+   - meta: http_status
+     expression: evt.Parsed.status
+   - meta: http_path
+     expression: evt.Parsed.request
+   - meta: http_verb
+     expression: evt.Parsed.verb
+   - meta: http_user_agent
+     expression: evt.Parsed.http_user_agent
+   - meta: target_fqdn
+     expression: evt.Parsed.target_server

@@ -1,0 +1,41 @@
+name: Static Analysis
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/lint.yaml'
+      - 'waf-check/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/lint.yaml'
+      - 'waf-check/**'
+
+
+jobs:
+  build:
+    name: "Lint"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: waf-check/go.mod
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: v2.0
+          args: --issues-exit-code=1 --timeout 10m
+          only-new-issues: false
+          working-directory: waf-check

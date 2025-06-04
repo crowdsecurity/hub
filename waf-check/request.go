@@ -33,10 +33,10 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 		return http.Request{}, fmt.Errorf("error joining URL: %w", err)
 	}
 
-	if request.Method == "POST" || request.Method == "PUT" {
+	if request.Method == http.MethodPost || request.Method == http.MethodPut {
 		req, err = http.NewRequest(request.Method, request.FullURL, bytes.NewBufferString(request.Data))
 	} else {
-		req, err = http.NewRequest(request.Method, request.FullURL, nil)
+		req, err = http.NewRequest(request.Method, request.FullURL, http.NoBody)
 	}
 
 	if err != nil {
@@ -58,7 +58,7 @@ func (r *Request) Curl() string {
 	for key, value := range r.Headers {
 		curlCmd.WriteString(fmt.Sprintf(" -H '%s: %s'", key, value))
 	}
-	if r.Method == "POST" || r.Method == "PUT" {
+	if r.Method == http.MethodPost || r.Method == http.MethodPut {
 		curlCmd.WriteString(fmt.Sprintf(" -d '%s'", r.Data))
 	}
 	curlCmd.WriteString(fmt.Sprintf(" '%s'", r.FullURL))
