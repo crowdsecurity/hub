@@ -153,6 +153,31 @@
         }
       }
     },
+    "crowdsecurity/generic-wordpress-uploads-listing": {
+      "author": "crowdsecurity",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLWxpc3RpbmcKZGVzY3JpcHRpb246ICJQcm90ZWN0IFdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSBmcm9tIGxpc3RpbmcgZmlsZXMiCnJ1bGVzOgogIC0gb3I6CiAgICAtIHpvbmVzOiAKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICAtIHVybGRlY29kZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiByZWdleAogICAgICAgIHZhbHVlOiAnL3dwLWNvbnRlbnQvdXBsb2Fkcy8kJwogICAgLSB6b25lczogCiAgICAgIC0gVVJJCiAgICAgIHRyYW5zZm9ybToKICAgICAgLSBsb3dlcmNhc2UKICAgICAgLSB1cmxkZWNvZGUKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogcmVnZXgKICAgICAgICB2YWx1ZTogJy93cC1jb250ZW50L3VwbG9hZHMvLiovJCcKICAgIApsYWJlbHM6CiAgIHR5cGU6IGV4cGxvaXQKICAgc2VydmljZTogaHR0cAogICBjb25maWRlbmNlOiAyCiAgIHNwb29mYWJsZTogMAogICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICAgbGFiZWw6ICJQcm90ZWN0IFdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSBmcm9tIGxpc3RpbmcgZmlsZXMiCiAgIGNsYXNzaWZpY2F0aW9uOgogICAgIC0gYXR0YWNrLlQxNTk1CiAgICAgLSBhdHRhY2suVDExOTAK",
+      "description": "Protect Wordpress uploads directory from listing files",
+      "labels": {
+        "behavior": "http:exploit",
+        "classification": [
+          "attack.T1595",
+          "attack.T1190"
+        ],
+        "confidence": 2,
+        "label": "Protect Wordpress uploads directory from listing files",
+        "service": "http",
+        "spoofable": 0,
+        "type": "exploit"
+      },
+      "path": "appsec-rules/crowdsecurity/generic-wordpress-uploads-listing.yaml",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "6ffaeaf2ad3266e22648940b6fd0c18bf77cfb3669b085bc9692a0a2704f888f"
+        }
+      }
+    },
     "crowdsecurity/generic-wordpress-uploads-php": {
       "author": "crowdsecurity",
       "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLXBocApkZXNjcmlwdGlvbjogIkRldGVjdCBwaHAgZXhlY3V0aW9uIGluIHdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSIKcnVsZXM6CiAgLSBhbmQ6CiAgICAtIHpvbmVzOiAKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIGxvd2VyY2FzZQogICAgICAtIHVybGRlY29kZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiByZWdleAogICAgICAgIHZhbHVlOiAnL3dwLWNvbnRlbnQvdXBsb2Fkcy8uKlwuKGg/cGgocHx0bT9sP3xhcil8bW9kdWxlfHNodG1sKScKCmxhYmVsczoKICAgdHlwZTogZXhwbG9pdAogICBzZXJ2aWNlOiBodHRwCiAgIGNvbmZpZGVuY2U6IDIKICAgc3Bvb2ZhYmxlOiAwCiAgIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogICBsYWJlbDogIkRldGVjdCBXb3JkcHJlc3MgUEhQIGV4ZWN1dGlvbiBpbiB1cGxvYWRzIGRpcmVjdG9yeSIKICAgY2xhc3NpZmljYXRpb246CiAgICAgLSBhdHRhY2suVDE1OTUKICAgICAtIGF0dGFjay5UMTE5MA==",
@@ -4449,10 +4474,11 @@
       "appsec-rules": [
         "crowdsecurity/base-config",
         "crowdsecurity/generic-freemarker-ssti",
-        "crowdsecurity/generic-wordpress-uploads-php"
+        "crowdsecurity/generic-wordpress-uploads-php",
+        "crowdsecurity/generic-wordpress-uploads-listing"
       ],
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtZ2VuZXJpYy1ydWxlcwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtZnJlZW1hcmtlci1zc3RpCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtd29yZHByZXNzLXVwbG9hZHMtcGhwCmFwcHNlYy1jb25maWdzOgogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXJ1bGVzCiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1kZWZhdWx0CnBhcnNlcnM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLXZwYXRjaAogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbmF0aXZlCmNvbnRleHRzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWNfYmFzZQpkZXNjcmlwdGlvbjogIkEgY29sbGVjdGlvbiBvZiBnZW5lcmljIGF0dGFjayB2ZWN0b3JzIGZvciBhZGRpdGlvbmFsIHByb3RlY3Rpb24uIgphdXRob3I6IGNyb3dkc2VjdXJpdHkK",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtZ2VuZXJpYy1ydWxlcwphcHBzZWMtcnVsZXM6CiAgLSBjcm93ZHNlY3VyaXR5L2Jhc2UtY29uZmlnCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtZnJlZW1hcmtlci1zc3RpCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtd29yZHByZXNzLXVwbG9hZHMtcGhwCiAgLSBjcm93ZHNlY3VyaXR5L2dlbmVyaWMtd29yZHByZXNzLXVwbG9hZHMtbGlzdGluZwphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvZ2VuZXJpYy1ydWxlcwogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtZGVmYXVsdApwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLW5hdGl2ZQpjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjX2Jhc2UKZGVzY3JpcHRpb246ICJBIGNvbGxlY3Rpb24gb2YgZ2VuZXJpYyBhdHRhY2sgdmVjdG9ycyBmb3IgYWRkaXRpb25hbCBwcm90ZWN0aW9uLiIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cg==",
       "contexts": [
         "crowdsecurity/appsec_base"
       ],
@@ -4467,7 +4493,7 @@
         "crowdsecurity/appsec-vpatch",
         "crowdsecurity/appsec-native"
       ],
-      "version": "0.7",
+      "version": "0.8",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -4496,6 +4522,10 @@
         "0.7": {
           "deprecated": false,
           "digest": "306003d46e7de939013ad7219e27bb4da8a81f6d9d16ecff28d99b5916ead930"
+        },
+        "0.8": {
+          "deprecated": false,
+          "digest": "2e06865ffdd4b3f526a4ee58501dfe5ac0f0e94b8df44c3d61cdb78e24f24fcf"
         }
       }
     },
@@ -4927,10 +4957,11 @@
         "crowdsecurity/vpatch-CVE-2024-1061",
         "crowdsecurity/vpatch-CVE-2024-1071",
         "crowdsecurity/generic-wordpress-uploads-php",
-        "crowdsecurity/vpatch-CVE-2024-6205"
+        "crowdsecurity/vpatch-CVE-2024-6205",
+        "crowdsecurity/generic-wordpress-uploads-listing"
       ],
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtd29yZHByZXNzCmFwcHNlYy1ydWxlczoKICAtIGNyb3dkc2VjdXJpdHkvYmFzZS1jb25maWcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA2MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA5MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMDkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIzNDg4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMzQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDYzNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjM2MAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjU2NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjYyMwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA2MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA3MQogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLXBocAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtNjIwNQphcHBzZWMtY29uZmlnczoKICAtIGNyb3dkc2VjdXJpdHkvdmlydHVhbC1wYXRjaGluZwpwYXJzZXJzOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtbG9ncwpzY2VuYXJpb3M6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy12cGF0Y2gKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLW5hdGl2ZQpjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjX2Jhc2UKZGVzY3JpcHRpb246ICJBIHZpcnR1YWwgcGF0Y2hpbmcgY29sbGVjdGlvbiwgc3VpdGFibGUgZm9yIFdvcmRQcmVzcyB3ZWJzaXRlcyIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5Cg==",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9hcHBzZWMtd29yZHByZXNzCmFwcHNlYy1ydWxlczoKICAtIGNyb3dkc2VjdXJpdHkvYmFzZS1jb25maWcKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA2MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTA5MDAKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIwMDkKICAtIGNyb3dkc2VjdXJpdHkvdnBhdGNoLUNWRS0yMDIzLTIzNDg4CiAgLSBjcm93ZHNlY3VyaXR5L3ZwYXRjaC1DVkUtMjAyMy0yMzQ4OQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNDYzNAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjM2MAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjU2NwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjMtNjYyMwogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA2MQogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtMTA3MQogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLXBocAogIC0gY3Jvd2RzZWN1cml0eS92cGF0Y2gtQ1ZFLTIwMjQtNjIwNQogIC0gY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLWxpc3RpbmcKYXBwc2VjLWNvbmZpZ3M6CiAgLSBjcm93ZHNlY3VyaXR5L3ZpcnR1YWwtcGF0Y2hpbmcKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvYXBwc2VjLWxvZ3MKc2NlbmFyaW9zOgogIC0gY3Jvd2RzZWN1cml0eS9hcHBzZWMtdnBhdGNoCiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlYy1uYXRpdmUKY29udGV4dHM6CiAgLSBjcm93ZHNlY3VyaXR5L2FwcHNlY19iYXNlCmRlc2NyaXB0aW9uOiAiQSB2aXJ0dWFsIHBhdGNoaW5nIGNvbGxlY3Rpb24sIHN1aXRhYmxlIGZvciBXb3JkUHJlc3Mgd2Vic2l0ZXMiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQo=",
       "contexts": [
         "crowdsecurity/appsec_base"
       ],
@@ -4945,7 +4976,7 @@
         "crowdsecurity/appsec-vpatch",
         "crowdsecurity/appsec-native"
       ],
-      "version": "0.5",
+      "version": "0.6",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -4966,6 +4997,10 @@
         "0.5": {
           "deprecated": false,
           "digest": "1a58b1f382ca36cad931ae36a213c61f9c345a19aa43de7f642d8c1376d13fec"
+        },
+        "0.6": {
+          "deprecated": false,
+          "digest": "b6d767fafb9ae11d6ea2eafb853b935cf32f74ab0c6ba2a6fd9a91afaeb0cf16"
         }
       }
     },
