@@ -1,0 +1,25 @@
+name: bouddha-fr/opensearch-dashboard-logs
+description: "Parse OpenSearch web interface logs for failed login attempts"
+filter: "evt.Parsed.program == 'opensearch-dashboards' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'opensearch') in ['', nil]"
+onsuccess: next_stage
+statics:
+  - meta: service
+    value: opensearch
+  - meta: source_ip
+    expression: evt.Unmarshaled.opensearch.req.remoteAddress
+  - meta: log_type
+    expression: |
+        (
+          evt.Unmarshaled.opensearch.type == 'response' &&
+          evt.Unmarshaled.opensearch.method == 'post' &&
+          evt.Unmarshaled.opensearch.statusCode in [401, '401'] &&
+          evt.Unmarshaled.opensearch.req.url == '/auth/login?dataSourceId='
+        ) ? 'opensearch_failed_auth' : ''
+  - meta: timestamp
+    expression: evt.Unmarshaled.opensearch['@timestamp']
+  - meta: status_code
+    expression: evt.Unmarshaled.opensearch.statusCode
+  - meta: url
+    expression: evt.Unmarshaled.opensearch.req.url
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.opensearch['@timestamp']
