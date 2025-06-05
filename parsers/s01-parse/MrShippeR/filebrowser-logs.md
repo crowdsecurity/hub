@@ -3,7 +3,7 @@ Parser for [FileBrowser vanilla app](https://filebrowser.org/) logs.
 ```yaml
 ---
 filenames:
-  - /home/shipper/docker/filebrowser/config/filebrowser.log  # Nahraď správnou cestou
+  - /home/shipper/docker/filebrowser/config/filebrowser.log 
 labels:
   type: filebrowser
 ```

@@ -17,7 +17,7 @@ nodes:
 
   ## Detect msg contans authentication attempt to parse out user info
   - grok:
-      pattern: "%{WORD:auth_status} (1FA|Duo|TOTP) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
+      pattern: "%{WORD:auth_status} (1FA|Duo|TOTP|U2F) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
       expression: evt.Unmarshaled.authelia.msg
     statics:
       - meta: log_type

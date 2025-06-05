@@ -4,7 +4,7 @@ onsuccess: next_stage
 filter: "evt.Parsed.program == 'filebrowser'"
 
 pattern_syntax:
-  FILEBROWSER_FAILED_AUTH: "%{NGINXERRTIME:event_timestamp} /api/login: 403 %{IPV4:source_ip} <nil>"
+  FILEBROWSER_FAILED_AUTH: "%{NGINXERRTIME:event_timestamp} /api/login: 403 %{IP:source_ip} <nil>"
 
 nodes:
   - grok:
