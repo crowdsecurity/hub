@@ -1,0 +1,34 @@
+id: generic-wordpress-uploads-listing
+info:
+  name: generic-wordpress-uploads-listing
+  author: crowdsec
+  severity: info
+  description: generic-wordpress-uploads-listing testing
+  tags: appsec-testing
+http:
+  - raw:
+      - |
+        GET /wp-content/uploads/ HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/ HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/ HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/?mebypass=no HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        GET /wp-content/uploads/2024/10/fp-check.jpg HTTP/1.1
+        Host: {{Hostname}}
+    matchers:
+      - type: dsl
+        condition: and
+        dsl:
+          - "status_code_1 == 403"
+          - "status_code_2 == 403"
+          - "status_code_3 == 403"
+          - "status_code_4 == 403"
+          - "status_code_5 == 404"
+
