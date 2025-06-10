@@ -5,7 +5,7 @@ description: "detect w00tw00t"
 debug: false
 filter: "evt.Meta.log_type == 'http_access-log' and (
   evt.Parsed.file_name contains 'w00tw00t.at.ISC.SANS.DFind' or
-  Lower(evt.Parsed.file_name) == '/core/skin/login.aspx'
+  Lower(evt.Meta.http_path) == '/core/skin/login.aspx'
   )"
 groupby: evt.Meta.source_ip
 blackhole: 5m
