@@ -115,7 +115,7 @@ def update_item(item: ItemInfo, github_client: Github) -> ItemInfo:
     releases = repo.get_releases()
     if releases.totalCount > 0:
         latest_release = next(
-            (release for release in releases if not release.prerelease),
+            (release for release in releases if not release.prerelease and not release.draft),
             releases[0],
         )
         item.status = "stable" if not latest_release.prerelease else "unstable"
