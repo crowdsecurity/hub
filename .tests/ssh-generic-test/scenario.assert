@@ -1,0 +1,17 @@
+len(results) == 1
+"127.0.0.1" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["127.0.0.1"].IP == "127.0.0.1"
+results[0].Overflow.Sources["127.0.0.1"].Range == ""
+results[0].Overflow.Sources["127.0.0.1"].GetScope() == "Ip"
+results[0].Overflow.Sources["127.0.0.1"].GetValue() == "127.0.0.1"
+basename(results[0].Overflow.Alert.Events[0].GetMeta("datasource_path")) == "ssh-generic-test.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "ssh_failed-auth"
+results[0].Overflow.Alert.Events[0].GetMeta("machine") == "leto"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "ssh"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "127.0.0.1"
+results[0].Overflow.Alert.Events[0].GetMeta("target_user") == "NtktlJHV4TfBSK3wvlhiOBnl"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2025-06-12T16:20:12Z"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/ssh-generic-test"
+results[0].Overflow.Alert.Remediation == false
+results[0].Overflow.Alert.GetEventsCount() == 1
