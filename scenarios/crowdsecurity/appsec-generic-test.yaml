@@ -3,7 +3,6 @@ format: 3.0
 name: crowdsecurity/appsec-generic-test
 description: "generate an alert for appsec out of band rule for testing"
 filter: "evt.Meta.log_type == 'appsec-info' && evt.Meta.rule_name == 'crowdsecurity/appsec-generic-test'"
-distinct: evt.Meta.target_uri
 capacity: 1
 groupby: evt.Meta.source_ip
 blackhole: 1m
