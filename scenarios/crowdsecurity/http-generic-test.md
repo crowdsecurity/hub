@@ -3,7 +3,7 @@
 This scenario is meant to check if crowdsec is correctly configured, this will
 trigger an alert, but no decision.
 
-`curl http://<your-ip>:<port>/CROWDSEC/NtktlJHV4TfBSK3wvlhiOBnl` 
+`curl http://<your-ip>:<port>/crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl` 
 
 You will see in your crowdsec logs: 
 

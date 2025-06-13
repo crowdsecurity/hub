@@ -5,7 +5,7 @@ trigger an alert, but no decision.
 
 
 On the machine one wants to test
-`ssh NtktlJHV4TfBSK3wvlhiOBnl@<your-ip>`
+`ssh crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl@<your-ip>`
 
 You will see in your crowdsec logs: 
 
