@@ -1,0 +1,24 @@
+type: leaky
+name: PintjesB/unifi-firewall-hits
+description: "Detect repeated firewall rule hits on Unifi"
+filter: "evt.Meta.log_type == 'firewall_block_rule_hit'
+groupby: evt.Meta.source_ip
+capacity: 15
+leakspeed: 10s
+blackhole: 1m
+labels:
+  remediation: true
+  classification:
+    - attack.T1046
+    - attack.T1595.002
+    - attack.T1595
+    - attack.TA0001
+    - attack.T1190
+    - attack.1133
+    - attack.T1562
+    - attack.TA0011
+    - attack.T1071
+  behavior: "tcp:scan"
+  label: "Unifi rule hit"
+  spoofable: 3
+  confidence: 1
