@@ -19,5 +19,6 @@ scenario won't trigger any decision, and result in any remediation.
 If you don't see anything in logs nor in the alerts list, then you can assume an
 issue in your setup
 
-
-Beware this WON'T work with local ips.
+Beware this WON'T work with local ips (see
+[whitelists](https://github.com/crowdsecurity/hub/blob/master/parsers/s02-enrich/crowdsecurity/whitelists.md)
+that are installed by default)
