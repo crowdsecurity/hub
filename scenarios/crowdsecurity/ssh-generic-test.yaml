@@ -1,7 +1,7 @@
 # ssh bruteforce
 type: trigger
 name: crowdsecurity/ssh-generic-test
-description: "Test scenario for generic SSH detection"
+description:  "Crowdsec Generic Test Scenario: SSH brute force trigger"
 filter: "evt.Meta.log_type == 'ssh_failed-auth' && evt.Meta.target_user == 'crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl'"
 groupby: evt.Meta.source_ip
 blackhole: 1m
@@ -13,4 +13,4 @@ labels:
   classification:
     - attack.T1110
   behavior: "ssh:bruteforce"
-  label: "SSH Slow Bruteforce"
+  label: "Crowdsec Generic Test Scenario"
