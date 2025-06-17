@@ -1,7 +1,7 @@
 type: trigger
 format: 3.0
 name: crowdsecurity/appsec-generic-test
-description: "generate an alert for appsec out of band rule for testing"
+description: "Crowdsec Generic Test Scenario for AppSec: generate an alert for appsec out of band rule for testing"
 filter: "evt.Meta.log_type == 'appsec-info' && evt.Meta.rule_name == 'crowdsecurity/appsec-generic-test'"
 groupby: evt.Meta.source_ip
 blackhole: 1m
@@ -9,6 +9,6 @@ labels:
   confidence: 0
   spoofable: 3
   behavior: "http:test"
-  label: "HTTP CrowdSec Test Scenario"
+  label: "Crowdsec Generic Test Scenario for AppSec"
   service: http
   remediation: false

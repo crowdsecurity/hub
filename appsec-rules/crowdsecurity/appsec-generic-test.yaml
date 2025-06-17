@@ -1,5 +1,5 @@
 name: crowdsecurity/appsec-generic-test
-description: "AppSec heartbeat – trigger on GET /crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl`"
+description: "AppSec Generic Test: trigger on GET /crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl`"
 rules:
   - and:
       # 1) Match the HTTP verb
@@ -10,13 +10,13 @@ rules:
           value: GET
       # 2) Match exactly the test path
       - zones:
-          - PATH
+          - URI
         match:
           type: equals
           value: /crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl
 labels:
-  type: test
   service: http
+  type: test
   confidence: 0
   spoofable: 3
   behavior: "http:test"
