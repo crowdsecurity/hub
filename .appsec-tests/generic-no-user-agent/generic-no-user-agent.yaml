@@ -1,0 +1,49 @@
+id: experimental-no-user-agent
+info:
+  name: experimental-no-user-agent
+  author: crowdsec
+  severity: info
+  description: experimental-no-user-agent testing
+  tags: appsec-testing
+http:
+  - raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent:
+      - |
+        POST / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent:
+      - |
+        PUT / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent:
+      - |
+        DELETE / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent:
+      - |
+        PATCH / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: 
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+      - |
+        HEAD / HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent:
+    matchers:
+      - type: dsl
+        condition: and
+        dsl:
+          - "status_code_1 == 403"
+          - "status_code_2 == 403"
+          - "status_code_3 == 403"
+          - "status_code_4 == 403"
+          - "status_code_5 == 403"
+          - "status_code_6 == 200"
+          - "status_code_7 == 200"
+
