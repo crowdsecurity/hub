@@ -6,7 +6,7 @@ pattern_syntax:
   GUAC_CUSTOMUSER: "(%{EMAILADDRESS}|%{USERNAME})"
 nodes:
   - grok:
-      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*Authentication attempt from \[%{IP:source_ip}.*for user "%{GUAC_CUSTOMUSER:username}" failed'
+      pattern: '%{TIMESTAMP_ISO8601:timestamp}.*Authentication attempt from \[?%{IP:source_ip}.*for user "%{GUAC_CUSTOMUSER:username}" failed'
       apply_on: message
       statics:
         - meta: log_type
