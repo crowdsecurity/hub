@@ -1,7 +1,12 @@
 filter: "evt.Line.Labels.type == 'unifi'"
 onsuccess: next_stage
 pattern_syntax:
-  SYSLOGBASE_UNIFI: '(?:%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp8601}) (?:%{SYSLOGFACILITY} )?%{DATA:logsource}+(?: %{SYSLOGPROG}:|)'
+  ACTION: (D|R|A)
+  ZONE: (LAN|WAN|LOCAL|VPN|DMZ)
+  IFACE_OR_EMPTY: (?:[a-zA-Z]+[0-9]*|)
+  UNIFI_HOSTNAME: '(?:%{DATA:hostname},%{DATA:mac_address},%{DATA:firmware_version}|%{DATA:hostname})'
+  UNIFI_FIREWALL_PREFIX: '(?:\[WAN_%{ZONE:dst_zone}-%{ACTION:action}-%{INT:rule_id}\] ?)?'
+  SYSLOGBASE_UNIFI: '(?:%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp8601}) %{UNIFI_HOSTNAME}(?: %{UNIFI_HOSTNAME})? %{UNIFI_FIREWALL_PREFIX}(?:%{SYSLOGPROG}:|)'
   SYSLOGLINE_UNIFI: '%{SYSLOGBASE_UNIFI} %{GREEDYDATA:message}'
 name: crowdsecurity/unifi-logs
 nodes:
@@ -9,8 +14,10 @@ nodes:
       pattern: "^%{SYSLOGLINE_UNIFI}"
       apply_on: Line.Raw
 statics:
+  - parsed: program
+    expression: "evt.Parsed.program != '' ? evt.Parsed.program : evt.Parsed.action != '' ? 'kernel' : ''"
   - meta: machine
-    expression: evt.Parsed.logsource
+    expression: evt.Parsed.hostname
   - parsed: "logsource"
     value: "syslog"
   - target: evt.StrTime
@@ -21,3 +28,7 @@ statics:
     expression: evt.Line.Src
   - meta: datasource_type
     expression: evt.Line.Module
+  - meta: action
+    expression: 'evt.Parsed.action == "A" ? "accept" : (evt.Parsed.action == "D" ? "drop" : (evt.Parsed.action == "R" ? "reject" : "unknown"))'
+  - meta: log_type
+    expression: 'evt.Meta.action not in ["accept", "unknown"] ? "iptables_drop" : "iptables_event"'
