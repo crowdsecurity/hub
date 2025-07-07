@@ -29,6 +29,6 @@ statics:
   - meta: datasource_type
     expression: evt.Line.Module
   - meta: action
-    expression: 'evt.Parsed.action == "A" ? "accept" : (evt.Parsed.action == "D" ? "drop" : (evt.Parsed.action == "R" ? "reject" : "unknown"))'
+    expression: 'evt.Parsed.action == "" ? "" : evt.Parsed.action == "A" ? "accept" : (evt.Parsed.action == "D" ? "drop" : (evt.Parsed.action == "R" ? "reject" : "unknown"))'
   - meta: log_type
     expression: 'evt.Meta.action not in ["accept", "unknown"] ? "iptables_drop" : "iptables_event"'
