@@ -3930,22 +3930,27 @@
     },
     "LePresidente/jellyseerr": {
       "author": "LePresidente",
-      "content": "cGFyc2VyczoKICAtIExlUHJlc2lkZW50ZS9qZWxseXNlZXJyLWxvZ3MKc2NlbmFyaW9zOgogIC0gTGVQcmVzaWRlbnRlL2plbGx5c2VlcnItYmYKZGVzY3JpcHRpb246ICJqZWxseXNlZXJyIFN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBMZVByZXNpZGVudGUKdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZS1mb3JjZQogIC0gamVsbHlzZWVycg==",
+      "content": "cGFyc2VyczoKICAtIExlUHJlc2lkZW50ZS9qZWxseXNlZXJyLWxvZ3MKICAtIGNyb3dkc2VjdXJpdHkvamVsbHlzZWVyci13aGl0ZWxpc3QKc2NlbmFyaW9zOgogIC0gTGVQcmVzaWRlbnRlL2plbGx5c2VlcnItYmYKZGVzY3JpcHRpb246ICJqZWxseXNlZXJyIFN1cHBvcnQgOiBwYXJzZXIgYW5kIGJydXRlLWZvcmNlIGRldGVjdGlvbiIKYXV0aG9yOiBMZVByZXNpZGVudGUKdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZS1mb3JjZQogIC0gamVsbHlzZWVycgo=",
       "description": "jellyseerr Support : parser and brute-force detection",
       "labels": null,
       "long_description": "QSBjb2xsZWN0aW9uIHRvIGRlZmVuZCBbSmVsbHlTZWVycl0oaHR0cHM6Ly9naXRodWIuY29tL0ZhbGxlbmJhZ2VsL2plbGx5c2VlcnIpIGluc3RhbmNlIGFnYWluc3QgY29tbW9uIGF0dGFja3M6CiAtIEplbGx5U2VlcnIgcGFyc2VyCiAtIEplbGx5U2VlcnIgYnJ1dGVmb3JjZSBkZXRlY3Rpb24KCiMjIEFjcXVpc2l0aW9uIHRlbXBsYXRlCgpFeGFtcGxlIGFjcXVpc2l0aW9uIGZvciB0aGlzIGNvbGxlY3Rpb24gOgoKYGBgeWFtbAotLS0Kc291cmNlOiBkb2NrZXIKY29udGFpbmVyX25hbWU6CiAtIGplbGx5c2VlcnIKI2NvbnRhaW5lcl9pZDoKIyAtIDg0M2VlOTJkMjMxYgpsYWJlbHM6CiAgdHlwZTogamVsbHlzZWVycgpgYGA=",
       "parsers": [
-        "LePresidente/jellyseerr-logs"
+        "LePresidente/jellyseerr-logs",
+        "crowdsecurity/jellyseerr-whitelist"
       ],
       "path": "collections/LePresidente/jellyseerr.yml",
       "scenarios": [
         "LePresidente/jellyseerr-bf"
       ],
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "aca16e29cb6b48379195cc5a945d40ec50839728ad57bfeaca2002cb74c4e942"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "91722defe14fe2a6ef2c0f8ae22b2c7852aaeff5c3ef92d523399b917839ce09"
         }
       }
     },
@@ -10154,6 +10159,22 @@
         }
       }
     },
+    "crowdsecurity/jellyseerr-whitelist": {
+      "author": "crowdsecurity",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9qZWxseXNlZXJyLXdoaXRlbGlzdApkZXNjcmlwdGlvbjogIldoaXRlbGlzdCBldmVudHMgZnJvbSBqZWxseXNlZXJyIgpmaWx0ZXI6ICJldnQuTWV0YS5zZXJ2aWNlID09ICdodHRwJyAmJiBldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ2h0dHBfYWNjZXNzLWxvZycsICdodHRwX2Vycm9yLWxvZyddIgp3aGl0ZWxpc3Q6CiAgcmVhc29uOiAiSmVsbHlzZWVyciB3aGl0ZWxpc3QiCiAgZXhwcmVzc2lvbjoKICAgLSBldnQuTWV0YS5odHRwX3N0YXR1cyBpbiBbJzIwMCcsICczMDQnLCAnNDk5J10gJiYgZXZ0LlBhcnNlZC5zdGF0aWNfcmVzc291cmNlID09ICdmYWxzZScgJiYgZXZ0Lk1ldGEuaHR0cF92ZXJiID09ICdHRVQnICYmIGV2dC5NZXRhLmh0dHBfcGF0aCBtYXRjaGVzICdcXC9hcGlcXC92MVxcLyhtb3ZpZXx0dnxyZXF1ZXN0KVxcLyhcXGQrKScgIyBXaGVuIGJyb3dzaW5nIE1vdmllcywgU2VyaWVzIG9yIFJlcXVlc3RzCg==",
+      "description": "Whitelist events from jellyseerr",
+      "labels": null,
+      "long_description": "IyMgSmVsbHlzZWVyciBXaGl0ZWxpc3QKCiMjIyBCcm93c2luZyBNb3ZpZXMsIFNlcmllcyBvciBSZXF1ZXN0cwpXaGVuIHNjcm9sbGluZyBmYXN0IHdoaWxlIHVzaW5nIEplbGx5c2VlcnIgb24gdGhlIE1vdmllcywgU2VyaWVzIG9yIFJlcXVlc3RzIHBhZ2VzLCBtYW55IEdFVCByZXF1ZXN0cyBhcmUgbWFkZSB0byBgYC9hcGkvdjEvKG1vdmllfHR2fHJlcXVlc3QpYGAuIFRoZSBodHRwLWNyYXdsLW5vbl9zdGF0aWNzIHNjZW5hcmlvIHdpbGwgYmUgdHJpZ2dlcmVkIGlmIHRvbyBtYW55IHJlcXVlc3RzIHRvIHRoZSBBUEkgYXJlIG1hZGUgdG9vIHF1aWNrbHkgdW5sZXNzIHRoaXMgd2hpdGVsaXN0IGlzIHVzZWQuIAo=",
+      "path": "parsers/s02-enrich/crowdsecurity/jellyseerr-whitelist.yaml",
+      "stage": "s02-enrich",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "f312eaddd14758ac0df2d7ce5d171883ae8e1216f0d87d4733ec6294e27193f6"
+        }
+      }
+    },
     "crowdsecurity/k8s-audit": {
       "author": "crowdsecurity",
       "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnazhzLWF1ZGl0JyIKbmFtZTogY3Jvd2RzZWN1cml0eS9rOHMtYXVkaXQKZGVzY3JpcHRpb246ICJQYXJzZSBLdWJlcm5ldGVzIGF1ZGl0IGxvZ3MiCiNVbmZvcnR1bmF0ZWx5LCBrOHMgaGFzIHNsaWdodGx5IGRpZmZlcmVudCBKU09OIHdoZW4gdXNpbmcgYSB3ZWJob29rIG9yIGEgZmlsZSAoZmlyc3QgbGV0dGVyIG9mIHRoZSBrZXlzIGlzIGNhcGl0YWxpemVkIHdoZW4gdXNpbmcgdGhlIHdlYmhvb2spLgojRXhwbGljaXRseSBoYW5kbGUgdGhlIHdlYmhvb2sgZGF0YXNvdXJjZSwgYW5kIGFzc3VtZSBmaWxlLWxpa2UgZm9ybWF0IGZvciBldmVyeXRoaW5nIGVsc2UgKGl0IGNvdWxkIGJlIGNvbWluZyBmcm9tIHRoZSBzeXNsb2cgZGF0YXNvdXJjZSBmb3IgZXhhbXBsZSkKbm9kZXM6CiAgLSBmaWx0ZXI6IGV2dC5NZXRhLmRhdGFzb3VyY2VfdHlwZSA9PSAiazhzLWF1ZGl0IgogICAgc3RhdGljczoKICAgIC0gcGFyc2VkOiBrOHNfcGFyc2VkCiAgICAgIGV4cHJlc3Npb246IFVubWFyc2hhbEpTT04oZXZ0LlBhcnNlZC5tZXNzYWdlLCBldnQuVW5tYXJzaGFsZWQsICJrOHNfYXVkaXQiKQogICAgLSBtZXRhOiB1c2VyCiAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5rOHNfYXVkaXQuVXNlci51c2VybmFtZQogICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLms4c19hdWRpdC5Tb3VyY2VJUHNbMF0KICAgIC0gbWV0YTogbmFtZXNwYWNlCiAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5rOHNfYXVkaXQuT2JqZWN0UmVmPy5OYW1lc3BhY2UKICAgIC0gbWV0YTogcmVzb3VyY2VfbmFtZQogICAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuazhzX2F1ZGl0Lk9iamVjdFJlZj8uTmFtZQogICAgLSBtZXRhOiBraW5kCiAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5rOHNfYXVkaXQuUmVxdWVzdE9iamVjdD8ua2luZAogICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICB2YWx1ZTogazhzLWF1ZGl0CiAgICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLms4c19hdWRpdC5SZXF1ZXN0UmVjZWl2ZWRUaW1lc3RhbXAKICAtIGZpbHRlcjogZXZ0Lk1ldGEuZGF0YXNvdXJjZV90eXBlICE9ICJrOHMtYXVkaXQiCiAgICBzdGF0aWNzOgogICAgLSBwYXJzZWQ6IGs4c19wYXJzZWQKICAgICAgZXhwcmVzc2lvbjogVW5tYXJzaGFsSlNPTihldnQuUGFyc2VkLm1lc3NhZ2UsIGV2dC5Vbm1hcnNoYWxlZCwgIms4c19hdWRpdCIpCiAgICAtIG1ldGE6IHVzZXIKICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLms4c19hdWRpdC51c2VyLnVzZXJuYW1lCiAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuazhzX2F1ZGl0LnNvdXJjZUlQc1swXQogICAgLSBtZXRhOiBuYW1lc3BhY2UKICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLms4c19hdWRpdC5vYmplY3RSZWY/Lm5hbWVzcGFjZQogICAgLSBtZXRhOiByZXNvdXJjZV9uYW1lCiAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5rOHNfYXVkaXQub2JqZWN0UmVmPy5uYW1lCiAgICAtIG1ldGE6IGtpbmQKICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLms4c19hdWRpdC5yZXF1ZXN0T2JqZWN0Py5raW5kCiAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgIHZhbHVlOiBrOHMtYXVkaXQKICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuazhzX2F1ZGl0LnJlcXVlc3RSZWNlaXZlZFRpbWVzdGFtcAo=",
@@ -12562,7 +12583,7 @@
     },
     "LePresidente/jellyseerr-bf": {
       "author": "LePresidente",
-      "content": "IyBqZWxseXNlZXJyIEJGIHNjYW4KbmFtZTogTGVQcmVzaWRlbnRlL2plbGx5c2VlcnItYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgamVsbHlzZWVyciBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnamVsbHlzZWVycl9mYWlsZWRfYXV0aCciCiNkZWJ1ZzogdHJ1ZQp0eXBlOiBsZWFreQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAiMjBzIgpjYXBhY2l0eTogNQpibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBqZWxseXNlZXJyCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBsYWJlbDogIkplbGx5c2VlcnIgQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQotLS0KIyBqZWxseXNlZXJyIHVzZXItZW51bQp0eXBlOiBsZWFreQpuYW1lOiBMZVByZXNpZGVudGUvamVsbHlzZWVyci1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3QgamVsbHlzZWVyciB1c2VyIGVudW0gYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2plbGx5c2VlcnJfZmFpbGVkX2F1dGgnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5NZXRhLnVzZXIKbGVha3NwZWVkOiAxMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogamVsbHlzZWVycgogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTg5CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiSmVsbHlzZWVyciBVc2VyIEVudW1lcmF0aW9uIgogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
+      "content": "IyBqZWxseXNlZXJyIEJGIHNjYW4KbmFtZTogTGVQcmVzaWRlbnRlL2plbGx5c2VlcnItYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgamVsbHlzZWVyciBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnamVsbHlzZWVycl9mYWlsZWRfYXV0aCciCiNkZWJ1ZzogdHJ1ZQp0eXBlOiBsZWFreQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAyMHMKY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogamVsbHlzZWVycgogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgbGFiZWw6ICJKZWxseXNlZXJyIEJydXRlZm9yY2UiCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCiMgamVsbHlzZWVyciB1c2VyLWVudW0KdHlwZTogbGVha3kKbmFtZTogTGVQcmVzaWRlbnRlL2plbGx5c2VlcnItYmZfdXNlci1lbnVtCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGplbGx5c2VlcnIgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdqZWxseXNlZXJyX2ZhaWxlZF9hdXRoJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS51c2VyCmxlYWtzcGVlZDogMW0KY2FwYWNpdHk6IDUKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogamVsbHlzZWVycgogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTg5CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiSmVsbHlzZWVyciBVc2VyIEVudW1lcmF0aW9uIgogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
       "description": "Detect jellyseerr bruteforce",
       "labels": {
         "behavior": "http:bruteforce",
@@ -12577,7 +12598,7 @@
       },
       "long_description": "RGV0ZWN0IGZhaWxlZCBqZWxseXNlZXJyIGF1dGhlbnRpY2F0aW9uczoKCiAtIGxlYWtzcGVlZCBvZiAyMHMsIGNhcGFjaXR5IG9mIDUgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgMW0sIGNhcGFjaXR5IG9mIDUgdW5pcXVlIGRpc3RpbmN0IHVzZXJz",
       "path": "scenarios/LePresidente/jellyseerr-bf.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -12586,6 +12607,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "230e8b4b1ef48c3cb5f83ccc66ca29e38d83f4116079f22cb13033e0c7e40bc8"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "67de16da36ac83872bb2e9cd73a67ec7ba41dd1b4972817bb8f9cf767054ff4d"
         }
       }
     },
