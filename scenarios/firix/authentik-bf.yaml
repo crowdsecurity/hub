@@ -24,7 +24,7 @@ description: "Detect authentik user enum bruteforce"
 filter: evt.Meta.log_type in ['authentik_failed_auth', 'authentik_invalid_username']
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.username
-leakspeed: 10s
+leakspeed: 1m
 capacity: 5
 blackhole: 1m
 labels:
