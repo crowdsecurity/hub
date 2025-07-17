@@ -1,0 +1,26 @@
+onsuccess: next_stage
+#debug: false
+name: Jgigantino31/mealie-logs
+description: "Parse mealie logs"
+filter: "evt.Parsed.program == 'mealie'"
+nodes:
+  - grok:
+      pattern: '.*%{RFC3339:timestamp} - Incorrect username or password from %{IP:source_ip}' # For logs collected directly from docker
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: mealie_failed_auth
+  - grok:
+      pattern: '.*%{RFC3339:timestamp}: Incorrect username or password from %{IP:source_ip}' # For logs collected from log file
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: mealie_failed_auth
+
+statics:
+    - meta: service
+      value: mealie
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
