@@ -1,0 +1,19 @@
+# mealie BF scan
+name: Jgigantino31/mealie-bf
+description: "Detect mealie bruteforce"
+filter: "evt.Meta.log_type == 'mealie_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 10
+blackhole: 1m
+labels:
+  service: mealie
+  behavior: "http:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Mealie Bruteforce"
+  remediation: true
