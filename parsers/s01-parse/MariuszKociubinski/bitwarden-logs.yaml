@@ -5,7 +5,7 @@ description: "Parse bitwarden logs"
 filter: "evt.Parsed.program == 'bitwarden'"
 nodes:
   - grok:
-      pattern: '^%{EXIM_DATE:timestamp}.*Failed login attempt\. %{IP:source_ip}.*$'  
+      pattern: '^%{EXIM_DATE:timestamp}.*Failed login attempt\. %{IP:source_ip}.*$'
       apply_on: message
       statics:
         - meta: log_type
