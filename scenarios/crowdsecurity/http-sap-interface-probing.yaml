@@ -3,8 +3,8 @@ type: leaky
 name: crowdsecurity/http-sap-interface-probing
 description: "Detect generic HTTP SAP interface probing"
 filter: |
-  evt.Meta.service == 'http' and 
-  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and 
+  evt.Meta.service == 'http' and
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
   evt.Meta.http_status in ['404', '403'] and (
     let uri = Lower(evt.Meta.http_path);
     uri contains "/sap/bc/gui/sap/its/webgui"

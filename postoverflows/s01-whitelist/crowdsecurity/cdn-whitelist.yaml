@@ -2,7 +2,7 @@ name: crowdsecurity/cdn-whitelist
 description: "Whitelist CDN providers"
 whitelist:
   reason: "CDN provider"
-  expression: 
+  expression:
     - "any(File('cloudflare_ips.txt'), { IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
     - "any(File('cloudflare_ip6s.txt'), { IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
 data:

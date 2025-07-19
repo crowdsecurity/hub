@@ -3,8 +3,8 @@ type: leaky
 name: crowdsecurity/http-admin-interface-probing
 description: "Detect generic HTTP admin interface probing"
 filter: |
-  evt.Meta.service == 'http' and 
-  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and 
+  evt.Meta.service == 'http' and
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
   evt.Meta.http_status in ['404', '403'] and
   any(File("admin_interfaces.txt"), { Lower(evt.Meta.http_path) contains #})
 groupby: evt.Meta.source_ip
