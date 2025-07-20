@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/nginx-logs
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s02-enrich/crowdsecurity/ipv6_shared_buckets.yaml
+scenarios:
+- crowdsecurity/http-bad-user-agent
+postoverflows:
+- ./postoverflows/s00-enrich/crowdsecurity/ipv6_to_range.yaml
+log_file: ipv6-parser.log
+log_type: nginx
+labels: {}
+ignore_parsers: false
+override_statics: []
