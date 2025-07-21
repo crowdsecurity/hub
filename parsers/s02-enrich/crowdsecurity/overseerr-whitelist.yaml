@@ -4,4 +4,4 @@ filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 
 whitelist:
   reason: "Overseerr whitelist"
   expression:
-   - evt.Meta.http_status in ['200', '304', '499'] && evt.Parsed.static_ressource == 'false' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '\\/api\\/v1\\/(movie|tv|request)\\/(\\d+)' # When browsing Movies, Series or Requests
+   - evt.Meta.http_status in ['200', '304'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '^\\/api\\/v1\\/(movie|tv|request)\\/(\\d+)$' # When browsing Movies, Series or Requests
