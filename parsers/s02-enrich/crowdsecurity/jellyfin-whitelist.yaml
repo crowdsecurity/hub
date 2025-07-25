@@ -4,5 +4,5 @@ filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 
 whitelist:
   reason: "Jellyfin whitelist"
   expression:
-   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_path contains "/Sessions/Playing/Progress" # When playing videos
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Meta.http_path matches "^/Sessions/Playing/Progress$" # When playing videos
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '(?i)^/items/.+?/images/(thumb|primary)' # when browsing on Roku or Swiftfin Clients
