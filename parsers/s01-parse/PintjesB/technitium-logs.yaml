@@ -1,0 +1,25 @@
+name: PintjesB/technitium-logs
+description: "Parse Technitium auth logs"
+onsuccess: next_stage
+filter: evt.Parsed.program == 'technitium'
+pattern_syntax:
+  DATETIME_CUSTOM: '%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{TIME:time} %{TZ}'
+nodes:
+  - grok:
+      pattern: '^\[%{DATETIME_CUSTOM}\] \[%{IP:source_ip}:%{INT:source_port}\] DnsServerCore.DnsWebServiceException: Invalid username or password for user: %{USERNAME:username}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: technitium_failed_auth
+
+statics:
+  - meta: service
+    value: technitium
+  - target: evt.StrTime
+    expression: "evt.Parsed.day + '/' + evt.Parsed.month + '/' + evt.Parsed.year + ' ' + evt.Parsed.time"
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: source_port
+    expression: "evt.Parsed.source_port"
+  - meta: username
+    expression: "evt.Parsed.username"
