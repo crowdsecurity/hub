@@ -1,0 +1,17 @@
+# myservice bruteforce
+type: leaky
+name: crowdsecurity/my-haproxy-ssl-bf
+description: "Detect haproxy ssl bruteforce"
+filter: "evt.Meta.log_type == 'bad_ssl_handshake' || evt.Meta.log_type == 'no_ssl_handshake'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: haproxy
+  confidence: 3
+  spoofable: 0
+  behavior: "myservice:bruteforce"
+  label: "myservice bruteforce"
+  remediation: true

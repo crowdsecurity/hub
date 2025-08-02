@@ -1,0 +1,17 @@
+# myservice bruteforce
+type: leaky
+name: crowdsecurity/my-haproxy-http-bf
+description: "Detect myservice bruteforce"
+filter: "evt.Meta.http_status in ['302', '404', '403', '400', '503']"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: myservice
+  confidence: 3
+  spoofable: 0
+  behavior: "myservice:bruteforce"
+  label: "myservice bruteforce"
+  remediation: true

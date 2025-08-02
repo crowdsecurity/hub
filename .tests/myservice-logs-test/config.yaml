@@ -1,0 +1,12 @@
+parsers:
+    - ./parsers/s00-raw/crowdsecurity/openwrt-syslog-ng-logs.yaml
+    - crowdsecurity/dateparse-enrich
+    - crowdsecurity/haproxy-logs
+scenarios:
+    - ./scenarios/crowdsecurity/my-haproxy-http-bf.yaml
+    - ./scenarios/crowdsecurity/my-haproxy-ssl-bf.yaml
+postoverflows:
+    - ""
+log_file: myservice-logs-test.log
+log_type: syslog-ng
+ignore_parsers: true
