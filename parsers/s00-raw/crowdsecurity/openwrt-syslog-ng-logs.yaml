@@ -1,0 +1,23 @@
+#If it's syslog, we are going to extract progname from it
+filter: "evt.Line.Labels.type == 'syslog-ng'"
+onsuccess: next_stage
+name: crowdsecurity/openwrt-syslog-ng-logs
+nodes:
+  - grok:
+      #this is a named regular expression. grok patterns can be kept into separate files for readability
+      #The Syslog-ng might have a bug because after the Month there are 2 Spaces
+      pattern: '%{MONTH:months}  %{MONTHNUM:day} %{TIME:time} %{HOSTNAME:host} %{DATA:program}%{NUMBER:pid}'
+      #This is the field of the `Event` to which the regexp should be applied
+      apply_on: Line.Raw
+#if the node was successfull, statics will be applied.
+statics:
+  - parsed: message
+    expression: evt.Line.Raw
+# syslog date can be in two different fields (one of hte assignment will fail)
+  - target: evt.StrTime
+    expression: evt.Parsed.months + ' ' + evt.Parsed.day + ' ' + evt.Parsed.time
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
+
