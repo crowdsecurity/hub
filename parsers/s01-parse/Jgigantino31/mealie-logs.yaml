@@ -7,13 +7,13 @@ pattern_syntax:
   MEALIE_CUSTOMDATE: "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}T%{HOUR}:%{MINUTE}:%{SECOND}"
 nodes:
   - grok:
-      pattern: '.*%{MEALIE_CUSTOMDATE:timestamp} - Incorrect username or password from %{IP:source_ip}' # For logs collected directly from docker
+      pattern: 'ERROR    %{MEALIE_CUSTOMDATE:timestamp} - Incorrect username or password from %{IP:source_ip}' # For logs collected directly from docker
       apply_on: message
       statics:
         - meta: log_type
           value: mealie_failed_auth
   - grok:
-      pattern: '.*%{MEALIE_CUSTOMDATE:timestamp}: Incorrect username or password from %{IP:source_ip}' # For logs collected from log file
+      pattern: '[ERROR|auth|L83] %{MEALIE_CUSTOMDATE:timestamp}: Incorrect username or password from %{IP:source_ip}' # For logs collected from log file
       apply_on: message
       statics:
         - meta: log_type
