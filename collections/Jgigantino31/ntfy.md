@@ -33,3 +33,4 @@ You must set the log-level to debug (or trace but trace has more information tha
 log-level: debug
 log-format: json
 ```
+For where to set these options when configuring Ntfy, see [Configuring the ntfy server](https://docs.ntfy.sh/config).
