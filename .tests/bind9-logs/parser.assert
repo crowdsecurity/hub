@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 13
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.425 client @0x7f65100ee4d8 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "named"
@@ -60,7 +60,25 @@ results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "name
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"] == "bind9-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.426 client 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["program"] == "named"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["message"] == "19-Oct-2022 05:34:03.426 client 192.168.1.1#3076 (example.com): query 'example.com/ANY/IN' denied"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["program"] == "named"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["message"] == "06-Feb-2025 10:32:43.896 security: info: client 192.168.1.1#44717 (wr_test): query (cache) 'wr_test/A/IN' denied (allow-query-cache did not match)"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["program"] == "named"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 13
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -71,7 +89,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
-len(results["s01-parse"]["mstilkerich/bind9"]) == 10
+len(results["s01-parse"]["mstilkerich/bind9"]) == 13
 results["s01-parse"]["mstilkerich/bind9"][0].Success == true
 results["s01-parse"]["mstilkerich/bind9"][0].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.425 client @0x7f65100ee4d8 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
 results["s01-parse"]["mstilkerich/bind9"][0].Evt.Parsed["program"] == "named"
@@ -230,7 +248,58 @@ results["s01-parse"]["mstilkerich/bind9"][9].Evt.Meta["log_type"] == "bind9_deni
 results["s01-parse"]["mstilkerich/bind9"][9].Evt.Meta["service"] == "bind9"
 results["s01-parse"]["mstilkerich/bind9"][9].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["mstilkerich/bind9"][9].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
+results["s01-parse"]["mstilkerich/bind9"][10].Success == true
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.426 client 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["program"] == "named"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["remote_port"] == "3076"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["timestamp"] == "19-Oct-2022 05:34:02.426"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["ts_d"] == "19"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["ts_m"] == "Oct"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["ts_ms"] == "426"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["ts_t"] == "05:34:02"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Parsed["ts_y"] == "2022"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Meta["log_type"] == "bind9_denied"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Meta["service"] == "bind9"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][10].Evt.Whitelisted == false
+results["s01-parse"]["mstilkerich/bind9"][11].Success == true
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["message"] == "19-Oct-2022 05:34:03.426 client 192.168.1.1#3076 (example.com): query 'example.com/ANY/IN' denied"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["program"] == "named"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["remote_port"] == "3076"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["timestamp"] == "19-Oct-2022 05:34:03.426"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["ts_d"] == "19"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["ts_m"] == "Oct"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["ts_ms"] == "426"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["ts_t"] == "05:34:03"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Parsed["ts_y"] == "2022"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Meta["log_type"] == "bind9_denied"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Meta["service"] == "bind9"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][11].Evt.Whitelisted == false
+results["s01-parse"]["mstilkerich/bind9"][12].Success == true
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["message"] == "06-Feb-2025 10:32:43.896 security: info: client 192.168.1.1#44717 (wr_test): query (cache) 'wr_test/A/IN' denied (allow-query-cache did not match)"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["program"] == "named"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["remote_port"] == "44717"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["timestamp"] == "06-Feb-2025 10:32:43.896"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["ts_d"] == "06"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["ts_m"] == "Feb"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["ts_ms"] == "896"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["ts_t"] == "10:32:43"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Parsed["ts_y"] == "2025"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Meta["log_type"] == "bind9_denied"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Meta["service"] == "bind9"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["mstilkerich/bind9"][12].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 13
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.425 client @0x7f65100ee4d8 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "named"
@@ -385,4 +454,61 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2025-02-06T10:32:43Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2025-02-06T10:32:43Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.426 client 192.168.1.1#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["program"] == "named"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["remote_port"] == "3076"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["timestamp"] == "19-Oct-2022 05:34:02.426"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["ts_d"] == "19"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["ts_m"] == "Oct"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["ts_ms"] == "426"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["ts_t"] == "05:34:02"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["ts_y"] == "2022"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["log_type"] == "bind9_denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["service"] == "bind9"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["timestamp"] == "2022-10-19T05:34:02Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Enriched["MarshaledTime"] == "2022-10-19T05:34:02Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["message"] == "19-Oct-2022 05:34:03.426 client 192.168.1.1#3076 (example.com): query 'example.com/ANY/IN' denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["program"] == "named"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["remote_port"] == "3076"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["timestamp"] == "19-Oct-2022 05:34:03.426"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["ts_d"] == "19"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["ts_m"] == "Oct"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["ts_ms"] == "426"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["ts_t"] == "05:34:03"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["ts_y"] == "2022"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["log_type"] == "bind9_denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["service"] == "bind9"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["timestamp"] == "2022-10-19T05:34:03Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Enriched["MarshaledTime"] == "2022-10-19T05:34:03Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["message"] == "06-Feb-2025 10:32:43.896 security: info: client 192.168.1.1#44717 (wr_test): query (cache) 'wr_test/A/IN' denied (allow-query-cache did not match)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["program"] == "named"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["remote_port"] == "44717"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["timestamp"] == "06-Feb-2025 10:32:43.896"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["ts_d"] == "06"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["ts_m"] == "Feb"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["ts_ms"] == "896"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["ts_t"] == "10:32:43"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["ts_y"] == "2025"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_path"] == "bind9-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["log_type"] == "bind9_denied"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["service"] == "bind9"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["timestamp"] == "2025-02-06T10:32:43Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Enriched["MarshaledTime"] == "2025-02-06T10:32:43Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Whitelisted == false
 len(results["success"][""]) == 0
