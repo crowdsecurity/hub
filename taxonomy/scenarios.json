@@ -1,33 +1,4 @@
 {
-  "crowdsecurity/appsec-generic-test": {
-    "name": "crowdsecurity/appsec-generic-test",
-    "description": "Crowdsec Generic Test Scenario for AppSec: generate an alert for appsec out of band rule for testing",
-    "label": "Crowdsec Generic Test Scenario for AppSec",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
-    "spoofable": 3,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-06-17 16:52:24"
-  },
-  "crowdsecurity/experimental-no-user-agent": {
-    "name": "crowdsecurity/experimental-no-user-agent",
-    "description": "Protect against no user agent",
-    "label": "Protect against no user agent",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0043:T1595",
-      "TA0001:T1190"
-    ],
-    "confidence": 0,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-07-01 09:27:00"
-  },
   "crowdsecurity/generic-freemarker-ssti": {
     "name": "crowdsecurity/generic-freemarker-ssti",
     "description": "Generic FreeMarker SSTI",
@@ -44,23 +15,6 @@
     "cti": true,
     "service": "http",
     "created_at": "2024-03-28 17:01:19"
-  },
-  "crowdsecurity/generic-wordpress-uploads-listing": {
-    "name": "crowdsecurity/generic-wordpress-uploads-listing",
-    "description": "Protect Wordpress uploads directory from listing files",
-    "label": "Protect Wordpress uploads directory from listing files",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0043:T1595",
-      "TA0001:T1190"
-    ],
-    "confidence": 2,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-06-05 11:33:19"
   },
   "crowdsecurity/generic-wordpress-uploads-php": {
     "name": "crowdsecurity/generic-wordpress-uploads-php",
@@ -485,7 +439,7 @@
   },
   "crowdsecurity/vpatch-CVE-2021-43798": {
     "name": "crowdsecurity/vpatch-CVE-2021-43798",
-    "description": "Grafana - Arbitrary File Read (CVE-2021-43798)",
+    "description": "Grafana Arbitrary File Read (CVE-2021-43798)",
     "label": "Grafana - LFI",
     "behaviors": [
       "http:exploit"
@@ -1432,7 +1386,7 @@
     "service": "http",
     "created_at": "2024-05-08 15:12:35",
     "cves": [
-      "CVE-2023-6623"
+      "CVE-2023-3519"
     ],
     "cwes": [
       "CWE-22"
@@ -2299,28 +2253,6 @@
       "CWE-95"
     ]
   },
-  "crowdsecurity/vpatch-CVE-2025-25257": {
-    "name": "crowdsecurity/vpatch-CVE-2025-25257",
-    "description": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection (CVE-2025-25257)",
-    "label": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0001:T1190"
-    ],
-    "confidence": 3,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-07-11 15:14:42",
-    "cves": [
-      "CVE-2025-25257"
-    ],
-    "cwes": [
-      "CWE-89"
-    ]
-  },
   "crowdsecurity/vpatch-CVE-2025-28367": {
     "name": "crowdsecurity/vpatch-CVE-2025-28367",
     "description": "Detects directory traversal in mojoPortal BetterImageGallery API Controller (CVE-2025-28367)",
@@ -2455,54 +2387,10 @@
       "CWE-306"
     ]
   },
-  "crowdsecurity/vpatch-CVE-2025-47812": {
-    "name": "crowdsecurity/vpatch-CVE-2025-47812",
-    "description": "Detects Wing FTP Server <= 7.4.3 RCE via Lua code injection in username parameter during login.",
-    "label": "Wing FTP Server - RCE",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0001:T1190"
-    ],
-    "confidence": 3,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-08-06 16:22:35",
-    "cves": [
-      "CVE-2025-47812"
-    ],
-    "cwes": [
-      "CWE-94"
-    ]
-  },
-  "crowdsecurity/vpatch-CVE-2025-49113": {
-    "name": "crowdsecurity/vpatch-CVE-2025-49113",
-    "description": "Detects arbitrary remote code execution vulnerability via PHP Object Deserialization in Roundcube",
-    "label": "Roundcube - RCE via PHP Object Deserialization",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0001:T1190"
-    ],
-    "confidence": 3,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-06-09 18:18:55",
-    "cves": [
-      "CVE-2025-49113"
-    ],
-    "cwes": [
-      "CWE-502"
-    ]
-  },
-  "crowdsecurity/vpatch-CVE-2025-49132": {
-    "name": "crowdsecurity/vpatch-CVE-2025-49132",
-    "description": "Detects unauthenticated remote code execution in Pterodactyl Panel via path traversal in /locales/locale.json",
-    "label": "Pterodactyl Panel - RCE",
+  "crowdsecurity/vpatch-CVE-2025-34028": {
+    "name": "crowdsecurity/vpatch-CVE-2025-34028",
+    "description": "Detects SSRF and path traversal in Commvault Command Center via deployWebpackage.do endpoint.",
+    "label": "Commvault - SSRF",
     "behaviors": [
       "http:exploit"
     ],
@@ -2515,32 +2403,10 @@
     "service": "http",
     "created_at": "2025-04-24 18:35:30",
     "cves": [
-      "CVE-2025-49132"
+      "CVE-2025-34028"
     ],
     "cwes": [
-      "CWE-20"
-    ]
-  },
-  "crowdsecurity/vpatch-CVE-2025-52488": {
-    "name": "crowdsecurity/vpatch-CVE-2025-52488",
-    "description": "Detects Unicode path normalization NTLM hash disclosure in DNN (DotNetNuke) via crafted file upload filename.",
-    "label": "DNN DotNetNuke - NTLM Hash Disclosure",
-    "behaviors": [
-      "http:exploit"
-    ],
-    "mitre_attacks": [
-      "TA0006:T1557"
-    ],
-    "confidence": 3,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-08-06 16:32:38",
-    "cves": [
-      "CVE-2025-52488"
-    ],
-    "cwes": [
-      "CWE-200"
+      "CWE-22"
     ]
   },
   "crowdsecurity/vpatch-connectwise-auth-bypass": {
@@ -2834,7 +2700,7 @@
   "LePresidente/jellyfin-bf_user-enum": {
     "name": "LePresidente/jellyfin-bf_user-enum",
     "description": "Detect jellyfin user enum bruteforce",
-    "label": "Jellyfin User Enumeration",
+    "label": "Harbor User Enumeration",
     "behaviors": [
       "http:bruteforce"
     ],
@@ -3567,8 +3433,8 @@
   },
   "crowdsecurity/CVE-2022-26134": {
     "name": "crowdsecurity/CVE-2022-26134",
-    "description": "Confluence - RCE (CVE-2022-26134)",
-    "label": "Confluence - RCE",
+    "description": "Detect CVE-2022-26134 exploits",
+    "label": "Confluence CVE-2022-26134",
     "behaviors": [
       "http:exploit"
     ],
@@ -4551,8 +4417,8 @@
   },
   "crowdsecurity/f5-big-ip-cve-2020-5902": {
     "name": "crowdsecurity/f5-big-ip-cve-2020-5902",
-    "description": "F5 BIG-IP TMUI - RCE (CVE-2020-5902)",
-    "label": "F5 BIG-IP TMUI - RCE",
+    "description": "Detect cve-2020-5902 exploitation attemps",
+    "label": "CVE-2020-5902",
     "behaviors": [
       "http:exploit"
     ],
@@ -4671,8 +4537,8 @@
   },
   "crowdsecurity/grafana-cve-2021-43798": {
     "name": "crowdsecurity/grafana-cve-2021-43798",
-    "description": "Grafana - Arbitrary File Read (CVE-2021-43798)",
-    "label": "Grafana - LFI",
+    "description": "Detect cve-2021-43798 exploitation attemps",
+    "label": "CVE-2021-43798",
     "behaviors": [
       "http:exploit"
     ],
@@ -4985,18 +4851,6 @@
     "service": "http",
     "created_at": "2020-12-07 11:13:38"
   },
-  "crowdsecurity/http-generic-test": {
-    "name": "crowdsecurity/http-generic-test",
-    "description": "Crowdsec Generic Test Scenario: basic HTTP trigger",
-    "label": "CrowdSec Generic Test Scenario",
-    "behaviors": [],
-    "mitre_attacks": [],
-    "confidence": 0,
-    "spoofable": 3,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-06-17 16:52:24"
-  },
   "crowdsecurity/http-magento-bf": {
     "name": "crowdsecurity/http-magento-bf",
     "description": "Detect bruteforce on Magento admin interface",
@@ -5109,22 +4963,6 @@
     "service": "http",
     "created_at": "2020-05-05 09:22:01"
   },
-  "crowdsecurity/http-sap-interface-probing": {
-    "name": "crowdsecurity/http-sap-interface-probing",
-    "description": "Detect generic HTTP SAP interface probing",
-    "label": "HTTP SAP Interface Probing",
-    "behaviors": [
-      "http:scan"
-    ],
-    "mitre_attacks": [
-      "TA0043:T1595"
-    ],
-    "confidence": 3,
-    "spoofable": 0,
-    "cti": true,
-    "service": "http",
-    "created_at": "2025-06-06 13:41:26"
-  },
   "crowdsecurity/http-sensitive-files": {
     "name": "crowdsecurity/http-sensitive-files",
     "description": "Detect attempt to access to sensitive files (.log, .db ..) or folders (.git)",
@@ -5159,7 +4997,7 @@
   },
   "crowdsecurity/http-wordpress-scan": {
     "name": "crowdsecurity/http-wordpress-scan",
-    "description": "Detect exploitation attempts against common WordPress endpoints",
+    "description": "Detect WordPress scan: vuln hunting",
     "label": "WordPress Vuln Hunting",
     "behaviors": [
       "http:scan"
@@ -5914,22 +5752,6 @@
     "cves": [
       "CVE-2024-6387"
     ]
-  },
-  "crowdsecurity/ssh-generic-test": {
-    "name": "crowdsecurity/ssh-generic-test",
-    "description": "Crowdsec Generic Test Scenario: SSH brute force trigger",
-    "label": "Crowdsec Generic Test Scenario",
-    "behaviors": [
-      "ssh:bruteforce"
-    ],
-    "mitre_attacks": [
-      "TA0006:T1110"
-    ],
-    "confidence": 0,
-    "spoofable": 3,
-    "cti": true,
-    "service": "ssh",
-    "created_at": "2025-06-17 16:52:24"
   },
   "crowdsecurity/ssh-refused-conn": {
     "name": "crowdsecurity/ssh-refused-conn",
