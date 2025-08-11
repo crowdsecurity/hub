@@ -3,10 +3,10 @@ description: "Parse Technitium auth logs"
 onsuccess: next_stage
 filter: evt.Parsed.program == 'technitium'
 pattern_syntax:
-  DATETIME_CUSTOM: '%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{TIME:time} %{TZ}'
+  technitium_DATETIME: '%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day} %{TIME:time} %{TZ}'
 nodes:
   - grok:
-      pattern: '^\[%{DATETIME_CUSTOM}\] \[%{IP:source_ip}:%{INT:source_port}\] DnsServerCore.DnsWebServiceException: Invalid username or password for user: %{USERNAME:username}'
+      pattern: '^\[%{technitium_DATETIME}\] \[%{IP:source_ip}:%{INT:source_port}\] DnsServerCore.DnsWebServiceException: Invalid username or password for user: %{USERNAME:username}'
       apply_on: message
       statics:
         - meta: log_type

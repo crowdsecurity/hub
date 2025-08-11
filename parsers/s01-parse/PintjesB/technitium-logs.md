@@ -8,6 +8,3 @@ filenames:
 labels:
   type: technitium
 ```
-
-TODO:
-- [x] Failed auth logs
