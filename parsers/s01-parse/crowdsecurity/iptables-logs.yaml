@@ -9,7 +9,8 @@ statics:
   - meta: service
     expression: Lower(evt.Unmarshaled.iptables.PROTO)
   - meta: log_type
-    expression: 'evt.Meta.service in ["tcp", "udp"] && evt.Unmarshaled.iptables.OUT == "" ? "iptables_drop" : ""'
+    expression: |
+        evt.Meta.log_type != "" ? evt.Meta.log_type : evt.Meta.service in ["tcp", "udp"] && evt.Unmarshaled.iptables.OUT == "" ? "iptables_drop" : ""
   - meta: icmp_type
     expression: evt.Unmarshaled.iptables.TYPE
   - meta: icmp_code
