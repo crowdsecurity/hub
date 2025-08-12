@@ -1,13 +1,13 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[2025-07-28 05:34:01 UTC] [169.254.44.3:50051] DnsServerCore.DnsWebServiceException: Invalid username or password for user: admin"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "technitium"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
-len(results["s01-parse"]["PintjesB/technitium-logs"]) == 1
+len(results["s01-parse"]["PintjesB/technitium-logs"]) == 6
 results["s01-parse"]["PintjesB/technitium-logs"][0].Success == true
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["day"] == "28"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["message"] == "[2025-07-28 05:34:01 UTC] [169.254.44.3:50051] DnsServerCore.DnsWebServiceException: Invalid username or password for user: admin"
@@ -25,7 +25,7 @@ results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["source_ip"] == "16
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["source_port"] == "50051"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["username"] == "admin"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["day"] == "28"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[2025-07-28 05:34:01 UTC] [169.254.44.3:50051] DnsServerCore.DnsWebServiceException: Invalid username or password for user: admin"
