@@ -1,0 +1,216 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[2025-07-17 13:17:11,562]  WARN {cps.web:1475} Login failed for user \"test4@example.org\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[2025-07-17 13:17:13,861]  WARN {cps.web:1475} Login failed for user \"test5\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "[2025-07-17 13:17:16,148]  WARN {cps.web:1475} Login failed for user \"test6\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "[2025-07-17 13:17:20,401]  WARN {cps.web:1475} Login failed for user \"test7@example.net\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "[2025-07-17 13:17:23,493]  WARN {cps.web:1475} Login failed for user \"test8\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "[2025-07-17 13:17:26,291]  WARN {cps.web:1475} Login failed for user \"test9\" IP-address: 127.0.0.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "calibre-web"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
+len(results["s01-parse"]["Jgigantino31/calibre-web-logs"]) == 6
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Parsed["message"] == "[2025-07-17 13:17:11,562]  WARN {cps.web:1475} Login failed for user \"test4@example.org\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Parsed["timestamp"] == "2025-07-17 13:17:11,562"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Parsed["username"] == "test4@example.org"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Meta["user"] == "test4@example.org"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Parsed["message"] == "[2025-07-17 13:17:13,861]  WARN {cps.web:1475} Login failed for user \"test5\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Parsed["timestamp"] == "2025-07-17 13:17:13,861"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Parsed["username"] == "test5"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Meta["user"] == "test5"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Parsed["message"] == "[2025-07-17 13:17:16,148]  WARN {cps.web:1475} Login failed for user \"test6\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Parsed["timestamp"] == "2025-07-17 13:17:16,148"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Parsed["username"] == "test6"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Meta["user"] == "test6"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][2].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Parsed["message"] == "[2025-07-17 13:17:20,401]  WARN {cps.web:1475} Login failed for user \"test7@example.net\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Parsed["timestamp"] == "2025-07-17 13:17:20,401"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Parsed["username"] == "test7@example.net"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Meta["user"] == "test7@example.net"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][3].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Parsed["message"] == "[2025-07-17 13:17:23,493]  WARN {cps.web:1475} Login failed for user \"test8\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Parsed["timestamp"] == "2025-07-17 13:17:23,493"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Parsed["username"] == "test8"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Meta["user"] == "test8"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][4].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Success == true
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Parsed["message"] == "[2025-07-17 13:17:26,291]  WARN {cps.web:1475} Login failed for user \"test9\" IP-address: 127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Parsed["program"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Parsed["timestamp"] == "2025-07-17 13:17:26,291"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Parsed["username"] == "test9"
+basename(results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["service"] == "calibre-web"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Meta["user"] == "test9"
+results["s01-parse"]["Jgigantino31/calibre-web-logs"][5].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[2025-07-17 13:17:11,562]  WARN {cps.web:1475} Login failed for user \"test4@example.org\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2025-07-17 13:17:11,562"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "test4@example.org"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-07-17T13:17:11.562Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "test4@example.org"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:11.562Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[2025-07-17 13:17:13,861]  WARN {cps.web:1475} Login failed for user \"test5\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2025-07-17 13:17:13,861"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "test5"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2025-07-17T13:17:13.861Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "test5"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:13.861Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "[2025-07-17 13:17:16,148]  WARN {cps.web:1475} Login failed for user \"test6\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2025-07-17 13:17:16,148"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["username"] == "test6"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2025-07-17T13:17:16.148Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["user"] == "test6"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:16.148Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "[2025-07-17 13:17:20,401]  WARN {cps.web:1475} Login failed for user \"test7@example.net\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp"] == "2025-07-17 13:17:20,401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["username"] == "test7@example.net"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2025-07-17T13:17:20.401Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["user"] == "test7@example.net"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:20.401Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "[2025-07-17 13:17:23,493]  WARN {cps.web:1475} Login failed for user \"test8\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "2025-07-17 13:17:23,493"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["username"] == "test8"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2025-07-17T13:17:23.493Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["user"] == "test8"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:23.493Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "[2025-07-17 13:17:26,291]  WARN {cps.web:1475} Login failed for user \"test9\" IP-address: 127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["timestamp"] == "2025-07-17 13:17:26,291"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["username"] == "test9"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"]) == "calibre-web-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "calibre-web_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["service"] == "calibre-web"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2025-07-17T13:17:26.291Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["user"] == "test9"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2025-07-17T13:17:26.291Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Whitelisted == false
+len(results["success"][""]) == 0
