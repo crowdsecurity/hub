@@ -1,0 +1,23 @@
+type: trigger
+name: crowdsecurity/modsecurity-wordpress
+description: "WordPress attacks detected via ModSecurity (application classification)"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && (
+    evt.Parsed.targeturi matches "(?i)/wp-(admin|login\\.php|content|includes|json)"
+    || evt.Parsed.targeturi matches "(?i)/xmlrpc\\.php"
+    || evt.Parsed.targeturi matches "(?i)/wp-cron\\.php"
+    || evt.Parsed.targeturi matches "(?i)/comments-post\\.php"
+  )
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+  behavior: "http:wordpress-attack"
+  label: "WordPress Attack"
+  confidence: 2
+  service: http
+
+

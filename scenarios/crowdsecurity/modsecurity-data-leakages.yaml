@@ -1,0 +1,19 @@
+type: trigger
+name: crowdsecurity/modsecurity-data-leakages
+description: "Sensitive data leakages detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && (evt.Parsed.ruleid matches "^950" || evt.Parsed.ruleid matches "^952" || evt.Parsed.ruleid matches "^953" || evt.Parsed.ruleid matches "^954" || evt.Parsed.ruleid matches "^956")
+  && evt.Parsed.tags matches "attack-disclosure"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1530
+  behavior: "http:data-leakage"
+  label: "Data Leakage"
+  confidence: 3
+  service: http
+
+

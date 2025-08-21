@@ -1,0 +1,16 @@
+type: trigger
+name: crowdsecurity/modsecurity-generic
+description: "Generic ModSecurity CRS alert"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && (evt.Parsed.ruleid matches "^911" || evt.Parsed.tags matches "attack-generic")
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+  behavior: "http:generic"
+  label: "Generic ModSecurity Alert"
+  confidence: 3
+  service: http

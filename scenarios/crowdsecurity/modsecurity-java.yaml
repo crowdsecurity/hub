@@ -1,0 +1,17 @@
+type: trigger
+name: crowdsecurity/modsecurity-java
+description: "Java-related security rule triggered via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^944"
+  && evt.Parsed.tags matches "attack-rce"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+  behavior: "http:java"
+  label: "Java Security Rule"
+  confidence: 3
+  service: http
