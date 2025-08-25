@@ -1,0 +1,18 @@
+type: trigger
+name: crowdsecurity/modsecurity-xss
+description: "Cross-Site Scripting detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^941"
+  && evt.Parsed.tags matches "attack-xss"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1059.007
+    - attack.T1189
+  behavior: "http:xss"
+  label: "Cross-Site Scripting"
+  confidence: 3
+  service: http
