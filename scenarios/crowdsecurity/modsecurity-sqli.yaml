@@ -1,0 +1,18 @@
+type: trigger
+name: crowdsecurity/modsecurity-sqli
+description: "SQL Injection detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == 'modsecurity'
+  && (evt.Parsed.ruleseverity == 'CRITICAL' || evt.Parsed.ruleseverity == '2')
+  && evt.Parsed.ruleid matches "^942"
+  && evt.Parsed.tags matches "attack-sqli"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+    - attack.T1565
+  behavior: "http:sqli"
+  label: "SQL Injection"
+  confidence: 3
+  service: http

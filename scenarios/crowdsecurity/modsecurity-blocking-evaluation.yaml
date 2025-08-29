@@ -1,0 +1,17 @@
+type: trigger
+name: crowdsecurity/modsecurity-blocking-evaluation
+description: "Blocking evaluation events detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^949"
+  && (evt.Parsed.tags matches "attack-reputation-ip" || evt.Parsed.tags matches "attack-generic")
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+  behavior: "http:blocking-evaluation"
+  label: "Blocking Evaluation"
+  confidence: 2
+  service: http
