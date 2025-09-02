@@ -5,7 +5,7 @@ filter: |
   evt.Meta.log_type == "modsecurity"
   && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
   && evt.Parsed.ruleid matches "^941"
-  && (evt.Parsed.tags matches "attack-xss" || evt.Parsed.tags matches "OWASP_CRS/ATTACK-XSS"
+  && (evt.Parsed.tags matches "attack-xss" || evt.Parsed.tags matches "OWASP_CRS/ATTACK-XSS")
 groupby: evt.Meta.source_ip
 labels:
   remediation: true
