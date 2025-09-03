@@ -1,0 +1,17 @@
+type: trigger
+name: crowdsecurity/modsecurity-session-fixation
+description: "Session fixation attempt detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^943"
+  && evt.Parsed.tags matches "attack-fixation"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1556
+  behavior: "http:session-fixation"
+  label: "Session Fixation"
+  confidence: 3
+  service: http
