@@ -32,7 +32,7 @@ statics:
     expression: evt.Line.Module
 ---
 #if it's not syslog, the type is the progname
-filter: "evt.Line.Labels.type != 'syslog'"
+filter: "evt.Line.Labels.type not in ['syslog', 'unifi']"
 onsuccess: next_stage
 name: crowdsecurity/non-syslog
 #debug: true
