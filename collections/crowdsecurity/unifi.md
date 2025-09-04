@@ -35,27 +35,31 @@ Create a configuration file `/etc/rsyslog.d/unifi-cef.conf`:
 
 ```bash
 module(load="imudp")
-input(type="imudp" port="4242")
-# Template to extract only CEF message content (no syslog headers)
-template(name="CEF" type="string" string="%msg%\n")
 
-# Template for standard syslog format (preserves full syslog structure)
-template(name="Syslog" type="string" string="%timegenerated% %hostname% %syslogtag%%msg%\n")
-
+# Only allow your senders (legacy-style; applies to all UDP inputs)
 $AllowedSender UDP, 192.168.1.0/24, 192.168.11.1/32
 
-# Rules for UniFi devices
-if $fromhost-ip != '127.0.0.1' then {
-    # Check if message starts with CEF
-    if $msg startswith 'CEF' then {
-        # CEF messages go to unifi-cef.log
+# Templates
+template(name="CEF"    type="string" string="%msg%\n")
+template(name="Syslog" type="string" string="%timegenerated% %hostname% %programname%[%procid%]: %msg%\n")
+
+# Bind the UDP/4242 input to a ruleset so only those messages hit the UniFi actions
+input(
+  type="imudp"
+  name="unifi_in"
+  port="4242"
+  ruleset="unifi"
+)
+
+ruleset(name="unifi") {
+    if $msg startswith "CEF:" then {
         action(type="omfile" file="/var/log/unifi-cef.log" template="CEF")
     } else {
-        # Non-CEF syslog messages go to unifi-syslog.log
         action(type="omfile" file="/var/log/unifi-syslog.log" template="Syslog")
     }
     stop
 }
+
 ```
 
 Restart rsyslog after configuration:
