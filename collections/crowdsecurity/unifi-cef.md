@@ -20,6 +20,8 @@ Configure your UniFi devices to send CEF logs to your rsyslog server:
 
 Create a configuration file `/etc/rsyslog.d/unifi-cef.conf`:
 
+> replace `$AllowedSender` ranges with your unifi device IP address or ranges
+
 ```bash
 module(load="imudp")
 input(type="imudp" port="4242")
@@ -28,6 +30,8 @@ template(name="CEF" type="string" string="%msg%\n")
 
 # Template for standard syslog format (preserves full syslog structure)
 template(name="Syslog" type="string" string="%timegenerated% %hostname% %syslogtag%%msg%\n")
+
+$AllowedSender UDP, 192.168.1.0/24, 192.168.11.1/32
 
 # Rules for UniFi devices
 if $fromhost-ip != '127.0.0.1' then {
