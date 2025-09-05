@@ -1,0 +1,92 @@
+onsuccess: next_stage
+filter: "evt.Parsed.cef_device_vendor == 'Ubiquiti' && evt.Parsed.cef_device_product == 'UniFi Network'"
+name: crowdsecurity/unifi-cef
+description: "Parse Unifi CEF logs"
+pattern_syntax:
+  UNIFI_ADMIN_PATTERN: 'UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIaccessMethod=(%{DATA:unifi_access_method}) UNIFIadmin=(%{DATA:unifi_admin}) src=(%{IP:src_ip}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
+  UNIFI_SECURITY_PATTERN: 'proto=(%{WORD:protocol}) src=(%{IP:src_ip}) spt=(%{INT:src_port}) dst=(%{IP:dst_ip}) dpt=(%{INT:dst_port}) UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIdeviceMac=(%{DATA:unifi_device_mac}) UNIFIdeviceName=(%{DATA:unifi_device_name}) UNIFIdeviceModel=(%{DATA:unifi_device_model}) UNIFIdeviceIp=(%{IP:unifi_device_ip}) UNIFIdeviceVersion=(%{DATA:unifi_device_version}) UNIFIrisk=(%{DATA:unifi_risk}) UNIFIipsSessionId=(%{DATA:unifi_ips_session_id}) UNIFIipsSignature=(%{DATA:unifi_ips_signature}) UNIFIipsSignatureId=(%{DATA:unifi_ips_signature_id}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
+nodes:
+  - grok:
+      pattern: '%{UNIFI_ADMIN_PATTERN}'
+      apply_on: message
+    statics:
+      - meta: service
+        value: unifi
+      - meta: vendor
+        expression: evt.Parsed.cef_device_vendor
+      - meta: product
+        expression: evt.Parsed.cef_device_product
+      - meta: device_version
+        expression: evt.Parsed.cef_device_version
+      - meta: source_ip
+        expression: evt.Parsed.src_ip
+      - meta: admin_user
+        expression: evt.Parsed.unifi_admin
+      - meta: category
+        expression: evt.Parsed.unifi_category
+      - meta: subcategory
+        expression: evt.Parsed.unifi_subcategory
+      - meta: access_method
+        expression: evt.Parsed.unifi_access_method
+      - meta: host
+        expression: evt.Parsed.unifi_host
+      - meta: event_severity
+        expression: evt.Parsed.cef_severity
+      - meta: event_signature_id
+        expression: evt.Parsed.cef_signature_id
+      - meta: message
+        expression: evt.Parsed.msg
+      - target: evt.StrTime
+        expression: evt.Parsed.unifi_utc_time
+  - grok:
+      pattern: '%{UNIFI_SECURITY_PATTERN}'
+      apply_on: message
+    statics:
+      - meta: service
+        value: unifi
+      - meta: vendor
+        expression: evt.Parsed.cef_device_vendor
+      - meta: product
+        expression: evt.Parsed.cef_device_product
+      - meta: device_version
+        expression: evt.Parsed.cef_device_version
+      - meta: source_ip
+        expression: evt.Parsed.src_ip
+      - meta: device_name
+        expression: evt.Parsed.unifi_device_name
+      - meta: device_model
+        expression: evt.Parsed.unifi_device_model
+      - meta: device_mac
+        expression: evt.Parsed.unifi_device_mac
+      - meta: device_ip
+        expression: evt.Parsed.unifi_device_ip
+      - meta: category
+        expression: evt.Parsed.unifi_category
+      - meta: subcategory
+        expression: evt.Parsed.unifi_subcategory
+      - meta: host
+        expression: evt.Parsed.unifi_host
+      - meta: risk_level
+        expression: evt.Parsed.unifi_risk
+      - meta: ips_signature
+        expression: evt.Parsed.unifi_ips_signature
+      - meta: ips_signature_id
+        expression: evt.Parsed.unifi_ips_signature_id
+      - meta: ips_session_id
+        expression: evt.Parsed.unifi_ips_session_id
+      - meta: event_severity
+        expression: evt.Parsed.cef_severity
+      - meta: event_signature_id
+        expression: evt.Parsed.cef_signature_id
+      - meta: protocol
+        expression: evt.Parsed.protocol
+      - meta: source_port
+        expression: evt.Parsed.src_port
+      - meta: destination_ip
+        expression: evt.Parsed.dst_ip
+      - meta: destination_port
+        expression: evt.Parsed.dst_port
+      - meta: message
+        expression: evt.Parsed.msg
+      - target: evt.StrTime
+        expression: evt.Parsed.unifi_utc_time
