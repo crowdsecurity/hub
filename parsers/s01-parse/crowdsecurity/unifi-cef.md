@@ -21,7 +21,7 @@ The parser uses a single configuration with two grok patterns, each optimized fo
 #### Admin/System Events
 Pattern matches logs like:
 ```
-UNIFIcategory=System UNIFIsubCategory=Admin UNIFIhost=Unifi Dream Machine UNIFIaccessMethod=web UNIFIadmin=Secure Admin src=10.72.1.222 UNIFIutcTime=2025-09-04T08:32:58.445Z msg=...
+UNIFIcategory=System UNIFIsubCategory=Admin UNIFIhost=Unifi Dream Machine UNIFIaccessMethod=web UNIFIadmin=Secure Admin src=192.168.1.100 UNIFIutcTime=2025-09-04T08:32:58.445Z msg=...
 ```
 
 **Admin pattern extracts and sets:**
@@ -33,7 +33,7 @@ UNIFIcategory=System UNIFIsubCategory=Admin UNIFIhost=Unifi Dream Machine UNIFIa
 #### Security/Threat Events
 Pattern matches logs like:
 ```
-proto=TCP src=192.168.0.1 spt=54587 dst=192.168.0.233 dpt=80 UNIFIcategory=Security UNIFIsubCategory=Intrusion Prevention UNIFIhost=Express 7 UNIFIdeviceMac=... msg=...
+proto=TCP src=10.0.0.100 spt=54587 dst=192.168.0.233 dpt=443 UNIFIcategory=Security UNIFIsubCategory=Intrusion Prevention UNIFIhost=Express 7 UNIFIdeviceMac=84:78:48:80:0d:86 UNIFIdeviceName=Express 7 UNIFIdeviceModel=UX7 UNIFIdeviceIp=192.168.0.1 UNIFIdeviceVersion=4.3.9 UNIFIrisk=medium UNIFIipsSessionId=54725290909450 UNIFIipsSignature=ET DROP Dshield Block Listed Source group 1 UNIFIipsSignatureId=2402000 UNIFIutcTime=2025-08-30T17:53:21.915Z msg=A network intrusion attempt has been detected and blocked.
 ```
 
 **Security pattern extracts and sets:**

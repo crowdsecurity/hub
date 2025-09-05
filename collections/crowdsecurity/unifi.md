@@ -164,7 +164,7 @@ After setup, test that logs are being received and properly processed:
 
 ```bash
 # Send a test CEF message (if using CEF format)
-echo "CEF:0|Test|Test|1.0|TEST|Test Event|5|src=192.168.1.100" | nc -u -w1 localhost 4242
+echo "CEF:0|Ubiquiti|UniFi Network|9.4.19|201|Threat Detected and Blocked|7|proto=TCP src=10.0.0.100 spt=52331 dst=192.168.0.233 dpt=443 UNIFIcategory=Security UNIFIsubCategory=Intrusion Prevention UNIFIhost=Express 7 UNIFIdeviceMac=84:78:48:80:0d:86 UNIFIdeviceName=Express 7 UNIFIdeviceModel=UX7 UNIFIdeviceIp=192.168.0.1 UNIFIdeviceVersion=4.3.9 UNIFIrisk=medium UNIFIipsSessionId=54725290909450 UNIFIipsSignature=ET DROP Dshield Block Listed Source group 1 UNIFIipsSignatureId=2402000 UNIFIutcTime=2025-08-30T17:53:21.915Z msg=A network intrusion attempt has been detected and blocked." | nc -u -w1 localhost 4242
 
 # Send a test syslog message
 echo "test syslog message from unifi device" | nc -u -w1 localhost 4242

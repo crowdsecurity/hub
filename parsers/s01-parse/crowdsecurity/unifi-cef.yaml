@@ -4,7 +4,7 @@ name: crowdsecurity/unifi-cef
 description: "Parse Unifi CEF logs"
 pattern_syntax:
   UNIFI_ADMIN_PATTERN: 'UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIaccessMethod=(%{DATA:unifi_access_method}) UNIFIadmin=(%{DATA:unifi_admin}) src=(%{IP:src_ip}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
-  UNIFI_SECURITY_PATTERN: 'proto=(%{WORD:protocol}) src=(%{IP:src_ip}) spt=(%{INT:src_port}) dst=(%{IP:dst_ip}) dpt=(%{INT:dst_port}) UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIdeviceMac=(%{DATA:unifi_device_mac}) UNIFIdeviceName=(%{DATA:unifi_device_name}) UNIFIdeviceModel=(%{DATA:unifi_device_model}) UNIFIdeviceIp=(%{IP:unifi_device_ip}) UNIFIdeviceVersion=(%{DATA:unifi_device_version}) UNIFIrisk=(%{DATA:unifi_risk}) UNIFIipsSessionId=(%{DATA:unifi_ips_session_id}) UNIFIipsSignature=(%{DATA:unifi_ips_signature}) UNIFIipsSignatureId=(%{DATA:unifi_ips_signature_id}) msg=(%{DATA:msg})'
+  UNIFI_SECURITY_PATTERN: 'proto=(%{WORD:protocol}) src=(%{IP:src_ip}) spt=(%{INT:src_port}) dst=(%{IP:dst_ip}) dpt=(%{INT:dst_port}) UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIdeviceMac=(%{DATA:unifi_device_mac}) UNIFIdeviceName=(%{DATA:unifi_device_name}) UNIFIdeviceModel=(%{DATA:unifi_device_model}) UNIFIdeviceIp=(%{IP:unifi_device_ip}) UNIFIdeviceVersion=(%{DATA:unifi_device_version}) UNIFIrisk=(%{DATA:unifi_risk}) UNIFIipsSessionId=(%{DATA:unifi_ips_session_id}) UNIFIipsSignature=(%{DATA:unifi_ips_signature}) UNIFIipsSignatureId=(%{DATA:unifi_ips_signature_id}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
 nodes:
   - grok:
       pattern: '%{UNIFI_ADMIN_PATTERN}'
@@ -34,10 +34,10 @@ nodes:
         expression: evt.Parsed.cef_severity
       - meta: event_signature_id
         expression: evt.Parsed.cef_signature_id
-      - meta: timestamp
-        expression: evt.Parsed.unifi_utc_time
       - meta: message
         expression: evt.Parsed.msg
+      - target: evt.StrTime
+        expression: evt.Parsed.unifi_utc_time
   - grok:
       pattern: '%{UNIFI_SECURITY_PATTERN}'
       apply_on: message
@@ -88,3 +88,5 @@ nodes:
         expression: evt.Parsed.dst_port
       - meta: message
         expression: evt.Parsed.msg
+      - target: evt.StrTime
+        expression: evt.Parsed.unifi_utc_time
