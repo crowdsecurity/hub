@@ -3,3 +3,7 @@ default_remediation: ban
 #log_level: debug
 outofband_rules:
  - crowdsecurity/crs
+on_match:
+ - filter: IsOutBand == true
+   apply:
+     - SendAlert()
