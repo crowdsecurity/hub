@@ -9,3 +9,15 @@ This collection enables non blocking [OWASP CRS](https://owasp.org/www-project-m
  - The collection contains a scenario that will [ban IPs that triggers more than 5 rules](https://app.crowdsec.net/hub/author/crowdsecurity/scenarios/crowdsec-appsec-outofband).
 
 This collection intends to offer a balance between risk of false positives and security: Suspicious requests aren't blocked immediately, but repeating offenders will be banned.
+
+## Restricting generated alerts
+
+You can restrict out-of-band alerts to OWASP CRS, by adding the following `appsec-config`:
+
+```yaml
+on_match:
+ - filter: IsOutBand == true and len(evt.Appsec.MatchedRules.ByID(980170)) == 0
+   apply:
+     - CancelAlert()
+```
+
