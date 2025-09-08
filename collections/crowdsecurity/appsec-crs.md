@@ -10,6 +10,21 @@ This collection enables non blocking [OWASP CRS](https://owasp.org/www-project-m
 
 This collection intends to offer a balance between risk of false positives and security: Suspicious requests aren't blocked immediately, but repeating offenders will be banned.
 
+## Enabling OWASP CRS
+
+Add the `crowdsecurity/crs` appsec-config to your WAF acquisition:
+
+```yaml
+appsec_configs:
+ - ...
+ - crowdsecurity/crs
+labels:
+  type: appsec
+listen_addr: 127.0.0.1:7422
+source: appsec
+
+```
+
 ## Restricting generated alerts
 
 You can restrict out-of-band alerts to OWASP CRS, by adding the following `appsec-config`:

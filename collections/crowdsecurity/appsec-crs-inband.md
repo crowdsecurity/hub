@@ -6,3 +6,18 @@ This collection enables **BLOCKING** [OWASP CRS](https://owasp.org/www-project-m
 
  - Requests triggering CRS rules will be blocked, alert generated.
  - IP get banned after 3 requests blocked (leakspeed 10s)
+
+## Enabling OWASP CRS
+
+Add the `crowdsecurity/crs` appsec-config to your WAF acquisition:
+
+```yaml
+appsec_configs:
+ - ...
+ - crowdsecurity/crs-inband
+labels:
+  type: appsec
+listen_addr: 127.0.0.1:7422
+source: appsec
+
+```
