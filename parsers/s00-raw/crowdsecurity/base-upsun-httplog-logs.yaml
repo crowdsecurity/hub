@@ -1,0 +1,24 @@
+filter: "evt.Line.Labels.type == 'upsun-httplog'"
+onsuccess: next_stage
+pattern_syntax:
+  UPSUN_APP_PREFIX: '^%{DATA:appname}\.%{INT:app_instance}'
+name: crowdsecurity/base-upsun-httplog-logs
+nodes:
+  - filter: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "upsunMsg") in ["", nil]
+    grok:
+      pattern: '%{UPSUN_APP_PREFIX} %{WORD:program}: %{GREEDYDATA:message}'
+      expression: evt.Unmarshaled.upsunMsg.message
+#if the node was successfull, statics will be applied.
+statics:
+  - meta: machine
+    expression: evt.Parsed.logsource
+  - parsed: "logsource"
+    value: "upsun-httplog"
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
+  - meta: upsunEnv
+    expression: evt.Unmarshaled.upsunMsg.metadata.environment
+  - meta: upsunProject
+    expression: evt.Unmarshaled.upsunMsg.metadata.project
