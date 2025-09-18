@@ -5,11 +5,14 @@ name: crowdsecurity/freeswitch
 description: "Parse freeswitch logs"
 pattern_syntax:
   TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
+  UUID: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+  CPU_PERCENT: '\d+\.\d+%'
 nodes:
+# Handle UUID + CPU + timestamp format
 - grok:
-    pattern: '%{TIMESTAMP:timestamp}.*\[WARNING\] sofia_reg.c:\d+ %{GREEDYDATA:parsedmessage}'
+    pattern: '%{UUID} %{TIMESTAMP:timestamp} %{CPU_PERCENT} \[WARNING\] sofia\.c:\d+ %{GREEDYDATA:parsedmessage}'
     apply_on: message
-  nodes:
+  nodes: &message_parsers
   - grok:
       pattern: "Can't find user \\[.*@%{IPORHOST}\\] from %{IPORHOST:remote_ip}"
       apply_on: parsedmessage
@@ -18,7 +21,7 @@ nodes:
       - meta: sub_type
         value: user_enumeration
   - grok:
-      pattern: "IP %{IPORHOST:remote_ip} Rejected by register acl"
+      pattern: "IP %{IPORHOST:remote_ip} Rejected by (?:register )?acl(?: \".*\")?"
       apply_on: parsedmessage
     onsuccess: next_stage
     statics:
@@ -31,6 +34,16 @@ nodes:
     statics:
       - meta: sub_type
         value: auth_failure
+# Handle CPU + timestamp format (no UUID)
+- grok:
+    pattern: '%{TIMESTAMP:timestamp} %{CPU_PERCENT} \[WARNING\] sofia(?:_reg)?\.c:\d+ %{GREEDYDATA:parsedmessage}'
+    apply_on: message
+  nodes: *message_parsers
+# Handle basic timestamp format (no UUID, no CPU)
+- grok:
+    pattern: '%{TIMESTAMP:timestamp}.*\[WARNING\] sofia(?:_reg)?\.c:\d+ %{GREEDYDATA:parsedmessage}'
+    apply_on: message
+  nodes: *message_parsers
 statics:
   - meta: service
     value: freeswitch
