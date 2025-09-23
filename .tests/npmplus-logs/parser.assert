@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 9
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2024/02/10 21:22:09 [error] 1124#1124: *163 open() \"/var/www/booking/dsfgsdf\" failed (2: No such file or directory), client: 192.168.1.100, server: booking.example.org, request: \"GET /dsfgsdf HTTP/2.0\", host: \"booking.example.org\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "npmplus"
@@ -54,7 +54,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "npmp
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"]) == "npmplus-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 9
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "[10/Feb/2024:21:25:15 +0100] booking.example.org 192.168.1.103 0.156 \"GET /dashboard HTTP/1.1\" 200 2048 2156 https://search.example.com/results?q=booking Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "npmplus"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"]) == "npmplus-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -64,7 +70,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
-len(results["s01-parse"]["ZoeyVid/npmplus-logs"]) == 9
+results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
+len(results["s01-parse"]["ZoeyVid/npmplus-logs"]) == 10
 results["s01-parse"]["ZoeyVid/npmplus-logs"][0].Success == true
 results["s01-parse"]["ZoeyVid/npmplus-logs"][0].Evt.Parsed["cid"] == "163"
 results["s01-parse"]["ZoeyVid/npmplus-logs"][0].Evt.Parsed["http_version"] == "2.0"
@@ -288,7 +295,33 @@ results["s01-parse"]["ZoeyVid/npmplus-logs"][8].Evt.Meta["service"] == "http"
 results["s01-parse"]["ZoeyVid/npmplus-logs"][8].Evt.Meta["source_ip"] == "192.168.1.102"
 results["s01-parse"]["ZoeyVid/npmplus-logs"][8].Evt.Meta["target_fqdn"] == "cloud.home.123example.de"
 results["s01-parse"]["ZoeyVid/npmplus-logs"][8].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 9
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Success == true
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["body_bytes_sent"] == "2048"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["bytes_sent"] == "2156"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["http_referer"] == "https://search.example.com/results?q=booking"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["http_version"] == "1.1"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["message"] == "[10/Feb/2024:21:25:15 +0100] booking.example.org 192.168.1.103 0.156 \"GET /dashboard HTTP/1.1\" 200 2048 2156 https://search.example.com/results?q=booking Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["program"] == "npmplus"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["remote_addr"] == "192.168.1.103"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["request"] == "/dashboard"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["request_time"] == "0.156"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["status"] == "200"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["target_fqdn"] == "booking.example.org"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["time_local"] == "10/Feb/2024:21:25:15 +0100"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["datasource_path"]) == "npmplus-logs.log"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["http_path"] == "/dashboard"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["http_status"] == "200"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["service"] == "http"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["source_ip"] == "192.168.1.103"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Meta["target_fqdn"] == "booking.example.org"
+results["s01-parse"]["ZoeyVid/npmplus-logs"][9].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["cid"] == "163"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_version"] == "2.0"
@@ -530,7 +563,35 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["target_fqdn
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["timestamp"] == "2025-09-08T09:03:04+02:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Enriched["MarshaledTime"] == "2025-09-08T09:03:04+02:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 9
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["body_bytes_sent"] == "2048"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["bytes_sent"] == "2156"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["http_referer"] == "https://search.example.com/results?q=booking"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["http_version"] == "1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["message"] == "[10/Feb/2024:21:25:15 +0100] booking.example.org 192.168.1.103 0.156 \"GET /dashboard HTTP/1.1\" 200 2048 2156 https://search.example.com/results?q=booking Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["program"] == "npmplus"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["remote_addr"] == "192.168.1.103"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["request"] == "/dashboard"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["request_time"] == "0.156"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["status"] == "200"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["target_fqdn"] == "booking.example.org"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["time_local"] == "10/Feb/2024:21:25:15 +0100"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_path"]) == "npmplus-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["http_path"] == "/dashboard"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["http_status"] == "200"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"] == "192.168.1.103"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["target_fqdn"] == "booking.example.org"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2024-02-10T21:25:15+01:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2024-02-10T21:25:15+01:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 10
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["cid"] == "163"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["file_dir"] == "/"
@@ -815,4 +876,38 @@ results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Meta["target_fqdn"] == "
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Meta["timestamp"] == "2025-09-08T09:03:04+02:00"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Enriched["MarshaledTime"] == "2025-09-08T09:03:04+02:00"
 results["s02-enrich"]["crowdsecurity/http-logs"][8].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Success == true
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["body_bytes_sent"] == "2048"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["bytes_sent"] == "2156"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["file_dir"] == "/"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["file_frag"] == "dashboard"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["file_name"] == "dashboard"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["http_referer"] == "https://search.example.com/results?q=booking"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["http_version"] == "1.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["impact_completion"] == "true"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["message"] == "[10/Feb/2024:21:25:15 +0100] booking.example.org 192.168.1.103 0.156 \"GET /dashboard HTTP/1.1\" 200 2048 2156 https://search.example.com/results?q=booking Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["program"] == "npmplus"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["remote_addr"] == "192.168.1.103"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["request"] == "/dashboard"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["request_time"] == "0.156"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["static_ressource"] == "false"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["status"] == "200"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["target_fqdn"] == "booking.example.org"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["time_local"] == "10/Feb/2024:21:25:15 +0100"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["datasource_path"]) == "npmplus-logs.log"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["http_args_len"] == "0"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["http_path"] == "/dashboard"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["http_status"] == "200"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["source_ip"] == "192.168.1.103"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["target_fqdn"] == "booking.example.org"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Meta["timestamp"] == "2024-02-10T21:25:15+01:00"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Enriched["MarshaledTime"] == "2024-02-10T21:25:15+01:00"
+results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0
