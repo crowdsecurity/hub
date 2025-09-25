@@ -68,3 +68,6 @@ statics:
     expression: "evt.Parsed.traefik_router_name"
   - meta: http_verb
     expression: "evt.Parsed.verb"
+  # Not available in CLF logs, only in JSON logs
+  - meta: target_fqdn
+    expression: "evt.Unmarshaled.traefik.RequestHost"
