@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_reverse_shell_connection
+description: |
+  Detects usage of the "TcpClient" class. Which can be abused to establish remote connections and reverse-shells. As seen used by the Nishang "Invoke-PowerShellTcpOneLine" reverse shell and other.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll'] || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains ' Net.Sockets.TCPClient' && evt.Parsed.CommandLine contains '.GetStream(' && evt.Parsed.CommandLine contains '.Write(')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Potential Powershell ReverseShell Connection"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

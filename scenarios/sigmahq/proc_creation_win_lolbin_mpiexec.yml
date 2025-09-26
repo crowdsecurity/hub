@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_mpiexec
+description: |
+  Detects a certain command line flag combination used by mpiexec.exe LOLBIN from HPC pack that can be used to execute any other binary
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mpiexec.exe' || evt.Parsed.Imphash == 'd8b52ef6aaa3a81501bdfff9dbb96217' || evt.Parsed.Hashes contains 'IMPHASH=d8b52ef6aaa3a81501bdfff9dbb96217') && (evt.Parsed.CommandLine contains ' /n 1 ' || evt.Parsed.CommandLine contains ' -n 1 '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "MpiExec Lolbin"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

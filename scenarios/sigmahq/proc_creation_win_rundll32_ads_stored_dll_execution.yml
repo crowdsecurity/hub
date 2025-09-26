@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_ads_stored_dll_execution
+description: |
+  Detects execution of rundll32 where the DLL being called is stored in an Alternate Data Stream (ADS).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine matches '[Rr][Uu][Nn][Dd][Ll][Ll]32(\\.[Ee][Xx][Ee])? \\S+?\\w:\\S+?:')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1564.004
+
+  label: "Potential Rundll32 Execution With DLL Stored In ADS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

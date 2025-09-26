@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_wce
+description: |
+  Detects the use of Windows Credential Editor (WCE)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Imphash in ['a53a02b997935fd8eedcb5f7abab9b9f', 'e96a73c7bf33a464c510ede582318bf2'] || evt.Parsed.Hashes contains 'IMPHASH=a53a02b997935fd8eedcb5f7abab9b9f' || evt.Parsed.Hashes contains 'IMPHASH=e96a73c7bf33a464c510ede582318bf2' || evt.Parsed.CommandLine endsWith '.exe -S' && evt.Parsed.ParentImage endsWith '\\services.exe') && not (evt.Parsed.Image endsWith '\\clussvc.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - Windows Credential Editor (WCE) Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

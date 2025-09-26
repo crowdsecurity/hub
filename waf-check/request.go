@@ -27,28 +27,20 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 	var req *http.Request
 	var err error
 
-	parsedBaseURL, err := url.Parse(baseURL)
-	if err != nil {
-		return *req, fmt.Errorf("error parsing base URL: %w", err)
-	}
-
 	request.URL = fmt.Sprintf("/%s", strings.TrimLeft(request.URL, "/"))
-
-	parsedURI, err := url.Parse(request.URL)
+	request.FullURL, err = url.JoinPath(baseURL, request.URL)
 	if err != nil {
-		return *req, fmt.Errorf("error parsing URI: %w", err)
+		return http.Request{}, fmt.Errorf("error joining URL: %w", err)
 	}
 
-	request.FullURL = parsedBaseURL.ResolveReference(parsedURI).String()
-
-	if request.Method == "POST" || request.Method == "PUT" {
+	if request.Method == http.MethodPost || request.Method == http.MethodPut {
 		req, err = http.NewRequest(request.Method, request.FullURL, bytes.NewBufferString(request.Data))
 	} else {
-		req, err = http.NewRequest(request.Method, request.FullURL, nil)
+		req, err = http.NewRequest(request.Method, request.FullURL, http.NoBody)
 	}
 
 	if err != nil {
-		return *req, err
+		return http.Request{}, err
 	}
 
 	for key, value := range request.Headers {
@@ -66,7 +58,7 @@ func (r *Request) Curl() string {
 	for key, value := range r.Headers {
 		curlCmd.WriteString(fmt.Sprintf(" -H '%s: %s'", key, value))
 	}
-	if r.Method == "POST" || r.Method == "PUT" {
+	if r.Method == http.MethodPost || r.Method == http.MethodPut {
 		curlCmd.WriteString(fmt.Sprintf(" -d '%s'", r.Data))
 	}
 	curlCmd.WriteString(fmt.Sprintf(" '%s'", r.FullURL))

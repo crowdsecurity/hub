@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_crackmapexec_patterns
+description: |
+  Detects suspicious process patterns found in logs when CrackMapExec is used
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'tasklist /fi ' && evt.Parsed.CommandLine contains 'Imagename eq lsass.exe' && (evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd.exe /r ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'cmd /k ') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') || evt.Parsed.CommandLine contains 'do rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump' && evt.Parsed.CommandLine contains '\\Windows\\Temp\\' && evt.Parsed.CommandLine contains ' full' && evt.Parsed.CommandLine contains '%%B' || evt.Parsed.CommandLine contains 'tasklist /v /fo csv' && evt.Parsed.CommandLine contains 'findstr /i "lsass"')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - CrackMapExec Process Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

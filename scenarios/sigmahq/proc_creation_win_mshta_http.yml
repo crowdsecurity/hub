@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mshta_http
+description: |
+  Detects execution of the "mshta" utility with an argument containing the "http" keyword, which could indicate that an attacker is executing a remotely hosted malicious hta file
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.OriginalFileName == 'MSHTA.EXE') && (evt.Parsed.CommandLine contains 'http://' || evt.Parsed.CommandLine contains 'https://' || evt.Parsed.CommandLine contains 'ftp://'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.005
+
+  label: "Remotely Hosted HTA File Executed Via Mshta.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

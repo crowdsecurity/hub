@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_delete_services
+description: |
+  Detects execution of "reg.exe" commands with the "delete" flag on services registry key. Often used by attacker to remove AV software services
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith 'reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains ' delete ' && evt.Parsed.CommandLine contains '\\SYSTEM\\CurrentControlSet\\services\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Service Registry Key Deleted Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

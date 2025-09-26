@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_outlook_enable_unsafe_client_mail_rules
+description: |
+  Detects an attacker trying to enable the outlook security setting "EnableUnsafeClientMailRules" which allows outlook to run applications or execute macros
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\Outlook\\Security\\EnableUnsafeClientMailRules')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+   - attack.t1202
+
+  label: "Outlook EnableUnsafeClientMailRules Setting Enabled"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

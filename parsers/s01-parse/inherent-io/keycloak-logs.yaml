@@ -3,25 +3,27 @@ onsuccess: next_stage
 name: inherent-io/keycloak-logs
 description: "Parse keycloak logs"
 pattern_syntax:
-  DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
-  LOG_LEVEL: "(WARN|ERROR|INFO)"
-
-  LOGIN_ERROR_DATA: "realmId=%{GREEDYDATA:realmId}, clientId=%{GREEDYDATA:clientId}, userId=%{GREEDYDATA:userId}, ipAddress=%{GREEDYDATA:ipAddress}, error=%{GREEDYDATA:error}, auth_method=%{GREEDYDATA:auth_method}, auth_type=%{GREEDYDATA:auth_type}, redirect_uri=%{GREEDYDATA:redirect_uri}, code_id=%{GREEDYDATA:code_id}, username=%{GREEDYDATA:username}, authSessionParentId=%{GREEDYDATA:authSessionParentId}, authSessionTabId=%{GREEDYDATA:authSessionTabId}"
-  LOGIN_ERROR: "^%{DATETIME:datetime} %{LOG_LEVEL:log_level} [ ]*.+ type\\=LOGIN_ERROR, %{LOGIN_ERROR_DATA}$"
+  KEYCLOAK_DATETIME: "[0-9]+-[0-9]+-[0-9]+ [0-2][0-9]:[0-5][0-9]:[0-5][0-9],[0-9]{3}"
+  KEYCLOAK_LOG_LEVEL: "(DEBUG|WARN|ERROR|INFO)"
+  KEYCLOAK_LOG_LINE: '^%{KEYCLOAK_DATETIME:datetime} %{KEYCLOAK_LOG_LEVEL:log_level}\s+\[org.*\]\s+\(executor-thread-\d+\)\s+%{GREEDYDATA:parsed_message}'
 nodes:
   - grok:
-      name: "LOGIN_ERROR"
-      apply_on: Line.Raw
-      statics:
-        - meta: log_type
-          value: LOGIN_ERROR
-        - meta: error
-          expression: evt.Parsed.error
-        - meta: source_ip
-          expression: evt.Parsed.ipAddress
-        - meta: username
-          expression: evt.Parsed.username
+      name: "KEYCLOAK_LOG_LINE"
+      apply_on: message
+    nodes:
+      - filter: ParseKV(evt.Parsed.parsed_message, evt.Unmarshaled, "keycloak") in ["", nil]
+        statics:
+          - meta: log_type
+            expression: trimSuffix(evt.Unmarshaled.keycloak.type, ",")
+          - meta: error
+            expression: trimSuffix(evt.Unmarshaled.keycloak.error ?? "", ",")
+          - meta: source_ip
+            expression: trimSuffix(evt.Unmarshaled.keycloak.ipAddress, ",")
+          - meta: username
+            expression: trimSuffix(evt.Unmarshaled.keycloak.username, ",")
 statics:
+  - meta: service
+    value: keycloak
   - target: evt.StrTime
     expression: evt.Parsed.datetime
   - meta: log_level

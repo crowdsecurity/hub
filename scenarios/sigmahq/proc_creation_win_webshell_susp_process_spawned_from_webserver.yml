@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_webshell_susp_process_spawned_from_webserver
+description: |
+  Detects potentially suspicious processes being spawned by a web server process which could be the result of a successfully placed web shell or exploitation 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\caddy.exe' || evt.Parsed.ParentImage endsWith '\\httpd.exe' || evt.Parsed.ParentImage endsWith '\\nginx.exe' || evt.Parsed.ParentImage endsWith '\\php-cgi.exe' || evt.Parsed.ParentImage endsWith '\\php.exe' || evt.Parsed.ParentImage endsWith '\\tomcat.exe' || evt.Parsed.ParentImage endsWith '\\UMWorkerProcess.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe' || evt.Parsed.ParentImage endsWith '\\ws_TomcatService.exe' || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.ParentImage contains '-tomcat-' || evt.Parsed.ParentImage contains '\\tomcat') || (evt.Parsed.ParentImage endsWith '\\java.exe' || evt.Parsed.ParentImage endsWith '\\javaw.exe') && (evt.Parsed.ParentCommandLine contains 'CATALINA_HOME' || evt.Parsed.ParentCommandLine contains 'catalina.home' || evt.Parsed.ParentCommandLine contains 'catalina.jar')) && (evt.Parsed.Image endsWith '\\arp.exe' || evt.Parsed.Image endsWith '\\at.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\dsget.exe' || evt.Parsed.Image endsWith '\\hostname.exe' || evt.Parsed.Image endsWith '\\nbtstat.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.Image endsWith '\\netdom.exe' || evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.Image endsWith '\\nltest.exe' || evt.Parsed.Image endsWith '\\ntdutil.exe' || evt.Parsed.Image endsWith '\\powershell_ise.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\qprocess.exe' || evt.Parsed.Image endsWith '\\query.exe' || evt.Parsed.Image endsWith '\\qwinsta.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\sc.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\wusa.exe') && not (evt.Parsed.ParentImage endsWith '\\java.exe' && evt.Parsed.CommandLine endsWith 'Windows\\system32\\cmd.exe /c C:\\ManageEngine\\ADManager "Plus\\ES\\bin\\elasticsearch.bat -Enode.name=RMP-NODE1 -pelasticsearch-pid.txt' || evt.Parsed.ParentImage endsWith '\\java.exe' && evt.Parsed.CommandLine contains 'sc query' && evt.Parsed.CommandLine contains 'ADManager Plus'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1505.003
+   - attack.t1190
+
+  label: "Suspicious Process By Web Server Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

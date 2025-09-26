@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_getprocess_lsass
+description: |
+  Detects a "Get-Process" cmdlet and it's aliases on lsass process, which is in almost all cases a sign of malicious activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Get-Process lsas' || evt.Parsed.CommandLine contains 'ps lsas' || evt.Parsed.CommandLine contains 'gps lsas')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1552.004
+
+  label: "PowerShell Get-Process LSASS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regsvr32_http_ip_pattern
+description: |
+  Detects regsvr32 execution to download and install DLLs located remotely where the address is an IP address.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && (evt.Parsed.CommandLine contains ' /i:http://1' || evt.Parsed.CommandLine contains ' /i:http://2' || evt.Parsed.CommandLine contains ' /i:http://3' || evt.Parsed.CommandLine contains ' /i:http://4' || evt.Parsed.CommandLine contains ' /i:http://5' || evt.Parsed.CommandLine contains ' /i:http://6' || evt.Parsed.CommandLine contains ' /i:http://7' || evt.Parsed.CommandLine contains ' /i:http://8' || evt.Parsed.CommandLine contains ' /i:http://9' || evt.Parsed.CommandLine contains ' /i:https://1' || evt.Parsed.CommandLine contains ' /i:https://2' || evt.Parsed.CommandLine contains ' /i:https://3' || evt.Parsed.CommandLine contains ' /i:https://4' || evt.Parsed.CommandLine contains ' /i:https://5' || evt.Parsed.CommandLine contains ' /i:https://6' || evt.Parsed.CommandLine contains ' /i:https://7' || evt.Parsed.CommandLine contains ' /i:https://8' || evt.Parsed.CommandLine contains ' /i:https://9' || evt.Parsed.CommandLine contains ' -i:http://1' || evt.Parsed.CommandLine contains ' -i:http://2' || evt.Parsed.CommandLine contains ' -i:http://3' || evt.Parsed.CommandLine contains ' -i:http://4' || evt.Parsed.CommandLine contains ' -i:http://5' || evt.Parsed.CommandLine contains ' -i:http://6' || evt.Parsed.CommandLine contains ' -i:http://7' || evt.Parsed.CommandLine contains ' -i:http://8' || evt.Parsed.CommandLine contains ' -i:http://9' || evt.Parsed.CommandLine contains ' -i:https://1' || evt.Parsed.CommandLine contains ' -i:https://2' || evt.Parsed.CommandLine contains ' -i:https://3' || evt.Parsed.CommandLine contains ' -i:https://4' || evt.Parsed.CommandLine contains ' -i:https://5' || evt.Parsed.CommandLine contains ' -i:https://6' || evt.Parsed.CommandLine contains ' -i:https://7' || evt.Parsed.CommandLine contains ' -i:https://8' || evt.Parsed.CommandLine contains ' -i:https://9'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.010
+
+  label: "Potentially Suspicious Regsvr32 HTTP IP Pattern"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

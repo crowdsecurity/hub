@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_aspnet_compiler_susp_paths
+description: |
+  Detects execution of "aspnet_compiler.exe" with potentially suspicious paths for compilation.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains 'C:\\Windows\\Microsoft.NET\\Framework\\' || evt.Parsed.Image contains 'C:\\Windows\\Microsoft.NET\\Framework64\\') && evt.Parsed.Image endsWith '\\aspnet_compiler.exe' && (evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Roaming\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tasks\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1127
+
+  label: "Potentially Suspicious ASP.NET Compilation Via AspNetCompiler"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

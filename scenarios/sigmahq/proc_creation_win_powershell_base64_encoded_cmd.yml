@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_encoded_cmd
+description: |
+  Detects suspicious powershell process starts with base64 encoded commands (e.g. Emotet)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (evt.Parsed.CommandLine contains ' -e' && (evt.Parsed.CommandLine contains ' JAB' || evt.Parsed.CommandLine contains ' SUVYI' || evt.Parsed.CommandLine contains ' SQBFAFgA' || evt.Parsed.CommandLine contains ' aQBlAHgA' || evt.Parsed.CommandLine contains ' aWV4I' || evt.Parsed.CommandLine contains ' IAA' || evt.Parsed.CommandLine contains ' IAB' || evt.Parsed.CommandLine contains ' UwB' || evt.Parsed.CommandLine contains ' cwB') || evt.Parsed.CommandLine contains '.exe -ENCOD ' || evt.Parsed.CommandLine contains ' BA^J e-') && not (evt.Parsed.CommandLine contains ' -ExecutionPolicy remotesigned '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Suspicious Encoded PowerShell Command Line"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

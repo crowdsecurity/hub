@@ -1,0 +1,17 @@
+len(results) == 1
+"192.168.1.1" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["192.168.1.1"].IP == "192.168.1.1"
+results[0].Overflow.Sources["192.168.1.1"].Range == ""
+results[0].Overflow.Sources["192.168.1.1"].GetScope() == "Ip"
+results[0].Overflow.Sources["192.168.1.1"].GetValue() == "192.168.1.1"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "postfix-non-smtp.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "postfix"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type_enh") == "non-smtp-command"
+results[0].Overflow.Alert.Events[0].GetMeta("machine") == "machine"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "postfix"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.1.1"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2024-10-31T12:38:21.817327Z"
+results[0].Overflow.Alert.GetScenario() == "crowdsecurity/postfix-non-smtp-command"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1

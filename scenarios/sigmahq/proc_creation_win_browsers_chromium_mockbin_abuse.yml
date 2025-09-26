@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_browsers_chromium_mockbin_abuse
+description: |
+  Detects the execution of a Chromium based browser process with the "headless" flag and a URL pointing to the mockbin.org service (which can be used to exfiltrate data).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\brave.exe' || evt.Parsed.Image endsWith '\\chrome.exe' || evt.Parsed.Image endsWith '\\msedge.exe' || evt.Parsed.Image endsWith '\\opera.exe' || evt.Parsed.Image endsWith '\\vivaldi.exe') && evt.Parsed.CommandLine contains '--headless' && (evt.Parsed.CommandLine contains '://run.mocky' || evt.Parsed.CommandLine contains '://mockbin'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Chromium Browser Headless Execution To Mockbin Like Site"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

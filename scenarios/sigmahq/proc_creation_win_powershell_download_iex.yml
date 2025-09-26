@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_download_iex
+description: |
+  Detects PowerShell download and execution cradles.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '.DownloadString(' || evt.Parsed.CommandLine contains '.DownloadFile(' || evt.Parsed.CommandLine contains 'Invoke-WebRequest ' || evt.Parsed.CommandLine contains 'iwr ') && (evt.Parsed.CommandLine contains ';iex $' || evt.Parsed.CommandLine contains '| IEX' || evt.Parsed.CommandLine contains '|IEX ' || evt.Parsed.CommandLine contains 'I`E`X' || evt.Parsed.CommandLine contains 'I`EX' || evt.Parsed.CommandLine contains 'IE`X' || evt.Parsed.CommandLine contains 'iex ' || evt.Parsed.CommandLine contains 'IEX (' || evt.Parsed.CommandLine contains 'IEX(' || evt.Parsed.CommandLine contains 'Invoke-Expression'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "PowerShell Download and Execution Cradles"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

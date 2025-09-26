@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_sysinternals_psexec_service
+description: |
+  Detects suspicious launch of a renamed version of the PSEXESVC service with, which is not often used by legitimate administrators
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'psexesvc.exe' && not (evt.Parsed.Image == 'C:\\Windows\\PSEXESVC.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Renamed PsExec Service Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

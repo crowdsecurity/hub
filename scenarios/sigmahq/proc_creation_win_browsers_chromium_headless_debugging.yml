@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_browsers_chromium_headless_debugging
+description: |
+  Detects chromium based browsers starting in headless and debugging mode and pointing to a user profile. This could be a sign of data stealing or remote control
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '--remote-debugging-' && evt.Parsed.CommandLine contains '--user-data-dir' && evt.Parsed.CommandLine contains '--headless')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1185
+
+  label: "Potential Data Stealing Via Chromium Headless Debugging"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

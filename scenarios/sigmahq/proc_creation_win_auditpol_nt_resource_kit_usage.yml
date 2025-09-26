@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_auditpol_nt_resource_kit_usage
+description: |
+  Threat actors can use an older version of the auditpol binary available inside the NT resource kit to change audit policy configuration to impair detection capability. This can be carried out by selectively disabling/removing certain audit policies as well as restoring a custom policy owned by the threat actor. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '/logon:none' || evt.Parsed.CommandLine contains '/system:none' || evt.Parsed.CommandLine contains '/sam:none' || evt.Parsed.CommandLine contains '/privilege:none' || evt.Parsed.CommandLine contains '/object:none' || evt.Parsed.CommandLine contains '/process:none' || evt.Parsed.CommandLine contains '/policy:none')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.002
+
+  label: "Audit Policy Tampering Via NT Resource Kit Auditpol"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

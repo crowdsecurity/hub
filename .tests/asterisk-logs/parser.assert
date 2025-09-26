@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[Dec 21 12:56:59] SECURITY[77]: res_security_log.c:114 security_event_stasis_cb: SecurityEvent=\"InvalidAccountID\",EventTV=\"2021-12-21T12:56:59.192+0000\",Severity=\"Error\",Service=\"PJSIP\",EventVersion=\"1\",AccountID=\"6001\",SessionID=\"2kOigHiNhyip1cGGyzdgMkqKV9a0F_G7kVfGdCUA12qsTwyHlQox1T7LSWAX\",LocalAddress=\"IPV4/UDP/172.17.0.2/5060\",RemoteAddress=\"IPV4/UDP/172.17.0.1/55287\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "asterisk"
@@ -15,11 +15,11 @@ results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == '[Mar
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "asterisk"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "asterisk-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
-len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 3
+len(results["s01-parse"]["crowdsecurity/asterisk-logs"]) == 4
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["message"] == "[Dec 21 12:56:59] SECURITY[77]: res_security_log.c:114 security_event_stasis_cb: SecurityEvent=\"InvalidAccountID\",EventTV=\"2021-12-21T12:56:59.192+0000\",Severity=\"Error\",Service=\"PJSIP\",EventVersion=\"1\",AccountID=\"6001\",SessionID=\"2kOigHiNhyip1cGGyzdgMkqKV9a0F_G7kVfGdCUA12qsTwyHlQox1T7LSWAX\",LocalAddress=\"IPV4/UDP/172.17.0.2/5060\",RemoteAddress=\"IPV4/UDP/172.17.0.1/55287\""
 results["s01-parse"]["crowdsecurity/asterisk-logs"][0].Evt.Parsed["source_ip"] == "172.17.0.1"
@@ -80,7 +80,7 @@ results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["datasource_type
 results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["log_type"] == "asterisk_failed_auth"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["service"] == "asterisk"
 results["s01-parse"]["crowdsecurity/asterisk-logs"][2].Evt.Meta["session_id"] == "0x7fa52803a000"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_port"] == "55287"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_ip"] == "172.17.0.2"

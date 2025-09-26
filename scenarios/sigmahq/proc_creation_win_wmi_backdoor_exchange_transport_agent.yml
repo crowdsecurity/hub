@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmi_backdoor_exchange_transport_agent
+description: |
+  Detects a WMI backdoor in Exchange Transport Agents via WMI event filters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\EdgeTransport.exe' && not (evt.Parsed.Image == 'C:\\Windows\\System32\\conhost.exe' || evt.Parsed.Image startsWith 'C:\\Program Files\\Microsoft\\Exchange Server\\' && evt.Parsed.Image endsWith '\\Bin\\OleConverter.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.003
+
+  label: "WMI Backdoor Exchange Transport Agent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

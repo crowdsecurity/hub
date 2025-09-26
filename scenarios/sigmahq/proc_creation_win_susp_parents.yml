@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_parents
+description: |
+  Detects suspicious parent processes that should not have any children or should only have a single possible child program
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\minesweeper.exe' || evt.Parsed.ParentImage endsWith '\\winver.exe' || evt.Parsed.ParentImage endsWith '\\bitsadmin.exe' || (evt.Parsed.ParentImage endsWith '\\csrss.exe' || evt.Parsed.ParentImage endsWith '\\certutil.exe' || evt.Parsed.ParentImage endsWith '\\eventvwr.exe' || evt.Parsed.ParentImage endsWith '\\calc.exe' || evt.Parsed.ParentImage endsWith '\\notepad.exe') && not (evt.Parsed.Image endsWith '\\WerFault.exe' || evt.Parsed.Image endsWith '\\wermgr.exe' || evt.Parsed.Image endsWith '\\conhost.exe' || evt.Parsed.Image endsWith '\\mmc.exe' || evt.Parsed.Image endsWith '\\win32calc.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Suspicious Process Parents"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

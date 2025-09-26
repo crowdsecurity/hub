@@ -1,0 +1,11 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/dateparse-enrich
+  - ./parsers/s01-parse/crowdsecurity/amavis-logs.yaml
+scenarios:
+  - scenarios/crowdsecurity/amavis-blocked.yaml
+postoverflows:
+  - ""
+log_file: amavis-blocked.log
+log_type: syslog
+ignore_parsers: true

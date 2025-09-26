@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_outlook_susp_child_processes
+description: |
+  Detects a suspicious process spawning from an Outlook process.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\OUTLOOK.EXE' && (evt.Parsed.Image endsWith '\\AppVLP.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\hh.exe' || evt.Parsed.Image endsWith '\\mftrace.exe' || evt.Parsed.Image endsWith '\\msbuild.exe' || evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\scrcons.exe' || evt.Parsed.Image endsWith '\\scriptrunner.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\svchost.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\wscript.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1204.002
+
+  label: "Suspicious Outlook Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

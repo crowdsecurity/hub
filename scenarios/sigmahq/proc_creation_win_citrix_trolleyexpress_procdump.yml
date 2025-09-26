@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_citrix_trolleyexpress_procdump
+description: |
+  Detects a possible process memory dump that uses the white-listed Citrix TrolleyExpress.exe filename as a way to dump the lsass process memory
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\TrolleyExpress 7' || evt.Parsed.CommandLine contains '\\TrolleyExpress 8' || evt.Parsed.CommandLine contains '\\TrolleyExpress 9' || evt.Parsed.CommandLine contains '\\TrolleyExpress.exe 7' || evt.Parsed.CommandLine contains '\\TrolleyExpress.exe 8' || evt.Parsed.CommandLine contains '\\TrolleyExpress.exe 9' || evt.Parsed.CommandLine contains '\\TrolleyExpress.exe -ma ' || evt.Parsed.Image endsWith '\\TrolleyExpress.exe' && not (evt.Parsed.OriginalFileName contains 'CtxInstall' || evt.Parsed.OriginalFileName == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+   - attack.t1003.001
+
+  label: "Process Access via TrolleyExpress Exclusion"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_iis_connection_strings_decryption
+description: |
+  Detects use of aspnet_regiis to decrypt Microsoft IIS connection strings. An attacker with Microsoft IIS web server access via a webshell or alike can decrypt and dump any hardcoded connection strings, such as the MSSQL service account password using aspnet_regiis command.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\aspnet_regiis.exe' || evt.Parsed.OriginalFileName == 'aspnet_regiis.exe') && evt.Parsed.CommandLine contains 'connectionStrings' && evt.Parsed.CommandLine contains ' -pdf')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003
+
+  label: "Microsoft IIS Connection Strings Decryption"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

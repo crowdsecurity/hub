@@ -1,0 +1,25 @@
+onsuccess: next_stage
+filter: "evt.Line.Labels.type == 'aws-cloudfront'"
+name: crowdsecurity/aws-cloudfront
+description: "Parse AWS CloudFront access logs"
+grok:
+  pattern: '%{YEAR:year}-%{MONTHNUM2:month}-%{MONTHDAY:day}\s+%{TIME:time}\s+%{DATA:x_edge_location}\s+%{NUMBER:sc_bytes}\s+%{IP:c_ip}\s+%{WORD:cs_method}\s+%{HOSTNAME:cs_host}\s+%{DATA:cs_uri_stem}\s+%{NUMBER:sc_status}\s+%{DATA:cs_referer}\s+%{DATA:cs_user_agent}\s+%{DATA:cs_uri_query}\s+%{DATA:cs_cookie}\s+%{WORD:x_edge_result_type}\s+%{DATA:x_edge_request_id}\s+%{HOSTNAME:x_host_header}\s+%{WORD:cs_protocol}\s+%{NUMBER:cs_bytes}\s+%{NUMBER:time_taken}\s+%{DATA:x_forwarded_for}\s+%{DATA:ssl_protocol}\s+%{DATA:ssl_cipher}\s+%{WORD:x_edge_response_result_type}\s+%{DATA:cs_protocol_version}\s+%{DATA:fle_status}\s+%{DATA:fle_encrypted_fields}\s+%{NUMBER:c_port}\s+%{NUMBER:time_to_first_byte}\s+%{WORD:x_edge_detailed_result_type}\s+%{DATA:sc_content_type}\s+%{DATA:sc_content_len}\s+%{DATA:sc_range_start}\s+%{DATA:sc_range_end}'
+  apply_on: message
+statics:
+    - meta: service
+      value: http
+    - meta: log_type
+      value: http_access-log
+    - target: evt.StrTime
+      expression: "evt.Parsed.year + '-' + evt.Parsed.month + '-' + evt.Parsed.day + 'T' + evt.Parsed.time + 'Z'"
+    - meta: source_ip
+      expression: "evt.Parsed.c_ip"
+    - meta: http_status
+      expression: "evt.Parsed.sc_status"
+    - meta: http_path
+      expression: |
+        evt.Parsed.cs_uri_query == "-" ? evt.Parsed.cs_uri_stem : evt.Parsed.cs_uri_stem + '?' + evt.Parsed.cs_uri_query
+    - meta: http_verb
+      expression: "evt.Parsed.cs_method"
+    - meta: http_user_agent
+      expression: "evt.Parsed.cs_user_agent"

@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_sysinternals_procdump_evasion
+description: |
+  Detects uses of the SysInternals ProcDump utility in which ProcDump or its output get renamed, or a dump file is moved or copied to a different name
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'copy procdump' || evt.Parsed.CommandLine contains 'move procdump' || evt.Parsed.CommandLine contains 'copy ' && evt.Parsed.CommandLine contains '.dmp ' && (evt.Parsed.CommandLine contains '2.dmp' || evt.Parsed.CommandLine contains 'lsass' || evt.Parsed.CommandLine contains 'out.dmp') || evt.Parsed.CommandLine contains 'copy lsass.exe_' || evt.Parsed.CommandLine contains 'move lsass.exe_')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+   - attack.t1003.001
+
+  label: "Potential SysInternals ProcDump Evasion"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

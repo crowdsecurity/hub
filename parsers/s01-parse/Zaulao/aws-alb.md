@@ -13,11 +13,13 @@ labels:
   type: aws-alb
 ```
 
-# Statics
-The information collected from the raw log is:
+# Metadata
+The information extracted from the raw log is:
 - `time`: The time when the load balancer generated a response to the client;
 - `remote_addr`: The IP address of the requesting client;
 - `elb_status_code`: The status code of the response from the load balancer;
+- `host`: The host name from the request;
+- `port`: The port of the request;
 - `request`: The request line URI (i.e. the `path`) from the client;
 - `verb`: The request HTTP method from the client;
 - `http_user_agent`: A User-Agent string that identifies the client that originated the request.

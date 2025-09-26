@@ -4,7 +4,7 @@ format: 2.0
 name: crowdsecurity/http-dos-invalid-http-versions
 description: "Detect DoS tools using invalid HTTP versions"
 #pattern seen in mhddos tool
-filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && evt.Parsed.http_version not in ["0.9", "1.0", "1.1", "2.0", "3.0"]' 
+filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && evt.Parsed.http_version != "" && evt.Parsed.http_version not in ["0.9", "1.0", "1.1", "2.0", "3.0"]' 
 groupby: "evt.Meta.source_ip"
 blackhole: 2m
 labels:
@@ -15,4 +15,4 @@ labels:
   classification:
     - attack.T1498
   behavior: "http:dos"
-  label: "detection of http dos with invalid http version"
+  label: "HTTP DOS with invalid HTTP version"

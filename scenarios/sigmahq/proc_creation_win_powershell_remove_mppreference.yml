@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_remove_mppreference
+description: |
+  Detects attempts to remove Windows Defender configurations using the 'MpPreference' cmdlet
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Remove-MpPreference' && (evt.Parsed.CommandLine contains '-ControlledFolderAccessProtectedFolders ' || evt.Parsed.CommandLine contains '-AttackSurfaceReductionRules_Ids ' || evt.Parsed.CommandLine contains '-AttackSurfaceReductionRules_Actions ' || evt.Parsed.CommandLine contains '-CheckForSignaturesBeforeRunningScan '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Tamper Windows Defender Remove-MpPreference"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

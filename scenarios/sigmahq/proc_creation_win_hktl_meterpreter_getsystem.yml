@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_meterpreter_getsystem
+description: |
+  Detects the use of getsystem Meterpreter/Cobalt Strike command by detecting a specific service starting
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\services.exe' && (evt.Parsed.CommandLine contains '/c' && evt.Parsed.CommandLine contains 'echo' && evt.Parsed.CommandLine contains '\\pipe\\' && (evt.Parsed.CommandLine contains 'cmd' || evt.Parsed.CommandLine contains '%COMSPEC%') || evt.Parsed.CommandLine contains 'rundll32' && evt.Parsed.CommandLine contains '.dll,a' && evt.Parsed.CommandLine contains '/p:') && not (evt.Parsed.CommandLine contains 'MpCmdRun'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134.001
+   - attack.t1134.002
+
+  label: "Potential Meterpreter/CobaltStrike Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

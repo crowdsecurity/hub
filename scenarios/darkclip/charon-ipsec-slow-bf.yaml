@@ -1,0 +1,18 @@
+name: darkclip/charon-ipsec-bf
+#debug: true
+description: "Detect Charon IPsec slow bruteforce"
+filter: "evt.Meta.log_type == 'charon_ipsec_auth_fail'"
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: "60s"
+capacity: 10
+blackhole: 1m
+labels:
+  service: charon_ipsec
+  behavior: "generic:bruteforce"
+  classification:
+    - attack.T1110
+  spoofable: 0
+  confidence: 3
+  label: "Charon IPsec Slow Bruteforce"
+  remediation: true

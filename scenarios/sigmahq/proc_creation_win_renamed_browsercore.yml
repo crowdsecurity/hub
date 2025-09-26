@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_browsercore
+description: |
+  Detects process creation with a renamed BrowserCore.exe (used to extract Azure tokens)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'BrowserCore.exe' && not (evt.Parsed.Image endsWith '\\BrowserCore.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1528
+   - attack.t1036.003
+
+  label: "Renamed BrowserCore.EXE Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

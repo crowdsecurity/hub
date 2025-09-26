@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_sysinternals_debugview
+description: |
+  Detects suspicious renamed SysInternals DebugView execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Product == 'Sysinternals DebugView' && not (evt.Parsed.OriginalFileName == 'Dbgview.exe' && evt.Parsed.Image endsWith '\\Dbgview.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1588.002
+
+  label: "Renamed SysInternals DebugView Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

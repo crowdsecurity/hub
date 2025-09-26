@@ -1,0 +1,14 @@
+type: trigger
+name: crowdsecurity/postfix-non-smtp-command
+description: "Detect scanning of postfix service through non-SMTP commands"
+filter: "evt.Meta.service == 'postfix' && evt.Meta.log_type_enh == 'non-smtp-command'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: false
+labels:
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  behavior: "generic:scan"
+  label: "Postfix Non-SMTP Command"

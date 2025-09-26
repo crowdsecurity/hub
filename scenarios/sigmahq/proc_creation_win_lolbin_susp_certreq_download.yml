@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_susp_certreq_download
+description: |
+  Detects a suspicious certreq execution taken from the LOLBAS examples, which can be abused to download (small) files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certreq.exe' || evt.Parsed.OriginalFileName == 'CertReq.exe') && evt.Parsed.CommandLine contains ' -Post ' && evt.Parsed.CommandLine contains ' -config ' && evt.Parsed.CommandLine contains ' http' && evt.Parsed.CommandLine contains ' C:\\windows\\win.ini ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "Suspicious Certreq Command to Download"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,3 +1,18 @@
 context:
   rules:
-  - evt.Meta.rule_name
+    - evt.Meta.rule_name
+  target_uri:
+    - evt.Meta.target_uri
+    - "(match.uri != nil && match.internal != true) ? match.uri : ''"
+  name:
+    - "(match.name != nil && match.internal != true) ? match.name : ''"
+  method:
+    - "(match.method != nil && match.internal != true) ? match.method : ''"
+  matched_zones:
+    - "(match.matched_zones != nil && match.internal != true) ? match.matched_zones : ''"
+  msg:
+    - "(match.msg != nil && match.internal != true) ? match.msg : ''"
+  ja4h:
+    - "req.Method != '' ? JA4H(req) :''"
+  user_agent:
+    - "req.Method != '' ? req.UserAgent() : ''"

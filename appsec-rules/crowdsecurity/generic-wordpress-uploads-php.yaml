@@ -1,0 +1,23 @@
+name: crowdsecurity/generic-wordpress-uploads-php
+description: "Detect php execution in wordpress uploads directory"
+rules:
+  - and:
+    - zones: 
+      - URI
+      transform:
+      - lowercase
+      - urldecode
+      match:
+        type: regex
+        value: '/wp-content/uploads/.*\.(h?ph(p|tm?l?|ar)|module|shtml)'
+
+labels:
+   type: exploit
+   service: http
+   confidence: 2
+   spoofable: 0
+   behavior: "http:exploit"
+   label: "Detect Wordpress PHP execution in uploads directory"
+   classification:
+     - attack.T1595
+     - attack.T1190

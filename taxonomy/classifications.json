@@ -19,6 +19,16 @@
         "label": "Many Services Exposed",
         "name": "profile:many_services"
     },
+    "bot:generic": {
+        "description": "IP has a user agent associated with a bot that is known for performing automated tasks on the internet.",
+        "label": "Bot User Agent",
+        "name": "bot:generic"
+    },
+    "bot:fake_browser": {
+        "description": "IP is identifying itself as a browser but presents behaviours that are not consistent with a browser.",
+        "label": "Fake Browser",
+        "name": "bot:fake_browser"
+    },
     "proxy:tor": {
         "description": "IP is being flagged as a TOR exit node.",
         "label": "TOR exit node",
@@ -36,136 +46,216 @@
     },
     "scanner:alphastrike": {
         "description": "IP belongs to a company that scans the internet: AlphaSrike.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: AlphaSrike",
         "name": "scanner:alphastrike"
+    },
+    "scanner:onyphe": {
+        "description": "IP belongs to a company that scans the internet: Onyphe.",
+        "label": "Known Security Company: Onyphe",
+        "name": "scanner:onyphe"
+    },
+    "scanner:deepfield": {
+        "description": "IP belongs to a company that scans the internet: Onyphe.",
+        "label": "Known Security Company: Deepfield",
+        "name": "scanner:deepfield"
+    },
+    "scanner:patrowl": {
+        "description": "IP belongs to a company that scans the internet: Onyphe.",
+        "label": "Known Security Company: Patrowl",
+        "name": "scanner:patrowl"
     },
     "scanner:arcticwolf": {
         "description": "IP belongs to an entity that scans the internet: Arctic Wolf",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Arctic Wolf",
         "name": "scanner:arcticwolf"
     },
     "scanner:qualys": {
         "description": "IP belongs to a company that scans the internet: Qualys.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Qualys",
         "name": "scanner:qualys"
     },
     "scanner:binaryedge": {
         "description": "IP belongs to a company that scans the internet: binaryedge.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: BinaryEdge",
         "name": "scanner:binaryedge"
     },
     "scanner:efficientip": {
         "description": "IP belongs to a company that scans the internet: EfficientIP.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: EfficientIP",
         "name": "scanner:efficientip"
     },
     "scanner:censys": {
         "description": "IP belongs to a company that scans the internet: Censys.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Censys",
         "name": "scanner:censys"
+    },
+    "scanner:hadrian": {
+        "description": "IP belongs to a company that scans the internet: Hadrian.io.",
+        "label": "Known Security Company: Hadrian.io",
+        "name": "scanner:hadrian"
     },
     "scanner:cert.ssi.gouv.fr": {
         "description": "IP belongs to an entity that scans the internet: cert.ssi.gouv.fr.",
-        "label": "Known CERT",
+        "label": "Known CERT: CERT-FR",
         "name": "scanner:cert.ssi.gouv.fr"
+    },
+    "scanner:watchtowr": {
+        "description": "IP belongs to a company that scans the internet: watchTowr.",
+        "label": "Known Security Company: watchTowr",
+        "name": "scanner:watchtowr"
     },
     "scanner:cisa.dhs.gov": {
         "description": "IP belongs to an entity that scans the internet: cisa.dhs.gov.",
-        "label": "Known CERT",
+        "label": "Known CERT: CISA",
         "name": "scanner:cisa.dhs.gov"
     },
     "scanner:internet-census": {
         "description": "IP belongs to a company that scans the internet: internet-census.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Internet Census",
         "name": "scanner:internet-census"
     },
     "scanner:leakix": {
         "description": "IP belongs to a company that scans the internet: leakix.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Leakix",
         "name": "scanner:leakix"
     },
-    "scanner:legit": {
-        "description": "IP belongs to a security company",
-        "label": "Legit scanner",
-        "name": "scanner:legit"
+    "scanner:project-sonar": {
+        "description": "IP belongs to Rapid7 for their Project Sonar.",
+        "label": "Known Security Company: Rapid7 Project Sonar",
+        "name": "scanner:project-sonar"
     },
     "scanner:mass": {
-        "description": "IP belongs to a company that scans the internet",
-        "label": "Legit scanner",
+        "description": "IP address is linked to a company or organization that scans and indexes the internet for public and research purposes.",
+        "label": "Public Internet Scanner",
         "name": "scanner:mass"
     },
     "scanner:shadowserver": {
         "description": "IP belongs to an entity that scans the internet: www.shadowserver.org.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Shadowserver",
         "name": "scanner:shadowserver.org"
     },
     "scanner:shodan": {
         "description": "IP belongs to a company that scans the internet: Shodan.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Shodan",
         "name": "scanner:shodan"
+    },
+    "scanner:cookiebot": {
+        "description": "IP belongs to a company that scans its clients: Cookiebot",
+        "label": "Legit Company: Cookiebot",
+        "name": "scanner:cookiebot"
     },
     "scanner:stretchoid": {
         "description": "IP belongs to an entity that scans the internet: Stretchoid.",
-        "label": "Known Security Company",
+        "label": "Known Security Company: Stretchoid",
         "name": "scanner:stretchoid"
     },
+    "scanner:tenable": {
+        "description": "IP belongs to a company that scans the internet: Tenable.",
+        "label": "Known Security Company: Tenable",
+        "name": "scanner:tenable"
+    },
+    "scanner:cortex-xpanse": {
+        "description": "IP belongs to a company that scans the internet: Palo Alto Cortex Xpanse.",
+        "label": "Known Security Company: Palo Alto Cortex Xpanse",
+        "name": "scanner:cortex-xpanse"
+    },
+    "scanner:detectify": {
+        "description": "IP belongs to a company that scans the internet: Detectify.",
+        "label": "Known Security Company: Detectify",
+        "name": "scanner:detectify"
+    },
+    "scanner:ipinfo": {
+        "description": "IP belongs to a company that scans the internet: IPinfo.",
+        "label": "Known Security Company: IPinfo",
+        "name": "scanner:ipinfo"
+    },
+    "scanner:intrinsec": {
+        "description": "IP belongs to a company that scans the internet: Intrinsec.",
+        "label": "Known Security Company: Intrinsec",
+        "name": "scanner:intrinsec"
+    },
+    "scanner:netsecscan": {
+        "description": "IP belongs to a company that scans the internet: NetSecScan.",
+        "label": "Known Security Company: NetSecScan",
+        "name": "scanner:netsecscan"
+    },
+    "scanner:munich_university": {
+        "description": "IP belongs to a company that scans the internet: University of Munich.",
+        "label": "Known Security Company: University of Munich",
+        "name": "scanner:munich_university"
+    },
+    "scanner:datagridsurface": {
+        "description": "IP belongs to a company that scans the internet: DataGridSurface.",
+        "label": "Known Security Company: DataGridSurface",
+        "name": "scanner:datagridsurface"
+    },
+    "scanner:netscout": {
+        "description": "IP belongs to a company that scans the internet: NETSCOUT.",
+        "label": "Known Security Company: NETSCOUT",
+        "name": "scanner:netscout"
+    },
     "profile:fake_rdns": {
-        "description": "IP is using a fake RDNS",
+        "description": "IP reverse DNS doesn't resolve to the IP address.",
         "label": "Fake RDNS",
         "name": "profile:fake_rdns"
     },
     "profile:nxdomain": {
-        "description": "RDNS doesn't exist",
+        "description": "RDNS doesn't exist.",
         "label": "NXDOMAIN",
         "name": "profile:nxdomain"
     },
     "profile:router": {
-        "description": "IP belongs to a router exposing services on the internet",
+        "description": "IP belongs to a router exposing services on the internet.",
         "label": "Router",
         "name": "profile:router"
     },
     "profile:proxy": {
-        "description": "IP exposes services that are commonly used by proxies",
+        "description": "IP exposes services that are commonly used by proxies.",
         "label": "Proxy",
         "name": "profile:proxy"
     },
     "profile:corporate-proxy": {
-        "description": "IP exposes services that are commonly used by proxies",
+        "description": "IP exposes services that are commonly used by proxies.",
         "label": "Corporate Proxy",
         "name": "profile:corporate-proxy"
     },
     "proxy:jupiter-vpn": {
-        "description": "IP belongs to a Jupiter VPN",
+        "description": "IP belongs to a Jupiter VPN.",
         "label": "JupiterVPN",
         "name": "profile:jupiter-vpn"
     },
+    "proxy:icloud-private-relay": {
+        "description": "IP belongs to iCloud Private Relay.",
+        "label": "iCloud Private Relay",
+        "name": "proxy:icloud-private-relay"
+    },
     "device:cyberoam": {
-        "description": "IP belongs to a Cyberoam router",
+        "description": "IP belongs to a Cyberoam router.",
         "label": "Cyberoam",
         "name": "device:cyberoam"
     },
     "device:microtik": {
-        "description": "IP belongs to a Mikrotik router",
+        "description": "IP belongs to a Mikrotik router.",
         "label": "Mikrotik",
         "name": "device:microtik"
     },
     "device:asuswrt": {
-        "description": "IP belongs to an AsusWRT router",
+        "description": "IP belongs to an AsusWRT router.",
         "label": "AsusWRT",
         "name": "device:asuswrt"
     },
     "device:hikvision": {
-        "description": "IP belongs to a Hikvision camera",
+        "description": "IP belongs to a Hikvision camera.",
         "label": "Hikvision",
         "name": "device:hikvision"
     },
     "device:ipcam": {
-        "description": "IP belongs to an IP camera",
+        "description": "IP belongs to an IP camera.",
         "label": "IpCamera",
         "name": "device:ipcam"
     },
     "profile:likely_botnet": {
-        "description": "IP is likely to belong to a botnet (based on behavior and/or characteristics)",
+        "description": "IP is likely to belong to a botnet (based on behavior and/or characteristics).",
         "label": "Likely Botnet",
         "name": "profile:likely_botnet"
     },
@@ -183,5 +273,270 @@
         "description": "IP is a shared web hosting server.",
         "label": "Shared Web Hosting",
         "name": "profile:web_hosting"
+    },
+    "botnet:amadey": {
+        "description": "IP tries to infect others with amadey botnet malware.",
+        "label": "Amadey Botnet Member",
+        "name": "botnet:amadey"
+    },
+    "hosts_malware:amadey": {
+        "description": "IP hosts malware used by the amadey botnet.",
+        "label": "Hosts Amadey Malware",
+        "name": "hosts_malware:amadey"
+    },
+    "botnet:mozi": {
+        "description": "IP tries to infect others with mozi botnet malware.",
+        "label": "Mozi Botnet Member",
+        "name": "botnet:mozi"
+    },
+    "hosts_malware:mozi": {
+        "description": "IP hosts malware used by the mozi botnet.",
+        "label": "Hosts Mozi Malware",
+        "name": "hosts_malware:mozi"
+    },
+    "botnet:guloader": {
+        "description": "IP tries to infect others with guloader botnet malware.",
+        "label": "Guloader Botnet Member",
+        "name": "botnet:guloader"
+    },
+    "hosts_malware:guloader": {
+        "description": "IP hosts malware used by the guloader botnet.",
+        "label": "Hosts Guloader Malware",
+        "name": "hosts_malware:guloader"
+    },
+    "botnet:donutmate": {
+        "description": "IP tries to infect others with donutmate botnet malware.",
+        "label": "Donutmate Botnet Member",
+        "name": "botnet:donutmate"
+    },
+    "hosts_malware:donutmate": {
+        "description": "IP hosts malware used by the donutmate botnet.",
+        "label": "Hosts Donutmate Malware",
+        "name": "hosts_malware:donutmate"
+    },
+    "botnet:moobot": {
+        "description": "IP tries to infect others with moobot botnet malware.",
+        "label": "Moobot Botnet Member",
+        "name": "botnet:moobot"
+    },
+    "hosts_malware:moobot": {
+        "description": "IP hosts malware used by the moobot botnet.",
+        "label": "Hosts Moobot Malware",
+        "name": "hosts_malware:moobot"
+    },
+    "botnet:gafgyt": {
+        "description": "IP tries to infect others with gafgyt botnet malware",
+        "label": "Gafgyt Botnet Member",
+        "name": "botnet:gafgyt"
+    },
+    "hosts_malware:gafgyt": {
+        "description": "IP hosts malware used by the gafgyt botnet.",
+        "label": "Hosts Gafgyt Malware",
+        "name": "hosts_malware:gafgyt"
+    },
+    "botnet:banker": {
+        "description": "IP tries to infect others with banker botnet malware.",
+        "label": "Banker Botnet Member",
+        "name": "botnet:banker"
+    },
+    "hosts_malware:banker": {
+        "description": "IP hosts malware used by the banker botnet.",
+        "label": "Hosts Banker Malware",
+        "name": "hosts_malware:banker"
+    },
+    "botnet:black": {
+        "description": "IP tries to infect others with black botnet malware.",
+        "label": "Black Botnet Member",
+        "name": "botnet:black"
+    },
+    "hosts_malware:black": {
+        "description": "IP hosts malware used by the black botnet.",
+        "label": "Hosts Black Malware",
+        "name": "hosts_malware:black"
+    },
+    "botnet:remcosrat": {
+        "description": "IP tries to infect others with remcosrat botnet malware.",
+        "label": "Remcosrat Botnet Member",
+        "name": "botnet:remcosrat"
+    },
+    "hosts_malware:remcosrat": {
+        "description": "IP hosts malware used by the remcosrat botnet.",
+        "label": "Hosts Remcosrat Malware",
+        "name": "hosts_malware:remcosrat"
+    },
+    "botnet:hajime": {
+        "description": "IP tries to infect others with hajime botnet malware.",
+        "label": "Hajime Botnet Member",
+        "name": "botnet:hajime"
+    },
+    "hosts_malware:hajime": {
+        "description": "IP hosts malware used by the hajime botnet.",
+        "label": "Hosts Hajime Malware",
+        "name": "hosts_malware:hajime"
+    },
+    "botnet:zgrat": {
+        "description": "IP tries to infect others with zgrat botnet malware.",
+        "label": "Zgrat Botnet Member",
+        "name": "botnet:zgrat"
+    },
+    "hosts_malware:zgrat": {
+        "description": "IP hosts malware used by the zgrat botnet.",
+        "label": "Hosts Zgrat Malware",
+        "name": "hosts_malware:zgrat"
+    },
+    "botnet:stealc": {
+        "description": "IP tries to infect others with stealc botnet malware.",
+        "label": "Stealc Botnet Member",
+        "name": "botnet:stealc"
+    },
+    "hosts_malware:stealc": {
+        "description": "IP hosts malware used by the stealc botnet.",
+        "label": "Hosts Stealc Malware",
+        "name": "hosts_malware:stealc"
+    },
+    "botnet:mirai": {
+        "description": "IP tries to infect others with mirai botnet malware.",
+        "label": "Mirai Botnet Member",
+        "name": "botnet:mirai"
+    },
+    "hosts_malware:mirai": {
+        "description": "IP hosts malware used by the mirai botnet.",
+        "label": "Hosts Mirai Malware",
+        "name": "hosts_malware:mirai"
+    },
+    "botnet:kinsing": {
+        "description": "IP tries to infect others with kinsing botnet malware.",
+        "label": "Kinsing Botnet Member",
+        "name": "botnet:kinsing"
+    },
+    "hosts_malware:kinsing": {
+        "description": "IP hosts malware used by the kinsing botnet.",
+        "label": "Hosts Kinsing Malware",
+        "name": "hosts_malware:kinsing"
+    },
+    "botnet:agenttesla": {
+        "description": "IP tries to infect others with agenttesla botnet malware.",
+        "label": "Agenttesla Botnet Member",
+        "name": "botnet:agenttesla"
+    },
+    "hosts_malware:agenttesla": {
+        "description": "IP hosts malware used by the agenttesla botnet.",
+        "label": "Hosts Agenttesla Malware",
+        "name": "hosts_malware:agenttesla"
+    },
+    "botnet:byob": {
+        "description": "IP tries to infect others with byob botnet malware.",
+        "label": "Byob Botnet Member",
+        "name": "botnet:byob"
+    },
+    "hosts_malware:byob": {
+        "description": "IP hosts malware used by the byob botnet.",
+        "label": "Hosts Byob Malware",
+        "name": "hosts_malware:byob"
+    },
+    "profile:spoofed_user_agent": {
+        "description": "IP uses rapidly changing user agents.",
+        "label": "Spoofed User Agent",
+        "name": "profile:spoofed_user_agent"
+    },
+    "ai-crawler:meta": {
+        "description": "This IP is used to scrape websites for LLM training by Meta.",
+        "label": "Meta AI crawler",
+        "name": "ai-crawler:meta"
+    },
+    "ai-search:duckduckgo": {
+        "description": "This IP is used to enrich search results using an LLM by DuckDuckGo.",
+        "label": "DuckDuckGo AI search agent",
+        "name": "ai-search:duckduckgo"
+    },
+    "ai-crawler:allenai": {
+        "description": "This IP is used to scrape websites for LLM training by AllenAI.",
+        "label": "AllenAI AI crawler",
+        "name": "ai-crawler:allenai"
+    },
+    "ai-crawler:apple": {
+        "description": "This IP is used to scrape websites for LLM training by Apple.",
+        "label": "Apple AI crawler",
+        "name": "ai-crawler:apple"
+    },
+    "ai-search:apple": {
+        "description": "This IP is used to enrich search results using an LLM by Apple.",
+        "label": "Apple AI search agent",
+        "name": "ai-search:apple"
+    },
+    "ai-crawler:bytedance": {
+        "description": "This IP is used to scrape websites for LLM training by Bytedance.",
+        "label": "Bytedance AI crawler",
+        "name": "ai-crawler:bytedance"
+    },
+    "ai-crawler:commoncrawl": {
+        "description": "This IP is used to scrape websites for LLM training by CommonCrawl.",
+        "label": "CommonCrawl AI crawler",
+        "name": "ai-crawler:commoncrawl"
+    },
+    "ai-crawler:anthropic": {
+        "description": "This IP is used to scrape websites for LLM training by Anthropic.",
+        "label": "Anthropic AI crawler",
+        "name": "ai-crawler:anthropic"
+    },
+    "ai-search:anthropic": {
+        "description": "This IP is used to enrich search results using an LLM by Anthropic.",
+        "label": "Anthropic AI search agent",
+        "name": "ai-search:anthropic"
+    },
+    "ai-crawler:cohere": {
+        "description": "This IP is used to scrape websites for LLM training by CohereAI.",
+        "label": "CohereAI AI crawler",
+        "name": "ai-crawler:cohere"
+    },
+    "ai-search:cohere": {
+        "description": "This IP is used to enrich search results using an LLM by CohereAI.",
+        "label": "CohereAI AI search agent",
+        "name": "ai-search:cohere"
+    },
+    "ai-crawler:openai": {
+        "description": "This IP is used to scrape websites for LLM training by OpenAI.",
+        "label": "OpenAI AI crawler",
+        "name": "ai-crawler:openai"
+    },
+    "ai-search:openai": {
+        "description": "This IP is used to enrich search results using an LLM by OpenAI.",
+        "label": "OpenAI AI search agent",
+        "name": "ai-search:openai"
+    },
+    "ai-crawler:huawei": {
+        "description": "This IP is used to scrape websites for LLM training by Huawei.",
+        "label": "Huawei AI crawler",
+        "name": "ai-crawler:huawei"
+    },
+    "ai-crawler:perplexity": {
+        "description": "This IP is used to scrape websites for LLM training by Perplexity.",
+        "label": "Perplexity AI crawler",
+        "name": "ai-crawler:perplexity"
+    },
+    "ai-search:perplexity": {
+        "description": "This IP is used to enrich search results using an LLM by Perplexity.",
+        "label": "Perplexity AI search agent",
+        "name": "ai-search:perplexity"
+    },
+    "ai-search:amazon": {
+        "description": "This IP is used to enrich search results using an LLM by Amazon.",
+        "label": "Amazon AI search agent",
+        "name": "ai-search:amazon"
+    },
+    "group:*": {
+        "name": "group:*",
+        "label": "Attacker Group: *",
+        "description": "This IP is part of a group of machines that exploit the same set of vulnerabilities in a synchronized manner, indicating potential control by a common threat actor. This is currently an experimental feature."
+    },
+    "connection-type:data-center": {
+        "description": "This IP belongs to a data center.",
+        "label": "Data Center IP",
+        "name": "connection-type:data-center"
+    },
+    "connection-type:residential": {
+        "description": "This IP belongs to a residential user.",
+        "label": "Residential IP",
+        "name": "connection-type:residential"
     }
 }

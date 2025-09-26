@@ -5,19 +5,19 @@ type: leaky
 name: lourys/pterodactyl-wings-bf
 description: "Detect invalid_format ssh bruteforce"
 filter: "evt.Meta.log_type == 'pterodactly_wings_invalid_format'"
-leakspeed: "15s"
-capacity: 1
+leakspeed: 15m
+capacity: 5
 groupby: evt.Meta.source_ip
-blackhole: 15m
+blackhole: 30m
 reprocess: true
 labels:
   service: pterodactyl
   classification:
     - attack.T1110
   spoofable: 0
-  confidence: 1
-  behavior: "http:bruteforce"
-  label: "Pterodactyl Wing bruteforce"
+  confidence: 3
+  behavior: "ssh:bruteforce"
+  label: "Pterodactyl Wing Bruteforce"
   remediation: true
 ---
 type: leaky
@@ -26,17 +26,17 @@ description: "Detect invalid_format ssh user enum bruteforce"
 filter: evt.Meta.log_type == 'pterodactly_wings_invalid_format'
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
-leakspeed: 15s
-capacity: 1
-blackhole: 15m
+leakspeed: 15m
+capacity: 5
+blackhole: 30m
 labels:
   service: pterodactyl
   classification:
     - attack.T1087
   spoofable: 0
-  confidence: 1
-  behavior: "http:bruteforce"
-  label: "Pterodactyl Wing bruteforce"
+  confidence: 3
+  behavior: "ssh:bruteforce"
+  label: "Pterodactyl Wing Bruteforce"
   remediation: true
 
 ###############################
@@ -48,15 +48,15 @@ name: lourys/pterodactyl-wings-bf
 description: "Detect invalid_username_or_password ssh bruteforce"
 filter: evt.Meta.log_type == 'pterodactly_wings_invalid_username_or_password'
 groupby: evt.Meta.source_ip
-leakspeed: 10s
-capacity: 5
-blackhole: 1m
+leakspeed: 5m
+capacity: 10
+blackhole: 5m
 labels:
   service: pterodactyl
   classification:
     - attack.T1110
   spoofable: 0
   confidence: 3
-  behavior: "http:bruteforce"
-  label: "Pterodactyl Wing bruteforce"
+  behavior: "ssh:bruteforce"
+  label: "Pterodactyl Wing Bruteforce"
   remediation: true

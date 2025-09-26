@@ -1,0 +1,27 @@
+name: crowdsecurity/vpatch-symfony-profiler
+description: "Detect abuse of symfony profiler"
+rules:
+  - zones:
+    - URI
+    transform:
+    - lowercase
+    match:
+      type: contains
+      value: /_profiler/phpinfo
+  - zones:
+    - URI
+    transform:
+    - lowercase
+    match:
+      type: contains
+      value: /_profiler/open
+labels:
+  type: scan
+  service: http
+  confidence: 3
+  spoofable: 0
+  behavior: "http:scan"
+  label: "Access to symfony profiler"
+  classification:
+   - attack.T1595
+   - attack.T1190

@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_shell_spawn_susp_program
+description: |
+  Detects suspicious child processes of a Windows shell and scripting processes such as wscript, rundll32, powershell, mshta...etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage endsWith '\\wmiprvse.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe') && (evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\nslookup.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\mshta.exe') && not (evt.Parsed.CurrentDirectory contains '\\ccmcache\\' || evt.Parsed.ParentCommandLine contains '\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\setup-scheduledtask.ps1' || evt.Parsed.ParentCommandLine contains '\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\set-selfhealing.ps1' || evt.Parsed.ParentCommandLine contains '\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\check-workspacehealth.ps1' || evt.Parsed.ParentCommandLine contains '\\nessus_' || evt.Parsed.CommandLine contains '\\nessus_' || evt.Parsed.ParentImage endsWith '\\mshta.exe' && evt.Parsed.Image endsWith '\\mshta.exe' && evt.Parsed.ParentCommandLine contains 'C:\\MEM_Configmgr_' && evt.Parsed.ParentCommandLine contains '\\splash.hta' && evt.Parsed.ParentCommandLine contains '{1E460BD7-F1C3-4B2E-88BF-4E770A288AF5}' && evt.Parsed.CommandLine contains 'C:\\MEM_Configmgr_' && evt.Parsed.CommandLine contains '\\SMSSETUP\\BIN\\' && evt.Parsed.CommandLine contains '\\autorun.hta' && evt.Parsed.CommandLine contains '{1E460BD7-F1C3-4B2E-88BF-4E770A288AF5}'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.005
+   - attack.t1059.001
+   - attack.t1218
+
+  label: "Windows Shell/Scripting Processes Spawning Suspicious Programs"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

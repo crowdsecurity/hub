@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_vscode_tunnel_renamed_execution
+description: |
+  Detects renamed Visual Studio Code tunnel execution. Attackers can abuse this functionality to establish a C2 channel
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == '' && evt.Parsed.CommandLine endsWith '.exe tunnel' || evt.Parsed.CommandLine contains '.exe tunnel' && evt.Parsed.CommandLine contains '--name ' && evt.Parsed.CommandLine contains '--accept-server-license-terms' || evt.Parsed.CommandLine contains 'tunnel ' && evt.Parsed.CommandLine contains 'service' && evt.Parsed.CommandLine contains 'internal-run' && evt.Parsed.CommandLine contains 'tunnel-service.log') && not (evt.Parsed.Image endsWith '\\code-tunnel.exe' || evt.Parsed.Image endsWith '\\code.exe') || evt.Parsed.ParentCommandLine endsWith ' tunnel' && evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine contains '/d /c ' && evt.Parsed.CommandLine contains '\\servers\\Stable-' && evt.Parsed.CommandLine contains 'code-server.cmd' && not (evt.Parsed.ParentImage endsWith '\\code-tunnel.exe' || evt.Parsed.ParentImage endsWith '\\code.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1071.001
+
+  label: "Renamed Visual Studio Code Tunnel Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

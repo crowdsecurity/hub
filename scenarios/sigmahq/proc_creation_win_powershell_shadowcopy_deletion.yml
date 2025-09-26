@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_shadowcopy_deletion
+description: |
+  Detects deletion of Windows Volume Shadow Copies with PowerShell code and Get-WMIObject. This technique is used by numerous ransomware families such as Sodinokibi/REvil
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'Get-WmiObject' || evt.Parsed.CommandLine contains 'gwmi' || evt.Parsed.CommandLine contains 'Get-CimInstance' || evt.Parsed.CommandLine contains 'gcim') && evt.Parsed.CommandLine contains 'Win32_ShadowCopy' && (evt.Parsed.CommandLine contains '.Delete()' || evt.Parsed.CommandLine contains 'Remove-WmiObject' || evt.Parsed.CommandLine contains 'rwmi' || evt.Parsed.CommandLine contains 'Remove-CimInstance' || evt.Parsed.CommandLine contains 'rcim'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1490
+
+  label: "Deletion of Volume Shadow Copies via WMI with PowerShell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

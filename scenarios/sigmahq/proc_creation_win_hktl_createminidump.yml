@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_createminidump
+description: |
+  Detects the use of CreateMiniDump hack tool used to dump the LSASS process memory for credential extraction on the attacker's machine
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\CreateMiniDump.exe' || evt.Parsed.Imphash == '4a07f944a83e8a7c2525efa35dd30e2f' || evt.Parsed.Hashes contains 'IMPHASH=4a07f944a83e8a7c2525efa35dd30e2f')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - CreateMiniDump Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

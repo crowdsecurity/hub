@@ -1,0 +1,7 @@
+name: crowdsecurity/actual-budget-whitelist
+description: "Whitelist events from actual budget"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Actual Budget whitelist"
+  expression:
+   - evt.Meta.http_status in ['200', '304'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '^\\/data\\/migrations\\/([A-Za-z0-9\\-\\_]+)\\.sql$' # When loading database migrations

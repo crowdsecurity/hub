@@ -1,0 +1,22 @@
+# postfix relay access denied
+type: leaky
+name: crowdsecurity/postfix-relay-denied
+description: "Detect multiple open relay attempts"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.action == 'reject' && evt.Meta.reason == 'Relay access denied'"
+references:
+  - https://en.wikipedia.org/wiki/Open_mail_relay
+groupby: evt.Meta.source_ip
+capacity: 1
+leakspeed: 600s
+blackhole: 1m
+reprocess: false
+labels:
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+  - attack.T1595
+  - attack.T1190
+  behavior: "smtp:spam"
+  label: "Postfix Relay Denied"

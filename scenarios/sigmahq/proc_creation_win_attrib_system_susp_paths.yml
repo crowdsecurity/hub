@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_attrib_system_susp_paths
+description: |
+  Detects the usage of attrib with the "+s" option to set scripts or executables located in suspicious locations as system files to hide them from users and make them unable to be deleted with simple rights. The rule limits the search to specific extensions and directories to avoid FPs 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\attrib.exe' || evt.Parsed.OriginalFileName == 'ATTRIB.EXE') && evt.Parsed.CommandLine contains ' +s' && (evt.Parsed.CommandLine contains ' %' || evt.Parsed.CommandLine contains '\\Users\\Public\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\' || evt.Parsed.CommandLine contains '\\ProgramData\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Windows\\Temp\\') && (evt.Parsed.CommandLine contains '.bat' || evt.Parsed.CommandLine contains '.dll' || evt.Parsed.CommandLine contains '.exe' || evt.Parsed.CommandLine contains '.hta' || evt.Parsed.CommandLine contains '.ps1' || evt.Parsed.CommandLine contains '.vbe' || evt.Parsed.CommandLine contains '.vbs') && not (evt.Parsed.CommandLine contains '\\Windows\\TEMP\\' && evt.Parsed.CommandLine contains '.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1564.001
+
+  label: "Set Suspicious Files as System Files Using Attrib.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

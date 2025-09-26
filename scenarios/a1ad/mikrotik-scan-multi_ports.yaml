@@ -1,6 +1,6 @@
 type: leaky
 name: a1ad/mikrotik-scan-multi_ports
-description: "ban IPs that are scanning us"
+description: "Detect port scanning from single ip on MikroTik router"
 filter: "evt.Meta.log_type == 'mikrotik_drop' && evt.Meta.service == 'tcp_udp'"
 groupby: evt.Meta.source_ip
 distinct: evt.Parsed.dst_port
@@ -16,5 +16,5 @@ labels:
     - attack.T1046
   spoofable: 2
   confidence: 1
-  label: "Mikrotik Port Scanning"
+  label: "MikroTik Port Scanning"
   remediation: true

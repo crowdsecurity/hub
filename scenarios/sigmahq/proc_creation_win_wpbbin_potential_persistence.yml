@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wpbbin_potential_persistence
+description: |
+  Detects execution of the binary "wpbbin" which is used as part of the UEFI based persistence method described in the reference section
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image == 'C:\\Windows\\System32\\wpbbin.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1542.001
+
+  label: "UEFI Persistence Via Wpbbin - ProcessCreation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

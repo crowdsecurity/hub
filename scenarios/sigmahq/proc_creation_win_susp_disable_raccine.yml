@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_disable_raccine
+description: |
+  Detects commands that indicate a Raccine removal from an end system. Raccine is a free ransomware protection tool.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'taskkill ' && evt.Parsed.CommandLine contains 'RaccineSettings.exe' || evt.Parsed.CommandLine contains 'reg.exe' && evt.Parsed.CommandLine contains 'delete' && evt.Parsed.CommandLine contains 'Raccine Tray' || evt.Parsed.CommandLine contains 'schtasks' && evt.Parsed.CommandLine contains '/DELETE' && evt.Parsed.CommandLine contains 'Raccine Rules Updater')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Raccine Uninstall"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

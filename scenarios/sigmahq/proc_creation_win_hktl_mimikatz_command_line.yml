@@ -1,0 +1,27 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_mimikatz_command_line
+description: |
+  Detection well-known mimikatz command line arguments
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'DumpCreds' || evt.Parsed.CommandLine contains 'mimikatz' || evt.Parsed.CommandLine contains '::aadcookie' || evt.Parsed.CommandLine contains '::detours' || evt.Parsed.CommandLine contains '::memssp' || evt.Parsed.CommandLine contains '::mflt' || evt.Parsed.CommandLine contains '::ncroutemon' || evt.Parsed.CommandLine contains '::ngcsign' || evt.Parsed.CommandLine contains '::printnightmare' || evt.Parsed.CommandLine contains '::skeleton' || evt.Parsed.CommandLine contains '::preshutdown' || evt.Parsed.CommandLine contains '::mstsc' || evt.Parsed.CommandLine contains '::multirdp' || evt.Parsed.CommandLine contains 'rpc::' || evt.Parsed.CommandLine contains 'token::' || evt.Parsed.CommandLine contains 'crypto::' || evt.Parsed.CommandLine contains 'dpapi::' || evt.Parsed.CommandLine contains 'sekurlsa::' || evt.Parsed.CommandLine contains 'kerberos::' || evt.Parsed.CommandLine contains 'lsadump::' || evt.Parsed.CommandLine contains 'privilege::' || evt.Parsed.CommandLine contains 'process::' || evt.Parsed.CommandLine contains 'vault::')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+   - attack.t1003.002
+   - attack.t1003.004
+   - attack.t1003.005
+   - attack.t1003.006
+
+  label: "HackTool - Mimikatz Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

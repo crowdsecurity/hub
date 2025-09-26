@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_userinit_uncommon_child_processes
+description: |
+  Detects uncommon "userinit.exe" child processes, which could be a sign of uncommon shells or login scripts used for persistence.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\userinit.exe' && not (evt.Parsed.Image endsWith ':\\WINDOWS\\explorer.exe') && not (evt.Parsed.CommandLine contains 'netlogon.bat' || evt.Parsed.CommandLine contains 'UsrLogon.cmd' || evt.Parsed.CommandLine == 'PowerShell.exe' || evt.Parsed.Image endsWith ':\\Windows\\System32\\proquota.exe' || evt.Parsed.Image endsWith ':\\Windows\\SysWOW64\\proquota.exe' || evt.Parsed.Image endsWith ':\\Program Files (x86)\\Citrix\\HDX\\bin\\cmstart.exe' || evt.Parsed.Image endsWith ':\\Program Files (x86)\\Citrix\\HDX\\bin\\icast.exe' || evt.Parsed.Image endsWith ':\\Program Files (x86)\\Citrix\\System32\\icast.exe' || evt.Parsed.Image endsWith ':\\Program Files\\Citrix\\HDX\\bin\\cmstart.exe' || evt.Parsed.Image endsWith ':\\Program Files\\Citrix\\HDX\\bin\\icast.exe' || evt.Parsed.Image endsWith ':\\Program Files\\Citrix\\System32\\icast.exe' || evt.Parsed.Image == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1037.001
+
+  label: "Uncommon Userinit Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

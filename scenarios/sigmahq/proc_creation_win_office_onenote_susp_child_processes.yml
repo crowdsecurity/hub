@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_onenote_susp_child_processes
+description: |
+  Detects suspicious child processes of the Microsoft OneNote application. This may indicate an attempt to execute malicious embedded objects from a .one file.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\onenote.exe' && (evt.Parsed.OriginalFileName in ['bitsadmin.exe', 'CertOC.exe', 'CertUtil.exe', 'Cmd.Exe', 'CMSTP.EXE', 'cscript.exe', 'curl.exe', 'HH.exe', 'IEExec.exe', 'InstallUtil.exe', 'javaw.exe', 'Microsoft.Workflow.Compiler.exe', 'msdt.exe', 'MSHTA.EXE', 'msiexec.exe', 'Msxsl.exe', 'odbcconf.exe', 'pcalua.exe', 'PowerShell.EXE', 'RegAsm.exe', 'RegSvcs.exe', 'REGSVR32.exe', 'RUNDLL32.exe', 'schtasks.exe', 'ScriptRunner.exe', 'wmic.exe', 'WorkFolders.exe', 'wscript.exe'] || evt.Parsed.Image endsWith '\\AppVLP.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\certoc.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cmstp.exe' || evt.Parsed.Image endsWith '\\control.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\curl.exe' || evt.Parsed.Image endsWith '\\forfiles.exe' || evt.Parsed.Image endsWith '\\hh.exe' || evt.Parsed.Image endsWith '\\ieexec.exe' || evt.Parsed.Image endsWith '\\installutil.exe' || evt.Parsed.Image endsWith '\\javaw.exe' || evt.Parsed.Image endsWith '\\mftrace.exe' || evt.Parsed.Image endsWith '\\Microsoft.Workflow.Compiler.exe' || evt.Parsed.Image endsWith '\\msbuild.exe' || evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\msidb.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\msxsl.exe' || evt.Parsed.Image endsWith '\\odbcconf.exe' || evt.Parsed.Image endsWith '\\pcalua.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regasm.exe' || evt.Parsed.Image endsWith '\\regsvcs.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\scrcons.exe' || evt.Parsed.Image endsWith '\\scriptrunner.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\svchost.exe' || evt.Parsed.Image endsWith '\\verclsid.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\workfolders.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\explorer.exe' && (evt.Parsed.CommandLine contains '.hta' || evt.Parsed.CommandLine contains '.vb' || evt.Parsed.CommandLine contains '.wsh' || evt.Parsed.CommandLine contains '.js' || evt.Parsed.CommandLine contains '.ps' || evt.Parsed.CommandLine contains '.scr' || evt.Parsed.CommandLine contains '.pif' || evt.Parsed.CommandLine contains '.bat' || evt.Parsed.CommandLine contains '.cmd') || evt.Parsed.Image contains '\\AppData\\' || evt.Parsed.Image contains '\\Users\\Public\\' || evt.Parsed.Image contains '\\ProgramData\\' || evt.Parsed.Image contains '\\Windows\\Tasks\\' || evt.Parsed.Image contains '\\Windows\\Temp\\' || evt.Parsed.Image contains '\\Windows\\System32\\Tasks\\') && not (evt.Parsed.Image endsWith '\\AppData\\Local\\Microsoft\\Teams\\current\\Teams.exe' && evt.Parsed.CommandLine endsWith '-Embedding' || evt.Parsed.Image contains '\\AppData\\Local\\Microsoft\\OneDrive\\' && evt.Parsed.Image endsWith '\\FileCoAuth.exe' && evt.Parsed.CommandLine endsWith '-Embedding'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1566
+   - attack.t1566.001
+
+  label: "Suspicious Microsoft OneNote Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,4 @@
+#a generic context for firewall based scenarios
+context:
+  dst_port: #Destination port that was targeted
+    - "evt.Meta.service in ['tcp', 'udp'] ? evt.Meta.service + ':' + evt.Parsed.dst_port : ''"

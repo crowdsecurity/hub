@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rdrleakdiag_process_dumping
+description: |
+  Detects the use of the Microsoft Windows Resource Leak Diagnostic tool "rdrleakdiag.exe" to dump process memory
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rdrleakdiag.exe' || evt.Parsed.OriginalFileName == 'RdrLeakDiag.exe') && (evt.Parsed.CommandLine contains '-memdmp' || evt.Parsed.CommandLine contains '/memdmp' || evt.Parsed.CommandLine contains '–memdmp' || evt.Parsed.CommandLine contains '—memdmp' || evt.Parsed.CommandLine contains '―memdmp' || evt.Parsed.CommandLine contains 'fullmemdmp') && (evt.Parsed.CommandLine contains ' -o ' || evt.Parsed.CommandLine contains ' /o ' || evt.Parsed.CommandLine contains ' –o ' || evt.Parsed.CommandLine contains ' —o ' || evt.Parsed.CommandLine contains ' ―o ' || evt.Parsed.CommandLine contains ' -p ' || evt.Parsed.CommandLine contains ' /p ' || evt.Parsed.CommandLine contains ' –p ' || evt.Parsed.CommandLine contains ' —p ' || evt.Parsed.CommandLine contains ' ―p '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "Process Memory Dump via RdrLeakDiag.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

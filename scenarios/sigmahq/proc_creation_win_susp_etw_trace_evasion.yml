@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_etw_trace_evasion
+description: |
+  Detects command line activity that tries to clear or disable any ETW trace log which could be a sign of logging evasion. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'cl' && evt.Parsed.CommandLine contains '/Trace' || evt.Parsed.CommandLine contains 'clear-log' && evt.Parsed.CommandLine contains '/Trace' || evt.Parsed.CommandLine contains 'sl' && evt.Parsed.CommandLine contains '/e:false' || evt.Parsed.CommandLine contains 'set-log' && evt.Parsed.CommandLine contains '/e:false' || evt.Parsed.CommandLine contains 'logman' && evt.Parsed.CommandLine contains 'update' && evt.Parsed.CommandLine contains 'trace' && evt.Parsed.CommandLine contains '--p' && evt.Parsed.CommandLine contains '-ets' || evt.Parsed.CommandLine contains 'Remove-EtwTraceProvider' || evt.Parsed.CommandLine contains 'Set-EtwTraceProvider' && evt.Parsed.CommandLine contains '0x11')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1070
+   - attack.t1562.006
+
+  label: "ETW Trace Evasion Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

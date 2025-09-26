@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_winrm_susp_child_process
+description: |
+  Detects suspicious processes including shells spawnd from WinRM host process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\wsmprovhost.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wsl.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\whoami.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1190
+
+  label: "Suspicious Processes Spawned by WinRM"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,11 @@
+name: crowdsecurity/cookiebot-whitelist
+description: "Whitelist events from cookiebot compliance scanner"
+whitelist:
+  reason: "Cookiebot compliance scanner ip address"
+  expression: 
+    - "evt.Overflow.Alert.Source.IP in File('cookiebot_ips.txt')"
+
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/cookiebot_ips.txt
+    dest_file: cookiebot_ips.txt
+    type: string

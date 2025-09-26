@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmic_eventconsumer_creation
+description: |
+  Detects WMIC executions in which an event consumer gets created. This could be used to establish persistence
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'ActiveScriptEventConsumer' && evt.Parsed.CommandLine contains ' CREATE ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.003
+
+  label: "New ActiveScriptEventConsumer Created Via Wmic.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

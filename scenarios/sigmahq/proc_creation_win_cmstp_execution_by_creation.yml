@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmstp_execution_by_creation
+description: |
+  Detects various indicators of Microsoft Connection Manager Profile Installer execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\cmstp.exe')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1218.003
+
+  label: "CMSTP Execution Process Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_susp_parent_process
+description: |
+  Detects a suspicious or uncommon parent processes of PowerShell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage contains 'tomcat' || evt.Parsed.ParentImage endsWith '\\amigo.exe' || evt.Parsed.ParentImage endsWith '\\browser.exe' || evt.Parsed.ParentImage endsWith '\\chrome.exe' || evt.Parsed.ParentImage endsWith '\\firefox.exe' || evt.Parsed.ParentImage endsWith '\\httpd.exe' || evt.Parsed.ParentImage endsWith '\\iexplore.exe' || evt.Parsed.ParentImage endsWith '\\jbosssvc.exe' || evt.Parsed.ParentImage endsWith '\\microsoftedge.exe' || evt.Parsed.ParentImage endsWith '\\microsoftedgecp.exe' || evt.Parsed.ParentImage endsWith '\\MicrosoftEdgeSH.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\nginx.exe' || evt.Parsed.ParentImage endsWith '\\outlook.exe' || evt.Parsed.ParentImage endsWith '\\php-cgi.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\safari.exe' || evt.Parsed.ParentImage endsWith '\\services.exe' || evt.Parsed.ParentImage endsWith '\\sqlagent.exe' || evt.Parsed.ParentImage endsWith '\\sqlserver.exe' || evt.Parsed.ParentImage endsWith '\\sqlservr.exe' || evt.Parsed.ParentImage endsWith '\\vivaldi.exe' || evt.Parsed.ParentImage endsWith '\\w3wp.exe') && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.CommandLine contains '/c powershell' || evt.Parsed.CommandLine contains '/c pwsh' || evt.Parsed.Description == 'Windows PowerShell' || evt.Parsed.Product == 'PowerShell Core 6' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Suspicious PowerShell Parent Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

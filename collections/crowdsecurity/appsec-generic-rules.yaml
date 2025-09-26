@@ -1,0 +1,21 @@
+name: crowdsecurity/appsec-generic-rules
+appsec-rules:
+  - crowdsecurity/base-config
+  - crowdsecurity/generic-freemarker-ssti
+  - crowdsecurity/generic-wordpress-uploads-php
+  - crowdsecurity/generic-wordpress-uploads-listing
+  - crowdsecurity/appsec-generic-test
+  - crowdsecurity/experimental-no-user-agent
+appsec-configs:
+  - crowdsecurity/generic-rules
+  - crowdsecurity/appsec-default
+parsers:
+  - crowdsecurity/appsec-logs
+scenarios:
+  - crowdsecurity/appsec-vpatch
+  - crowdsecurity/appsec-native
+  - crowdsecurity/appsec-generic-test
+contexts:
+  - crowdsecurity/appsec_base
+description: "A collection of generic attack vectors for additional protection."
+author: crowdsecurity

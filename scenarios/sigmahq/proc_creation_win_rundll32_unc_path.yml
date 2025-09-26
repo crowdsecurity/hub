@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_unc_path
+description: |
+  Detects rundll32 execution where the DLL is located on a remote location (share)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE' || evt.Parsed.CommandLine contains 'rundll32') && evt.Parsed.CommandLine contains ' \\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.002
+   - attack.t1218.011
+
+  label: "Rundll32 UNC Path Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

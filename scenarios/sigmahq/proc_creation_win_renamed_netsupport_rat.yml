@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_netsupport_rat
+description: |
+  Detects the execution of a renamed "client32.exe" (NetSupport RAT) via Imphash, Product and OriginalFileName strings
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Product contains 'NetSupport Remote Control' || evt.Parsed.OriginalFileName contains 'client32.exe' || evt.Parsed.Imphash == 'a9d50692e95b79723f3e76fcf70d023e' || evt.Parsed.Hashes contains 'IMPHASH=A9D50692E95B79723F3E76FCF70D023E') && not (evt.Parsed.Image endsWith '\\client32.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Renamed NetSupport RAT Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_lsass_dmp_cli_keywords
+description: |
+  Detects the presence of the keywords "lsass" and ".dmp" in the commandline, which could indicate a potential attempt to dump or create a dump of the lsass process. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'lsass.dmp' || evt.Parsed.CommandLine contains 'lsass.zip' || evt.Parsed.CommandLine contains 'lsass.rar' || evt.Parsed.CommandLine contains 'Andrew.dmp' || evt.Parsed.CommandLine contains 'Coredump.dmp' || evt.Parsed.CommandLine contains 'NotLSASS.zip' || evt.Parsed.CommandLine contains 'lsass_2' || evt.Parsed.CommandLine contains 'lsassdump' || evt.Parsed.CommandLine contains 'lsassdmp' || evt.Parsed.CommandLine contains 'lsass' && evt.Parsed.CommandLine contains '.dmp' || evt.Parsed.CommandLine contains 'SQLDmpr' && evt.Parsed.CommandLine contains '.mdmp' || evt.Parsed.CommandLine contains 'nanodump' && evt.Parsed.CommandLine contains '.dmp')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "LSASS Dump Keyword In CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

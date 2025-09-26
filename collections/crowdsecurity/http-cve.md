@@ -32,7 +32,8 @@ Works with [apache2](https://hub.crowdsec.net/author/crowdsecurity/collections/a
  - [Confluence CVE-2023-22515](https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html)
  - [Confluence CVE-2023-22518](https://confluence.atlassian.com/pages/viewpage.action?pageId=1311473907)
  - [Owncloud CVE-2023-49103](https://nvd.nist.gov/vuln/detail/CVE-2023-49103)
-
+ - [PHP Unittest Framework CVE-2017-9841](https://cve.circl.lu/cve/CVE-2017-9841)
+ - [Apache source disclosure CVE-2024-38475](https://cve.circl.lu/cve/CVE-2024-38475)
 
 
 

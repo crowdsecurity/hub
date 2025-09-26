@@ -1,0 +1,24 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'fortinet' && ParseKV(evt.Parsed.message, evt.Unmarshaled, 'fortinet') in [nil, '']"
+name: crowdsecurity/fortinet-logs
+description: "Parse fortinet logs"
+statics:
+  - meta: service
+    value: fortinet
+  - meta: sub_type
+    expression: "evt.Unmarshaled.fortinet.subtype"
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.fortinet.date + ' ' + evt.Unmarshaled.fortinet.time
+  - meta: source_ip
+    expression: "evt.Unmarshaled.fortinet.remip"
+  - meta: action
+    expression: "evt.Unmarshaled.fortinet.action"
+  - meta: tunnel_type
+    expression: "evt.Unmarshaled.fortinet.tunneltype"
+  - meta: reason
+    expression: "evt.Unmarshaled.fortinet.reason"
+  - meta: msg
+    expression: "evt.Unmarshaled.fortinet.msg"
+  - meta: target_user
+    expression: "evt.Unmarshaled.fortinet.user"

@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_adfind_susp_usage
+description: |
+  Detects AdFind execution with common flags seen used during attacks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'domainlist' || evt.Parsed.CommandLine contains 'trustdmp' || evt.Parsed.CommandLine contains 'dcmodes' || evt.Parsed.CommandLine contains 'adinfo' || evt.Parsed.CommandLine contains ' dclist ' || evt.Parsed.CommandLine contains 'computer_pwdnotreqd' || evt.Parsed.CommandLine contains 'objectcategory=' || evt.Parsed.CommandLine contains '-subnets -f' || evt.Parsed.CommandLine contains 'name="Domain Admins"' || evt.Parsed.CommandLine contains '-sc u:' || evt.Parsed.CommandLine contains 'domainncs' || evt.Parsed.CommandLine contains 'dompol' || evt.Parsed.CommandLine contains ' oudmp ' || evt.Parsed.CommandLine contains 'subnetdmp' || evt.Parsed.CommandLine contains 'gpodmp' || evt.Parsed.CommandLine contains 'fspdmp' || evt.Parsed.CommandLine contains 'users_noexpire' || evt.Parsed.CommandLine contains 'computers_active' || evt.Parsed.CommandLine contains 'computers_pwdnotreqd')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1018
+   - attack.t1087.002
+   - attack.t1482
+   - attack.t1069.002
+
+  label: "PUA - AdFind Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

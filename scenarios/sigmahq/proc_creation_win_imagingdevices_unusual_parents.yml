@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_imagingdevices_unusual_parents
+description: |
+  Detects unusual parent or children of the ImagingDevices.exe (Windows Contacts) process as seen being used with Bumblebee activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\WmiPrvSE.exe' || evt.Parsed.ParentImage endsWith '\\svchost.exe' || evt.Parsed.ParentImage endsWith '\\dllhost.exe') && evt.Parsed.Image endsWith '\\ImagingDevices.exe' || evt.Parsed.ParentImage endsWith '\\ImagingDevices.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "ImagingDevices Unusual Parent/Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

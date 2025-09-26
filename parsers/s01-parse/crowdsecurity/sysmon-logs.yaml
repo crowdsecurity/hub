@@ -47,6 +47,16 @@ nodes:
         expression:  XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='ParentUser']")
       - meta: SysmonEventType
         value: ProcessCreation
+      - meta: CommandLine
+        expression: evt.Parsed.CommandLine
+      - meta: CurrentDirectory
+        expression: evt.Parsed.CurrentDirectory
+      - meta: User
+        expression: evt.Parsed.User
+      - meta: Hashes
+        expression: evt.Parsed.Hashes
+      - meta: ParentImage
+        expression: evt.Parsed.ParentImage
   - filter: evt.Parsed.EventID == '2'
     statics:
       - parsed: ProcessGuid

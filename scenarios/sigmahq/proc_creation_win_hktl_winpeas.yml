@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_winpeas
+description: |
+  WinPEAS is a script that search for possible paths to escalate privileges on Windows hosts. The checks are explained on book.hacktricks.xyz
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'winPEAS.exe' || evt.Parsed.Image endsWith '\\winPEASany_ofs.exe' || evt.Parsed.Image endsWith '\\winPEASany.exe' || evt.Parsed.Image endsWith '\\winPEASx64_ofs.exe' || evt.Parsed.Image endsWith '\\winPEASx64.exe' || evt.Parsed.Image endsWith '\\winPEASx86_ofs.exe' || evt.Parsed.Image endsWith '\\winPEASx86.exe' || evt.Parsed.CommandLine contains ' applicationsinfo' || evt.Parsed.CommandLine contains ' browserinfo' || evt.Parsed.CommandLine contains ' eventsinfo' || evt.Parsed.CommandLine contains ' fileanalysis' || evt.Parsed.CommandLine contains ' filesinfo' || evt.Parsed.CommandLine contains ' processinfo' || evt.Parsed.CommandLine contains ' servicesinfo' || evt.Parsed.CommandLine contains ' windowscreds' || evt.Parsed.CommandLine contains 'https://github.com/carlospolop/PEASS-ng/releases/latest/download/' || evt.Parsed.ParentCommandLine endsWith ' -linpeas' || evt.Parsed.CommandLine endsWith ' -linpeas')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1082
+   - attack.t1087
+   - attack.t1046
+
+  label: "HackTool - winPEAS Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

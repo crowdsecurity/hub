@@ -1,0 +1,33 @@
+type: trigger
+name: sigmahq/proc_creation_win_hh_html_help_susp_child_process
+description: |
+  Detects a suspicious child process of a Microsoft HTML Help (HH.exe)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\hh.exe' && (evt.Parsed.Image endsWith '\\CertReq.exe' || evt.Parsed.Image endsWith '\\CertUtil.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\installutil.exe' || evt.Parsed.Image endsWith '\\MSbuild.exe' || evt.Parsed.Image endsWith '\\MSHTA.EXE' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\wscript.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1059.001
+   - attack.t1059.003
+   - attack.t1059.005
+   - attack.t1059.007
+   - attack.t1218
+   - attack.t1218.001
+   - attack.t1218.010
+   - attack.t1218.011
+   - attack.t1566
+   - attack.t1566.001
+
+  label: "HTML Help HH.EXE Suspicious Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

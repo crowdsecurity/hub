@@ -1,6 +1,17 @@
 #This is the same parser as the one in the hub, but with links to test databases.
 #If the actual parser is updated, this file also needs to be updated
-filter: "'source_ip' in evt.Meta"
+filter: |
+  let ipv6Check = IsIPV6(evt.Meta.source_ip);
+  "source_ip" in evt.Meta &&
+  (
+    not ipv6Check &&
+    not (IpInRange(evt.Meta.source_ip, "127.0.0.0/8") || IpInRange(evt.Meta.source_ip, "192.168.0.0/16") || IpInRange(evt.Meta.source_ip, "172.16.0.0/12") || IpInRange(evt.Meta.source_ip, "10.0.0.0/8"))
+  ) ||
+  (
+    ipv6Check &&
+    not (IpInRange(evt.Meta.source_ip, "::1/128") || IpInRange(evt.Meta.source_ip, "fd00::/8") || IpInRange(evt.Meta.source_ip, "fc00::/7"))
+  )
+
 name: crowdsecurity/geoip-enrich
 description: "Populate event with geoloc info : as, country, coords, source range."
 data:

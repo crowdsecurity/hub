@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_progname
+description: |
+  Detects suspicious patterns in program names or folders that are often found in malicious samples or hacktools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains '\\CVE-202' || evt.Parsed.Image contains '\\CVE202' || evt.Parsed.Image endsWith '\\poc.exe' || evt.Parsed.Image endsWith '\\artifact.exe' || evt.Parsed.Image endsWith '\\artifact64.exe' || evt.Parsed.Image endsWith '\\artifact_protected.exe' || evt.Parsed.Image endsWith '\\artifact32.exe' || evt.Parsed.Image endsWith '\\artifact32big.exe' || evt.Parsed.Image endsWith 'obfuscated.exe' || evt.Parsed.Image endsWith 'obfusc.exe' || evt.Parsed.Image endsWith '\\meterpreter' || evt.Parsed.CommandLine contains 'inject.ps1' || evt.Parsed.CommandLine contains 'Invoke-CVE' || evt.Parsed.CommandLine contains 'pupy.ps1' || evt.Parsed.CommandLine contains 'payload.ps1' || evt.Parsed.CommandLine contains 'beacon.ps1' || evt.Parsed.CommandLine contains 'PowerView.ps1' || evt.Parsed.CommandLine contains 'bypass.ps1' || evt.Parsed.CommandLine contains 'obfuscated.ps1' || evt.Parsed.CommandLine contains 'obfusc.ps1' || evt.Parsed.CommandLine contains 'obfus.ps1' || evt.Parsed.CommandLine contains 'obfs.ps1' || evt.Parsed.CommandLine contains 'evil.ps1' || evt.Parsed.CommandLine contains 'MiniDogz.ps1' || evt.Parsed.CommandLine contains '_enc.ps1' || evt.Parsed.CommandLine contains '\\shell.ps1' || evt.Parsed.CommandLine contains '\\rshell.ps1' || evt.Parsed.CommandLine contains 'revshell.ps1' || evt.Parsed.CommandLine contains '\\av.ps1' || evt.Parsed.CommandLine contains '\\av_test.ps1' || evt.Parsed.CommandLine contains 'adrecon.ps1' || evt.Parsed.CommandLine contains 'mimikatz.ps1' || evt.Parsed.CommandLine contains '\\PowerUp_' || evt.Parsed.CommandLine contains 'powerup.ps1' || evt.Parsed.CommandLine contains '\\Temp\\a.ps1' || evt.Parsed.CommandLine contains '\\Temp\\p.ps1' || evt.Parsed.CommandLine contains '\\Temp\\1.ps1' || evt.Parsed.CommandLine contains 'Hound.ps1' || evt.Parsed.CommandLine contains 'encode.ps1' || evt.Parsed.CommandLine contains 'powercat.ps1')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Suspicious Program Names"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

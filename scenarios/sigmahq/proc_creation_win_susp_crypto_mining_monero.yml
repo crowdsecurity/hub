@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_crypto_mining_monero
+description: |
+  Detects command line parameters or strings often used by crypto miners
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' --cpu-priority=' || evt.Parsed.CommandLine contains '--donate-level=0' || evt.Parsed.CommandLine contains ' -o pool.' || evt.Parsed.CommandLine contains ' --nicehash' || evt.Parsed.CommandLine contains ' --algo=rx/0 ' || evt.Parsed.CommandLine contains 'stratum+tcp://' || evt.Parsed.CommandLine contains 'stratum+udp://' || evt.Parsed.CommandLine contains 'LS1kb25hdGUtbGV2ZWw9' || evt.Parsed.CommandLine contains '0tZG9uYXRlLWxldmVsP' || evt.Parsed.CommandLine contains 'tLWRvbmF0ZS1sZXZlbD' || evt.Parsed.CommandLine contains 'c3RyYXR1bSt0Y3A6Ly' || evt.Parsed.CommandLine contains 'N0cmF0dW0rdGNwOi8v' || evt.Parsed.CommandLine contains 'zdHJhdHVtK3RjcDovL' || evt.Parsed.CommandLine contains 'c3RyYXR1bSt1ZHA6Ly' || evt.Parsed.CommandLine contains 'N0cmF0dW0rdWRwOi8v' || evt.Parsed.CommandLine contains 'zdHJhdHVtK3VkcDovL') && not (evt.Parsed.CommandLine contains ' pool.c ' || evt.Parsed.CommandLine contains ' pool.o ' || evt.Parsed.CommandLine contains 'gcc -'))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1496
+
+  label: "Potential Crypto Mining Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

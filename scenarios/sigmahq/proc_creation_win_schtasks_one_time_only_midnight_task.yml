@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_schtasks_one_time_only_midnight_task
+description: |
+  Detects scheduled task creation events that include suspicious actions, and is run once at 00:00
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\schtasks.exe' || evt.Parsed.OriginalFileName == 'schtasks.exe') && (evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'vbscript' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'wmic ' || evt.Parsed.CommandLine contains 'wmic.exe' || evt.Parsed.CommandLine contains 'regsvr32.exe' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains '\\AppData\\') && evt.Parsed.CommandLine contains 'once' && evt.Parsed.CommandLine contains '00:00')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.005
+
+  label: "Uncommon One Time Only Scheduled Task At 00:00"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

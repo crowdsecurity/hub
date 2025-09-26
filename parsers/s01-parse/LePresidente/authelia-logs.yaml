@@ -1,57 +1,45 @@
-onsuccess: next_stage
 debug: false
 name: LePresidente/authelia-logs
 filter: "evt.Parsed.program == 'authelia'"
 description: "Parse Authelia logs"
-pattern_syntax:  
-  AUTHELIA_BAD_AUTH: 'Unsuccessful 1FA authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
-  AUTHELIA_BAD_DUO: 'Unsuccessful Duo authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
-  AUTHELIA_BAD_TOTP: 'Unsuccessful TOTP authentication attempt by user \S(%{EMAILADDRESS:email}|%{USERNAME:username})\S'
-  AUTHELIA_CLF_BADAUTH: 'time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_AUTH}.*?remote_ip=%{IP:remote_ip}'
-  AUTHELIA_CLF_DUO: 'time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_DUO}.*?remote_ip=%{IP:remote_ip}'
-  AUTHELIA_CLF_TOTP: 'time="%{RFC3339:timestamp}".*?%{AUTHELIA_BAD_TOTP}.*?remote_ip=%{IP:remote_ip}'
+pattern_syntax:
+  AUTHELIA_USER: '%{EMAILADDRESS}|%{USERNAME}'
 nodes:
-  - grok:
-      name: "AUTHELIA_CLF_BADAUTH"
-      apply_on: message
+  ## Main parsing section either it key value pairs or JSON
+  - filter: TrimSpace(evt.Parsed.message) not startsWith "{" && ParseKV(evt.Parsed.message, evt.Unmarshaled, "authelia") in ["", nil]
     statics:
-      - meta: log_type
-        value: authelia_failed_clf_auth 
-  - grok:
-      name: "AUTHELIA_CLF_DUO"
-      apply_on: message
+      - meta: log_format
+        value: CLF
+  - filter: evt.Unmarshaled.authelia == nil && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "authelia") in ["", nil]
     statics:
-      - meta: log_type
-        value: authelia_failed_clf_auth 
-  - grok:
-      name: "AUTHELIA_CLF_TOTP"
-      apply_on: message
-    statics:
-      - meta: log_type
-        value: authelia_failed_clf_auth 
-  - grok:
-    nodes:
-      - grok:
-          pattern: Unsuccessful (1FA|Duo|TOTP) authentication attempt by user '(%{EMAILADDRESS:email}|%{USERNAME:username})'
-          expression: JsonExtract(evt.Parsed.message, "msg")
-        statics:
-          - meta: log_type
-            value: authelia_failed_json_auth
-      - grok:
-          pattern: '%{IP:remote_ip}'
-          expression: JsonExtract(evt.Parsed.message, "remote_ip")
-      - grok: 
-          pattern: '%{RFC3339:timestamp}'
-          expression: JsonExtract(evt.Parsed.message, "time")
+      - meta: log_format
+        value: JSON
 
+  ## Detect msg contans authentication attempt to parse out user info
+  - grok:
+      pattern: "%{WORD:auth_status} (1FA|Duo|TOTP|U2F) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
+      expression: evt.Unmarshaled.authelia.msg
+    statics:
+      - meta: log_type
+        expression: 'evt.Parsed.auth_status == "Unsuccessful" ? "auth_failed" : "auth_success"'
+
+  - grok:
+      pattern: "Error .* getting details for user with username input '%{AUTHELIA_USER:user}'.*" 
+      expression: evt.Unmarshaled.authelia.msg
+    statics:
+      - meta: log_type
+        value: auth_failed
+
+  ## This section is a hack to allow all authelia logs to pass to next stage, if you set onsuccess next stage at root level all successful attempts will not be passed, so we could do some impossible trave sceanrios
+  - filter: evt.Unmarshaled.authelia != nil
+    onsuccess: next_stage
+    statics:
+      - meta: service
+        value: authelia
 statics:
-    - meta: service
-      value: authelia
     - meta: user
-      expression: "evt.Parsed.username"
-    - meta: user
-      expression: "evt.Parsed.email"
+      expression: evt.Parsed.user
     - target: evt.StrTime
-      expression: evt.Parsed.timestamp
+      expression: evt.Unmarshaled.authelia.time
     - meta: source_ip
-      expression: "evt.Parsed.remote_ip"
+      expression: evt.Unmarshaled.authelia.remote_ip

@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_frombase64string
+description: |
+  Detects usage of a base64 encoded "FromBase64String" cmdlet in a process command line
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'OjpGcm9tQmFzZTY0U3RyaW5n' || evt.Parsed.CommandLine contains 'o6RnJvbUJhc2U2NFN0cmluZ' || evt.Parsed.CommandLine contains '6OkZyb21CYXNlNjRTdHJpbm' || evt.Parsed.CommandLine contains 'OgA6AEYAcgBvAG0AQgBhAHMAZQA2ADQAUwB0AHIAaQBuAGcA' || evt.Parsed.CommandLine contains 'oAOgBGAHIAbwBtAEIAYQBzAGUANgA0AFMAdAByAGkAbgBnA' || evt.Parsed.CommandLine contains '6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZw')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1140
+   - attack.t1059.001
+
+  label: "PowerShell Base64 Encoded FromBase64String Cmdlet"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

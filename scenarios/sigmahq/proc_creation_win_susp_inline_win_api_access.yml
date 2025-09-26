@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_inline_win_api_access
+description: |
+  Detects the use of WinAPI Functions via the commandline. As seen used by threat actors via the tool winapiexec
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'AddSecurityPackage' || evt.Parsed.CommandLine contains 'AdjustTokenPrivileges' || evt.Parsed.CommandLine contains 'Advapi32' || evt.Parsed.CommandLine contains 'CloseHandle' || evt.Parsed.CommandLine contains 'CreateProcessWithToken' || evt.Parsed.CommandLine contains 'CreatePseudoConsole' || evt.Parsed.CommandLine contains 'CreateRemoteThread' || evt.Parsed.CommandLine contains 'CreateThread' || evt.Parsed.CommandLine contains 'CreateUserThread' || evt.Parsed.CommandLine contains 'DangerousGetHandle' || evt.Parsed.CommandLine contains 'DuplicateTokenEx' || evt.Parsed.CommandLine contains 'EnumerateSecurityPackages' || evt.Parsed.CommandLine contains 'FreeHGlobal' || evt.Parsed.CommandLine contains 'FreeLibrary' || evt.Parsed.CommandLine contains 'GetDelegateForFunctionPointer' || evt.Parsed.CommandLine contains 'GetLogonSessionData' || evt.Parsed.CommandLine contains 'GetModuleHandle' || evt.Parsed.CommandLine contains 'GetProcAddress' || evt.Parsed.CommandLine contains 'GetProcessHandle' || evt.Parsed.CommandLine contains 'GetTokenInformation' || evt.Parsed.CommandLine contains 'ImpersonateLoggedOnUser' || evt.Parsed.CommandLine contains 'kernel32' || evt.Parsed.CommandLine contains 'LoadLibrary' || evt.Parsed.CommandLine contains 'memcpy' || evt.Parsed.CommandLine contains 'MiniDumpWriteDump' || evt.Parsed.CommandLine contains 'ntdll' || evt.Parsed.CommandLine contains 'OpenDesktop' || evt.Parsed.CommandLine contains 'OpenProcess' || evt.Parsed.CommandLine contains 'OpenProcessToken' || evt.Parsed.CommandLine contains 'OpenThreadToken' || evt.Parsed.CommandLine contains 'OpenWindowStation' || evt.Parsed.CommandLine contains 'PtrToString' || evt.Parsed.CommandLine contains 'QueueUserApc' || evt.Parsed.CommandLine contains 'ReadProcessMemory' || evt.Parsed.CommandLine contains 'RevertToSelf' || evt.Parsed.CommandLine contains 'RtlCreateUserThread' || evt.Parsed.CommandLine contains 'secur32' || evt.Parsed.CommandLine contains 'SetThreadToken' || evt.Parsed.CommandLine contains 'VirtualAlloc' || evt.Parsed.CommandLine contains 'VirtualFree' || evt.Parsed.CommandLine contains 'VirtualProtect' || evt.Parsed.CommandLine contains 'WaitForSingleObject' || evt.Parsed.CommandLine contains 'WriteInt32' || evt.Parsed.CommandLine contains 'WriteProcessMemory' || evt.Parsed.CommandLine contains 'ZeroFreeGlobalAllocUnicode') && not (evt.Parsed.Image endsWith '\\MpCmdRun.exe' && evt.Parsed.CommandLine contains 'GetLoadLibraryWAddress32'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1106
+
+  label: "Potential WinAPI Calls Via CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

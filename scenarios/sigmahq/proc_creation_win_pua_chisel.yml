@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_chisel
+description: |
+  Detects usage of the Chisel tunneling tool via the commandline arguments
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\chisel.exe' || (evt.Parsed.CommandLine contains 'exe client ' || evt.Parsed.CommandLine contains 'exe server ') && (evt.Parsed.CommandLine contains '-socks5' || evt.Parsed.CommandLine contains '-reverse' || evt.Parsed.CommandLine contains ' r:' || evt.Parsed.CommandLine contains ':127.0.0.1:' || evt.Parsed.CommandLine contains '-tls-skip-verify ' || evt.Parsed.CommandLine contains ':socks'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1090.001
+
+  label: "PUA - Chisel Tunneling Tool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

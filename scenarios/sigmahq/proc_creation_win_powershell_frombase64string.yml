@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_frombase64string
+description: |
+  Detects usage of the "FromBase64String" function in the commandline which is used to decode a base64 encoded string
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '::FromBase64String(')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+   - attack.t1140
+   - attack.t1059.001
+
+  label: "Base64 Encoded PowerShell Command Detected"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

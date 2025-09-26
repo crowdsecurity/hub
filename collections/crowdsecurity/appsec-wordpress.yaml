@@ -1,0 +1,28 @@
+name: crowdsecurity/appsec-wordpress
+appsec-rules:
+  - crowdsecurity/base-config
+  - crowdsecurity/vpatch-CVE-2023-0600
+  - crowdsecurity/vpatch-CVE-2023-0900
+  - crowdsecurity/vpatch-CVE-2023-2009
+  - crowdsecurity/vpatch-CVE-2023-23488
+  - crowdsecurity/vpatch-CVE-2023-23489
+  - crowdsecurity/vpatch-CVE-2023-4634
+  - crowdsecurity/vpatch-CVE-2023-6360
+  - crowdsecurity/vpatch-CVE-2023-6567
+  - crowdsecurity/vpatch-CVE-2023-6623
+  - crowdsecurity/vpatch-CVE-2024-1061
+  - crowdsecurity/vpatch-CVE-2024-1071
+  - crowdsecurity/generic-wordpress-uploads-php
+  - crowdsecurity/vpatch-CVE-2024-6205
+  - crowdsecurity/generic-wordpress-uploads-listing
+appsec-configs:
+  - crowdsecurity/virtual-patching
+parsers:
+  - crowdsecurity/appsec-logs
+scenarios:
+  - crowdsecurity/appsec-vpatch
+  - crowdsecurity/appsec-native
+contexts:
+  - crowdsecurity/appsec_base
+description: "A virtual patching collection, suitable for WordPress websites"
+author: crowdsecurity

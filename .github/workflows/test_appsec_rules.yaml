@@ -25,17 +25,19 @@ concurrency:
 
 jobs:
   run-appsec-rules-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest 
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
     - uses: actions/setup-go@v4
       with:
-        go-version: '1.21'
+        go-version: '1.22'
     - name: Install requirements
       run: |
         sudo apt install libre2-dev
-        go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+        go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.1.7
+        # yes it's ugly, no I don't care
+        cp $HOME/go/bin/nuclei /usr/local/bin/
     - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
@@ -48,10 +50,10 @@ jobs:
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
     - name: Start OpenResty Container
       run: |
-        docker-compose -f docker/appsec/docker-compose.yaml up -d --build
+        docker compose -f docker/appsec/docker-compose.yaml up -d --build
     - name: run tests on last crowdsec tag
       run: |
-        cscli hubtest run --all --appsec --debug --target http://127.0.0.1:7822
+        sudo cscli hubtest run --all --appsec --debug --target http://127.0.0.1:7822
         echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
         echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
@@ -67,5 +69,5 @@ jobs:
         color: ${{ env.APPSEC_RULE_BADGE_COLOR }}
     - name: Stop containers
       if: always()
-      run: docker-compose -f docker/appsec/docker-compose.yaml down
+      run: docker compose -f docker/appsec/docker-compose.yaml down
 

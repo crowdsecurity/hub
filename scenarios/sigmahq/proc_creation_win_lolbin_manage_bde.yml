@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_lolbin_manage_bde
+description: |
+  Detects potential abuse of the "manage-bde.wsf" script as a LOLBIN to proxy execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.OriginalFileName == 'wscript.exe') && evt.Parsed.CommandLine contains 'manage-bde.wsf' || (evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe') && evt.Parsed.ParentCommandLine contains 'manage-bde.wsf' && not (evt.Parsed.Image endsWith '\\cmd.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1216
+
+  label: "Potential Manage-bde.wsf Abuse To Proxy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,7 +1,7 @@
 type: leaky
 name: inherent-io/keycloak-slow-bf
 description: "Detect keycloak bruteforce"
-filter: "evt.Meta.error in ['user_not_found', 'invalid_user_credentials']"
+filter: evt.Meta.service == "keycloak" && evt.Meta.error in ['user_not_found', 'invalid_user_credentials']
 leakspeed: "60s"
 capacity: 10
 groupby: evt.Meta.source_ip
@@ -20,7 +20,7 @@ labels:
 type: leaky
 name: inherent-io/keycloak-user-enum-slow-bf
 description: "Detect keycloak user enum bruteforce"
-filter: "evt.Meta.error in ['user_not_found', 'invalid_user_credentials']"
+filter: evt.Meta.service == "keycloak" && evt.Meta.error in ['user_not_found', 'invalid_user_credentials']
 leakspeed: "60s"
 capacity: 10
 groupby: evt.Meta.source_ip

@@ -1,21 +1,27 @@
 onsuccess: next_stage
 #debug: true
-filter: "evt.Parsed.program == 'sshd'"
+filter: "evt.Parsed.program in ['sshd-session', 'sshd']"
 name: crowdsecurity/sshd-logs
 description: "Parse openSSH logs"
 pattern_syntax:
-# The IP grok pattern that ships with crowdsec is buggy and does not capture the last digit of an IP if it is the last thing it matches, and the last octet starts with a 2
-# https://github.com/crowdsecurity/crowdsec/issues/938
+  # The IP grok pattern that ships with crowdsec is buggy and does not capture the last digit of an IP if it is the last thing it matches, and the last octet starts with a 2
+  # https://github.com/crowdsecurity/crowdsec/issues/938
   IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
   SSHD_AUTH_FAIL: 'pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
   SSHD_MAGIC_VALUE_FAILED: 'Magic value check failed \(\d+\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip} port \d+'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  SSHD_INVALID_USER_ALT: 'Failed keyboard-interactive/pam for invalid user %{USERNAME:sshd_invalid_user} from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
   SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
-  SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection closed by (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
+  SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
   SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
+  # in case they are blocked by /etc/ssh/sshd_config AllowUsers xx yy
+  SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
+  SSHD_AUTH_TIMEOUT: 'Timeout before authentication for %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  SSHD_DISPATCH_FATAL: 'ssh_dispatch_run_fatal: Connection from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?: message authentication code incorrect \[preauth\]'
+  SSHD_REFUSED_CONN: 'refused connect from.*\((::ffff:)?%{IP_WORKAROUND:sshd_client_ip}\)'
 nodes:
   - grok:
       name: "SSHD_FAIL"
@@ -56,6 +62,22 @@ nodes:
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
+      name: "SSHD_INVALID_USER_ALT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_NOT_ALLOWED_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
       name: "SSHD_INVALID_BANNER"
       apply_on: message
       statics:
@@ -71,7 +93,7 @@ nodes:
           value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
-  - grok: 
+  - grok:
       name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
@@ -79,7 +101,7 @@ nodes:
           value: ssh_failed-auth
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
-  - grok: 
+  - grok:
       name: "SSHD_MAGIC_VALUE_FAILED"
       apply_on: message
       statics:
@@ -93,8 +115,26 @@ nodes:
       statics:
         - meta: log_type
           value: ssh_bad_keyexchange
+  - grok:
+      name: "SSHD_AUTH_TIMEOUT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_auth_timeout
+  - grok:
+      name: "SSHD_DISPATCH_FATAL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_dispatch_fatal
+  - grok:
+      name: "SSHD_REFUSED_CONN"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_refused_conn
 statics:
-    - meta: service
-      value: ssh
-    - meta: source_ip
-      expression: "evt.Parsed.sshd_client_ip"
+  - meta: service
+    value: ssh
+  - meta: source_ip
+    expression: "evt.Parsed.sshd_client_ip"

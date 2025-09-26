@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mshta_susp_child_processes
+description: |
+  Detects a suspicious process spawning from an "mshta.exe" process, which could be indicative of a malicious HTA script execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\mshta.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\sh.exe' || evt.Parsed.Image endsWith '\\bash.exe' || evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.OriginalFileName in ['Cmd.Exe', 'PowerShell.EXE', 'pwsh.dll', 'wscript.exe', 'cscript.exe', 'Bash.exe', 'reg.exe', 'REGSVR32.EXE', 'bitsadmin.exe']))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.005
+
+  label: "Suspicious MSHTA Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

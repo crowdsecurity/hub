@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_fodhelper
+description: |
+  Identifies use of Fodhelper.exe to bypass User Account Control. Adversaries use this technique to execute privileged processes.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\fodhelper.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "Bypass UAC via Fodhelper.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

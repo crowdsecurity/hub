@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_impacket_lateral_movement
+description: |
+  Detects wmiexec/dcomexec/atexec/smbexec from Impacket framework
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\wmiprvse.exe' || evt.Parsed.ParentImage endsWith '\\mmc.exe' || evt.Parsed.ParentImage endsWith '\\explorer.exe' || evt.Parsed.ParentImage endsWith '\\services.exe') && evt.Parsed.CommandLine contains 'cmd.exe' && evt.Parsed.CommandLine contains '/Q' && evt.Parsed.CommandLine contains '/c' && evt.Parsed.CommandLine contains '\\\\127.0.0.1\\' && evt.Parsed.CommandLine contains '&1' || (evt.Parsed.ParentCommandLine contains 'svchost.exe -k netsvcs' || evt.Parsed.ParentCommandLine contains 'taskeng.exe') && evt.Parsed.CommandLine contains 'cmd.exe' && evt.Parsed.CommandLine contains '/C' && evt.Parsed.CommandLine contains 'Windows\\Temp\\' && evt.Parsed.CommandLine contains '&1')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1021.003
+
+  label: "HackTool - Potential Impacket Lateral Movement Activity"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

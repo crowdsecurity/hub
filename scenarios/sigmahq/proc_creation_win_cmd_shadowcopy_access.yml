@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_shadowcopy_access
+description: |
+  Detects the execution of the builtin "copy" command that targets a shadow copy (sometimes used to copy registry hives that are in use)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'copy ' && evt.Parsed.CommandLine contains '\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1490
+
+  label: "Copy From VolumeShadowCopy Via Cmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,8 +1,8 @@
 type: leaky
-filter: evt.Parsed.program == 'crowdsec-appsec' && evt.Appsec.HasInBandMatches == true && evt.Parsed.action in ["deny", "drop"]
+filter: evt.Meta.log_type == 'appsec-block' && evt.Parsed.action in ["deny", "drop"]
 #debug: true
 name: crowdsecurity/crowdsec-appsec-inband
-description: IP has triggered multiples In Band CrowdSec appsec rules
+description: IP has triggered multiples InBand CrowdSec appsec rules
 blackhole: 1m
 leakspeed: 30s
 capacity: 1
@@ -14,6 +14,6 @@ labels:
   classification:
    - attack.T1190
   behavior: "http:exploit"
-  label: "Triggered multiple inband CrowdSec appsec rules"
+  label: "Triggered multiple InBand CrowdSec AppSec rules"
   service: http
   remediation: true

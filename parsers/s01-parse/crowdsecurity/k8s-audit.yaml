@@ -8,7 +8,7 @@ nodes:
   - filter: evt.Meta.datasource_type == "k8s-audit"
     statics:
     - parsed: k8s_parsed
-      expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "k8s_audit")
+      expression: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "k8s_audit")
     - meta: user
       expression: evt.Unmarshaled.k8s_audit.User.username
     - meta: source_ip
@@ -26,7 +26,7 @@ nodes:
   - filter: evt.Meta.datasource_type != "k8s-audit"
     statics:
     - parsed: k8s_parsed
-      expression: UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, "k8s_audit")
+      expression: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "k8s_audit")
     - meta: user
       expression: evt.Unmarshaled.k8s_audit.user.username
     - meta: source_ip

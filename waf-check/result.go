@@ -14,11 +14,11 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 	totalFileRun := 0
 	totalTestFail := 0
 	for result := range resultsChan {
-		totalFileRun += 1
+		totalFileRun++
 		totalTestRun += result.DoneTests
 		totalTestFail += len(result.FailedTests)
 
-		resultCpt += 1
+		resultCpt++
 
 		percentage := (100.0 * float32(len(result.FailedTests))) / float32(result.DoneTests)
 		fmt.Printf("'%s' result:\n", result.Filename)
@@ -33,7 +33,7 @@ func GetResult(resultsChan chan Result, outputFolder string) error {
 			if err != nil {
 				log.Fatalf("unable to marshal: %+v", result)
 			}
-			if err := os.WriteFile(failedTestsPath, jsonData, 0644); err != nil {
+			if err := os.WriteFile(failedTestsPath, jsonData, 0o644); err != nil {
 				log.Fatalf("unable to write failed report '%s': %s", failedTestsPath, err)
 			}
 			fmt.Printf("  - failed tests report: '%s'\n", failedTestsPath)

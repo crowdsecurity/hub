@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_krbrelayup
+description: |
+  Detects KrbRelayUp used to perform a universal no-fix local privilege escalation in Windows domain environments where LDAP signing is not enforced
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\KrbRelayUp.exe' || evt.Parsed.OriginalFileName == 'KrbRelayUp.exe' || evt.Parsed.CommandLine contains ' relay ' && evt.Parsed.CommandLine contains ' -Domain ' && evt.Parsed.CommandLine contains ' -ComputerName ' || evt.Parsed.CommandLine contains ' krbscm ' && evt.Parsed.CommandLine contains ' -sc ' || evt.Parsed.CommandLine contains ' spawn ' && evt.Parsed.CommandLine contains ' -d ' && evt.Parsed.CommandLine contains ' -cn ' && evt.Parsed.CommandLine contains ' -cp ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1558.003
+   - attack.t1550.003
+
+  label: "HackTool - KrbRelayUp Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

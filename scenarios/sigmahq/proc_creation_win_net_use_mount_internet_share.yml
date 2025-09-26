@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_net_use_mount_internet_share
+description: |
+  Detects when an internet hosted webdav share is mounted using the "net.exe" utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName in ['net.exe', 'net1.exe']) && evt.Parsed.CommandLine contains ' use ' && evt.Parsed.CommandLine contains ' http')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.002
+
+  label: "Windows Internet Hosted WebDav Share Mount Via Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

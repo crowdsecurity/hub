@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_cli_obfuscation_unicode_img
+description: |
+  Detects potential commandline obfuscation using unicode characters. Adversaries may attempt to make an executable or file difficult to discover or analyze by encrypting, encoding, or otherwise obfuscating its contents on the system or in transit. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wscript.exe') && (evt.Parsed.OriginalFileName in ['Cmd.EXE', 'cscript.exe', 'PowerShell.EXE', 'pwsh.dll', 'wscript.exe']) && (evt.Parsed.CommandLine contains 'ˣ' || evt.Parsed.CommandLine contains '˪' || evt.Parsed.CommandLine contains 'ˢ' || evt.Parsed.CommandLine contains '∕' || evt.Parsed.CommandLine contains '⁄' || evt.Parsed.CommandLine contains '―' || evt.Parsed.CommandLine contains '—' || evt.Parsed.CommandLine contains ' ' || evt.Parsed.CommandLine contains '¯' || evt.Parsed.CommandLine contains '®' || evt.Parsed.CommandLine contains '¶'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+
+  label: "Potential CommandLine Obfuscation Using Unicode Characters From Suspicious Image"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

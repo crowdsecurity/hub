@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_shadow_copies_deletion
+description: |
+  Shadow Copies deletion using operating systems utilities
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\wmic.exe' || evt.Parsed.Image endsWith '\\vssadmin.exe' || evt.Parsed.Image endsWith '\\diskshadow.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll', 'wmic.exe', 'VSSADMIN.EXE', 'diskshadow.exe']) && evt.Parsed.CommandLine contains 'shadow' && evt.Parsed.CommandLine contains 'delete' || (evt.Parsed.Image endsWith '\\wbadmin.exe' || evt.Parsed.OriginalFileName == 'WBADMIN.EXE') && evt.Parsed.CommandLine contains 'delete' && evt.Parsed.CommandLine contains 'catalog' && evt.Parsed.CommandLine contains 'quiet' || (evt.Parsed.Image endsWith '\\vssadmin.exe' || evt.Parsed.OriginalFileName == 'VSSADMIN.EXE') && evt.Parsed.CommandLine contains 'resize' && evt.Parsed.CommandLine contains 'shadowstorage' && (evt.Parsed.CommandLine contains 'unbounded' || evt.Parsed.CommandLine contains '/MaxSize='))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1070
+   - attack.t1490
+
+  label: "Shadow Copies Deletion Using Operating Systems Utilities"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

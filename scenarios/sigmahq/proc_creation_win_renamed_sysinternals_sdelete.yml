@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_sysinternals_sdelete
+description: |
+  Detects the use of a renamed SysInternals Sdelete, which is something an administrator shouldn't do (the renaming)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'sdelete.exe' && not (evt.Parsed.Image endsWith '\\sdelete.exe' || evt.Parsed.Image endsWith '\\sdelete64.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1485
+
+  label: "Renamed Sysinternals Sdelete Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

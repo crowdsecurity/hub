@@ -1,0 +1,11 @@
+parsers:
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/dateparse-enrich
+    - ./parsers/s01-parse/crowdsecurity/sabnzbd-logs.yaml
+scenarios:
+    - ./scenarios/crowdsecurity/sabnzbd-bf.yaml
+postoverflows:
+log_file: sabnzbd-logs.log
+log_type: sabnzbd
+labels: {}
+ignore_parsers: true

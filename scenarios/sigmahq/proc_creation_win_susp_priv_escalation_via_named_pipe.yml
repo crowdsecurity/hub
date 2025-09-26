@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_priv_escalation_via_named_pipe
+description: |
+  Detects a remote file copy attempt to a hidden network share. This may indicate lateral movement or data staging activity.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.OriginalFileName in ['Cmd.Exe', 'PowerShell.EXE']) && evt.Parsed.CommandLine contains 'echo' && evt.Parsed.CommandLine contains '>' && evt.Parsed.CommandLine contains '\\\\.\\pipe\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021
+
+  label: "Privilege Escalation via Named Pipe Impersonation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

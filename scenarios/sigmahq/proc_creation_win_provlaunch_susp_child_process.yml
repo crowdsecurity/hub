@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_provlaunch_susp_child_process
+description: |
+  Detects suspicious child processes of "provlaunch.exe" which might indicate potential abuse to proxy execution.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\provlaunch.exe' && (evt.Parsed.Image endsWith '\\calc.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\notepad.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image contains ':\\PerfLogs\\' || evt.Parsed.Image contains ':\\Temp\\' || evt.Parsed.Image contains ':\\Users\\Public\\' || evt.Parsed.Image contains '\\AppData\\Temp\\' || evt.Parsed.Image contains '\\Windows\\System32\\Tasks\\' || evt.Parsed.Image contains '\\Windows\\Tasks\\' || evt.Parsed.Image contains '\\Windows\\Temp\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Suspicious Provlaunch.EXE Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

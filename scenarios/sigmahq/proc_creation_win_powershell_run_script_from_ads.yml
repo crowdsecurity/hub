@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_run_script_from_ads
+description: |
+  Detects PowerShell script execution from Alternate Data Stream (ADS)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe') && (evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && evt.Parsed.CommandLine contains 'Get-Content' && evt.Parsed.CommandLine contains '-Stream')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1564.004
+
+  label: "Run PowerShell Script from ADS"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

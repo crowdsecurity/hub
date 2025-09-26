@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_lsa_ppl_protection_disabled
+description: |
+  Detects the usage of the "reg.exe" utility to disable PPL protection on the LSA process
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains 'SYSTEM\\CurrentControlSet\\Control\\Lsa' && evt.Parsed.CommandLine contains ' add ' && evt.Parsed.CommandLine contains ' /d 0' && evt.Parsed.CommandLine contains ' /v RunAsPPL ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.010
+
+  label: "LSA PPL Protection Disabled Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

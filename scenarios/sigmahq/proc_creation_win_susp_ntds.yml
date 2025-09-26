@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_ntds
+description: |
+  Detects suspicious process patterns used in NTDS.DIT exfiltration
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\NTDSDump.exe' || evt.Parsed.Image endsWith '\\NTDSDumpEx.exe' || evt.Parsed.CommandLine contains 'ntds.dit' && evt.Parsed.CommandLine contains 'system.hiv' || evt.Parsed.CommandLine contains 'NTDSgrab.ps1' || evt.Parsed.CommandLine contains 'ac i ntds' && evt.Parsed.CommandLine contains 'create full' || evt.Parsed.CommandLine contains '/c copy ' && evt.Parsed.CommandLine contains '\\windows\\ntds\\ntds.dit' || evt.Parsed.CommandLine contains 'activate instance ntds' && evt.Parsed.CommandLine contains 'create full' || evt.Parsed.CommandLine contains 'powershell' && evt.Parsed.CommandLine contains 'ntds.dit' || evt.Parsed.CommandLine contains 'ntds.dit' && (evt.Parsed.ParentImage contains '\\apache' || evt.Parsed.ParentImage contains '\\tomcat' || evt.Parsed.ParentImage contains '\\AppData\\' || evt.Parsed.ParentImage contains '\\Temp\\' || evt.Parsed.ParentImage contains '\\Public\\' || evt.Parsed.ParentImage contains '\\PerfLogs\\' || evt.Parsed.Image contains '\\apache' || evt.Parsed.Image contains '\\tomcat' || evt.Parsed.Image contains '\\AppData\\' || evt.Parsed.Image contains '\\Temp\\' || evt.Parsed.Image contains '\\Public\\' || evt.Parsed.Image contains '\\PerfLogs\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.003
+
+  label: "Suspicious Process Patterns NTDS.DIT Exfil"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
