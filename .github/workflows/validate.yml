@@ -50,7 +50,6 @@ jobs:
         # Don't get confused by the version, the cli has a different schema than the library
         run: |
           go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
-          find .
           for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
 
       - name: validate scenarios against schema
