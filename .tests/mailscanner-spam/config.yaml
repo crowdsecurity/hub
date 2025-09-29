@@ -1,0 +1,14 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/cbrandlehner/mailscanner-spam.yaml
+- ./parsers/s01-parse/cbrandlehner/mailscanner-spam-blacklist.yaml
+- crowdsecurity/dateparse-enrich
+#- crowdsecurity/geoip-enrich
+scenarios:
+- ./scenarios/cbrandlehner/mailscanner-highscore.yaml
+- ./scenarios/cbrandlehner/mailscanner-blacklist.yaml
+postoverflows:
+- ""
+log_file: mailscanner-spam.log
+log_type: syslog
+ignore_parsers: false

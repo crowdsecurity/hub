@@ -1,0 +1,55 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Message 4bsM5k4xJmz4rT6 from 66.187.204.154 (bounces@enbounce.hsi-europe.org) to brandlehner.at is spam, SpamAssassin (not cached, score=7.181, required 4, BAYES_40 -0.20, DKIM_SIGNED 0.01, DKIM_VALID -0.21, DKIM_VALID_AU -0.21"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["pid"] == "1803828"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["program"] == "MailScanner"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["timestamp"] == "Jul 30 08:01:07"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_path"]) == "mailscanner-spam.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["machine"] == "efa"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Whitelisted == false
+len(results["s01-parse"]["cbrandlehner/mailscanner-spam"]) == 1
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Success == true
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["from_email"] == "bounces@enbounce.hsi-europe.org"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["message"] == "Message 4bsM5k4xJmz4rT6 from 66.187.204.154 (bounces@enbounce.hsi-europe.org) to brandlehner.at is spam, SpamAssassin (not cached, score=7.181, required 4, BAYES_40 -0.20, DKIM_SIGNED 0.01, DKIM_VALID -0.21, DKIM_VALID_AU -0.21"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["message_id"] == "4bsM5k4xJmz4rT6"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["pid"] == "1803828"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["program"] == "MailScanner"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["rawmessage"] == "Jul 30 08:01:07 efa MailScanner[1803828]: Message 4bsM5k4xJmz4rT6 from 66.187.204.154 (bounces@enbounce.hsi-europe.org) to brandlehner.at is spam, SpamAssassin (not cached, score=7.181, required 4, BAYES_40 -0.20, DKIM_SIGNED 0.01, DKIM_VALID -0.21, DKIM_VALID_AU -0.21"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["source_ip"] == "66.187.204.154"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["spam_score"] == "7.181000"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["timestamp"] == "Jul 30 08:01:07"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Parsed["to_domain"] == "brandlehner.at"
+basename(results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Meta["datasource_path"]) == "mailscanner-spam.log"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Meta["log_type"] == "mailscanner_spam"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Meta["machine"] == "efa"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Meta["source_ip"] == "66.187.204.154"
+results["s01-parse"]["cbrandlehner/mailscanner-spam"][0].Evt.Whitelisted == false
+len(results["s01-parse"]["cbrandlehner/mailscanner-spam-blacklist"]) == 1
+results["s01-parse"]["cbrandlehner/mailscanner-spam-blacklist"][0].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["from_email"] == "bounces@enbounce.hsi-europe.org"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "Message 4bsM5k4xJmz4rT6 from 66.187.204.154 (bounces@enbounce.hsi-europe.org) to brandlehner.at is spam, SpamAssassin (not cached, score=7.181, required 4, BAYES_40 -0.20, DKIM_SIGNED 0.01, DKIM_VALID -0.21, DKIM_VALID_AU -0.21"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message_id"] == "4bsM5k4xJmz4rT6"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["pid"] == "1803828"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "MailScanner"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["rawmessage"] == "Jul 30 08:01:07 efa MailScanner[1803828]: Message 4bsM5k4xJmz4rT6 from 66.187.204.154 (bounces@enbounce.hsi-europe.org) to brandlehner.at is spam, SpamAssassin (not cached, score=7.181, required 4, BAYES_40 -0.20, DKIM_SIGNED 0.01, DKIM_VALID -0.21, DKIM_VALID_AU -0.21"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "66.187.204.154"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["spam_score"] == "7.181000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "Jul 30 08:01:07"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["to_domain"] == "brandlehner.at"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "mailscanner-spam.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "mailscanner_spam"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["machine"] == "efa"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "66.187.204.154"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-07-30T08:01:07Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-07-30T08:01:07Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0
