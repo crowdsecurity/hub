@@ -44,7 +44,7 @@ jobs:
       - name: transform to json schema
         uses: mikefarah/yq@master
         with:
-          cmd: for i in crowdsec-yaml-schema/*.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
+          cmd: for i in crowdsec-yaml-schemas/*.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
 
       - name: validate parsers against schema
         # Don't get confused by the version, the cli has a different schema than the library
