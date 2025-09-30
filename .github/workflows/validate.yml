@@ -26,7 +26,6 @@ jobs:
           cmd: |
             set -eu
             # iterate all YAMLs except .tests
-            find . -path .tests -prune -name '*json' -exec rm {} \;
             for f in $(find . -path .tests -prune -o -name '*yaml' -print); do
                 base="${f%.yaml}"  # trim .yaml
                 i=0
