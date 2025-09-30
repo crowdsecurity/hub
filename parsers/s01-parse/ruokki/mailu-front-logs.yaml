@@ -1,0 +1,19 @@
+filter: "evt.Parsed.program startsWith 'mailu-front'"
+onsuccess: next_stage
+name: ruokki/mailu-front
+description: "Parse mailu-front service log"
+grok:
+  #our grok pattern : capture .*
+  pattern: '^%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: \*%{NONNEGINT:cid} client login failed: "AUTH not supported" while in http auth state, client: %{IP:source_ip}, server: %{IP:destination_ip}:%{POSINT:port_server}, login: "%{EMAILADDRESS:user_mail}"'
+  #pattern: ^%{DATA:some_data}$
+  #the field to which we apply the grok pattern : the log message itself
+  apply_on: message
+statics:
+  - meta: source_ip
+    expression: evt.Parsed.source_ip
+  - meta: log_type
+    value: mailu-front
+  - target: evt.StrTime
+    expression: evt.Parsed.time
+  - meta: sub_type
+    value: auth_fail
