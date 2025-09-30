@@ -44,19 +44,21 @@ jobs:
       - name: validate parsers against schema
         # Don't get confused by the version, the cli has a different schema than the library
         run: |
-          find crowdsec-yaml-schemas -name "*"
           go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
-          for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
+          for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.0.json $ITEM ; done
 
       - name: validate scenarios against schema
         run: |
-          for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.json $ITEM ; done
+          for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.0.json $ITEM ; done
 
       - name: validate postoverflows against schema
         run: |
-          for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
+          for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.0.json $ITEM ; done
 
-#    - name: validate collections against schema
-#      run: |
-#        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
+      - name: validate collections against schema
+        run: |
+          for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.0.json $ITEM ; done
 
+      - name: validate appsec-rules against schema
+        run: |
+          for ITEM in ./appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/appsec_rules_schema.0.json $ITEM ; done
