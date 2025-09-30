@@ -21,7 +21,7 @@ nodes:
         expression: evt.Unmarshaled.traefik.ClientHost
       - parsed: dest_addr
         ## Split dest_addr to get IP only as this is original functionality
-        expression: Split(evt.Unmarshaled.traefik.ClientAddr, ':')[0]
+        expression: "evt.Unmarshaled.traefik.ClientAddr != nil ? Split(evt.Unmarshaled.traefik.ClientAddr, ':')[0] : nil"
       - parsed: request_addr
         expression: evt.Unmarshaled.traefik.RequestAddr
       - parsed: service_addr
@@ -33,7 +33,7 @@ nodes:
         ## We have to check if DownstreamContentSize is nil, as it will cause EXPR error if it is 
         expression: "evt.Unmarshaled.traefik.DownstreamContentSize != nil ? int(evt.Unmarshaled.traefik.DownstreamContentSize) : nil"
       - parsed: request_duration_in_ms
-        expression: int(evt.Unmarshaled.traefik.Duration)
+        expression: "evt.Unmarshaled.traefik.Duration != nil ? int(evt.Unmarshaled.traefik.Duration) : nil"
       - parsed: traefik_router_name
         expression: evt.Unmarshaled.traefik.RouterName
       - parsed: time_local
@@ -44,9 +44,9 @@ nodes:
         expression: evt.Unmarshaled.traefik.RequestPath
       - parsed: http_version
         ## Split http_version to get version only as this is original functionality
-        expression: Split(evt.Unmarshaled.traefik.RequestProtocol, '/')[1]
+        expression: "evt.Unmarshaled.traefik.RequestProtocol != nil ? Split(evt.Unmarshaled.traefik.RequestProtocol, '/')[1] : nil"
       - parsed: status
-        expression: int(evt.Unmarshaled.traefik.DownstreamStatus)
+        expression: "evt.Unmarshaled.traefik.DownstreamStatus != nil ? int(evt.Unmarshaled.traefik.DownstreamStatus) : nil"
 statics:
   - meta: service
     value: http
