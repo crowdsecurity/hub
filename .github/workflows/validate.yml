@@ -7,44 +7,57 @@ on:
     branches:
       - master
 
-jobs: 
+jobs:
   yaml-schema-validation:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout repo
-      uses: actions/checkout@v4
+      - name: checkout repo
+        uses: actions/checkout@v4
 
-    - name: checkout yaml schemas
-      uses: actions/checkout@v4
-      with:
-        repository: 'crowdsecurity/crowdsec-yaml-schemas'
-        path: crowdsec-yaml-schemas
+      - name: checkout yaml schemas
+        uses: actions/checkout@v4
+        with:
+          repository: "crowdsecurity/crowdsec-yaml-schemas"
+          path: crowdsec-yaml-schemas
 
-    - name: transform to json all parsers/scenarios/collections/postovfw
-      uses: mikefarah/yq@master
-      with:
-        cmd: find . -path ./.tests -prune -o -name "*"yaml -exec sh -c 'yq  -o=json {} > $(dirname {})/$(basename {} .yaml).json' \;
+      - name: split hub YAML to per-doc JSON (no jq)
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            set -eu
+            # iterate all YAMLs except .tests
+            for f in $(find . -not -path './.*' -name '*yaml' -print); do
+                base="${f%.yaml}"  # trim .yaml
+                i=0
+                    while : ; do
+                        out="${base}.${i}.json"
+                        # select one YAML document by index (0-based) and write it
+                        yq -o=json 'select(documentIndex == '"$i"')' "$f" > "$out"
+                        # empty file => no more docs, clean up and stop
+                        if [ ! -s "$out" ]; then rm -f "$out"; break; fi
+                        i=$((i+1))
+                    done
+                echo "split $f -> ${i} JSON doc(s)"
+            done
 
-    - name: transform to json schema
-      uses: mikefarah/yq@master
-      with:
-        cmd: for i in crowdsec-yaml-schema/*.yaml ; do yq  -o=json $i > $(basename $i .yaml).json ; done
+      - name: validate parsers against schema
+        # Don't get confused by the version, the cli has a different schema than the library
+        run: |
+          go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
+          for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.0.json $ITEM ; done
 
-    - name: validate parsers against schema
-    # Don't get confused by the version, the cli has a different schema than the library
-      run: |
-        go install github.com/santhosh-tekuri/jsonschema/cmd/jv@v0.6.0
-        find .
-        for ITEM in ./parsers/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
+      - name: validate scenarios against schema
+        run: |
+          for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.0.json $ITEM ; done
 
-    - name: validate scenarios against schema
-      run: |
-        for ITEM in ./scenarios/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/scenario_schema.json $ITEM ; done
+      - name: validate postoverflows against schema
+        run: |
+          for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.0.json $ITEM ; done
 
-    - name: validate postoverflows against schema
-      run: |
-        for ITEM in ./postoverflows/*/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/parser_schema.json $ITEM ; done
-#    - name: validate collections against schema
-#      run: |
-#        for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.json $ITEM ; done
+      - name: validate collections against schema
+        run: |
+          for ITEM in ./collections/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/collection_schema.0.json $ITEM ; done
 
+      - name: validate appsec-rules against schema
+        run: |
+          for ITEM in ./appsec-rules/*/*.json; do echo $ITEM && ~/go/bin/jv crowdsec-yaml-schemas/appsec_rules_schema.0.json $ITEM ; done
