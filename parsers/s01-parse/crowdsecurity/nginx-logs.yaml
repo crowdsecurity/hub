@@ -7,6 +7,7 @@ pattern_syntax:
   NGCUSTOMURIPATH: "(?:/[A-Za-z0-9$.+!*'\\(\\)\\{\\},~:;=@\\#%&_\\-]*)+"
   NGCUSTOMURIPATHPARAM: '%{NGCUSTOMURIPATH}(?:%{URIPARAM})?'
   NPMPLUSFQDN: '%{IPORHOST}||%{DATA}'
+  NGCACHESTATUS: 'HIT|MISS|BYPASS|EXPIRED|STALE|UPDATING|REVALIDATED|-'
   NUM_OR_DASH: '-|\d*'
 nodes:
   - grok:
@@ -85,7 +86,7 @@ nodes:
         expression: evt.Parsed.time_local
   ## Catch nginx-proxy-manager logs that might be tagged as npm
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\]( %{NUM_OR_DASH:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{IPORHOST:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
+      pattern: '\[%{HTTPDATE:time_local}\]( %{NGCACHESTATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{DATA:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
       apply_on: message
     statics:
       - meta: log_type
