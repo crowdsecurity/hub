@@ -10,25 +10,9 @@ pattern_syntax:
   USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}"'
   PASSWORD_MISMATCH: 'user "%{NO_DOUBLE_QUOTE:username}": password mismatch'
 nodes:
+  # For Proxy hosts logs (handles both new and legacy formats with optional upstream status)
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{CACHE_STATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status} %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\] \[Sent-to %{DATA:target_server}\] \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: http_access-log
-        - target: evt.StrTime
-          expression: evt.Parsed.time_local
-  - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\] \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: http_access-log
-        - target: evt.StrTime
-          expression: evt.Parsed.time_local
-  # Legacy Proxy hosts logs (old format with optional upstream status)
-  - grok:
-      pattern: '\[%{HTTPDATE:time_local}\]( %{CACHE_STATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{IPORHOST:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
+      pattern: '\[%{HTTPDATE:time_local}\]( %{CACHE_STATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{DATA:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
       apply_on: message
       statics:
         - meta: log_type
