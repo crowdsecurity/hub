@@ -4,7 +4,7 @@ onsuccess: next_stage
 name: crowdsecurity/nginx-proxy-manager-logs
 description: "Parse Nginx Proxy Manager access and error logs"
 pattern_syntax:
-  CACHE_STATUS: 'HIT|MISS|BYPASS|EXPIRED|STALE|UPDATING|REVALIDATED|-'
+  NGCACHESTATUS: 'HIT|MISS|BYPASS|EXPIRED|STALE|UPDATING|REVALIDATED|-'
   NUM_OR_DASH: '-|\d*'
   NO_DOUBLE_QUOTE: '[^"]+'
   USER_NOT_FOUND: 'user "%{NO_DOUBLE_QUOTE:username}" was not found in "%{NO_DOUBLE_QUOTE}"'
@@ -12,7 +12,7 @@ pattern_syntax:
 nodes:
   # For Proxy hosts logs (handles both new and legacy formats with optional upstream status)
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\]( %{CACHE_STATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{DATA:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
+      pattern: '\[%{HTTPDATE:time_local}\]( %{NGCACHESTATUS:upstream_cache_status} %{NUM_OR_DASH:upstream_status})? %{NUMBER:status} - %{WORD:verb} %{WORD:scheme} %{IPORHOST:target_fqdn} \"%{NOTDQUOTE:request}\" \[Client %{IPORHOST:remote_addr}\] \[Length %{NUMBER:body_bytes_sent}\] \[Gzip %{DATA:gzip_ratio}\]( \[Sent-to %{DATA:target_server}\])? \"%{NOTDQUOTE:http_user_agent}\" \"%{NOTDQUOTE:http_referer}\"'
       apply_on: message
       statics:
         - meta: log_type
