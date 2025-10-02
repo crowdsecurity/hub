@@ -1,0 +1,33 @@
+name: crowdsecurity/experimental-no-user-agent
+description: "Protect against no user agent"
+rules:
+## Useragent header does not exist
+  - and:
+      - zones:
+        - METHOD
+        match:
+          type: regex
+          value: '^GET|POST|PUT|DELETE|PATCH$'
+      - zones:
+        - HEADERS
+        variables:
+         - "User-Agent"
+        transform:
+          - count
+        match:
+          type: equals
+          value: "0"
+
+
+
+    
+labels:
+   type: exploit
+   service: http
+   confidence: 0
+   spoofable: 0
+   behavior: "http:exploit"
+   label: "Protect against no user agent"
+   classification:
+     - attack.T1595
+     - attack.T1190
