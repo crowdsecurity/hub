@@ -18,15 +18,3 @@ labels:
   type: technitium
 ```
 
-## Features
-
-- Parses Technitium authentication failure logs
-- Detects brute force attacks with configurable thresholds
-- Extracts source IP, username, and timestamp information
-- Supports syslog-based log collection
-
-## Installation
-
-```bash
-cscli collections install PintjesB/technitium
-```
