@@ -1,0 +1,17 @@
+onsuccess: next_stage
+name: Jgigantino31/ntfy-logs
+description: "Parse ntfy logs"
+filter: "evt.Parsed.program == 'ntfy'"
+nodes:
+  - filter: "JsonExtract(evt.Parsed.message, 'error_code') in ['40101', '40301']"
+    statics:
+      - meta: log_type
+        value: ntfy_failed_auth
+
+statics:
+  - meta: service
+    value: ntfy
+  - meta: source_ip
+    expression: JsonExtract(evt.Parsed.message, "visitor_ip")
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Parsed.message, "time")
