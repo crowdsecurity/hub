@@ -3,6 +3,7 @@ len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 1
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[2025-07-28 05:34:01 UTC] [169.254.44.3:50051] DnsServerCore.DnsWebServiceException: Invalid username or password for user: admin"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "technitium"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "technitium.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
@@ -18,6 +19,7 @@ results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["source_port"] ==
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["time"] == "05:34:01"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["username"] == "admin"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Parsed["year"] == "2025"
+basename(results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["datasource_path"]) == "technitium.log"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["log_type"] == "technitium_failed_auth"
 results["s01-parse"]["PintjesB/technitium-logs"][0].Evt.Meta["service"] == "technitium"
@@ -36,11 +38,14 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_po
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["time"] == "05:34:01"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "admin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["year"] == "2025"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "technitium.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "technitium_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "technitium"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "169.254.44.3"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_port"] == "50051"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-07-28T05:34:01Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-07-28T05:34:01Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 len(results["success"][""]) == 0
