@@ -6,7 +6,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from itertools import chain
 from pathlib import Path
 from typing import override
@@ -157,32 +157,31 @@ def get_cwe_from_label(labels):
 
 
 def get_file_creation_date(file_path: str, root_folder: str) -> str:
-    cmd = [
-        "git",
-        "log",
-        "--diff-filter=A",
-        "--follow",
-        "--format=%aI",
-        "--",
-        file_path,
-    ]
-
     try:
         result = subprocess.run(
-            cmd,
+            ["git", "rev-list", "--reverse", "master", "--", str(file_path)],
             capture_output=True,
             text=True,
             check=True,
-            cwd=root_folder,
         )
-        creation_date = result.stdout.strip()
-        if creation_date:
-            dt = datetime.fromisoformat(creation_date.replace("Z", "+00:00"))
-            return dt.strftime("%Y-%m-%d %H:%M:%S")
-        return None
-    except subprocess.CalledProcessError as e:
-        print(f"Error: {e}")
-        return None
+        commits = result.stdout.strip().splitlines()
+        if not commits:
+            return None
+        first_commit = commits[0]
+
+        date_result = subprocess.run(
+            ["git", "show", "-s", "--format=%aI", first_commit],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        raw_date = date_result.stdout.strip()
+        dt = datetime.fromisoformat(raw_date)
+        dt_utc = dt.astimezone(timezone.utc).replace(microsecond=0)
+        return dt_utc.isoformat().replace("+00:00", "")
+    except Exception as e:
+        print(f"[ERROR] {file_path}: {e}")
+        return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
 
 
 def get_cve_from_label(labels):
