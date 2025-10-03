@@ -1,0 +1,20 @@
+type: trigger
+name: crowdsecurity/modsecurity-web-shells
+description: "Web shell activity detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^955"
+  && evt.Parsed.tags matches "attack-rce"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1059
+    - attack.T1190
+  behavior: "http:web-shell"
+  label: "Web Shells"
+  confidence: 3
+  service: http
+
+
