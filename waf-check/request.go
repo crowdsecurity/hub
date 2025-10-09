@@ -3,7 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -23,15 +25,31 @@ type Request struct {
 }
 
 func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
-	var req *http.Request
-	var err error
-
 	request.URL = fmt.Sprintf("/%s", strings.TrimLeft(request.URL, "/"))
 	if strings.HasSuffix(baseURL, "/") {
 		baseURL = strings.TrimRight(baseURL, "/")
 	}
 	request.FullURL = baseURL + request.URL
+
+	parsedBaseURL, err := url.Parse(baseURL)
+	if err != nil {
+		return http.Request{}, err
+	}
+
+	parsedBaseURL.Opaque = request.URL
+
+	req := &http.Request{
+		Method: request.Method,
+		Header: make(http.Header),
+		URL:    parsedBaseURL,
+	}
+
 	if request.Method == http.MethodPost || request.Method == http.MethodPut {
+		req.Body = io.NopCloser(strings.NewReader(request.Data))
+		req.ContentLength = int64(len(request.Data))
+	}
+
+	/*if request.Method == http.MethodPost || request.Method == http.MethodPut {
 		req, err = http.NewRequest(request.Method, request.FullURL, bytes.NewBufferString(request.Data))
 	} else {
 		req, err = http.NewRequest(request.Method, request.FullURL, http.NoBody)
@@ -39,7 +57,7 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 
 	if err != nil {
 		return http.Request{}, err
-	}
+	}*/
 
 	for key, value := range request.Headers {
 		req.Header.Add(key, value)
