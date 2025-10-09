@@ -49,16 +49,6 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 		req.ContentLength = int64(len(request.Data))
 	}
 
-	/*if request.Method == http.MethodPost || request.Method == http.MethodPut {
-		req, err = http.NewRequest(request.Method, request.FullURL, bytes.NewBufferString(request.Data))
-	} else {
-		req, err = http.NewRequest(request.Method, request.FullURL, http.NoBody)
-	}
-
-	if err != nil {
-		return http.Request{}, err
-	}*/
-
 	for key, value := range request.Headers {
 		req.Header.Add(key, value)
 	}
