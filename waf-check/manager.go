@@ -66,8 +66,7 @@ func (m *Manager) processFile(file string) {
 
 		resp, err := client.Do(&req)
 		if err != nil {
-			log.Printf("error doing request from file '%s' to '%s': %s", file, request.FullURL, err)
-			continue
+			log.Fatalf("error doing request from file '%s' to '%s': %s", file, request.FullURL, err)
 		}
 
 		if resp.StatusCode == m.statusCode {
