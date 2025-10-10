@@ -47,6 +47,8 @@ nodes:
         expression: Split(evt.Unmarshaled.traefik.RequestProtocol, '/')[1]
       - parsed: status
         expression: int(evt.Unmarshaled.traefik.DownstreamStatus)
+      - meta: target_fqdn
+        expression: "evt.Unmarshaled.traefik.RequestHost != nil ? evt.Unmarshaled.traefik.RequestHost : ''"
 statics:
   - meta: service
     value: http
@@ -68,6 +70,3 @@ statics:
     expression: "evt.Parsed.traefik_router_name"
   - meta: http_verb
     expression: "evt.Parsed.verb"
-  # Not available in CLF logs, only in JSON logs
-  - meta: target_fqdn
-    expression: "evt.Unmarshaled.traefik.RequestHost != nil ? evt.Unmarshaled.traefik.RequestHost : ''"
