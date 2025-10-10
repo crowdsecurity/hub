@@ -60,13 +60,13 @@ func (m *Manager) processFile(file string) {
 	for _, request := range requests {
 		req, err := NewHTTPRequest(m.WafURL, &request)
 		if err != nil {
-			fmt.Printf("error creating http request for file '%s': %s", file, err)
+			log.Printf("error creating http request for file '%s': %s", file, err)
 			continue
 		}
 
 		resp, err := client.Do(&req)
 		if err != nil {
-			fmt.Printf("error doing request from file '%s' to '%s': %s", file, request.FullURL, err)
+			log.Printf("error doing request from file '%s' to '%s': %s", file, request.FullURL, err)
 			continue
 		}
 
