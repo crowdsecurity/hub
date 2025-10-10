@@ -70,4 +70,4 @@ statics:
     expression: "evt.Parsed.verb"
   # Not available in CLF logs, only in JSON logs
   - meta: target_fqdn
-    expression: "evt.Unmarshaled.traefik.RequestHost"
+    expression: "evt.Unmarshaled.traefik.RequestHost != nil ? evt.Unmarshaled.traefik.RequestHost : ''"
