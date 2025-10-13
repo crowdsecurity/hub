@@ -1,0 +1,43 @@
+name: eastcw/foundryvtt-logs
+description: "Parse Foundry VTT logs"
+filter: "evt.Parsed.program == 'foundryvtt' && UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, 'foundryvtt') in ['', nil]"
+debug: false
+onsuccess: next_stage
+pattern_syntax:
+  DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
+
+grok:
+  pattern: "%{DATE_YMD.date} %{TIME.time}"
+  expression: evt.Unmarshaled.foundryvtt.timestamp
+statics:
+  - meta: service
+    value: foundryvtt
+  - meta: source_ip
+    expression: evt.Unmarshaled.foundryvtt.ip
+  - meta: level
+    expression: evt.Unmarshaled.foundryvtt.level
+  - meta: message
+    expression: evt.Unmarshaled.foundryvtt.message
+  - meta: status
+    expression: evt.Unmarshaled.foundryvtt.status
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.foundryvtt.timestamp
+nodes:
+  - nodes:
+      - grok:
+          pattern: "User authentication failed for user %{USERNAME:username}; invalid password"
+          expression: evt.Meta.message
+      - statics:
+          - meta: log_type
+            value: foundryvtt_failed_game_auth
+          - meta: username
+            expression: evt.Parsed.username
+  - nodes:
+      - grok:
+          pattern: "Administrator authentication failed for session %{BASE16NUM:session_id}; invalid password"
+          expression: evt.Meta.message
+      - statics:
+          - meta: log_type
+            value: foundryvtt_failed_admin_auth
+          - meta: session_id
+            expression: evt.Parsed.session_id
