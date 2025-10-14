@@ -1,0 +1,29 @@
+onsuccess: next_stage
+pattern_syntax:
+  SFTPGO_TIME: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY}T%{HOUR}:%{MINUTE}:%{SECOND}\.%{NUMBER}'
+  SFTPGO_FAILED: '\{"level":"%{WORD:log_level}","time":"%{SFTPGO_TIME:evt_time}","sender":"connection_failed","client_ip":"%{IPV4:client_ip}","username":"%{DATA:username}","login_type":"%{DATA:login_type}","protocol":"%{WORD:protocol}","error":"%{GREEDYDATA:error}"\}'
+filter: evt.Parsed.program == 'sftpgo'
+nodes:
+  - grok:
+      name: SFTPGO_FAILED
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sftpgo_auth
+        - meta: source_ip
+          expression: evt.Parsed.client_ip
+        - meta: target_user
+          expression: evt.Parsed.username
+        - meta: protocol
+          expression: evt.Parsed.protocol
+        - meta: login_type
+          expression: evt.Parsed.login_type
+        - meta: error
+          expression: evt.Parsed.error
+        - meta: is_failed_login
+          value: true
+        - target: evt.StrTime
+          expression: evt.Parsed.evt_time
+        - meta: service
+          value: sftpgo
+description: Parse SFTPGo authentication logs (failed attempts only)
