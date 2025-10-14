@@ -16,6 +16,13 @@ nodes:
   statics:
     - meta: log_type
       value: bad_ssl_handshake
+      
+- grok:
+    pattern: '%{IP:client_ip}:%{INT:client_port} \[%{HAPROXYDATE:accept_date}\] %{NOTSPACE:frontend_name}/%{NOTSPACE:server_name}: Connection closed during SSL handshake'
+    apply_on: message
+  statics:
+    - meta: log_type
+      value: no_ssl_handshake
 
 statics:
     #HAPROXYDATE format is unknown to dateparse, let convert it to a format we know to parse
