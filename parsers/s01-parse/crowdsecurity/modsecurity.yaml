@@ -21,8 +21,8 @@ pattern_syntax:
   MODSECRULEACCURACY: "\\[accuracy \"%{DATA:accuracy}\"\\]"
   MODSECRULEVERS2: "\\[ver \"%{DATA:version}\"\\]"
   MODSECRULETAGS2: "(?:\\[tag \"%{DATA:ruletag0}\"\\] )?(?:\\[tag \"%{DATA:ruletag1}\"\\] )?(?:\\[tag \"%{DATA:ruletag2}\"\\] )?(?:\\[tag \"%{DATA:ruletag3}\"\\] )?(?:\\[tag \"%{DATA:ruletag4}\"\\] )?(?:\\[tag \"%{DATA:ruletag5}\"\\] )?(?:\\[tag \"%{DATA:ruletag6}\"\\] )?(?:\\[tag \"%{DATA:ruletag7}\"\\] )?(?:\\[tag \"%{DATA:ruletag8}\"\\] )?(?:\\[tag \"%{DATA:ruletag9}\"\\] )?(?:\\[tag \"%{DATA}\"\\] )*"
-  MODSECHOSTNAME2: "\\[hostname ['\"]%{DATA:targethost}[\"']\\]"
-  MODSECURI2: "\\[uri [\"']%{DATA:targeturi}[\"']\\]"
+  MODSECHOSTNAME2: "\\[hostname ['\"]%{DATA:targethost}['\"]\\]"
+  MODSECURI2: "\\[uri ['\"]%{DATA:targeturi}['\"]\\]"
   MODSECUID2: "\\[unique_id \"%{DATA:uniqueid}\"\\]"
   MODSECREF2: "\\[ref \"%{DATA:ref}\"\\]"
   MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
@@ -61,4 +61,3 @@ nodes:
           expression: evt.Parsed.rulemessage
         - meta: modsec_ruledata
           expression: evt.Parsed.ruledata
-
