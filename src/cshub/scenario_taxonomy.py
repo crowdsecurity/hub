@@ -180,9 +180,11 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
         dt_utc = dt.astimezone(timezone.utc).replace(microsecond=0)
         return dt_utc.isoformat().replace("+00:00", "")
     except subprocess.CalledProcessError as e:
-        # Print both the command and the stderr output
-        print(f"[ERROR] {file_path}: {e.stderr.strip()}")
+        full_cmd = " ".join(e.cmd)  # reconstruct the full command
+        print(f"[ERROR] Command failed: {full_cmd}")
+        print(f"[ERROR] stderr: {e.stderr.strip()}")
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
+
     except Exception as e:
         print(f"[ERROR] {file_path}: {e}")
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
