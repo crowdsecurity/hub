@@ -159,7 +159,7 @@ def get_cwe_from_label(labels):
 def get_file_creation_date(file_path: str, root_folder: str) -> str:
     try:
         result = subprocess.run(
-            ["git", "rev-list", "--reverse", "master", "--", str(file_path)],
+            ["git", "rev-list", "--reverse", "HEAD", "--", str(file_path)],
             capture_output=True,
             text=True,
             check=True,
