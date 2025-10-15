@@ -179,6 +179,10 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
         dt = datetime.fromisoformat(raw_date)
         dt_utc = dt.astimezone(timezone.utc).replace(microsecond=0)
         return dt_utc.isoformat().replace("+00:00", "")
+    except subprocess.CalledProcessError as e:
+        # Print both the command and the stderr output
+        print(f"[ERROR] {file_path}: {e.stderr.strip()}")
+        return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
     except Exception as e:
         print(f"[ERROR] {file_path}: {e}")
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
