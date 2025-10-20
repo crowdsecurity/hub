@@ -66,5 +66,5 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Printf("everything went well!\n")
+	fmt.Print("everything went well!\n")
 }

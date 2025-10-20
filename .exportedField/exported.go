@@ -1,8 +1,8 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
+	"maps"
 	"os"
 	"path/filepath"
 
@@ -19,8 +19,8 @@ func main() {
 	var (
 		buf     []byte
 		err     error
-		results []types.Event = []types.Event{}
-		final   types.Event   = types.Event{
+		results = []types.Event{}
+		final   = types.Event{
 			Enriched: map[string]string{},
 			Parsed:   map[string]string{},
 			Meta:     map[string]string{},
@@ -32,7 +32,7 @@ func main() {
 			return err
 		}
 		if !info.IsDir() && info.Name() == "parser_results.yaml" {
-			if buf, err = ioutil.ReadFile(path); err != nil {
+			if buf, err = os.ReadFile(path); err != nil {
 				log.Printf("Unable to read %s: %s", path, err)
 				return err
 			}
@@ -47,22 +47,16 @@ func main() {
 	})
 
 	for _, result := range results {
-		for key, value := range result.Enriched {
-			final.Enriched[key] = value
-		}
-		for key, value := range result.Parsed {
-			final.Parsed[key] = value
-		}
-		for key, value := range result.Meta {
-			final.Meta[key] = value
-		}
+		maps.Copy(final.Enriched, result.Enriched)
+		maps.Copy(final.Parsed, result.Parsed)
+		maps.Copy(final.Meta, result.Meta)
 	}
 
 	if buf, err = yaml.Marshal(final); err != nil {
 		log.Printf("Unable to marshal result: %s", err)
 	}
 
-	if err = ioutil.WriteFile("exportedField.yaml", buf, 0644); err != nil {
+	if err = os.WriteFile("exportedField.yaml", buf, 0o644); err != nil {
 		log.Printf("Unable to write file: %s", err)
 	}
 }

@@ -2,7 +2,7 @@
 
 Detect known bad user-agents.
 
-Bans after two requests.
+Bans after two requests per minute.
 
 
 
