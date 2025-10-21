@@ -19,7 +19,7 @@ These components allow CrowdSec to automatically ban source IPs that MailScanner
 
 ### Parsers
 - **`cbrandlehner/mailscanner-spam-blacklist`**
-  - Extracts fields such as `source_ip`and `spam_reason`.
+  - Extracts fields such as `source_ip` and `spam_reason`.
   - Sets `evt.Meta.log_type` to value `mailscanner_blacklist`.
 
 - **`cbrandlehner/mailscanner-spam`**
