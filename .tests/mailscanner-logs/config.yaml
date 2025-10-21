@@ -1,0 +1,11 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/cbrandlehner/mailscanner-logs.yaml
+- crowdsecurity/dateparse-enrich
+#- crowdsecurity/geoip-enrich
+scenarios:
+postoverflows:
+- ""
+log_file: mailscanner-logs.log
+log_type: syslog
+ignore_parsers: false
