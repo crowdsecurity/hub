@@ -1,0 +1,35 @@
+len(results) == 4
+len(results["s01-parse"]["bunkerity/bunkerweb-logs"]) == 5
+
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Success == true
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Evt.Meta["target_fqdn"] == "bwapi"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Evt.Meta["source_ip"] == "10.20.30.4"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Evt.Meta["request_id"] == "95386da81aa13b6ab3ce9c989e1e470e"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Evt.Meta["http_path"] == "/health"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][0].Evt.Meta["log_type"] == "http_access-log"
+
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Success == true
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Evt.Meta["target_fqdn"] == "www.example.com"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Evt.Meta["request_id"] == "7bde940ef0f870cdee1f6d53fe0ff157"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Evt.Meta["http_status"] == "301"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][1].Evt.Meta["http_path"] == "/"
+
+results["s01-parse"]["bunkerity/bunkerweb-logs"][2].Success == true
+results["s01-parse"]["bunkerity/bunkerweb-logs"][2].Evt.Meta["request_id"] == "a430e8da0018d750473c0464b73edd05"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][2].Evt.Meta["http_status"] == "404"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][2].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][2].Evt.Meta["http_path"] == "/"
+
+results["s01-parse"]["bunkerity/bunkerweb-logs"][3].Success == true
+results["s01-parse"]["bunkerity/bunkerweb-logs"][3].Evt.Meta["request_id"] == "d65798fd987d1b2c09afa608325b91e6"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][3].Evt.Meta["http_verb"] == "POST"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][3].Evt.Meta["http_path"] == "/admin/login"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][3].Evt.Meta["http_status"] == "302"
+
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Success == true
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Evt.Meta["target_fqdn"] == "app1.example.com"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Evt.Meta["request_id"] == "b50dafb5a9ae487b115e302e9590d54e"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Evt.Meta["http_status"] == "403"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Evt.Meta["http_path"] == "/login/?id=/etc/passwd"
+results["s01-parse"]["bunkerity/bunkerweb-logs"][4].Evt.Meta["http_user_agent"] == "curl/8.5.0"
