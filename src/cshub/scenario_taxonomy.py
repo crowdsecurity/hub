@@ -159,7 +159,7 @@ def get_cwe_from_label(labels):
 def get_file_creation_date(file_path: str, root_folder: str) -> str:
     try:
         result = subprocess.run(
-            ["git", "rev-list", "--reverse", "master", "--", str(file_path)],
+            ["git", "rev-list", "--reverse", "HEAD", "--", str(file_path)],
             capture_output=True,
             text=True,
             check=True,
@@ -179,6 +179,11 @@ def get_file_creation_date(file_path: str, root_folder: str) -> str:
         dt = datetime.fromisoformat(raw_date)
         dt_utc = dt.astimezone(timezone.utc).replace(microsecond=0)
         return dt_utc.isoformat().replace("+00:00", "")
+    except subprocess.CalledProcessError as e:
+        full_cmd = " ".join(e.cmd)
+        print(f"[ERROR] Command failed: {full_cmd}")
+        print(f"[ERROR] stderr: {e.stderr.strip()}")
+        sys.exit(1)
     except Exception as e:
         print(f"[ERROR] {file_path}: {e}")
         return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
