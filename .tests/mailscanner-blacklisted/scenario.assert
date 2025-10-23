@@ -1,0 +1,15 @@
+len(results) == 1
+"192.168.1.100" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["192.168.1.100"].IP == "192.168.1.100"
+results[0].Overflow.Sources["192.168.1.100"].Range == ""
+results[0].Overflow.Sources["192.168.1.100"].GetScope() == "Ip"
+results[0].Overflow.Sources["192.168.1.100"].GetValue() == "192.168.1.100"
+basename(results[0].Overflow.Alert.Events[0].GetMeta("datasource_path")) == "mailscanner-blacklisted.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "mailscanner_blacklist"
+results[0].Overflow.Alert.Events[0].GetMeta("machine") == "efa"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.1.100"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2025-07-30T08:02:15Z"
+results[0].Overflow.Alert.GetScenario() == "cbrandlehner/mailscanner-blacklisted"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
