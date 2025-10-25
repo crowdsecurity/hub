@@ -1,0 +1,18 @@
+type: trigger
+name: crowdsecurity/modsecurity-injection-php
+description: "PHP Injection detected via ModSecurity CRS"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && evt.Parsed.ruleid matches "^933"
+  && evt.Parsed.tags matches "attack-injection-php"
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1059
+    - attack.T1190
+  behavior: "http:injection-php"
+  label: "PHP Injection"
+  confidence: 3
+  service: http

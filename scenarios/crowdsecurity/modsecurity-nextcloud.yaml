@@ -1,0 +1,24 @@
+type: trigger
+name: crowdsecurity/modsecurity-nextcloud
+description: "Nextcloud attacks detected via ModSecurity (application classification)"
+filter: |
+  evt.Meta.log_type == "modsecurity"
+  && (evt.Parsed.ruleseverity == "CRITICAL" || evt.Parsed.ruleseverity == "2")
+  && (
+    evt.Parsed.targeturi matches "(?i)/remote\\.php"
+    || evt.Parsed.targeturi matches "(?i)/index\\.php/apps/"
+    || evt.Parsed.targeturi matches "(?i)/ocs/v1\\.php|/ocs/v2\\.php"
+    || evt.Parsed.targeturi matches "(?i)/status\\.php"
+    || evt.Parsed.targeturi matches "(?i)/nextcloud/"
+  )
+groupby: evt.Meta.source_ip
+labels:
+  remediation: true
+  classification:
+    - attack.T1190
+  behavior: "http:nextcloud-attack"
+  label: "Nextcloud Attack"
+  confidence: 2
+  service: http
+
+
