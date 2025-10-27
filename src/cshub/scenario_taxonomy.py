@@ -156,37 +156,54 @@ def get_cwe_from_label(labels):
     return ret, errors
 
 
-def get_file_creation_date(file_path: str, root_folder: str) -> str:
-    try:
-        result = subprocess.run(
-            ["git", "rev-list", "--reverse", "HEAD", "--", str(file_path)],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        commits = result.stdout.strip().splitlines()
-        if not commits:
-            return None
-        first_commit = commits[0]
+def get_git_creation_dates(paths: list[str]) -> dict[str, str]:
+    """Return a mapping of file path -> first commit author date (ISO 8601).
 
-        date_result = subprocess.run(
-            ["git", "show", "-s", "--format=%aI", first_commit],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        raw_date = date_result.stdout.strip()
-        dt = datetime.fromisoformat(raw_date)
-        dt_utc = dt.astimezone(timezone.utc).replace(microsecond=0)
-        return dt_utc.isoformat().replace("+00:00", "")
-    except subprocess.CalledProcessError as e:
-        full_cmd = " ".join(e.cmd)
-        print(f"[ERROR] Command failed: {full_cmd}")
-        print(f"[ERROR] stderr: {e.stderr.strip()}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"[ERROR] {file_path}: {e}")
-        return datetime.now(timezone.utc).isoformat().replace("+00:00", "")
+    Paths must be normalized (i.e. no leading "./").
+
+    If a file was removed and re-added, the first addition counts.
+    If a file is not committed, it's returned with "now".
+    """
+
+    if not paths:
+        raise ValueError("paths list cannot be empty")
+
+    cmd = [
+        "git",
+        "log",
+        "--diff-filter=A",
+        "--pretty=format:%aI",
+        "--name-only",
+        "--",
+        *paths,
+    ]
+
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    dates: dict[str, str] = {}
+    current_date: str | None = None
+    expecting_date = True
+
+    for line in result.stdout.splitlines():
+        line = line.strip()
+        if not line:
+            expecting_date = True
+            continue
+
+        if expecting_date:
+            dt = datetime.fromisoformat(line)
+            dt_utc = dt.astimezone(tz=timezone.utc).replace(microsecond=0)
+            current_date = dt_utc.isoformat().replace("+00:00", "")
+            expecting_date = False
+        elif current_date:
+            dates[line] = current_date
+
+    # fill in the blanks
+    now_str = datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "")
+    for path in paths:
+        if path not in dates:
+            dates[path] = now_str
+
+    return dates
 
 
 def get_cve_from_label(labels):
@@ -254,8 +271,12 @@ def main():
                 filepath_list.append(os.path.join(r, file))
 
     filepath_list.sort()
+    filepath_list = [str(Path(p).resolve().relative_to(Path.cwd())) for p in filepath_list]
     cpt = 0
     mitres = {}
+
+    creation_dates = get_git_creation_dates(filepath_list)
+
     for filepath in filepath_list:
         print(f"[+] Processing {filepath}")
         with Path(filepath).open() as f:
@@ -366,8 +387,6 @@ def main():
             else:
                 stats["scenarios_ok"].append(scenario["name"])
 
-            creation_date = get_file_creation_date(filepath, args.hub)
-
             scenarios_taxonomy[scenario["name"]] = {
                 "name": scenario["name"],
                 "description": scenario["description"],
@@ -378,7 +397,7 @@ def main():
                 "spoofable": spoofable,
                 "cti": in_cti,
                 "service": service,
-                "created_at": creation_date,
+                "created_at": creation_dates[filepath],
             }
 
             if len(cves) > 0:
