@@ -4440,21 +4440,26 @@
   "collections": {
     "Azlaroc/sftpgo": {
       "author": "Azlaroc",
-      "content": "bmFtZTogQXpsYXJvYy9zZnRwZ28KZGVzY3JpcHRpb246ICJDb2xsZWN0aW9uIGZvciBkZXRlY3RpbmcgYnJ1dGVmb3JjZSBhdHRhY2tzIG9uIFNGVFBHbyAoRlRQIGFuZCBTRlRQIHByb3RvY29scykiCmF1dGhvcjogIkF6bGFyb2MiCnBhcnNlcnM6CiAgLSBBemxhcm9jL3NmdHBnby1sb2dzCnNjZW5hcmlvczoKICAtIEF6bGFyb2Mvc2Z0cGdvLWJmCg==",
-      "description": "Collection for detecting bruteforce attacks on SFTPGo (FTP and SFTP protocols)",
+      "content": "bmFtZTogQXpsYXJvYy9zZnRwZ28KZGVzY3JpcHRpb246ICJDb2xsZWN0aW9uIGZvciBkZXRlY3RpbmcgYnJ1dGVmb3JjZSBhdHRhY2tzIGFuZCBpbXBvc3NpYmxlIHRyYXZlbCBvbiBTRlRQR28gKEZUUCBhbmQgU0ZUUCBwcm90b2NvbHMpIgphdXRob3I6ICJBemxhcm9jIgpwYXJzZXJzOgogIC0gQXpsYXJvYy9zZnRwZ28tbG9ncwpzY2VuYXJpb3M6CiAgLSBBemxhcm9jL3NmdHBnby1iZgogIC0gY3Jvd2RzZWN1cml0eS9pbXBvc3NpYmxlLXRyYXZlbAo=",
+      "description": "Collection for detecting bruteforce attacks and impossible travel on SFTPGo (FTP and SFTP protocols)",
       "labels": null,
       "parsers": [
         "Azlaroc/sftpgo-logs"
       ],
       "path": "collections/Azlaroc/sftpgo.yaml",
       "scenarios": [
-        "Azlaroc/sftpgo-bf"
+        "Azlaroc/sftpgo-bf",
+        "crowdsecurity/impossible-travel"
       ],
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "eac3fe58f026a03290fd3ba8cbc514b6cd640f83fe216a1fedc96ad0176b6088"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "ae6f0dc7e9ea17026be98b756922d5ad3964155cb4b6bbc0d7fd348bb0846643"
         }
       }
     },
@@ -9679,16 +9684,20 @@
   "parsers": {
     "Azlaroc/sftpgo-logs": {
       "author": "Azlaroc",
-      "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCnBhdHRlcm5fc3ludGF4OgogIFNGVFBHT19USU1FOiAnJXtZRUFSfS0le01PTlRITlVNfS0le01PTlRIREFZfVQle0hPVVJ9OiV7TUlOVVRFfTole1NFQ09ORH1cLiV7TlVNQkVSfScKICBTRlRQR09fRkFJTEVEOiAnXHsibGV2ZWwiOiIle1dPUkQ6bG9nX2xldmVsfSIsInRpbWUiOiIle1NGVFBHT19USU1FOmV2dF90aW1lfSIsInNlbmRlciI6ImNvbm5lY3Rpb25fZmFpbGVkIiwiY2xpZW50X2lwIjoiJXtJUFY0OmNsaWVudF9pcH0iLCJ1c2VybmFtZSI6IiV7REFUQTp1c2VybmFtZX0iLCJsb2dpbl90eXBlIjoiJXtEQVRBOmxvZ2luX3R5cGV9IiwicHJvdG9jb2wiOiIle1dPUkQ6cHJvdG9jb2x9IiwiZXJyb3IiOiIle0dSRUVEWURBVEE6ZXJyb3J9Ilx9JwpmaWx0ZXI6IGV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnc2Z0cGdvJwpub2RlczoKICAtIGdyb2s6CiAgICAgIG5hbWU6IFNGVFBHT19GQUlMRUQKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogc2Z0cGdvX2F1dGgKICAgICAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5jbGllbnRfaXAKICAgICAgICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCiAgICAgICAgLSBtZXRhOiBwcm90b2NvbAogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5wcm90b2NvbAogICAgICAgIC0gbWV0YTogbG9naW5fdHlwZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5sb2dpbl90eXBlCiAgICAgICAgLSBtZXRhOiBlcnJvcgogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5lcnJvcgogICAgICAgIC0gbWV0YTogaXNfZmFpbGVkX2xvZ2luCiAgICAgICAgICB2YWx1ZTogdHJ1ZQogICAgICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5ldnRfdGltZQogICAgICAgIC0gbWV0YTogc2VydmljZQogICAgICAgICAgdmFsdWU6IHNmdHBnbwpkZXNjcmlwdGlvbjogUGFyc2UgU0ZUUEdvIGF1dGhlbnRpY2F0aW9uIGxvZ3MgKGZhaWxlZCBhdHRlbXB0cyBvbmx5KQo=",
-      "description": "Parse SFTPGo authentication logs (failed attempts only)",
+      "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogImV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnc2Z0cGdvJyAmJiBVbm1hcnNoYWxKU09OKGV2dC5QYXJzZWQubWVzc2FnZSwgZXZ0LlVubWFyc2hhbGVkLCAnc2Z0cGdvJykgaW4gWycnLCBuaWxdIgpuYW1lOiBBemxhcm9jL3NmdHBnby1sb2dzCmRlc2NyaXB0aW9uOiAiUGFyc2UgU0ZUUEdvIGxvZ3MgZnJvbSBKU09OIgpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IHNmdHBnbwogIC0gbWV0YTogbG9nX2xldmVsCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLmxldmVsCiAgLSB0YXJnZXQ6IGV2dC5TdHJUaW1lCiAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLnRpbWUKbm9kZXM6CiAgLSBmaWx0ZXI6ICJldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLnNlbmRlciBpbiBbJ1NTSCcsICdGVFAnXSAmJiBldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLm1lc3NhZ2UgIT0gbmlsICYmIGV2dC5Vbm1hcnNoYWxlZC5zZnRwZ28ubWVzc2FnZSBjb250YWlucyAnbG9nZ2VkIGluJyIKICAgIGdyb2s6CiAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5zZnRwZ28ubWVzc2FnZQogICAgICBwYXR0ZXJuOiAnVXNlciAiJXtEQVRBOnVzZXJuYW1lfSIgbG9nZ2VkIGluLiogZnJvbSBpcCAiJXtJUDpzb3VyY2VfaXB9IicKICAgIHN0YXRpY3M6CiAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICB2YWx1ZTogYXV0aF9zdWNjZXNzCiAgICAgIC0gbWV0YTogc291cmNlX2lwCiAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5zb3VyY2VfaXAKICAgICAgLSBtZXRhOiB1c2VyCiAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC51c2VybmFtZQogICAgICAtIG1ldGE6IHByb3RvY29sCiAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLnNmdHBnby5zZW5kZXIKICAtIGZpbHRlcjogImV2dC5Vbm1hcnNoYWxlZC5zZnRwZ28uc2VuZGVyID09ICdjb25uZWN0aW9uX2ZhaWxlZCcgJiYgZXZ0LlVubWFyc2hhbGVkLnNmdHBnby51c2VybmFtZSAhPSBuaWwgJiYgZXZ0LlVubWFyc2hhbGVkLnNmdHBnby51c2VybmFtZSAhPSAnJyIKICAgIHN0YXRpY3M6CiAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICB2YWx1ZTogc2Z0cGdvX2F1dGgKICAgICAgLSBtZXRhOiBzb3VyY2VfaXAKICAgICAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLmNsaWVudF9pcAogICAgICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLnNmdHBnby51c2VybmFtZQogICAgICAtIG1ldGE6IHByb3RvY29sCiAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlVubWFyc2hhbGVkLnNmdHBnby5wcm90b2NvbAogICAgICAtIG1ldGE6IGxvZ2luX3R5cGUKICAgICAgICBleHByZXNzaW9uOiBldnQuVW5tYXJzaGFsZWQuc2Z0cGdvLmxvZ2luX3R5cGUKICAgICAgLSBtZXRhOiBlcnJvcgogICAgICAgIGV4cHJlc3Npb246IGV2dC5Vbm1hcnNoYWxlZC5zZnRwZ28uZXJyb3IKICAgICAgLSBtZXRhOiBpc19mYWlsZWRfbG9naW4KICAgICAgICB2YWx1ZTogInRydWUiCg==",
+      "description": "Parse SFTPGo logs from JSON",
       "labels": null,
       "path": "parsers/s01-parse/Azlaroc/sftpgo-logs.yaml",
       "stage": "s01-parse",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "f398bbe11399018992460ac6dd0d319ea5268de079e5f064dfcaad16f0025893"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "dc7ea162b4d3ff101d382219f1ea9a7f8eca702cd66bfa880aea5f314a686b2d"
         }
       }
     },
