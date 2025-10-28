@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 7
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 8
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021/11/18 08:34:27 [info] 86596#86596: *1083 ModSecurity: Warning. Matched \"Operator `Rx' with parameter `(?i)(?:\\x5c|(?:%(?:c(?:0%(?:[2aq]f|5c|9v)|1%(?:[19p]c|8s|af))|2(?:5(?:c(?:0%25af|1%259c)|2f|5c)|%46|f)|(?:(?:f(?:8%8)?0%8|e)0%80%a|bg%q)f|%3(?:2(?:%(?:%6|4)6|F)|5%%63)|u(?:221[56]|002f|EFC8|F025)|1u|5 (400 characters omitted)' against variable `REQUEST_URI_RAW' (Value: `/?foo=../../../../../../../../etc/passwd' ) [file \"/usr/share/modsecurity-crs/rules/REQUEST-930-APPLICATION-ATTACK-LFI.conf\"] [line \"29\"] [id \"930100\"] [rev \"\"] [msg \"Path Traversal Attack (/../)\"] [data \"Matched Data: /../ found within REQUEST_URI_RAW: /?foo=../../../../../../../../etc/passwd\"] [severity \"2\"] [ver \"OWASP_CRS/3.2.0\"] [maturity \"0\"] [accuracy \"0\"] [tag \"application-multi\"] [tag \"language-multi\"] [tag \"platform-multi\"] [tag \"attack-lfi\"] [tag \"OWASP_CRS\"] [tag \"OWASP_CRS/WEB_ATTACK/DIR_TRAVERSAL\"] [hostname \"10.0.1.61\"] [uri \"/\"] [unique_id \"163722446755.059797\"] [ref \"o8,4o14,4o20,4o26,4v4,40\"], client: 82.64.145.141, server: foobar.com, request: \"GET /?foo=../../../../../../../../etc/passwd HTTP/1.1\", host: \"foobar.com\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "modsecurity"
@@ -42,7 +42,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "mods
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"]) == "modsecurity-logs-nginx.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 7
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "2025/10/27 19:47:46 [error] 273240#273240: *657 [client 1.1.1.1] ModSecurity: Access denied with code 403 (phase 4). Matched \"Operator `Contains' with parameter `evil.webshell' against variable `RESPONSE_BODY' (Value: `<title> evil.webshell </title>\\x0a<h1> evil.webshell </h1>\\x0a' ) [file \"/etc/modsecurity/test.conf\"] [line \"190\"] [id \"955003\"] [rev \"\"] [msg \"\"] [data \"\"] [severity \"0\"] [ver \"\"] [maturity \"0\"] [accuracy \"0\"] [hostname \"example.com\"] [uri \"/evil-webshell.txt\"] [unique_id \"176155486667.073983\"] [ref \"o8,13v619,56\"] while sending to client, client: 1.1.1.1, server: example.com, request: \"GET /evil-webshell.txt HTTP/2.0\", upstream: \"https://2.2.2.2:443/evil-webshell.txt\", host: \"example.com\""
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "modsecurity"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"]) == "modsecurity-logs-nginx.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 8
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -50,7 +56,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
-len(results["s01-parse"]["crowdsecurity/modsecurity"]) == 7
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
+len(results["s01-parse"]["crowdsecurity/modsecurity"]) == 8
 results["s01-parse"]["crowdsecurity/modsecurity"][0].Success == true
 results["s01-parse"]["crowdsecurity/modsecurity"][0].Evt.Parsed["accuracy"] == "0"
 results["s01-parse"]["crowdsecurity/modsecurity"][0].Evt.Parsed["cid"] == "1083"
@@ -329,7 +336,42 @@ results["s01-parse"]["crowdsecurity/modsecurity"][6].Evt.Meta["modsec_phase"] ==
 results["s01-parse"]["crowdsecurity/modsecurity"][6].Evt.Meta["rule_id"] == "955003"
 results["s01-parse"]["crowdsecurity/modsecurity"][6].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s01-parse"]["crowdsecurity/modsecurity"][6].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 7
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Success == true
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["accuracy"] == "0"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["cid"] == "657"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["http_code"] == "403"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["http_version"] == "2.0"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["loglevel"] == "error"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["maturity"] == "0"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["message"] == "2025/10/27 19:47:46 [error] 273240#273240: *657 [client 1.1.1.1] ModSecurity: Access denied with code 403 (phase 4). Matched \"Operator `Contains' with parameter `evil.webshell' against variable `RESPONSE_BODY' (Value: `<title> evil.webshell </title>\\x0a<h1> evil.webshell </h1>\\x0a' ) [file \"/etc/modsecurity/test.conf\"] [line \"190\"] [id \"955003\"] [rev \"\"] [msg \"\"] [data \"\"] [severity \"0\"] [ver \"\"] [maturity \"0\"] [accuracy \"0\"] [hostname \"example.com\"] [uri \"/evil-webshell.txt\"] [unique_id \"176155486667.073983\"] [ref \"o8,13v619,56\"] while sending to client, client: 1.1.1.1, server: example.com, request: \"GET /evil-webshell.txt HTTP/2.0\", upstream: \"https://2.2.2.2:443/evil-webshell.txt\", host: \"example.com\""
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["modsecmessage"] == "Matched \"Operator `Contains' with parameter `evil.webshell' against variable `RESPONSE_BODY' (Value: `<title> evil.webshell </title>\\x0a<h1> evil.webshell </h1>\\x0a' )"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["phase"] == "4"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["pid"] == "273240"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["program"] == "modsecurity"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["ref"] == "o8,13v619,56"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["remote_addr"] == "1.1.1.1"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["request"] == "/evil-webshell.txt"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["rulefile"] == "/etc/modsecurity/test.conf"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["ruleid"] == "955003"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["ruleline"] == "190"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["ruleseverity"] == "0"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["target_fqdn"] == "example.com"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["targethost"] == "example.com"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["targeturi"] == "/evil-webshell.txt"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["tid"] == "273240"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["time"] == "2025/10/27 19:47:46"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["uniqueid"] == "176155486667.073983"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["upstream"] == "https://2.2.2.2:443/evil-webshell.txt"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["datasource_path"]) == "modsecurity-logs-nginx.log"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["http_code"] == "403"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["log_type"] == "modsecurity"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["modsec_phase"] == "4"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["rule_id"] == "955003"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["crowdsecurity/modsecurity"][7].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 8
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["accuracy"] == "0"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["cid"] == "1083"
@@ -622,4 +664,41 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"] == "2025-10-27T19:47:46Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"] == "2025-10-27T19:47:46Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["accuracy"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["cid"] == "657"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["http_code"] == "403"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["loglevel"] == "error"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["maturity"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message"] == "2025/10/27 19:47:46 [error] 273240#273240: *657 [client 1.1.1.1] ModSecurity: Access denied with code 403 (phase 4). Matched \"Operator `Contains' with parameter `evil.webshell' against variable `RESPONSE_BODY' (Value: `<title> evil.webshell </title>\\x0a<h1> evil.webshell </h1>\\x0a' ) [file \"/etc/modsecurity/test.conf\"] [line \"190\"] [id \"955003\"] [rev \"\"] [msg \"\"] [data \"\"] [severity \"0\"] [ver \"\"] [maturity \"0\"] [accuracy \"0\"] [hostname \"example.com\"] [uri \"/evil-webshell.txt\"] [unique_id \"176155486667.073983\"] [ref \"o8,13v619,56\"] while sending to client, client: 1.1.1.1, server: example.com, request: \"GET /evil-webshell.txt HTTP/2.0\", upstream: \"https://2.2.2.2:443/evil-webshell.txt\", host: \"example.com\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["modsecmessage"] == "Matched \"Operator `Contains' with parameter `evil.webshell' against variable `RESPONSE_BODY' (Value: `<title> evil.webshell </title>\\x0a<h1> evil.webshell </h1>\\x0a' )"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["phase"] == "4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["pid"] == "273240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["program"] == "modsecurity"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["ref"] == "o8,13v619,56"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["remote_addr"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["request"] == "/evil-webshell.txt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["rulefile"] == "/etc/modsecurity/test.conf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["ruleid"] == "955003"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["ruleline"] == "190"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["ruleseverity"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["target_fqdn"] == "example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["targethost"] == "example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["targeturi"] == "/evil-webshell.txt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["tid"] == "273240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["time"] == "2025/10/27 19:47:46"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["uniqueid"] == "176155486667.073983"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["upstream"] == "https://2.2.2.2:443/evil-webshell.txt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_path"]) == "modsecurity-logs-nginx.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["http_code"] == "403"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["log_type"] == "modsecurity"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["modsec_phase"] == "4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["rule_id"] == "955003"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"] == "2025-10-27T19:47:46Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"] == "2025-10-27T19:47:46Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Whitelisted == false
 len(results["success"][""]) == 0
