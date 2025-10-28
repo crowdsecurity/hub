@@ -1,29 +1,41 @@
 onsuccess: next_stage
-pattern_syntax:
-  SFTPGO_TIME: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY}T%{HOUR}:%{MINUTE}:%{SECOND}\.%{NUMBER}'
-  SFTPGO_FAILED: '\{"level":"%{WORD:log_level}","time":"%{SFTPGO_TIME:evt_time}","sender":"connection_failed","client_ip":"%{IPV4:client_ip}","username":"%{DATA:username}","login_type":"%{DATA:login_type}","protocol":"%{WORD:protocol}","error":"%{GREEDYDATA:error}"\}'
-filter: evt.Parsed.program == 'sftpgo'
+filter: "evt.Parsed.program == 'sftpgo' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'sftpgo') in ['', nil]"
+name: Azlaroc/sftpgo-logs
+description: "Parse SFTPGo logs from JSON"
+statics:
+  - meta: service
+    value: sftpgo
+  - meta: log_level
+    expression: evt.Unmarshaled.sftpgo.level
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.sftpgo.time
 nodes:
-  - grok:
-      name: SFTPGO_FAILED
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: sftpgo_auth
-        - meta: source_ip
-          expression: evt.Parsed.client_ip
-        - meta: target_user
-          expression: evt.Parsed.username
-        - meta: protocol
-          expression: evt.Parsed.protocol
-        - meta: login_type
-          expression: evt.Parsed.login_type
-        - meta: error
-          expression: evt.Parsed.error
-        - meta: is_failed_login
-          value: true
-        - target: evt.StrTime
-          expression: evt.Parsed.evt_time
-        - meta: service
-          value: sftpgo
-description: Parse SFTPGo authentication logs (failed attempts only)
+  - filter: "evt.Unmarshaled.sftpgo.sender in ['SSH', 'FTP'] && evt.Unmarshaled.sftpgo.message != nil && evt.Unmarshaled.sftpgo.message contains 'logged in'"
+    grok:
+      expression: evt.Unmarshaled.sftpgo.message
+      pattern: 'User "%{DATA:username}" logged in.* from ip "%{IP:source_ip}"'
+    statics:
+      - meta: log_type
+        value: auth_success
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - meta: user
+        expression: evt.Parsed.username
+      - meta: protocol
+        expression: evt.Unmarshaled.sftpgo.sender
+  - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed' && evt.Unmarshaled.sftpgo.username != nil && evt.Unmarshaled.sftpgo.username != ''"
+    statics:
+      - meta: log_type
+        value: sftpgo_auth
+      - meta: source_ip
+        expression: evt.Unmarshaled.sftpgo.client_ip
+      - meta: target_user
+        expression: evt.Unmarshaled.sftpgo.username
+      - meta: protocol
+        expression: evt.Unmarshaled.sftpgo.protocol
+      - meta: login_type
+        expression: evt.Unmarshaled.sftpgo.login_type
+      - meta: error
+        expression: evt.Unmarshaled.sftpgo.error
+      - meta: is_failed_login
+        value: "true"
