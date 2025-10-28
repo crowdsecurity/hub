@@ -15,6 +15,18 @@ These components allow CrowdSec to automatically ban source IPs that MailScanner
 
 ---
 
+## Example acquistion
+
+```yaml
+filename: /var/log/maillog
+labels:
+  type: syslog
+```
+
+note in most cases CrowdSec already monitors these files by default so just ensure this or similar acquistion already exists.
+
+---
+
 ## Components
 
 ### Parsers
