@@ -33,8 +33,6 @@ nodes:
         expression: evt.Parsed.source_ip
       - meta: user
         expression: evt.Parsed.username
-      - meta: protocol
-        expression: evt.Unmarshaled.sftpgo.sender
   - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed'"
     statics:
       - meta: log_type
