@@ -168,6 +168,9 @@ def get_git_creation_dates(paths: list[str]) -> dict[str, str]:
     if not paths:
         raise ValueError("paths list cannot be empty")
 
+    if Path(".git/shallow").exists():
+        raise RuntimeError("shallow git repo detected - can't access commit history")
+
     cmd = [
         "git",
         "log",
@@ -515,3 +518,4 @@ class Parser(Tap):
         self.add_argument(
             "-v", "--verbose", action="store_true", help="Verbose mode", default=False
         )
+
