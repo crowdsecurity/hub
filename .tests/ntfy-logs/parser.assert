@@ -1,0 +1,143 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"HTTP request started\",\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"tag\":\"http\",\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":60,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"Access to topic test_topic not authorized\",\"error\":\"unauthorized\",\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.000044044,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0000532854,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"HTTP request finished\",\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"tag\":\"http\",\"time_taken_ms\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0000587626,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:33:40.117-04:00\",\"level\":\"DEBUG\",\"message\":\"Authentication failed\",\"error\":\"unauthenticated\",\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"tag\":\"http\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:33:40.117-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 401 (ntfy error 40101)\",\"error\":\"unauthorized\",\"error_code\":40101,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":401,\"tag\":\"http\",\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":29.000000738933334,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":60,\"visitor_seen\":\"2025-08-03T14:33:40.069-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.751-04:00\",\"level\":\"DEBUG\",\"message\":\"HTTP request started\",\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"tag\":\"http\",\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":60,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.752-04:00\",\"level\":\"DEBUG\",\"message\":\"Access to topic test_topic not authorized\",\"error\":\"unauthorized\",\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0001151232,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.752-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0001689236,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.752-04:00\",\"level\":\"DEBUG\",\"message\":\"HTTP request finished\",\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"tag\":\"http\",\"time_taken_ms\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0001873704,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "ntfy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
+len(results["s01-parse"]["Jgigantino31/ntfy-logs"]) == 10
+results["s01-parse"]["Jgigantino31/ntfy-logs"][0].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][1].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Success == true
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0000532854,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Parsed["program"] == "ntfy"
+basename(results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Meta["service"] == "ntfy"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][2].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][3].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][4].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Success == true
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:33:40.117-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 401 (ntfy error 40101)\",\"error\":\"unauthorized\",\"error_code\":40101,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":401,\"tag\":\"http\",\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":29.000000738933334,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":60,\"visitor_seen\":\"2025-08-03T14:33:40.069-04:00\"}"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Parsed["program"] == "ntfy"
+basename(results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Meta["service"] == "ntfy"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][5].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][6].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][7].Success == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Success == true
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.752-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0001689236,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Parsed["program"] == "ntfy"
+basename(results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Meta["service"] == "ntfy"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["Jgigantino31/ntfy-logs"][8].Evt.Whitelisted == false
+results["s01-parse"]["Jgigantino31/ntfy-logs"][9].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:32:00.02-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0000532854,\"visitor_seen\":\"2025-08-03T14:32:00.02-04:00\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "ntfy"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "ntfy"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-08-03T14:32:00.02-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-08-03T14:32:00.02-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:33:40.117-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 401 (ntfy error 40101)\",\"error\":\"unauthorized\",\"error_code\":40101,\"http_method\":\"GET\",\"http_path\":\"/test_topic/auth\",\"http_status\":401,\"tag\":\"http\",\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":29.000000738933334,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":60,\"visitor_seen\":\"2025-08-03T14:33:40.069-04:00\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "ntfy"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "ntfy"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2025-08-03T14:33:40.117-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2025-08-03T14:33:40.117-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "{\"time\":\"2025-08-03T14:36:21.752-04:00\",\"level\":\"DEBUG\",\"message\":\"Connection closed with HTTP 403 (ntfy error 40301)\",\"error\":\"forbidden\",\"error_code\":40301,\"http_method\":\"PUT\",\"http_path\":\"/test_topic\",\"http_status\":403,\"tag\":\"http\",\"topic\":\"test_topic\",\"topic_last_access\":\"2025-08-03T14:30:16.465-04:00\",\"topic_subscribers\":0,\"visitor_auth_limiter_limit\":0.016666666666666666,\"visitor_auth_limiter_tokens\":30,\"visitor_id\":\"ip:127.0.0.1\",\"visitor_ip\":\"127.0.0.1\",\"visitor_messages\":0,\"visitor_messages_limit\":17280,\"visitor_messages_remaining\":17280,\"visitor_request_limiter_limit\":0.2,\"visitor_request_limiter_tokens\":59.0001689236,\"visitor_seen\":\"2025-08-03T14:36:21.751-04:00\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "ntfy"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "ntfy-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "ntfy_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "ntfy"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2025-08-03T14:36:21.752-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2025-08-03T14:36:21.752-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0

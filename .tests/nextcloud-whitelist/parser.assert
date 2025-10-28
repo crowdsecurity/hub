@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 16
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 17
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "192.168.1.1 - - [07/Oct/2022:00:01:18 +0200] \"GET /remote.php/dav/addressbooks/users/crowdsec/bvf-panilor/14FF37C0-C83C-4CB5-9091-269A9337D362.vcf?photo HTTP/2.0\" 404 20 \"https://myapp.com/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "nginx"
@@ -96,7 +96,13 @@ results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Parsed["program"] == "ngi
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][15].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 16
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Parsed["message"] == "192.168.1.1 - - [28/Mar/2025:07:02:36 +0000] \"GET /index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg HTTP/2.0\" 400 0 \"https://cloud.mydomain.de/index.php/apps/mail/api/messages\" \"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36\""
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Parsed["program"] == "nginx"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][16].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 17
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -113,7 +119,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][12].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][13].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][14].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][15].Success == false
-len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 16
+results["s00-raw"]["crowdsecurity/syslog-logs"][16].Success == false
+len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 17
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["body_bytes_sent"] == "20"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["http_referer"] == "https://myapp.com/"
@@ -482,7 +489,30 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][15].Evt.Meta["log_type"] == "ht
 results["s01-parse"]["crowdsecurity/nginx-logs"][15].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/nginx-logs"][15].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/nginx-logs"][15].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 16
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Success == true
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["body_bytes_sent"] == "0"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["http_referer"] == "https://cloud.mydomain.de/index.php/apps/mail/api/messages"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["http_version"] == "2.0"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["message"] == "192.168.1.1 - - [28/Mar/2025:07:02:36 +0000] \"GET /index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg HTTP/2.0\" 400 0 \"https://cloud.mydomain.de/index.php/apps/mail/api/messages\" \"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36\""
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["program"] == "nginx"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["remote_user"] == "-"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["request"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["status"] == "400"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["time_local"] == "28/Mar/2025:07:02:36 +0000"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["http_path"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["http_status"] == "400"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/nginx-logs"][16].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 17
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["body_bytes_sent"] == "20"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_referer"] == "https://myapp.com/"
@@ -883,7 +913,32 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["source_ip"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Meta["timestamp"] == "2025-03-28T07:02:36Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][15].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 16
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["body_bytes_sent"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["http_referer"] == "https://cloud.mydomain.de/index.php/apps/mail/api/messages"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["message"] == "192.168.1.1 - - [28/Mar/2025:07:02:36 +0000] \"GET /index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg HTTP/2.0\" 400 0 \"https://cloud.mydomain.de/index.php/apps/mail/api/messages\" \"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["program"] == "nginx"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["remote_user"] == "-"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["request"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["status"] == "400"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["time_local"] == "28/Mar/2025:07:02:36 +0000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["http_path"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["http_status"] == "400"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Meta["timestamp"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][16].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 17
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["body_bytes_sent"] == "20"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["file_dir"] == "/remote.php/dav/addressbooks/users/crowdsec/bvf-panilor/"
@@ -1390,7 +1445,39 @@ results["s02-enrich"]["crowdsecurity/http-logs"][15].Evt.Meta["source_ip"] == "1
 results["s02-enrich"]["crowdsecurity/http-logs"][15].Evt.Meta["timestamp"] == "2025-03-28T07:02:36Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][15].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][15].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"]) == 16
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Success == true
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["body_bytes_sent"] == "0"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["file_dir"] == "/index.php/apps/mail/api/"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["file_frag"] == "messages"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["file_name"] == "messages"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["http_args"] == "mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["http_referer"] == "https://cloud.mydomain.de/index.php/apps/mail/api/messages"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["impact_completion"] == "true"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["message"] == "192.168.1.1 - - [28/Mar/2025:07:02:36 +0000] \"GET /index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg HTTP/2.0\" 400 0 \"https://cloud.mydomain.de/index.php/apps/mail/api/messages\" \"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36\""
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["program"] == "nginx"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["remote_user"] == "-"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["request"] == "/index.php/apps/mail/api/messages"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["static_ressource"] == "false"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["status"] == "400"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["time_local"] == "28/Mar/2025:07:02:36 +0000"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["http_args_len"] == "70"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["http_path"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["http_status"] == "400"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Meta["timestamp"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/http-logs"][16].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"]) == 17
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][0].Success == true
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][0].Evt.Parsed["body_bytes_sent"] == "20"
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][0].Evt.Parsed["file_dir"] == "/remote.php/dav/addressbooks/users/crowdsec/bvf-panilor/"
@@ -1913,4 +2000,37 @@ results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][15].Evt.Meta["timesta
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][15].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][15].Evt.Whitelisted == true
 results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][15].Evt.WhitelistReason == "Nextcloud Whitelist"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Success == true
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["body_bytes_sent"] == "0"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["file_dir"] == "/index.php/apps/mail/api/"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["file_frag"] == "messages"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["file_name"] == "messages"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["http_args"] == "mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["http_referer"] == "https://cloud.mydomain.de/index.php/apps/mail/api/messages"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["impact_completion"] == "true"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["message"] == "192.168.1.1 - - [28/Mar/2025:07:02:36 +0000] \"GET /index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg HTTP/2.0\" 400 0 \"https://cloud.mydomain.de/index.php/apps/mail/api/messages\" \"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36\""
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["program"] == "nginx"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["remote_user"] == "-"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["request"] == "/index.php/apps/mail/api/messages"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["static_ressource"] == "false"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["status"] == "400"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["time_local"] == "28/Mar/2025:07:02:36 +0000"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Parsed["verb"] == "GET"
+basename(results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["datasource_path"]) == "nextcloud-whitelist.log"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["http_args_len"] == "70"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["http_path"] == "/index.php/apps/mail/api/messages?mailboxId=1234&limit=20&sort=newest&view=threaded&v=enwqklhejkqwgh1rqg"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["http_status"] == "400"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/27.0 Chrome/125.0.0.0 Mobile Safari/537.36"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Meta["timestamp"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Enriched["MarshaledTime"] == "2025-03-28T07:02:36Z"
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/nextcloud-whitelist"][16].Evt.WhitelistReason == "Nextcloud Whitelist"
 len(results["success"][""]) == 0

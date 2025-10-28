@@ -1,0 +1,5 @@
+# Include potentiatlly more sensitive HTTP fields (such as the FQDN) in the context
+context:
+  target_fqdn:
+  - evt.Meta.target_fqdn
+  - "req != nil ? req.Host : ''"
