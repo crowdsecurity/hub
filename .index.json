@@ -4438,6 +4438,26 @@
     }
   },
   "collections": {
+    "Azlaroc/sftpgo": {
+      "author": "Azlaroc",
+      "content": "bmFtZTogQXpsYXJvYy9zZnRwZ28KZGVzY3JpcHRpb246ICJDb2xsZWN0aW9uIGZvciBkZXRlY3RpbmcgYnJ1dGVmb3JjZSBhdHRhY2tzIG9uIFNGVFBHbyAoRlRQIGFuZCBTRlRQIHByb3RvY29scykiCmF1dGhvcjogIkF6bGFyb2MiCnBhcnNlcnM6CiAgLSBBemxhcm9jL3NmdHBnby1sb2dzCnNjZW5hcmlvczoKICAtIEF6bGFyb2Mvc2Z0cGdvLWJmCg==",
+      "description": "Collection for detecting bruteforce attacks on SFTPGo (FTP and SFTP protocols)",
+      "labels": null,
+      "parsers": [
+        "Azlaroc/sftpgo-logs"
+      ],
+      "path": "collections/Azlaroc/sftpgo.yaml",
+      "scenarios": [
+        "Azlaroc/sftpgo-bf"
+      ],
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "eac3fe58f026a03290fd3ba8cbc514b6cd640f83fe216a1fedc96ad0176b6088"
+        }
+      }
+    },
     "Dominic-Wagner/vaultwarden": {
       "author": "Dominic-Wagner",
       "content": "cGFyc2VyczoKICAtIERvbWluaWMtV2FnbmVyL3ZhdWx0d2FyZGVuLWxvZ3MKc2NlbmFyaW9zOgogIC0gRG9taW5pYy1XYWduZXIvdmF1bHR3YXJkZW4tYmYKZGVzY3JpcHRpb246ICJWYXVsdHdhcmRlbiBzdXBwb3J0IDogcGFyc2VyIGFuZCBicnV0ZS1mb3JjZSBkZXRlY3Rpb24iCmF1dGhvcjogRG9taW5pYy1XYWduZXIKdGFnczoKICAtIGxpbnV4CiAgLSBicnV0ZS1mb3JjZQogIC0gdmF1bHR3YXJkZW4K",
@@ -9657,6 +9677,21 @@
     }
   },
   "parsers": {
+    "Azlaroc/sftpgo-logs": {
+      "author": "Azlaroc",
+      "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCnBhdHRlcm5fc3ludGF4OgogIFNGVFBHT19USU1FOiAnJXtZRUFSfS0le01PTlRITlVNfS0le01PTlRIREFZfVQle0hPVVJ9OiV7TUlOVVRFfTole1NFQ09ORH1cLiV7TlVNQkVSfScKICBTRlRQR09fRkFJTEVEOiAnXHsibGV2ZWwiOiIle1dPUkQ6bG9nX2xldmVsfSIsInRpbWUiOiIle1NGVFBHT19USU1FOmV2dF90aW1lfSIsInNlbmRlciI6ImNvbm5lY3Rpb25fZmFpbGVkIiwiY2xpZW50X2lwIjoiJXtJUFY0OmNsaWVudF9pcH0iLCJ1c2VybmFtZSI6IiV7REFUQTp1c2VybmFtZX0iLCJsb2dpbl90eXBlIjoiJXtEQVRBOmxvZ2luX3R5cGV9IiwicHJvdG9jb2wiOiIle1dPUkQ6cHJvdG9jb2x9IiwiZXJyb3IiOiIle0dSRUVEWURBVEE6ZXJyb3J9Ilx9JwpmaWx0ZXI6IGV2dC5QYXJzZWQucHJvZ3JhbSA9PSAnc2Z0cGdvJwpub2RlczoKICAtIGdyb2s6CiAgICAgIG5hbWU6IFNGVFBHT19GQUlMRUQKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogc2Z0cGdvX2F1dGgKICAgICAgICAtIG1ldGE6IHNvdXJjZV9pcAogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5jbGllbnRfaXAKICAgICAgICAtIG1ldGE6IHRhcmdldF91c2VyCiAgICAgICAgICBleHByZXNzaW9uOiBldnQuUGFyc2VkLnVzZXJuYW1lCiAgICAgICAgLSBtZXRhOiBwcm90b2NvbAogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5wcm90b2NvbAogICAgICAgIC0gbWV0YTogbG9naW5fdHlwZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5sb2dpbl90eXBlCiAgICAgICAgLSBtZXRhOiBlcnJvcgogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5lcnJvcgogICAgICAgIC0gbWV0YTogaXNfZmFpbGVkX2xvZ2luCiAgICAgICAgICB2YWx1ZTogdHJ1ZQogICAgICAgIC0gdGFyZ2V0OiBldnQuU3RyVGltZQogICAgICAgICAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5ldnRfdGltZQogICAgICAgIC0gbWV0YTogc2VydmljZQogICAgICAgICAgdmFsdWU6IHNmdHBnbwpkZXNjcmlwdGlvbjogUGFyc2UgU0ZUUEdvIGF1dGhlbnRpY2F0aW9uIGxvZ3MgKGZhaWxlZCBhdHRlbXB0cyBvbmx5KQo=",
+      "description": "Parse SFTPGo authentication logs (failed attempts only)",
+      "labels": null,
+      "path": "parsers/s01-parse/Azlaroc/sftpgo-logs.yaml",
+      "stage": "s01-parse",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "f398bbe11399018992460ac6dd0d319ea5268de079e5f064dfcaad16f0025893"
+        }
+      }
+    },
     "Dominic-Wagner/vaultwarden-logs": {
       "author": "Dominic-Wagner",
       "content": "b25zdWNjZXNzOiBuZXh0X3N0YWdlCmZpbHRlcjogIlVwcGVyKGV2dC5QYXJzZWQucHJvZ3JhbSkgPT0gJ1ZBVUxUV0FSREVOJyIKbmFtZTogRG9taW5pYy1XYWduZXIvdmF1bHR3YXJkZW4tbG9ncwpkZXNjcmlwdGlvbjogIlBhcnNlIHZhdWx0d2FyZGVuIGxvZ3MiCnBhdHRlcm5fc3ludGF4OgogIERBVEVfWU1EOiAiJXtZRUFSOnllYXJ9LSV7TU9OVEhOVU06bW9udGh9LSV7TU9OVEhEQVk6ZGF5fSIKbm9kZXM6CiAgLSBncm9rOgogICAgICBwYXR0ZXJuOiAnXlxbJXtUSU1FU1RBTVBfSVNPODYwMTpkYXRldGltZXN0YW1wfVxdXFt2YXVsdHdhcmRlbjo6YXBpOjppZGVudGl0eVxdXFtFUlJPUlxdIFVzZXJuYW1lIG9yIHBhc3N3b3JkIGlzIGluY29ycmVjdFwuIFRyeSBhZ2FpblwuIElQOiAle0lQOnNvdXJjZV9pcH1cLiBVc2VybmFtZTogJXtFTUFJTEFERFJFU1M6dXNlcm5hbWV9XC4kJwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiB2YXVsdHdhcmRlbl9mYWlsZWRfYXV0aAogICAgICAgIC0gbWV0YTogdXNlcm5hbWUKICAgICAgICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQudXNlcm5hbWUKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICdeXFsle1RJTUVTVEFNUF9JU084NjAxOmRhdGV0aW1lc3RhbXB9XF1cW3ZhdWx0d2FyZGVuOjphcGk6OmFkbWluXF1cW0VSUk9SXF0gSW52YWxpZCBhZG1pbiB0b2tlbi4gSVA6ICV7SVA6c291cmNlX2lwfScKICAgICAgYXBwbHlfb246IG1lc3NhZ2UKICAgICAgc3RhdGljczoKICAgICAgICAtIG1ldGE6IGxvZ190eXBlCiAgICAgICAgICB2YWx1ZTogdmF1bHR3YXJkZW5fZmFpbGVkX2FkbWluX2F1dGgKICAtIGdyb2s6CiAgICAgIHBhdHRlcm46ICdeXFsle1RJTUVTVEFNUF9JU084NjAxOmRhdGV0aW1lc3RhbXB9XF1cW3ZhdWx0d2FyZGVuOjphcGk6OmNvcmU6OnR3b19mYWN0b3I6OmF1dGhlbnRpY2F0b3JcXVxbRVJST1JcXSBJbnZhbGlkIFRPVFAgY29kZSEgU2VydmVyIHRpbWU6ICV7REFURV9ZTUQ6c2VydmVyX2RhdGV9ICV7VElNRTpzZXJ2ZXJfdGltZX0gJXtUWjpzZXJ2ZXJfdHp9IElQOiAle0lQOnNvdXJjZV9pcH0nCiAgICAgIGFwcGx5X29uOiBtZXNzYWdlCiAgICAgIHN0YXRpY3M6CiAgICAgICAgLSBtZXRhOiBsb2dfdHlwZQogICAgICAgICAgdmFsdWU6IHZhdWx0d2FyZGVuX2ZhaWxlZF8yZmFfdG90cAogIC0gZ3JvazoKICAgICAgcGF0dGVybjogJ15cWyV7VElNRVNUQU1QX0lTTzg2MDE6ZGF0ZXRpbWVzdGFtcH1cXVxbdmF1bHR3YXJkZW46OmFwaTo6Y29yZTo6dHdvX2ZhY3Rvcjo6ZW1haWxcXVxbRVJST1JcXSBUb2tlbiBpcyBpbnZhbGlkISBJUDogJXtJUDpzb3VyY2VfaXB9JwogICAgICBhcHBseV9vbjogbWVzc2FnZQogICAgICBzdGF0aWNzOgogICAgICAgIC0gbWV0YTogbG9nX3R5cGUKICAgICAgICAgIHZhbHVlOiB2YXVsdHdhcmRlbl9mYWlsZWRfMmZhX2VtYWlsCgpzdGF0aWNzOgogIC0gbWV0YTogc2VydmljZQogICAgdmFsdWU6IHZhdWx0d2FyZGVuCiAgLSBtZXRhOiBzb3VyY2VfaXAKICAgIGV4cHJlc3Npb246ICJldnQuUGFyc2VkLnNvdXJjZV9pcCIKICAtIHRhcmdldDogZXZ0LlN0clRpbWVGb3JtYXQKICAgIHZhbHVlOiAiMjAwNi0wMS0wMiAxNTowNDowNS4wMDAtMDcwMCIKICAtIHRhcmdldDogZXZ0LlN0clRpbWUKICAgIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuZGF0ZXRpbWVzdGFtcAo=",
@@ -13702,6 +13737,30 @@
     }
   },
   "scenarios": {
+    "Azlaroc/sftpgo-bf": {
+      "author": "Azlaroc",
+      "content": "dHlwZTogbGVha3kKbmFtZTogQXpsYXJvYy9zZnRwZ28tYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU0ZUUEdvIGJydXRlZm9yY2UgYXR0YWNrcyBvbiBGVFAvU1NIIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnc2Z0cGdvX2F1dGgnICYmIGV2dC5NZXRhLmlzX2ZhaWxlZF9sb2dpbiA9PSAndHJ1ZSciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogMwpsZWFrc3BlZWQ6ICIzMHMiCmJsYWNraG9sZTogNGgKbGFiZWxzOgogIHNlcnZpY2U6IHNmdHBnbwogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJzZnRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJTRlRQR28gQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
+      "labels": {
+        "behavior": "sftp:bruteforce",
+        "classification": [
+          "attack.T1110"
+        ],
+        "confidence": 3,
+        "label": "SFTPGo Bruteforce",
+        "remediation": true,
+        "service": "sftpgo",
+        "spoofable": 0
+      },
+      "path": "scenarios/Azlaroc/sftpgo-bf.yaml",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "388031186f2a78f6c1f477905b58ab32910e451984e48c7621ad82839a5a8f0e"
+        }
+      }
+    },
     "Dominic-Wagner/vaultwarden-bf": {
       "author": "Dominic-Wagner",
       "content": "IyB2YXVsdHdhcmRlbiBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IERvbWluaWMtV2FnbmVyL3ZhdWx0d2FyZGVuLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHZhdWx0d2FyZGVuIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlIGluIFsndmF1bHR3YXJkZW5fZmFpbGVkX2F1dGgnLCAndmF1bHR3YXJkZW5fZmFpbGVkX2FkbWluX2F1dGgnLCAndmF1bHR3YXJkZW5fZmFpbGVkXzJmYV90b3RwJywgJ3ZhdWx0d2FyZGVuX2ZhaWxlZF8yZmFfZW1haWwnXSIKbGVha3NwZWVkOiAxbQpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogIHNlcnZpY2U6IHZhdWx0d2FyZGVuCiAgYmVoYXZpb3I6ICJnZW5lcmljOmJydXRlZm9yY2UiCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiVmF1bHR3YXJkZW4gQnJ1dGVmb3JjZSIKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgcmVtZWRpYXRpb246IHRydWUKLS0tCiMgdmF1bHR3YXJkZW4gdXNlci1lbnVtCnR5cGU6IGxlYWt5Cm5hbWU6IERvbWluaWMtV2FnbmVyL3ZhdWx0d2FyZGVuLWJmX3VzZXItZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCB2YXVsdHdhcmRlbiB1c2VyIGVudW0gYnJ1dGVmb3JjZSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAndmF1bHR3YXJkZW5fZmFpbGVkX2F1dGgnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudXNlcm5hbWUKbGVha3NwZWVkOiAxbQpjYXBhY2l0eTogNQpibGFja2hvbGU6IDVtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogdmF1bHR3YXJkZW4KICBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTg5CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiVmF1bHR3YXJkZW4gVXNlciBFbnVtZXJhdGlvbiIKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgcmVtZWRpYXRpb246IHRydWUK",
