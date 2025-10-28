@@ -400,11 +400,11 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Meta["protocol"] == "SSH"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Meta["service"] == "sftpgo"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Meta["source_ip"] == "1.2.3.4"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Meta["user"] == "bob"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:36.616"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["connection_id"] == "b6e3b2dca7eec7e1672472f83466853e1589f1991d0fac2b962c2b714fc984ba"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"keyboard-interactive\", from ip \"1.2.3.4\", client version \"SSH-2.0-FileZilla_3.69.3\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:36.616"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][13].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][14].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][15].Success == false
@@ -427,11 +427,11 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Meta["protocol"] == "FTP"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Meta["service"] == "sftpgo"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Meta["source_ip"] == "1.2.3.4"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Meta["user"] == "bob"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:45.270"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_14"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"password\" from ip \"1.2.3.4\", TLS enabled? false"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:45.270"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][22].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][23].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][24].Success == false
@@ -475,11 +475,11 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Meta["protocol"] == "FTP"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Meta["service"] == "sftpgo"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Meta["source_ip"] == "1.2.3.4"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Meta["user"] == "bob"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_15"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"password\" from ip \"1.2.3.4\", TLS enabled? false"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:58:13.269"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_15"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][34].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][35].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][36].Success == false
@@ -497,14 +497,14 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Meta["protocol"] == "SSH"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Meta["service"] == "sftpgo"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Meta["source_ip"] == "192.168.1.101"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Meta["target_user"] == "bob"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["protocol"] == "SSH"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:59:44.443"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][37].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][38].Success == true
 results["s01-parse"]["Azlaroc/sftpgo-logs"][38].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T16:59:44.796\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"bob\",\"login_type\":\"keyboard-interactive\",\"protocol\":\"SSH\",\"error\":\"invalid credentials\"}"
@@ -530,7 +530,28 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][38].Evt.Unmarshaled["sftpgo"]["clien
 results["s01-parse"]["Azlaroc/sftpgo-logs"][38].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][38].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][39].Success == false
-results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Success == false
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Success == true
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T16:59:50.520\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"\",\"login_type\":\"no_auth_tried\",\"protocol\":\"SSH\",\"error\":\"ssh: disconnect, reason 11: \"}"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Parsed["program"] == "sftpgo"
+basename(results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["datasource_path"]) == "sftpgo-logs-25.log"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["error"] == "ssh: disconnect, reason 11: "
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["is_failed_login"] == "true"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["log_level"] == "debug"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["log_type"] == "sftpgo_auth"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["login_type"] == "no_auth_tried"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["protocol"] == "SSH"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["service"] == "sftpgo"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Meta["source_ip"] == "192.168.1.101"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["username"] == ""
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["error"] == "ssh: disconnect, reason 11: "
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["login_type"] == "no_auth_tried"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["protocol"] == "SSH"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:59:50.520"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][40].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][41].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][42].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Success == true
@@ -547,20 +568,20 @@ results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Meta["protocol"] == "FTP"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Meta["service"] == "sftpgo"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Meta["source_ip"] == "192.168.1.101"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Meta["target_user"] == "bob"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T17:00:12.574"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
-results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["protocol"] == "FTP"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T17:00:12.574"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
+results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
 results["s01-parse"]["Azlaroc/sftpgo-logs"][43].Evt.Whitelisted == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][44].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][45].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][46].Success == false
 results["s01-parse"]["Azlaroc/sftpgo-logs"][47].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 9
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"level\":\"info\",\"time\":\"2025-09-14T16:56:57.706\",\"sender\":\"SSH\",\"connection_id\":\"34e4ab426f1522416ac2d92815e2041f2e5d4f0af631d6edcd712afbac2ccf61\",\"message\":\"User \\\"bob\\\" logged in with \\\"keyboard-interactive\\\", from ip \\\"1.2.3.4\\\", client version \\\"SSH-2.0-FileZilla_3.69.3\\\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}\"}"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "sftpgo"
@@ -576,11 +597,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-09-14T16:56:57.706Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:56:57.706Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:56:57.706"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["connection_id"] == "34e4ab426f1522416ac2d92815e2041f2e5d4f0af631d6edcd712afbac2ccf61"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"keyboard-interactive\", from ip \"1.2.3.4\", client version \"SSH-2.0-FileZilla_3.69.3\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:56:57.706"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "{\"level\":\"info\",\"time\":\"2025-09-14T16:57:19.173\",\"sender\":\"FTP\",\"connection_id\":\"FTP_0_13\",\"message\":\"User \\\"bob\\\" logged in with \\\"password\\\" from ip \\\"1.2.3.4\\\", TLS enabled? false\"}"
@@ -597,11 +618,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2025-09-14T16:57:19.173Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:57:19.173Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:19.173"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_13"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"password\" from ip \"1.2.3.4\", TLS enabled? false"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:19.173"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "{\"level\":\"info\",\"time\":\"2025-09-14T16:57:36.616\",\"sender\":\"SSH\",\"connection_id\":\"b6e3b2dca7eec7e1672472f83466853e1589f1991d0fac2b962c2b714fc984ba\",\"message\":\"User \\\"bob\\\" logged in with \\\"keyboard-interactive\\\", from ip \\\"1.2.3.4\\\", client version \\\"SSH-2.0-FileZilla_3.69.3\\\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}\"}"
@@ -618,11 +639,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2025-09-14T16:57:36.616Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:57:36.616Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:36.616"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["connection_id"] == "b6e3b2dca7eec7e1672472f83466853e1589f1991d0fac2b962c2b714fc984ba"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"keyboard-interactive\", from ip \"1.2.3.4\", client version \"SSH-2.0-FileZilla_3.69.3\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["sender"] == "SSH"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:36.616"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "{\"level\":\"info\",\"time\":\"2025-09-14T16:57:45.270\",\"sender\":\"FTP\",\"connection_id\":\"FTP_0_14\",\"message\":\"User \\\"bob\\\" logged in with \\\"password\\\" from ip \\\"1.2.3.4\\\", TLS enabled? false\"}"
@@ -639,11 +660,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2025-09-14T16:57:45.27Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:57:45.27Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:45.270"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_14"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"password\" from ip \"1.2.3.4\", TLS enabled? false"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:57:45.270"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "{\"level\":\"info\",\"time\":\"2025-09-14T16:58:02.799\",\"sender\":\"SSH\",\"connection_id\":\"55f35cafbc585ec9ec97e08785cc43a90310fb89c9b6ef150f46f07b9ae9802a\",\"message\":\"User \\\"bob\\\" logged in with \\\"keyboard-interactive\\\", from ip \\\"1.2.3.4\\\", client version \\\"SSH-2.0-FileZilla_3.69.3\\\", negotiated algorithms: {KeyExchange:curve25519-sha256 HostKey:ssh-ed25519 Read:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none} Write:{Cipher:aes256-ctr MAC:hmac-sha2-256 compression:none}}\"}"
@@ -681,11 +702,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2025-09-14T16:58:13.269Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:58:13.269Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["message"] == "User \"bob\" logged in with \"password\" from ip \"1.2.3.4\", TLS enabled? false"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["sender"] == "FTP"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:58:13.269"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["connection_id"] == "FTP_0_15"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Unmarshaled["sftpgo"]["level"] == "info"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T16:59:44.443\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"bob\",\"login_type\":\"password\",\"protocol\":\"SSH\",\"error\":\"invalid credentials\"}"
@@ -703,14 +724,14 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["target_user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"] == "2025-09-14T16:59:44.443Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:59:44.443Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["protocol"] == "SSH"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:59:44.443"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T16:59:44.796\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"bob\",\"login_type\":\"keyboard-interactive\",\"protocol\":\"SSH\",\"error\":\"invalid credentials\"}"
@@ -728,7 +749,6 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["target_user"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"] == "2025-09-14T16:59:44.796Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:59:44.796Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["login_type"] == "keyboard-interactive"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["protocol"] == "SSH"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
@@ -736,30 +756,55 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftp
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Success == true
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T17:00:12.574\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"bob\",\"login_type\":\"password\",\"protocol\":\"FTP\",\"error\":\"invalid credentials\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T16:59:50.520\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"\",\"login_type\":\"no_auth_tried\",\"protocol\":\"SSH\",\"error\":\"ssh: disconnect, reason 11: \"}"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Parsed["program"] == "sftpgo"
 basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["datasource_path"]) == "sftpgo-logs-25.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["error"] == "invalid credentials"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["error"] == "ssh: disconnect, reason 11: "
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["is_failed_login"] == "true"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["log_level"] == "debug"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["log_type"] == "sftpgo_auth"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["login_type"] == "password"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["protocol"] == "FTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["login_type"] == "no_auth_tried"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["protocol"] == "SSH"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["service"] == "sftpgo"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["source_ip"] == "192.168.1.101"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["target_user"] == "bob"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["timestamp"] == "2025-09-14T17:00:12.574Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Enriched["MarshaledTime"] == "2025-09-14T17:00:12.574Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["protocol"] == "FTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Meta["timestamp"] == "2025-09-14T16:59:50.52Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Enriched["MarshaledTime"] == "2025-09-14T16:59:50.52Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T17:00:12.574"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T16:59:50.520"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["username"] == ""
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["error"] == "ssh: disconnect, reason 11: "
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["login_type"] == "no_auth_tried"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Unmarshaled["sftpgo"]["protocol"] == "SSH"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][8].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["message"] == "{\"level\":\"debug\",\"time\":\"2025-09-14T17:00:12.574\",\"sender\":\"connection_failed\",\"client_ip\":\"192.168.1.101\",\"username\":\"bob\",\"login_type\":\"password\",\"protocol\":\"FTP\",\"error\":\"invalid credentials\"}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Parsed["program"] == "sftpgo"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_path"]) == "sftpgo-logs-25.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["error"] == "invalid credentials"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["is_failed_login"] == "true"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["log_level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["log_type"] == "sftpgo_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["login_type"] == "password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["protocol"] == "FTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["service"] == "sftpgo"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"] == "192.168.1.101"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["target_user"] == "bob"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2025-09-14T17:00:12.574Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2025-09-14T17:00:12.574Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["sender"] == "connection_failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["time"] == "2025-09-14T17:00:12.574"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["username"] == "bob"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["client_ip"] == "192.168.1.101"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["error"] == "invalid credentials"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["level"] == "debug"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["login_type"] == "password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["sftpgo"]["protocol"] == "FTP"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0

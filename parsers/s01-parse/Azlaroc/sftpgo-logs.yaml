@@ -10,6 +10,18 @@ statics:
   - target: evt.StrTime
     expression: evt.Unmarshaled.sftpgo.time
 nodes:
+  - filter: "evt.Unmarshaled.sftpgo.sender == 'login'"
+    statics:
+      - meta: log_type
+        value: auth_success
+      - meta: source_ip
+        expression: evt.Unmarshaled.sftpgo.ip
+      - meta: user
+        expression: evt.Unmarshaled.sftpgo.username
+      - meta: protocol
+        expression: evt.Unmarshaled.sftpgo.protocol
+      - meta: login_method
+        expression: evt.Unmarshaled.sftpgo.method
   - filter: "evt.Unmarshaled.sftpgo.sender in ['SSH', 'FTP'] && evt.Unmarshaled.sftpgo.message != nil && evt.Unmarshaled.sftpgo.message contains 'logged in'"
     grok:
       expression: evt.Unmarshaled.sftpgo.message
@@ -23,7 +35,7 @@ nodes:
         expression: evt.Parsed.username
       - meta: protocol
         expression: evt.Unmarshaled.sftpgo.sender
-  - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed' && evt.Unmarshaled.sftpgo.username != nil && evt.Unmarshaled.sftpgo.username != ''"
+  - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed'"
     statics:
       - meta: log_type
         value: sftpgo_auth
