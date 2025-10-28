@@ -3934,6 +3934,34 @@
     "service": "opensearch",
     "created_at": "2025-03-19T18:14:43"
   },
+  "cbrandlehner/mailscanner-blacklisted": {
+    "name": "cbrandlehner/mailscanner-blacklisted",
+    "description": "Detects MailScanner logs where a message is marked as spam due to blacklisting",
+    "label": "MailScanner detected an SMTP message from a blacklisted sender",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "smtp",
+    "created_at": "2025-10-28T09:35:27"
+  },
+  "cbrandlehner/mailscanner-highscore-spam": {
+    "name": "cbrandlehner/mailscanner-highscore-spam",
+    "description": "Detects spam messages in MailScanner logs with score > 20.0",
+    "label": "MailScanner classified an SMTP email as SPAM with a spam_score higher 20",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "smtp",
+    "created_at": "2025-10-28T09:35:27"
+  },
   "corvese/apache-guacamole_bf": {
     "name": "corvese/apache-guacamole_bf",
     "description": "Detect Apache Guacamole user bruteforce",
