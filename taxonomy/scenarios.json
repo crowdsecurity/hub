@@ -393,6 +393,28 @@
       "CWE-22"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2020-13640": {
+    "name": "crowdsecurity/vpatch-CVE-2020-13640",
+    "description": "Detects SQL injection in wpDiscuz plugin via the order parameter in wpdLoadMoreComments action.",
+    "label": "WpDiscuz - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-10-22T14:30:54",
+    "cves": [
+      "CVE-2020-13640"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2020-17496": {
     "name": "crowdsecurity/vpatch-CVE-2020-17496",
     "description": "vBulletin RCE (CVE-2020-17496)",
@@ -2585,6 +2607,28 @@
       "CWE-89"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-2611": {
+    "name": "crowdsecurity/vpatch-CVE-2025-2611",
+    "description": "Detects command injection in ICTBroadcast via BROADCAST cookie",
+    "label": "ICTBroadcast - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-10-22T14:45:34",
+    "cves": [
+      "CVE-2025-2611"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-28367": {
     "name": "crowdsecurity/vpatch-CVE-2025-28367",
     "description": "Detects directory traversal in mojoPortal BetterImageGallery API Controller (CVE-2025-28367)",
@@ -3008,6 +3052,20 @@
     "cti": true,
     "service": "http",
     "created_at": "2025-10-15T13:49:31.790523"
+  },
+  "Azlaroc/sftpgo-bf": {
+    "name": "Azlaroc/sftpgo-bf",
+    "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
+    "label": "SFTPGo Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "sftpgo",
+    "created_at": "2025-10-28T16:41:06"
   },
   "Dominic-Wagner/vaultwarden-bf": {
     "name": "Dominic-Wagner/vaultwarden-bf",
@@ -3878,6 +3936,34 @@
     "cti": true,
     "service": "opensearch",
     "created_at": "2025-10-15T13:49:31.939601"
+  },
+  "cbrandlehner/mailscanner-blacklisted": {
+    "name": "cbrandlehner/mailscanner-blacklisted",
+    "description": "Detects MailScanner logs where a message is marked as spam due to blacklisting",
+    "label": "MailScanner detected an SMTP message from a blacklisted sender",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "smtp",
+    "created_at": "2025-10-28T09:35:27"
+  },
+  "cbrandlehner/mailscanner-highscore-spam": {
+    "name": "cbrandlehner/mailscanner-highscore-spam",
+    "description": "Detects spam messages in MailScanner logs with score > 20.0",
+    "label": "MailScanner classified an SMTP email as SPAM with a spam_score higher 20",
+    "behaviors": [
+      "smtp:spam"
+    ],
+    "mitre_attacks": [],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "smtp",
+    "created_at": "2025-10-28T09:35:27"
   },
   "corvese/apache-guacamole_bf": {
     "name": "corvese/apache-guacamole_bf",
