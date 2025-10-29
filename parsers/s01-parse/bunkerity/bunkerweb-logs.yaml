@@ -1,5 +1,5 @@
 # Handle both legacy (without $request_id) and modern BunkerWeb access formats.
-filter: "evt.Parsed.program in ['bunkerweb', 'bunkerweb-logs'] || evt.Meta.log_type in ['bunkerweb', 'bunkerweb_access'] || evt.Meta.service == 'bunkerweb' || evt.Line.Labels.service == 'bunkerweb' || evt.Line.Labels.log_type == 'bunkerweb'"
+filter: "evt.Parsed.program startsWith 'bunkerweb'"
 onsuccess: next_stage
 name: bunkerity/bunkerweb-logs
 description: "Parse BunkerWeb access and error logs, including optional request identifiers"
