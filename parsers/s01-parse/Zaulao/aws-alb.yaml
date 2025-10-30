@@ -3,7 +3,7 @@ filter: "evt.Line.Labels.type == 'aws-alb'"
 name: crowdsecurity/aws-alb
 description: "Parse AWS ALB access logs"
 grok:
-  pattern: '%{DATA:type}\s+%{TIMESTAMP_ISO8601:time}\s+%{DATA:elb}\s+%{IP:remote_addr}:%{BASE10NUM:remote_port}\s+(-|(%{IP:target_addr}:%{BASE10NUM:target_port}))\s+%{BASE10NUM:request_processing_time}\s+%{DATA:target_processing_time}\s+%{BASE10NUM:response_processing_time}\s+%{BASE10NUM:elb_status_code}\s+%{DATA:target_status_code}\s+%{BASE10NUM:received_bytes}\s+%{BASE10NUM:sent_bytes}\s+\"%{WORD:verb}\s+%{DATA:protocol}://%{DATA:host}:%{NUMBER:port}%{DATA:request}\s+HTTP/%{NUMBER:http_version}\"\s+\"%{DATA:http_user_agent}\"\s+%{DATA:ssl_cipher}\s+%{DATA:ssl_protocol}\s+%{DATA:target_group_arn}\s+\"%{DATA:trace_id}\"\s+\"%{DATA:domain_name}\"\s+\"%{DATA:chosen_cert_arn}\"\s+%{DATA:matched_rule_priority}\s+%{TIMESTAMP_ISO8601:request_creation_time}\s+\"%{DATA:actions_executed}\"\s+\"%{DATA:redirect_url}\"\s+\"%{DATA:error_reason}\"\s+\"%{DATA:target_list}\"\s+\"%{DATA:target_status_code_list}\"\s+\"%{DATA:classification}\"\s+\"%{DATA:classification_reason}\"'
+  pattern: '%{DATA:type}\s+%{TIMESTAMP_ISO8601:time}\s+%{DATA:elb}\s+%{IP:remote_addr}:%{BASE10NUM:remote_port}\s+(-|(%{IP:target_addr}:%{BASE10NUM:target_port}))\s+%{BASE10NUM:request_processing_time}\s+%{DATA:target_processing_time}\s+%{BASE10NUM:response_processing_time}\s+%{BASE10NUM:elb_status_code}\s+%{DATA:target_status_code}\s+%{BASE10NUM:received_bytes}\s+%{BASE10NUM:sent_bytes}\s+\"%{WORD:http_method}\s+%{DATA:protocol}://%{DATA:host}:%{NUMBER:port}%{DATA:request}\s+HTTP/%{NUMBER:http_version}\"\s+\"%{DATA:http_user_agent}\"\s+%{DATA:ssl_cipher}\s+%{DATA:ssl_protocol}\s+%{DATA:target_group_arn}\s+\"%{DATA:trace_id}\"\s+\"%{DATA:domain_name}\"\s+\"%{DATA:chosen_cert_arn}\"\s+%{DATA:matched_rule_priority}\s+%{TIMESTAMP_ISO8601:request_creation_time}\s+\"%{DATA:actions_executed}\"\s+\"%{DATA:redirect_url}\"\s+\"%{DATA:error_reason}\"\s+\"%{DATA:target_list}\"\s+\"%{DATA:target_status_code_list}\"\s+\"%{DATA:classification}\"\s+\"%{DATA:classification_reason}\"\s+%{DATA:conn_trace_id}\s+\"%{DATA:transformed_host}\"\s+\"%{DATA:transformed_uri}\"\s+\"%{DATA:request_transform_status}\"'
   apply_on: Line.Raw
   statics:
     - meta: log_type
@@ -26,6 +26,6 @@ statics:
     - meta: http_path
       expression: "evt.Parsed.request"
     - meta: http_verb
-      expression: "evt.Parsed.verb"
+      expression: "evt.Parsed.http_method"
     - meta: http_user_agent
       expression: "evt.Parsed.http_user_agent"
