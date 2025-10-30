@@ -1,0 +1,7 @@
+name: VA2XJM/mattermost-whitelist
+description: "Whitelist events related to emoji's from mattermost"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Mattermost Whitelist"
+  expression:
+   - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/api/v4/emoji/' # Emoji... :/
