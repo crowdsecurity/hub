@@ -6,7 +6,7 @@ pattern_syntax:
   NPMPLUSFQDN: '%{IPORHOST}||%{DATA}'
 nodes:
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{NOTDQUOTE:http_referer} %{NOTDQUOTE:http_user_agent}'
+      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
       apply_on: message
       statics:
         - meta: log_type
@@ -54,7 +54,7 @@ nodes:
             value: "req_limit_exceeded"
   ## Parse malformed requests
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{DATA:request}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{NOTDQUOTE:http_referer} %{NOTDQUOTE:http_user_agent}'
+      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{DATA:request}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
       apply_on: message
     statics:
       - meta: log_type

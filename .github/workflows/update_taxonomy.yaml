@@ -19,11 +19,11 @@ jobs:
   update-taxonomy:
     runs-on: ubuntu-latest
     steps:
-
       - name: checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: master
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -68,7 +68,7 @@ jobs:
           git config --local user.name "GitHub Action"
           (git add taxonomy/ && git commit -m "Update taxonomy" && git pull --rebase origin ${BRANCH_NAME}) || exit 0
       - name: Push changes
-        if: ${{ github.event_name == 'push'}}
+        if: ${{ github.event_name == 'push' && (startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master') }}
         uses: ad-m/github-push-action@v0.8.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

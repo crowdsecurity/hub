@@ -1,0 +1,40 @@
+# calibre-web BF scan
+name: Jgigantino31/calibre-web-bf
+description: "Detect calibre-web bruteforce"
+filter: "evt.Meta.log_type == 'calibre-web_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: calibre-web
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Calibre-Web Bruteforce"
+  remediation: true
+---
+# calibre-web user-enum
+type: leaky
+name: Jgigantino31/calibre-web-bf_user-enum
+description: "Detect calibre-web user enum bruteforce"
+filter: "evt.Meta.log_type == 'calibre-web_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 1m
+capacity: 5
+blackhole: 1m
+labels:
+  service: calibre-web
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1589
+    - attack.T1110
+  label: "Calibre-Web User Enumeration"
+  remediation: true
