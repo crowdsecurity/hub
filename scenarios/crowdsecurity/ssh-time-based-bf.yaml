@@ -1,7 +1,7 @@
-# ssh super slow bruteforce detection
+# ssh time-based bruteforce detection
 type: conditional
-name: crowdsecurity/ssh-slowest-bf
-description: "Detect super slow ssh bruteforce attempts that evade rate limiting"
+name: crowdsecurity/ssh-time-based-bf
+description: "Detect time-based ssh bruteforce attempts that evade rate limiting"
 filter: "evt.Meta.log_type == 'ssh_failed-auth'"
 groupby: evt.Meta.source_ip
 capacity: -1
@@ -19,13 +19,13 @@ labels:
   confidence: 3
   classification:
     - attack.T1110
-  label: "SSH Slowest Bruteforce"
+  label: "SSH Time-Based Bruteforce"
   remediation: true
 ---
-# ssh user-enum super slow
+# ssh user-enum time-based
 type: conditional
-name: crowdsecurity/ssh-slowest-bf_user-enum
-description: "Detect super slow ssh user enum bruteforce attempts"
+name: crowdsecurity/ssh-time-based-bf_user-enum
+description: "Detect time-based ssh user enum bruteforce attempts"
 filter: "evt.Meta.log_type == 'ssh_failed-auth'"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
@@ -45,6 +45,6 @@ labels:
   classification:
     - attack.T1589
     - attack.T1110
-  label: "SSH Slowest User Enumeration"
+  label: "SSH Time-Based User Enumeration"
   remediation: true
 
