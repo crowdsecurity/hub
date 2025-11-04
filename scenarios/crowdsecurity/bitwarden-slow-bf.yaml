@@ -1,0 +1,23 @@
+# bitwarden super slow bruteforce detection
+type: conditional
+name: crowdsecurity/bitwarden-slow-bf
+description: "Detect super slow bitwarden bruteforce attempts that evade rate limiting"
+filter: "evt.Meta.log_type == 'bitwarden_failed_auth'"
+groupby: evt.Meta.source_ip
+capacity: -1
+condition: |
+    len(queue.Queue) >= 3 &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("2m") &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) < duration("30m")
+leakspeed: 2h
+blackhole: 5m
+labels:
+  service: bitwarden
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Bitwarden Slow Bruteforce"
+  remediation: true
+
