@@ -1,0 +1,20 @@
+---
+#debug: true
+filter: "evt.Parsed.program == 'navidrome' && ParseKV(evt.Parsed.message, evt.Unmarshaled, 'navidrome') in ['', nil]"
+onsuccess: next_stage
+name: sdwilsh/navidrome-logs
+description: Parses logs from Navidrome
+statics:
+  - meta: service
+    value: navidrome
+  - meta: log_type
+    expression: |
+      evt.Unmarshaled.navidrome.httpStatus == '401' && evt.Unmarshaled.navidrome.msg contains '/auth/login' ? 'navidrome_failed_auth' : ''
+  - meta: http_status
+    expression: evt.Unmarshaled.navidrome.httpStatus
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.navidrome.time
+  - meta: source_ip
+    expression: evt.Unmarshaled.navidrome.remoteAddr
+  - meta: http_user_agent
+    expression: evt.Unmarshaled.navidrome.userAgent

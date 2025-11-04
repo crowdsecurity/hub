@@ -1,0 +1,31 @@
+name: crowdsecurity/generic-wordpress-uploads-listing
+description: "Protect Wordpress uploads directory from listing files"
+rules:
+  - or:
+    - zones: 
+      - URI
+      transform:
+      - lowercase
+      - urldecode
+      match:
+        type: regex
+        value: '^/wp-content/uploads/$'
+    - zones: 
+      - URI
+      transform:
+      - lowercase
+      - urldecode
+      match:
+        type: regex
+        value: '^/wp-content/uploads/.*/$'
+    
+labels:
+   type: exploit
+   service: http
+   confidence: 2
+   spoofable: 0
+   behavior: "http:exploit"
+   label: "Protect Wordpress uploads directory from listing files"
+   classification:
+     - attack.T1595
+     - attack.T1190

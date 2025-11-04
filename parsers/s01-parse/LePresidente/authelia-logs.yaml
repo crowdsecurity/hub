@@ -17,11 +17,18 @@ nodes:
 
   ## Detect msg contans authentication attempt to parse out user info
   - grok:
-      pattern: "%{WORD:auth_status} (1FA|Duo|TOTP) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
+      pattern: "%{WORD:auth_status} (1FA|Duo|TOTP|U2F) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
       expression: evt.Unmarshaled.authelia.msg
     statics:
       - meta: log_type
         expression: 'evt.Parsed.auth_status == "Unsuccessful" ? "auth_failed" : "auth_success"'
+
+  - grok:
+      pattern: "Error .* getting details for user with username input '%{AUTHELIA_USER:user}'.*" 
+      expression: evt.Unmarshaled.authelia.msg
+    statics:
+      - meta: log_type
+        value: auth_failed
 
   ## This section is a hack to allow all authelia logs to pass to next stage, if you set onsuccess next stage at root level all successful attempts will not be passed, so we could do some impossible trave sceanrios
   - filter: evt.Unmarshaled.authelia != nil

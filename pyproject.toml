@@ -1,0 +1,156 @@
+[project]
+name = "cshub"
+version = "0.1.0"
+description = "tools to manage index, blockers and lint configuration"
+readme = "README.md"
+authors = [
+    { email = "marco@crowdsec.net" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jsonschema>=4.23.0",
+    "mdutils>=1.6.0",
+    "pygithub>=2.6.1",
+    "python-dateutil>=2.9.0.post0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+    "typed-argument-parser>=1.10.1",
+]
+
+[project.scripts]
+hublint = "cshub.hublint:main"
+mkindex = "cshub.mkindex:main"
+mkblockers = "cshub.mkblockers:main"
+scenario-taxonomy = "cshub.scenario_taxonomy:main"
+mitre-db = "cshub.mitre_db:main"
+appsec-vpatch-lint = "cshub.appsec_vpatch_lint:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.28.1",
+    "ruff>=0.11.0",
+]
+
+[tool.basedpyright]
+reportAny = "none"
+reportAttributeAccessIssue = "none"
+reportConstantRedefinition = "none"
+reportImplicitOverride = "none"
+reportMissingParameterType = "none"
+reportMissingTypeArgument = "none"
+reportOptionalMemberAccess = "none"
+reportOptionalSubscript = "none"
+reportPossiblyUnboundVariable = "none"
+reportReturnType = "none"
+reportUnannotatedClassAttribute = "none"
+reportUninitializedInstanceVariable = "none"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownVariableType = "none"
+reportUnnecessaryComparison = "none"
+reportUnusedCallResult = "none"
+reportUnusedParameter = "none"
+reportUnusedVariable = "none"
+
+[tool.ruff]
+
+target-version = "py312"
+line-length = 128
+
+[tool.ruff.lint.per-file-ignores]
+"src/cshub/appsec_vpatch_lint.py" = [
+    "B007",     # Loop control variable `d` not used within loop body
+    "COM",      # flake8-commas
+    "PERF401",  # Use `list.extend` to create a transformed list
+    "PLW2901",  # `for` loop variable `w` overwritten by assignment target
+    "PTH118",   # `os.path.join()` should be replaced by `Path` with `/` operator
+    "SIM102",   # Use a single `if` statement instead of nested `if` statements
+    "SIM112",   # Use capitalized environment variable `...` instead of `...`
+]
+
+"src/cshub/hublint.py" = [
+    "ARG002",   # Unused method argument: `...`
+    "ANN",      # Missing type annotations
+    "B020",     # Loop control variable `data` overrides iterable it iterates
+    "COM",      # flake8-commas
+    "EM102",    # Exception must not use an f-string literal, assign to variable first
+    "ERA001",   # Found commented-out code
+    "FBT002",   # Boolean default positional argument in function definition
+    "FIX002",   # Line contains TODO, consider resolving the issue
+    "FIX003",   # Line contains XXX, consider resolving the issue
+    "S113",     # Probable use of `requests` call without timeout
+    "SLF001",   # Private member accessed: `...`
+    "TD001",    # Invalid TODO tag: `...`
+    "TD002",    # Missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...`
+    "TD003",    # Missing issue link for this TODO
+    "TD005",    # Missing issue description after `TODO`
+    "TRY003",   # Avoid specifying long messages outside the exception class
+    "TRY004",   # Prefer `TypeError` exception for invalid type
+    "PLW0603",  # Using the global statement to update `...` is discouraged
+]
+
+"src/cshub/mitre_db.py" = [
+    "ANN",      # Missing type annotations
+    "COM",      # flake8-commas
+    "ERA001",   # Found commented-out code
+    "S113",     # Probable use of `requests` call without timeout
+]
+
+"src/cshub/mkblockers.py" = [
+    "ANN",      # Missing type annotations
+    "ARG001",   # Unused function argument: `...`
+    "DTZ001",   # `datetime.datetime()` called without a `tzinfo` argument
+    "DTZ005",   # `datetime.datetime.now()` called without a `tz` argument
+    "S113",     # Probable use of `requests` call without timeout
+]
+
+"src/cshub/mkindex.py" = [
+    "ANN",      # Missing type annotations
+    "FIX003",   # Line contains XXX, consider resolving the issue
+    "SLOT000",  # Subclasses of `str` should define `__slots__`
+    "TD001",    # Invalid TODO tag: `...`
+    "TD002",    # Missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...`
+    "TD003",    # Missing issue link for this TODO
+]
+
+"src/cshub/scenario_taxonomy.py" = [
+    "ANN",      # Missing type annotations
+    "ARG001",   # Unused function argument: `...`
+    "B007",     # Loop control variable `d` not used within loop body
+    "BLE001",   # Do not catch blind exception: `Exception`
+    "COM",      # flake8-commas
+    "PERF401",  # Use `list.extend` to create a transformed list
+    "PLR2004",  # Magic value used in comparison, consider replacing `...` with a constant variable
+    "PLW2901",  # `for` loop variable `w` overwritten by assignment target
+    "PTH118",   # `os.path.join()` should be replaced by `Path` with `/` operator
+    "S603",     # `subprocess` call: check for execution of untrusted input
+    "S607",     # Starting a process with a partial executable path
+    "SIM102",   # Use a single `if` statement instead of nested `if` statements
+    "SIM108",   # Use ternary operator `...` instead of `if`-`else`-block
+    "SIM112",   # Use capitalized environment variable `...` instead of `...`
+    "UP017",    # Use `datetime.UTC` alias
+]
+
+[tool.ruff.lint]
+select = [
+  "ALL"
+]
+
+ignore = [
+    "D",        # pydocstyle
+    "T201",     # `print` found
+]
+
+[tool.ruff.lint.pylint]
+max-statements = 154
+max-branches = 50
+max-args = 6
+
+[tool.ruff.lint.mccabe]
+max-complexity = 43
+

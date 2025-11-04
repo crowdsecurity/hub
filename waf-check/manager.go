@@ -60,7 +60,8 @@ func (m *Manager) processFile(file string) {
 	for _, request := range requests {
 		req, err := NewHTTPRequest(m.WafURL, &request)
 		if err != nil {
-			log.Fatalf("error creating http request for file '%s': %s", file, err)
+			log.Printf("error creating http request for file '%s': %s", file, err)
+			continue
 		}
 
 		resp, err := client.Do(&req)
@@ -90,12 +91,10 @@ func (m *Manager) processFile(file string) {
 			result.FailedTests = append(result.FailedTests, failedTest)
 		}
 		resp.Body.Close()
-		result.DoneTests += 1
-
+		result.DoneTests++
 	}
 
 	m.resultsChan <- result
-
 }
 
 func NewManager(config Config, filesList []string) Manager {
@@ -111,7 +110,7 @@ func NewManager(config Config, filesList []string) Manager {
 }
 
 func (m *Manager) Run() error {
-	for i := 0; i < m.NbWorker; i++ {
+	for range m.NbWorker {
 		go func() {
 			for file := range m.filesChan {
 				m.processFile(file)

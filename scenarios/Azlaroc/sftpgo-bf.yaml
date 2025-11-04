@@ -1,0 +1,17 @@
+type: leaky
+name: Azlaroc/sftpgo-bf
+description: "Detect SFTPGo bruteforce attacks on FTP/SSH"
+filter: "evt.Meta.log_type == 'sftpgo_auth' && evt.Meta.is_failed_login == 'true'"
+groupby: evt.Meta.source_ip
+capacity: 3
+leakspeed: "30s"
+blackhole: 5m
+labels:
+  service: sftpgo
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "sftp:bruteforce"
+  label: "SFTPGo Bruteforce"
+  remediation: true

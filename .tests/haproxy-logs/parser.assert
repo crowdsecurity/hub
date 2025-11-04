@@ -1,21 +1,42 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "117.136.40.129:14853 [14/Jan/2015:12:48:57.127] https-in~ xx_server_https/xxx_node_8002 170/0/0/3/173 200 739 - - --NN 0/0/0/0/0 0/0 \"GET /xxx/xxx HTTP/1.1\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "haproxy"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "22.118.26.10:10285 [12/Mar/2021:06:56:28.088] fe-verify~ maskurl/dns 0/0/0/1263/1264 200 20602 - - ---- 19/19/3/4/0 0/0 \"GET / HTTP/1.1\""
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "haproxy"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "192.168.1.4:50033 [28/Feb/2025:02:43:10.123] frontend/backend: SSL handshake failure (error:0A0000C1:SSL routines::no shared cipher)"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "haproxy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "192.168.1.4:50034 [28/Feb/2025:02:43:11.234] frontend/backend: SSL handshake failure after heartbeat"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "haproxy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "192.168.1.4:50035 [28/Feb/2025:02:43:12.345] frontend/backend: Stopped a TLSv1 heartbeat attack (CVE-2014-0160)"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "haproxy"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
-len(results["s01-parse"]["crowdsecurity/haproxy-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+len(results["s01-parse"]["crowdsecurity/haproxy-logs"]) == 5
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["accept_date"] == "14/Jan/2015:12:48:57.127"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["actconn"] == "0"
@@ -55,7 +76,7 @@ results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["time_duration"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["time_queue"] == "0"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["time_request"] == "170"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Meta["http_path"] == "/xxx/xxx"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][0].Evt.Meta["http_status"] == "200"
@@ -103,7 +124,7 @@ results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Parsed["time_duration"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Parsed["time_queue"] == "0"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Parsed["time_request"] == "0"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["http_path"] == "/"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["http_status"] == "200"
@@ -112,7 +133,52 @@ results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["log_type"] == "h
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Meta["source_ip"] == "22.118.26.10"
 results["s01-parse"]["crowdsecurity/haproxy-logs"][1].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 2
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["accept_date"] == "28/Feb/2025:02:43:10.123"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["client_ip"] == "192.168.1.4"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["client_port"] == "50033"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["frontend_name"] == "frontend"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_hour"] == "02"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_milliseconds"] == "3"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_minute"] == "43"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_month"] == "Feb"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_monthday"] == "28"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_second"] == "10.1"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_time"] == "02:43:10.1"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["haproxy_year"] == "2025"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["message"] == "192.168.1.4:50033 [28/Feb/2025:02:43:10.123] frontend/backend: SSL handshake failure (error:0A0000C1:SSL routines::no shared cipher)"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["program"] == "haproxy"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Parsed["server_name"] == "backend"
+basename(results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Meta["log_type"] == "bad_ssl_handshake"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Meta["source_ip"] == "192.168.1.4"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][2].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Success == true
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["accept_date"] == "28/Feb/2025:02:43:11.234"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["client_ip"] == "192.168.1.4"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["client_port"] == "50034"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["frontend_name"] == "frontend"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_hour"] == "02"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_milliseconds"] == "4"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_minute"] == "43"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_month"] == "Feb"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_monthday"] == "28"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_second"] == "11.2"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_time"] == "02:43:11.2"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["haproxy_year"] == "2025"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["message"] == "192.168.1.4:50034 [28/Feb/2025:02:43:11.234] frontend/backend: SSL handshake failure after heartbeat"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["program"] == "haproxy"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Parsed["server_name"] == "backend"
+basename(results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Meta["log_type"] == "bad_ssl_handshake"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Meta["source_ip"] == "192.168.1.4"
+results["s01-parse"]["crowdsecurity/haproxy-logs"][3].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/haproxy-logs"][4].Success == false
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 4
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["accept_date"] == "14/Jan/2015:12:48:57.127"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["actconn"] == "0"
@@ -157,7 +223,7 @@ results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["time_duration"] 
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["time_queue"] == "0"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["time_request"] == "170"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["http_args_len"] == "0"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Meta["http_path"] == "/xxx/xxx"
@@ -209,7 +275,7 @@ results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Parsed["time_duration"] 
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Parsed["time_queue"] == "0"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Parsed["time_request"] == "0"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["datasource_path"] == "haproxy-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["datasource_path"]) == "haproxy-logs.log"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["http_args_len"] == "0"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["http_path"] == "/"
@@ -219,4 +285,6 @@ results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["log_type"] == "htt
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["service"] == "http"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Meta["source_ip"] == "22.118.26.10"
 results["s02-enrich"]["crowdsecurity/http-logs"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/http-logs"][2].Success == false
+results["s02-enrich"]["crowdsecurity/http-logs"][3].Success == false
 len(results["success"][""]) == 0

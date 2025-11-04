@@ -15,7 +15,7 @@ nodes:
       pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
 # We must use evt.Parsed.message to make sure we respect s00 stage
-  - filter: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "traefik") in ["", nil]
+  - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "traefik") in ["", nil]
     statics:
       - parsed: remote_addr
         expression: evt.Unmarshaled.traefik.ClientHost
@@ -47,6 +47,8 @@ nodes:
         expression: Split(evt.Unmarshaled.traefik.RequestProtocol, '/')[1]
       - parsed: status
         expression: int(evt.Unmarshaled.traefik.DownstreamStatus)
+      - meta: target_fqdn
+        expression: "evt.Unmarshaled.traefik.RequestHost != nil ? evt.Unmarshaled.traefik.RequestHost : ''"
 statics:
   - meta: service
     value: http

@@ -44,3 +44,15 @@ Whilst browsing bookmarks a 404 response could be sent if the bookmarked page ha
 
 Whilst browsing private folder on the bookmark app a 404 response could be sent if the bookmarked page had no publictoken generated.
 
+---
+### File Sharing
+When sharing a file, a 404 error is thrown when a file has no preview thumbnail. This can trigger http-probing.
+
+---
+### Text session
+When pushes changes to a text session, a 403 error is thrown if the user session has expired. 
+
+---
+### Collabora Online / richdocumentscode
+When using Collabora Online (richdocumentscode app), the application uses `proxy.php` to access resources such as images and icons. Some of these resources may return 404 errors if they are missing or not available, which can trigger http-probing.
+

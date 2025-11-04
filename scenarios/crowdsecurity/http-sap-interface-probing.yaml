@@ -1,0 +1,41 @@
+type: leaky
+#debug: true
+name: crowdsecurity/http-sap-interface-probing
+description: "Detect generic HTTP SAP interface probing"
+filter: |
+  evt.Meta.service == 'http' and 
+  evt.Meta.log_type in ['http_access-log', 'http_error-log'] and 
+  evt.Meta.http_status in ['404', '403'] and (
+    let uri = Lower(evt.Meta.http_path);
+    uri contains "/sap/bc/gui/sap/its/webgui"
+    or uri contains "/irj/portal"
+    or uri contains "/sap/bc/"
+    or uri contains "/sap/bc/ui2/flp"
+    or uri contains "/sap/bc/ui5_ui5/"
+    or uri contains "/sap/opu/odata/"
+    or uri contains "/sap/bc/webdynpro/"
+    or uri contains "/sap/public/bc/"
+    or uri contains "/sap/public/info"
+    or uri contains "/sap/public/icf_info"
+    or uri contains "/sap/admin/publicicp/"
+    or uri contains "/sap/admin/public/"
+    or uri == "/nwa"
+    or uri contains "/webdynpro/dispatcher/sap.com/tc~sec~ume~wd~umeadmin/umeadminapp"
+    or uri contains "/sap/hana/xs/admin"
+    or uri contains "/sap/hana/xs/formlogin"
+    or uri contains "/irj/go/km/navigation"
+  )
+groupby: evt.Meta.source_ip
+leakspeed: "10s"
+capacity: 1
+distinct: evt.Meta.http_path
+blackhole: 1m
+labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "http:scan"
+  label: "HTTP SAP Interface Probing"
+  service: http
+  remediation: true

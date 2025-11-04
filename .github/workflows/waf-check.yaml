@@ -1,25 +1,25 @@
 name: Waf Check FP
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'appsec-configs/**.yaml'
-      - 'appsec-configs/**.yml'
-      - 'appsec-rules/**.yaml'
-      - 'appsec-rules/**.yml'
-      - '.github/workflows/waf-check.yaml'
-      - '.appsec-tests/**'
-      - 'waf-check/**'
+      - "appsec-configs/**.yaml"
+      - "appsec-configs/**.yml"
+      - "appsec-rules/**.yaml"
+      - "appsec-rules/**.yml"
+      - ".github/workflows/waf-check.yaml"
+      - ".appsec-tests/**"
+      - "waf-check/**"
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'appsec-configs/**.yaml'
-      - 'appsec-configs/**.yml'
-      - 'appsec-rules/**.yaml'
-      - 'appsec-rules/**.yml'
-      - '.github/workflows/waf-check.yaml'
-      - '.appsec-tests/**'
-      - 'waf-check/**'
+      - "appsec-configs/**.yaml"
+      - "appsec-configs/**.yml"
+      - "appsec-rules/**.yaml"
+      - "appsec-rules/**.yml"
+      - ".github/workflows/waf-check.yaml"
+      - ".appsec-tests/**"
+      - "waf-check/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -29,76 +29,89 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '1.22'
-    - name: Split dateset
-      run: |
-        cd waf-check && go build -o waf-check
-        ./waf-check -download -batch -dir-count 6
-    - uses: actions/upload-artifact@v4
-      name: Upload dataset in artifact
-      with:
-        name: waf-check-dataset
-        path: ./waf-check/dataset/
-        retention-days: 1
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+        with:
+          go-version-file: waf-check/go.mod
+      - name: Split dateset
+        run: |
+          cd waf-check && go build -o waf-check
+          ./waf-check -download -batch -dir-count 6
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        name: Upload dataset in artifact
+        with:
+          name: waf-check-dataset
+          path: ./waf-check/dataset/
+          retention-days: 1
 
   run:
     runs-on: ubuntu-22.04
     needs: build
     strategy:
       matrix:
-        dataset_folder: ["dataset_0","dataset_1","dataset_2","dataset_3","dataset_4","dataset_5"]
+        dataset_folder:
+          [
+            "dataset_0",
+            "dataset_1",
+            "dataset_2",
+            "dataset_3",
+            "dataset_4",
+            "dataset_5",
+          ]
     steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v4
-    - uses: actions/download-artifact@v4
-      with:
-        name: waf-check-dataset
-        path: waf-check/dataset/
-      name: Download dataset from artifact
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '1.22'
-    - name: Install requirements
-      run: |
-        sudo apt install libre2-dev
-    - name: Install CrowdSec
-      run: |
-        current_pwd=$(pwd)
-        git clone https://github.com/crowdsecurity/crowdsec.git
-        cd crowdsec
-        BUILD_STATIC=1 make release
-        cd crowdsec-v*
-        sudo ./wizard.sh --unattended
-    - name: Setup CrowdSec Appsec
-      run: |
-        sudo cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
-        sudo cp appsec-rules/*/vpatch-*.yaml /etc/crowdsec/appsec-rules/
-        sudo cp appsec-rules/crowdsecurity/base-config.yaml /etc/crowdsec/appsec-rules/
-        sudo cp appsec-configs/crowdsecurity/virtual-patching.yaml /etc/crowdsec/appsec-configs/
-        sudo systemctl restart crowdsec
-    - name: Register Remediation Component API Key
-      run: |
-        sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
-    - name: Start OpenResty Container
-      run: |
-        docker compose -f docker/appsec/docker-compose.yaml up -d --build
-        sleep 3
-    - name: Build and Run Waf Check
-      run: |
-        cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
-    - uses: actions/upload-artifact@v4
-      if: failure()
-      name: Upload dataset in artifact
-      with:
-        name: waf-check-result
-        path: ./waf-check/output/
-        retention-days: 1
-    - uses: geekyeggo/delete-artifact@v4
-      if: always()
-      with:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: waf-check-dataset
+          path: waf-check/dataset/
+        name: Download dataset from artifact
+      - uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+        with:
+          go-version: "1.25"
+      - name: Install requirements
+        run: |
+          sudo apt install libre2-dev
+      - name: Install CrowdSec
+        run: |
+          current_pwd=$(pwd)
+          git clone https://github.com/crowdsecurity/crowdsec.git
+          cd crowdsec
+          BUILD_STATIC=1 make release
+          cd crowdsec-v*
+          sudo ./wizard.sh --unattended
+      - name: Setup CrowdSec Appsec
+        run: |
+          sudo mkdir -p /etc/crowdsec/appsec-configs/
+          sudo mkdir -p /etc/crowdsec/appsec-rules/
+          sudo cp waf-check/config/acquis.yaml /etc/crowdsec/acquis.yaml
+          sudo cp appsec-rules/*/vpatch-*.yaml /etc/crowdsec/appsec-rules/
+          sudo cp appsec-rules/crowdsecurity/base-config.yaml /etc/crowdsec/appsec-rules/
+          sudo cp appsec-configs/crowdsecurity/virtual-patching.yaml /etc/crowdsec/appsec-configs/
+          sudo systemctl restart crowdsec
+      - name: Register Remediation Component API Key
+        run: |
+          sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
+      - name: Start OpenResty Container
+        run: |
+          docker compose -f docker/appsec/docker-compose.yaml up -d --build
+          sleep 3
+      - name: Build and Run Waf Check
+        run: |
+          cd waf-check && go build -o waf-check && ./waf-check -dataset "dataset/${{ matrix.dataset_folder }}"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: failure()
+        name: Upload dataset in artifact
+        with:
+          name: waf-check-result
+          path: ./waf-check/output/
+          retention-days: 1
+      - uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
+        if: always()
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: waf-check-dataset
