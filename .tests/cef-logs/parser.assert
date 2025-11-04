@@ -1,0 +1,61 @@
+len(results) == 2
+len(results["s00-raw"]["crowdsecurity/cef-logs"]) == 4
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Success == true
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_device_product"] == "UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_device_vendor"] == "Ubiquiti"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_device_version"] == "9.4.19"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_event_name"] == "Admin Accessed UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_severity"] == "1"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_signature_id"] == "544"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["cef_version"] == "0"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["logsource"] == "cef"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["message"] == "UNIFIcategory=System UNIFIsubCategory=Admin UNIFIhost=Unifi Dream Machine UNIFIaccessMethod=web UNIFIadmin=Secure Admin src=10.72.1.222 UNIFIutcTime=2025-09-04T08:32:58.445Z msg=Secure Admin accessed UniFi Network using the web. Source IP: 10.72.1.222"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Parsed["program"] == "Ubiquiti"
+basename(results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Meta["datasource_path"]) == "cef-logs.log"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/cef-logs"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Success == true
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_device_product"] == "UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_device_vendor"] == "Ubiquiti"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_device_version"] == "9.4.19"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_event_name"] == "Admin Accessed UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_severity"] == "1"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_signature_id"] == "544"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["cef_version"] == "0"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["logsource"] == "cef"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["message"] == "UNIFIcategory=System UNIFIsubCategory=Admin UNIFIhost=Unifi Dream Machine UNIFIaccessMethod=web UNIFIadmin=Secure Admin src=10.72.1.222 UNIFIutcTime=2025-09-04T08:32:58.445Z msg=Secure Admin accessed UniFi Network using the web. Source IP: 10.72.1.222"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Parsed["program"] == "Ubiquiti"
+basename(results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Meta["datasource_path"]) == "cef-logs.log"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/cef-logs"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Success == true
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_device_product"] == "UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_device_vendor"] == "Ubiquiti"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_device_version"] == "9.3.45"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_event_name"] == "Threat Detected and Blocked"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_severity"] == "7"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_signature_id"] == "201"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["cef_version"] == "0"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["logsource"] == "cef"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["message"] == "proto=TCP src=192.168.0.1 spt=54587 dst=192.168.0.233 dpt=80 UNIFIcategory=Security UNIFIsubCategory=Intrusion Prevention UNIFIhost=Express 7 UNIFIdeviceMac=84:78:48:80:0d:86 UNIFIdeviceName=Express 7 UNIFIdeviceModel=UX7 UNIFIdeviceIp=192.168.0.1 UNIFIdeviceVersion=4.2.15 UNIFIrisk=medium UNIFIipsSessionId=2138629792252828 UNIFIipsSignature=ET DROP Dshield Block Listed Source group 1 UNIFIipsSignatureId=2402000 msg=A network intrusion attempt from 192.168.0.1 to DS920+ macvlan has been detected and blocked."
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Parsed["program"] == "Ubiquiti"
+basename(results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Meta["datasource_path"]) == "cef-logs.log"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/cef-logs"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Success == true
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_device_product"] == "UniFi Network"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_device_vendor"] == "Ubiquiti"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_device_version"] == "9.4.19"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_event_name"] == "Threat Detected and Blocked"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_severity"] == "9"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_signature_id"] == "201"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["cef_version"] == "0"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["hostname"] == "UDM-Gent"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["logsource"] == "cef"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["message"] == "proto=TCP src=192.168.100.252 spt=65020 dst=192.168.1.100 dpt=80 UNIFIcategory=Security UNIFIsubCategory=Intrusion Prevention UNIFIhost=UDM-Gent UNIFIsite=UDM-Gent UNIFIdeviceMac=78:45:58:de:fc:e7 UNIFIdeviceName=UDM-Gent UNIFIdeviceModel=UDM UNIFIdeviceIp=192.168.100.1 UNIFIdeviceVersion=4.4.0 UNIFIrisk=high UNIFIipsSessionId=1328559940562927 UNIFIipsSignature=ET USER_AGENTS Suspicious User Agent (BlackSun) UNIFIipsSignatureId=2008983 UNIFIutcTime=2025-09-08T06:32:20.613Z msg=A network intrusion attempt from Desktop d5:5d to 192.168.1.100 has been detected and blocked."
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["program"] == "Ubiquiti"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Parsed["timestamp"] == "Sep  8 08:32:20"
+basename(results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Meta["datasource_path"]) == "cef-logs.log"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/cef-logs"][3].Evt.Whitelisted == false
+len(results["success"][""]) == 0

@@ -1,0 +1,25 @@
+filter: "evt.Line.Labels.type == 'cef'"
+onsuccess: next_stage
+pattern_syntax:
+  CEF_HEADER: '(CEF:)?%{SPACE}%{INT:cef_version}\|%{DATA:cef_device_vendor}\|%{DATA:cef_device_product}\|%{DATA:cef_device_version}\|%{DATA:cef_signature_id}\|%{DATA:cef_event_name}\|%{INT:cef_severity}'
+  CEF_SYSLOG_OPTIONAL: '(?:%{SYSLOGTIMESTAMP:timestamp}|%{TIMESTAMP_ISO8601:timestamp8601})(?: %{DATA:hostname})? ?'
+name: crowdsecurity/cef-logs
+description: CEF (Common Event Format) logs parser
+nodes:
+  - grok:
+      pattern: "^%{CEF_SYSLOG_OPTIONAL}?%{CEF_HEADER}%{SPACE}\\|?%{GREEDYDATA:message}"
+      apply_on: Line.Raw
+statics:
+  - parsed: "program"
+    expression: evt.Parsed.cef_device_vendor
+  - parsed: "logsource"
+    value: "cef"
+  # syslog timestamp can be in two different fields (one of the assignment will fail)
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp8601
+  - meta: datasource_path
+    expression: evt.Line.Src
+  - meta: datasource_type
+    expression: evt.Line.Module
