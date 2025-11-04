@@ -1,0 +1,50 @@
+# ssh super slow bruteforce detection
+type: conditional
+name: crowdsecurity/ssh-slowest-bf
+description: "Detect super slow ssh bruteforce attempts that evade rate limiting"
+filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+groupby: evt.Meta.source_ip
+capacity: -1
+condition: |
+    len(queue.Queue) >= 3 &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("2m") &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) < duration("30m")
+leakspeed: 2h
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  behavior: "ssh:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "SSH Slowest Bruteforce"
+  remediation: true
+---
+# ssh user-enum super slow
+type: conditional
+name: crowdsecurity/ssh-slowest-bf_user-enum
+description: "Detect super slow ssh user enum bruteforce attempts"
+filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+capacity: -1
+condition: |
+    len(queue.Queue) >= 3 &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("2m") &&
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) < duration("30m")
+leakspeed: 2h
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  behavior: "ssh:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1589
+    - attack.T1110
+  label: "SSH Slowest User Enumeration"
+  remediation: true
+
