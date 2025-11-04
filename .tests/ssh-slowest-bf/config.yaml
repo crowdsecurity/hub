@@ -1,0 +1,15 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/sshd-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/crowdsecurity/ssh-slowest-bf.yaml
+# we put these on purpose : we want only to trigger the slowest-bf
+- crowdsecurity/ssh-bf
+- crowdsecurity/ssh-slow-bf
+postoverflows:
+- ""
+log_file: ssh-slowest-bf.log
+log_type: syslog
+ignore_parsers: true
+
