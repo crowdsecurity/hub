@@ -7,7 +7,7 @@ filter: |
   evt.Meta.http_status in ['404', '403'] and
   (
   Lower(evt.Meta.http_path) contains "/wp-" and
-  Lower(evt.Meta.http_path) endsWith ".(php)"
+  Lower(evt.Meta.http_path) endsWith ".php"
   ) ||
   (
   Lower(evt.Meta.http_path) contains "/wp-content/plugins" and
