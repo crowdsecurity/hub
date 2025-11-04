@@ -7,8 +7,7 @@ groupby: evt.Meta.source_ip
 capacity: -1
 condition: |
     len(queue.Queue) >= 3 &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("2m") &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) < duration("30m")
+    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("2m")
 leakspeed: 2h
 blackhole: 5m
 labels:
