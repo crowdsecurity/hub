@@ -2,7 +2,7 @@
 type: conditional
 name: crowdsecurity/ssh-time-based-bf
 description: "Detect time-based ssh bruteforce attempts that evade rate limiting (with false positive reduction)"
-filter: "evt.Meta.log_type in ['ssh_failed-auth', 'auth_success']"
+filter: "evt.Meta.service == 'ssh' && evt.Meta.log_type in ['ssh_failed-auth', 'auth_success']"
 groupby: evt.Meta.source_ip
 capacity: -1
 cancel_on: "evt.Meta.log_type == 'auth_success'"
@@ -27,7 +27,7 @@ labels:
 type: conditional
 name: crowdsecurity/ssh-time-based-bf_user-enum
 description: "Detect time-based ssh user enum bruteforce attempts (with false positive reduction)"
-filter: "evt.Meta.log_type in ['ssh_failed-auth', 'auth_success']"
+filter: "evt.Meta.service == 'ssh' && evt.Meta.log_type in ['ssh_failed-auth', 'auth_success']"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 capacity: -1
