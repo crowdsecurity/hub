@@ -5,16 +5,9 @@ filter: |
   evt.Meta.service == 'http' and
   evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
   evt.Meta.http_status in ['404', '403'] and
-  (
-  Lower(evt.Meta.http_path) contains "/wp-" and
-  Lower(evt.Meta.http_path) endsWith ".php"
-  ) ||
-  (
-  Lower(evt.Meta.http_path) contains "/wp-content/plugins" and
-  Lower(evt.Meta.http_path) matches "\\.(txt|md)$"
-  )
+  Lower(evt.Parsed.request) matches "(?i)(/wp-.*\\.php|/wp-content/plugins/.*\\.(txt|md))$"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.http_path
+distinct: evt.Parsed.request
 capacity: 3
 leakspeed: "10s"
 blackhole: 5m
