@@ -1,37 +1,16 @@
-# ssh time-based bruteforce detection
+# ssh user-enum time-based with false positive reduction
 type: conditional
 name: crowdsecurity/ssh-time-based-bf
-description: "Detect time-based ssh bruteforce attempts that evade rate limiting"
-filter: "evt.Meta.log_type == 'ssh_failed-auth'"
-groupby: evt.Meta.source_ip
-capacity: -1
-condition: |
-    len(queue.Queue) >= 3 &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("5m")
-leakspeed: 2h
-blackhole: 5m
-reprocess: true
-labels:
-  service: ssh
-  behavior: "ssh:bruteforce"
-  spoofable: 0
-  confidence: 3
-  classification:
-    - attack.T1110
-  label: "SSH Time-Based Bruteforce"
-  remediation: true
----
-# ssh user-enum time-based
-type: conditional
-name: crowdsecurity/ssh-time-based-bf_user-enum
-description: "Detect time-based ssh user enum bruteforce attempts"
-filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+description: "Detect time-based ssh bruteforce attempts that evade rate limiting (with false positive reduction)"
+filter: "evt.Meta.log_type in ['ssh_failed-auth', 'auth_success']"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 capacity: -1
+cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
-    len(queue.Queue) >= 3 &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("5m")
+    let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
+    len(failedAuths) >= 3 &&
+    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("5m")
 leakspeed: 2h
 blackhole: 5m
 reprocess: true
@@ -43,6 +22,6 @@ labels:
   classification:
     - attack.T1589
     - attack.T1110
-  label: "SSH Time-Based User Enumeration"
+  label: "SSH Time-Based Bruteforce"
   remediation: true
 
