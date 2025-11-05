@@ -9,7 +9,7 @@ Example acquisition for this collection :
 ```yaml
 ---
 filenames:
-  - /var/log/bitwarden/identity.log
+  - /etc/bitwarden/logs/identity.log
 labels:
   type: bitwarden
 ```

@@ -1,0 +1,7 @@
+name: crowdsecurity/overseerr-whitelist
+description: "Whitelist events from overseerr"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Overseerr whitelist"
+  expression:
+   - evt.Meta.http_status in ['200', '304'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '^\\/api\\/v1\\/(movie|tv|request)\\/(\\d+)$' # When browsing Movies, Series or Requests
