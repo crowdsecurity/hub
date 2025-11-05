@@ -3,6 +3,7 @@
 A collection to defend smb against common attacks:
  - smb parser
  - detect bruteforce
+ - detect slow bruteforce (evades rate limiting)
 
 
 ## Acquisition template
