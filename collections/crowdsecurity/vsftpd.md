@@ -1,8 +1,11 @@
 ## VsFTPD collection
 
-A collection to defend VSFTPD against common attacks :
-- VSFTPD parser: `crowdsecurity/vsftpd-logs`
-- bruteforce scenario : `crowdsecurity/vsftpd-bf`
+A collection to defend VSFTPD against common attacks:
+ - vsftpd failed authentication parser
+ - vsftpd successful authentication parser
+ - detect bruteforce (fast attacks: 5 failures in ~50s)
+ - detect slow bruteforce (slower attacks: 10 failures in ~10min)
+ - detect time-based bruteforce (time-spaced attacks: 3 failures with >2min median interval, includes false positive reduction)
 
 ## Acquisition template
 

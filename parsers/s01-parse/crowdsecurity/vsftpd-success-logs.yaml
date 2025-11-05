@@ -1,0 +1,27 @@
+onsuccess: next_stage
+name: crowdsecurity/vsftpd-success-logs
+description: "Parse VSFTPD successful authentications"
+filter: "evt.Parsed.program == 'vsftpd'"
+pattern_syntax:
+  CUSTOM_HTTPDERROR_DATE: '%{DAY} %{MONTH} (?:\s?)%{MONTHDAY} %{TIME} %{YEAR}'
+  FTP_AUTH_SUCCESS: '%{CUSTOM_HTTPDERROR_DATE:timestamp} \[pid %{NUMBER}\] \[%{GREEDYDATA:user}\] OK LOGIN: Client "(::ffff:)?%{IP:source_ip}"'
+nodes:
+  - grok:
+      pattern: "%{FTP_AUTH_SUCCESS}"
+      apply_on: message
+statics:
+    - meta: program
+      value: vsftpd
+    - meta: log_type
+      value: auth_success
+    - meta: service
+      value: ftp
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - meta: user
+      expression: "evt.Parsed.user"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp
+    - target: evt.StrTimeFormat
+      value: "Mon Jan _2 15:04:05 2006"
+
