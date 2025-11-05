@@ -2,8 +2,9 @@
 
 A collection to defend smb against common attacks:
  - smb parser
- - detect bruteforce
- - detect slow bruteforce (evades rate limiting)
+ - detect bruteforce (fast attacks: 5 failures in ~50s)
+ - detect slow bruteforce (slower attacks: 10 failures in ~10min)
+ - detect time-based bruteforce (time-spaced attacks: 3 failures with >5min median interval)
 
 
 ## Acquisition template

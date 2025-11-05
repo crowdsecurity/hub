@@ -1,22 +1,19 @@
-# smb super slow bruteforce detection
-type: conditional
+# smb slow bruteforce
+type: leaky
 name: crowdsecurity/smb-slow-bf
-description: "Detect super slow SMB bruteforce attempts that evade rate limiting"
+description: "Detect slow SMB bruteforce"
 filter: "evt.Meta.log_type == 'smb_failed_auth'"
+leakspeed: "60s"
+capacity: 10
 groupby: evt.Meta.source_ip
-capacity: -1
-condition: |
-    len(queue.Queue) >= 3 &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("5m")
-leakspeed: 2h
-blackhole: 5m
+blackhole: 1m
+reprocess: true
 labels:
   service: smb
-  behavior: "smb:bruteforce"
-  spoofable: 0
+  remediation: true
   confidence: 3
+  spoofable: 0
   classification:
     - attack.T1110
+  behavior: "smb:bruteforce"
   label: "SMB Slow Bruteforce"
-  remediation: true
-
