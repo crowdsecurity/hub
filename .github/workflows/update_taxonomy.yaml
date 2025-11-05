@@ -68,7 +68,7 @@ jobs:
           git config --local user.name "GitHub Action"
           (git add taxonomy/ && git commit -m "Update taxonomy" && git pull --rebase origin ${BRANCH_NAME}) || exit 0
       - name: Push changes
-        if: ${{ github.event_name == 'push'}}
+        if: ${{ github.event_name == 'push' && (startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master') }}
         uses: ad-m/github-push-action@v0.8.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

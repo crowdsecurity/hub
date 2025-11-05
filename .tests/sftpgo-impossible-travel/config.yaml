@@ -1,0 +1,11 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/Azlaroc/sftpgo-logs.yaml
+  - crowdsecurity/dateparse-enrich
+  - crowdsecurity/geoip-enrich
+scenarios:
+  - crowdsecurity/impossible-travel
+postoverflows: []
+log_file: sftpgo-impossible-travel.log
+log_type: sftpgo
+ignore_parsers: true
