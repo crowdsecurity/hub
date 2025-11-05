@@ -4,8 +4,10 @@ parsers:
 - crowdsecurity/http-logs
 - crowdsecurity/dateparse-enrich
 scenarios:
-- ""
+- crowdsecurity/http-bad-user-agent
 postoverflows:
 - ""
-log_file: aws-alb-logs.log
+log_file: aws-alb-http-bad-user-agent.log
 log_type: aws-alb
+ignore_parsers: true
+
