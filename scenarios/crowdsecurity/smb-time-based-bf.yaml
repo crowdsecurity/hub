@@ -2,14 +2,17 @@
 type: conditional
 name: crowdsecurity/smb-time-based-bf
 description: "Detect time-based SMB bruteforce attempts that evade rate limiting (with false positive reduction)"
-filter: "evt.Meta.log_type == 'smb_failed_auth'"
+filter: "evt.Meta.service == 'smb' && evt.Meta.log_type in ['smb_failed_auth', 'auth_success']"
 groupby: evt.Meta.source_ip
 capacity: -1
+cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
-    len(queue.Queue) >= 3 &&
-    MedianInterval(map(queue.Queue[-3:], { #.Time })) > duration("5m")
+    let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'smb_failed_auth'});
+    len(failedAuths) >= 3 &&
+    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("2m")
 leakspeed: 2h
 blackhole: 5m
+reprocess: true
 labels:
   service: smb
   behavior: "smb:bruteforce"
