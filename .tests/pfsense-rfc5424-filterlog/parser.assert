@@ -2,11 +2,11 @@ len(results) == 3
 len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "- 7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,19008,0,DF,6,tcp,60,192.168.5.6,169.254.169.254,42970,80,0,S,523876198,,64240,,mss;sackOK;TS;nop;wscale"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,19008,0,DF,6,tcp,60,192.168.5.6,192.168.1.100,42970,80,0,S,523876198,,64240,,mss;sackOK;TS;nop;wscale"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["pid"] == "92653"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["program"] == "filterlog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["stuff1"] == "134"
-results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["stuff2"] == "1"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["syslog_priority"] == "134"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["syslog_version"] == "1"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["timestamp8601"] == "2025-11-06T11:32:42.868451+00:00"
 basename(results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_type"] == "file"
@@ -14,11 +14,11 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["machine"] == "firew
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["logsource"] == "syslog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["message"] == "- 620,,,1644355515,vtnet0.10,match,block,in,4,0x0,,64,0,0,DF,6,tcp,64,192.168.10.110,192.168.5.6,55726,443,0,S,1668534242,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["message"] == "620,,,1644355515,vtnet0.10,match,block,in,4,0x0,,64,0,0,DF,6,tcp,64,192.168.10.110,192.168.5.6,55726,443,0,S,1668534242,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["pid"] == "92653"
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["program"] == "filterlog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["stuff1"] == "134"
-results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["stuff2"] == "1"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["syslog_priority"] == "134"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["syslog_version"] == "1"
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["timestamp8601"] == "2025-11-06T11:42:14.270685+00:00"
 basename(results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["datasource_type"] == "file"
@@ -26,11 +26,11 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["machine"] == "firew
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["logsource"] == "syslog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["message"] == "- 621,,,1644355515,vtnet0.10,match,block,in,6,0x00,0x07c63,64,TCP,6,44,fdfd:ace:ace:10:d8:cdbf:f6f8:6d69,fdfd:ace:ace:5::6,65382,443,0,S,1927530165,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["message"] == "621,,,1644355515,vtnet0.10,match,block,in,6,0x00,0x07c63,64,TCP,6,44,fdfd:ace:ace:10:d8:cdbf:f6f8:6d69,fdfd:ace:ace:5::6,65382,443,0,S,1927530165,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["pid"] == "92653"
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["program"] == "filterlog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["stuff1"] == "134"
-results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["stuff2"] == "1"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["syslog_priority"] == "134"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["syslog_version"] == "1"
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["timestamp8601"] == "2025-11-06T11:42:14.270789+00:00"
 basename(results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["datasource_type"] == "file"
@@ -38,11 +38,11 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["machine"] == "firew
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["logsource"] == "syslog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["message"] == "- 7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,35253,0,DF,6,tcp,60,192.168.5.6,169.254.169.254,58014,80,0,S,4062309164,,64240,,mss;sackOK;TS;nop;wscale"
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["message"] == "7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,35253,0,DF,6,tcp,60,192.168.5.6,192.168.1.100,58014,80,0,S,4062309164,,64240,,mss;sackOK;TS;nop;wscale"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["pid"] == "92653"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["program"] == "filterlog"
-results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["stuff1"] == "134"
-results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["stuff2"] == "1"
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["syslog_priority"] == "134"
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["syslog_version"] == "1"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["timestamp8601"] == "2025-11-06T11:47:38.269437+00:00"
 basename(results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_type"] == "file"
@@ -51,11 +51,11 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Whitelisted == false
 len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource"] == "syslog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "- 7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,19008,0,DF,6,tcp,60,192.168.5.6,169.254.169.254,42970,80,0,S,523876198,,64240,,mss;sackOK;TS;nop;wscale"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,19008,0,DF,6,tcp,60,192.168.5.6,192.168.1.100,42970,80,0,S,523876198,,64240,,mss;sackOK;TS;nop;wscale"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["pid"] == "92653"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "filterlog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["stuff1"] == "134"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["stuff2"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["syslog_priority"] == "134"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["syslog_version"] == "1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp8601"] == "2025-11-06T11:32:42.868451+00:00"
 basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
@@ -65,11 +65,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["Marshal
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["logsource"] == "syslog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "- 620,,,1644355515,vtnet0.10,match,block,in,4,0x0,,64,0,0,DF,6,tcp,64,192.168.10.110,192.168.5.6,55726,443,0,S,1668534242,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "620,,,1644355515,vtnet0.10,match,block,in,4,0x0,,64,0,0,DF,6,tcp,64,192.168.10.110,192.168.5.6,55726,443,0,S,1668534242,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["pid"] == "92653"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "filterlog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["stuff1"] == "134"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["stuff2"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["syslog_priority"] == "134"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["syslog_version"] == "1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp8601"] == "2025-11-06T11:42:14.270685+00:00"
 basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
@@ -79,11 +79,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["Marshal
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["logsource"] == "syslog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "- 621,,,1644355515,vtnet0.10,match,block,in,6,0x00,0x07c63,64,TCP,6,44,fdfd:ace:ace:10:d8:cdbf:f6f8:6d69,fdfd:ace:ace:5::6,65382,443,0,S,1927530165,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "621,,,1644355515,vtnet0.10,match,block,in,6,0x00,0x07c63,64,TCP,6,44,fdfd:ace:ace:10:d8:cdbf:f6f8:6d69,fdfd:ace:ace:5::6,65382,443,0,S,1927530165,,0,,mss;nop;wscale;nop;nop;TS;sackOK;eol"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["pid"] == "92653"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "filterlog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["stuff1"] == "134"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["stuff2"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["syslog_priority"] == "134"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["syslog_version"] == "1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp8601"] == "2025-11-06T11:42:14.270789+00:00"
 basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
@@ -93,11 +93,11 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["Marshal
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["logsource"] == "syslog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "- 7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,35253,0,DF,6,tcp,60,192.168.5.6,169.254.169.254,58014,80,0,S,4062309164,,64240,,mss;sackOK;TS;nop;wscale"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["message"] == "7,,,1000000102,vtnet0.5,match,block,in,4,0x0,,64,35253,0,DF,6,tcp,60,192.168.5.6,192.168.1.100,58014,80,0,S,4062309164,,64240,,mss;sackOK;TS;nop;wscale"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["pid"] == "92653"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["program"] == "filterlog"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["stuff1"] == "134"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["stuff2"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["syslog_priority"] == "134"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["syslog_version"] == "1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["timestamp8601"] == "2025-11-06T11:47:38.269437+00:00"
 basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"]) == "pfsense-rfc5424-filterlog.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
