@@ -52,3 +52,7 @@ When sharing a file, a 404 error is thrown when a file has no preview thumbnail.
 ### Text session
 When pushes changes to a text session, a 403 error is thrown if the user session has expired. 
 
+---
+### Collabora Online / richdocumentscode
+When using Collabora Online (richdocumentscode app), the application uses `proxy.php` to access resources such as images and icons. Some of these resources may return 404 errors if they are missing or not available, which can trigger http-probing.
+

@@ -1,0 +1,17 @@
+name: cbrandlehner/mailscanner-highscore-spam
+description: Detects spam messages in MailScanner logs with score > 20.0
+type: leaky
+filter: "evt.Meta.log_type == 'mailscanner_spam' && float(evt.Parsed.spam_score) > 20.0"
+groupby: evt.Parsed.source_ip
+leakspeed: 10s
+capacity: 1
+blackhole: 5m
+labels:
+  type: spam
+  remediation: true
+  behavior: "smtp:spam"
+  spoofable: 0
+  confidence: 1
+  label: "MailScanner classified an SMTP email as SPAM with a spam_score higher 20"
+  service: smtp
+
