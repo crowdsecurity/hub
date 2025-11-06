@@ -39,7 +39,7 @@ description: "Identify dropped packets"
 onsuccess: next_stage
 statics:
   - meta: service
-    expression: "evt.Parsed.ip4_proto != nil ? evt.Parsed.ip4_proto : evt.Parsed.ip6_proto"
+    expression: "Lower(evt.Parsed.ip4_proto != '' ? evt.Parsed.ip4_proto : evt.Parsed.ip6_proto)"
   - meta: log_type
     value: pf_drop
   - meta: source_ip
