@@ -3,12 +3,29 @@ len(results) == 2
 
 results[0].Overflow.Alert.Remediation == true
 results[0].Overflow.Alert.GetEventsCount() == 2
+results[0].Overflow.Sources["2a02:842a:20fe:601:5171:fa9b:87ac:bef0"].IP == "2a02:842a:20fe:601:5171:fa9b:87ac:bef0"
 
 results[0].Overflow.Alert.Events[0].GetMeta("service") == "wwsympa"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "2a02:842a:20fe:601:5171:fa9b:87ac:bef0"
+results[0].Overflow.Alert.Events[0].GetMeta("sympa_message") == "Unknown action admin.php"
 results[0].Overflow.Alert.Events[0].GetMeta("sympa_warn") == "unknow-action"
-results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "66.249.68.132"
 
 results[0].Overflow.Alert.Events[1].GetMeta("service") == "wwsympa"
+results[0].Overflow.Alert.Events[1].GetMeta("source_ip") == "2a02:842a:20fe:601:5171:fa9b:87ac:bef0"
+results[0].Overflow.Alert.Events[1].GetMeta("sympa_message") == "Unknown action .env"
 results[0].Overflow.Alert.Events[1].GetMeta("sympa_warn") == "unknow-action"
-results[0].Overflow.Alert.Events[1].GetMeta("source_ip") == "66.249.68.132"
+
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 2
+results[1].Overflow.Sources["192.168.0.1"].IP == "192.168.0.1"
+
+results[1].Overflow.Alert.Events[0].GetMeta("service") == "wwsympa"
+results[1].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.0.1"
+results[1].Overflow.Alert.Events[0].GetMeta("sympa_message") == "Unknown action admin.php"
+results[1].Overflow.Alert.Events[0].GetMeta("sympa_warn") == "unknow-action"
+
+results[1].Overflow.Alert.Events[1].GetMeta("service") == "wwsympa"
+results[1].Overflow.Alert.Events[1].GetMeta("source_ip") == "192.168.0.1"
+results[1].Overflow.Alert.Events[1].GetMeta("sympa_message") == "Unknown action .env"
+results[1].Overflow.Alert.Events[1].GetMeta("sympa_warn") == "unknow-action"
 
