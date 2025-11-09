@@ -17,9 +17,9 @@ description: "Detect http scan on Sympa endpoint"
 #debug: true
 filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' \
   && ( \
-       evt.Meta.sympa_message not contains('robots.txt') \
-    && evt.Meta.sympa_message not contains('sitemap.xml') \
-    && evt.Meta.sympa_message not contains('favicon.ico') \
+       not hasSuffix(evt.Meta.sympa_message, 'robots.txt') \
+    && not hasSuffix(evt.Meta.sympa_message, 'sitemap.xml') \
+    && not hasSuffix(evt.Meta.sympa_message, 'favicon.ico') \
   ) "
 groupby: "evt.Meta.source_ip"
 # Here we say that if an IP address is doing more than X matches in less than Y seconds,
