@@ -12,10 +12,10 @@
 #
 type: leaky
 format: 2.0
-name: cyrille37/sympa-http-scan
+name: cyrille37/sympa_ww-http-scan
 description: "Detect http scan on Sympa endpoint"
 debug: true
-filter: "evt.Meta.service == 'sympa' && evt.Meta.sympa_warn != ''"
+filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != ''"
 groupby: "evt.Meta.source_ip"
 # Here we say that if an IP address is doing more than X matches in less than Y seconds,
 # the scenario will be triggered and will then be silent for Zm for the same IP.
@@ -23,8 +23,11 @@ capacity: 1
 leakspeed: 30s
 blackhole: 15m
 labels:
-  service: sympa
+  service: wwsympa
+  spoofable: 0
+  confidence: 3
   type: discovery
-  label: "http-scan"
+  label: "Http Scan"
+  behaviors: ['http:scan']
   remediation: true
 
