@@ -1,0 +1,14 @@
+
+len(results) == 2
+
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 2
+
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "sympa"
+results[0].Overflow.Alert.Events[0].GetMeta("sympa_warn") == "unknow-action"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "66.249.68.132"
+
+results[0].Overflow.Alert.Events[1].GetMeta("service") == "sympa"
+results[0].Overflow.Alert.Events[1].GetMeta("sympa_warn") == "unknow-action"
+results[0].Overflow.Alert.Events[1].GetMeta("source_ip") == "66.249.68.132"
+
