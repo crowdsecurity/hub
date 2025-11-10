@@ -24,8 +24,8 @@ filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' \
 groupby: "evt.Meta.source_ip"
 # Here we say that if an IP address is doing more than X matches in less than Y seconds,
 # the scenario will be triggered and will then be silent for Zm for the same IP.
-capacity: 1
-leakspeed: 1m
+capacity: 2
+leakspeed: 90s
 blackhole: 15m
 labels:
   service: wwsympa
