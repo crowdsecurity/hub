@@ -1,19 +1,16 @@
+# cyrille37/sympa_ww-http-scan
+# Version: 2025-11-09
 #
-# Sympa Web Service scan scenario based on Sympa parser.
-# Make decision on "evt.Meta.sympa_warn".
-#
-# Sympa reply HTTP 200 on unexisted files so we cannot detect http scan on http web server logs.
+# @see sympa_ww-http-scan.md
 #
 # Docs:
 # - [Creating scenario](https://docs.crowdsec.net/docs/next/log_processor/scenarios/create)
 # - [expression language](https://expr-lang.org/docs/language-definition)
 #
-# Version: 2025-11-09
-#
-type: leaky
 format: 2.0
 name: cyrille37/sympa_ww-http-scan
 description: "Detect http scan on Sympa endpoint"
+type: leaky
 #debug: true
 filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' \
   && ( \
@@ -24,8 +21,8 @@ filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' \
 groupby: "evt.Meta.source_ip"
 # Here we say that if an IP address is doing more than X matches in less than Y seconds,
 # the scenario will be triggered and will then be silent for Zm for the same IP.
-capacity: 2
-leakspeed: 90s
+capacity: 1
+leakspeed: 1m
 blackhole: 15m
 labels:
   service: wwsympa

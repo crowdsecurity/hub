@@ -1,32 +1,11 @@
+# cyrille37/sympa_ww-logs
+# Version: 2025-11-09
 #
-# Parse web service of [Sympa - Mailing List Management Software](https://www.sympa.community/)
-# and extract some cases:
-# - Unknown action "xyz"
-# - Unknown list "xyz"
-# These cases are not present in http_access_log as 404 because Sympa replies with HTTP 200 and an user html error message.
-#
-# acquistion examples:
-#
-# ```yaml
-# filenames:
-#  - /var/log/sympa.log
-# labels:
-#   type: syslog
-# ```
-#
-# ```yaml
-# source: journalctl
-# journalctl_filter:
-#  - "_SYSTEMD_UNIT=wwsympa.service"
-# labels:
-#   type: syslog
-# ```
+# @see sympa_ww-logs.md
 #
 # Docs:
 # - [Parser creation : skeleton](https://docs.crowdsec.net/docs/next/log_processor/parsers/create/#parser-creation--skeleton)
 # - [expression language](https://expr-lang.org/docs/language-definition)
-#
-# Version: 2025-11-09
 #
 name: cyrille37/sympa_ww-logs
 description: "Parse wwsympa syslog lines"
@@ -34,20 +13,13 @@ stage: s01-parse
 #debug: true
 filter: evt.Parsed.program == 'wwsympa'
 onsuccess: next_stage
+
 nodes:
   - grok:
       pattern: '%{WORD:sympa_loglevel} %{GREEDYDATA:sympa_where_action} (?:\[robot %{DATA:sympa_robot}\]) (?:\[session %{DATA:sympa_session}\]) (?:\[client %{IPORHOST:sympa_client_ip}\])(?: \[user %{DATA:sympa_user}\])?( %{GREEDYDATA:sympa_message})?'
-      #apply_on: Line.Raw
       apply_on: message
-      # statics : on déclare un log_type et on transforme le timestamp en Time
-      statics:
-        #- target: evt.StrTime
-        #  expression: evt.Parsed.time_local
-        - meta: service
-          value: sympa
     nodes:
       - filter: "evt.Parsed.sympa_message contains 'Unknown action'"
-        # robots.txt
         statics:
           - meta: sympa_warn
             value: unknow-action
@@ -59,15 +31,12 @@ nodes:
 statics:
   - meta: service
     value: wwsympa
-  #- target: evt.StrTime
-  #  expression: "evt.Parsed.StrTime"
   - meta: source_ip
     expression: "evt.Parsed.sympa_client_ip"
   - meta: sympa_where_action
     expression: "evt.Parsed.sympa_where_action"
   - meta: sympa_robot
     expression: "evt.Parsed.sympa_robot"
-  # force a value, if not matched it will be empty, but set.
   - meta: sympa_warn
     expression: "evt.Meta.sympa_warn"
   - meta: sympa_message
