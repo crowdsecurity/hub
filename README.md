@@ -1,7 +1,7 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/crowdsecurity/hub/master/assets/crowdsec_hub.svg" alt="CrowdSec" title="CrowdSec" width="400" height="260"/>
 </p>
-</br>
+<br>
 <p align="center">
 </p>
 
