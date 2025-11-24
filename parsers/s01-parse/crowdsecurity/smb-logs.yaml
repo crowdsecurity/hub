@@ -3,7 +3,8 @@ name: crowdsecurity/smb-logs
 filter: evt.Parsed.program == 'smb'
 description: "Parse SMB logs"
 pattern_syntax:
-  SMB_BAD_PASSWORD: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_WRONG_PASSWORD\\]%{GREEDYDATA} remote host \\[ipv4:%{IP:ip_source}"
+  SMB_AUTH_FAIL: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_NO_SUCH_USER\\]%{GREEDYDATA} remote host \\[ipv\\d:%{IP:ip_source}:%{NUMBER}\\]"
+  SMB_BAD_PASSWORD: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_WRONG_PASSWORD\\]%{GREEDYDATA} remote host \\[ipv\\d:%{IP:ip_source}:%{NUMBER}\\]"
 nodes:
  - grok:
     name: "SMB_AUTH_FAIL"

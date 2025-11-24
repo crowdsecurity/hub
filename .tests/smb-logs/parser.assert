@@ -1,26 +1,73 @@
 len(results) == 3
-len(results["s01-parse"]["crowdsecurity/smb-logs"]) == 2
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[root] at [Thu, 14 Oct 2021 15:24:12.023984 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [MANTIS] remote host [ipv4:172.17.0.1:44890] mapped to [WORKGROUP]\\[root]. local host [ipv4:172.17.0.2:445] "
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "smb"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[administrator] at [Thu, 14 Oct 2021 15:24:16.248504 UTC] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [MANTIS] remote host [ipv4:172.17.0.1:44896] mapped to [WORKGROUP]\\[administrator]. local host [ipv4:172.17.0.2:445]"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "smb"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [HOST]\\[guest] at [Tue, 18 Nov 2025 22:37:21.070329 GMT] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [localhost] remote host [ipv6:fd00:ffff:ffff:7:101c:49b2:e676:ab41:60630] mapped to [HOST]\\[guest]. local host [ipv6:fd00:ffff:ffff:5::4:445]"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "smb"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [HOST]\\[testuser] at [Wed, 19 Nov 2025 10:23:54.603389 GMT] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [localhost] remote host [ipv6:fd00:ffff:ffff:7:101c:49b2:e676:ab41:60763] mapped to [HOST]\\[testuser]. local host [ipv6:fd00:ffff:ffff:5::4:445] "
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "smb"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+len(results["s01-parse"]["crowdsecurity/smb-logs"]) == 4
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["ip_source"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[root] at [Thu, 14 Oct 2021 15:24:12.023984 UTC] with [NTLMv2] status [NT_STATUS_NO_SUCH_USER] workstation [MANTIS] remote host [ipv4:172.17.0.1:44890] mapped to [WORKGROUP]\\[root]. local host [ipv4:172.17.0.2:445] "
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["program"] == "smb"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["smb_domain"] == "WORKGROUP"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["user"] == "root"
-results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Parsed["ip_source"] == "172.17.0.1"
+basename(results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["log_type"] == "smb_failed_auth"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["subtype"] == "smb_bad_user"
 results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["user"] == "root"
-results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_path"] == "smb-logs.log"
-results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/smb-logs"][0].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Success == true
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["ip_source"] == "172.17.0.1"
-results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[administrator] at [Thu, 14 Oct 2021 15:24:16.248504 UTC] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [MANTIS] remote host [ipv4:172.17.0.1:44896] mapped to [WORKGROUP]\\[administrator]. local host [ipv4:172.17.0.2:445] "
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [WORKGROUP]\\[administrator] at [Thu, 14 Oct 2021 15:24:16.248504 UTC] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [MANTIS] remote host [ipv4:172.17.0.1:44896] mapped to [WORKGROUP]\\[administrator]. local host [ipv4:172.17.0.2:445]"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["program"] == "smb"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["smb_domain"] == "WORKGROUP"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Parsed["user"] == "administrator"
-results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["datasource_path"] == "smb-logs.log"
+basename(results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["datasource_path"]) == "smb-logs.log"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["log_type"] == "smb_failed_auth"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["source_ip"] == "172.17.0.1"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["subtype"] == "smb_bad_password"
 results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Meta["user"] == "administrator"
+results["s01-parse"]["crowdsecurity/smb-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/smb-logs"][2].Success == false
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Success == true
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Parsed["ip_source"] == "fd00:ffff:ffff:7:101c:49b2:e676:ab41"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Parsed["message"] == "Auth: [SMB2,(null)] user [HOST]\\[testuser] at [Wed, 19 Nov 2025 10:23:54.603389 GMT] with [NTLMv2] status [NT_STATUS_WRONG_PASSWORD] workstation [localhost] remote host [ipv6:fd00:ffff:ffff:7:101c:49b2:e676:ab41:60763] mapped to [HOST]\\[testuser]. local host [ipv6:fd00:ffff:ffff:5::4:445] "
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Parsed["program"] == "smb"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Parsed["smb_domain"] == "HOST"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Parsed["user"] == "testuser"
+basename(results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["datasource_path"]) == "smb-logs.log"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["log_type"] == "smb_failed_auth"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["source_ip"] == "fd00:ffff:ffff:7:101c:49b2:e676:ab41"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["subtype"] == "smb_bad_password"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Meta["user"] == "testuser"
+results["s01-parse"]["crowdsecurity/smb-logs"][3].Evt.Whitelisted == false
+len(results["success"][""]) == 0
