@@ -3,8 +3,8 @@ name: crowdsecurity/smb-logs
 filter: evt.Parsed.program == 'smb'
 description: "Parse SMB logs"
 pattern_syntax:
-  SMB_AUTH_FAIL: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_NO_SUCH_USER\\]%{GREEDYDATA} remote host \\[ipv\\d:%{IP:ip_source}:%{NUMBER}\\]"
-  SMB_BAD_PASSWORD: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_WRONG_PASSWORD\\]%{GREEDYDATA} remote host \\[ipv\\d:%{IP:ip_source}:%{NUMBER}\\]"
+  SMB_AUTH_FAIL: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_NO_SUCH_USER\\]%{GREEDYDATA} remote host \\[ipv\\d:%{DATA:ip_source_with_port}\\]"
+  SMB_BAD_PASSWORD: "Auth:%{GREEDYDATA} user \\[%{DATA:smb_domain}\\]\\\\\\[%{DATA:user}\\]%{GREEDYDATA} status \\[NT_STATUS_WRONG_PASSWORD\\]%{GREEDYDATA} remote host \\[ipv\\d:%{DATA:ip_source_with_port}\\]"
 nodes:
  - grok:
     name: "SMB_AUTH_FAIL"
@@ -22,6 +22,6 @@ statics:
   - meta: log_type
     value: smb_failed_auth
   - meta: source_ip
-    expression: "evt.Parsed.ip_source"
+    expression: "evt.Parsed.ip_source_with_port[:lastIndexOf(evt.Parsed.ip_source_with_port, ':')]"
   - meta: user
     expression: "evt.Parsed.user"
