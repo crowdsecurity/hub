@@ -52,7 +52,7 @@ input(
 )
 
 ruleset(name="unifi") {
-    if $msg startswith "CEF:" then {
+    if $rawmsg startswith "CEF:" then {
         action(type="omfile" file="/var/log/unifi-cef.log" template="CEF")
     } else {
         action(type="omfile" file="/var/log/unifi-syslog.log" template="Syslog")
