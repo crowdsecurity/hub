@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/sshd-logs
+- crowdsecurity/sshd-success-logs
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/crowdsecurity/ssh-time-based-bf.yaml
+# we put these on purpose : we want only to trigger the time-based-bf
+- crowdsecurity/ssh-bf
+- crowdsecurity/ssh-slow-bf
+postoverflows:
+- ""
+log_file: ssh-time-based-bf.log
+log_type: syslog
+ignore_parsers: true
+
