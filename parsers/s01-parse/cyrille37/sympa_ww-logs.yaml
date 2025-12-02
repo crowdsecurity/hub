@@ -1,0 +1,43 @@
+# cyrille37/sympa_ww-logs
+# Version: 2025-11-09
+#
+# @see sympa_ww-logs.md
+#
+# Docs:
+# - [Parser creation : skeleton](https://docs.crowdsec.net/docs/next/log_processor/parsers/create/#parser-creation--skeleton)
+# - [expression language](https://expr-lang.org/docs/language-definition)
+#
+name: cyrille37/sympa_ww-logs
+description: "Parse wwsympa syslog lines"
+#debug: true
+filter: evt.Parsed.program == 'wwsympa'
+onsuccess: next_stage
+
+nodes:
+  - grok:
+      pattern: '%{WORD:sympa_loglevel} %{GREEDYDATA:sympa_where_action} (?:\[robot %{DATA:sympa_robot}\]) (?:\[session %{DATA:sympa_session}\]) (?:\[client %{IPORHOST:sympa_client_ip}\])(?: \[user %{DATA:sympa_user}\])?( %{GREEDYDATA:sympa_message})?'
+      apply_on: message
+    nodes:
+      - filter: "evt.Parsed.sympa_message contains 'Unknown action'"
+        statics:
+          - meta: sympa_warn
+            value: unknow-action
+      - filter: "evt.Parsed.sympa_message contains 'Unknown list'"
+        statics:
+          - meta: sympa_warn
+            value: unknow-list
+
+statics:
+  - meta: service
+    value: wwsympa
+  - meta: source_ip
+    expression: "evt.Parsed.sympa_client_ip"
+  - meta: sympa_where_action
+    expression: "evt.Parsed.sympa_where_action"
+  - meta: sympa_robot
+    expression: "evt.Parsed.sympa_robot"
+  - meta: sympa_warn
+    expression: "evt.Meta.sympa_warn"
+  - meta: sympa_message
+    expression: "evt.Parsed.sympa_message"
+
