@@ -2,7 +2,7 @@
 filter: "evt.Line.Labels.type == 'syslog'"
 onsuccess: next_stage
 pattern_syntax:
-  RAW_SYSLOG_PREFIX: '^<%{NUMBER:stuff1}>%{NUMBER:stuff2} %{SYSLOGBASE2} %{DATA:program} %{NUMBER:pid}'
+  RAW_SYSLOG_PREFIX: '^<%{NUMBER:syslog_priority}>%{NUMBER:syslog_version} %{SYSLOGBASE2} %{DATA:program} (?:%{NUMBER:pid}|-)'
   RAW_SYSLOG_META: '\[meta sequenceId="%{NOTDQUOTE:seq_id}"\]'
 name: crowdsecurity/syslog-logs
 nodes:
@@ -12,8 +12,8 @@ nodes:
       #This is the field of the `Event` to which the regexp should be applied
       apply_on: Line.Raw
   - grok:
-      #a second pattern for unparsed syslog lines, as saw in opnsense
-      pattern: '%{RAW_SYSLOG_PREFIX} - %{RAW_SYSLOG_META} %{GREEDYDATA:message}'
+      #RFC5424 syslog format (used by pfSense and OPNsense with alternative logging)
+      pattern: '%{RAW_SYSLOG_PREFIX} - (?:%{RAW_SYSLOG_META} |- )%{GREEDYDATA:message}'
       apply_on: Line.Raw
 #if the node was successfull, statics will be applied.
 statics:
