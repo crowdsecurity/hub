@@ -12,12 +12,7 @@ name: cyrille37/sympa_ww-http-scan
 description: "Detect http scan on Sympa endpoint"
 type: leaky
 #debug: true
-filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' \
-  && ( \
-       not hasSuffix(evt.Meta.sympa_message, 'robots.txt') \
-    && not hasSuffix(evt.Meta.sympa_message, 'sitemap.xml') \
-    && not hasSuffix(evt.Meta.sympa_message, 'favicon.ico') \
-  ) "
+filter: "evt.Meta.service == 'wwsympa' && evt.Meta.sympa_warn != '' && (not hasSuffix(evt.Meta.sympa_message, 'robots.txt') && not hasSuffix(evt.Meta.sympa_message, 'sitemap.xml') && not hasSuffix(evt.Meta.sympa_message, 'favicon.ico'))"
 groupby: "evt.Meta.source_ip"
 # Here we say that if an IP address is doing more than X matches in less than Y seconds,
 # the scenario will be triggered and will then be silent for Zm for the same IP.
