@@ -5,7 +5,7 @@ name: crowdsecurity/http-bad-user-agent
 description: "Detect usage of bad User Agent"
 filter: 'evt.Meta.log_type in ["http_access-log", "http_error-log"] && RegexpInFile(evt.Parsed.http_user_agent, "bad_user_agents.regex.txt")'
 data:
-  - source_url: https://hub-data.crowdsec.net/web/bad_user_agents.regex.txt
+  - source_url: https://hub-data.superalpaca.org/web/bad_user_agents.regex.txt
     dest_file: bad_user_agents.regex.txt
     type: regexp
     strategy: LRU
