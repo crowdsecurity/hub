@@ -4,7 +4,6 @@ name: xs539/joplin-server-logs
 description: "Parse Joplin Server logs"
 pattern_syntax:
   JOPLIN_DATE: "%{YEAR}[/-]%{MONTHNUM2}[/-]%{DAY2} %{HOUR}:%{MINUTE}:%{SECOND}"
-  JOPLIN_DATE_FULL: "%{YEAR}-%{MONTHNUM2}-%{DAY2} %{HOUR}:%{MINUTE}:%{SECOND}"
 nodes:
   - grok:
       pattern: '%{JOPLIN_DATE:timestamp}%{GREEDYDATA}/api/sessions: %{IPORHOST:remote_addr}%{GREEDYDATA}Invalid username or password%{GREEDYDATA}"%{EMAILADDRESS:target_user}"'
@@ -15,7 +14,7 @@ nodes:
         - meta: target_user
           expression: evt.Parsed.target_user
   - grok:
-      pattern: '%{JOPLIN_DATE_FULL:timestamp}: App: %{IPORHOST:remote_addr}: %{NUMBER:body_bytes_sent} B: %{WORD:http_method} %{URIPATH:http_path} \(%{NUMBER:http_status}\) \(%{NUMBER:response_time}ms\)'
+      pattern: '%{JOPLIN_DATE:timestamp}: App: %{IPORHOST:remote_addr}: %{NUMBER:body_bytes_sent} B: %{WORD:http_method} %{URIPATH:http_path} \(%{NUMBER:http_status}\) \(%{NUMBER:response_time}ms\)'
       apply_on: message
       statics:
         - meta: log_type
