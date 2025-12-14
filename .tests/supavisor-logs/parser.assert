@@ -1,0 +1,26 @@
+# Wrong password auth failure - first entry (192.168.1.100)
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Evt.Meta.source_ip == "192.168.1.100"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Evt.Meta.log_type == "supavisor_auth_fail"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Evt.Meta.service == "supavisor"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Evt.Parsed.project == "dev_tenant"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][0].Evt.Parsed.db_user == "postgres"
+
+# Wrong password auth failure - second attacker (10.0.0.50) - entry index 6
+results["s01-parse"]["crowdsecurity/supavisor-logs"][6].Success == true
+results["s01-parse"]["crowdsecurity/supavisor-logs"][6].Evt.Meta.source_ip == "10.0.0.50"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][6].Evt.Meta.log_type == "supavisor_auth_fail"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][6].Evt.Parsed.db_user == "admin"
+
+# SSL required error - entry index 12
+results["s01-parse"]["crowdsecurity/supavisor-logs"][12].Success == true
+results["s01-parse"]["crowdsecurity/supavisor-logs"][12].Evt.Meta.source_ip == "172.16.0.25"
+results["s01-parse"]["crowdsecurity/supavisor-logs"][12].Evt.Meta.log_type == "supavisor_ssl_required"
+
+# Bad startup payload (no source_ip) - entry index 13
+results["s01-parse"]["crowdsecurity/supavisor-logs"][13].Success == true
+results["s01-parse"]["crowdsecurity/supavisor-logs"][13].Evt.Meta.log_type == "supavisor_bad_startup"
+
+# User not found (no source_ip) - entry index 16
+results["s01-parse"]["crowdsecurity/supavisor-logs"][16].Success == true
+results["s01-parse"]["crowdsecurity/supavisor-logs"][16].Evt.Meta.log_type == "supavisor_user_not_found"

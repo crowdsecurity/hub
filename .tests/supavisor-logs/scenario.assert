@@ -1,0 +1,7 @@
+# Brute force scenario should trigger for IP 192.168.1.100 (6 auth failures)
+results["scenarios"]["crowdsecurity/supavisor-bf"][0].Success == true
+results["scenarios"]["crowdsecurity/supavisor-bf"][0].Evt.Overflow.Alert.Source.IP == "192.168.1.100"
+
+# Brute force scenario should trigger for IP 10.0.0.50 (6 auth failures)
+results["scenarios"]["crowdsecurity/supavisor-bf"][1].Success == true
+results["scenarios"]["crowdsecurity/supavisor-bf"][1].Evt.Overflow.Alert.Source.IP == "10.0.0.50"
