@@ -9,7 +9,7 @@ Parses [Supavisor](https://github.com/supabase/supavisor) connection pooler logs
 ```
 
 ## Parsed Fields
-    
+
 | Field | Description |
 |-------|-------------|
 | `source_ip` | Client IP address |
