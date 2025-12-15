@@ -1,0 +1,13 @@
+name: crowdsecurity/supavisor-docker-logs
+description: "Extract Supavisor logs from Docker JSON format"
+filter: "evt.Parsed.program == 'supavisor'"
+onsuccess: next_stage
+nodes:
+  - grok:
+      pattern: '\{"log":"%{DATA:message}(\\n)?","stream":"%{DATA:stream}","time":"%{TIMESTAMP_ISO8601:timestamp}"\}'
+      apply_on: Line.Raw
+    statics:
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+      - meta: datasource_type
+        value: docker
