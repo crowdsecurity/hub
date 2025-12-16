@@ -24,6 +24,8 @@ nodes:
         value: supavisor
       - meta: source_ip
         expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
   - grok:
       pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Tenant is not allowed to connect without SSL%{GREEDYDATA}'
@@ -35,6 +37,8 @@ nodes:
         value: supavisor
       - meta: source_ip
         expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
   - grok:
       pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Exchange error:%{GREEDYDATA:error_detail}'
@@ -46,6 +50,8 @@ nodes:
         value: supavisor
       - meta: source_ip
         expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
   - grok:
       pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+%{GREEDYDATA:error_message}'
@@ -58,6 +64,8 @@ nodes:
         value: supavisor
       - meta: source_ip
         expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
   - grok:
       pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_PARTIAL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Client startup message error:\s+:bad_startup_payload'
@@ -67,6 +75,8 @@ nodes:
         value: supavisor_bad_startup
       - meta: service
         value: supavisor
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
   - grok:
       pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_PARTIAL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+User not found:%{GREEDYDATA:enum_detail}'
@@ -76,6 +86,8 @@ nodes:
         value: supavisor_user_not_found
       - meta: service
         value: supavisor
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
 
 statics:
   - meta: service
