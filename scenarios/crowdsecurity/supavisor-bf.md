@@ -28,6 +28,7 @@ This scenario triggers when multiple authentication failures are detected from t
 ```yaml
 source: docker
 container_name_regexp:
+  - "supabase-supavisor"
   - "supabase-supavisor-.*"
 labels:
   type: supavisor

@@ -17,6 +17,7 @@ For dynamic container names (Coolify, etc.):
 ```yaml
 source: docker
 container_name_regexp:
+  - "supabase-supavisor"
   - "supabase-supavisor-.*"
 labels:
   type: supavisor
