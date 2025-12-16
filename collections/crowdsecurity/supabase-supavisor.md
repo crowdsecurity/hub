@@ -22,9 +22,32 @@ labels:
   type: supavisor
 ```
 
+## What Gets Detected
+
+### ✅ Detectable (has peer_ip)
+| Attack Type | Log Pattern | Action |
+|-------------|-------------|--------|
+| Wrong password | `Exchange error: "Wrong password"` | Block after 5 attempts |
+| SSL required bypass | `Tenant is not allowed to connect without SSL` | Block after 5 attempts |
+
+### ❌ Not Detectable (no peer_ip in logs)
+
+| Log Type | Reason |
+|----------|--------|
+| Bad startup payload | Supavisor doesn't log client IP |
+| User not found | Supavisor doesn't log client IP |
+
+This is a Supavisor logging limitation, not a CrowdSec limitation.
+
 ## Included Components
 
 | Type | Name | Description |
 |------|------|-------------|
 | Parser | `crowdsecurity/supavisor-logs` | Parses Supavisor logs |
 | Scenario | `crowdsecurity/supavisor-bf` | Brute force detection |
+
+## Related
+
+- [Supabase Self-Hosting Guide](https://supabase.com/docs/guides/self-hosting/docker)
+- [Supavisor Repository](https://github.com/supabase/supavisor)
+- [CrowdSec Documentation](https://docs.crowdsec.net/)
