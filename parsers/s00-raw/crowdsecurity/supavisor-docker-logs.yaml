@@ -1,9 +1,0 @@
-name: crowdsecurity/supavisor-docker-logs
-description: "Prepare Supavisor logs for parsing"
-filter: "evt.Line.Labels.type == 'supavisor'"
-onsuccess: next_stage
-statics:
-  - parsed: program
-    value: supavisor
-  - parsed: message
-    expression: evt.Line.Raw

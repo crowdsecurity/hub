@@ -26,6 +26,5 @@ labels:
 
 | Type | Name | Description |
 |------|------|-------------|
-| Parser | `crowdsecurity/supavisor-docker-logs` | Parses Supavisor logs from Docker containers |
 | Parser | `crowdsecurity/supavisor-logs` | Parses Supavisor logs |
 | Scenario | `crowdsecurity/supavisor-bf` | Brute force detection |
