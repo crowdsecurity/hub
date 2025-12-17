@@ -21,7 +21,7 @@ source: journalctl
 journalctl_filter:
   - "SYSLOG_IDENTIFER=Vaultwarden"
 labels:
-  type: Vaultwarden
+  type: syslog
 ```
 
 ## Timestamp issues
