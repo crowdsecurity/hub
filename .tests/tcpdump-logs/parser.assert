@@ -1,3 +1,5 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "11:29:42.550475 IP 1.2.3.4.43436 > 172.1.2.3.22: Flags [S], seq 2398030442, win 64240, options [mss 1460,sackOK,TS val 2908275146 ecr 0,nop,wscale 7], length 0"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "tcpdump"
@@ -101,5 +103,3 @@ results["s01-parse"]["crowdsecurity/tcpdump-logs"][3].Evt.Meta["service"] == "tc
 results["s01-parse"]["crowdsecurity/tcpdump-logs"][3].Evt.Meta["source_ip"] == "172.1.2.3"
 results["s01-parse"]["crowdsecurity/tcpdump-logs"][3].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'tcpdump-logs', exiting

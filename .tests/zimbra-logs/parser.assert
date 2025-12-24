@@ -1,3 +1,5 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2021-03-03 19:26:38,616 INFO  [qtp93314457-137:https://test.fr:7071/service/admin/soap/AuthRequest] [name=toto@test.fr;oip=192.168.7.101;port=52016;ua=ZimbraWebClient - GC88 (Linux);soapId=9fd8101;] SoapEngine - handler exception: authentication failed for [toto@test.fr], invalid password"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "zimbra"
@@ -93,5 +95,3 @@ results["s01-parse"]["firewallservices/zimbra-logs"][3].Evt.Meta["source_ip"] ==
 results["s01-parse"]["firewallservices/zimbra-logs"][3].Evt.Meta["user"] == "tata@test.fr"
 results["s01-parse"]["firewallservices/zimbra-logs"][3].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'zimbra-logs', exiting

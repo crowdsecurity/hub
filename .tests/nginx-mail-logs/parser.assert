@@ -1,3 +1,5 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 17
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022/04/02 15:45:23 [info] 8#8: *15950 client 172.77.77.254:53044 connected to 0.0.0.0:25"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "nginx"
@@ -767,5 +769,3 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Meta["timestamp"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Enriched["MarshaledTime"] == "2023-04-05T21:00:42Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][13].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'nginx-mail-logs', exiting

@@ -1,3 +1,5 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 12
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "19-Oct-2022 05:34:02.425 client @0x7f65100ee4d8 104.219.136.31#3076 (example.com): query (cache) 'example.com/ANY/IN' denied"
@@ -601,5 +603,3 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["timestamp"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Enriched["MarshaledTime"] == "2022-10-19T05:34:03Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'bind9-syslog', exiting

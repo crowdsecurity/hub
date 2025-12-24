@@ -1,3 +1,5 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-04-25T15:08:29.098Z [AUTH] WARN: Incorrect username or password for user Test. IP=1.1.1.1"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "uptime-kuma"
@@ -72,5 +74,3 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] 
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-04-25T15:16:10.45Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'uptime-kuma-logs', exiting

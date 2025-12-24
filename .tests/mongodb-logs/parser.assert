@@ -1,3 +1,5 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"t\":{\"$date\":\"2022-07-28T18:00:00.903+02:00\"},\"s\":\"I\",  \"c\":\"ACCESS\",   \"id\":20249,   \"ctx\":\"conn1\",\"msg\":\"Authentication failed\",\"attr\":{\"mechanism\":\"SCRAM-SHA-256\",\"speculative\":false,\"principalName\":\"root\",\"authenticationDatabase\":\"admin\",\"remote\":\"127.0.0.1:4071\",\"extraInfo\":{},\"error\":\"AuthenticationFailed: SCRAM authentication failed, storedKey mismatch\"}}"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "mongodb"
@@ -41,5 +43,3 @@ results["s01-parse"]["timokoessler/mongodb-logs"][1].Evt.Meta["source_ip"] == ":
 results["s01-parse"]["timokoessler/mongodb-logs"][1].Evt.Meta["target_user"] == "root"
 results["s01-parse"]["timokoessler/mongodb-logs"][1].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'mongodb-logs', exiting

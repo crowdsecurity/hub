@@ -1,3 +1,5 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Dec  8 06:28:43 ip.compute.internal cowrie[2806]: 2020-12-08T06:28:43+0000 [cowrie.ssh.factory.CowrieSSHFactory] New connection: 4.2.3.1:47630 (1.2.3.4:2222) [session: 3e5a9212b91f]"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "cowrie"
@@ -45,5 +47,3 @@ results["s01-parse"]["cowrie-logs"][1].Evt.Meta["service"] == "telnet"
 results["s01-parse"]["cowrie-logs"][1].Evt.Meta["source_ip"] == "1.1.1.1"
 results["s01-parse"]["cowrie-logs"][1].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-
-Error: cscli hubtest run: please fill your assert file(s) for test 'cowrie-logs', exiting
