@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: hitech95/email-generic-bf
 description: "Detect generic email brute force"
-filter: "evt.Meta.log_type == 'mail_auth' && evt.Meta.auth_status == 'failed'"
+filter: "evt.Meta.service == 'nginxmail' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: "10s"
@@ -23,7 +23,7 @@ type: leaky
 #debug: true
 name: hitech95/email-user-bf
 description: "Detect specific user email brute force"
-filter: "evt.Meta.log_type == 'mail_auth' && evt.Meta.auth_status == 'failed'"
+filter: "evt.Meta.service == 'nginxmail' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 capacity: 3
