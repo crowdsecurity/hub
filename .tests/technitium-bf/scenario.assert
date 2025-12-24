@@ -1,5 +1,9 @@
 len(results) == 1
 "169.254.44.3" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["169.254.44.3"].IP == "169.254.44.3"
+results[0].Overflow.Sources["169.254.44.3"].Range == ""
+results[0].Overflow.Sources["169.254.44.3"].GetScope() == "Ip"
+results[0].Overflow.Sources["169.254.44.3"].GetValue() == "169.254.44.3"
 results[0].Overflow.Alert.Events[0].GetMeta("auth_status") == "failed"
 basename(results[0].Overflow.Alert.Events[0].GetMeta("datasource_path")) == "technitium.log"
 results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
@@ -48,3 +52,6 @@ results[0].Overflow.Alert.Events[5].GetMeta("source_ip") == "169.254.44.3"
 results[0].Overflow.Alert.Events[5].GetMeta("source_port") == "50051"
 results[0].Overflow.Alert.Events[5].GetMeta("target_user") == "admin"
 results[0].Overflow.Alert.Events[5].GetMeta("timestamp") == "2025-07-28T05:34:06Z"
+results[0].Overflow.Alert.GetScenario() == "PintjesB/technitium-bf"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 6

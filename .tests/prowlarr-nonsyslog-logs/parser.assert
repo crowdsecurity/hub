@@ -1,3 +1,5 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-12-17 22:04:36.2|Warn|Auth|Auth-Failure ip 1.2.3.4 username 'testing'"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "Prowlarr"
@@ -96,4 +98,3 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2022-12-17T22:04:41.7Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 len(results["success"][""]) == 0
-

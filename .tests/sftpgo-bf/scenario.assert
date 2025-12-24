@@ -1,3 +1,5 @@
+len(results) == 1
+"192.168.1.101" in results[0].Overflow.GetSources()
 results[0].Overflow.Sources["192.168.1.101"].IP == "192.168.1.101"
 results[0].Overflow.Sources["192.168.1.101"].Range == ""
 results[0].Overflow.Sources["192.168.1.101"].GetScope() == "Ip"
@@ -53,4 +55,3 @@ results[0].Overflow.Alert.Events[3].GetMeta("timestamp") == "2025-09-14T17:00:15
 results[0].Overflow.Alert.GetScenario() == "Azlaroc/sftpgo-bf"
 results[0].Overflow.Alert.Remediation == true
 results[0].Overflow.Alert.GetEventsCount() == 4
-
