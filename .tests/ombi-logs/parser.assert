@@ -1,11 +1,37 @@
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-02-11 14:07:54.110 +02:00 [Warning] Failed login attempt by IP: 1.1.1.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "ombi"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "ombi-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 1
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 len(results["s01-parse"]["LePresidente/ombi-logs"]) == 1
 results["s01-parse"]["LePresidente/ombi-logs"][0].Success == true
-results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["timestamp"] == "2022-02-11 14:07:54.110"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["message"] == "2022-02-11 14:07:54.110 +02:00 [Warning] Failed login attempt by IP: 1.1.1.1"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["program"] == "ombi"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Parsed["timestamp"] == "2022-02-11 14:07:54.110"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["auth_status"] == "failed"
+basename(results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_path"]) == "ombi-logs.log"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["service"] == "ombi"
 results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Meta["datasource_path"] == "ombi-logs.log"
+results["s01-parse"]["LePresidente/ombi-logs"][0].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022-02-11 14:07:54.110 +02:00 [Warning] Failed login attempt by IP: 1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "ombi"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2022-02-11 14:07:54.110"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["auth_status"] == "failed"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "ombi-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "ombi"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-02-11T14:07:54.11Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-02-11T14:07:54.11Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0
+
+Error: cscli hubtest run: please fill your assert file(s) for test 'ombi-logs', exiting

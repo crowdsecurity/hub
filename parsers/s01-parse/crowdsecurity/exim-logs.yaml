@@ -26,8 +26,6 @@ nodes:
           value: spam-attempt
         - meta: rbl_url
           expression: evt.Parsed.rbl_url
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Email blocked by %{HOSTNAME:rbl_url}'
       apply_on: message
@@ -36,16 +34,12 @@ nodes:
           value: spam-attempt
         - meta: rbl_url
           expression: evt.Parsed.rbl_url
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: No Such User Here'
       apply_on: message
       statics:
         - meta: auth_status
           value: failed
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}temporarily rejected connection in "%{NO_DOUBLE_QUOTE:acl}" ACL: "Host is ratelimited \(%{NO_END_PAR:rate_limit}\)'
       apply_on: message
@@ -58,24 +52,18 @@ nodes:
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Sender verify failed'
       apply_on: message
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: SMTP AUTH is required for message submission on port %{POSINT:target_port}'
       apply_on: message
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
         - meta: target_port
           expression: evt.Parsed.target_port
 statics:
@@ -90,4 +78,4 @@ statics:
   - meta: source_helo
     expression: evt.Parsed.source_helo
   - meta: target_user
-    expression: evt.Parsed.target_user
+    expression: evt.Parsed.source_user
