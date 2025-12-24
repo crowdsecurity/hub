@@ -7,8 +7,8 @@ nodes:
       pattern: 'INFO:%{SPACE}%{IP:source_ip}:%{INT} - "%{WORD:method} %{DATA:query} %{URIPROTO}/%{NUMBER:http_version}" %{NUMBER:status} Unauthorized'
       apply_on: message
       statics:
-        - meta: log_type
-          value: litellm_failed_auth
+        - meta: auth_status
+          value: failed
 statics:
   - meta: service
     value: litellm

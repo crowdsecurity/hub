@@ -9,28 +9,28 @@ nodes:
       pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::identity\]\[ERROR\] Username or password is incorrect\. Try again\. IP: %{IP:source_ip}\. Username: %{EMAILADDRESS:username}\.$'
       apply_on: message
       statics:
-        - meta: log_type
-          value: vaultwarden_failed_auth
-        - meta: username
+        - meta: auth_status
+          value: failed
+        - meta: target_user
           expression: evt.Parsed.username
   - grok:
       pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::admin\]\[ERROR\] Invalid admin token. IP: %{IP:source_ip}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: vaultwarden_failed_admin_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::core::two_factor::authenticator\]\[ERROR\] Invalid TOTP code! Server time: %{DATE_YMD:server_date} %{TIME:server_time} %{TZ:server_tz} IP: %{IP:source_ip}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: vaultwarden_failed_2fa_totp
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::core::two_factor::email\]\[ERROR\] Token is invalid! IP: %{IP:source_ip}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: vaultwarden_failed_2fa_email
+        - meta: auth_status
+          value: failed
 
 statics:
   - meta: service

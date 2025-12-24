@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/stirling-pdf-bf
 description: "Detect stirling pdf bruteforce"
-filter: "evt.Meta.service == 'stirling-pdf' && evt.Meta.log_type == 'failed_authentication'"
+filter: "evt.Meta.service == 'stirling-pdf' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 3
 groupby: evt.Meta.source_ip

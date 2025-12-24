@@ -3,7 +3,7 @@ name: crowdsecurity/cpanel-bf
 capacity: 5
 leakspeed: 10s
 description: "Detect bruteforce on cpanel login"
-filter: "evt.Meta.log_type == 'auth_bf_log'"
+filter: "evt.Parsed.program == 'cpanel' && evt.Meta.service == 'http' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:

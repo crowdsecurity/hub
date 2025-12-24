@@ -2,13 +2,13 @@
 type: leaky
 name: crowdsecurity/nextcloud-bf
 description: "Detect Nextcloud bruteforce"
-filter: "evt.Meta.log_type in ['nextcloud_failed_auth', 'nextcloud_bruteforce_attempt']"
+filter: "evt.Meta.service == 'nextcloud' && evt.Meta.auth_status == 'failed'"
 leakspeed: "1m"
 capacity: 5
 # if we have bruteforce protection enabled in nextcloud, the same login attempt
 # can log # both login failure and bruteforce attempt at the same time, so
 # keep them in seperate buckets
-groupby: evt.Meta.source_ip + '--' + evt.Meta.log_type
+groupby: evt.Meta.source_ip
 blackhole: 5m
 reprocess: true
 labels:
@@ -24,7 +24,7 @@ labels:
 type: leaky
 name: crowdsecurity/nextcloud-bf_user_enum
 description: "Detect Nextcloud user enum bruteforce"
-filter: "evt.Meta.log_type == 'nextcloud_failed_auth'"
+filter: "evt.Meta.service == 'nextcloud' && evt.Meta.auth_status == 'failed'"
 leakspeed: "1m"
 capacity: 5
 groupby: evt.Meta.source_ip

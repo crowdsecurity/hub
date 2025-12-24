@@ -2,13 +2,13 @@ type: leaky
 debug: false
 name: crowdsecurity/thehive-bf
 description: "Detect bruteforce on Thehive web interface"
-filter: evt.Meta.log_type == 'thehive_failed_auth'
+filter: "evt.Meta.service == 'thehive' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:
-  service: http
+  service: thehive
   confidence: 3
   spoofable: 0
   classification:

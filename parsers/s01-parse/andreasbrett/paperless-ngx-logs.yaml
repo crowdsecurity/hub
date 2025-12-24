@@ -11,18 +11,18 @@ nodes:
           pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{PAPERLESS_NGX_USER:username}` from (private )?IP `%{IP:source_ip}\.`'
           apply_on: message
           statics:
-              - meta: log_type
-                value: paperless_ngx_failed_auth
-              - meta: username
+              - meta: auth_status
+                value: failed
+              - meta: target_user
                 expression: evt.Parsed.username
     - grok:
           # Paperless-ngx v1.16.6+
           pattern: '\[%{DATE_YMD:date} %{TIME:time}\] \[INFO\] \[paperless\.auth\] Login failed for user `%{PAPERLESS_NGX_USER:username}` from (private )?IP `%{IP:source_ip}`\.'
           apply_on: message
           statics:
-              - meta: log_type
-                value: paperless_ngx_failed_auth
-              - meta: username
+              - meta: auth_status
+                value: failed
+              - meta: target_user
                 expression: evt.Parsed.username
 
 statics:

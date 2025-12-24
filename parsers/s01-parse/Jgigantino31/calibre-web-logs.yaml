@@ -10,13 +10,13 @@ nodes:
       pattern: '(\[%{CALIBREWEB_CUSTOMDATE:timestamp}.*\])?.*Login failed for user "%{HTTPDUSER:username}" IP-address: %{IP:source_ip}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: calibre-web_failed_auth
+        - meta: auth_status
+          value: failed
 
 statics:
     - meta: service
       value: calibre-web
-    - meta: user
+    - meta: target_user
       expression: "evt.Parsed.username"
     - meta: source_ip
       expression: "evt.Parsed.source_ip"

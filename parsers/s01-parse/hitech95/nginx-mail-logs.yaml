@@ -20,15 +20,15 @@ nodes:
     statics:
       - target: evt.StrTime
         expression: evt.Parsed.time
-      - meta: username
+      - meta: target_user
         expression: evt.Parsed.username
       - meta: log_type
         value: "mail_auth"
     nodes:
       - filter: "evt.Parsed.message contains 'logged in'"
         statics:
-          - meta: sub_type
-            value: "auth_success"
+          - meta: auth_status
+            value: "success"
       - filter: "evt.Parsed.message contains 'login failed'"
         pattern_syntax:
           MAIL_HTTP_AUTH: 'client login failed: "%{NO_DOUBLE_QUOTE:auth_result}" while'
@@ -36,8 +36,8 @@ nodes:
           pattern: '%{MAIL_HTTP_AUTH}'
           apply_on: message
         statics:
-          - meta: sub_type
-            value: "auth_fail"
+          - meta: auth_status
+            value: "failed"
           - meta: auth_result
             expression: evt.Parsed.auth_result
 # these ones apply for both grok patterns

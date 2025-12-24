@@ -7,11 +7,11 @@ nodes:
      pattern: '%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username}.? IP=%{IP:source_ip}'
      apply_on: message
      statics:
-       - meta: log_type
-         value: dockge_failed_auth
+       - meta: auth_status
+         value: failed
        - target: evt.StrTime
          expression: evt.Parsed.timestamp
-       - meta: username
+       - meta: target_user
          expression: evt.Parsed.username
 statics:
    - meta: service

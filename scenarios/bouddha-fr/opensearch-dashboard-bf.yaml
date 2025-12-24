@@ -2,7 +2,7 @@
 type: leaky
 name: bouddha-fr/opensearch-dashboard-bf
 description: "Detect bruteforce attempts on OpenSearch web interface"
-filter: evt.Meta.log_type == 'opensearch_failed_auth'
+filter: "evt.Meta.service == 'opensearch' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

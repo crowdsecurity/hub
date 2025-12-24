@@ -1,7 +1,7 @@
 # miniflux BF scan
 name: jbowdre/miniflux-bf
 description: "Detect miniflux bruteforce"
-filter: "evt.Meta.log_type == 'miniflux_failed_auth'"
+filter: "evt.Meta.service == 'miniflux' && evt.Meta.auth_status == 'failed'"
 type: leaky
 groupby: evt.Meta.source_ip
 leakspeed: 20s
@@ -21,9 +21,9 @@ labels:
 type: leaky
 name: jbowdre/miniflux-bf_user-enum
 description: "Detect miniflux user enum bruteforce"
-filter: "evt.Meta.log_type == 'miniflux_failed_auth'"
+filter: "evt.Meta.service == 'miniflux' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 1m

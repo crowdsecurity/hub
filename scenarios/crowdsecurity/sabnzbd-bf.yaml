@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/sabnzbd-bf
 description: "Detect sabnzbd bruteforce"
-filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.log_type == 'sabnzbd_failed_auth'"
+filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 3
 groupby: evt.Meta.source_ip
@@ -22,7 +22,7 @@ labels:
 type: leaky
 name: crowdsecurity/sabnzbd-slow-bf
 description: "Detect sabnzbd slow bruteforce"
-filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.log_type == 'sabnzbd_failed_auth'"
+filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.auth_status == 'failed'"
 leakspeed: "60s"
 capacity: 10
 groupby: evt.Meta.source_ip

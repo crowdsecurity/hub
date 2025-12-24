@@ -1,7 +1,7 @@
 # harbor BF scan
 name: LePresidente/harbor-bf
 description: "Detect harbor bruteforce"
-filter: "evt.Meta.log_type == 'harbor_failed_auth'"
+filter: "evt.Meta.service == 'harbor' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: LePresidente/harbor-bf_user-enum
 description: "Detect harbor user enum bruteforce"
-filter: "evt.Meta.log_type == 'harbor_failed_auth'"
+filter: "evt.Meta.service == 'harbor' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m

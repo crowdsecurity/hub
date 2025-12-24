@@ -2,7 +2,7 @@
 type: leaky
 name: LePresidente/redmine-bf
 description: "Detect Redmine bruteforce attacks"
-filter: "evt.Meta.log_type == 'redmine_failed_auth'"
+filter: "evt.Meta.service == 'redmine' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: LePresidente/redmine-bf_user-enum
 description: "Detect Redmine user enum bruteforce"
-filter: "evt.Meta.log_type == 'redmine_failed_auth'"
+filter: "evt.Meta.service == 'redmine' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m

@@ -16,12 +16,12 @@ grok:
   pattern: "%{AUTH_LOG_FAIL}"
   apply_on: message
   statics:
-    - meta: log_type
-      value: synology-dsm_failed_auth
+    - meta: auth_status
+      value: failed
 statics:
-  - meta: log_type
-    value: synology-dsm_failed_auth
   - meta: service
     value: synology-dsm
+  - meta: auth_status
+    value: failed
   - meta: source_ip
     expression: "evt.Parsed.src_ip"

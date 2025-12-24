@@ -7,8 +7,8 @@ nodes:
       pattern: '(\[%{DATA:timestamp}\] )?SECURITY\[%{NUMBER}\].* SecurityEvent="InvalidAccountID",EventTV="%{DATA:event_timestamp}",Severity="Error",Service="%{NOTDQUOTE:asterisk_service}",EventVersion="%{NUMBER}",AccountID="%{NOTDQUOTE:username}",SessionID="%{NOTDQUOTE:asterisk_session_id}",LocalAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:target_ip}/%{NUMBER:target_port}",RemoteAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:source_ip}/%{NUMBER:source_port}"'
       apply_on: message
       statics:
-        - meta: log_type
-          value: asterisk_failed_auth
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.timestamp
         - meta: target_user
@@ -21,8 +21,8 @@ nodes:
       pattern: '(\[%{DATA:timestamp}\] )?SECURITY\[%{NUMBER}\].* SecurityEvent="ChallengeResponseFailed",EventTV="%{DATA:event_timestamp}",Severity="Error",Service="%{NOTDQUOTE:asterisk_service}",EventVersion="%{NUMBER}",AccountID="%{NOTDQUOTE:username}",SessionID="%{NOTDQUOTE:asterisk_session_id}",LocalAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:target_ip}/%{NUMBER:target_port}",RemoteAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:source_ip}/%{NUMBER:source_port}"'
       apply_on: message
       statics:
-        - meta: log_type
-          value: asterisk_failed_auth
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.timestamp
         - meta: target_user
@@ -35,8 +35,8 @@ nodes:
       pattern: '(\[%{DATA:timestamp}\] )?SECURITY\[%{NUMBER}\].* SecurityEvent="InvalidPassword",EventTV="%{DATA:event_timestamp}",Severity="Error",Service="%{NOTDQUOTE:asterisk_service}",EventVersion="%{NUMBER}",AccountID="%{NOTDQUOTE:username}",SessionID="%{NOTDQUOTE:asterisk_session_id}",LocalAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:target_ip}/%{NUMBER:target_port}",RemoteAddress="IPV%{NUMBER}/(UDP|TCP|TLS)/%{IPORHOST:source_ip}/%{NUMBER:source_port}"'
       apply_on: message
       statics:
-        - meta: log_type
-          value: asterisk_failed_auth
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.timestamp
         - meta: target_user

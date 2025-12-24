@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/windows-bf
 description: "Detect windows auth bruteforce"
-filter: "evt.Meta.log_type == 'windows_failed_auth'"
+filter: "evt.Meta.service == 'windows' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

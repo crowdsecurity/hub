@@ -1,7 +1,7 @@
 type: leaky
 name: crowdsecurity/asterisk_bf
 description: "Detect Asterisk user bruteforce"
-filter: evt.Meta.log_type == 'asterisk_failed_auth'
+filter: "evt.Meta.service == 'asterisk' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 10s
 capacity: 5

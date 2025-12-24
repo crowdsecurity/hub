@@ -1,7 +1,7 @@
 type: leaky
 name: crowdsecurity/wireguard-auth
 description: "Detects rejected connections attempts and unauthorized packets through wireguard tunnels"
-filter: "evt.Meta.log_type == 'wireguard_failed_auth'"
+filter: "evt.Meta.service == 'wireguard' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: "30s"
 capacity: 3

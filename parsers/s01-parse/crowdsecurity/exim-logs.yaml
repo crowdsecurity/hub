@@ -16,8 +16,8 @@ nodes:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_AUTH:exim_auth} authenticator failed for %{EXIM_SOURCE}:(?:%{POSINT:source_port}:)? 535 Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
       apply_on: message
       statics:
-        - meta: log_type
-          value: exim_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: "JunkMail rejected - %{NOTSPACE} \[%{NO_END_BRACKET}\]:%{INT} is in an RBL: %{NO_DOUBLE_QUOTE:rbl_url}"'
       apply_on: message
@@ -42,8 +42,8 @@ nodes:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: No Such User Here'
       apply_on: message
       statics:
-        - meta: log_type
-          value: exim_failed_auth
+        - meta: auth_status
+          value: failed
         - meta: source_user
           expression: evt.Parsed.source_user
   - grok:
@@ -89,5 +89,5 @@ statics:
     expression: evt.Parsed.source_dns
   - meta: source_helo
     expression: evt.Parsed.source_helo
-  - meta: username
+  - meta: target_user
     expression: evt.Parsed.target_user

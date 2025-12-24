@@ -15,26 +15,26 @@ nodes:
           pattern: 'Unsuccessful login attempt from %{IP:first_ip}%{SABNZBD_SUFFIX}'
           apply_on: sabnzbd_message
           statics:
-            - meta: log_type
-              value: sabnzbd_failed_auth
+            - meta: auth_status
+              value: failed
       - grok:
           pattern: 'Fehlerhafter Login Versuch von %{IP:first_ip}%{SABNZBD_SUFFIX}'
           apply_on: sabnzbd_message
           statics:
-            - meta: log_type
-              value: sabnzbd_failed_auth
+            - meta: auth_status
+              value: failed
       - grok:
           pattern: 'Echec de la tentative de connexion de %{IP:first_ip}%{SABNZBD_SUFFIX}'
           apply_on: sabnzbd_message
           statics:
-            - meta: log_type
-              value: sabnzbd_failed_auth
+            - meta: auth_status
+              value: failed
       - grok:
           pattern: 'Mislukte login poging van %{IP:first_ip}%{SABNZBD_SUFFIX}'
           apply_on: sabnzbd_message
           statics:
-            - meta: log_type
-              value: sabnzbd_failed_auth
+            - meta: auth_status
+              value: failed
 
 statics:
   - meta: service

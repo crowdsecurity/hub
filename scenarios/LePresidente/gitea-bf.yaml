@@ -1,7 +1,7 @@
 # gitea BF scan
 name: LePresidente/gitea-bf
 description: "Detect gitea bruteforce"
-filter: "evt.Meta.log_type == 'gitea_failed_auth'"
+filter: "evt.Meta.service == 'gitea' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: LePresidente/gitea-bf_user-enum
 description: "Detect gitea user enum bruteforce"
-filter: "evt.Meta.log_type == 'gitea_failed_auth'"
+filter: "evt.Meta.service == 'gitea' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m

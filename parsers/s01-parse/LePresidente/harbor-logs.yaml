@@ -10,12 +10,12 @@ nodes:
       pattern: '.*core\[%{GREEDYDATA:PID}\]: %{RFC3339:timestamp} \[%{GREEDYDATA:ERROR}\] .*\[client IP="%{IP:remote_ip}, %{IP:internal_ip}".*failed to authenticate user:%{HARBOR_CUSTOMUSER:username}, error:Failed to authenticate user, due to error \SInvalid credentials\S'
       apply_on: message
       statics:
-        - meta: log_type
-          value: harbor_failed_auth
+        - meta: auth_status
+          value: failed
 statics:
     - meta: service
       value: harbor
-    - meta: user
+    - meta: target_user
       expression: "evt.Parsed.username"
     - target: evt.StrTime
       expression: evt.Parsed.timestamp

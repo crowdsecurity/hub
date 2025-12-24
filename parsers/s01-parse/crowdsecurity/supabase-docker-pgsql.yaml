@@ -9,13 +9,15 @@ nodes:
       apply_on: message
 
 statics:
-  - meta: log_type
-    value: pgsql_failed_auth
+  - meta: service
+    value: supabase-pgsql
+  - meta: auth_status
+    value: failed
   - meta: auth_method
     expression: "evt.Parsed.auth_method"
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
-  - meta: user
+  - meta: target_user
     expression: "evt.Parsed.pgsql_target_user"
   - meta: db
     expression: "evt.Parsed.pgsql_dbname"

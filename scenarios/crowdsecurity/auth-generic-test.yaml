@@ -1,0 +1,17 @@
+type: trigger
+name: crowdsecurity/auth-generic-test
+description: "Crowdsec Generic Test Scenario: authentication failure trigger"
+filter: |
+  evt.Meta.auth_status == 'failed' && 
+  evt.Meta.service != 'ssh' &&
+  evt.Meta.target_user startsWith 'crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl'
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: authentication
+  remediation: false
+  confidence: 0
+  spoofable: 3
+  behavior: "auth:bruteforce"
+  label: "Crowdsec Generic Auth Test Scenario"
+

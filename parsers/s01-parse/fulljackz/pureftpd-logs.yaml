@@ -10,9 +10,9 @@ nodes:
       name: "PFTPD_AUTH_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: pftpd_failed-auth
-        - meta: source_user
+        - meta: auth_status
+          value: failed
+        - meta: target_user
           expression: "evt.Parsed.user"
 statics:
     - meta: service

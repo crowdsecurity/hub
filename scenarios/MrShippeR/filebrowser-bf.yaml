@@ -1,7 +1,7 @@
 type: leaky
 name: MrShippeR/filebrowser-bf
 description: "Detect FileBrowser bruteforce login attempts"
-filter: evt.Meta.log_type == 'filebrowser_failed_auth'
+filter: "evt.Meta.service == 'filebrowser' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 10s
 capacity: 5

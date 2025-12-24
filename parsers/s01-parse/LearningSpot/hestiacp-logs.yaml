@@ -7,8 +7,8 @@ nodes:
      pattern: '%{TIMESTAMP_ISO8601:timestamp} %{USERNAME:username} %{IP:source_ip} failed to login'
      apply_on: message
      statics:
-       - meta: log_type
-         value: hestiacp_failed_auth
+       - meta: auth_status
+         value: failed
 statics:
    - meta: service
      value: hestiacp

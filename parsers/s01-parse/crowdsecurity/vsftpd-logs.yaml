@@ -19,11 +19,13 @@ nodes:
 statics:
     - meta: program
       value: vsftpd
-    - meta: log_type
-      value: ftp_failed_auth
+    - meta: service
+      value: vsftpd
+    - meta: auth_status
+      value: failed
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
-    - meta: user
+    - meta: target_user
       expression: "evt.Parsed.user"
     - target: evt.StrTime
       expression: evt.Parsed.timestamp

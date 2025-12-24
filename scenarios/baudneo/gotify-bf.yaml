@@ -1,7 +1,7 @@
 type: leaky
 name: baudneo/gotify-bf
 description: "Detect bruteforce"
-filter: "evt.Meta.log_type  == 'gotify_failed_auth'"
+filter: "evt.Meta.service == 'gotify' && evt.Meta.auth_status == 'failed'"
 groupby: "evt.Meta.source_ip"
 capacity: 3
 leakspeed: "10s"

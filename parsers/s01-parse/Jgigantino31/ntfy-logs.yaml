@@ -5,8 +5,8 @@ filter: "evt.Parsed.program == 'ntfy'"
 nodes:
   - filter: "JsonExtract(evt.Parsed.message, 'error_code') in ['40101', '40301']"
     statics:
-      - meta: log_type
-        value: ntfy_failed_auth
+      - meta: auth_status
+        value: failed
 
 statics:
   - meta: service

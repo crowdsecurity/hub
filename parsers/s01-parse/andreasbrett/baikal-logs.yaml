@@ -10,16 +10,16 @@ nodes:
           pattern: "%{BAIKAL_FAILED_AUTH}"
           apply_on: message
           statics:
-              - meta: log_type
-                value: baikal_failed_auth
-              - meta: username
+              - meta: auth_status
+                value: failed
+              - meta: target_user
                 expression: evt.Parsed.username
     - grok:
           pattern: "%{BAIKAL_FAILED_AUTH_NO_USER}"
           apply_on: message
           statics:
-              - meta: log_type
-                value: baikal_failed_auth_no_user
+              - meta: auth_status
+                value: failed
 
 statics:
     - meta: service

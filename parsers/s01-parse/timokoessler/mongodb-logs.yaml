@@ -7,8 +7,8 @@ nodes:
      JsonExtract(evt.Parsed.message, "c") == 'ACCESS' &&
      JsonExtract(evt.Parsed.message, "msg") == 'Authentication failed'
     statics:
-      - meta: log_type
-        value: "mongodb_failed_auth"
+      - meta: auth_status
+        value: failed
     grok:
       pattern: '%{IPORHOST:remote_addr}'
       expression: JsonExtract(evt.Parsed.message, "attr.remote")
@@ -22,7 +22,7 @@ statics:
     expression: JsonExtract(evt.Parsed.message, "t.$date")
   - target: evt.StrTime
     expression: "evt.Parsed.timestamp"
-  - meta: username
+  - meta: target_user
     expression: JsonExtract(evt.Parsed.message, "attr.principalName")
   - meta: authentication_database
     expression: JsonExtract(evt.Parsed.message, "attr.authenticationDatabase")

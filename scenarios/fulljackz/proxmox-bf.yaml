@@ -2,7 +2,7 @@
 type: leaky
 name: fulljackz/proxmox-bf
 description: "Detect proxmox bruteforce"
-filter: "evt.Meta.log_type == 'pve_failed-auth'"
+filter: "evt.Meta.service == 'proxmox' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -23,11 +23,11 @@ labels:
 type: leaky
 name: fulljackz/proxmox-bf-user-enum
 description: "Detect proxmox wrong username"
-filter: "evt.Meta.log_type == 'pve_failed-auth'"
+filter: "evt.Meta.service == 'proxmox' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.source_user
+distinct: evt.Meta.target_user
 blackhole: 1m
 reprocess: true
 labels:

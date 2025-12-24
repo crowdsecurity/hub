@@ -1,7 +1,7 @@
 type: leaky
 name: crowdsecurity/proftpd-bf
 description: "Detect proftpd bruteforce"
-filter: "evt.Meta.log_type == 'ftp_failed_auth'"
+filter: "evt.Meta.service == 'proftpd' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

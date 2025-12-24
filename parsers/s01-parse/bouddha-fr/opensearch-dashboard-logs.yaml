@@ -7,14 +7,14 @@ statics:
     value: opensearch
   - meta: source_ip
     expression: evt.Unmarshaled.opensearch.req.remoteAddress
-  - meta: log_type
+  - meta: auth_status
     expression: |
         (
           evt.Unmarshaled.opensearch.type == 'response' &&
           evt.Unmarshaled.opensearch.method == 'post' &&
           evt.Unmarshaled.opensearch.statusCode in [401, '401'] &&
           evt.Unmarshaled.opensearch.req.url == '/auth/login?dataSourceId='
-        ) ? 'opensearch_failed_auth' : ''
+        ) ? 'failed' : ''
   - meta: timestamp
     expression: evt.Unmarshaled.opensearch['@timestamp']
   - meta: status_code

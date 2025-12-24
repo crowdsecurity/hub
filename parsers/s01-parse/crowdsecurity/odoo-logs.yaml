@@ -7,11 +7,13 @@ nodes:
       pattern: '%{TIMESTAMP_ISO8601:timestamp} %{INT:PID} INFO %{DATA:db_name} odoo.addons.base.models.res_users: Login failed for db:%{DATA} login:%{DATA:user} from %{IP:source_ip}'
       apply_on: message
 statics:
-  - meta: log_type
-    value: odoo_failed_auth
+  - meta: service
+    value: odoo
+  - meta: auth_status
+    value: failed
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
-  - meta: user
+  - meta: target_user
     expression: "evt.Parsed.user"
   - meta: db
     expression: "evt.Parsed.db_name"

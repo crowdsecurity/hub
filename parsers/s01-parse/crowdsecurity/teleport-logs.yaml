@@ -11,12 +11,12 @@ statics:
   - meta: success
     expression: "evt.Unmarshaled.teleport.success ? 'true' : 'false'"
 ## Set for impossible travel scenario
-  - meta: log_type
-    expression: "evt.Unmarshaled.teleport.success ? 'auth_success' : 'auth_failed'"
+  - meta: auth_status
+    expression: "evt.Unmarshaled.teleport.success ? 'success' : 'failed'"
 ##Converting a bool with sprintf is very slow, so we use a ternary expression
   - target: evt.StrTime
     expression: evt.Unmarshaled.teleport.time
-  - meta: user
+  - meta: target_user
     expression: evt.Unmarshaled.teleport.user
   - meta: source_ip
     expression: Split(evt.Unmarshaled.teleport["addr.remote"], ':')[0]

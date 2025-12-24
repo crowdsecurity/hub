@@ -2,7 +2,7 @@
 type: leaky
 name: LearningSpot/hestiacp-bf
 description: "Detect Hestiacp Bruteforce"
-filter: evt.Meta.log_type == 'hestiacp_failed_auth'
+filter: "evt.Meta.service == 'hestiacp' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5
@@ -21,7 +21,7 @@ labels:
 type: leaky
 name: LearningSpot/hestiacp-bf-user-enum
 description: "Detect Hestiacp User Enumeration Bruteforce"
-filter: evt.Meta.log_type == 'hestiacp_failed_auth'
+filter: "evt.Meta.service == 'hestiacp' && evt.Meta.auth_status == 'failed'"
 distinct: evt.Meta.target_user
 groupby: evt.Meta.source_ip
 leakspeed: 1m

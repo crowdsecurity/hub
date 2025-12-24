@@ -27,24 +27,24 @@ nodes:
       name: "SSHD_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_PREAUTH_AUTHENTICATING_USER_ALT"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_PREAUTH_AUTHENTICATING_USER"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
@@ -57,56 +57,54 @@ nodes:
       name: "SSHD_INVALID_USER"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_INVALID_USER_ALT"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_NOT_ALLOWED_USER"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_INVALID_BANNER"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
-        - meta: extra_log_type
-          value: ssh_bad_banner
+        - meta: auth_status
+          value: failed
   - grok:
       name: "SSHD_USER_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_MAGIC_VALUE_FAILED"
       apply_on: message
       statics:
-        - meta: log_type
-          value: ssh_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:

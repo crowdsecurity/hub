@@ -1,84 +1,127 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[2023-02-12 12:16:05.729 +01:00] [INF] [79] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"testuser\" has been denied (IP: \"127.0.0.1\")."
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "jellyfin"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[2023-02-13 08:37:50.708 +01:00] [INF] [115] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"testuser\" has succeeded."
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "jellyfin"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "[2023-05-20 17:22:00.500 +02:00] [INF] [19] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has been denied (IP: 163.234.23.45)."
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "jellyfin"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "[2023-02-13 08:37:50.708 +01:00] [INF] [115] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has succeeded."
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "jellyfin"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "[2023-02-13 08:38:00.000 +01:00] [INF] [115] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl\" has been denied (IP: \"127.0.0.1\")."
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "jellyfin"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
-len(results["s01-parse"]["LePresidente/jellyfin-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+len(results["s01-parse"]["LePresidente/jellyfin-logs"]) == 5
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Success == true
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["message"] == "[2023-02-12 12:16:05.729 +01:00] [INF] [79] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"testuser\" has been denied (IP: \"127.0.0.1\")."
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["program"] == "jellyfin"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["timestamp"] == "2023-02-12 12:16:05.729"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["username"] == "testuser"
+results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["auth_status"] == "failed"
+basename(results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["log_type"] == "jellyfin_failed_auth"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["service"] == "jellyfin"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["source_ip"] == "127.0.0.1"
-results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["user"] == "testuser"
-results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["target_user"] == "testuser"
+results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/jellyfin-logs"][1].Success == false
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Success == true
+results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["message"] == "[2023-05-20 17:22:00.500 +02:00] [INF] [19] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has been denied (IP: 163.234.23.45)."
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["program"] == "jellyfin"
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["source_ip"] == "163.234.23.45"
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["timestamp"] == "2023-05-20 17:22:00.500"
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["username"] == "testuser"
-results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Parsed["message"] == "[2023-05-20 17:22:00.500 +02:00] [INF] [19] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has been denied (IP: 163.234.23.45)."
-results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["source_ip"] == "163.234.23.45"
-results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["user"] == "testuser"
-results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["auth_status"] == "failed"
+basename(results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["log_type"] == "jellyfin_failed_auth"
 results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["service"] == "jellyfin"
+results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["source_ip"] == "163.234.23.45"
+results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Meta["target_user"] == "testuser"
+results["s01-parse"]["LePresidente/jellyfin-logs"][2].Evt.Whitelisted == false
 results["s01-parse"]["LePresidente/jellyfin-logs"][3].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Success == true
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Parsed["message"] == "[2023-02-13 08:38:00.000 +01:00] [INF] [115] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl\" has been denied (IP: \"127.0.0.1\")."
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Parsed["program"] == "jellyfin"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Parsed["timestamp"] == "2023-02-13 08:38:00.000"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Parsed["username"] == "crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["auth_status"] == "failed"
+basename(results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["service"] == "jellyfin"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Meta["target_user"] == "crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl"
+results["s01-parse"]["LePresidente/jellyfin-logs"][4].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[2023-02-12 12:16:05.729 +01:00] [INF] [79] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"testuser\" has been denied (IP: \"127.0.0.1\")."
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "jellyfin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "127.0.0.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2023-02-12 12:16:05.729"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "testuser"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[2023-02-12 12:16:05.729 +01:00] [INF] [79] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"testuser\" has been denied (IP: \"127.0.0.1\")."
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["auth_status"] == "failed"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "jellyfin_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "jellyfin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "testuser"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2023-02-12T12:16:05.729Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "testuser"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2023-02-12T12:16:05.729Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[2023-05-20 17:22:00.500 +02:00] [INF] [19] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has been denied (IP: 163.234.23.45)."
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "jellyfin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "163.234.23.45"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2023-05-20 17:22:00.500"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "testuser"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[2023-05-20 17:22:00.500 +02:00] [INF] [19] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for testuser has been denied (IP: 163.234.23.45)."
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["auth_status"] == "failed"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "jellyfin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "163.234.23.45"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "testuser"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2023-05-20T17:22:00.5Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "testuser"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "jellyfin_failed_auth"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2023-05-20T17:22:00.5Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "[2023-02-13 08:38:00.000 +01:00] [INF] [115] Jellyfin.Server.Implementations.Users.UserManager: Authentication request for \"crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl\" has been denied (IP: \"127.0.0.1\")."
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "jellyfin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2023-02-13 08:38:00.000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["username"] == "crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["auth_status"] == "failed"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "jellyfin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "127.0.0.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_user"] == "crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2023-02-13T08:38:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2023-02-13T08:38:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
 len(results["success"][""]) == 0

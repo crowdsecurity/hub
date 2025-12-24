@@ -11,19 +11,19 @@ nodes:
           pattern: "%{WEBMIN_AUTH_WRONG_PASS}"
           apply_on: message
           statics:
-              - meta: log_type
-                value: webmin_failed_auth_wrong_pass
+              - meta: auth_status
+                value: failed
     - grok:
           pattern: "%{WEBMIN_AUTH_TWOFACTOR}"
           apply_on: message
           statics:
-              - meta: log_type
-                value: webmin_failed_auth_twofactor
+              - meta: auth_status
+                value: failed
 
 statics:
     - meta: service
       value: webmin
-    - meta: username
+    - meta: target_user
       expression: evt.Parsed.username
     - meta: source_ip
       expression: "evt.Parsed.source_ip"

@@ -1,7 +1,7 @@
 # bitwarden BF scan
 name: MariuszKociubinski/bitwarden-bf
 description: "Detect bitwarden bruteforce"
-filter: "evt.Meta.log_type == 'bitwarden_failed_auth'"
+filter: "evt.Meta.service == 'bitwarden' && evt.Meta.auth_status == 'failed'"
 #debug: false
 type: leaky
 groupby: evt.Meta.source_ip

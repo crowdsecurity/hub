@@ -22,7 +22,9 @@ nodes:
         - target: StrTime
           expression: evt.Parsed.timestamp
 statics:
+  - meta: service
+    value: gotify
   - meta: source_ip
     expression: evt.Parsed.source_ip
-  - meta: log_type
-    value: gotify_failed_auth
+  - meta: auth_status
+    value: failed

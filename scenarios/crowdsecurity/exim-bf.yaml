@@ -2,7 +2,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/exim-bf
 description: "Detect Exim brute force"
-filter: "evt.Meta.log_type == 'exim_failed_auth'"
+filter: "evt.Meta.service == 'exim' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: "10s"
@@ -21,9 +21,9 @@ type: leaky
 #debug: true
 name: crowdsecurity/exim-user-bf
 description: "Detect Exim user email brute force"
-filter: "evt.Meta.log_type == 'exim_failed_auth'"
+filter: "evt.Meta.service == 'exim' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 capacity: 5
 leakspeed: "10s"
 blackhole: 1m

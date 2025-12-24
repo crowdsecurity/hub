@@ -2,7 +2,7 @@
 type: leaky
 name: jusabatier/apereo-cas-bf
 description: "Detect CAS bruteforce"
-filter: "evt.Meta.log_type == 'cas_failed-auth'"
+filter: "evt.Meta.service == 'cas' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 references:
   - http://wikipedia.com/cas-bf-is-bad
@@ -24,7 +24,7 @@ labels:
 type: leaky
 name: jusabatier/apereo-cas-bf_user-enum
 description: "Detect CAS user enum bruteforce"
-filter: evt.Meta.log_type == 'cas_failed-auth'
+filter: "evt.Meta.service == 'cas' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 leakspeed: 10s

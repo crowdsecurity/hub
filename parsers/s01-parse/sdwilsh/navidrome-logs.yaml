@@ -7,9 +7,9 @@ description: Parses logs from Navidrome
 statics:
   - meta: service
     value: navidrome
-  - meta: log_type
+  - meta: auth_status
     expression: |
-      evt.Unmarshaled.navidrome.httpStatus == '401' && evt.Unmarshaled.navidrome.msg contains '/auth/login' ? 'navidrome_failed_auth' : ''
+      evt.Unmarshaled.navidrome.httpStatus == '401' && evt.Unmarshaled.navidrome.msg contains '/auth/login' ? 'failed' : ''
   - meta: http_status
     expression: evt.Unmarshaled.navidrome.httpStatus
   - target: evt.StrTime

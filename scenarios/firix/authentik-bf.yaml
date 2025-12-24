@@ -2,7 +2,7 @@
 type: leaky
 name: firix/authentik-bf
 description: "Detect authentik bruteforce"
-filter: evt.Meta.log_type in ['authentik_failed_auth', 'authentik_invalid_username']
+filter: "evt.Meta.service == 'authentik' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 20s
 capacity: 5
@@ -21,9 +21,9 @@ labels:
 type: leaky
 name: firix/authentik-bf_user-enum
 description: "Detect authentik user enum bruteforce"
-filter: evt.Meta.log_type in ['authentik_failed_auth', 'authentik_invalid_username']
+filter: "evt.Meta.service == 'authentik' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 1m

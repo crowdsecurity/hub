@@ -2,7 +2,7 @@
 type: leaky
 name: LePresidente/ombi-bf
 description: "Detect Ombi bruteforce"
-filter: "evt.Meta.log_type == 'ombi_auth_failed'"
+filter: "evt.Meta.service == 'ombi' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip

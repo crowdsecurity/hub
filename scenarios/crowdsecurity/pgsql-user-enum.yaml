@@ -1,9 +1,9 @@
 type: leaky
 name: crowdsecurity/pgsql-user-enum
 description: "Detect postgresql user enumeration"
-filter: evt.Meta.log_type == 'pgsql_failed_auth'
+filter: "evt.Meta.service == 'pgsql' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m

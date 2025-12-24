@@ -19,11 +19,13 @@ nodes:
           value: "060102 15:04:05"
     onsuccess: next_stage
 statics:
+  - meta: service
+    value: mariadb
   - target: evt.StrTime
     expression: "evt.Parsed.date + ' ' + evt.Parsed.time"
-  - meta: log_type
-    value: "mariadb_failed_auth"
+  - meta: auth_status
+    value: failed
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
-  - meta: user
+  - meta: target_user
     expression: "evt.Parsed.user"

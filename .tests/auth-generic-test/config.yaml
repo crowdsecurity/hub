@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/firix/authentik-logs.yaml
+- ./parsers/s01-parse/LePresidente/gitea-logs.yaml
+- ./parsers/s01-parse/LePresidente/jellyfin-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/auth-generic-test.yaml
+postoverflows:
+- ""
+log_file: auth-generic-test.log
+log_type: syslog
+labels: {}
+ignore_parsers: true
+override_statics: []
+

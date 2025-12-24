@@ -1,7 +1,7 @@
 type: trigger
 name: crowdsecurity/cpanel-bf-attempt
 description: "Detect bruteforce attempt on cpanel login"
-filter: "evt.Meta.log_type == 'auth_bf_attempt'"
+filter: "evt.Parsed.program == 'cpanel' && evt.Meta.service == 'http' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 blackhole: 5m
 labels:

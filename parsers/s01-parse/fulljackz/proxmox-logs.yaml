@@ -10,12 +10,12 @@ nodes:
       name: "PVE_AUTH_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: pve_failed-auth
-        - meta: source_user
+        - meta: auth_status
+          value: failed
+        - meta: target_user
           expression: "evt.Parsed.source_user"
 statics:
     - meta: service
-      value: pvedaemon
+      value: proxmox
     - meta: source_ip
       expression: "evt.Parsed.client_ip"
