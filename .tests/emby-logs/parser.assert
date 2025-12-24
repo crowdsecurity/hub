@@ -1,11 +1,29 @@
-len(results["s01-parse"]["LePresidente/emby-logs"]) == 1
+len(results) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-02-14 18:01:07.092 Warn Server: AUTH-ERROR: 1.1.1.1 - Invalid username or password entered."
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "emby"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s01-parse"]["LePresidente/emby-logs"][0].Success == true
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Parsed["message"] == "2022-02-14 18:01:07.092 Warn Server: AUTH-ERROR: 1.1.1.1 - Invalid username or password entered."
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Parsed["program"] == "emby"
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Parsed["source_ip"] == "1.1.1.1"
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Parsed["timestamp"] == "2022-02-14 18:01:07.092"
-results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
-results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["datasource_path"] == "emby-logs.log"
+results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["auth_status"] == "failed"
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["log_type"] == "emby_failed_auth"
 results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["service"] == "emby"
+results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s01-parse"]["LePresidente/emby-logs"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2022-02-14 18:01:07.092 Warn Server: AUTH-ERROR: 1.1.1.1 - Invalid username or password entered."
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "emby"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2022-02-14 18:01:07.092"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["auth_status"] == "failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "emby"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.1.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2022-02-14T18:01:07.092Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2022-02-14T18:01:07.092Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
