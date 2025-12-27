@@ -2,7 +2,7 @@
 blackhole: 1m
 capacity: 5
 description: A scenario that detects excessive login attempts per unique IP
-filter: evt.Meta.log_type == 'navidrome_failed_auth'
+filter: "evt.Meta.service == 'navidrome' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 labels:
   behavior: generic:bruteforce

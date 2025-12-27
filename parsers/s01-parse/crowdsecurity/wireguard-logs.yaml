@@ -11,16 +11,16 @@ nodes:
      name: "WIREGUARD_INVALID_HANDSHAKE"
      apply_on: message
      statics:
-       - meta: log_type
-         value: wireguard_failed_auth
+       - meta: auth_status
+         value: failed
        - meta: log_subtype
          value: wireguard_invalid_handshake
  - grok:
      name: "WIREGUARD_UNAUTHORIZED_PACKET"
      apply_on: message
      statics:
-       - meta: log_type
-         value: wireguard_failed_auth
+       - meta: auth_status
+         value: failed
        - meta: log_subtype
          value: wireguard_unauthorized_packet
 

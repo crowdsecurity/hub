@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/odoo-bf
 description: "Detect bruteforce on odoo web interface"
-filter: evt.Meta.log_type == 'odoo_failed_auth'
+filter: "evt.Meta.service == 'odoo' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: crowdsecurity/odoo_user-enum
 description: "Detect odoo user enum"
-filter: evt.Meta.log_type == 'odoo_failed_auth'
+filter: "evt.Meta.service == 'odoo' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m

@@ -2,7 +2,7 @@
 type: leaky
 name: LearningSpot/litellm-bf
 description: "Detect bruteforce attempts to Litellm"
-filter: "evt.Meta.log_type == 'litellm_failed_auth' && evt.Meta.status == '401'"
+filter: "evt.Meta.service == 'litellm' && evt.Meta.auth_status == 'failed' && evt.Meta.status == '401'"
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5

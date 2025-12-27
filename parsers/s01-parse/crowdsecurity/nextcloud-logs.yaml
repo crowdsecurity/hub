@@ -12,8 +12,8 @@ nodes:
     statics:
       - meta: target_user
         expression: "evt.Parsed.target_user"
-      - meta: log_type
-        value: nextcloud_failed_auth
+      - meta: auth_status
+        value: failed
   - grok:
       pattern: 'Bruteforce attempt from \\?"%{IP:source_ip}\\?" detected for action \\?"%{DATA:action}\\?"'
       expression: JsonExtract(evt.Parsed.message, "message")

@@ -30,9 +30,11 @@ nodes:
       - meta: subtype
         value: bad_user
 statics:
-  - meta: log_type
-    value: mssql_failed_auth
-  - meta: user
+  - meta: service
+    value: mssql
+  - meta: auth_status
+    value: failed
+  - meta: target_user
     expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[1]")
 ---
 onsuccess: next_stage
@@ -60,8 +62,8 @@ nodes:
 statics:
     - meta: service
       value: mssql
-    - meta: log_type
-      value: mssql_failed_auth
+    - meta: auth_status
+      value: failed
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
     - target: evt.StrTime

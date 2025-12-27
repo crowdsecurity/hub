@@ -2,7 +2,7 @@
 type: leaky
 name: schiz0phr3ne/prowlarr-bf
 description: "Detect Prowlarr bruteforce"
-filter: "evt.Meta.log_type in ['prowlarr_failed_authentication']"
+filter: "evt.Meta.service == 'prowlarr' && evt.Meta.auth_status == 'failed'"
 leakspeed: "15s"
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,11 +22,11 @@ labels:
 type: leaky
 name: schiz0phr3ne/prowlarr-bf_user-enum
 description: "Detect Prowlarr user enum bruteforce"
-filter: "evt.Meta.log_type in ['prowlarr_failed_authentication']"
+filter: "evt.Meta.service == 'prowlarr' && evt.Meta.auth_status == 'failed'"
 leakspeed: "30s"
 capacity: 5
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 blackhole: 1m
 reprocess: true
 labels:

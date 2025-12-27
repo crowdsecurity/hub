@@ -2,8 +2,8 @@
 type: conditional
 name: crowdsecurity/impossible-travel
 description: "Detect Impossible Travel"
-filter: "evt.Meta.log_type == 'auth_success' && evt.Meta.user not in ['', nil]"
-groupby: "evt.Meta.service + evt.Meta.user"
+filter: "evt.Meta.auth_status == 'success' && evt.Meta.target_user not in ['', nil]"
+groupby: "evt.Meta.service + evt.Meta.target_user"
 # To make it generic we concatenate the service name and the user
 capacity: -1
 condition: |

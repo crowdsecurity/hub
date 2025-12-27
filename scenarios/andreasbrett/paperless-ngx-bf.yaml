@@ -2,7 +2,7 @@
 type: leaky
 name: andreasbrett/paperless-ngx-bf
 description: "Detect Paperless-ngx bruteforce attacks"
-filter: "evt.Meta.log_type == 'paperless_ngx_failed_auth'"
+filter: "evt.Meta.service == 'paperless-ngx' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: andreasbrett/paperless-ngx-bf_user-enum
 description: "Detect Paperless-ngx user enum bruteforce"
-filter: "evt.Meta.log_type == 'paperless_ngx_failed_auth'"
+filter: "evt.Meta.service == 'paperless-ngx' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 5m

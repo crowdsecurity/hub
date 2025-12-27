@@ -29,11 +29,11 @@ results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["source_ip"] ==
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Parsed["timestamp8601"] == "2023-07-18T10:22:17+02:00"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["datasource_path"] == "jellyfin-syslog-logs.log"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["datasource_type"] == "file"
-results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["log_type"] == "jellyfin_failed_auth"
+results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["auth_status"] == "failed"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["machine"] == "subuina"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["service"] == "jellyfin"
 results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["source_ip"] == "127.0.0.1"
-results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["user"] == "testuser"
+results["s01-parse"]["LePresidente/jellyfin-logs"][0].Evt.Meta["target_user"] == "testuser"
 results["s01-parse"]["LePresidente/jellyfin-logs"][1].Success == false
 len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 1
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
@@ -44,10 +44,10 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[10:22:17] [INF] Authentication request for testuser has been denied (IP: 127.0.0.1)."
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["pid"] == "742"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "jellyfin"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "testuser"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "testuser"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "jellyfin-syslog-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "jellyfin_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["auth_status"] == "failed"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["machine"] == "subuina"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "jellyfin"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "127.0.0.1"

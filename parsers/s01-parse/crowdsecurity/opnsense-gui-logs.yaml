@@ -9,9 +9,9 @@ grok:
 statics:
   - meta: service
     value: opnsense-gui
-  - meta: username
+  - meta: target_user
     expression: "evt.Parsed.username"
   - meta: source_ip
     expression: evt.Parsed.source_ip
-  - meta: log_type
-    value: opnsense-gui-failed-auth
+  - meta: auth_status
+    value: failed

@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/pfsense-gui-bf
 description: "Detect bruteforce on pfsense web interface"
-filter: evt.Meta.log_type == 'pfsense-gui-failed-auth'
+filter: "evt.Meta.service == 'pfsense-gui' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

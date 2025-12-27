@@ -22,8 +22,10 @@ nodes:
       pattern: "%{PROFTPD_BAD_USER_PLESK}"
       apply_on: message
 statics:
-    - meta: log_type
-      value: ftp_failed_auth
+    - meta: service
+      value: proftpd
+    - meta: auth_status
+      value: failed
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
     - meta: target_user

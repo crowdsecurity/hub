@@ -13,13 +13,15 @@ nodes:
       pattern: '%{DATESTAMP:timestamp} %{WORD:zone}:%{IP:source_ip}\(%{INT:source_port}\):%{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname}:\[%{INT:pid}\]:FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
       apply_on: message
 statics:
-  - meta: log_type
-    value: pgsql_failed_auth
+  - meta: service
+    value: pgsql
+  - meta: auth_status
+    value: failed
   - meta: auth_method
     expression: "evt.Parsed.auth_method"
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
-  - meta: user
+  - meta: target_user
     expression: "evt.Parsed.pgsql_target_user"
   - meta: db
     expression: "evt.Parsed.pgsql_dbname"

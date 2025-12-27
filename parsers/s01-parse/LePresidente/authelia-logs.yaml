@@ -20,15 +20,15 @@ nodes:
       pattern: "%{WORD:auth_status} (1FA|Duo|TOTP|U2F) authentication attempt (made )?by user '%{AUTHELIA_USER:user}'" 
       expression: evt.Unmarshaled.authelia.msg
     statics:
-      - meta: log_type
-        expression: 'evt.Parsed.auth_status == "Unsuccessful" ? "auth_failed" : "auth_success"'
+      - meta: auth_status
+        expression: 'evt.Parsed.auth_status == "Unsuccessful" ? "failed" : "success"'
 
   - grok:
       pattern: "Error .* getting details for user with username input '%{AUTHELIA_USER:user}'.*" 
       expression: evt.Unmarshaled.authelia.msg
     statics:
-      - meta: log_type
-        value: auth_failed
+      - meta: auth_status
+        value: failed
 
   ## This section is a hack to allow all authelia logs to pass to next stage, if you set onsuccess next stage at root level all successful attempts will not be passed, so we could do some impossible trave sceanrios
   - filter: evt.Unmarshaled.authelia != nil
@@ -37,7 +37,7 @@ nodes:
       - meta: service
         value: authelia
 statics:
-    - meta: user
+    - meta: target_user
       expression: evt.Parsed.user
     - target: evt.StrTime
       expression: evt.Unmarshaled.authelia.time
