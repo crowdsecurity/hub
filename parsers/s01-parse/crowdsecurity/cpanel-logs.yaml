@@ -10,48 +10,48 @@ nodes:
       pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: brute force attempt \(user %{DATA}\) has locked out IP %{IP}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_attempt
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: 
       pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: brute force attempt \(user %{DATA:target_user}\) has locked out IP %{IP}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_log
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: 
       pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: invalid cpanel user %{DATA:target_user}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_log
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: 
       pattern: '%{CPANEL_HEADER} FAILED LOGIN cpaneld: %{DATA:target_user} login is not permitted to cpaneld'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_log
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: 
       pattern: '%{CPANEL_HEADER} FAILED LOGIN whostmgrd: login attempt to whm by a non-reseller/root'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_log
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: 
       pattern: '%{CPANEL_HEADER} FAILED LOGIN whostmgrd: user password incorrect'
       apply_on: message
       statics:
-        - meta: log_type
-          value: auth_bf_log
+        - meta: auth_status
+          value: failed
         - target: evt.StrTime
           expression: evt.Parsed.date
   - grok: # see https://docs.cpanel.net/knowledge-base/cpanel-product/the-cpanel-log-files/
@@ -73,5 +73,5 @@ statics:
     expression: "evt.Parsed.http_user_agent"
   - meta: http_status
     expression: "evt.Parsed.status"
-  - meta: username
+  - meta: target_user
     expression: "evt.Parsed.username"

@@ -16,8 +16,8 @@ nodes:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_AUTH:exim_auth} authenticator failed for %{EXIM_SOURCE}:(?:%{POSINT:source_port}:)? 535 Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
       apply_on: message
       statics:
-        - meta: log_type
-          value: exim_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: "JunkMail rejected - %{NOTSPACE} \[%{NO_END_BRACKET}\]:%{INT} is in an RBL: %{NO_DOUBLE_QUOTE:rbl_url}"'
       apply_on: message
@@ -26,8 +26,6 @@ nodes:
           value: spam-attempt
         - meta: rbl_url
           expression: evt.Parsed.rbl_url
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Email blocked by %{HOSTNAME:rbl_url}'
       apply_on: message
@@ -36,16 +34,12 @@ nodes:
           value: spam-attempt
         - meta: rbl_url
           expression: evt.Parsed.rbl_url
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: No Such User Here'
       apply_on: message
       statics:
-        - meta: log_type
-          value: exim_failed_auth
-        - meta: source_user
-          expression: evt.Parsed.source_user
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}temporarily rejected connection in "%{NO_DOUBLE_QUOTE:acl}" ACL: "Host is ratelimited \(%{NO_END_PAR:rate_limit}\)'
       apply_on: message
@@ -58,24 +52,18 @@ nodes:
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: Sender verify failed'
       apply_on: message
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
   - grok:
       pattern: '%{EXIM_OPT_DATE}%{EXIM_SOURCE_TLS}F=<%{EMAILADDRESS:source_user}> rejected RCPT <%{EMAILADDRESS:target_user}>: SMTP AUTH is required for message submission on port %{POSINT:target_port}'
       apply_on: message
       statics:
         - meta: log_type
           value: spam-attempt
-        - meta: source_user
-          expression: evt.Parsed.source_user
         - meta: target_port
           expression: evt.Parsed.target_port
 statics:
@@ -89,5 +77,5 @@ statics:
     expression: evt.Parsed.source_dns
   - meta: source_helo
     expression: evt.Parsed.source_helo
-  - meta: username
-    expression: evt.Parsed.target_user
+  - meta: target_user
+    expression: evt.Parsed.source_user

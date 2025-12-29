@@ -2,7 +2,7 @@
 type: leaky
 name: LearningSpot/dockge-bf
 description: "Detect Dockge Bruteforce"
-filter: evt.Meta.log_type == 'dockge_failed_auth'
+filter: "evt.Meta.service == 'dockge' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5
@@ -21,8 +21,8 @@ labels:
 type: leaky
 name: LearningSpot/dockge_bf_user_enum
 description: "Detect Dockge User Enumeration Bruteforce"
-filter: evt.Meta.log_type == 'dockge_failed_auth'
-distinct: evt.Meta.username
+filter: "evt.Meta.service == 'dockge' && evt.Meta.auth_status == 'failed'"
+distinct: evt.Meta.target_user
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5

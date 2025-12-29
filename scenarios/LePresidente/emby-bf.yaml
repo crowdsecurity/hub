@@ -2,7 +2,7 @@
 type: leaky
 name: LePresidente/emby-bf
 description: "Detect emby bruteforce"
-filter: "evt.Meta.log_type == 'emby_failed_auth'"
+filter: "evt.Meta.service == 'emby' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip

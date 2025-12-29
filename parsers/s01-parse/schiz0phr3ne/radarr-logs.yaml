@@ -20,11 +20,11 @@ nodes:
 statics:
     - meta: service
       value: radarr
+    - meta: auth_status
+      value: failed
     - meta: source_ip
       expression: "evt.Parsed.source_ip"
     - target: evt.StrTime
       expression: "evt.Parsed.timestamp"
-    - meta: username
+    - meta: target_user
       expression: evt.Parsed.username
-    - meta: log_type
-      value: radarr_failed_authentication

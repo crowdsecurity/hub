@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/mariadb-bf
 description: "Detect mariadb bruteforce"
-filter: evt.Meta.log_type == 'mariadb_failed_auth'
+filter: "evt.Meta.service == 'mariadb' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

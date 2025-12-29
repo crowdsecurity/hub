@@ -1,7 +1,7 @@
 # calibre-web BF scan
 name: Jgigantino31/calibre-web-bf
 description: "Detect calibre-web bruteforce"
-filter: "evt.Meta.log_type == 'calibre-web_failed_auth'"
+filter: "evt.Meta.service == 'calibre-web' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: Jgigantino31/calibre-web-bf_user-enum
 description: "Detect calibre-web user enum bruteforce"
-filter: "evt.Meta.log_type == 'calibre-web_failed_auth'"
+filter: "evt.Meta.service == 'calibre-web' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 1m

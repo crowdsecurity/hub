@@ -11,43 +11,43 @@ nodes:
       pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}.* user does not exist'
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from \[%{IP:remote_ip}\].* user does not exist' 
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt from %{IP:remote_ip}:%{NUMBER:remote_port}'
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt from \[%{IP:remote_ip}\]'
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: "^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}.* user's password is invalid"
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: "^%{GITEA_CUSTOMDATE:timestamp}.*?Failed authentication attempt for %{GITEA_CUSTOMUSER:username} from %{IP:remote_ip}:%{NUMBER:remote_port}.* (user|Email address) does not exist"
       apply_on: message
       statics:
-        - meta: log_type
-          value: gitea_failed_auth
+        - meta: auth_status
+          value: failed
 
 statics:
     - meta: service
       value: gitea
-    - meta: user
+    - meta: target_user
       expression: "evt.Parsed.username"
     - target: evt.StrTime
       expression: evt.Parsed.timestamp

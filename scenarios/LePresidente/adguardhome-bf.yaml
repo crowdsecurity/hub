@@ -2,7 +2,7 @@
 type: leaky
 name: LePresidente/adguardhome-bf
 description: "Detect AdGuardHome bruteforce attacks"
-filter: "evt.Meta.log_type == 'adguardhome_failed_auth'"
+filter: "evt.Meta.service == 'adguardhome' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip

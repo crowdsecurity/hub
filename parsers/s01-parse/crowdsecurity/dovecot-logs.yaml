@@ -20,9 +20,13 @@ nodes:
       pattern: "auth: passwd-file\\(%{DATA:dovecot_user},%{IP:dovecot_remote_ip}\\): (%{AUTH_FUNC:auth_func} failed: )?%{DATA:dovecot_login_message}$"
       apply_on: message
 statics:
+    - meta: service
+      value: dovecot
     - meta: log_type
       value: dovecot_logs
     - meta: source_ip
       expression: "evt.Parsed.dovecot_remote_ip"
-    - meta: dovecot_login_result
-      expression: "any(['Authentication failure', 'Password mismatch', 'password mismatch', 'auth failed', 'unknown user'], {evt.Parsed.dovecot_login_message contains #}) ? 'auth_failed' : ''"
+    - meta: auth_status
+      expression: "any(['Authentication failure', 'Password mismatch', 'password mismatch', 'auth failed', 'unknown user'], {evt.Parsed.dovecot_login_message contains #}) ? 'failed' : ''"
+    - meta: target_user
+      expression: "evt.Parsed.dovecot_user"

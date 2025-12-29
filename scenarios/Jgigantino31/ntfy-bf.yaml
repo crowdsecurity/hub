@@ -1,7 +1,7 @@
 # ntfy BF scan
 name: Jgigantino31/ntfy-bf
 description: "Detect ntfy bruteforce"
-filter: "evt.Meta.log_type == 'ntfy_failed_auth'"
+filter: "evt.Meta.service == 'ntfy' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip

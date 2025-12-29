@@ -4,9 +4,11 @@ filter: "evt.Parsed.Channel == 'Security' && evt.Parsed.EventID == '4625'"
 name: crowdsecurity/windows-auth
 description: "Parse windows authentication failure events (id 4625)"
 statics:
+    - meta: service
+      value: windows
     - meta: source_ip
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IpAddress']")
-    - meta: username
+    - meta: target_user
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetUserName']")
     - meta: status
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Status']")
@@ -14,5 +16,5 @@ statics:
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SubStatus']")
     - meta: logon_type
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonType']")
-    - meta: log_type
-      value: windows_failed_auth
+    - meta: auth_status
+      value: failed

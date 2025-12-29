@@ -12,11 +12,11 @@ statics:
 nodes:
   - filter: "evt.Unmarshaled.sftpgo.sender == 'login'"
     statics:
-      - meta: log_type
-        value: auth_success
+      - meta: auth_status
+        value: success
       - meta: source_ip
         expression: evt.Unmarshaled.sftpgo.ip
-      - meta: user
+      - meta: target_user
         expression: evt.Unmarshaled.sftpgo.username
       - meta: protocol
         expression: evt.Unmarshaled.sftpgo.protocol
@@ -27,16 +27,16 @@ nodes:
       expression: evt.Unmarshaled.sftpgo.message
       pattern: 'User "%{DATA:username}" logged in.* from ip "%{IP:source_ip}"'
     statics:
-      - meta: log_type
-        value: auth_success
+      - meta: auth_status
+        value: success
       - meta: source_ip
         expression: evt.Parsed.source_ip
-      - meta: user
+      - meta: target_user
         expression: evt.Parsed.username
   - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed'"
     statics:
-      - meta: log_type
-        value: sftpgo_auth
+      - meta: auth_status
+        value: failed
       - meta: source_ip
         expression: evt.Unmarshaled.sftpgo.client_ip
       - meta: target_user

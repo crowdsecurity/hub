@@ -10,15 +10,15 @@ nodes:
         pattern: '\[%{TIMESTAMP_ISO8601:timestamp}\] ERROR: %{ABS_FAILED_AUTH}'
         apply_on: message
       statics:
-        - meta: log_type
-          value: abs_failed_auth
+        - meta: auth_status
+          value: failed
     - filter: 'UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "abs") in ["", nil]'
       grok:
         pattern: "%{ABS_FAILED_AUTH}"
         expression: evt.Unmarshaled.abs.message
         statics:
-          - meta: log_type
-            value: abs_failed_auth
+          - meta: auth_status
+            value: failed
 statics:
     - meta: service
       value: audiobookshelf
@@ -27,5 +27,5 @@ statics:
     - target: evt.StrTime
       expression: 'evt.Parsed.timestamp != "" ? evt.Parsed.timestamp : evt.Unmarshaled.abs.timestamp'
     ## We check if the parser parsed the timestamp or if it within the json output
-    - meta: username
+    - meta: target_user
       expression: "evt.Parsed.username"

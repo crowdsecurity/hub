@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/opnsense-gui-bf
 description: "Detect bruteforce on opnsense web interface"
-filter: evt.Meta.log_type == 'opnsense-gui-failed-auth'
+filter: "evt.Meta.service == 'opnsense-gui' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip
