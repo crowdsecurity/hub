@@ -46,3 +46,17 @@ agent:
     - name: PARSERS
       value: "crowdsecurity/cri-logs yanis-kouidri/envoy-parser"
 ```
+
+### Test
+
+Validate:
+
+```bash
+sudo cscli hubtest run envoy
+```
+
+Get details:
+
+```bash
+sudo cscli hubtest explain envoy
+```
