@@ -1,0 +1,37 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/cri-logs"]) == 1
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Success == true
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["cri_timestamp"] == "2025-12-31T17:37:40.493035218+01:00"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["logsource"] == "cri"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["logtag"] == "F"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["message"] == "{\":authority\":\"www.kouidri.fr\",\"bytes_received\":0,\"bytes_sent\":121258,\"connection_termination_details\":null,\"downstream_local_address\":\"10.42.0.77:10443\",\"downstream_remote_address\":\"54.126.78.153:59292\",\"duration\":11,\"method\":\"GET\",\"protocol\":\"HTTP/2\",\"requested_server_name\":null,\"response_code\":200,\"response_code_details\":\"via_upstream\",\"response_flags\":\"-\",\"route_name\":\"httproute/portfolio/portfolio-www-kouidri-fr/rule/0/match/0/www_kouidri_fr\",\"start_time\":\"2025-12-31T16:37:40.479Z\",\"upstream_cluster\":\"httproute/portfolio/portfolio-www-kouidri-fr/rule/0\",\"upstream_host\":\"10.42.0.82:8080\",\"upstream_local_address\":\"10.42.0.77:51216\",\"upstream_transport_failure_reason\":null,\"user-agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0\",\"x-envoy-origin-path\":\"/assets/php-DTl1C1sr.webp\",\"x-envoy-upstream-service-time\":null,\"x-forwarded-for\":\"54.126.78.153\",\"x-request-id\":\"3bbc0252-2f5c-49fe-bd35-104e9b61770b\"}"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["program"] == "envoy"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Parsed["stream"] == "stdout"
+basename(results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Meta["datasource_path"]) == "envoy.log"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/cri-logs"][0].Evt.Whitelisted == false
+len(results["s01-parse"]["yanis-kouidri/envoy-parser"]) == 1
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Success == true
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["cri_timestamp"] == "2025-12-31T17:37:40.493035218+01:00"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["http_status"] == "200"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["logsource"] == "cri"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["logtag"] == "F"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["message"] == "{\":authority\":\"www.kouidri.fr\",\"bytes_received\":0,\"bytes_sent\":121258,\"connection_termination_details\":null,\"downstream_local_address\":\"10.42.0.77:10443\",\"downstream_remote_address\":\"54.126.78.153:59292\",\"duration\":11,\"method\":\"GET\",\"protocol\":\"HTTP/2\",\"requested_server_name\":null,\"response_code\":200,\"response_code_details\":\"via_upstream\",\"response_flags\":\"-\",\"route_name\":\"httproute/portfolio/portfolio-www-kouidri-fr/rule/0/match/0/www_kouidri_fr\",\"start_time\":\"2025-12-31T16:37:40.479Z\",\"upstream_cluster\":\"httproute/portfolio/portfolio-www-kouidri-fr/rule/0\",\"upstream_host\":\"10.42.0.82:8080\",\"upstream_local_address\":\"10.42.0.77:51216\",\"upstream_transport_failure_reason\":null,\"user-agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0\",\"x-envoy-origin-path\":\"/assets/php-DTl1C1sr.webp\",\"x-envoy-upstream-service-time\":null,\"x-forwarded-for\":\"54.126.78.153\",\"x-request-id\":\"3bbc0252-2f5c-49fe-bd35-104e9b61770b\"}"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["program"] == "envoy"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["raw_remote_addr"] == "54.126.78.153:59292"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["remote_addr"] == "54.126.78.153"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["request"] == "/assets/php-DTl1C1sr.webp"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["stream"] == "stdout"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["target_fqdn"] == "www.kouidri.fr"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["datasource_path"]) == "envoy.log"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["http_path"] == "/assets/php-DTl1C1sr.webp"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["http_status"] == "200"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["service"] == "http"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Meta["source_ip"] == "54.126.78.153"
+results["s01-parse"]["yanis-kouidri/envoy-parser"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0
