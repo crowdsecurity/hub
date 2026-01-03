@@ -1,0 +1,94 @@
+name: crowdsecurity/supavisor-logs
+description: "Parse Supavisor connection pooler logs for authentication failures"
+filter: "evt.Parsed.program == 'supavisor'"
+onsuccess: next_stage
+debug: false
+
+# Supavisor uses Elixir Logger format with metadata
+# Real log example:
+# 18:38:17.778 project=dev_tenant user=postgres region=local mode=transaction type=single app_name=psql peer_ip=123.123.123.123 [error] ClientHandler: Exchange error: "Wrong password" when method :auth_query
+pattern_syntax:
+  SUPAVISOR_TS: '%{TIME:timestamp}\.%{INT:timestamp_ms}'
+  SUPAVISOR_LEVEL: '\[%{WORD:log_level}\]'
+  SUPAVISOR_META_FULL: 'project=%{DATA:project}\s+user=%{DATA:db_user}\s+region=%{DATA:region}\s+mode=%{DATA:pool_mode}\s+type=%{DATA:pool_type}\s+app_name=%{DATA:app_name}\s+peer_ip=%{IP:source_ip}'
+  SUPAVISOR_META_PARTIAL: 'region=%{DATA:region}'
+
+nodes:
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Exchange error:\s+"Wrong password"%{GREEDYDATA}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: supavisor_auth_fail
+      - meta: service
+        value: supavisor
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Tenant is not allowed to connect without SSL%{GREEDYDATA}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: supavisor_ssl_required
+      - meta: service
+        value: supavisor
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Exchange error:%{GREEDYDATA:error_detail}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: supavisor_auth_fail
+      - meta: service
+        value: supavisor
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_FULL}\s+%{SUPAVISOR_LEVEL}\s+%{GREEDYDATA:error_message}'
+      apply_on: message
+    filter: "evt.Parsed.log_level == 'error'"
+    statics:
+      - meta: log_type
+        value: supavisor_error_with_ip
+      - meta: service
+        value: supavisor
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_PARTIAL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+Client startup message error:\s+:bad_startup_payload'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: supavisor_bad_startup
+      - meta: service
+        value: supavisor
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+  - grok:
+      pattern: '%{SUPAVISOR_TS}\s+%{SUPAVISOR_META_PARTIAL}\s+%{SUPAVISOR_LEVEL}\s+ClientHandler:\s+User not found:%{GREEDYDATA:enum_detail}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: supavisor_user_not_found
+      - meta: service
+        value: supavisor
+      - target: evt.StrTime
+        expression: evt.Parsed.timestamp
+
+statics:
+  - meta: service
+    value: supavisor
