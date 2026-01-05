@@ -8,14 +8,14 @@ nodes:
       pattern: '^%{EXIM_DATE:timestamp}.*Failed login attempt\. %{IP:source_ip}.*$'
       apply_on: message
       statics:
-        - meta: log_type
-          value: bitwarden_failed_auth
+        - meta: auth_status
+          value: failed
   - grok:
       pattern: '^%{EXIM_DATE:timestamp}.*Failed login attempt\, 2FA invalid\. %{IP:source_ip}.*$'
       apply_on: message
       statics:
-        - meta: log_type
-          value: bitwarden_failed_auth
+        - meta: auth_status
+          value: failed
 
 statics:
     - meta: service

@@ -2,7 +2,7 @@
 type: leaky
 name: Dominic-Wagner/vaultwarden-bf
 description: "Detect vaultwarden bruteforce"
-filter: "evt.Meta.log_type in ['vaultwarden_failed_auth', 'vaultwarden_failed_admin_auth', 'vaultwarden_failed_2fa_totp', 'vaultwarden_failed_2fa_email']"
+filter: "evt.Meta.service == 'vaultwarden' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: Dominic-Wagner/vaultwarden-bf_user-enum
 description: "Detect vaultwarden user enum bruteforce"
-filter: evt.Meta.log_type == 'vaultwarden_failed_auth'
+filter: "evt.Meta.service == 'vaultwarden' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 5m

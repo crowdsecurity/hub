@@ -1,7 +1,7 @@
 # overseerr BF scan
 name: LePresidente/overseerr-bf
 description: "Detect overseerr bruteforce"
-filter: "evt.Meta.log_type == 'overseerr_failed_auth'"
+filter: "evt.Meta.service == 'overseerr' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: LePresidente/overseerr-bf_user-enum
 description: "Detect overseerr user enum bruteforce"
-filter: "evt.Meta.log_type == 'overseerr_failed_auth'"
+filter: "evt.Meta.service == 'overseerr' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 1m

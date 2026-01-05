@@ -12,8 +12,8 @@ nodes:
       pattern: '\[%{APACHEERRORTIME:timestamp}\] \[php:%{WORD:log_level}\] \[pid %{INT:pid}\] \[client %{IPORHOST:remote_addr}(:%{INT:remote_port})?\] Failed login for %{BOOKSTACK_USER:target_user}(, referer: %{GREEDYDATA:http_referer})?'
       apply_on: message
 statics:
-    - meta: log_type
-      value: bookstack_failed_auth
+    - meta: auth_status
+      value: failed
     - meta: target_user
       expression: evt.Parsed.target_user
     - meta: service

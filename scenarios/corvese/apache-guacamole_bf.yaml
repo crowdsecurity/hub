@@ -1,7 +1,7 @@
 type: leaky
 name: corvese/apache-guacamole_bf
 description: "Detect Apache Guacamole user bruteforce"
-filter: evt.Meta.log_type == 'apache-guacamole_failed_auth'
+filter: "evt.Meta.service == 'apache-guacamole' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 leakspeed: 10s
 capacity: 5

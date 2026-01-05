@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/pgsql-bf
 description: "Detect PgSQL bruteforce"
-filter: evt.Meta.log_type == 'pgsql_failed_auth'
+filter: "evt.Meta.service == 'pgsql' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

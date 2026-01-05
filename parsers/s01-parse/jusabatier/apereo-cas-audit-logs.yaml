@@ -16,8 +16,8 @@ nodes:
       name: "CAS_AUTH_FAIL"
       apply_on: message
       statics:
-        - meta: log_type
-          value: cas_failed-auth
+        - meta: auth_status
+          value: failed
         - meta: target_user
           expression: "evt.Parsed.cas_invalid_user"
         - target: evt.StrTime

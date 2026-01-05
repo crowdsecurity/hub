@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/smb-bf
 description: "Detect smb bruteforce"
-filter: evt.Meta.log_type == 'smb_failed_auth'
+filter: "evt.Meta.service == 'smb' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

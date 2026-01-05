@@ -2,7 +2,7 @@
 type: leaky
 name: andreasbrett/baikal-bf
 description: "Detect Baikal bruteforce attacks"
-filter: "evt.Meta.log_type in ['baikal_failed_auth', 'baikal_failed_auth_no_user']"
+filter: "evt.Meta.service == 'baikal' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: andreasbrett/baikal-bf_user-enum
 description: "Detect Baikal user enum bruteforce"
-filter: "evt.Meta.log_type == 'baikal_failed_auth'"
+filter: "evt.Meta.service == 'baikal' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.username
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 5m

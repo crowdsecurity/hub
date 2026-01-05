@@ -3,7 +3,7 @@ type: leaky
 #debug: true
 name: crowdsecurity/mysql-bf
 description: "Detect mysql bruteforce"
-filter: evt.Meta.log_type == 'mysql_failed_auth'
+filter: "evt.Meta.service == 'mysql' && evt.Meta.auth_status == 'failed'"
 leakspeed: "10s"
 capacity: 5
 groupby: evt.Meta.source_ip

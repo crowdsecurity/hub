@@ -1,7 +1,7 @@
 # jellyfin BF scan
 name: LePresidente/jellyfin-bf
 description: "Detect jellyfin bruteforce"
-filter: "evt.Meta.log_type == 'jellyfin_failed_auth'"
+filter: "evt.Meta.service == 'jellyfin' && evt.Meta.auth_status == 'failed'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
@@ -22,9 +22,9 @@ labels:
 type: leaky
 name: LePresidente/jellyfin-bf_user-enum
 description: "Detect jellyfin user enum bruteforce"
-filter: "evt.Meta.log_type == 'jellyfin_failed_auth'"
+filter: "evt.Meta.service == 'jellyfin' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 1m
 capacity: 5
 blackhole: 1m

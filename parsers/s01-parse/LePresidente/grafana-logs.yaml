@@ -20,14 +20,14 @@ nodes:
       pattern: "%{GRAFANA_AUTH_WORD:auth_status}( username or password)?" 
       expression: evt.Unmarshaled.grafana.msg
     statics:
-      - meta: log_type
-        expression: 'evt.Parsed.auth_status == "Unauthorized" || evt.Parsed.auth_status == "Invalid"  ? "auth_failed" : "auth_success"'
+      - meta: auth_status
+        expression: 'evt.Parsed.auth_status == "Unauthorized" || evt.Parsed.auth_status == "Invalid"  ? "failed" : "success"'
   
-  ## We filter to see if we have a log_type set from above, if not we detect if new log format
-  - filter: evt.Meta.log_type == ''
+  ## We filter to see if we have a auth_status set from above, if not we detect if new log format
+  - filter: evt.Meta.auth_status == ''
     statics:
-      - meta: log_type
-        expression: 'evt.Unmarshaled.grafana.errorMessageID == "password-auth.failed" && evt.Unmarshaled.grafana.errorReason in ["Unauthorized", "Invalid"] ? "auth_failed" : "auth_success"'
+      - meta: auth_status
+        expression: 'evt.Unmarshaled.grafana.errorMessageID == "password-auth.failed" && evt.Unmarshaled.grafana.errorReason in ["Unauthorized", "Invalid"] ? "failed" : "success"'
 
   ## This section is a hack to allow all grafana logs to pass to next stage, if you set onsuccess next stage at root level all successful attempts will not be passed, so we could do some impossible trave sceanrios
   - filter: evt.Unmarshaled.grafana != nil

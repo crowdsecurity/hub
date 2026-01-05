@@ -12,11 +12,13 @@ nodes:
       pattern: "%{TIMESTAMP_ISO8601:time}.*%{NUMBER} Connect.*%{MYSQL_ACCESS_DENIED}"
       apply_on: message
 statics:
-  - meta: log_type
-    value: mysql_failed_auth
+  - meta: service
+    value: mysql
+  - meta: auth_status
+    value: failed
   - meta: source_ip
     expression: "evt.Parsed.source_ip"
   - target: evt.StrTime
     expression: evt.Parsed.time
-  - meta: user
+  - meta: target_user
     expression: "evt.Parsed.user"

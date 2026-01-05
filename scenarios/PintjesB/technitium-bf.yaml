@@ -2,7 +2,7 @@
 type: leaky
 name: PintjesB/technitium-bf
 description: "Detect Technitium bruteforce attacks"
-filter: "evt.Meta.log_type == 'technitium_failed_auth'"
+filter: "evt.Meta.service == 'technitium' && evt.Meta.auth_status == 'failed'"
 leakspeed: 1m
 capacity: 5
 groupby: evt.Meta.source_ip

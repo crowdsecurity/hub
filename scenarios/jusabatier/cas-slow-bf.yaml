@@ -2,7 +2,7 @@
 type: leaky
 name: jusabatier/apereo-cas-slow-bf
 description: "Detect slow CAS bruteforce"
-filter: "evt.Meta.log_type == 'cas_failed-auth'"
+filter: "evt.Meta.service == 'cas' && evt.Meta.auth_status == 'failed'"
 leakspeed: "60s"
 references:
   - http://wikipedia.com/cas-bf-is-bad
@@ -25,7 +25,7 @@ labels:
 type: leaky
 name: jusabatier/apereo-cas-slow-bf_user-enum
 description: "Detect slow CAS user enum bruteforce"
-filter: evt.Meta.log_type == 'cas_failed-auth'
+filter: "evt.Meta.service == 'cas' && evt.Meta.auth_status == 'failed'"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 leakspeed: 60s
