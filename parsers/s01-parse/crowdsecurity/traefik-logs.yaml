@@ -5,7 +5,7 @@ filter: "evt.Parsed.program startsWith 'traefik'"
 #debug: true
 onsuccess: next_stage
 pattern_syntax:
-  TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
+  TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}( -> %{USER}@%{URIHOST})*|\-)'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
   NUMBER_MINUS: '[0-9-]+'
   NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
