@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 6
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "172.17.0.1 - - [08/Dec/2021:09:16:05 +0000] \"GET /scripts/cpshost.dll HTTP/1.1\" 200 414 \"-\" \"-\" 500 \"test@docker\" \"http://172.17.0.3:80\" 0ms"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "traefik"
@@ -25,13 +25,14 @@ results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "172.
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "traefik"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] == "traefik_clf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 6
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
-len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 5
+results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
+len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 6
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["http_user_agent"] == "-"
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["number_of_requests_received_since_traefik_started"] == "500"
@@ -171,7 +172,35 @@ results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Meta["http_status"] ==
 results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Meta["traefik_router_name"] == "-"
 results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Meta["user"] == "-"
 results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Meta["datasource_path"] == "traefik_clf.log"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Success == true
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["http_user_agent"] == "Nikto"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["number_of_requests_received_since_traefik_started"] == "244"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["port"] == "80"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["time_local"] == "24/Nov/2024:13:38:04 +0000"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["body_bytes_sent"] == "352"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["request_duration_in_ms"] == "42"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["status"] == "200"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["traefik_server_url"] == "http://172.17.0.3:80"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["request"] == "/birthday"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["traefik_router_name"] == "test@docker -> leaf@docker"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["verb"] == "GET"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["http_version"] == "2"
+results["s01-parse"]["crowdsecurity/traefik-logs"][5].Evt.Parsed["message"] == "172.17.1.2 - - [24/Nov/2024:13:38:04 +0000] \"GET /birthday HTTP/2\" 200 352 \"-\" \"Nikto\" 244 \"test@docker -> leaf@docker\" \"http://172.17.0.3:80\" 42ms"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["program"] == "traefik"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["remote_addr"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["http_referer"] == "-"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["remote_user"] == "-"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["http_path"] == "/scripts/cpshost.dll"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["source_ip"] == "172.17.0.1"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["traefik_router_name"] == "test@docker"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["user"] == "-"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["datasource_path"] == "traefik_clf.log"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["http_status"] == "200"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Meta["service"] == "http"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 6
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_version"] == "1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["status"] == "200"
@@ -321,7 +350,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["http_status
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "http"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "172.17.1.1"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2022-09-28T13:38:04Z"
-len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 5
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 6
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["body_bytes_sent"] == "414"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["http_referer"] == "-"
