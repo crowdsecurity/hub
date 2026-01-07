@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/MariuszKociubinski/bitwarden-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/bitwarden-slow-bf.yaml
+# we put this one on purpose : we want only to trigger the slow-bf
+- ./scenarios/MariuszKociubinski/bitwarden-bf.yaml
+postoverflows:
+- ""
+log_file: bitwarden-slow-bf.log
+log_type: bitwarden
+labels: {}
+ignore_parsers: true
+override_statics: []
+
