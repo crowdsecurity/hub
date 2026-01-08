@@ -87,7 +87,7 @@ statics:
   - target: evt.StrTime
     expression: "evt.Parsed.time_local"
   - meta: traefik_router_name_root
-    expression: "evt.Parsed.traefik_router_name_root != '' ? evt.Parsed.traefik_router_name_root : (evt.Parsed.traefik_router_leaf != '' ? evt.Parsed.traefik_router_name : '')"
+    expression: "evt.Parsed.traefik_router_leaf != '' ? evt.Parsed.traefik_router_name_root : ''"
   - meta: traefik_router_name_intermediate
     expression: "evt.Parsed.traefik_router_intermediate"
   - meta: traefik_router_name_leaf
