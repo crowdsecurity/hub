@@ -5,17 +5,34 @@ filter: "evt.Parsed.program startsWith 'traefik'"
 #debug: true
 onsuccess: next_stage
 pattern_syntax:
-  TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}( -> %{USER}@%{URIHOST})*|\-)'
+  TRAEFIK_ROUTER: '%{USER}@%{URIHOST}'
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
   NUMBER_MINUS: '[0-9-]+'
   NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
   NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGCUSTOMUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
 nodes:
   - grok: # CLF parser
-      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
+      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{TRAEFIK_ROUTER:traefik_router_name}( -> %{DATA:traefik_router_chain})?" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
       apply_on: message
+    nodes:
+      - grok:
+          ## For CLF: parse intermediate routers (if any) and final leaf router
+          pattern: '^(?:%{DATA:traefik_router_intermediate} -> )?%{TRAEFIK_ROUTER:traefik_router_leaf}$'
+          expression: evt.Parsed.traefik_router_chain
+    statics:
+      - parsed: traefik_router_name_root
+        ## For CLF: first router is the root (if chain exists)
+        expression: "evt.Parsed.traefik_router_chain != '' ? evt.Parsed.traefik_router_name : ''"
+      - parsed: traefik_router_name_full
+        ## For CLF: rebuild full router chain for consistency with JSON
+        expression: "evt.Parsed.traefik_router_chain != '' ? evt.Parsed.traefik_router_name + ' -> ' + evt.Parsed.traefik_router_chain : evt.Parsed.traefik_router_name"
 # We must use evt.Parsed.message to make sure we respect s00 stage
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "traefik") in ["", nil]
+    nodes:
+      - grok:
+          ## For JSON: parse root, intermediate (if any), and leaf routers from full RouterName
+          pattern: '^%{TRAEFIK_ROUTER:traefik_router_name_root}(?: -> (?:%{DATA:traefik_router_intermediate} -> )?%{TRAEFIK_ROUTER:traefik_router_leaf})?$'
+          expression: evt.Unmarshaled.traefik.RouterName
     statics:
       - parsed: remote_addr
         expression: evt.Unmarshaled.traefik.ClientHost
@@ -35,6 +52,9 @@ nodes:
       - parsed: request_duration_in_ms
         expression: int(evt.Unmarshaled.traefik.Duration)
       - parsed: traefik_router_name
+        expression: evt.Unmarshaled.traefik.RouterName
+      - parsed: traefik_router_name_full
+        ## For JSON: store full router chain (same as RouterName, for consistency with CLF)
         expression: evt.Unmarshaled.traefik.RouterName
       - parsed: time_local
         expression: evt.Unmarshaled.traefik.time
@@ -66,7 +86,14 @@ statics:
     value: http_access-log
   - target: evt.StrTime
     expression: "evt.Parsed.time_local"
+  - meta: traefik_router_name_root
+    expression: "evt.Parsed.traefik_router_name_root != '' ? evt.Parsed.traefik_router_name_root : (evt.Parsed.traefik_router_leaf != '' ? evt.Parsed.traefik_router_name : '')"
+  - meta: traefik_router_name_intermediate
+    expression: "evt.Parsed.traefik_router_intermediate"
+  - meta: traefik_router_name_leaf
+    expression: "evt.Parsed.traefik_router_leaf"
   - meta: traefik_router_name
-    expression: "evt.Parsed.traefik_router_name"
+    ## Full router chain (consistent for both CLF and JSON)
+    expression: "evt.Parsed.traefik_router_name_full"
   - meta: http_verb
     expression: "evt.Parsed.verb"
