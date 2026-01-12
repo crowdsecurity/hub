@@ -1,6 +1,6 @@
 filter: "evt.Parsed.program == 'envoy'"
 onsuccess: next_stage
-name: yanis-kouidri/envoy-parser
+name: yanis-kouidri/envoy-logs
 description: envoy json logs parser
 nodes:
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "envoy") in ["", nil]
