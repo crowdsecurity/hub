@@ -6,7 +6,7 @@ nodes:
   # Default Envoy access log format:
   # https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage
   - grok:
-      pattern: '\\[%{DATA:time}\\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{DATA:response_flags} %{NUMBER:bytes_received} %{NUMBER:bytes_sent} %{NUMBER:duration} %{NUMBER:upstream_service_time} "%{DATA:x_forwarded_for}" "%{DATA:http_user_agent}" "%{DATA:request_id}" "%{DATA:target_fqdn}" "%{DATA:upstream_host}"'
+      pattern: '\[%{DATA:time}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{DATA:response_flags} %{DATA:bytes_received} %{DATA:bytes_sent} %{DATA:duration} %{DATA:upstream_service_time} "%{DATA:x_forwarded_for}" "%{DATA:http_user_agent}" "%{DATA:request_id}" "%{DATA:target_fqdn}" "%{DATA:upstream_host}"'
       apply_on: message
     statics:
       - parsed: raw_remote_addr
