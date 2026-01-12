@@ -19,7 +19,7 @@ Example Log (CRI/JSON)
 - `http_verb`: HTTP method (GET, POST, etc.).
 - `http_status`: Response code.
 - `target_fqdn`: Target domain.
-- `user_agent`: Client identifier.
+- `http_user_agent`: Client identifier.
 
 ### Dependencies
 
@@ -52,11 +52,11 @@ agent:
 Validate:
 
 ```bash
-sudo cscli hubtest run envoy
+sudo cscli hubtest run envoy-logs
 ```
 
 Get details:
 
 ```bash
-sudo cscli hubtest explain envoy
+sudo cscli hubtest explain envoy-logs
 ```
