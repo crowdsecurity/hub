@@ -13,8 +13,6 @@ nodes:
         expression: evt.Parsed.x_forwarded_for
       - parsed: remote_addr
         expression: "evt.Parsed.x_forwarded_for != nil ? Split(evt.Parsed.x_forwarded_for, ',')[0] : nil"
-      - parsed: status
-        expression: int(evt.Parsed.status)
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "envoy") in ["", nil]
     statics:
       - parsed: time
