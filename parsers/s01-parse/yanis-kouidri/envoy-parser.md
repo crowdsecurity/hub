@@ -4,7 +4,7 @@
 
 This parser decodes [Envoy Gateway](https://gateway.envoyproxy.io/) logs formatted as JSON and encapsulated in CRI (standard for Kubernetes/containerd). It extracts HTTP metadata and forwards the event to crowdsecurity/http-logs and other enrichment parsers.
 
-Then it can proceed by http scenarios like the ones in `base-http-scenarios` collection.
+Then it can proceed by http scenarios like the ones in the Envoy collection.
 
 Example Log (CRI/JSON)
 
@@ -42,9 +42,7 @@ agent:
 
   env:
     - name: COLLECTIONS
-      value: "crowdsecurity/base-http-scenarios"
-    - name: PARSERS
-      value: "crowdsecurity/cri-logs yanis-kouidri/envoy-parser"
+      value: "yanis-kouidri/envoy"
 ```
 
 ### Test
