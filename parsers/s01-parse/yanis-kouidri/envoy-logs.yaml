@@ -1,11 +1,23 @@
 filter: "evt.Parsed.program == 'envoy'"
 onsuccess: next_stage
 name: yanis-kouidri/envoy-logs
-description: envoy json logs parser
+description: envoy access logs parser
 nodes:
+  # Default Envoy access log format:
+  # https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage
+  - grok:
+      pattern: '\\[%{DATA:time}\\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{DATA:response_flags} %{NUMBER:bytes_received} %{NUMBER:bytes_sent} %{NUMBER:duration} %{NUMBER:upstream_service_time} "%{DATA:x_forwarded_for}" "%{DATA:http_user_agent}" "%{DATA:request_id}" "%{DATA:target_fqdn}" "%{DATA:upstream_host}"'
+      apply_on: message
+    statics:
+      - parsed: raw_remote_addr
+        expression: evt.Parsed.x_forwarded_for
+      - parsed: remote_addr
+        expression: "evt.Parsed.x_forwarded_for != nil ? Split(evt.Parsed.x_forwarded_for, ',')[0] : nil"
+      - parsed: status
+        expression: int(evt.Parsed.status)
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "envoy") in ["", nil]
     statics:
-      - target: evt.StrTime
+      - parsed: time
         expression: evt.Unmarshaled.envoy.start_time
       - parsed: raw_remote_addr
         expression: evt.Unmarshaled.envoy.downstream_remote_address
@@ -22,6 +34,8 @@ nodes:
       - parsed: target_fqdn
         expression: evt.Unmarshaled.envoy[":authority"]
 statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.time
   - meta: service
     value: http
   - meta: log_type

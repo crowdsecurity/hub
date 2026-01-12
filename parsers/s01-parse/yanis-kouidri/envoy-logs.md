@@ -2,7 +2,7 @@
 
 ## Description
 
-This parser decodes [Envoy Gateway](https://gateway.envoyproxy.io/) logs formatted as JSON and encapsulated in CRI (standard for Kubernetes/containerd). It extracts HTTP metadata and forwards the event to crowdsecurity/http-logs and other enrichment parsers.
+This parser decodes [Envoy Gateway](https://gateway.envoyproxy.io/) logs in the default access log format and JSON (when encapsulated in CRI for Kubernetes/containerd). It extracts HTTP metadata and forwards the event to crowdsecurity/http-logs and other enrichment parsers.
 
 Then it can proceed by http scenarios like the ones in the Envoy collection.
 

@@ -1,7 +1,7 @@
 ## Envoy collection
 
 A collection to defend Envoy Gateway against common attacks:
- - Envoy JSON parser (CRI/containerd)
+ - Envoy default access log format and JSON parser (CRI/containerd)
  - base http scenarios (crawl, 404 scan, bf)
 
 ## Acquisition template
