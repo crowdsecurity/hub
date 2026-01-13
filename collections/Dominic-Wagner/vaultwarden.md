@@ -19,7 +19,7 @@ If running via systemd:
 ---
 source: journalctl
 journalctl_filter:
-  - "SYSLOG_IDENTIFER=Vaultwarden"
+  - "SYSLOG_IDENTIFIER=vaultwarden"
 labels:
   type: syslog
 ```
