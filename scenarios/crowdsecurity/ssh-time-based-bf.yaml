@@ -9,7 +9,7 @@ cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
     let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
     len(failedAuths) >= 3 &&
-    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("5m")
+    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("10m")
 leakspeed: 2h
 blackhole: 5m
 reprocess: true
@@ -21,7 +21,7 @@ labels:
   classification:
     - attack.T1110
   label: "SSH Time-Based Bruteforce"
-  remediation: true
+  remediation: false
 ---
 # ssh user-enum time-based with false positive reduction
 type: conditional
@@ -35,7 +35,7 @@ cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
     let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
     len(failedAuths) >= 3 &&
-    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("5m")
+    MedianInterval(map(failedAuths[-3:], {#.Time})) > duration("10m")
 leakspeed: 2h
 blackhole: 5m
 reprocess: true
@@ -48,5 +48,4 @@ labels:
     - attack.T1589
     - attack.T1110
   label: "SSH Time-Based User Enumeration"
-  remediation: true
-
+  remediation: false
