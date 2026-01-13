@@ -23,3 +23,5 @@ whitelist:
    - evt.Meta.http_status == '304' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/avatar' #When loading avatars in Nextcloud Talk, the request may return a 304 Not Modified if the avatar has not changed
    - evt.Meta.http_status == '400' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/mail/api/messages' #When loading mail messages, the request may return a 400 Bad Request
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path contains '/apps/richdocumentscode/proxy.php' && evt.Parsed.http_args contains 'req=' #Collabora/richdocumentscode uses proxy.php to access resources, some may 404 if missing
+    - evt.Meta.http_status == '401' && evt.Meta.http_verb == 'PROPFIND' && evt.Meta.http_path == '/remote.php/dav/' && evt.Parsed.http_user_agent contains 'Evolution' #GNOME Online Account triggers crowdsecurity/http-generic-bf (#1615)
+    - evt.Meta.http_status == '401' && evt.Meta.http_verb == 'OPTIONS' && evt.Meta.http_path == '/remote.php/webdav/' && evt.Parsed.http_user_agent contains 'gnome-online-accounts' #GNOME Online Account triggers crowdsecurity/http-generic-bf (#1615)
