@@ -1,0 +1,52 @@
+filter: "evt.Parsed.program == 'envoy'"
+onsuccess: next_stage
+name: yanis-kouidri/envoy-logs
+description: envoy access logs parser
+nodes:
+  # Default Envoy access log format:
+  # https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage
+  - grok:
+      pattern: '\[%{DATA:time}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{DATA:response_flags} %{DATA:bytes_received} %{DATA:bytes_sent} %{DATA:duration} %{DATA:upstream_service_time} "%{DATA:x_forwarded_for}" "%{DATA:http_user_agent}" "%{DATA:request_id}" "%{DATA:target_fqdn}" "%{DATA:upstream_host}"'
+      apply_on: message
+    statics:
+      - parsed: raw_remote_addr
+        expression: evt.Parsed.x_forwarded_for
+      - parsed: remote_addr
+        expression: "evt.Parsed.x_forwarded_for != nil ? Split(evt.Parsed.x_forwarded_for, ',')[0] : nil"
+  - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "envoy") in ["", nil]
+    statics:
+      - parsed: time
+        expression: evt.Unmarshaled.envoy.start_time
+      - parsed: raw_remote_addr
+        expression: evt.Unmarshaled.envoy.downstream_remote_address
+      - parsed: remote_addr
+        expression: "evt.Unmarshaled.envoy.downstream_remote_address != nil ? Split(evt.Unmarshaled.envoy.downstream_remote_address, ':')[0] : nil"
+      - parsed: request
+        expression: evt.Unmarshaled.envoy["x-envoy-origin-path"]
+      - parsed: verb
+        expression: evt.Unmarshaled.envoy.method
+      - parsed: status
+        expression: "evt.Unmarshaled.envoy.response_code != nil ? int(evt.Unmarshaled.envoy.response_code) : nil"
+      - parsed: http_user_agent
+        expression: evt.Unmarshaled.envoy["user-agent"]
+      - parsed: target_fqdn
+        expression: evt.Unmarshaled.envoy[":authority"]
+statics:
+  - target: evt.StrTime
+    expression: evt.Parsed.time
+  - meta: service
+    value: http
+  - meta: log_type
+    value: http_access-log
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: http_path
+    expression: "evt.Parsed.request"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
+  - meta: http_status
+    expression: "evt.Parsed.status"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: target_fqdn
+    expression: "evt.Parsed.target_fqdn"
