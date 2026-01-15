@@ -23,9 +23,15 @@ nodes:
   ## JSON parser - extract fields and store full router chain in traefik_router_name (backwards compatible)
   # We must use evt.Parsed.message to make sure we respect s00 stage
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "traefik") in ["", nil]
+    onsuccess: next_stage
     nodes:
+      - filter: evt.Unmarshaled.traefik.RouterName == nil
+        statics:
+          - parsed: traefik_router_name
+            value: "-"
       ## Parse root, intermediate (if any), and leaf routers from full router chain
-      - grok:
+      - filter: evt.Unmarshaled.traefik.RouterName != nil
+        grok:
           pattern: '^%{TRAEFIK_ROUTER:traefik_router_name_root}(?: -> (?:%{DATA:traefik_router_intermediate} -> )?%{TRAEFIK_ROUTER:traefik_router_leaf})?$'
           expression: evt.Unmarshaled.traefik.RouterName
     statics:
@@ -48,7 +54,7 @@ nodes:
         expression: int(evt.Unmarshaled.traefik.Duration)
       - parsed: traefik_router_name
         ## Full router chain (backwards compatible)
-        expression: evt.Unmarshaled.traefik.RouterName
+        expression: "evt.Unmarshaled.traefik.RouterName != nil ? evt.Unmarshaled.traefik.RouterName : ''"
       - parsed: time_local
         expression: evt.Unmarshaled.traefik.time
       - parsed: verb
