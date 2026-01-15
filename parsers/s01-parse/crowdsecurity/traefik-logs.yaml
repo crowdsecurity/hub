@@ -48,7 +48,7 @@ nodes:
         expression: int(evt.Unmarshaled.traefik.Duration)
       - parsed: traefik_router_name
         ## Full router chain (backwards compatible)
-        expression: "evt.Unmarshaled.traefik.RouterName != nil ? evt.Unmarshaled.traefik.RouterName : ''"
+        expression: "evt.Unmarshaled.traefik.RouterName ?? ''"
       - parsed: time_local
         expression: evt.Unmarshaled.traefik.time
       - parsed: verb
