@@ -23,19 +23,11 @@ nodes:
   ## JSON parser - extract fields and store full router chain in traefik_router_name (backwards compatible)
   # We must use evt.Parsed.message to make sure we respect s00 stage
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "traefik") in ["", nil]
-    ## keep onsuccess here for nodes
-    onsuccess: next_stage
     nodes:
-      ## we need to set traefik_router_name to "-" if RouterName is nil to forward to s02-enrich or else parsing fails
-      - filter: evt.Unmarshaled.traefik.RouterName == nil
-        statics:
-          - parsed: traefik_router_name
-            value: "-"
       ## Parse root, intermediate (if any), and leaf routers from full router chain
-      - filter: evt.Unmarshaled.traefik.RouterName != nil
-        grok:
-          pattern: '^%{TRAEFIK_ROUTER:traefik_router_name_root}(?: -> (?:%{DATA:traefik_router_intermediate} -> )?%{TRAEFIK_ROUTER:traefik_router_leaf})?$'
-          expression: evt.Unmarshaled.traefik.RouterName
+      - grok:
+          pattern: '^%{TRAEFIK_ROUTER:traefik_router_name_root}?(?: -> (?:%{DATA:traefik_router_intermediate} -> )?%{TRAEFIK_ROUTER:traefik_router_leaf})?$'
+          expression: "evt.Unmarshaled.traefik.RouterName ?? ''"
     statics:
       - parsed: remote_addr
         expression: evt.Unmarshaled.traefik.ClientHost
