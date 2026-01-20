@@ -8632,7 +8632,7 @@
     },
     "crowdsecurity/sshd": {
       "author": "crowdsecurity",
-      "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1jdmUtMjAyNC02Mzg3CiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1yZWZ1c2VkLWNvbm4KICAtIGNyb3dkc2VjdXJpdHkvc3NoLWdlbmVyaWMtdGVzdApkZXNjcmlwdGlvbjogInNzaGQgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGUtZm9yY2UgZGV0ZWN0aW9uIgpjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYmZfYmFzZQphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBzc2gKICAtIGJydXRlZm9yY2UKCg==",
+      "content": "cGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoZC1sb2dzCiAgLSBjcm93ZHNlY3VyaXR5L3NzaGQtc3VjY2Vzcy1sb2dzCnNjZW5hcmlvczoKICAtIGNyb3dkc2VjdXJpdHkvc3NoLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1zbG93LWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC10aW1lLWJhc2VkLWJmCiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1jdmUtMjAyNC02Mzg3CiAgLSBjcm93ZHNlY3VyaXR5L3NzaC1yZWZ1c2VkLWNvbm4KICAtIGNyb3dkc2VjdXJpdHkvc3NoLWdlbmVyaWMtdGVzdApkZXNjcmlwdGlvbjogInNzaGQgc3VwcG9ydCA6IHBhcnNlciBhbmQgYnJ1dGUtZm9yY2UgZGV0ZWN0aW9uIgpjb250ZXh0czoKICAtIGNyb3dkc2VjdXJpdHkvYmZfYmFzZQphdXRob3I6IGNyb3dkc2VjdXJpdHkKdGFnczoKICAtIGxpbnV4CiAgLSBzc2gKICAtIGJydXRlZm9yY2UKCg==",
       "contexts": [
         "crowdsecurity/bf_base"
       ],
@@ -8640,17 +8640,19 @@
       "labels": null,
       "long_description": "IyMgU1NIRCBjb2xsZWN0aW9uCgpBIGNvbGxlY3Rpb24gdG8gZGVmZW5kIHNzaGQgYWdhaW5zdCBjb21tb24gYXR0YWNrcyA6CiAtIHNzaCBwYXJzZXIKIC0gc3NoIGJydXRlZm9yY2UgJiBlbnVtZXJhdGlvbiBkZXRlY3Rpb24KIC0gc3NoICdzbG93JyBicnV0ZWZvcmNlICYgZW51bWVyYXRpb24gZGV0ZWN0aW9uCgojIyBBY3F1aXNpdGlvbiB0ZW1wbGF0ZQoKRXhhbXBsZSBhY3F1aXNpdGlvbiBmb3IgdGhpcyBjb2xsZWN0aW9uIDoKCmBgYHlhbWwKZmlsZW5hbWVzOgogIC0gL3Zhci9sb2cvYXV0aC5sb2cKbGFiZWxzOgogIHR5cGU6IHN5c2xvZwpgYGAKCgpub3RlcyA6CiAtICBJZiB5b3UgYXJlIHVzaW5nIGBzeXNsb2dgLCBzZXQgdHlwZSB0byBgc3lzbG9nYCBpbnN0ZWFkCiAtICBEZXBlbmRpbmcgb24geW91ciBkaXN0cmlidXRpb24vT1MsIHBhdGhzIHRvIGxvZyBmaWxlcyBtaWdodCBjaGFuZ2UKIC0gIE9ubHkgcmVsZXZhbnQgaWYgeW91IGFyZSBtYW51YWxseSBpbnN0YWxsaW5nIGNvbGxlY3Rpb24KCg==",
       "parsers": [
-        "crowdsecurity/sshd-logs"
+        "crowdsecurity/sshd-logs",
+        "crowdsecurity/sshd-success-logs"
       ],
       "path": "collections/crowdsecurity/sshd.yaml",
       "scenarios": [
         "crowdsecurity/ssh-bf",
         "crowdsecurity/ssh-slow-bf",
+        "crowdsecurity/ssh-time-based-bf",
         "crowdsecurity/ssh-cve-2024-6387",
         "crowdsecurity/ssh-refused-conn",
         "crowdsecurity/ssh-generic-test"
       ],
-      "version": "0.7",
+      "version": "0.8",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -8679,6 +8681,10 @@
         "0.7": {
           "deprecated": false,
           "digest": "5e51a79350617712c2076c3fcc0c97d16ee6848a20463ba2497c6a14e73091b0"
+        },
+        "0.8": {
+          "deprecated": false,
+          "digest": "cf549bfcadb3624ea3205789ef2dc337255b942b4ad9c0f83b2c00e12b8abe0d"
         }
       }
     },
@@ -20939,6 +20945,31 @@
         "0.4": {
           "deprecated": false,
           "digest": "892f9a153c4dafb5392ba40d70616e88896571be8f4cc00996e7f5e8277c869e"
+        }
+      }
+    },
+    "crowdsecurity/ssh-time-based-bf": {
+      "author": "crowdsecurity",
+      "content": "IyBzc2ggdGltZS1iYXNlZCBicnV0ZWZvcmNlIHdpdGggZmFsc2UgcG9zaXRpdmUgcmVkdWN0aW9uCnR5cGU6IGNvbmRpdGlvbmFsCm5hbWU6IGNyb3dkc2VjdXJpdHkvc3NoLXRpbWUtYmFzZWQtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgdGltZS1iYXNlZCBzc2ggYnJ1dGVmb3JjZSBhdHRlbXB0cyB0aGF0IGV2YWRlIHJhdGUgbGltaXRpbmcgKHdpdGggZmFsc2UgcG9zaXRpdmUgcmVkdWN0aW9uKSIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnc3NoJyAmJiBldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ3NzaF9mYWlsZWQtYXV0aCcsICdhdXRoX3N1Y2Nlc3MnXSIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiAtMQpjYW5jZWxfb246ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnYXV0aF9zdWNjZXNzJyIKY29uZGl0aW9uOiB8CiAgICBsZXQgZmFpbGVkQXV0aHMgPSBmaWx0ZXIocXVldWUuUXVldWUsIHsjLk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9mYWlsZWQtYXV0aCd9KTsKICAgIGxlbihmYWlsZWRBdXRocykgPj0gMyAmJgogICAgTWVkaWFuSW50ZXJ2YWwobWFwKGZhaWxlZEF1dGhzWy0zOl0sIHsjLlRpbWV9KSkgPiBkdXJhdGlvbigiMTBtIikKbGVha3NwZWVkOiAyaApibGFja2hvbGU6IDVtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgYmVoYXZpb3I6ICJzc2g6YnJ1dGVmb3JjZSIKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiU1NIIFRpbWUtQmFzZWQgQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogZmFsc2UKLS0tCiMgc3NoIHVzZXItZW51bSB0aW1lLWJhc2VkIHdpdGggZmFsc2UgcG9zaXRpdmUgcmVkdWN0aW9uCnR5cGU6IGNvbmRpdGlvbmFsCm5hbWU6IGNyb3dkc2VjdXJpdHkvc3NoLXRpbWUtYmFzZWQtYmZfdXNlci1lbnVtCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHRpbWUtYmFzZWQgc3NoIHVzZXIgZW51bSBicnV0ZWZvcmNlIGF0dGVtcHRzICh3aXRoIGZhbHNlIHBvc2l0aXZlIHJlZHVjdGlvbikiCmZpbHRlcjogImV2dC5NZXRhLnNlcnZpY2UgPT0gJ3NzaCcgJiYgZXZ0Lk1ldGEubG9nX3R5cGUgaW4gWydzc2hfZmFpbGVkLWF1dGgnLCAnYXV0aF9zdWNjZXNzJ10iCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0Lk1ldGEudGFyZ2V0X3VzZXIKY2FwYWNpdHk6IC0xCmNhbmNlbF9vbjogImV2dC5NZXRhLmxvZ190eXBlID09ICdhdXRoX3N1Y2Nlc3MnIgpjb25kaXRpb246IHwKICAgIGxldCBmYWlsZWRBdXRocyA9IGZpbHRlcihxdWV1ZS5RdWV1ZSwgeyMuTWV0YS5sb2dfdHlwZSA9PSAnc3NoX2ZhaWxlZC1hdXRoJ30pOwogICAgbGVuKGZhaWxlZEF1dGhzKSA+PSAzICYmCiAgICBNZWRpYW5JbnRlcnZhbChtYXAoZmFpbGVkQXV0aHNbLTM6XSwgeyMuVGltZX0pKSA+IGR1cmF0aW9uKCIxMG0iKQpsZWFrc3BlZWQ6IDJoCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBzc2gKICBiZWhhdmlvcjogInNzaDpicnV0ZWZvcmNlIgogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTg5CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiU1NIIFRpbWUtQmFzZWQgVXNlciBFbnVtZXJhdGlvbiIKICByZW1lZGlhdGlvbjogZmFsc2UK",
+      "description": "Detect time-based ssh bruteforce attempts that evade rate limiting (with false positive reduction)",
+      "labels": {
+        "behavior": "ssh:bruteforce",
+        "classification": [
+          "attack.T1110"
+        ],
+        "confidence": 3,
+        "label": "SSH Time-Based Bruteforce",
+        "remediation": false,
+        "service": "ssh",
+        "spoofable": 0
+      },
+      "long_description": "RGV0ZWN0IHRpbWUtYmFzZWQgc3NoIGJydXRlZm9yY2UgYXR0ZW1wdHMgdGhhdCBldmFkZSB0cmFkaXRpb25hbCByYXRlIGxpbWl0aW5nIHdpdGggZmFsc2UgcG9zaXRpdmUgcmVkdWN0aW9uOgoKIC0gVXNlcyBjb25kaXRpb25hbCB0eXBlIHdpdGggY2FwYWNpdHkgLTEgKHVubGltaXRlZCkKIC0gVHJpZ2dlcnMgd2hlbiBhdCBsZWFzdCAzIGZhaWxlZCBhdXRoZW50aWNhdGlvbiBhdHRlbXB0cyBvY2N1cgogLSBNZWRpYW4gaW50ZXJ2YWwgYmV0d2VlbiBmYWlsZWQgYXR0ZW1wdHMgZXhjZWVkcyAxMCBtaW51dGVzCiAtICoqRmFsc2UgcG9zaXRpdmUgcmVkdWN0aW9uKio6IFVzZXMgYGNhbmNlbF9vbmAgdG8gY2FuY2VsIGJ1Y2tldCBpZiB1c2VyIHN1Y2Nlc3NmdWxseSBhdXRoZW50aWNhdGVzCiAgIC0gUHJldmVudHMgImZvcmdvdCBwYXNzd29yZCIgc2NlbmFyaW9zIGZyb20gdHJpZ2dlcmluZyBhbGVydHMKICAgLSBTdGFuZGFyZCB2YXJpYW50OiBDYW5jZWxzIG9uIEFOWSBzdWNjZXNzZnVsIGxvZ2luIGZyb20gc2FtZSBJUAogICAtIFVzZXItZW51bSB2YXJpYW50OiBPbmx5IGNhbmNlbHMgZm9yIHNhbWUgSVAgKyBzYW1lIHVzZXJuYW1lIGNvbWJpbmF0aW9uCiAgIC0gQXR0YWNrZXJzIHRyeWluZyBtdWx0aXBsZSB1c2VybmFtZXMgd29uJ3QgYmUgZXhjdXNlZCBieSBvbmUgc3VjY2VzcyAoaW4gdXNlci1lbnVtIHZhcmlhbnQpCiAtIExlYWtzcGVlZCBvZiAyaCBuYXR1cmFsbHkgY2FwcyBtYXhpbXVtIGludGVydmFsICh+NDAtNjAgbWludXRlcyBmb3IgMyBldmVudHMpCiAtIFJlbWVkaWF0aW9uIGRpc2FibGVkIChsYWJlbHMgc2V0IHRvIGByZW1lZGlhdGlvbjogZmFsc2VgKQogLSBVc2VzIGBNZWRpYW5JbnRlcnZhbCgpYCBoZWxwZXIgdG8gZGV0ZWN0IGNvbnNpc3RlbnQgdGltaW5nIHBhdHRlcm5zIChtb3JlIHJvYnVzdCBhZ2FpbnN0IG91dGxpZXJzKQogLSBSZXF1aXJlcyBgY3Jvd2RzZWN1cml0eS9zc2hkLXN1Y2Nlc3MtbG9nc2AgcGFyc2VyIGZvciBjYW5jZWxfb24gZnVuY3Rpb25hbGl0eQoKKipUd28gdmFyaWFudHM6KioKMS4gKipzc2gtdGltZS1iYXNlZC1iZioqOiBTdGFuZGFyZCBicnV0ZWZvcmNlIGRldGVjdGlvbiAoMyBmYWlsZWQgbG9naW5zIGZyb20gc2FtZSBJUCkKMi4gKipzc2gtdGltZS1iYXNlZC1iZl91c2VyLWVudW0qKjogVXNlciBlbnVtZXJhdGlvbiBkZXRlY3Rpb24gKDMgZGlzdGluY3QgdXNlcm5hbWVzIGZyb20gc2FtZSBJUCkKClRoaXMgc2NlbmFyaW8gY29tcGxlbWVudHMgdGhlIHN0YW5kYXJkIHNzaC1iZiAoY2FwYWNpdHkgNSwgbGVha3NwZWVkIDEwcykgYW5kIHNzaC1zbG93LWJmIChjYXBhY2l0eSAxMCwgbGVha3NwZWVkIDYwcykgc2NlbmFyaW9zIHdpdGggbm8gb3ZlcmxhcDoKLSBzc2gtYmYgY2F0Y2hlcyA1IGZhaWx1cmVzIHdpdGhpbiB+NTAgc2Vjb25kcyAocmF0ZS1iYXNlZCkKLSBzc2gtc2xvdy1iZiBjYXRjaGVzIDEwIGZhaWx1cmVzIHdpdGhpbiB+MTAgbWludXRlcyAocmF0ZS1iYXNlZCkKLSBzc2gtdGltZS1iYXNlZC1iZiBjYXRjaGVzIDMgZmFpbHVyZXMgd2l0aCBtZWRpYW4gaW50ZXJ2YWwgPjEwIG1pbnV0ZXMgKHRpbWUtcGF0dGVybi1iYXNlZCwgbmF0dXJhbGx5IGNhcHBlZCBieSAyaCBsZWFrc3BlZWQpCg==",
+      "path": "scenarios/crowdsecurity/ssh-time-based-bf.yaml",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "e63741679e94da9acbdb38ba405853ba80c867e61b8cb551ba1bc5e462787b71"
         }
       }
     },
