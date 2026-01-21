@@ -23,42 +23,36 @@ pattern_syntax:
   SSHD_DISPATCH_FATAL: 'ssh_dispatch_run_fatal: Connection from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?: message authentication code incorrect \[preauth\]'
   SSHD_REFUSED_CONN: 'refused connect from.*\((::ffff:)?%{IP_WORKAROUND:sshd_client_ip}\)'
 nodes:
+  #
+  # Primary authentication failures - use for brute force detection
+  # These represent actual password/auth attempts
+  #
   - grok:
       name: "SSHD_FAIL"
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_password_fail
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
-      name: "SSHD_PREAUTH_AUTHENTICATING_USER_ALT"
+      name: "SSHD_USER_FAIL"
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_password_fail
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
-  - grok:
-      name: "SSHD_PREAUTH_AUTHENTICATING_USER"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: ssh_failed-auth
-        - meta: target_user
-          expression: "evt.Parsed.sshd_invalid_user"
-  - grok:
-      name: "SSHD_DISC_PREAUTH"
-      apply_on: message
-  - grok:
-      name: "SSHD_BAD_VERSION"
-      apply_on: message
+  #
+  # User enumeration - invalid username detection
+  # Useful for detecting username guessing/enumeration attacks
+  #
   - grok:
       name: "SSHD_INVALID_USER"
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_invalid_user
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
@@ -66,47 +60,67 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_invalid_user
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
-  - grok:
-      name: "SSHD_NOT_ALLOWED_USER"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: ssh_failed-auth
-        - meta: target_user
-          expression: "evt.Parsed.sshd_invalid_user"
-  - grok:
-      name: "SSHD_INVALID_BANNER"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: ssh_failed-auth
-        - meta: extra_log_type
-          value: ssh_bad_banner
-  - grok:
-      name: "SSHD_USER_FAIL"
-      apply_on: message
-      statics:
-        - meta: log_type
-          value: ssh_failed-auth
-        - meta: target_user
-          expression: "evt.Parsed.sshd_invalid_user"
+  #
+  # PAM authentication failure notification
+  # This is a duplicate notification from PAM, not a separate auth attempt
+  #
   - grok:
       name: "SSHD_AUTH_FAIL"
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_pam_failure
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
+  #
+  # Pre-auth connection lifecycle events
+  # Connection closed/disconnected during authentication phase
+  #
+  - grok:
+      name: "SSHD_PREAUTH_AUTHENTICATING_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_preauth_close
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_PREAUTH_AUTHENTICATING_USER_ALT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_preauth_close
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  #
+  # Access control - user not in AllowUsers
+  #
+  - grok:
+      name: "SSHD_NOT_ALLOWED_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_not_allowed
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  #
+  # Protocol/scanner detection events
+  #
+  - grok:
+      name: "SSHD_INVALID_BANNER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_bad_banner
   - grok:
       name: "SSHD_MAGIC_VALUE_FAILED"
       apply_on: message
       statics:
         - meta: log_type
-          value: ssh_failed-auth
+          value: ssh_magic_failed
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
@@ -115,6 +129,15 @@ nodes:
       statics:
         - meta: log_type
           value: ssh_bad_keyexchange
+  #
+  # Other events (non-auth related)
+  #
+  - grok:
+      name: "SSHD_DISC_PREAUTH"
+      apply_on: message
+  - grok:
+      name: "SSHD_BAD_VERSION"
+      apply_on: message
   - grok:
       name: "SSHD_AUTH_TIMEOUT"
       apply_on: message

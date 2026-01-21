@@ -2,7 +2,7 @@
 type: leaky
 name: crowdsecurity/ssh-bf
 description: "Detect ssh bruteforce"
-filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+filter: "evt.Meta.log_type == 'ssh_password_fail'"
 leakspeed: "10s"
 references:
   - http://wikipedia.com/ssh-bf-is-bad
@@ -24,7 +24,7 @@ labels:
 type: leaky
 name: crowdsecurity/ssh-bf_user-enum
 description: "Detect ssh user enum bruteforce"
-filter: evt.Meta.log_type == 'ssh_failed-auth'
+filter: evt.Meta.log_type == 'ssh_password_fail'
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.target_user
 leakspeed: 10s

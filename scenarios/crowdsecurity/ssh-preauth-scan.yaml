@@ -1,0 +1,19 @@
+# SSH preauth disconnect - connection closed before completing auth
+type: leaky
+name: crowdsecurity/ssh-preauth-scan
+description: "Detect SSH scanning via preauth disconnects (connections closed before completing authentication)"
+filter: "evt.Meta.log_type == 'ssh_preauth_close'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: ssh
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  label: "SSH Preauth Scan"
+  behavior: "ssh:scan"
+  remediation: true
