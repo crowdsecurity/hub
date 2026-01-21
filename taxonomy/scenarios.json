@@ -2597,6 +2597,28 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-5057": {
+    "name": "crowdsecurity/vpatch-CVE-2024-5057",
+    "description": "Detects SQL injection vulnerability in WordPress Easy Digital Downloads <= 3.2.12 via the edd_download_search action.",
+    "label": "Easy Digital Downloads - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-20T10:29:16",
+    "cves": [
+      "CVE-2024-5057"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-51378": {
     "name": "crowdsecurity/vpatch-CVE-2024-51378",
     "description": "Cyberpanel - RCE (CVE-2024-51378)",
@@ -3157,6 +3179,28 @@
     ],
     "cwes": [
       "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-34291": {
+    "name": "crowdsecurity/vpatch-CVE-2025-34291",
+    "description": "Detects CORS misconfiguration in Langflow AI allowing any origin with credentials (CVE-2025-34291)",
+    "label": "Langflow AI - CORS Misconfiguration",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-20T10:10:31",
+    "cves": [
+      "CVE-2025-34291"
+    ],
+    "cwes": [
+      "CWE-942"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-3605": {
@@ -7054,6 +7098,39 @@
     "service": "ssh",
     "created_at": "2021-09-27T15:17:49"
   },
+  "crowdsecurity/ssh-time-based-bf": {
+    "name": "crowdsecurity/ssh-time-based-bf",
+    "description": "Detect time-based ssh bruteforce attempts that evade rate limiting (with false positive reduction)",
+    "label": "SSH Time-Based Bruteforce",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "ssh",
+    "created_at": "2026-01-20T09:34:42"
+  },
+  "crowdsecurity/ssh-time-based-bf_user-enum": {
+    "name": "crowdsecurity/ssh-time-based-bf_user-enum",
+    "description": "Detect time-based ssh user enum bruteforce attempts (with false positive reduction)",
+    "label": "SSH Time-Based User Enumeration",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "ssh",
+    "created_at": "2026-01-20T09:34:42"
+  },
   "crowdsecurity/stirling-pdf-bf": {
     "name": "crowdsecurity/stirling-pdf-bf",
     "description": "Detect stirling pdf bruteforce",
@@ -7069,6 +7146,22 @@
     "cti": true,
     "service": "stirling-pdf",
     "created_at": "2024-10-23T13:40:37"
+  },
+  "crowdsecurity/supavisor-bf": {
+    "name": "crowdsecurity/supavisor-bf",
+    "description": "Detect brute force attacks against PostgreSQL via Supavisor connection pooler",
+    "label": "Supavisor bruteforce",
+    "behaviors": [
+      "database:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "supavisor",
+    "created_at": "2026-01-20T09:46:14"
   },
   "crowdsecurity/suricata-major-severity": {
     "name": "crowdsecurity/suricata-major-severity",
