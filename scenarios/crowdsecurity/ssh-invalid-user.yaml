@@ -1,0 +1,40 @@
+# SSH invalid user probing - username enumeration before password stage
+type: leaky
+name: crowdsecurity/ssh-invalid-user
+description: "Detect SSH username probing (invalid user attempts)"
+filter: "evt.Meta.log_type == 'ssh_invalid_user'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: ssh
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "SSH Invalid User Probing"
+  behavior: "ssh:probe"
+  remediation: true
+---
+# SSH invalid user probing - user enumeration variant
+type: leaky
+name: crowdsecurity/ssh-invalid-user_user-enum
+description: "Detect SSH username enumeration (multiple invalid usernames)"
+filter: "evt.Meta.log_type == 'ssh_invalid_user'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+reprocess: true
+labels:
+  service: ssh
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  behavior: "ssh:bruteforce"
+  label: "SSH Username Enumeration"
+  remediation: true

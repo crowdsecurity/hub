@@ -1,0 +1,19 @@
+# SSH scanner detection - protocol anomalies
+type: leaky
+name: crowdsecurity/ssh-scanner
+description: "Detect SSH scanners via protocol anomalies (bad banners, key negotiation failures, obfuscation attempts)"
+filter: "evt.Meta.log_type in ['ssh_bad_banner', 'ssh_bad_keyexchange', 'ssh_magic_failed']"
+leakspeed: "30s"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  label: "SSH Scanner"
+  behavior: "ssh:scan"
+  remediation: true
