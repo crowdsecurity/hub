@@ -83,6 +83,7 @@ jobs:
           cd crowdsec
           BUILD_STATIC=1 make release
           cd crowdsec-v*
+          echo "githubci-waf-fp-check" > /etc/machine-id
           sudo ./wizard.sh --unattended
       - name: Setup CrowdSec Appsec
         run: |
