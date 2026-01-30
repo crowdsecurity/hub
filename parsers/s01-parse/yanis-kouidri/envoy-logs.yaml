@@ -12,7 +12,10 @@ nodes:
       - parsed: raw_remote_addr
         expression: evt.Parsed.x_forwarded_for
       - parsed: remote_addr
-        expression: "evt.Parsed.x_forwarded_for != nil ? Split(evt.Parsed.x_forwarded_for, ',')[0] : nil"
+        expression: |
+          let xff = evt.Parsed.x_forwarded_for ?? '';
+          let first_ip = xff != '' ? Split(xff, ',')[0] : '';
+          TrimPrefix(TrimSuffix(first_ip, "]"), "[")
   - filter: TrimSpace(evt.Parsed.message) startsWith "{" && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "envoy") in ["", nil]
     statics:
       - parsed: time
@@ -20,7 +23,11 @@ nodes:
       - parsed: raw_remote_addr
         expression: evt.Unmarshaled.envoy.downstream_remote_address
       - parsed: remote_addr
-        expression: "evt.Unmarshaled.envoy.downstream_remote_address != nil ? Split(evt.Unmarshaled.envoy.downstream_remote_address, ':')[0] : nil"
+        expression: |
+          let address = evt.Unmarshaled.envoy.downstream_remote_address ?? '';
+          let last_colon = lastIndexOf(address, ':');
+          let addr = last_colon >= 0 ? address[:last_colon] : address;
+          TrimPrefix(TrimSuffix(addr, "]"), "[")
       - parsed: request
         expression: evt.Unmarshaled.envoy["x-envoy-origin-path"]
       - parsed: verb
