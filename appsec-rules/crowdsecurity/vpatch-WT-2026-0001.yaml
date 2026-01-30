@@ -1,0 +1,33 @@
+name: crowdsecurity/vpatch-WT-2026-0001
+description: 'Detects authentication bypass in SmarterTools SmarterMail via force-reset-password endpoint when IsSysAdmin is true'
+rules:
+  - and:
+      - zones:
+          - URI
+        transform:
+          - lowercase
+          - urldecode
+        match:
+          type: contains
+          value: '/api/v1/auth/force-reset-password'
+      - zones:
+          - BODY_ARGS
+        variables:
+          - json.issysadmin
+        transform:
+          - lowercase
+        match:
+          type: equals
+          value: 'true'
+
+labels:
+  type: exploit
+  service: http
+  confidence: 3
+  spoofable: 0
+  behavior: 'http:exploit'
+  label: 'SmarterMail - Authentication Bypass'
+  classification:
+    - cve.WT-2026-0001
+    - attack.T1190
+    - cwe.CWE-287
