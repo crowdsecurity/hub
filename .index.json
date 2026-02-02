@@ -5088,12 +5088,12 @@
     },
     "crowdsecurity/vpatch-WT-2026-0001": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtV1QtMjAyNi0wMDAxCmRlc2NyaXB0aW9uOiAnRGV0ZWN0cyBhdXRoZW50aWNhdGlvbiBieXBhc3MgaW4gU21hcnRlclRvb2xzIFNtYXJ0ZXJNYWlsIHZpYSBmb3JjZS1yZXNldC1wYXNzd29yZCBlbmRwb2ludCB3aGVuIElzU3lzQWRtaW4gaXMgdHJ1ZScKcnVsZXM6CiAgLSBhbmQ6CiAgICAgIC0gem9uZXM6CiAgICAgICAgICAtIFVSSQogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgICAtIHVybGRlY29kZQogICAgICAgIG1hdGNoOgogICAgICAgICAgdHlwZTogY29udGFpbnMKICAgICAgICAgIHZhbHVlOiAnL2FwaS92MS9hdXRoL2ZvcmNlLXJlc2V0LXBhc3N3b3JkJwogICAgICAtIHpvbmVzOgogICAgICAgICAgLSBCT0RZX0FSR1MKICAgICAgICB2YXJpYWJsZXM6CiAgICAgICAgICAtIGpzb24uaXNzeXNhZG1pbgogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiBlcXVhbHMKICAgICAgICAgIHZhbHVlOiAndHJ1ZScKCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogJ2h0dHA6ZXhwbG9pdCcKICBsYWJlbDogJ1NtYXJ0ZXJNYWlsIC0gQXV0aGVudGljYXRpb24gQnlwYXNzJwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBjdmUuV1QtMjAyNi0wMDAxCiAgICAtIGF0dGFjay5UMTE5MAogICAgLSBjd2UuQ1dFLTI4Nwo=",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtV1QtMjAyNi0wMDAxCmRlc2NyaXB0aW9uOiAiRGV0ZWN0cyBhdXRoZW50aWNhdGlvbiBieXBhc3MgaW4gU21hcnRlclRvb2xzIFNtYXJ0ZXJNYWlsIHZpYSBmb3JjZS1yZXNldC1wYXNzd29yZCBlbmRwb2ludCB3aGVuIElzU3lzQWRtaW4gaXMgdHJ1ZSIKcnVsZXM6CiAgLSBhbmQ6CiAgICAgIC0gem9uZXM6CiAgICAgICAgICAtIFVSSQogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgICAtIHVybGRlY29kZQogICAgICAgIG1hdGNoOgogICAgICAgICAgdHlwZTogY29udGFpbnMKICAgICAgICAgIHZhbHVlOiAiL2FwaS92MS9hdXRoL2ZvcmNlLXJlc2V0LXBhc3N3b3JkIgogICAgICAtIHpvbmVzOgogICAgICAgICAgLSBCT0RZX0FSR1MKICAgICAgICB2YXJpYWJsZXM6CiAgICAgICAgICAtIGpzb24uaXNzeXNhZG1pbgogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gbG93ZXJjYXNlCiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiBlcXVhbHMKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICBsYWJlbDogIlNtYXJ0ZXJNYWlsIC0gQXV0aGVudGljYXRpb24gQnlwYXNzIgogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBjdmUuQ1ZFLTIwMjYtMjM3NjAKICAgIC0gYXR0YWNrLlQxMTkwCiAgICAtIGN3ZS5DV0UtMjg3Cg==",
       "description": "Detects authentication bypass in SmarterTools SmarterMail via force-reset-password endpoint when IsSysAdmin is true",
       "labels": {
         "behavior": "http:exploit",
         "classification": [
-          "cve.WT-2026-0001",
+          "cve.CVE-2026-23760",
           "attack.T1190",
           "cwe.CWE-287"
         ],
@@ -5104,11 +5104,15 @@
         "type": "exploit"
       },
       "path": "appsec-rules/crowdsecurity/vpatch-WT-2026-0001.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "536ebad6f9cb7f576fa48f24c203305a6d845785a5b7565a2c0d8af92e398588"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "9bbaead42a36a16397ef17b6b3e346e85f9533207ce21c540e0b5b67240fe149"
         }
       }
     },
