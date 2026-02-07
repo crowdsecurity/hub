@@ -1,0 +1,121 @@
+name: kaijo/sshd-logs-pfsense
+description: "Parse pfSense/FreeBSD sshd and sshd-session logs (complete pfSense 24.x/25.x coverage)"
+filter: "evt.Parsed.program in ['sshd', 'sshd-session']"
+stage: s01-parse
+#stage: none
+onsuccess: next_stage
+
+# -------------------------------------------------------------------
+#  PATTERN DEFINITIONS
+# -------------------------------------------------------------------
+pattern_syntax:
+
+  # IPv4/IPv6 handling
+  IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+  IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
+
+  # Successful authentication
+  PF_ACCEPTED: 'Accepted %{DATA:auth_method}(?:/%{DATA:auth_module})? for %{USERNAME:user} from %{IP_WORKAROUND:src_ip} port %{NUMBER:src_port}(?: ssh2)?'
+
+  # Normal connection closed
+  PF_CONNECTION_CLOSED: 'Connection closed by %{IP_WORKAROUND:src_ip} port %{NUMBER:src_port}'
+
+  # Disconnect with reason
+  PF_DISCONNECT: 'Received disconnect from %{IP_WORKAROUND:src_ip} port %{NUMBER:src_port}: %{GREEDYDATA:reason}'
+
+  # Permission denied
+  PF_PERMISSION_DENIED: 'process_output: ssh_packet_write_poll: Connection from user %{USERNAME:user} %{IP_WORKAROUND:src_ip} port %{NUMBER:src_port}: Permission denied'
+
+  # PAM authentication error
+  PF_PAM_AUTH_ERROR: 'error: PAM: Authentication error for %{USERNAME:user} from %{IP_WORKAROUND:src_ip}'
+
+  # Timeout before authentication
+  PF_TIMEOUT_AUTH: 'Timeout before authentication for connection from %{IP_WORKAROUND:src_ip} to %{IP_WORKAROUND:dst_ip}, pid = %{NUMBER:pid}'
+
+  # sshguard events (ignored)
+  PF_SSHGUARD: 'sshguard\[%{NUMBER:pid}\]: %{GREEDYDATA:sshguard_msg}'
+
+
+# -------------------------------------------------------------------
+#  NODE DEFINITIONS
+# -------------------------------------------------------------------
+nodes:
+
+  - grok:
+      name: "PF_ACCEPTED"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_success
+        - meta: target_user
+          expression: "evt.Parsed.user"
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+
+  - grok:
+      name: "PF_CONNECTION_CLOSED"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_closed
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+
+  - grok:
+      name: "PF_DISCONNECT"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_disconnect
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+
+  - grok:
+      name: "PF_PERMISSION_DENIED"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_permission_denied
+        - meta: target_user
+          expression: "evt.Parsed.user"
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+
+  - grok:
+      name: "PF_PAM_AUTH_ERROR"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_pam_auth_error
+        - meta: target_user
+          expression: "evt.Parsed.user"
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+
+  - grok:
+      name: "PF_TIMEOUT_AUTH"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_timeout_before_auth
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+        - meta: destination_ip
+          expression: "evt.Parsed.dst_ip"
+
+  - grok:
+      name: "PF_SSHGUARD"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: sshguard_event
+        - meta: ignore
+          value: true
+
+
+# -------------------------------------------------------------------
+#  GLOBAL METADATA
+# -------------------------------------------------------------------
+statics:
+  - meta: service
+    value: ssh
