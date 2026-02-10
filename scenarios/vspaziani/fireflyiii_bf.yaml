@@ -1,0 +1,58 @@
+# Firefly BF scan
+name: vspaziani/fireflyiii-logs-bf
+description: "Detect fireflyiii user bruteforce"
+filter: "evt.Meta.log_type == 'fireflyiii_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: fireflyiii
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Fireflyiii Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+# Fireflyiii user-enum
+type: leaky
+name: vspaziani/fireflyiii-logs-enum
+description: "Detect fireflyiii user enum bruteforce"
+filter: "evt.Meta.log_type == 'fireflyiii_failed_auth'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.user
+leakspeed: 10s
+capacity: 5
+blackhole: 1m
+labels:
+  service: fireflyiii
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Fireflyiii Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
+---
+# Fireflyiii MFA BF   
+type: leaky
+name: vspaziani/fireflyiii-logs-MFA-bf
+description: "Detect Fireflyiii MFA bruteforce"
+filter: "evt.Meta.log_type == 'fireflyiii_failed_MFA'"
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: fireflyiii
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1589
+  label: "Fireflyiii Bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true
