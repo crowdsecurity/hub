@@ -1,0 +1,37 @@
+onsuccess: next_stage
+#debug: false
+name: vspaziani/fireflyiii-logs
+description: "Parse Fireflyiii logs"
+filter: "evt.Parsed.program == 'fireflyiii'"
+nodes:
+  - grok:
+      pattern: "\\[%{TIMESTAMP_ISO8601:event_timestamp}\\].*Login failed. Attempt for user \"%{EMAILADDRESS:username}\" failed. \\(%{IP:source_ip}.*"
+#     pattern: "[{TIMESTAMP_ISO8601:timestamp}].*Login failed. Attempt for user \"%{EMAILADDRESS:username}\" failed. \\(%{IP:source_ip}.*"
+      #[2026-01-29 21:28:31] local.WARNING: AUDIT: Login failed. Attempt for user "useremail@emaildomain.com" failed. (192.168.1.200 -> POST:https://fireflyiiiTLD.com/login) 
+
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: fireflyiii_failed_auth
+        - target: evt.StrTime
+          expression: evt.Parsed.event_timestamp
+        - meta: user
+          expression: "evt.Parsed.username"
+  - grok:
+      pattern: "\\[%{TIMESTAMP_ISO8601:event_timestamp}\\].*MFA failure count is set to %{NUMBER:mfa_count}. \\(%{IP:source_ip} \\(%{EMAILADDRESS:username}.*"
+                 #[2026-02-04 17:00:13] local.INFO: AUDIT: MFA failure count is set to 1. (192.168.1.200 (useremail@emaildomain.com) -> POST:https://fireflyiiiTLD.com/two-factor/submit) 
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: fireflyiii_failed_MFA
+        - target: evt.StrTime
+          expression: evt.Parsed.event_timestamp
+        - meta: user
+          expression: "evt.Parsed.username"
+#        - meta: mfacount
+#           expression: "evt.Parsed.mfa_count"
+statics:
+    - meta: service
+      value: fireflyiii
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
