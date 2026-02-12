@@ -1,0 +1,11 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/dateparse-enrich
+  - ./parsers/s01-parse/plague-doctor/sharry-logs.yaml
+scenarios:
+  - ./scenarios/plague-doctor/sharry-bf.yaml
+postoverflows:
+  - ""
+log_file: sharry.log
+log_type: sharry
+ignore_parsers: true
