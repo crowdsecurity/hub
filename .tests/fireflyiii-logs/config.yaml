@@ -1,1 +1,10 @@
-
+parsers:
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/dateparse-enrich
+    - ./parsers/s01-parse/vspaziani/fireflyiii-logs.yaml
+scenarios:
+postoverflows:
+log_file: fireflyiii-logs.log
+log_type: fireflyiii
+labels: {}
+ignore_parsers: false
