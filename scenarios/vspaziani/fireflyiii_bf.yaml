@@ -22,10 +22,12 @@ labels:
 type: leaky
 name:  vspaziani/fireflyiii-logs-enum
 description: "Detect Fireflyiii user enum bruteforce"
-filter: "evt.Meta.log_type == 'fireflyiii_bad_user'"
+filter: "evt.Meta.log_type == 'fireflyiii_bad_user'  || evt.Meta.log_type == 'fireflyiii_bad_password'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.username
+reprocess: true
 leakspeed: 10s
 capacity: 5
-groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
   service: fireflyiii
