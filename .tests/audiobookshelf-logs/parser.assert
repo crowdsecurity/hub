@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 7
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"timestamp\":\"2024-11-13 11:03:31.784\",\"source\":\"Auth.js:888\",\"message\":\"[Auth] Failed login attempt for username \\\"test\\\" from ip 192.168.1.1 (Invalid password)\",\"levelName\":\"ERROR\",\"level\":4}"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "audiobookshelf"
@@ -31,18 +31,36 @@ results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"] ==
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "[2024-10-20 17:48:07.192] INFO: [Auth] User \"test\" logged in from ip 192.168.1.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["message"] == "[2026-02-12 12:28:45.438] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Parsed["program"] == "audiobookshelf"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_path"] == "audiobookshelf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][5].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Success == true
-results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "{\"timestamp\":\"2024-11-13 11:03:31.784\",\"source\":\"Auth.js:888\",\"message\":\"[Auth] User \\\"test\\\" logged in from ip 192.168.1.1\",\"levelName\":\"INFO\",\"level\":1}"
+results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["message"] == "[2026-02-12 12:28:47.142] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "audiobookshelf"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"] == "audiobookshelf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 7
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "{\"timestamp\":\"2026-02-12 12:28:50.260\",\"source\":\"LocalAuth.js:123\",\"message\":\"[LocalAuth] Failed login attempt for username \\\"Gdhhfgfh\\\" from ip 1.136.110.240 (User not found)\",\"levelName\":\"ERROR\",\"level\":4}"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "audiobookshelf"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "[2024-10-20 17:48:07.192] INFO: [Auth] User \"test\" logged in from ip 192.168.1.1"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "audiobookshelf"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["message"] == "{\"timestamp\":\"2024-11-13 11:03:31.784\",\"source\":\"Auth.js:888\",\"message\":\"[Auth] User \\\"test\\\" logged in from ip 192.168.1.1\",\"levelName\":\"INFO\",\"level\":1}"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "audiobookshelf"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -50,7 +68,10 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
-len(results["s01-parse"]["plague-doctor/audiobookshelf-logs"]) == 7
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
+len(results["s01-parse"]["plague-doctor/audiobookshelf-logs"]) == 10
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][0].Success == true
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][0].Evt.Parsed["message"] == "{\"timestamp\":\"2024-11-13 11:03:31.784\",\"source\":\"Auth.js:888\",\"message\":\"[Auth] Failed login attempt for username \\\"test\\\" from ip 192.168.1.1 (Invalid password)\",\"levelName\":\"ERROR\",\"level\":4}"
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][0].Evt.Parsed["program"] == "audiobookshelf"
@@ -137,9 +158,55 @@ results["s01-parse"]["plague-doctor/audiobookshelf-logs"][4].Evt.Meta["service"]
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][4].Evt.Meta["source_ip"] == "::1"
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][4].Evt.Meta["username"] == "fooobar"
 results["s01-parse"]["plague-doctor/audiobookshelf-logs"][4].Evt.Whitelisted == false
-results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Success == false
-results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Success == true
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["message"] == "[2026-02-12 12:28:45.438] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["program"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["reason"] == "User not found"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["timestamp"] == "2026-02-12 12:28:45.438"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Parsed["username"] == "Gdhh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["service"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Meta["username"] == "Gdhh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][5].Evt.Whitelisted == false
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Success == true
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["message"] == "[2026-02-12 12:28:47.142] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["program"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["reason"] == "User not found"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["timestamp"] == "2026-02-12 12:28:47.142"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Parsed["username"] == "Gdhh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["service"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Meta["username"] == "Gdhh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][6].Evt.Whitelisted == false
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Success == true
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Parsed["message"] == "{\"timestamp\":\"2026-02-12 12:28:50.260\",\"source\":\"LocalAuth.js:123\",\"message\":\"[LocalAuth] Failed login attempt for username \\\"Gdhhfgfh\\\" from ip 1.136.110.240 (User not found)\",\"levelName\":\"ERROR\",\"level\":4}"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Parsed["program"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Parsed["reason"] == "User not found"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Parsed["username"] == "Gdhhfgfh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["service"] == "audiobookshelf"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Meta["username"] == "Gdhhfgfh"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Unmarshaled["abs"]["levelName"] == "ERROR"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Unmarshaled["abs"]["message"] == "[LocalAuth] Failed login attempt for username \"Gdhhfgfh\" from ip 1.136.110.240 (User not found)"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Unmarshaled["abs"]["source"] == "LocalAuth.js:123"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Unmarshaled["abs"]["timestamp"] == "2026-02-12 12:28:50.260"
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Unmarshaled["abs"]["level"] == 4
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][7].Evt.Whitelisted == false
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][8].Success == false
+results["s01-parse"]["plague-doctor/audiobookshelf-logs"][9].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 8
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "{\"timestamp\":\"2024-11-13 11:03:31.784\",\"source\":\"Auth.js:888\",\"message\":\"[Auth] Failed login attempt for username \\\"test\\\" from ip 192.168.1.1 (Invalid password)\",\"levelName\":\"ERROR\",\"level\":4}"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "audiobookshelf"
@@ -236,4 +303,56 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["username"] == "fooobar"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2024-11-13T09:54:35.882Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["message"] == "[2026-02-12 12:28:45.438] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["program"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["reason"] == "User not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["timestamp"] == "2026-02-12 12:28:45.438"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Parsed["username"] == "Gdhh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["service"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["timestamp"] == "2026-02-12T12:28:45.438Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Meta["username"] == "Gdhh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Enriched["MarshaledTime"] == "2026-02-12T12:28:45.438Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][5].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["message"] == "[2026-02-12 12:28:47.142] ERROR: [LocalAuth] Failed login attempt for username \"Gdhh\" from ip 1.136.110.240 (User not found)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["program"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["reason"] == "User not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["timestamp"] == "2026-02-12 12:28:47.142"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Parsed["username"] == "Gdhh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["service"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"] == "2026-02-12T12:28:47.142Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["username"] == "Gdhh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"] == "2026-02-12T12:28:47.142Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message"] == "{\"timestamp\":\"2026-02-12 12:28:50.260\",\"source\":\"LocalAuth.js:123\",\"message\":\"[LocalAuth] Failed login attempt for username \\\"Gdhhfgfh\\\" from ip 1.136.110.240 (User not found)\",\"levelName\":\"ERROR\",\"level\":4}"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["program"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["reason"] == "User not found"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["username"] == "Gdhhfgfh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_path"] == "audiobookshelf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["log_type"] == "abs_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["service"] == "audiobookshelf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"] == "2026-02-12T12:28:50.26Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["username"] == "Gdhhfgfh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"] == "2026-02-12T12:28:50.26Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["abs"]["level"] == 4
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["abs"]["levelName"] == "ERROR"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["abs"]["message"] == "[LocalAuth] Failed login attempt for username \"Gdhhfgfh\" from ip 1.136.110.240 (User not found)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["abs"]["source"] == "LocalAuth.js:123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Unmarshaled["abs"]["timestamp"] == "2026-02-12 12:28:50.260"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Whitelisted == false
 len(results["success"][""]) == 0
