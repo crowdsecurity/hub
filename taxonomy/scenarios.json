@@ -3511,6 +3511,28 @@
       "CWE-284"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-56520": {
+    "name": "crowdsecurity/vpatch-CVE-2025-56520",
+    "description": "Detects SSRF in Dify v1.6.0 via remote file fetch endpoint.",
+    "label": "Dify - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-16T12:24:51",
+    "cves": [
+      "CVE-2025-56520"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-57819": {
     "name": "crowdsecurity/vpatch-CVE-2025-57819",
     "description": "Detects unauthenticated SQL injection and RCE in FreePBX via vulnerable brand parameter in ajax.php endpoint.",
@@ -14932,6 +14954,55 @@
     "cti": true,
     "service": "uptime-kuma",
     "created_at": "2022-07-04T13:09:30"
+  },
+  "vspaziani/fireflyiii-logs-bf": {
+    "name": "vspaziani/fireflyiii-logs-bf",
+    "description": "Detect Fireflyiii bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
+  },
+  "vspaziani/fireflyiii-logs-enum": {
+    "name": "vspaziani/fireflyiii-logs-enum",
+    "description": "Detect Fireflyiii user enum bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
+  },
+  "vspaziani/fireflyiii-logs-MFA-bf": {
+    "name": "vspaziani/fireflyiii-logs-MFA-bf",
+    "description": "Detect Fireflyiii MFA bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1621",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
   },
   "xs539/bookstack-bf": {
     "name": "xs539/bookstack-bf",
