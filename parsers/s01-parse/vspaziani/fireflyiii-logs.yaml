@@ -1,0 +1,45 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'fireflyiii'"
+name: vspaziani/fireflyiii
+description: "Parse fireflyiii logs"
+pattern_syntax:
+    FIREFLYIII_CUSTOMDATE: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
+                            #2026-01-29 21:23:28
+    FIREFLYIII_BADPASSWORD: '\[%{FIREFLYIII_CUSTOMDATE:event_timestamp}\].*Login failed. Attempt for user "%{EMAILADDRESS:user}" failed. \(%{IP:source_ip}.*'
+                            #[2026-02-05 12:34:56] local.WARNING: AUDIT: Login failed. Attempt for user "User@EmailDomain.com" failed. (192.168.1.124 -> POST:https://FireflyiiiDomain.com/login)
+    FIREFLYIII_BADUSER: '\[%{FIREFLYIII_CUSTOMDATE:event_timestamp}\].*AUDIT: User is trying to login using "%{EMAILADDRESS:user}" \(%{IP:source_ip}.*'
+                        #[2026-01-04 01:23:45] local.INFO: AUDIT: User is trying to login using "User@EmailDomain.com" (192.168.1.123 -> POST:https://FireflyiiiDomain.com/login)
+    FIREFLYIII_BADMFA: '\[%{FIREFLYIII_CUSTOMDATE:event_timestamp}\].*AUDIT: MFA failure count is set to %{NUMBER:mfa_fail_count}. \(%{IP:source_ip} \(%{EMAILADDRESS:user}.*'
+                       #[2026-03-06 23:45:12] local.INFO: AUDIT: MFA failure count is set to 1. (192.168.1.125 (User@EmailDomain.com) -> POST:http://FireflyiiiDomain.com/two-factor/submit)
+nodes:
+    - grok:
+          name: "FIREFLYIII_BADPASSWORD"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: fireflyiii_bad_password
+    - grok:
+          name: "FIREFLYIII_BADUSER"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: fireflyiii_bad_user
+    - grok:
+          name: "FIREFLYIII_BADMFA"
+          apply_on: message
+          statics:
+              - meta: log_type
+                value: fireflyiii_bad_mfa
+              - meta: mfa_count
+                expression: evt.Parsed.mfa_fail_count
+statics:
+    - meta: service
+      value: fireflyiii
+    - meta: username
+      expression: evt.Parsed.user
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTimeFormat
+      value: "2006-01-02 15:04:05"
+    - target: evt.StrTime
+      expression: evt.Parsed.event_timestamp
