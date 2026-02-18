@@ -1,0 +1,28 @@
+onsuccess: next_stage
+#debug: true
+filter: "Upper(evt.Parsed.program) == 'SHARRY'"
+name: plague-doctor/sharry-logs
+description: "Parse Sharry logs"
+pattern_syntax:
+    SHARRY_DATE: "%{YEAR}\\.%{MONTHNUM2}\\.%{MONTHDAY} %{TIME}:%{INT}"
+    SHARRY_THREAD: "\\[%{DATA:thread}\\]"
+    SHARRY_LEVEL: "\\[%{LOGLEVEL:level}\\s*\\]"
+    SHARRY_CLASS: "%{JAVACLASS:class}:%{INT:line}"
+nodes:
+    - grok:
+        pattern: "^%{SHARRY_DATE:timestamp} %{SHARRY_THREAD} %{SHARRY_LEVEL} %{SHARRY_CLASS} - Authentication attempt failure for username %{USERNAME:username} from ip %{IP:source_ip}"
+        apply_on: message
+      statics:
+        - meta: log_type
+          value: sharry_failed_auth
+statics:
+    - meta: service
+      value: sharry
+    - meta: source_ip
+      expression: "evt.Parsed.source_ip"
+    - target: evt.StrTimeFormat
+      value: "2006.01.02 15:04:05:0000 -0700"
+    - target: evt.StrTime
+      expression: evt.Parsed.timestamp + " +1100"
+    - meta: username
+      expression: "evt.Parsed.username"

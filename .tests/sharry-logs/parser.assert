@@ -1,0 +1,81 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2026.02.12 12:50:22:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "sharry"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "sharry.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2026.02.12 12:50:25:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "sharry"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "sharry.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2026.02.12 12:45:23:0001 [io-comp...] [INFO ] org.http4s.server.middleware.Logger - HTTP/1.1 200 OK"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "sharry"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "sharry.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["plague-doctor/sharry-logs"]) == 3
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Success == true
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Parsed["message"] == "2026.02.12 12:50:22:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Parsed["program"] == "sharry"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Parsed["timestamp"] == "2026.02.12 12:50:22:0000"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Parsed["username"] == "Thgg"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["datasource_path"] == "sharry.log"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["log_type"] == "sharry_failed_auth"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["service"] == "sharry"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Meta["username"] == "Thgg"
+results["s01-parse"]["plague-doctor/sharry-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Success == true
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Parsed["message"] == "2026.02.12 12:50:25:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Parsed["program"] == "sharry"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Parsed["timestamp"] == "2026.02.12 12:50:25:0000"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Parsed["username"] == "Thgg"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["datasource_path"] == "sharry.log"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["log_type"] == "sharry_failed_auth"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["service"] == "sharry"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Meta["username"] == "Thgg"
+results["s01-parse"]["plague-doctor/sharry-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["plague-doctor/sharry-logs"][2].Success == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2026.02.12 12:50:22:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "sharry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2026.02.12 12:50:22:0000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["username"] == "Thgg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "sharry.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "sharry_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "sharry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2026-02-12T12:50:22+11:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "Thgg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2026.02.12 12:50:25:0000 [io-comp...] [INFO ] sharry.restserver.routes.LoginRoutes.makeResponse:232 - Authentication attempt failure for username Thgg from ip 1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "sharry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2026.02.12 12:50:25:0000"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["username"] == "Thgg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "sharry.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "sharry_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "sharry"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.136.110.240"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2026-02-12T12:50:25+11:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] == "Thgg"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
