@@ -1,0 +1,9 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/postfix-logs
+  - crowdsecurity/dateparse-enrich
+  - ./parsers/s01-parse/melite/postfix-submission-auth.yaml
+scenarios:
+  - scenarios/melite/postfix-submission-very-slow-bf.yaml
+log_file: postfix-submission-very-slow-bf.log
+log_type: syslog
