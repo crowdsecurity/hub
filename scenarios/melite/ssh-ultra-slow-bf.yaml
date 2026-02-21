@@ -1,0 +1,45 @@
+# Scenario: Ultra slow SSH bruteforce
+# Detects sophisticated bots doing micro-bursts every 9+ hours over multiple days
+# Detection window: 12h x 10 = 5 days (10 failures needed)
+#
+# Real-world example: 83.212.171.158 doing 3 attempts (root, mayalink, ubuntu)
+# every 9 hours for 5 days. These attackers calibrate their timing to evade
+# ssh-slow-bf and ssh-very-slow-bf.
+type: leaky
+name: melite/ssh-ultra-slow-bf
+description: "Detect ultra slow SSH bruteforce (multi-day evasive attacks)"
+filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+leakspeed: "12h"
+capacity: 9
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:ultra-slow-bruteforce"
+  label: "SSH Ultra Slow Bruteforce"
+---
+# User enumeration variant
+type: leaky
+name: melite/ssh-ultra-slow-bf_user-enum
+description: "Detect ultra slow SSH user enumeration (multi-day)"
+filter: evt.Meta.log_type == 'ssh_failed-auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: "12h"
+capacity: 9
+blackhole: 5m
+labels:
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:user-enumeration"
+  label: "SSH Ultra Slow User Enumeration"
