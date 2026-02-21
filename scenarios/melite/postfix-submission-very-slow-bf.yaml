@@ -1,0 +1,31 @@
+# Scenario: Very slow bruteforce on Postfix submission port (587)
+# Detects evasive attacks that space attempts to evade standard scenarios
+# Detection window: 4h x 6 = 24 hours (6 failures needed)
+#
+# Key insight: Attackers targeting port 587 (submission+STARTTLS) often
+# do 1 attempt every ~30-60 minutes to evade detection.
+# Standard postfix scenarios don't catch these because:
+# 1. They rely on explicit "SASL authentication failed" logs
+# 2. Port 587 only shows auth failures in disconnect lines (auth=0/N)
+#
+# Requires: melite/postfix-submission-auth parser (s02-enrich)
+#
+# Real-world example: 62.60.130.220 did 135 attempts over 20 hours (~1/9min average)
+type: leaky
+name: melite/postfix-submission-very-slow-bf
+description: "Detect very slow Postfix submission auth bruteforce (evasive attacks)"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.log_type_enh == 'submission-auth-failed'"
+leakspeed: "4h"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smtp:evasive-bruteforce"
+  label: "Postfix Submission Very Slow Bruteforce"

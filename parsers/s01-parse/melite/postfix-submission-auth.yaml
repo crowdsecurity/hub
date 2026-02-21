@@ -1,0 +1,27 @@
+# Parser: Postfix submission port (587) auth failures
+# Stage: s01-parse
+#
+# Detects authentication failures from "disconnect" lines on port 587.
+# Standard Postfix parsers don't catch these because port 587+STARTTLS
+# only shows auth=0/N in disconnect (no explicit "SASL authentication failed").
+# Since crowdsecurity/postfix-logs does not match disconnect lines at all,
+# this parser must be in s01-parse (not s02-enrich).
+#
+# Example log line:
+#   postfix/submission/smtpd[PID]: disconnect from host[IP] ehlo=1 auth=0/1 quit=1 commands=2/3
+#
+# The auth=0/N pattern indicates N authentication attempts with 0 successes.
+onsuccess: next_stage
+filter: "evt.Parsed.program endsWith '/smtpd' && evt.Parsed.message contains 'disconnect' && evt.Parsed.message contains 'auth=0/'"
+name: melite/postfix-submission-auth
+description: "Parse submission port auth failures from disconnect lines"
+grok:
+  apply_on: message
+  pattern: "%{DATA}\\[%{IP:remote_addr}\\].*auth=%{INT:auth_failed}/%{INT:auth_attempts}"
+statics:
+  - meta: log_type
+    value: postfix
+  - meta: log_type_enh
+    value: submission-auth-failed
+  - meta: source_ip
+    expression: evt.Parsed.remote_addr
