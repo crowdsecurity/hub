@@ -1,0 +1,45 @@
+# Scenario: Very slow SSH bruteforce
+# Detects attackers doing < 1 attempt per hour to evade standard ssh-slow-bf
+# Detection window: 4h x 6 = 24 hours (6 failures needed)
+#
+# Real-world example: Attackers spacing SSH attempts ~70 minutes apart
+# to avoid crowdsecurity/ssh-slow-bf (which has a 10min window)
+type: leaky
+name: melite/ssh-very-slow-bf
+description: "Detect very slow SSH bruteforce (evasive attacks)"
+filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+leakspeed: "4h"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:very-slow-bruteforce"
+  label: "SSH Very Slow Bruteforce"
+---
+# User enumeration variant
+# Triggers when the same IP tries different usernames slowly
+type: leaky
+name: melite/ssh-very-slow-bf_user-enum
+description: "Detect very slow SSH user enumeration"
+filter: evt.Meta.log_type == 'ssh_failed-auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: "4h"
+capacity: 5
+blackhole: 5m
+labels:
+  service: ssh
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:user-enumeration"
+  label: "SSH Very Slow User Enumeration"
