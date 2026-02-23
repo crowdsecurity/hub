@@ -14,21 +14,7 @@ rules:
       - urldecode
       match:
         type: regex
-        value: '^/wp-content/uploads/$'
-  - and:
-    - zones:
-      - METHOD
-      match:
-        type: equals
-        value: GET
-    - zones:
-      - URI
-      transform:
-      - lowercase
-      - urldecode
-      match:
-        type: regex
-        value: '^/wp-content/uploads/.*/$'
+        value: '^/wp-content/uploads/(.*/)?$'
     
 labels:
    type: exploit
