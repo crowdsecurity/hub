@@ -22,6 +22,12 @@ http:
       - |
         GET /wp-content/uploads/2024/10/fp-check.jpg HTTP/1.1
         Host: {{Hostname}}
+      - |
+        OPTIONS /wp-content/uploads/ HTTP/1.1
+        Host: {{Hostname}}
+      - |
+        OPTIONS /wp-content/uploads/2024/10/ HTTP/1.1
+        Host: {{Hostname}}
     matchers:
       - type: dsl
         condition: and
@@ -31,4 +37,6 @@ http:
           - "status_code_3 == 403"
           - "status_code_4 == 403"
           - "status_code_5 == 404"
+          - "status_code_6 == 404"
+          - "status_code_7 == 404"
 
