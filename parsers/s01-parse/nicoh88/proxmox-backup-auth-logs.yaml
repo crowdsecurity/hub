@@ -7,7 +7,7 @@ filter: "evt.Parsed.program == 'proxmox-backup-auth'"
 onsuccess: next_stage
 
 pattern_syntax:
-  PBS_AUTH_FAIL: '%{TIMESTAMP_ISO8601:ts}: authentication failure; rhost=\[::ffff:%{IP:client_ip}\]:%{NUMBER:client_port} user=%{USERNAME:source_user}@%{WORD:realm} msg=%{GREEDYDATA:fail_reason}'
+  PBS_AUTH_FAIL: '%{TIMESTAMP_ISO8601:ts}: authentication failure; rhost=\[%{IP:client_ip}\]:%{NUMBER:client_port} user=%{USERNAME:source_user}@%{WORD:realm} msg=%{GREEDYDATA:fail_reason}'
   PBS_AUTH_OK:   '%{TIMESTAMP_ISO8601:ts}: successful auth for user ''%{USERNAME:source_user}@%{WORD:realm}'''
 
 nodes:
