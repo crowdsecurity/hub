@@ -1,0 +1,45 @@
+# Scenario: Very slow Dovecot bruteforce
+# Detects attackers doing < 1 attempt per hour to evade standard slow-bf detection
+# Detection window: 12h x 7 = 84 hours / ~3.5 days (7 failures needed)
+#
+# Catches attackers spacing attempts to evade dovecot-slow-bf.
+# At 1 attempt/hour, the slow-bf bucket (4h leak) never fills because
+# it leaks faster than events arrive. This scenario uses 12h leak to catch them.
+type: leaky
+name: melite/dovecot-very-slow-bf
+description: "Detect very slow Dovecot bruteforce (evasive attacks)"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+leakspeed: "12h"
+capacity: 6
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:very-slow-bruteforce"
+  label: "Dovecot Very Slow Bruteforce"
+---
+# User enumeration variant
+type: leaky
+name: melite/dovecot-very-slow-bf_user-enum
+description: "Detect very slow Dovecot user enumeration"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: "12h"
+capacity: 6
+blackhole: 5m
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:user-enumeration"
+  label: "Dovecot Very Slow User Enumeration"

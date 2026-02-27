@@ -1,0 +1,44 @@
+# Scenario: Slow bruteforce on Dovecot (POP3/IMAP)
+# Detects distributed or slow credential stuffing attacks
+# Detection window: 4h x 5 = 20 hours (5 failures needed)
+#
+# Note: leakspeed is 14400s (4 hours) — catches attackers doing bursts
+# of 6 events / 2.5h with 5h+ pauses between bursts.
+type: leaky
+name: melite/dovecot-slow-bf
+description: "Detect slow Dovecot bruteforce (distributed attacks)"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+leakspeed: "14400s"
+capacity: 4
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:slow-bruteforce"
+  label: "Dovecot Slow Bruteforce"
+---
+# User enumeration variant
+type: leaky
+name: melite/dovecot-slow-bf_user-enum
+description: "Detect slow Dovecot user enumeration"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: "14400s"
+capacity: 4
+blackhole: 5m
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:user-enumeration"
+  label: "Dovecot Slow User Enumeration"
