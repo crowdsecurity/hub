@@ -1,0 +1,44 @@
+# Scenario: Very slow Postfix SMTP AUTH bruteforce
+# Detects attackers doing < 1 attempt per 30 minutes to evade standard detection
+# Detection window: 4h x 6 = 24 hours (6 failures needed)
+#
+# Catches attackers spacing SASL auth attempts ~30min apart to evade
+# the standard postfix-slow-bf which has a 15min leakspeed.
+type: leaky
+name: melite/postfix-very-slow-bf
+description: "Detect very slow Postfix SMTP AUTH bruteforce (evasive attacks)"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.log_type_enh == 'spam-attempt'"
+leakspeed: "4h"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: postfix
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smtp:very-slow-bruteforce"
+  label: "Postfix Very Slow Bruteforce"
+---
+# SASL username enumeration variant
+type: leaky
+name: melite/postfix-very-slow-bf_user-enum
+description: "Detect very slow Postfix SASL user enumeration"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.log_type_enh == 'spam-attempt'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.sasl_username
+leakspeed: "4h"
+capacity: 5
+blackhole: 5m
+labels:
+  service: postfix
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smtp:user-enumeration"
+  label: "Postfix Very Slow User Enumeration"

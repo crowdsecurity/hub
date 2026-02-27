@@ -1,0 +1,44 @@
+# Scenario: Slow Postfix SMTP AUTH bruteforce
+# Detects distributed or slow SASL authentication attacks on port 25
+# Detection window: 15min x 8 = 2 hours (8 failures needed)
+#
+# Real-world example: Distributed botnets testing SMTP credentials
+# with 2-5 minute intervals to avoid standard detection.
+type: leaky
+name: melite/postfix-slow-bf
+description: "Detect slow Postfix SMTP AUTH bruteforce (distributed attacks)"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.log_type_enh == 'spam-attempt'"
+leakspeed: "900s"
+capacity: 7
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smtp:slow-bruteforce"
+  label: "Postfix Slow Bruteforce"
+---
+# SASL username enumeration variant
+type: leaky
+name: melite/postfix-slow-bf_user-enum
+description: "Detect slow Postfix SASL user enumeration"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.log_type_enh == 'spam-attempt'"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.sasl_username
+leakspeed: "900s"
+capacity: 7
+blackhole: 5m
+labels:
+  service: postfix
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smtp:user-enumeration"
+  label: "Postfix Slow User Enumeration"

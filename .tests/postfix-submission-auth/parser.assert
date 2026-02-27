@@ -1,0 +1,141 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "disconnect from unknown[192.0.2.1] ehlo=1 auth=0/1 quit=1 commands=2/3"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["pid"] == "50001"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["timestamp"] == "Jan 15 10:30:45"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Meta["machine"] == "server"
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["message"] == "disconnect from attacker.example[198.51.100.1] ehlo=2 starttls=1 auth=0/3 quit=1 commands=4/7"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["pid"] == "50002"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Parsed["timestamp"] == "Jan 15 10:31:00"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Meta["machine"] == "server"
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["message"] == "disconnect from scanner.example[203.0.113.50] ehlo=1 auth=0/2 quit=1 commands=2/4"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["pid"] == "50003"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Parsed["timestamp"] == "Jan 15 10:32:00"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Meta["machine"] == "server"
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/postfix-logs"]) == 3
+results["s01-parse"]["crowdsecurity/postfix-logs"][0].Success == false
+results["s01-parse"]["crowdsecurity/postfix-logs"][1].Success == false
+results["s01-parse"]["crowdsecurity/postfix-logs"][2].Success == false
+len(results["s01-parse"]["melite/postfix-submission-auth"]) == 3
+results["s01-parse"]["melite/postfix-submission-auth"][0].Success == true
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["auth_attempts"] == "1"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["auth_failed"] == "0"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["message"] == "disconnect from unknown[192.0.2.1] ehlo=1 auth=0/1 quit=1 commands=2/3"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["pid"] == "50001"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["remote_addr"] == "192.0.2.1"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Parsed["timestamp"] == "Jan 15 10:30:45"
+basename(results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["log_type"] == "postfix"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["machine"] == "server"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Meta["source_ip"] == "192.0.2.1"
+results["s01-parse"]["melite/postfix-submission-auth"][0].Evt.Whitelisted == false
+results["s01-parse"]["melite/postfix-submission-auth"][1].Success == true
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["auth_attempts"] == "3"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["auth_failed"] == "0"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["message"] == "disconnect from attacker.example[198.51.100.1] ehlo=2 starttls=1 auth=0/3 quit=1 commands=4/7"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["pid"] == "50002"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["remote_addr"] == "198.51.100.1"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Parsed["timestamp"] == "Jan 15 10:31:00"
+basename(results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["log_type"] == "postfix"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["machine"] == "server"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Meta["source_ip"] == "198.51.100.1"
+results["s01-parse"]["melite/postfix-submission-auth"][1].Evt.Whitelisted == false
+results["s01-parse"]["melite/postfix-submission-auth"][2].Success == true
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["auth_attempts"] == "2"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["auth_failed"] == "0"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["message"] == "disconnect from scanner.example[203.0.113.50] ehlo=1 auth=0/2 quit=1 commands=2/4"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["pid"] == "50003"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["remote_addr"] == "203.0.113.50"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Parsed["timestamp"] == "Jan 15 10:32:00"
+basename(results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["log_type"] == "postfix"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["machine"] == "server"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Meta["source_ip"] == "203.0.113.50"
+results["s01-parse"]["melite/postfix-submission-auth"][2].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["auth_attempts"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["auth_failed"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "disconnect from unknown[192.0.2.1] ehlo=1 auth=0/1 quit=1 commands=2/3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["pid"] == "50001"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["remote_addr"] == "192.0.2.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "Jan 15 10:30:45"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["machine"] == "server"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.0.2.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2026-01-15T10:30:45Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2026-01-15T10:30:45Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["auth_attempts"] == "3"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["auth_failed"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "disconnect from attacker.example[198.51.100.1] ehlo=2 starttls=1 auth=0/3 quit=1 commands=4/7"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["pid"] == "50002"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["remote_addr"] == "198.51.100.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "Jan 15 10:31:00"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["machine"] == "server"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "198.51.100.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2026-01-15T10:31:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2026-01-15T10:31:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["auth_attempts"] == "2"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["auth_failed"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "disconnect from scanner.example[203.0.113.50] ehlo=1 auth=0/2 quit=1 commands=2/4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["pid"] == "50003"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "postfix/submission/smtpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["remote_addr"] == "203.0.113.50"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "Jan 15 10:32:00"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "postfix-submission-auth.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type_enh"] == "submission-auth-failed"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["machine"] == "server"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "203.0.113.50"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2026-01-15T10:32:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2026-01-15T10:32:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0
