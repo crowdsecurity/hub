@@ -12,3 +12,10 @@ whitelist:
    - evt.Meta.http_status == '404' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/playQueues/'
    - evt.Meta.http_status == '403' && evt.Meta.http_verb == 'POST' && evt.Parsed.request == '/log' && evt.Parsed.http_args contains 'X-Plex-Product=Plex%20Cast&X-Plex-Version='
    - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/music/:/transcode/universal/session/'
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/hubs/' # Home screen content hubs
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path == '/activities' # Background activity monitoring
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/library/sections/' # Library section browsing
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/library/all' # Browse all items
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/library/search' # Search functionality
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/playlists/' # Playlist management
+   - evt.Meta.http_status == '200' && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/media/providers' # Media provider config
