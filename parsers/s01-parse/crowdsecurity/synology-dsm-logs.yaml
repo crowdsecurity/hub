@@ -11,7 +11,7 @@ pattern_syntax:
 # https://github.com/crowdsecurity/crowdsec/issues/938
   IPv4_WORKAROUND: '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
   IP_WORKAROUND: '(?:%{IPV6}|%{IPv4_WORKAROUND})'
-  AUTH_LOG_FAIL: 'pam_unix\(webui:auth\): authentication failure; logname= uid=0 euid=0 tty= ruser= rhost=%{IP_WORKAROUND:src_ip}'
+  AUTH_LOG_FAIL: 'pam_unix\(webui:auth\): authentication failure; logname= uid=0 euid=0 tty= ruser= rhost=%{IP_WORKAROUND:src_ip}(\s+user=%{USERNAME:sshd_invalid_user})?'
 grok:
   pattern: "%{AUTH_LOG_FAIL}"
   apply_on: message

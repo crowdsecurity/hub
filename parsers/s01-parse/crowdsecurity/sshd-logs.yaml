@@ -11,6 +11,7 @@ pattern_syntax:
   SSHD_AUTH_FAIL: 'pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
   SSHD_MAGIC_VALUE_FAILED: 'Magic value check failed \(\d+\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip} port \d+'
   SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  SSHD_INVALID_USER_SYNO: 'pam_%{DATA:pam_type}\(sshd:auth\): Can.t get user uid \(%{USERNAME:sshd_invalid_user}\)'
   SSHD_INVALID_USER_ALT: 'Failed keyboard-interactive/pam for invalid user %{USERNAME:sshd_invalid_user} from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
   SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
   SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
@@ -55,6 +56,14 @@ nodes:
       apply_on: message
   - grok:
       name: "SSHD_INVALID_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_INVALID_USER_SYNO"
       apply_on: message
       statics:
         - meta: log_type
