@@ -1,0 +1,19 @@
+type: leaky
+name: crowdsecurity/vsftpd-slow-bf
+description: "Detect slow FTP bruteforce (vsftpd)"
+filter: "evt.Meta.log_type == 'ftp_failed_auth'"
+leakspeed: "60s"
+capacity: 10
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: vsftpd
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ftp:bruteforce"
+  label: "VSFTPD Slow Bruteforce"
+

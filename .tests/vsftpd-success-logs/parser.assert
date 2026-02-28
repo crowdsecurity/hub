@@ -1,0 +1,117 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Mon Jun 8 12:00:00 2020 [pid 27307] [vagrant] OK LOGIN: Client \"::ffff:192.168.1.100\""
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "vsftpd"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Mon Jun 8 12:01:00 2020 [pid 27308] [admin] OK LOGIN: Client \"::ffff:192.168.1.200\""
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "vsftpd"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "Mon Jun 8 12:02:00 2020 [pid 27309] [testuser] OK LOGIN: Client \"::ffff:192.168.1.150\""
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "vsftpd"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["crowdsecurity/vsftpd-success-logs"]) == 3
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Parsed["message"] == "Mon Jun 8 12:00:00 2020 [pid 27307] [vagrant] OK LOGIN: Client \"::ffff:192.168.1.100\""
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Parsed["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Parsed["source_ip"] == "192.168.1.100"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Parsed["timestamp"] == "Mon Jun 8 12:00:00 2020"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Parsed["user"] == "vagrant"
+basename(results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["log_type"] == "auth_success"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["service"] == "ftp"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["source_ip"] == "192.168.1.100"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Meta["user"] == "vagrant"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Success == true
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Parsed["message"] == "Mon Jun 8 12:01:00 2020 [pid 27308] [admin] OK LOGIN: Client \"::ffff:192.168.1.200\""
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Parsed["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Parsed["source_ip"] == "192.168.1.200"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Parsed["timestamp"] == "Mon Jun 8 12:01:00 2020"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Parsed["user"] == "admin"
+basename(results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["log_type"] == "auth_success"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["service"] == "ftp"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["source_ip"] == "192.168.1.200"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Meta["user"] == "admin"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Success == true
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Parsed["message"] == "Mon Jun 8 12:02:00 2020 [pid 27309] [testuser] OK LOGIN: Client \"::ffff:192.168.1.150\""
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Parsed["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Parsed["source_ip"] == "192.168.1.150"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Parsed["timestamp"] == "Mon Jun 8 12:02:00 2020"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Parsed["user"] == "testuser"
+basename(results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["log_type"] == "auth_success"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["program"] == "vsftpd"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["service"] == "ftp"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["source_ip"] == "192.168.1.150"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Meta["user"] == "testuser"
+results["s01-parse"]["crowdsecurity/vsftpd-success-logs"][2].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "Mon Jun 8 12:00:00 2020 [pid 27307] [vagrant] OK LOGIN: Client \"::ffff:192.168.1.100\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "192.168.1.100"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "Mon Jun 8 12:00:00 2020"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["user"] == "vagrant"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "auth_success"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "ftp"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.100"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2020-06-08T12:00:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["user"] == "vagrant"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2020-06-08T12:00:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "Mon Jun 8 12:01:00 2020 [pid 27308] [admin] OK LOGIN: Client \"::ffff:192.168.1.200\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "192.168.1.200"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "Mon Jun 8 12:01:00 2020"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["user"] == "admin"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "auth_success"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "ftp"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.200"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2020-06-08T12:01:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["user"] == "admin"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2020-06-08T12:01:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "Mon Jun 8 12:02:00 2020 [pid 27309] [testuser] OK LOGIN: Client \"::ffff:192.168.1.150\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "192.168.1.150"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "Mon Jun 8 12:02:00 2020"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["user"] == "testuser"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "vsftpd-success-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "auth_success"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["program"] == "vsftpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "ftp"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.150"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2020-06-08T12:02:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["user"] == "testuser"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2020-06-08T12:02:00Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0
