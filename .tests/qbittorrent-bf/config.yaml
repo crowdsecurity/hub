@@ -1,0 +1,12 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/gilbsgilbs/qbittorrent-logs.yaml
+  - "crowdsecurity/dateparse-enrich"
+scenarios:
+  - ./scenarios/gilbsgilbs/qbittorrent-bf.yaml
+postoverflows:
+  - ""
+log_file: qbittorrent-logs.log
+log_type: qbittorrent
+labels: {}
+ignore_parsers: false
