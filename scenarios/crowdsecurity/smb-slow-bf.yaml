@@ -1,0 +1,19 @@
+# smb slow bruteforce
+type: leaky
+name: crowdsecurity/smb-slow-bf
+description: "Detect slow SMB bruteforce"
+filter: "evt.Meta.log_type == 'smb_failed_auth'"
+leakspeed: "60s"
+capacity: 10
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: smb
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "smb:bruteforce"
+  label: "SMB Slow Bruteforce"
