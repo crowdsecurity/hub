@@ -1,0 +1,11 @@
+type: trigger
+format: 2.0
+debug: false
+name: Kornelius777/cowrie
+description: "Detect attempts to execute code in Cowrie Honeypot"
+filter: "evt.Meta.log_type == 'cowrie_command_attempt' "
+groupby: "evt.Meta.source_ip"
+labels:
+  service: cowrie
+  type: bruteforce
+  remediation: true
