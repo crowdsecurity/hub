@@ -2,7 +2,7 @@
 # https://github.com/opnsense/ports/blob/master/opnsense/filterlog/files/description.txt
 # and
 # https://docs.netgate.com/pfsense/en/latest/monitoring/logs/raw-filter-format.html
-filter: "evt.Parsed.program == 'filterlog' or evt.Parsed.message matches '^filterlog:'"
+filter: "evt.Parsed.program == 'filterlog' or evt.Parsed.message matches '^filterlog([[:space:]]|:)'"
 name: firewallservices/pf-logs
 description: "Parse packet filter logs"
 format: 2.0
@@ -27,7 +27,7 @@ pattern_syntax:
   # both protocols start with the same three values
   PF_PROTOCOL: '%{PF_UDP_DATA}(,%{PF_TCP_DATA})?'
 grok:
-  pattern: "%{PF_BASE},%{PF_IP},%{PF_PROTOCOL}"
+  pattern: "(?:filterlog:[[:space:]]+|filterlog(?:[[:space:]]+%{INT:filterlog_pid})?[[:space:]]+-[[:space:]]+\\[[^\\]]*\\][[:space:]]+)?%{PF_BASE},%{PF_IP},%{PF_PROTOCOL}"
   apply_on: message
 statics:
   - meta: log_type
