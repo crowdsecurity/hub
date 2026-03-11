@@ -1,3 +1,4 @@
+name: crowdsecurity/sshd
 parsers:
   - crowdsecurity/sshd-logs
   - crowdsecurity/sshd-success-logs
@@ -9,10 +10,13 @@ scenarios:
   - crowdsecurity/ssh-refused-conn
   - crowdsecurity/ssh-generic-test
 description: "sshd support : parser and brute-force detection"
+labels:
+  label: "SSHD - Bruteforce Protection"
 contexts:
   - crowdsecurity/bf_base
 author: crowdsecurity
 tags:
+  - security_engine
   - linux
   - ssh
   - bruteforce
