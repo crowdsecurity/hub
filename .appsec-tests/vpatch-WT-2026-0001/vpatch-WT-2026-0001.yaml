@@ -1,0 +1,28 @@
+id: WT-2026-0001
+
+info:
+  name: SmarterMail Authentication Bypass - Force Reset Password
+  author: crowdsec
+  severity: critical
+  description: |
+    Detects authentication bypass in SmarterTools SmarterMail via the force-reset-password endpoint.
+    An unauthenticated attacker can reset the system administrator password by setting IsSysAdmin to true.
+  reference:
+    - https://labs.watchtowr.com/attackers-with-decompilers-strike-again-smartertools-smartermail-wt-2026-0001-auth-bypass/
+  classification:
+    cwe-id: CWE-287
+  tags: appsec-testing,smartermail,auth-bypass
+
+http:
+  - raw:
+      - |
+        POST /api/v1/auth/force-reset-password HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/json
+
+        {"IsSysAdmin":"true","OldPassword":"whatever","Username":"admin","NewPassword":"NewPassword123!@#","ConfirmPassword":"NewPassword123!@#"}
+
+    matchers:
+      - type: status
+        status:
+          - 403

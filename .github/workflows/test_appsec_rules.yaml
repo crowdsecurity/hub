@@ -34,7 +34,8 @@ jobs:
         go-version: '1.25'
     - name: Install requirements
       run: |
-        sudo apt install libre2-dev
+        sudo apt update
+        sudo apt install -y libre2-dev gettext
         go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.1.7
         # yes it's ugly, no I don't care
         cp $HOME/go/bin/nuclei /usr/local/bin/
@@ -44,7 +45,7 @@ jobs:
         cd crowdsec
         BUILD_STATIC=1 make release
         cd crowdsec-v*
-        sudo ./wizard.sh --unattended
+        sudo ./wizard.sh --unattended --docker-mode
     - name: Register Remediation Component API Key
       run: |
         sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
@@ -53,7 +54,7 @@ jobs:
         docker compose -f docker/appsec/docker-compose.yaml up -d --build
     - name: run tests on last crowdsec tag
       run: |
-        sudo cscli hubtest run --all --appsec --debug --target http://127.0.0.1:7822
+        sudo cscli hubtest run --all --appsec --target http://127.0.0.1:7822
         echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> $GITHUB_ENV
         APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
         echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV

@@ -1,92 +1,81 @@
 onsuccess: next_stage
-filter: "evt.Parsed.cef_device_vendor == 'Ubiquiti' && evt.Parsed.cef_device_product == 'UniFi Network'"
+filter: "evt.Parsed.cef_device_vendor == 'Ubiquiti' && evt.Parsed.cef_device_product == 'UniFi Network' && ParseKVLax(evt.Parsed.message, evt.Unmarshaled, 'unifi') == nil"
 name: crowdsecurity/unifi-cef
 description: "Parse Unifi CEF logs"
-pattern_syntax:
-  UNIFI_ADMIN_PATTERN: 'UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIaccessMethod=(%{DATA:unifi_access_method}) UNIFIadmin=(%{DATA:unifi_admin}) src=(%{IP:src_ip}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
-  UNIFI_SECURITY_PATTERN: 'proto=(%{WORD:protocol}) src=(%{IP:src_ip}) spt=(%{INT:src_port}) dst=(%{IP:dst_ip}) dpt=(%{INT:dst_port}) UNIFIcategory=(%{DATA:unifi_category}) UNIFIsubCategory=(%{DATA:unifi_subcategory}) UNIFIhost=(%{DATA:unifi_host}) UNIFIdeviceMac=(%{DATA:unifi_device_mac}) UNIFIdeviceName=(%{DATA:unifi_device_name}) UNIFIdeviceModel=(%{DATA:unifi_device_model}) UNIFIdeviceIp=(%{IP:unifi_device_ip}) UNIFIdeviceVersion=(%{DATA:unifi_device_version}) UNIFIrisk=(%{DATA:unifi_risk}) UNIFIipsSessionId=(%{DATA:unifi_ips_session_id}) UNIFIipsSignature=(%{DATA:unifi_ips_signature}) UNIFIipsSignatureId=(%{DATA:unifi_ips_signature_id}) UNIFIutcTime=(%{DATA:unifi_utc_time}) msg=(%{DATA:msg})'
-nodes:
-  - grok:
-      pattern: '%{UNIFI_ADMIN_PATTERN}'
-      apply_on: message
-    statics:
-      - meta: service
-        value: unifi
-      - meta: vendor
-        expression: evt.Parsed.cef_device_vendor
-      - meta: product
-        expression: evt.Parsed.cef_device_product
-      - meta: device_version
-        expression: evt.Parsed.cef_device_version
-      - meta: source_ip
-        expression: evt.Parsed.src_ip
-      - meta: admin_user
-        expression: evt.Parsed.unifi_admin
-      - meta: category
-        expression: evt.Parsed.unifi_category
-      - meta: subcategory
-        expression: evt.Parsed.unifi_subcategory
-      - meta: access_method
-        expression: evt.Parsed.unifi_access_method
-      - meta: host
-        expression: evt.Parsed.unifi_host
-      - meta: event_severity
-        expression: evt.Parsed.cef_severity
-      - meta: event_signature_id
-        expression: evt.Parsed.cef_signature_id
-      - meta: message
-        expression: evt.Parsed.msg
-      - target: evt.StrTime
-        expression: evt.Parsed.unifi_utc_time
-  - grok:
-      pattern: '%{UNIFI_SECURITY_PATTERN}'
-      apply_on: message
-    statics:
-      - meta: service
-        value: unifi
-      - meta: vendor
-        expression: evt.Parsed.cef_device_vendor
-      - meta: product
-        expression: evt.Parsed.cef_device_product
-      - meta: device_version
-        expression: evt.Parsed.cef_device_version
-      - meta: source_ip
-        expression: evt.Parsed.src_ip
-      - meta: device_name
-        expression: evt.Parsed.unifi_device_name
-      - meta: device_model
-        expression: evt.Parsed.unifi_device_model
-      - meta: device_mac
-        expression: evt.Parsed.unifi_device_mac
-      - meta: device_ip
-        expression: evt.Parsed.unifi_device_ip
-      - meta: category
-        expression: evt.Parsed.unifi_category
-      - meta: subcategory
-        expression: evt.Parsed.unifi_subcategory
-      - meta: host
-        expression: evt.Parsed.unifi_host
-      - meta: risk_level
-        expression: evt.Parsed.unifi_risk
-      - meta: ips_signature
-        expression: evt.Parsed.unifi_ips_signature
-      - meta: ips_signature_id
-        expression: evt.Parsed.unifi_ips_signature_id
-      - meta: ips_session_id
-        expression: evt.Parsed.unifi_ips_session_id
-      - meta: event_severity
-        expression: evt.Parsed.cef_severity
-      - meta: event_signature_id
-        expression: evt.Parsed.cef_signature_id
-      - meta: protocol
-        expression: evt.Parsed.protocol
-      - meta: source_port
-        expression: evt.Parsed.src_port
-      - meta: destination_ip
-        expression: evt.Parsed.dst_ip
-      - meta: destination_port
-        expression: evt.Parsed.dst_port
-      - meta: message
-        expression: evt.Parsed.msg
-      - target: evt.StrTime
-        expression: evt.Parsed.unifi_utc_time
+statics:
+  - meta: service
+    value: unifi
+  - meta: vendor
+    expression: evt.Parsed.cef_device_vendor
+  - meta: product
+    expression: evt.Parsed.cef_device_product
+  - meta: device_version
+    expression: evt.Parsed.cef_device_version
+  - meta: event_severity
+    expression: evt.Parsed.cef_severity
+  - meta: event_signature_id
+    expression: evt.Parsed.cef_signature_id
+  - meta: source_ip
+    expression: evt.Unmarshaled.unifi.src
+  - meta: protocol
+    expression: evt.Unmarshaled.unifi.proto
+  - meta: source_port
+    expression: evt.Unmarshaled.unifi.spt
+  - meta: destination_ip
+    expression: evt.Unmarshaled.unifi.dst
+  - meta: destination_port
+    expression: evt.Unmarshaled.unifi.dpt
+  - meta: action
+    expression: evt.Unmarshaled.unifi.act
+  - meta: application
+    expression: evt.Unmarshaled.unifi.app
+  - meta: category
+    expression: evt.Unmarshaled.unifi.UNIFIcategory
+  - meta: subcategory
+    expression: evt.Unmarshaled.unifi.UNIFIsubCategory
+  - meta: host
+    expression: evt.Unmarshaled.unifi.UNIFIhost
+  - meta: risk_level
+    expression: evt.Unmarshaled.unifi.UNIFIrisk
+  - meta: policy_name
+    expression: evt.Unmarshaled.unifi.UNIFIpolicyName
+  - meta: policy_type
+    expression: evt.Unmarshaled.unifi.UNIFIpolicyType
+  - meta: direction
+    expression: evt.Unmarshaled.unifi.UNIFIdirection
+  - meta: device_interface
+    expression: evt.Unmarshaled.unifi.deviceInboundInterface
+  - meta: device_mac
+    expression: evt.Unmarshaled.unifi.UNIFIdeviceMac
+  - meta: device_name
+    expression: evt.Unmarshaled.unifi.UNIFIdeviceName
+  - meta: device_model
+    expression: evt.Unmarshaled.unifi.UNIFIdeviceModel
+  - meta: device_ip
+    expression: evt.Unmarshaled.unifi.UNIFIdeviceIp
+  - meta: device_firmware_version
+    expression: evt.Unmarshaled.unifi.UNIFIdeviceVersion
+  - meta: source_zone
+    expression: evt.Unmarshaled.unifi.UNIFIsrcZone
+  - meta: source_region
+    expression: evt.Unmarshaled.unifi.UNIFIsrcRegion
+  - meta: destination_client_alias
+    expression: evt.Unmarshaled.unifi.UNIFIdstClientAlias
+  - meta: destination_client_mac
+    expression: evt.Unmarshaled.unifi.UNIFIdstClientMac
+  - meta: destination_zone
+    expression: evt.Unmarshaled.unifi.UNIFIdstZone
+  - meta: admin_user
+    expression: evt.Unmarshaled.unifi.UNIFIadmin
+  - meta: access_method
+    expression: evt.Unmarshaled.unifi.UNIFIaccessMethod
+  - meta: ips_signature
+    expression: evt.Unmarshaled.unifi.UNIFIipsSignature
+  - meta: ips_signature_id
+    expression: evt.Unmarshaled.unifi.UNIFIipsSignatureId
+  - meta: ips_session_id
+    expression: evt.Unmarshaled.unifi.UNIFIipsSessionId
+  - meta: message
+    expression: evt.Unmarshaled.unifi.msg
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.unifi.UNIFIutcTime
