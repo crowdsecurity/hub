@@ -14,7 +14,7 @@
   "crowdsecurity/experimental-no-user-agent": {
     "name": "crowdsecurity/experimental-no-user-agent",
     "description": "Protect against no user agent",
-    "label": "Protect against no user agent",
+    "label": "Missing User-Agent Header",
     "behaviors": [
       "http:exploit"
     ],
@@ -31,7 +31,7 @@
   "crowdsecurity/generic-freemarker-ssti": {
     "name": "crowdsecurity/generic-freemarker-ssti",
     "description": "Generic FreeMarker SSTI",
-    "label": "Generic FreeMarker SSTI",
+    "label": "FreeMarker - Server-Side Template Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -48,7 +48,7 @@
   "crowdsecurity/generic-wordpress-uploads-listing": {
     "name": "crowdsecurity/generic-wordpress-uploads-listing",
     "description": "Protect Wordpress uploads directory from listing files",
-    "label": "Protect Wordpress uploads directory from listing files",
+    "label": "WordPress Uploads - Directory Listing",
     "behaviors": [
       "http:exploit"
     ],
@@ -65,7 +65,7 @@
   "crowdsecurity/generic-wordpress-uploads-php": {
     "name": "crowdsecurity/generic-wordpress-uploads-php",
     "description": "Detect php execution in wordpress uploads directory",
-    "label": "Detect Wordpress PHP execution in uploads directory",
+    "label": "WordPress Uploads - PHP Execution",
     "behaviors": [
       "http:exploit"
     ],
@@ -123,10 +123,32 @@
       "CWE-79"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2014-5181": {
+    "name": "crowdsecurity/vpatch-CVE-2014-5181",
+    "description": "Detects path traversal in Last.fm Rotation plugin via snode parameter in lastfm-proxy.php",
+    "label": "Last.fm Rotation - Local File Inclusion",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-25T14:43:56",
+    "cves": [
+      "CVE-2014-5181"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2017-9841": {
     "name": "crowdsecurity/vpatch-CVE-2017-9841",
     "description": "PHPUnit RCE (CVE-2017-9841)",
-    "label": "PHPUnit RCE",
+    "label": "PHPUnit - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -172,7 +194,7 @@
   "crowdsecurity/vpatch-CVE-2018-10562": {
     "name": "crowdsecurity/vpatch-CVE-2018-10562",
     "description": "Dasan GPON RCE (CVE-2018-10562)",
-    "label": "Dasan GPON RCE",
+    "label": "Dasan GPON - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -195,7 +217,7 @@
   "crowdsecurity/vpatch-CVE-2018-11511": {
     "name": "crowdsecurity/vpatch-CVE-2018-11511",
     "description": "Detects SQL injection attempts in ASUSTOR ADM via album_id parameter in /photo-gallery/api/album/tree_lists/.",
-    "label": "ASUSTOR ADM - SQLI",
+    "label": "ASUSTOR ADM - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -327,7 +349,7 @@
   "crowdsecurity/vpatch-CVE-2019-12989": {
     "name": "crowdsecurity/vpatch-CVE-2019-12989",
     "description": "Citrix SQLi (CVE-2019-12989)",
-    "label": "Citrix SQLi",
+    "label": "Citrix - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -395,7 +417,7 @@
   "crowdsecurity/vpatch-CVE-2019-5418": {
     "name": "crowdsecurity/vpatch-CVE-2019-5418",
     "description": "Detects Rails file content disclosure via crafted Accept header (CVE-2019-5418)",
-    "label": "Rails - LFI",
+    "label": "Rails - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -439,7 +461,7 @@
   "crowdsecurity/vpatch-CVE-2019-9762": {
     "name": "crowdsecurity/vpatch-CVE-2019-9762",
     "description": "Detects SQL injection in PHPSHE 1.7 via the id parameter in pay.php",
-    "label": "PHPSHE - SQLI",
+    "label": "PHPSHE - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -483,7 +505,7 @@
   "crowdsecurity/vpatch-CVE-2020-11738": {
     "name": "crowdsecurity/vpatch-CVE-2020-11738",
     "description": "Wordpress Snap Creek Duplicator - Path Traversal (CVE-2020-11738)",
-    "label": "Wordpress Snap Creek Duplicator",
+    "label": "WordPress Duplicator - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -506,7 +528,7 @@
   "crowdsecurity/vpatch-CVE-2020-13640": {
     "name": "crowdsecurity/vpatch-CVE-2020-13640",
     "description": "Detects SQL injection in wpDiscuz plugin via the order parameter in wpdLoadMoreComments action.",
-    "label": "WpDiscuz - SQLI",
+    "label": "WpDiscuz - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -528,7 +550,7 @@
   "crowdsecurity/vpatch-CVE-2020-17496": {
     "name": "crowdsecurity/vpatch-CVE-2020-17496",
     "description": "vBulletin RCE (CVE-2020-17496)",
-    "label": "vBulletin RCE",
+    "label": "vBulletin - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -570,6 +592,28 @@
       "CWE-200"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2020-37123": {
+    "name": "crowdsecurity/vpatch-CVE-2020-37123",
+    "description": "Detects remote code execution via unsanitized ping parameter in Pinger 1.0",
+    "label": "Pinger - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2020-37123"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2020-5902": {
     "name": "crowdsecurity/vpatch-CVE-2020-5902",
     "description": "F5 BIG-IP TMUI - RCE (CVE-2020-5902)",
@@ -596,7 +640,7 @@
   "crowdsecurity/vpatch-CVE-2020-8656": {
     "name": "crowdsecurity/vpatch-CVE-2020-8656",
     "description": "Detects SQL injection in EyesOfNetwork getApiKey endpoint via username parameter.",
-    "label": "EyesOfNetwork - SQLI",
+    "label": "EyesOfNetwork - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -640,7 +684,7 @@
   "crowdsecurity/vpatch-CVE-2021-22941": {
     "name": "crowdsecurity/vpatch-CVE-2021-22941",
     "description": "Citrix RCE (CVE-2021-22941)",
-    "label": "Citrix RCE",
+    "label": "Citrix - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -663,7 +707,7 @@
   "crowdsecurity/vpatch-CVE-2021-25281": {
     "name": "crowdsecurity/vpatch-CVE-2021-25281",
     "description": "Detects SaltStack Salt API authentication bypass via wheel_async client in /run endpoint.",
-    "label": "SaltStack Salt - Auth Bypass",
+    "label": "SaltStack Salt - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -707,7 +751,7 @@
   "crowdsecurity/vpatch-CVE-2021-26086": {
     "name": "crowdsecurity/vpatch-CVE-2021-26086",
     "description": "Atlassian Jira Server/Data Center 8.4.0 - Limited Remote File Read/Include (CVE-2021-26086)",
-    "label": "Atlassian Jira Server/Data Center 8.4.0 File Read",
+    "label": "Atlassian Jira - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -727,7 +771,7 @@
   "crowdsecurity/vpatch-CVE-2021-26294": {
     "name": "crowdsecurity/vpatch-CVE-2021-26294",
     "description": "Detects unauthorized access to AfterLogic Aurora/WebMail Pro WebDAV endpoint using default caldav_public_user credentials and path traversal.",
-    "label": "AfterLogic Aurora/WebMail Pro - Info Disclosure",
+    "label": "AfterLogic Aurora/WebMail Pro - Information Disclosure",
     "behaviors": [
       "http:exploit"
     ],
@@ -749,7 +793,7 @@
   "crowdsecurity/vpatch-CVE-2021-3129": {
     "name": "crowdsecurity/vpatch-CVE-2021-3129",
     "description": "Laravel with Ignition Debug Mode RCE (CVE-2021-3129)",
-    "label": "Laravel with Ignition Debug Mode RCE",
+    "label": "Laravel Ignition - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -816,7 +860,7 @@
   "crowdsecurity/vpatch-CVE-2021-43798": {
     "name": "crowdsecurity/vpatch-CVE-2021-43798",
     "description": "Grafana - Arbitrary File Read (CVE-2021-43798)",
-    "label": "Grafana - LFI",
+    "label": "Grafana - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -882,7 +926,7 @@
   "crowdsecurity/vpatch-CVE-2022-22954": {
     "name": "crowdsecurity/vpatch-CVE-2022-22954",
     "description": "VMWare Workspace ONE Access RCE (CVE-2022-22954)",
-    "label": "VMWare Workspace ONE RCE",
+    "label": "VMware Workspace ONE - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -947,7 +991,7 @@
   "crowdsecurity/vpatch-CVE-2022-25322": {
     "name": "crowdsecurity/vpatch-CVE-2022-25322",
     "description": "Detects SQL injection attempts in ZEROF Web Server 2.0 via /HandleEvent endpoint.",
-    "label": "ZEROF Web Server - SQLI",
+    "label": "ZEROF Web Server - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -969,7 +1013,7 @@
   "crowdsecurity/vpatch-CVE-2022-25488": {
     "name": "crowdsecurity/vpatch-CVE-2022-25488",
     "description": "Atom CMS - SQLi (CVE-2022-25488)",
-    "label": "Atom CMS - SQLi",
+    "label": "Atom CMS - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1056,10 +1100,32 @@
       "CWE-78"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2022-3236": {
+    "name": "crowdsecurity/vpatch-CVE-2022-3236",
+    "description": "Detects code injection in Sophos Firewall User Portal and Webadmin via JSON parameter",
+    "label": "Sophos Firewall - Code Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2022-3236"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2022-35914": {
     "name": "crowdsecurity/vpatch-CVE-2022-35914",
     "description": "GLPI RCE (CVE-2022-35914)",
-    "label": "GLPI RCE",
+    "label": "GLPI - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1082,7 +1148,7 @@
   "crowdsecurity/vpatch-CVE-2022-38627": {
     "name": "crowdsecurity/vpatch-CVE-2022-38627",
     "description": "Detects SQL injection vulnerability in Linear eMerge E3-Series via idt parameter",
-    "label": "Linear eMerge E3-Series - SQLI",
+    "label": "Linear eMerge E3-Series - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1127,7 +1193,7 @@
   "crowdsecurity/vpatch-CVE-2022-44877": {
     "name": "crowdsecurity/vpatch-CVE-2022-44877",
     "description": "CentOS Web Panel 7 RCE (CVE-2022-44877)",
-    "label": "CentOS Web Panel 7 RCE",
+    "label": "CentOS Web Panel - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1150,7 +1216,7 @@
   "crowdsecurity/vpatch-CVE-2022-46169": {
     "name": "crowdsecurity/vpatch-CVE-2022-46169",
     "description": "Cacti RCE (CVE-2022-46169)",
-    "label": "Cacti <=1.2.22 - RCE",
+    "label": "Cacti - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1290,7 +1356,7 @@
   "crowdsecurity/vpatch-CVE-2023-20198": {
     "name": "crowdsecurity/vpatch-CVE-2023-20198",
     "description": "CISCO IOS XE Account Creation (CVE-2023-20198)",
-    "label": "CISCO IOS XE account creation",
+    "label": "Cisco IOS XE - Account Creation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1313,7 +1379,7 @@
   "crowdsecurity/vpatch-CVE-2023-22515": {
     "name": "crowdsecurity/vpatch-CVE-2023-22515",
     "description": "Atlassian Confluence Privesc (CVE-2023-22515)",
-    "label": "Atlassian Confluence Privesc",
+    "label": "Atlassian Confluence - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1336,7 +1402,7 @@
   "crowdsecurity/vpatch-CVE-2023-22527": {
     "name": "crowdsecurity/vpatch-CVE-2023-22527",
     "description": "RCE using SSTI in Confluence (CVE-2023-22527)",
-    "label": "Confluence RCE",
+    "label": "Atlassian Confluence - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1356,7 +1422,7 @@
   "crowdsecurity/vpatch-CVE-2023-23063": {
     "name": "crowdsecurity/vpatch-CVE-2023-23063",
     "description": "Detects local file disclosure in Cellinx NVT Web Server via GetFileContent.cgi PATH parameter.",
-    "label": "Cellinx NVT Web Server - LFI",
+    "label": "Cellinx NVT Web Server - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -1378,7 +1444,7 @@
   "crowdsecurity/vpatch-CVE-2023-23488": {
     "name": "crowdsecurity/vpatch-CVE-2023-23488",
     "description": "Wordpress Paid Memberships Pro Blind SQLi (CVE-2023-23488)",
-    "label": "Wordpress Paid Memberships Pro Blind SQLi",
+    "label": "WordPress Paid Memberships Pro - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1401,7 +1467,7 @@
   "crowdsecurity/vpatch-CVE-2023-23489": {
     "name": "crowdsecurity/vpatch-CVE-2023-23489",
     "description": "WordPress Easy Digital Downloads plugin SQL injection (CVE-2023-23489)",
-    "label": "WordPress Easy Digital Downloads plugin SQL injection",
+    "label": "WordPress Easy Digital Downloads - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1448,7 +1514,7 @@
   "crowdsecurity/vpatch-CVE-2023-24489": {
     "name": "crowdsecurity/vpatch-CVE-2023-24489",
     "description": "Citrix ShareFile RCE (CVE-2023-24489)",
-    "label": "Citrix ShareFile RCE",
+    "label": "Citrix ShareFile - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1471,7 +1537,7 @@
   "crowdsecurity/vpatch-CVE-2023-28121": {
     "name": "crowdsecurity/vpatch-CVE-2023-28121",
     "description": "WooCommerce auth bypass (CVE-2023-28121)",
-    "label": "WooCommerce auth bypass",
+    "label": "WooCommerce - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1516,7 +1582,7 @@
   "crowdsecurity/vpatch-CVE-2023-33617": {
     "name": "crowdsecurity/vpatch-CVE-2023-33617",
     "description": "Atlassian Confluence Privesc (CVE-2023-33617)",
-    "label": "Atlassian Confluence Privesc",
+    "label": "Atlassian Confluence - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1539,7 +1605,7 @@
   "crowdsecurity/vpatch-CVE-2023-34362": {
     "name": "crowdsecurity/vpatch-CVE-2023-34362",
     "description": "MOVEit Transfer RCE (CVE-2023-34362)",
-    "label": "MOVEit Transfer RCE",
+    "label": "MOVEit Transfer - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1562,7 +1628,7 @@
   "crowdsecurity/vpatch-CVE-2023-35078": {
     "name": "crowdsecurity/vpatch-CVE-2023-35078",
     "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35078)",
-    "label": "MobileIron Core API",
+    "label": "MobileIron Core - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1582,7 +1648,7 @@
   "crowdsecurity/vpatch-CVE-2023-35082": {
     "name": "crowdsecurity/vpatch-CVE-2023-35082",
     "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35082)",
-    "label": "MobileIron Core API",
+    "label": "MobileIron Core - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1602,7 +1668,7 @@
   "crowdsecurity/vpatch-CVE-2023-3519": {
     "name": "crowdsecurity/vpatch-CVE-2023-3519",
     "description": "Citrix RCE (CVE-2023-3519)",
-    "label": "Citrix RCE",
+    "label": "Citrix ADC - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1625,7 +1691,7 @@
   "crowdsecurity/vpatch-CVE-2023-38205": {
     "name": "crowdsecurity/vpatch-CVE-2023-38205",
     "description": "Adobe ColdFusion Access Control Bypass (CVE-2023-38205)",
-    "label": "Adobe ColdFusion Access Control Bypass",
+    "label": "Adobe ColdFusion - Access Control Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1648,7 +1714,7 @@
   "crowdsecurity/vpatch-CVE-2023-40044": {
     "name": "crowdsecurity/vpatch-CVE-2023-40044",
     "description": "WS_FTP .NET deserialize RCE (CVE-2023-40044)",
-    "label": "WS_FTP .NET deserialize RCE",
+    "label": "WS_FTP - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1671,7 +1737,7 @@
   "crowdsecurity/vpatch-CVE-2023-42793": {
     "name": "crowdsecurity/vpatch-CVE-2023-42793",
     "description": "JetBrains Teamcity Auth Bypass (CVE-2023-42793)",
-    "label": "JetBrains Teamcity Auth Bypass",
+    "label": "JetBrains TeamCity - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1694,7 +1760,7 @@
   "crowdsecurity/vpatch-CVE-2023-4634": {
     "name": "crowdsecurity/vpatch-CVE-2023-4634",
     "description": "Media Library Assistant - RCE 2023 4634",
-    "label": "Media Library Assistant RCE",
+    "label": "WordPress Media Library Assistant - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1716,7 +1782,7 @@
   "crowdsecurity/vpatch-CVE-2023-46805": {
     "name": "crowdsecurity/vpatch-CVE-2023-46805",
     "description": "Ivanti Connect Auth Bypass (CVE-2023-46805)",
-    "label": "Ivanti Connect Auth Bypass",
+    "label": "Ivanti Connect Secure - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1788,7 +1854,7 @@
   "crowdsecurity/vpatch-CVE-2023-50164": {
     "name": "crowdsecurity/vpatch-CVE-2023-50164",
     "description": "Apache Struts2 Path Traversal (CVE-2023-50164)",
-    "label": "Apache Struts2 Path Traversal",
+    "label": "Apache Struts - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -1856,7 +1922,7 @@
   "crowdsecurity/vpatch-CVE-2023-6553": {
     "name": "crowdsecurity/vpatch-CVE-2023-6553",
     "description": "Backup Migration plugin for WordPress RCE (CVE-2023-6553)",
-    "label": "Backup Migration plugin for WordPress RCE",
+    "label": "WordPress Backup Migration - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1902,7 +1968,7 @@
   "crowdsecurity/vpatch-CVE-2023-6623": {
     "name": "crowdsecurity/vpatch-CVE-2023-6623",
     "description": "Wordpress Essential Blocks plugin LFI (CVE-2023-6623)",
-    "label": "Wordpress Essential Blocks plugin LFI",
+    "label": "WordPress Essential Blocks - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -1925,7 +1991,7 @@
   "crowdsecurity/vpatch-CVE-2023-7028": {
     "name": "crowdsecurity/vpatch-CVE-2023-7028",
     "description": "Gitlab Password Reset Account Takeover (CVE-2023-7028)",
-    "label": "Gitlab Password Reset Account Takeover",
+    "label": "GitLab - Account Takeover",
     "behaviors": [
       "http:exploit"
     ],
@@ -2036,7 +2102,7 @@
   "crowdsecurity/vpatch-CVE-2024-1212": {
     "name": "crowdsecurity/vpatch-CVE-2024-1212",
     "description": "Progress Kemp LoadMaster Unauthenticated Command Injection (CVE-2024-1212)",
-    "label": "LoadMaster UCI",
+    "label": "Progress LoadMaster - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2079,7 +2145,7 @@
   "crowdsecurity/vpatch-CVE-2024-23897": {
     "name": "crowdsecurity/vpatch-CVE-2024-23897",
     "description": "Jenkins CLI RCE (CVE-2024-23897)",
-    "label": "Jenkins CLI RCE",
+    "label": "Jenkins - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2125,7 +2191,7 @@
   "crowdsecurity/vpatch-CVE-2024-27292": {
     "name": "crowdsecurity/vpatch-CVE-2024-27292",
     "description": "Local File Inclusion - Docassemble",
-    "label": "Docassemble - LFI",
+    "label": "Docassemble - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -2215,7 +2281,7 @@
   "crowdsecurity/vpatch-CVE-2024-27956": {
     "name": "crowdsecurity/vpatch-CVE-2024-27956",
     "description": "WordPress Automatic Plugin - SQLi (CVE-2024-27956)",
-    "label": "WordPress Automatic Plugin - SQLi",
+    "label": "WordPress Automatic Plugin - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2283,7 +2349,7 @@
   "crowdsecurity/vpatch-CVE-2024-28987": {
     "name": "crowdsecurity/vpatch-CVE-2024-28987",
     "description": "SolarWinds WHD Hardcoded Credentials (CVE-2024-28987)",
-    "label": "SolarWinds WHD Hardcoded Credentials",
+    "label": "SolarWinds WHD - Hardcoded Credentials",
     "behaviors": [
       "http:exploit"
     ],
@@ -2328,7 +2394,7 @@
   "crowdsecurity/vpatch-CVE-2024-29824": {
     "name": "crowdsecurity/vpatch-CVE-2024-29824",
     "description": "Ivanti EPM - SQLi (CVE-2024-29824)",
-    "label": "Ivanti EPM - SQLi",
+    "label": "Ivanti EPM - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2417,7 +2483,7 @@
   "crowdsecurity/vpatch-CVE-2024-3272": {
     "name": "crowdsecurity/vpatch-CVE-2024-3272",
     "description": " D-Link NAS - RCE (CVE-2024-3272)",
-    "label": " D-Link NAS - RCE",
+    "label": "D-Link NAS - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2440,7 +2506,7 @@
   "crowdsecurity/vpatch-CVE-2024-3273": {
     "name": "crowdsecurity/vpatch-CVE-2024-3273",
     "description": "D-LINK NAS Command Injection (CVE-2024-3273)",
-    "label": "D-LINK NAS Command Injection",
+    "label": "D-Link NAS - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2528,7 +2594,7 @@
   "crowdsecurity/vpatch-CVE-2024-38856": {
     "name": "crowdsecurity/vpatch-CVE-2024-38856",
     "description": "Apache OFBiz Incorrect Authorization (CVE-2024-38856)",
-    "label": "Apache OFBiz Incorrect Authorization",
+    "label": "Apache OFBiz - Incorrect Authorization",
     "behaviors": [
       "http:exploit"
     ],
@@ -2574,7 +2640,7 @@
   "crowdsecurity/vpatch-CVE-2024-4577": {
     "name": "crowdsecurity/vpatch-CVE-2024-4577",
     "description": "PHP CGI Command Injection - CVE-2024-4577",
-    "label": "PHP CGI Command Injection - CVE-2024-4577",
+    "label": "PHP CGI - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2622,7 +2688,7 @@
   "crowdsecurity/vpatch-CVE-2024-5057": {
     "name": "crowdsecurity/vpatch-CVE-2024-5057",
     "description": "Detects SQL injection vulnerability in WordPress Easy Digital Downloads <= 3.2.12 via the edd_download_search action.",
-    "label": "Easy Digital Downloads - SQLI",
+    "label": "Easy Digital Downloads - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2667,7 +2733,7 @@
   "crowdsecurity/vpatch-CVE-2024-51482": {
     "name": "crowdsecurity/vpatch-CVE-2024-51482",
     "description": "Detects SQL injection attempts in ZoneMinder event.php via the tid parameter.",
-    "label": "ZoneMinder - SQLI",
+    "label": "ZoneMinder - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2689,7 +2755,7 @@
   "crowdsecurity/vpatch-CVE-2024-51567": {
     "name": "crowdsecurity/vpatch-CVE-2024-51567",
     "description": "CyberPanel RCE (CVE-2024-51567)",
-    "label": "CyberPanel RCE",
+    "label": "CyberPanel - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2803,7 +2869,7 @@
   "crowdsecurity/vpatch-CVE-2024-6235": {
     "name": "crowdsecurity/vpatch-CVE-2024-6235",
     "description": "Detects unauthorized access to sensitive NetScaler Console configuration endpoint disclosing ADM_SESSIONID.",
-    "label": "NetScaler Console - Sensitive Information Disclosure",
+    "label": "NetScaler Console - Information Disclosure",
     "behaviors": [
       "http:exploit"
     ],
@@ -2871,7 +2937,7 @@
   "crowdsecurity/vpatch-CVE-2024-8911": {
     "name": "crowdsecurity/vpatch-CVE-2024-8911",
     "description": "Detects SQL injection in LatePoint WordPress plugin via password_reset_token parameter in admin-ajax.php.",
-    "label": "Latepoint - SQLI",
+    "label": "LatePoint - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2961,7 +3027,7 @@
   "crowdsecurity/vpatch-CVE-2024-9474": {
     "name": "crowdsecurity/vpatch-CVE-2024-9474",
     "description": "PanOS - Privilege Escalation (CVE-2024-9474)",
-    "label": "PanOS - Privilege Escalation (CVE-2024-9474)",
+    "label": "PanOS - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -2979,6 +3045,28 @@
     ],
     "cwes": [
       "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-10353": {
+    "name": "crowdsecurity/vpatch-CVE-2025-10353",
+    "description": "Detects unrestricted file upload in Melis Platform CMS Slider module",
+    "label": "Melis Platform - Arbitrary File Upload",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2025-10353"
+    ],
+    "cwes": [
+      "CWE-434"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-11700": {
@@ -3006,7 +3094,7 @@
   "crowdsecurity/vpatch-CVE-2025-13315": {
     "name": "crowdsecurity/vpatch-CVE-2025-13315",
     "description": "Detects unauthenticated access to Twonky Server log file exposure endpoint.",
-    "label": "Twonky Server - Exposure",
+    "label": "Twonky Server - Information Disclosure",
     "behaviors": [
       "http:exploit"
     ],
@@ -3050,7 +3138,7 @@
   "crowdsecurity/vpatch-CVE-2025-25257": {
     "name": "crowdsecurity/vpatch-CVE-2025-25257",
     "description": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection (CVE-2025-25257)",
-    "label": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection",
+    "label": "Fortinet FortiWeb - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -3071,7 +3159,7 @@
   },
   "crowdsecurity/vpatch-CVE-2025-2611": {
     "name": "crowdsecurity/vpatch-CVE-2025-2611",
-    "description": "Detects command injection in ICTBroadcast via BROADCAST cookie",
+    "description": "Detects unauthenticated RCE via session cookie shell injection in ICTBroadcast",
     "label": "ICTBroadcast - RCE",
     "behaviors": [
       "http:exploit"
@@ -3094,7 +3182,7 @@
   "crowdsecurity/vpatch-CVE-2025-27222": {
     "name": "crowdsecurity/vpatch-CVE-2025-27222",
     "description": "Detects path traversal in TRUfusion Enterprise via cobrandingImageName parameter in getCobrandingData endpoint.",
-    "label": "TRUfusion Enterprise - LFI",
+    "label": "TRUfusion Enterprise - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -3138,7 +3226,7 @@
   "crowdsecurity/vpatch-CVE-2025-28367": {
     "name": "crowdsecurity/vpatch-CVE-2025-28367",
     "description": "Detects directory traversal in mojoPortal BetterImageGallery API Controller (CVE-2025-28367)",
-    "label": "MojoPortal - LFI",
+    "label": "MojoPortal - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -3182,7 +3270,7 @@
   "crowdsecurity/vpatch-CVE-2025-29927": {
     "name": "crowdsecurity/vpatch-CVE-2025-29927",
     "description": "Next.js Middleware Bypass - (CVE-2025-29927)",
-    "label": "Next.js Middleware Bypass",
+    "label": "Next.js - Middleware Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -3357,6 +3445,50 @@
       "CWE-94"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-40552": {
+    "name": "crowdsecurity/vpatch-CVE-2025-40552",
+    "description": "Detects authentication bypass in SolarWinds Web Help Desk via WebObjects wopage parameter access to sensitive pages",
+    "label": "SolarWinds Web Help Desk - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-27T09:11:25",
+    "cves": [
+      "CVE-2025-40552"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-4689": {
+    "name": "crowdsecurity/vpatch-CVE-2025-4689",
+    "description": "Detects WordPress Ads Pro Plugin unauthenticated SQLi + LFI chain via wp-ajax endpoint targeting a_id parameter (CVE-2025-4689)",
+    "label": "WordPress Ads Pro Plugin - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-4689"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-47188": {
     "name": "crowdsecurity/vpatch-CVE-2025-47188",
     "description": "Detects OS command injection in Mitel 6000 series SIP Phones via ringtone upload functionality.",
@@ -3404,7 +3536,7 @@
   "crowdsecurity/vpatch-CVE-2025-49113": {
     "name": "crowdsecurity/vpatch-CVE-2025-49113",
     "description": "Detects arbitrary remote code execution vulnerability via PHP Object Deserialization in Roundcube",
-    "label": "Roundcube - RCE via PHP Object Deserialization",
+    "label": "Roundcube - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -3621,6 +3753,28 @@
       "CWE-89"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-61678": {
+    "name": "crowdsecurity/vpatch-CVE-2025-61678",
+    "description": "Detects FreePBX arbitrary file upload RCE via fwbrand directory traversal in Custom Firmware Management endpoint (CVE-2025-61678)",
+    "label": "FreePBX - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-61678"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-61882": {
     "name": "crowdsecurity/vpatch-CVE-2025-61882",
     "description": "Detects Oracle E-Business Suite 12.2.3\u201312.2.14 LFI and SSRF/RCE via ieshostedsurvey.jsp and UiServlet endpoints.",
@@ -3663,6 +3817,28 @@
     ],
     "cwes": [
       "CWE-23"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-66039": {
+    "name": "crowdsecurity/vpatch-CVE-2025-66039",
+    "description": "Detects FreePBX authentication bypass and SQL injection chain via admin config endpoint (CVE-2025-66039, CVE-2025-61675)",
+    "label": "FreePBX - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-66039"
+    ],
+    "cwes": [
+      "CWE-89"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-8110": {
@@ -3709,6 +3885,28 @@
       "CWE-287"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-1207": {
+    "name": "crowdsecurity/vpatch-CVE-2026-1207",
+    "description": "Detects SQL injection via the band parameter in Django RasterField/PostGIS endpoint",
+    "label": "Django - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-25T14:34:36",
+    "cves": [
+      "CVE-2026-1207"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-1281": {
     "name": "crowdsecurity/vpatch-CVE-2026-1281",
     "description": "Detects pre-auth RCE via Bash arithmetic expansion in Ivanti EPMM appstore endpoint",
@@ -3730,6 +3928,51 @@
     ],
     "cwes": [
       "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-20127-dca-disclosure": {
+    "name": "crowdsecurity/vpatch-CVE-2026-20127-dca-disclosure",
+    "description": "Detects unauthenticated access to the DCA credential file in Cisco Catalyst SD-WAN Manager (CVE-2026-20127)",
+    "label": "Cisco SD-WAN vManage - Credentials Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-06T10:00:35",
+    "cves": [
+      "CVE-2026-20127"
+    ],
+    "cwes": [
+      "CWE-552"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-20127": {
+    "name": "crowdsecurity/vpatch-CVE-2026-20127",
+    "description": "Detects path traversal file upload exploitation in Cisco Catalyst SD-WAN Manager (CVE-2026-20127)",
+    "label": "Cisco SD-WAN vManage - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-06T10:00:35",
+    "cves": [
+      "CVE-2026-20127"
+    ],
+    "cwes": [
+      "CWE-22",
+      "CWE-434"
     ]
   },
   "crowdsecurity/vpatch-CVE-2026-23744": {
@@ -3779,7 +4022,7 @@
   "crowdsecurity/vpatch-connectwise-auth-bypass": {
     "name": "crowdsecurity/vpatch-connectwise-auth-bypass",
     "description": "Detect exploitation of auth bypass in ConnectWise ScreenConnect",
-    "label": "ConnectWise ScreenConnect - Auth Bypass",
+    "label": "ConnectWise ScreenConnect - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -3799,7 +4042,7 @@
   "crowdsecurity/vpatch-env-access": {
     "name": "crowdsecurity/vpatch-env-access",
     "description": "Detect access to .env files",
-    "label": "Access to .env file",
+    "label": "Environment File - Exposure",
     "behaviors": [
       "http:scan"
     ],
@@ -3816,7 +4059,7 @@
   "crowdsecurity/vpatch-git-config": {
     "name": "crowdsecurity/vpatch-git-config",
     "description": "Detect access to .git files",
-    "label": "Access to .git file",
+    "label": "Git Configuration - Exposure",
     "behaviors": [
       "http:scan"
     ],
@@ -3832,7 +4075,7 @@
   "crowdsecurity/vpatch-laravel-debug-mode": {
     "name": "crowdsecurity/vpatch-laravel-debug-mode",
     "description": "Detect bots exploiting laravel debug mode",
-    "label": "Access to laravel debug mode",
+    "label": "Laravel Debug Mode - Exposure",
     "behaviors": [
       "http:scan"
     ],
@@ -3854,7 +4097,7 @@
   "crowdsecurity/vpatch-symfony-profiler": {
     "name": "crowdsecurity/vpatch-symfony-profiler",
     "description": "Detect abuse of symfony profiler",
-    "label": "Access to symfony profiler",
+    "label": "Symfony Profiler - Exposure",
     "behaviors": [
       "http:scan"
     ],
