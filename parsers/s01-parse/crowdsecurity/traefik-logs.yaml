@@ -30,7 +30,8 @@ nodes:
           expression: "evt.Unmarshaled.traefik.RouterName ?? ''"
     statics:
       - parsed: remote_addr
-        expression: evt.Unmarshaled.traefik.ClientHost
+        ## Split by comma and take last IP to handle proxied requests (e.g., ZScaler)
+        expression: "TrimSpace(Split(evt.Unmarshaled.traefik.ClientHost, ',')[-1])"
       - parsed: dest_addr
         ## Split dest_addr to get IP only as this is original functionality
         expression: Split(evt.Unmarshaled.traefik.ClientAddr, ':')[0]
