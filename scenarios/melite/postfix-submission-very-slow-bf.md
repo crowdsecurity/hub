@@ -4,7 +4,7 @@ Detects very slow brute-force attacks on the Postfix submission port (587). Thes
 
 Uses a leaky bucket with a 4-hour leak rate and capacity of 5, creating a 24-hour detection window. Triggers after 6 failed submission auth attempts from the same IP.
 
-**Requires** the `melite/postfix-submission-auth` parser (s02-enrich) to extract auth failure information from disconnect lines.
+**Requires** the `crowdsecurity/postfix-logs` parser which extracts `auth=0/N` patterns from disconnect lines (added in this PR).
 
 **Detection window**: 24 hours (leakspeed 4h × 6 events)
 
@@ -27,5 +27,4 @@ Jan 15 17:30:00 server postfix/submission/smtpd[1006]: disconnect from unknown[1
 
 ## Dependencies
 
-- Parser: `crowdsecurity/postfix-logs` (s01-parse)
-- Parser: `melite/postfix-submission-auth` (s02-enrich, **required**)
+- Parser: `crowdsecurity/postfix-logs` (s01-parse, extended with `submission-auth-failed` pattern)
