@@ -54,6 +54,12 @@ nodes:
           value: non-smtp-command
   - grok:
       apply_on: message
+      pattern: 'disconnect from %{RELAY} %{DATA}auth=0/%{INT:auth_attempts}'
+      statics:
+        - meta: log_type_enh
+          value: submission-auth-failed
+  - grok:
+      apply_on: message
       pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{SMTP_RETURN_CODES:smtp_return_codes} %{GREEDYDATA:reason}'
       statics:
         - meta: action
@@ -78,4 +84,3 @@ statics:
       expression: "evt.Parsed.remote_host"
     - meta: log_type
       value: postfix
-
