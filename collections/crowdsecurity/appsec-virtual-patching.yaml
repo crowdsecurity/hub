@@ -71,6 +71,7 @@ appsec-rules:
 - crowdsecurity/vpatch-CVE-2022-41082
 - crowdsecurity/vpatch-CVE-2019-18935
 - crowdsecurity/vpatch-CVE-2024-8190
+- crowdsecurity/vpatch-CVE-2024-3605
 - crowdsecurity/vpatch-CVE-2024-28987
 - crowdsecurity/vpatch-CVE-2024-38856
 - crowdsecurity/vpatch-CVE-2018-20062
@@ -178,13 +179,11 @@ appsec-rules:
 - crowdsecurity/vpatch-CVE-2025-15503
 - crowdsecurity/vpatch-CVE-2025-13956
 author: crowdsecurity
-tags:
-  - waf
 contexts:
 - crowdsecurity/appsec_base
 description: a generic virtual patching collection, suitable for most web servers.
 labels:
-  label: "WAF - Virtual Patching"
+  label: WAF - Virtual Patching
 name: crowdsecurity/appsec-virtual-patching
 parsers:
 - crowdsecurity/appsec-logs
@@ -192,3 +191,5 @@ scenarios:
 - crowdsecurity/appsec-vpatch
 - crowdsecurity/appsec-native
 - crowdsecurity/appsec-generic-test
+tags:
+- waf
