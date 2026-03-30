@@ -3113,6 +3113,94 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-13956": {
+    "name": "crowdsecurity/vpatch-CVE-2025-13956",
+    "description": "Detects unauthenticated access to LearnPress order statistics endpoint",
+    "label": "LearnPress - Missing Authorization",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-13956"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-15503": {
+    "name": "crowdsecurity/vpatch-CVE-2025-15503",
+    "description": "Detects arbitrary file upload in Sangfor OSM via common.jsp endpoint",
+    "label": "Sangfor OSM - Arbitrary File Upload",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-15503"
+    ],
+    "cwes": [
+      "CWE-434"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-24582": {
+    "name": "crowdsecurity/vpatch-CVE-2025-24582",
+    "description": "Detects unauthenticated information disclosure in 12 Step Meeting List WordPress plugin via AJAX endpoints",
+    "label": "12 Step Meeting List - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-24582"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-24786": {
+    "name": "crowdsecurity/vpatch-CVE-2025-24786",
+    "description": "Detects path traversal in WhoDB via crafted database filename in /api/query",
+    "label": "WhoDB - Path Traversal",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-24786"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-24893": {
     "name": "crowdsecurity/vpatch-CVE-2025-24893",
     "description": "Detects arbitrary remote code execution vulnerability in XWiki via SolrSearch.",
@@ -4190,6 +4278,22 @@
     "cti": true,
     "service": "calibre-web",
     "created_at": "2025-10-14T08:42:34"
+  },
+  "Jgigantino31/mealie-bf": {
+    "name": "Jgigantino31/mealie-bf",
+    "description": "Detect mealie bruteforce",
+    "label": "Mealie Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "mealie",
+    "created_at": "2026-03-24T09:37:01"
   },
   "Jgigantino31/ntfy-bf": {
     "name": "Jgigantino31/ntfy-bf",
@@ -8107,6 +8211,22 @@
     "service": "immich",
     "created_at": "2023-08-04T08:06:05"
   },
+  "gilbsgilbs/qbittorrent-bf": {
+    "name": "gilbsgilbs/qbittorrent-bf",
+    "description": "Detect QBittorrent WebUI bruteforce",
+    "label": "QBittorrent Bruteforce",
+    "behaviors": [
+      "iot:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "qbittorrent",
+    "created_at": "2026-03-24T13:31:31"
+  },
   "hitech95/email-generic-bf": {
     "name": "hitech95/email-generic-bf",
     "description": "Detect generic email brute force",
@@ -8368,6 +8488,62 @@
     "service": "http",
     "created_at": "2021-02-02T13:15:35"
   },
+  "melite/dovecot-slow-bf": {
+    "name": "melite/dovecot-slow-bf",
+    "description": "Detect slow Dovecot bruteforce (distributed attacks)",
+    "label": "Dovecot Slow Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-slow-bf_user-enum": {
+    "name": "melite/dovecot-slow-bf_user-enum",
+    "description": "Detect slow Dovecot user enumeration",
+    "label": "Dovecot Slow User Enumeration",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-time-based-bf": {
+    "name": "melite/dovecot-time-based-bf",
+    "description": "Detect time-based Dovecot bruteforce (evasive attacks)",
+    "label": "Dovecot Time-Based Bruteforce",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-time-based-bf_user-enum": {
+    "name": "melite/dovecot-time-based-bf_user-enum",
+    "description": "Detect time-based Dovecot user enumeration (evasive attacks)",
+    "label": "Dovecot Time-Based User Enumeration",
+    "behaviors": [],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
   "mstilkerich/bind9-refused": {
     "name": "mstilkerich/bind9-refused",
     "description": "Act on queries / zone transfers denied by bind9 policy",
@@ -8399,6 +8575,18 @@
     "cti": true,
     "service": "http",
     "created_at": "2023-04-05T13:50:17"
+  },
+  "nicoh88/proxmox-backup-auth-bf": {
+    "name": "nicoh88/proxmox-backup-auth-bf",
+    "description": "Detect failed PBS API authentications (bruteforce)",
+    "label": "Failed PBS API Authentications (bruteforce)",
+    "behaviors": [],
+    "mitre_attacks": [],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "proxmox-backup",
+    "created_at": "2026-03-16T07:56:34"
   },
   "openappsec/openappsec-bot-protection": {
     "name": "openappsec/openappsec-bot-protection",
