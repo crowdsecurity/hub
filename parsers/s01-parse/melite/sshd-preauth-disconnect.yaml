@@ -1,0 +1,32 @@
+# Parser: SSH preauth disconnect (key-scanning detection)
+# Stage: s01-parse
+#
+# Catches "Received disconnect from IP port N:11: [preauth]" lines
+# that the standard crowdsecurity/sshd-logs parser misses completely.
+#
+# Without this parser, these lines fail at s01-parse and are silently dropped.
+# Each SSH key-scanning attempt generates TWO log lines:
+#   1. "Disconnected from authenticating user root IP port N [preauth]" -> parsed by sshd-logs
+#   2. "Received disconnect from IP port N:11: [preauth]" -> MISSED (this parser fixes it)
+#
+# By capturing both lines, existing scenarios (ssh-slow-bf, ssh-very-slow-bf, etc.)
+# see double the events, making detection faster and more reliable.
+#
+# Example log lines:
+#   sshd-session[4175140]: Received disconnect from 45.227.254.10 port 15948:11:  [preauth]
+#   sshd[12345]: Received disconnect from 1.2.3.4 port 54321:11: Bye Bye [preauth]
+onsuccess: next_stage
+filter: "evt.Parsed.program in ['sshd', 'sshd-session'] && evt.Parsed.message contains 'Received disconnect from' && evt.Parsed.message contains '[preauth]'"
+name: melite/sshd-preauth-disconnect
+description: "Parse SSH preauth disconnect lines for key-scanning detection"
+nodes:
+  - grok:
+      apply_on: message
+      pattern: 'Received disconnect from %{IP:source_ip} port %{INT:port}:%{DATA}%{GREEDYDATA}'
+    statics:
+      - meta: log_type
+        value: ssh_failed-auth
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - meta: service
+        value: ssh
