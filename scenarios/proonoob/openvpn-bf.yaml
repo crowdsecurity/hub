@@ -1,0 +1,12 @@
+type: leaky
+name: proonoob/openvpn-bf
+description: "Detect OpenVPN probing and bruteforce attempts via TLS errors"
+filter: "evt.Meta.service == 'openvpn' && evt.Meta.log_type == 'auth_failed'"
+groupby: "evt.Meta.source_ip"
+capacity: 2
+leakspeed: "5m"
+blackhole: "1m"
+labels:
+  service: openvpn
+  type: bruteforce
+  remediation: true
