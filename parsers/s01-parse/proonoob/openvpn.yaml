@@ -1,13 +1,13 @@
-filter: "evt.Line.Labels.type == 'openvpn'"
+filter: "evt.Parsed.program == 'ovpn-server'"
 onsuccess: next_stage
 name: proonoob/openvpn
 description: "Parse OpenVPN logs (supports both syslog and ISO8601 timestamp formats)"
 pattern_syntax:
-    OPENVPN_TLS_CRYPT: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} %{NOTSPACE}: TLS Error: tls-crypt unwrapping failed from \\[AF_INET\\]%{IPV4:source_ip}:%{INT:sport}"
-    OPENVPN_AUTH_FAILED: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} %{NOTSPACE}: AUTH: Received control message: AUTH_FAILED.*\\[AF_INET\\]%{IPV4:source_ip}:%{INT:sport}"
-    OPENVPN_TLS_HANDSHAKE: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} %{NOTSPACE}: TLS Error: TLS handshake failed"
-    OPENVPN_VERIFY_ERROR: "%{TIMESTAMP_ISO8601:timestamp} %{HOSTNAME} %{NOTSPACE}: VERIFY ERROR"
-    OPENVPN_CATCHALL: "%{TIMESTAMP_ISO8601:timestamp} %{GREEDYDATA}"
+    OPENVPN_TLS_CRYPT: "TLS Error: tls-crypt unwrapping failed from \\[AF_INET\\]%{IPV4:source_ip}:%{INT:sport}"
+    OPENVPN_AUTH_FAILED: "AUTH: Received control message: AUTH_FAILED.*\\[AF_INET\\]%{IPV4:source_ip}:%{INT:sport}"
+    OPENVPN_TLS_HANDSHAKE: "TLS Error: TLS handshake failed"
+    OPENVPN_VERIFY_ERROR: "VERIFY ERROR"
+    OPENVPN_CATCHALL: "%{GREEDYDATA}"
 nodes:
   - grok:
       name: "OPENVPN_TLS_CRYPT"
@@ -31,5 +31,3 @@ statics:
     expression: "evt.Parsed.source_ip"
   - meta: log_type
     value: auth_failed
-  - target: evt.StrTime
-    expression: "evt.Parsed.timestamp"
