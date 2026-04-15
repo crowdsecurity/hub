@@ -52,12 +52,12 @@ func (r *Request) Curl() string {
 	curlCmd.WriteString("curl -X " + r.Method)
 
 	for key, value := range r.Headers {
-		curlCmd.WriteString(fmt.Sprintf(" -H '%s: %s'", key, value))
+		fmt.Fprintf(&curlCmd, " -H '%s: %s'", key, value)
 	}
 	if r.Method == http.MethodPost || r.Method == http.MethodPut {
-		curlCmd.WriteString(fmt.Sprintf(" -d '%s'", r.Data))
+		fmt.Fprintf(&curlCmd, " -d '%s'", r.Data)
 	}
-	curlCmd.WriteString(fmt.Sprintf(" '%s'", r.FullURL))
+	fmt.Fprintf(&curlCmd, " '%s'", r.FullURL)
 
 	return curlCmd.String()
 }
