@@ -31,11 +31,19 @@ Focus on correctness, test coverage, and Hub conventions. Prefer actionable revi
   - ask for exact token/range matching when the log format is known
 - If a parser invents a timezone for a timestamp that has none in the source log, flag it unless it follows an established Hub convention. Deployment-specific offsets are especially suspicious.
 
-## Scenario and appsec checks
+## Scenario checks
 
 - Review threshold semantics carefully: `capacity`, `leakspeed`, `blackhole`, and similar fields are often misunderstood.
 - Check that labels, classifications, and descriptions match the actual behavior and do not collapse distinct detections into the wrong bucket.
+
+## Appsec checks
+
 - For appsec rules, verify that rule identifiers, CVE references, source URLs, destination paths, and product names all match the file being introduced.
+- For appsec rule changes, check that `.appsec-tests/` coverage was added or updated when behavior changed.
+- For appsec configs, verify that referenced rule sets exist and that config fields such as `default_remediation` and `on_match` are coherent with the intended in-band or out-of-band behavior.
+- For virtual patching or CVE-linked appsec rules, make sure the rule scope matches the vulnerable product and does not overmatch unrelated traffic.
+- If an appsec PR changes matching logic, paranoia level, transforms, or exclusions, look for a regression test that proves the intended allow/block behavior.
+- Flag appsec documentation or metadata that claims protection for products, versions, or exploit paths not supported by the actual rule logic.
 
 ## Documentation checks
 
