@@ -2,8 +2,7 @@ type: leaky
 format: 3.0
 name: crowdsecurity/appsec-native
 description: "Identify attacks flagged by CrowdSec AppSec via native rules"
-filter: "evt.Meta.log_type == 'appsec-block' && evt.Meta.rule_name startsWith
-  'native_rule'"
+filter: "evt.Meta.log_type == 'appsec-block' && evt.Meta.rule_name startsWith 'native_rule'"
 leakspeed: "30s"
 capacity: 3
 groupby: evt.Meta.source_ip
