@@ -11108,7 +11108,7 @@
     },
     "crowdsecurity/whitelist-good-actors": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3QtZ29vZC1hY3RvcnMKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcHVibGljLWRucy1hbGxvd2xpc3QKcG9zdG92ZXJmbG93czoKICAtIGNyb3dkc2VjdXJpdHkvc2VvLWJvdHMtd2hpdGVsaXN0CiAgLSBjcm93ZHNlY3VyaXR5L2Nkbi13aGl0ZWxpc3QKICAtIGNyb3dkc2VjdXJpdHkvcmRucwpkZXNjcmlwdGlvbjogIkdvb2QgYWN0b3JzIHdoaXRlbGlzdHMiCmxhYmVsczoKICBsYWJlbDogIldlYiBDcmF3bGVycyAtIFdoaXRlbGlzdCIKYXV0aG9yOiBjcm93ZHNlY3VyaXR5CnRhZ3M6CiAgLSBzZWN1cml0eV9lbmdpbmUKICAtIHdoaXRlbGlzdAogIC0gYm90cwogIC0gcGFydG5lcnMKICAtIGRucwo=",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3QtZ29vZC1hY3RvcnMKcGFyc2VyczoKICAtIGNyb3dkc2VjdXJpdHkvcHVibGljLWRucy1hbGxvd2xpc3QKcG9zdG92ZXJmbG93czoKICAtIGNyb3dkc2VjdXJpdHkvc2VvLWJvdHMtd2hpdGVsaXN0CiAgLSBjcm93ZHNlY3VyaXR5L2Nkbi13aGl0ZWxpc3QKICAtIGNyb3dkc2VjdXJpdHkvcmRucwogIC0gY3Jvd2RzZWN1cml0eS9nb29nbGUtc3BlY2lhbC1jcmF3bGVycy13aGl0ZWxpc3QKZGVzY3JpcHRpb246ICJHb29kIGFjdG9ycyB3aGl0ZWxpc3RzIgpsYWJlbHM6CiAgbGFiZWw6ICJXZWIgQ3Jhd2xlcnMgLSBXaGl0ZWxpc3QiCmF1dGhvcjogY3Jvd2RzZWN1cml0eQp0YWdzOgogIC0gc2VjdXJpdHlfZW5naW5lCiAgLSB3aGl0ZWxpc3QKICAtIGJvdHMKICAtIHBhcnRuZXJzCiAgLSBkbnMK",
       "description": "Good actors whitelists",
       "labels": {
         "label": "Web Crawlers - Whitelist"
@@ -11121,9 +11121,10 @@
       "postoverflows": [
         "crowdsecurity/seo-bots-whitelist",
         "crowdsecurity/cdn-whitelist",
-        "crowdsecurity/rdns"
+        "crowdsecurity/rdns",
+        "crowdsecurity/google-special-crawlers-whitelist"
       ],
-      "version": "0.3",
+      "version": "0.4",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -11136,6 +11137,10 @@
         "0.3": {
           "deprecated": false,
           "digest": "fc45d81fa22ac181c2d0ecd89d0b5f1b130e31a8aa37629787307480035fcdec"
+        },
+        "0.4": {
+          "deprecated": false,
+          "digest": "32227e45ca3c0fbf0de28e484b843c3089ded362927f552967c0fc0167294d2f"
         }
       }
     },
@@ -17209,6 +17214,21 @@
         "0.1": {
           "deprecated": false,
           "digest": "d8eaee4f1ad3496ef253915ce0099d3c0cc2160785877efe306af35ffff929db"
+        }
+      }
+    },
+    "crowdsecurity/google-special-crawlers-whitelist": {
+      "author": "crowdsecurity",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nb29nbGUtc3BlY2lhbC1jcmF3bGVycy13aGl0ZWxpc3QKZGVzY3JpcHRpb246ICJXaGl0ZWxpc3QgZXZlbnRzIGZyb20gR29vZ2xlIHNwZWNpYWwgY3Jhd2xlcnMgKGUuZy4gR29vZ2xlLUluc3BlY3Rpb25Ub29sLCBHb29nbGVPdGhlcikiCndoaXRlbGlzdDoKICByZWFzb246ICJHb29nbGUgc3BlY2lhbCBjcmF3bGVycyBpcCByYW5nZSIKICBleHByZXNzaW9uOgogICAgLSAiYW55KEZpbGUoJ2dvb2dsZV9zcGVjaWFsX2NyYXdsZXJzX2lwdjQudHh0JyksIHsgbGVuKCMpID4gMCAmJiBJcEluUmFuZ2UoZXZ0Lk92ZXJmbG93LkFsZXJ0LlNvdXJjZS5JUCwgIyl9KSIKICAgIC0gImFueShGaWxlKCdnb29nbGVfc3BlY2lhbF9jcmF3bGVyc19pcHY2LnR4dCcpLCB7IGxlbigjKSA+IDAgJiYgSXBJblJhbmdlKGV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuSVAsICMpfSkiCgpkYXRhOgogIC0gc291cmNlX3VybDogaHR0cHM6Ly9odWItZGF0YS5jcm93ZHNlYy5uZXQvd2hpdGVsaXN0cy9iZW5pZ25fYm90cy9zZWFyY2hfZW5naW5lX2NyYXdsZXJzL2dvb2dsZV9zcGVjaWFsX2NyYXdsZXJzX2lwdjQudHh0CiAgICBkZXN0X2ZpbGU6IGdvb2dsZV9zcGVjaWFsX2NyYXdsZXJzX2lwdjQudHh0CiAgICB0eXBlOiBzdHJpbmcKICAtIHNvdXJjZV91cmw6IGh0dHBzOi8vaHViLWRhdGEuY3Jvd2RzZWMubmV0L3doaXRlbGlzdHMvYmVuaWduX2JvdHMvc2VhcmNoX2VuZ2luZV9jcmF3bGVycy9nb29nbGVfc3BlY2lhbF9jcmF3bGVyc19pcHY2LnR4dAogICAgZGVzdF9maWxlOiBnb29nbGVfc3BlY2lhbF9jcmF3bGVyc19pcHY2LnR4dAogICAgdHlwZTogc3RyaW5nCgogICAgCg==",
+      "description": "Whitelist events from Google special crawlers (e.g. Google-InspectionTool, GoogleOther)",
+      "labels": null,
+      "path": "postoverflows/s01-whitelist/crowdsecurity/google-special-crawlers-whitelist.yaml",
+      "stage": "s01-whitelist",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "52b091fa033693ea3a7fa5553774ab0af42d3e814c6cefcf792bb57dcf31df11"
         }
       }
     },
