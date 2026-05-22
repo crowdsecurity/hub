@@ -5,6 +5,7 @@ set -x
 sed -i "s@API_KEY=.*@API_KEY=${API_KEY}@" /etc/crowdsec/bouncers/crowdsec-openresty-bouncer.conf
 sed -i "s@API_URL=.*@API_URL=${API_URL}@" /etc/crowdsec/bouncers/crowdsec-openresty-bouncer.conf
 echo "APPSEC_URL=${APPSEC_URL}" | tee -a /etc/crowdsec/bouncers/crowdsec-openresty-bouncer.conf
+echo "APPSEC_PROCESS_TIMEOUT=2000" | tee -a /etc/crowdsec/bouncers/crowdsec-openresty-bouncer.conf
 
 cat /etc/crowdsec/bouncers/crowdsec-openresty-bouncer.conf
 
