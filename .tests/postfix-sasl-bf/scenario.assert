@@ -1,0 +1,14 @@
+len(results) == 1
+"1.2.3.4" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["1.2.3.4"].IP == "1.2.3.4"
+results[0].Overflow.Sources["1.2.3.4"].GetScope() == "Ip"
+results[0].Overflow.Sources["1.2.3.4"].GetValue() == "1.2.3.4"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "postfix-sasl-bf.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "postfix"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type_enh") == "spam-attempt"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "postfix"
+results[0].Overflow.Alert.Events[0].GetMeta("source_hostname") == "unknown"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "1.2.3.4"
+results[0].Overflow.Alert.GetScenario() == "Guezli/postfix-sasl-bf"
+results[0].Overflow.Alert.Remediation == true
