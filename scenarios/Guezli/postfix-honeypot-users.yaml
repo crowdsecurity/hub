@@ -1,0 +1,43 @@
+# Trigger an instant ban when an IP attempts SASL LOGIN against postfix
+# using one of the well-known "honeypot" usernames -- addresses that should
+# never be used as actual SMTP login accounts (postmaster@, admin@, info@,
+# support@, ...).
+#
+# Background: distributed bruteforce bots iterate through a standard
+# wordlist of admin/role addresses trying just 1-2 attempts per IP to stay
+# below per-IP thresholds. Since nobody on a sane mail setup uses those
+# addresses as actual SMTP-AUTH logins, any attempt is a clear attacker
+# signal -- ban on first hit.
+#
+# Requires the official `crowdsecurity/postfix-logs` parser, which extracts
+# SASL fields and source_ip from the postfix log line.
+#
+# Customize the username list to match your environment. If you
+# legitimately use any of these as SMTP login (rare), remove it.
+
+type: trigger
+name: Guezli/postfix-honeypot-users
+description: "Instant-ban IPs hitting postfix SASL LOGIN with honeypot usernames"
+filter: |
+  evt.Meta.log_type == 'postfix'
+  && evt.Parsed.message contains 'SASL'
+  && evt.Parsed.message contains 'authentication failed'
+  && evt.Parsed.message matches '(?i)sasl_username=(postmaster|admin|info|test|support|office|sales|contact|webmaster|root|noreply|abuse|hostmaster|marketing|mail|news|sysadmin|administrator|user|service|helpdesk)@'
+groupby: evt.Meta.source_ip
+# trigger = first hit overflows; blackhole prevents bucket spam from the
+# same IP within the next 24h
+blackhole: 24h
+labels:
+  service: postfix
+  remediation: true
+  confidence: 5
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1078
+  behavior: "pop3/imap:bruteforce"
+  label: "Postfix Honeypot Username"
+references:
+  - https://www.postfix.org/SASL_README.html
+  - https://attack.mitre.org/techniques/T1110/
+  - https://attack.mitre.org/techniques/T1078/
