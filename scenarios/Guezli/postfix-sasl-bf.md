@@ -1,14 +1,16 @@
 ## Postfix SASL slow / distributed bruteforce
 
-Detects slow or distributed SASL LOGIN bruteforce attempts against postfix.
+Detects slow or distributed SASL authentication bruteforce attempts against
+postfix. Covers all SASL mechanisms parsed by `crowdsecurity/postfix-logs`
+(LOGIN, PLAIN, CRAM-MD5, DIGEST-MD5).
 
 The official `crowdsecurity/postfix-spam` scenario is tuned for fast spam waves
 (`capacity: 5`, `leakspeed: 10s`). This scenario covers the opposite threat
-model: distributed attackers each performing 1-2 SASL login attempts per hour
+model: distributed attackers each performing 1-2 SASL auth attempts per hour
 across many IPs in a /24, where the fast-pattern bucket leaks faster than it
 fills.
 
-Threshold: **3 SASL LOGIN failures from the same IP within ~2h** -> ban.
+Threshold: **3 SASL auth failures from the same IP within ~2h** -> ban.
 
 ### Requirements
 
