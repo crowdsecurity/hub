@@ -8,7 +8,7 @@
 # 1. They rely on explicit "SASL authentication failed" logs
 # 2. Port 587 only shows auth failures in disconnect lines (auth=0/N)
 #
-# Requires: melite/postfix-submission-auth parser (s02-enrich)
+# Requires: crowdsecurity/postfix-logs parser (s01-parse) with submission auth failure extraction (auth=0/N)
 #
 # Real-world example: 62.60.130.220 did 135 attempts over 20 hours (~1/9min average)
 type: leaky
