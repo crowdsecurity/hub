@@ -18,10 +18,16 @@ statics:
 #was the request blocked ?
   - meta: log_type
     expression: |
-      evt.Appsec.HasInBandMatches ? "appsec-block" : "appsec-info"
+      evt.Parsed.source == "crowdsec-appsec-challenge" ?
+        "appsec-challenge" :
+        (evt.Appsec.HasInBandMatches ? "appsec-block" : "appsec-info")
   - meta: rule_name
     expression: evt.Appsec.GetName()
   - meta: rule_ids
     expression: Sprintf("%+v", evt.Appsec.GetRuleIDs())
   - meta: remediation_cmpt_ip
     expression: "evt.Parsed.remediation_cmpt_ip"
+  - meta: challenge_event
+    expression: evt.Parsed.challenge_event
+  - meta: fsid
+    expression: evt.Parsed.fsid
