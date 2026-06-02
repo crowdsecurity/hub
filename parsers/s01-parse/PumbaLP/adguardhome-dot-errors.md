@@ -9,7 +9,10 @@ AdGuard Home logs connection reset errors when a client connects to port 853 (Do
 This parser extracts the remote IP address and sets the `dot_connection_reset` log type for use by the `PumbaLP/adguardhome-dot-scan` scenario.
 
 ## Matched log example
-2026/04/04 20:41:41.673779 [error] dnsproxy: reading msg proto=tcp err="reading len: read tcp 172.20.2.2:853->85.217.140.42:59208: read: connection reset by peer"
+
+```text
+2026/04/04 20:41:41.673779 [error] dnsproxy: reading msg proto=tcp err="reading len: read tcp 172.20.2.2:853->192.168.1.50:59208: read: connection reset by peer"
+```
 ## Limitations
 
 - Only `connection reset by peer` errors contain a remote IP and are actionable.
@@ -25,8 +28,13 @@ container_name:
   - adguardhome
 labels:
   type: adguardhome
+```
+
 Or with log file:
+
+```yaml
 filenames:
   - /var/log/AdGuardHome.log
 labels:
   type: adguardhome
+```

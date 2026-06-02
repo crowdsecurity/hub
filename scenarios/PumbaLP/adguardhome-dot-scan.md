@@ -1,4 +1,3 @@
-```markdown
 # adguardhome-dot-scan
 
 Detect DoT (DNS-over-TLS, port 853) scanners and probers targeting AdGuard Home.
