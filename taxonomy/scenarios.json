@@ -4283,6 +4283,28 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-26980": {
+    "name": "crowdsecurity/vpatch-CVE-2026-26980",
+    "description": "Detects SQL injection in Ghost CMS Content API filter parameter (CVE-2026-26980).",
+    "label": "Ghost - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-22T13:41:30",
+    "cves": [
+      "CVE-2026-26980"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-27483": {
     "name": "crowdsecurity/vpatch-CVE-2026-27483",
     "description": "Detects MindsDB < 25.9.1.1 path traversal in file upload endpoint leading to RCE.",
@@ -4303,6 +4325,72 @@
     ],
     "cwes": [
       "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-41940": {
+    "name": "crowdsecurity/vpatch-CVE-2026-41940",
+    "description": "Detects cPanel & WHM authentication bypass (CVE-2026-41940) by identifying a whostmgrsession cookie with a stripped ob segment (no comma separator)",
+    "label": "cPanel WHM - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-29T20:29:03",
+    "cves": [
+      "CVE-2026-41940"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-46725": {
+    "name": "crowdsecurity/vpatch-CVE-2026-46725",
+    "description": "Detects PHP object injection in the TYPO3 ceselector extension via a serialized PHP object passed in the T3_ceselector_ cookie.",
+    "label": "TYPO3 ceselector - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-27T09:17:42",
+    "cves": [
+      "CVE-2026-46725"
+    ],
+    "cwes": [
+      "CWE-502"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-9082": {
+    "name": "crowdsecurity/vpatch-CVE-2026-9082",
+    "description": "Detects SQL injection in Drupal JSON:API filter parameter keys (CVE-2026-9082).",
+    "label": "Drupal - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-22T13:41:30",
+    "cves": [
+      "CVE-2026-9082"
+    ],
+    "cwes": [
+      "CWE-89"
     ]
   },
   "crowdsecurity/vpatch-WT-2026-0001": {
@@ -4465,6 +4553,22 @@
     "cti": true,
     "service": "vaultwarden",
     "created_at": "2022-02-15T13:18:17"
+  },
+  "Guezli/postfix-sasl-bf": {
+    "name": "Guezli/postfix-sasl-bf",
+    "description": "Detect slow / distributed SASL bruteforce against postfix",
+    "label": "Postfix SASL Bruteforce",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix",
+    "created_at": "2026-05-26T16:18:47"
   },
   "Jgigantino31/calibre-web-bf": {
     "name": "Jgigantino31/calibre-web-bf",
@@ -5867,7 +5971,7 @@
       "http:exploit"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0001:T1190"
     ],
     "confidence": 1,
     "spoofable": 0,
@@ -5883,7 +5987,7 @@
       "http:exploit"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0001:T1190"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6142,7 +6246,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6158,7 +6262,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6191,7 +6295,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6207,7 +6311,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6223,7 +6327,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6255,7 +6359,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -7063,6 +7167,22 @@
     "cti": true,
     "service": "http",
     "created_at": "2020-05-29T10:32:32"
+  },
+  "crowdsecurity/http-technology-probing": {
+    "name": "crowdsecurity/http-technology-probing",
+    "description": "Detect HTTP technology/vendor probing",
+    "label": "HTTP Technology Probing",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-05T07:35:26"
   },
   "crowdsecurity/http-wordpress-scan": {
     "name": "crowdsecurity/http-wordpress-scan",
