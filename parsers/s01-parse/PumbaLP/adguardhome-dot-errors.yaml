@@ -23,7 +23,7 @@ filter: "evt.Line.Labels.type == 'adguardhome'"
 nodes:
   - grok:
       pattern: '%{YEAR:year}/%{MONTHNUM:month}/%{MONTHDAY:day} %{TIME:time} \[error\] dnsproxy: reading msg proto=tcp err="reading len: read tcp [^>]+->%{IP:remote_ip}:%{INT}: read: connection reset by peer"'
-      apply_on: Line.Raw
+      apply_on: message
     onsuccess: next_stage
     statics:
       - meta: source_ip
