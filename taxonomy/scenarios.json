@@ -4261,6 +4261,28 @@
       "CWE-434"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-21643": {
+    "name": "crowdsecurity/vpatch-CVE-2026-21643",
+    "description": "Detects SQL injection in Fortinet FortiClientEMS via the Site HTTP header on /api/v1/init_consts.",
+    "label": "FortiClientEMS - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-02T09:30:07",
+    "cves": [
+      "CVE-2026-21643"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-23744": {
     "name": "crowdsecurity/vpatch-CVE-2026-23744",
     "description": "Detects RCE in MCPJam Inspector via crafted POST to /api/mcp/connect",
@@ -4553,6 +4575,39 @@
     "cti": true,
     "service": "vaultwarden",
     "created_at": "2022-02-15T13:18:17"
+  },
+  "Guezli/mailcow-f2b-feed": {
+    "name": "Guezli/mailcow-f2b-feed",
+    "description": "Propagate Mailcow internal F2B bans into the local Crowdsec LAPI",
+    "label": "Mailcow F2B Cross-Layer Feed",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "mailcow-f2b",
+    "created_at": "2026-06-08T13:25:13"
+  },
+  "Guezli/postfix-honeypot-users": {
+    "name": "Guezli/postfix-honeypot-users",
+    "description": "Instant-ban IPs hitting postfix SASL authentication with honeypot usernames",
+    "label": "Postfix Honeypot Username",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0003:T1078"
+    ],
+    "confidence": 0,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix",
+    "created_at": "2026-06-08T12:35:42"
   },
   "Guezli/postfix-sasl-bf": {
     "name": "Guezli/postfix-sasl-bf",
