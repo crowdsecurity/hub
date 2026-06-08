@@ -48,4 +48,4 @@ statics:
   - meta: log_type
     value: auth_failed
   - target: evt.StrTime
-    expression: evt.Parsed.timestamp
+    expression: "evt.Parsed.timestamp != '' ? evt.Parsed.timestamp : evt.Parsed.timestamp8601"
