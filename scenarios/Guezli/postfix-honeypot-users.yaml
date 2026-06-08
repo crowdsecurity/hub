@@ -1,7 +1,12 @@
-# Trigger an instant ban when an IP attempts SASL LOGIN against postfix
+# Trigger an instant ban when an IP attempts postfix SASL authentication
 # using one of the well-known "honeypot" usernames -- addresses that should
 # never be used as actual SMTP login accounts (postmaster@, admin@, info@,
-# support@, ...).
+# test@, support@, ...).
+#
+# The filter is intentionally not restricted to "SASL LOGIN" — the official
+# `crowdsecurity/postfix-logs` parser flags all SASL mechanism failures
+# (LOGIN, PLAIN, CRAM-MD5, DIGEST-MD5), and an attacker using PLAIN against
+# `postmaster@` is just as much a clear signal as LOGIN.
 #
 # Background: distributed bruteforce bots iterate through a standard
 # wordlist of admin/role addresses trying just 1-2 attempts per IP to stay
@@ -17,7 +22,7 @@
 
 type: trigger
 name: Guezli/postfix-honeypot-users
-description: "Instant-ban IPs hitting postfix SASL LOGIN with honeypot usernames"
+description: "Instant-ban IPs hitting postfix SASL authentication with honeypot usernames"
 filter: |
   evt.Meta.log_type == 'postfix'
   && evt.Parsed.message contains 'SASL'
