@@ -1,11 +1,15 @@
 ## Postfix SASL honeypot-username instant ban
 
-Instant-bans IPs that try postfix SASL LOGIN with a honeypot username --
-well-known admin / role addresses (`postmaster@`, `admin@`, `info@`,
-`support@`, `office@`, `sales@`, `contact@`, `webmaster@`, `root@`,
-`noreply@`, `abuse@`, `hostmaster@`, `marketing@`, `mail@`, `news@`,
-`sysadmin@`, `administrator@`, `user@`, `service@`, `helpdesk@`) that
-should never be used as actual SMTP-AUTH login accounts.
+Instant-bans IPs that try postfix SASL authentication with a honeypot
+username -- well-known admin / role addresses (`postmaster@`, `admin@`,
+`info@`, `test@`, `support@`, `office@`, `sales@`, `contact@`,
+`webmaster@`, `root@`, `noreply@`, `abuse@`, `hostmaster@`, `marketing@`,
+`mail@`, `news@`, `sysadmin@`, `administrator@`, `user@`, `service@`,
+`helpdesk@`) that should never be used as actual SMTP-AUTH login accounts.
+
+The filter matches any SASL mechanism (LOGIN, PLAIN, CRAM-MD5, DIGEST-MD5)
+parsed by `crowdsecurity/postfix-logs` -- attackers using PLAIN against
+role-only addresses are just as much a clear signal as LOGIN.
 
 ### Why this complements other postfix scenarios
 
