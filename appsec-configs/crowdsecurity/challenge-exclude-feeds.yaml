@@ -1,0 +1,10 @@
+name: crowdsecurity/challenge-exclude-feeds
+# Let syndication feed endpoints fly through without a challenge. SetLegitimateBot() is
+# strictly per-request (never persisted to a cookie or across requests).
+inband:
+  pre_eval:
+    - filter: >-
+        req.URL.Path in ['/feed', '/rss', '/atom.xml'] ||
+        req.URL.Path startsWith '/feed/' || req.URL.Path startsWith '/rss/'
+      apply:
+        - SetLegitimateBot()
