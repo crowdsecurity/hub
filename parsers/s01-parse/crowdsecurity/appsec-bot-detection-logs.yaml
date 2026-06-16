@@ -29,14 +29,8 @@ statics:
     expression: evt.Parsed.fingerprint_bot
   - meta: http_user_agent
     expression: evt.Parsed.user_agent
-  # raw navigator.platform, kept for precise matching
-  - meta: platform
-    expression: evt.Parsed.platform
-  # user-friendly OS label derived from the raw platform string
+  # Friendly OS straight from the fingerprint helper (high-entropy client-hint
+  # platform, falling back to navigator.platform). The nil guard covers
+  # "requested" challenge events, which carry no fingerprint.
   - meta: os
-    expression: |
-      evt.Parsed.platform contains "Win" ? "Windows" :
-      (evt.Parsed.platform contains "Mac" ? "macOS" :
-      (evt.Parsed.platform contains "Linux" ? "Linux" :
-      (evt.Parsed.platform contains "iPhone" || evt.Parsed.platform contains "iPad" ? "iOS" :
-      (evt.Parsed.platform contains "Android" ? "Android" : evt.Parsed.platform))))
+    expression: 'evt.Unmarshaled.fingerprint != nil ? evt.Unmarshaled.fingerprint.Platform() : ""'

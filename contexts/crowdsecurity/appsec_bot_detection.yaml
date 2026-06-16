@@ -1,6 +1,8 @@
 # User-friendly context for AppSec bot-detection / challenge events.
-# Each detected_signals line emits a readable signal name only when its flag is set,
-# so the console shows a compact list of what tripped the fast bot detection.
+# detected_signals uses the fingerprint helper BotSignals(), which returns the
+# names of the fast-detection signals that fired; the alert-context engine
+# renders the []string as a list. The nil guard covers "requested" events that
+# carry no fingerprint.
 context:
   fingerprint_id:
     - evt.Meta.fsid
@@ -13,11 +15,4 @@ context:
   challenge_event:
     - evt.Meta.challenge_event
   detected_signals:
-    - "evt.Unmarshaled.fingerprint.Bot.Webdriver ? 'webdriver' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.Selenium ? 'selenium' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.CDP ? 'chrome-devtools-protocol' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.Playwright ? 'playwright' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.BotUserAgent ? 'bot-user-agent' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.MissingChromeObject ? 'headless-chrome' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.PlatformMismatch ? 'platform-mismatch' : ''"
-    - "evt.Unmarshaled.fingerprint.Bot.GPUMismatch ? 'gpu-mismatch' : ''"
+    - 'evt.Unmarshaled.fingerprint != nil ? evt.Unmarshaled.fingerprint.BotSignals() : ""'
