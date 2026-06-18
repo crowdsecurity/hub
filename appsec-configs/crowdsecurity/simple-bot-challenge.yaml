@@ -2,7 +2,7 @@ name: crowdsecurity/simple-bot-challenge
 inband:
   post_eval:
     # Skip the challenge for verified good bots (forward-confirmed rDNS) and for requests a
-    # well-known-path exclusion config flagged via SetLegitimateBot(). The flag is per-request only.
+    # well-known-path exclusion config flagged via ExemptFromChallenge(). The flag is per-request only.
     - filter: "!IsLegitimateBot(req.RemoteAddr, req.UserAgent(), req.URL.Path)"
       apply:
         - SendChallenge()
