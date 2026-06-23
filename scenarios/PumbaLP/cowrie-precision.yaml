@@ -1,0 +1,13 @@
+type: leaky
+name: PumbaLP/cowrie-precision
+description: "Aggressive precision detection for Cowrie Honeypot (SSH/Telnet)"
+filter: "evt.Meta.log_type in ['cowrie-login', 'cowrie-command']"
+groupby: "evt.Meta.source_ip"
+capacity: 2
+leakspeed: 5m
+labels:
+service: cowrie
+type: bruteforce
+classification: honeypot
+author: PumbaLP
+remediation: true
