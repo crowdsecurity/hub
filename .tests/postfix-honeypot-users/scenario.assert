@@ -1,0 +1,10 @@
+len(results) == 4
+"203.0.113.10" in results[0].Overflow.GetSources()
+"203.0.113.20" in results[1].Overflow.GetSources()
+"203.0.113.30" in results[2].Overflow.GetSources()
+"203.0.113.40" in results[3].Overflow.GetSources()
+results[0].Overflow.Alert.GetScenario() == "Guezli/postfix-honeypot-users"
+results[1].Overflow.Alert.GetScenario() == "Guezli/postfix-honeypot-users"
+results[2].Overflow.Alert.GetScenario() == "Guezli/postfix-honeypot-users"
+results[3].Overflow.Alert.GetScenario() == "Guezli/postfix-honeypot-users"
+results[0].Overflow.Alert.Remediation == true
