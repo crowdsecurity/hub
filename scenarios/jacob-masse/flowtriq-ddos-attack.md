@@ -1,4 +1,4 @@
 Detect DDoS attacks reported by Flowtriq:
 
- - Trigger-based ban when Flowtriq detects an attack with high or critical confidence
- - Leaky bucket (capacity 2, leak 30m) for repeated attackers across multiple incidents
+ - Trigger-based alert when Flowtriq detects an attack with high or critical severity
+ - Leaky bucket (capacity 2, leak 30m) for repeated attacks targeting the same destination IP across multiple incidents

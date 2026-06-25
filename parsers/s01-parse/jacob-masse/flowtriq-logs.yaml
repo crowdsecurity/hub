@@ -19,8 +19,6 @@ statics:
     expression: evt.Parsed.cef_signature_id
   - meta: event_name
     expression: evt.Parsed.cef_event_name
-  - meta: source_ip
-    expression: evt.Unmarshaled.flowtriq.src
   - meta: destination_ip
     expression: evt.Unmarshaled.flowtriq.dst
   - meta: attack_type
@@ -29,13 +27,11 @@ statics:
     expression: evt.Unmarshaled.flowtriq.cn1
   - meta: bps
     expression: evt.Unmarshaled.flowtriq.cn2
-  - meta: confidence
+  - meta: severity
     expression: evt.Unmarshaled.flowtriq.cs2
-  - meta: protocol
-    expression: evt.Unmarshaled.flowtriq.proto
-  - meta: source_port
-    expression: evt.Unmarshaled.flowtriq.spt
-  - meta: destination_port
-    expression: evt.Unmarshaled.flowtriq.dpt
+  - meta: source_count
+    expression: evt.Unmarshaled.flowtriq.cnt
+  - meta: incident_id
+    expression: evt.Unmarshaled.flowtriq.cs3
   - meta: message
     expression: evt.Unmarshaled.flowtriq.msg
