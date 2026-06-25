@@ -1,0 +1,37 @@
+# Flowtriq DDoS attack detected
+type: trigger
+name: jacob-masse/flowtriq-ddos-attack
+description: "Ban IPs when Flowtriq detects a DDoS attack with high confidence"
+filter: evt.Meta.log_type == 'flowtriq_DDoS Attack Detected' && evt.Meta.confidence in ['high', 'critical']
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: flowtriq
+  confidence: 3
+  spoofable: 1
+  classification:
+    - attack.T1498
+    - attack.T1499
+  behavior: "network:ddos"
+  label: "Flowtriq DDoS Attack"
+  remediation: true
+---
+# Flowtriq repeated attacker
+type: leaky
+name: jacob-masse/flowtriq-repeated-attacker
+description: "Detect repeated DDoS attacks from the same source IP across multiple incidents"
+filter: evt.Meta.service == 'flowtriq' && evt.Meta.source_ip != ''
+groupby: evt.Meta.source_ip
+leakspeed: 30m
+capacity: 2
+blackhole: 60m
+labels:
+  service: flowtriq
+  confidence: 3
+  spoofable: 1
+  classification:
+    - attack.T1498
+    - attack.T1499
+  behavior: "network:ddos"
+  label: "Flowtriq Repeated DDoS Attacker"
+  remediation: true
