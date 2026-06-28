@@ -1,0 +1,25 @@
+type: leaky
+name: PumbaLP/adguardhome-dot-scan
+description: "Detect DoT (DNS-over-TLS, port 853) scanners and probers via repeated connection resets on AdGuard Home"
+#
+# A legitimate DNS-over-TLS client connects cleanly with a proper TLS handshake.
+# Repeated connection resets from the same IP indicate a scanner or prober
+# testing port 853 without proper TLS support.
+#
+# Capacity: 5 resets within 10 minutes triggers a ban.
+# Tested against AdGuard Home v0.107.x
+#
+filter: "evt.Meta.log_type == 'dot_connection_reset' && evt.Meta.service == 'adguardhome_dot'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: "10m"
+blackhole: 5m
+labels:
+  service: adguardhome
+  type: scan
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1046
+  behavior: "network:scan"
+  remediation: true
