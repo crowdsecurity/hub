@@ -16,7 +16,7 @@ What it ships:
    - `crowdsecurity/appsec-bot-legit-ai-crawlers`: gptbot, openai-searchbot, openai-chatgpt-user,
      perplexitybot
    - `crowdsecurity/appsec-bot-legit-social`: meta, discord, telegram, twitterbot, pinterest
-   - `crowdsecurity/appsec-bot-legit-monitoring`: uptimerobot, cookiebot, datadog
+   - `crowdsecurity/appsec-bot-legit-monitoring`: uptimerobot, cookiebot, datadog, pagerduty
 
    A bot is exempted **only** when it can be network-verified — forward-confirmed rDNS or a published IP
    range. User-Agent-only bots (e.g. CommonCrawl/CCBot) are intentionally left challenged, since a
