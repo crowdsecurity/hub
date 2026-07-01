@@ -3043,6 +3043,28 @@
       "CWE-303"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-8181": {
+    "name": "crowdsecurity/vpatch-CVE-2024-8181",
+    "description": "Detects authentication bypass in Flowise <= 1.8.2 by matching unauthorized access to sensitive API endpoints.",
+    "label": "Flowise - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2024-8181"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-8190": {
     "name": "crowdsecurity/vpatch-CVE-2024-8190",
     "description": "Ivanti Cloud Services Appliance - RCE (CVE-2024-8190)",
@@ -3863,6 +3885,28 @@
       "CWE-223"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-53693": {
+    "name": "crowdsecurity/vpatch-CVE-2025-53693",
+    "description": "Detects Sitecore XAML AjaxScriptManager cache poisoning via AddToCache reflection method.",
+    "label": "Sitecore - Cache Poisoning",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2025-53693"
+    ],
+    "cwes": [
+      "CWE-20"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-54249": {
     "name": "crowdsecurity/vpatch-CVE-2025-54249",
     "description": "Detects SSRF in Adobe Experience Manager via /services/accesstoken/verify endpoint with crafted auth_url parameter.",
@@ -3993,6 +4037,28 @@
     ],
     "cwes": [
       "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-59528": {
+    "name": "crowdsecurity/vpatch-CVE-2025-59528",
+    "description": "Detects Flowise CustomMCP node RCE via unsafe evaluation in convertToValidJSONString.",
+    "label": "Flowise - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2025-59528"
+    ],
+    "cwes": [
+      "CWE-94"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-61678": {
@@ -4259,6 +4325,28 @@
     "cwes": [
       "CWE-22",
       "CWE-434"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-21643": {
+    "name": "crowdsecurity/vpatch-CVE-2026-21643",
+    "description": "Detects SQL injection in Fortinet FortiClientEMS via the Site HTTP header on /api/v1/init_consts.",
+    "label": "FortiClientEMS - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-02T09:30:07",
+    "cves": [
+      "CVE-2026-21643"
+    ],
+    "cwes": [
+      "CWE-89"
     ]
   },
   "crowdsecurity/vpatch-CVE-2026-23744": {
@@ -4553,6 +4641,39 @@
     "cti": true,
     "service": "vaultwarden",
     "created_at": "2022-02-15T13:18:17"
+  },
+  "Guezli/mailcow-f2b-feed": {
+    "name": "Guezli/mailcow-f2b-feed",
+    "description": "Propagate Mailcow internal F2B bans into the local Crowdsec LAPI",
+    "label": "Mailcow F2B Cross-Layer Feed",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "mailcow-f2b",
+    "created_at": "2026-06-08T13:25:13"
+  },
+  "Guezli/postfix-honeypot-users": {
+    "name": "Guezli/postfix-honeypot-users",
+    "description": "Instant-ban IPs hitting postfix SASL authentication with honeypot usernames",
+    "label": "Postfix Honeypot Username",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0003:T1078"
+    ],
+    "confidence": 0,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix",
+    "created_at": "2026-06-08T12:35:42"
   },
   "Guezli/postfix-sasl-bf": {
     "name": "Guezli/postfix-sasl-bf",
@@ -8016,7 +8137,7 @@
     "mitre_attacks": [
       "TA0006:T1110"
     ],
-    "confidence": 3,
+    "confidence": 1,
     "spoofable": 0,
     "cti": true,
     "service": "ssh",
@@ -8033,7 +8154,7 @@
       "TA0043:T1589",
       "TA0006:T1110"
     ],
-    "confidence": 3,
+    "confidence": 1,
     "spoofable": 0,
     "cti": true,
     "service": "ssh",
