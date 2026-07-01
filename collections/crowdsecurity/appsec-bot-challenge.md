@@ -7,8 +7,7 @@ fast bot detection are rejected.
 What it ships:
 
  - `crowdsecurity/appsec-bot-challenge-simple`: challenges incoming requests, skips verified good bots
-   (forward-confirmed rDNS), and rejects challenge submissions whose fingerprint trips the fast bot
-   detection.
+   and rejects challenge submissions whose fingerprint trips the bot detection.
  - Verified-good-bot datafiles that back the exclusion above, split by family so you can enable only the
    ones you need:
    - `crowdsecurity/appsec-bot-legit-search-engines`: googlebot, bingbot, applebot, amazonbot, yandex,
@@ -18,27 +17,20 @@ What it ships:
    - `crowdsecurity/appsec-bot-legit-social`: meta, discord, telegram, twitterbot, pinterest
    - `crowdsecurity/appsec-bot-legit-monitoring`: uptimerobot, cookiebot, datadog, pagerduty
 
-   A bot is exempted **only** when it can be network-verified — forward-confirmed rDNS or a published IP
-   range. User-Agent-only bots (e.g. CommonCrawl/CCBot) are intentionally left challenged, since a
-   spoofed User-Agent must not bypass the challenge.
+   A bot is exempted **only** when it can be network-verified (dns or ip range).
  - Path exclusion configs that let machine-facing or non-navigational requests through without a
    challenge:
    - `appsec-bot-challenge-exclude-crawler-files` — `/robots.txt`, `/.well-known/*`, `/security.txt`, …
    - `appsec-bot-challenge-exclude-feeds` — RSS/Atom feed paths
    - `appsec-bot-challenge-exclude-webhooks` — third-party webhook paths
-   - `appsec-bot-challenge-exclude-static` — static assets and media (css, js, images, fonts,
-     audio/video, sourcemaps); a challenge page returned for a subresource would break page rendering
+   - `appsec-bot-challenge-exclude-static` — static assets and media
    - `appsec-bot-challenge-exclude-api` — programmatic endpoints
-
-   The exclusion is strictly per-request and is never persisted to a cookie or across requests, so it
-   cannot be abused to whitelist a session for other paths.
- - A dedicated bot-detection parser tracking the fingerprint session id (`fsid`) and OS.
  - Scenarios that alert on detected bots and on challenge abuse.
  - A user-friendly alert context exposing `fsid`, OS, and the bot signals that fired.
 
 ## Enabling bot challenge
 
-Add the `crowdsecurity/appsec-bot-challenge-simple` appsec-config to your WAF acquisition, plus any of the
+Add the `crowdsecurity/appsec-bot-*` appsec-configs to your WAF acquisition, plus any of the
 well-known-path exclusion configs you need:
 
 ```yaml
