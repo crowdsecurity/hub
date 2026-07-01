@@ -21,10 +21,19 @@ What it ships:
    A bot is exempted **only** when it can be network-verified — forward-confirmed rDNS or a published IP
    range. User-Agent-only bots (e.g. CommonCrawl/CCBot) are intentionally left challenged, since a
    spoofed User-Agent must not bypass the challenge.
- - Well-known-path exclusion configs (`appsec-bot-challenge-exclude-crawler-files`, `-feeds`, `-webhooks`) that
-   let machine-facing endpoints (`/robots.txt`, `/.well-known/*`, feeds, webhooks) through without a
-   challenge. The exclusion is strictly per-request and is never persisted to a cookie or across
-   requests, so it cannot be abused to whitelist a session for other paths.
+ - Path exclusion configs that let machine-facing or non-navigational requests through without a
+   challenge:
+   - `appsec-bot-challenge-exclude-crawler-files` — `/robots.txt`, `/.well-known/*`, `/security.txt`, …
+   - `appsec-bot-challenge-exclude-feeds` — RSS/Atom feed paths
+   - `appsec-bot-challenge-exclude-webhooks` — third-party webhook paths
+   - `appsec-bot-challenge-exclude-static` — static assets and media (css, js, images, fonts,
+     audio/video, sourcemaps); a challenge page returned for a subresource would break page rendering
+   - `appsec-bot-challenge-exclude-api` — programmatic endpoints (`/api/`, `/wp-json/`, `/graphql`,
+     `/rest/`, `/v1/`, `/v2/`, `/oauth/`, …) whose non-browser clients can't run the PoW. These are
+     intentionally left un-challenged; protect them with rate-limit/auth-based scenarios instead.
+
+   The exclusion is strictly per-request and is never persisted to a cookie or across requests, so it
+   cannot be abused to whitelist a session for other paths.
  - A dedicated bot-detection parser tracking the fingerprint session id (`fsid`) and OS.
  - Scenarios that alert on detected bots and on challenge abuse.
  - A user-friendly alert context exposing `fsid`, OS, and the bot signals that fired.
@@ -40,6 +49,8 @@ appsec_configs:
  - crowdsecurity/appsec-bot-challenge-exclude-crawler-files
  - crowdsecurity/appsec-bot-challenge-exclude-feeds
  - crowdsecurity/appsec-bot-challenge-exclude-webhooks
+ - crowdsecurity/appsec-bot-challenge-exclude-static
+ - crowdsecurity/appsec-bot-challenge-exclude-api
 labels:
   type: appsec
 listen_addr: 127.0.0.1:7422

@@ -1,0 +1,17 @@
+name: crowdsecurity/appsec-bot-challenge-exclude-api
+# Let programmatic/API endpoints through without a challenge: their clients (mobile apps, SDKs,
+# server-to-server, XHR/fetch) can't run the JavaScript proof-of-work, so a challenge just breaks them.
+# Protect these with rate-limit/auth-based scenarios instead of the browser challenge.
+# Note: '/v1/' and '/v2/' also match versioned HTML documentation sites, so those pages won't be
+# challenged. Accepted under the over-exclude strategy; drop this config if you serve HTML under /v1/.
+inband:
+  pre_eval:
+    - filter: >-
+        req.URL.Path in ['/api', '/graphql'] ||
+        req.URL.Path startsWith '/api/' || req.URL.Path startsWith '/wp-json/' ||
+        req.URL.Path startsWith '/graphql/' || req.URL.Path startsWith '/rest/' ||
+        req.URL.Path startsWith '/v1/' || req.URL.Path startsWith '/v2/' ||
+        req.URL.Path startsWith '/oauth/' || req.URL.Path startsWith '/.netlify/functions/' ||
+        req.URL.Path startsWith '/_next/data/'
+      apply:
+        - ExemptFromChallenge()
