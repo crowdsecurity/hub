@@ -2,6 +2,6 @@ name: crowdsecurity/appsec-bot-challenge-exclude-webhooks
 # Let third-party webhook callbacks fly through without a challenge.
 inband:
   pre_eval:
-    - filter: "req.URL.Path in ['/webhooks/stripe', '/webhooks/github', '/webhooks/sendgrid']"
+    - filter: "req.URL.Path startsWith '/webhooks/'"
       apply:
         - ExemptFromChallenge()
