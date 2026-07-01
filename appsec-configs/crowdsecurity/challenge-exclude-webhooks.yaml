@@ -1,8 +1,0 @@
-name: crowdsecurity/challenge-exclude-webhooks
-# Let third-party webhook callbacks fly through without a challenge. SetLegitimateBot() is
-# strictly per-request (never persisted to a cookie or across requests).
-inband:
-  pre_eval:
-    - filter: "req.URL.Path in ['/webhooks/stripe', '/webhooks/github', '/webhooks/sendgrid']"
-      apply:
-        - SetLegitimateBot()

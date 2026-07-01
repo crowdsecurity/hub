@@ -1,0 +1,9 @@
+name: crowdsecurity/appsec-bot-challenge-exclude-crawler-files
+# Let well-known crawler files fly through without a challenge.
+inband:
+  pre_eval:
+    - filter: >-
+        req.URL.Path in ['/robots.txt', '/ads.txt', '/app-ads.txt', '/sitemap.xml'] ||
+        req.URL.Path startsWith '/.well-known/'
+      apply:
+        - ExemptFromChallenge()

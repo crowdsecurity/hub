@@ -1,11 +1,12 @@
 type: leaky
 format: 3.0
 #debug: true
-name: crowdsecurity/appsec-challenge-too-many-requests
+name: crowdsecurity/appsec-bot-challenge-too-many-requests
 description: "Client made too many request to challenge page"
 filter: "evt.Meta.log_type == 'appsec-challenge' && evt.Meta.challenge_event == 'requested'"
-leakspeed: "60s"
-capacity: 5
+cancel_on: "evt.Meta.log_type == 'appsec-challenge' && evt.Meta.challenge_event == 'submitted'"
+leakspeed: "20s"
+capacity: 10
 groupby: evt.Meta.source_ip
 blackhole: 1m
 labels:
