@@ -1,8 +1,8 @@
 type: leaky
 name: xulianh/xray-brute-force
 description: "Detect X-ray brute-force or scanning attempts"
-filter: evt.Parsed.action == 'rejected'
-groupby: evt.Parsed.source_ip
+filter: evt.Meta.action == 'rejected'
+groupby: evt.Meta.source_ip
 leakspeed: 20s
 capacity: 5
 blackhole: 1m
