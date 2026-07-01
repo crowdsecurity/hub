@@ -28,9 +28,7 @@ What it ships:
    - `appsec-bot-challenge-exclude-webhooks` — third-party webhook paths
    - `appsec-bot-challenge-exclude-static` — static assets and media (css, js, images, fonts,
      audio/video, sourcemaps); a challenge page returned for a subresource would break page rendering
-   - `appsec-bot-challenge-exclude-api` — programmatic endpoints (`/api/`, `/wp-json/`, `/graphql`,
-     `/rest/`, `/v1/`, `/v2/`, `/oauth/`, …) whose non-browser clients can't run the PoW. These are
-     intentionally left un-challenged; protect them with rate-limit/auth-based scenarios instead.
+   - `appsec-bot-challenge-exclude-api` — programmatic endpoints
 
    The exclusion is strictly per-request and is never persisted to a cookie or across requests, so it
    cannot be abused to whitelist a session for other paths.
@@ -45,12 +43,7 @@ well-known-path exclusion configs you need:
 
 ```yaml
 appsec_configs:
- - crowdsecurity/appsec-bot-challenge-simple
- - crowdsecurity/appsec-bot-challenge-exclude-crawler-files
- - crowdsecurity/appsec-bot-challenge-exclude-feeds
- - crowdsecurity/appsec-bot-challenge-exclude-webhooks
- - crowdsecurity/appsec-bot-challenge-exclude-static
- - crowdsecurity/appsec-bot-challenge-exclude-api
+ - crowdsecurity/appsec-bot-*
 labels:
   type: appsec
 listen_addr: 127.0.0.1:7422
