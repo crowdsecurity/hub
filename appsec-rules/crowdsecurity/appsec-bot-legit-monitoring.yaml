@@ -1,0 +1,13 @@
+name: crowdsecurity/appsec-bot-legit-monitoring
+
+# Declares the legitimate uptime/monitoring datafiles so crowdsec downloads them into
+# <datadir>/legit_bots/. They are consumed by the engine's IsLegitimateBot() helper
+# (see crowdsecurity/appsec-bot-challenge-simple), not by seclang rules.
+
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/uptimerobot.json
+    dest_file: legit_bots/uptimerobot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/cookiebot.json
+    dest_file: legit_bots/cookiebot.json
+    type: bots

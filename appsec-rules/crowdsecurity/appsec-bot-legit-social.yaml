@@ -1,0 +1,22 @@
+name: crowdsecurity/appsec-bot-legit-social
+
+# Declares the legitimate social / link-preview unfurler datafiles so crowdsec downloads them
+# into <datadir>/legit_bots/. They are consumed by the engine's IsLegitimateBot() helper
+# (see crowdsecurity/appsec-bot-challenge-simple), not by seclang rules.
+
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/meta.json
+    dest_file: legit_bots/meta.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/discord.json
+    dest_file: legit_bots/discord.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/telegram.json
+    dest_file: legit_bots/telegram.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/twitterbot.json
+    dest_file: legit_bots/twitterbot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/pinterest.json
+    dest_file: legit_bots/pinterest.json
+    type: bots
