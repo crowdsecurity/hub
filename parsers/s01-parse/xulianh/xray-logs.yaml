@@ -1,0 +1,15 @@
+name: custom/xray-logs
+description: "Syntax analizer for x-ray's access recordsy"
+filter: "evt.Parsed.program == 'xray'"
+onsuccess: next_stage
+nodes:
+  - grok:
+      pattern: '^(?P<time>%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}\.%{INT:micro}) from %{IP:source_ip}:%{INT:source_port} %{WORD:action} %{GREEDYDATA:reason}'
+      apply_on: message
+statics:
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: action
+    expression: "evt.Parsed.action"
+  - target: evt.StrTime
+    expression: "evt.Parsed.year + '-' + evt.Parsed.month + '-' + evt.Parsed.day + 'T' + evt.Parsed.hour + ':' + evt.Parsed.minute + ':' + evt.Parsed.second + 'Z'"
