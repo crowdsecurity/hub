@@ -1,0 +1,13 @@
+name: crowdsecurity/appsec-bot-challenge-simple
+inband:
+  post_eval:
+    # Skip the challenge for verified good bots and for requests a
+    # well-known-path exclusion config flagged via ExemptFromChallenge().
+    - filter: "!IsLegitimateBot(req.RemoteAddr, req.UserAgent(), req.URL.Path)"
+      apply:
+        - SendChallenge()
+  on_challenge_submit:
+    # Reject submissions whose fingerprint fast-detect flags a known bot.
+    - filter: "fingerprint.IsBot()"
+      apply:
+        - RejectSubmission("known bot (fast bot detection)")

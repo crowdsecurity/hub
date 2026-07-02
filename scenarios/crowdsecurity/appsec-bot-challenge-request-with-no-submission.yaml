@@ -1,0 +1,20 @@
+type: counter
+format: 3.0
+#debug: true
+name: crowdsecurity/appsec-bot-challenge-request-with-no-submission
+description: "Client was served the challenge page but never submitted it"
+filter: "evt.Meta.log_type == 'appsec-challenge' && (evt.Meta.challenge_event == 'requested' || evt.Meta.challenge_event == 'submitted')"
+cancel_on: "evt.Meta.log_type == 'appsec-challenge' && evt.Meta.challenge_event == 'submitted'"
+duration: 120s
+capacity: -1
+cache_size: 1
+groupby: evt.Meta.source_ip
+blackhole: 10s
+labels:
+  service: http
+  confidence: 0
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Blocked by CrowdSec AppSec"
+  behavior: "http:exploit"
