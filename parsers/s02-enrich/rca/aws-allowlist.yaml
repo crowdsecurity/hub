@@ -1,0 +1,17 @@
+name: rca/aws-allowlist
+description: "Allowlist AWS Global services providers"
+whitelist:
+  reason: "AWS Global services provider"
+  expression: 
+    #- evt.Meta.source_ip in LookupHost("server-130-176-186-238.cdg52.r.cloudfront.net")
+    - IpInRange(evt.Meta.source_ip, "130.176.128.0/18")
+    - any(File("aws-ip-ranges.json"), {       IpInRange(evt.Meta.source_ip, JsonExtract(#, "ip_prefix"))    })
+    #- any(File("aws-ip-ranges.json"), {       IpInRange(evt.Meta.source_ip, JsonExtractSlice(#, "prefixes.ip_prefix"))    })
+data:
+  - source_url: https://ip-ranges.amazonaws.com/ip-ranges.json
+    dest_file: aws-ip-ranges.json
+    type: string
+  # WIP alternative : 
+  # - source_url: https://raw.githubusercontent.com/joetek/aws-ip-ranges-json/refs/heads/master/ip-ranges-cloudfront.json
+  #   dest_file: aws-ip-ranges-cloudfront.json
+  #   type: string
