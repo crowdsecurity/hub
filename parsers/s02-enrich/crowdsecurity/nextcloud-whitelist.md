@@ -56,3 +56,6 @@ When pushes changes to a text session, a 403 error is thrown if the user session
 ### Collabora Online / richdocumentscode
 When using Collabora Online (richdocumentscode app), the application uses `proxy.php` to access resources such as images and icons. Some of these resources may return 404 errors if they are missing or not available, which can trigger http-probing.
 
+---
+### GNOME Online Accounts
+[GNOME Online Accounts triggers crowdsecurity/http-generic-bf](https://github.com/crowdsecurity/hub/issues/1615)
