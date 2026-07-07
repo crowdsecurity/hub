@@ -48,39 +48,54 @@ jobs:
         DISABLE_LOCAL_API: "true"
     env:
       RESULTS_PATH: .
+    outputs:
+      parsers_cov: ${{ steps.coverage.outputs.parsers_cov }}
+      scenarios_cov: ${{ steps.coverage.outputs.scenarios_cov }}
+      parser_color: ${{ steps.coverage.outputs.parser_color }}
+      scenario_color: ${{ steps.coverage.outputs.scenario_color }}
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       with:
         persist-credentials: false
     - name: run tests with crowdsec from master branch
+      id: coverage
       run: |
         mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
         cscli hubtest run --all --clean --max-jobs 8
-        echo "PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        echo "SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        PARSERS_COV_NUMBER=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        SCENARIOS_COV_NUMBER=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        echo "PARSER_BADGE_COLOR=$(if [ "$PARSERS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
-        echo "SCENARIO_BADGE_COLOR=$(if [ "$SCENARIOS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
-    - name: Create Parsers badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
-      if: ${{ github.ref == 'refs/heads/master' }}
-      with:
-        auth: ${{ secrets.GIST_BADGES_SECRET }}
-        gistID: ${{ secrets.GIST_BADGES_ID }}
-        filename: hub_parsers_badge.json
-        label: Hub Parsers
-        message: ${{ env.PARSERS_COV }}
-        color: ${{ env.SCENARIO_BADGE_COLOR }}
-    - name: Create Scenarios badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
-      if: ${{ github.ref == 'refs/heads/master' }}
-      with:
-        auth: ${{ secrets.GIST_BADGES_SECRET }}
-        gistID: ${{ secrets.GIST_BADGES_ID }}
-        filename: hub_scenarios_badge.json
-        label: Hub Scenarios
-        message: ${{ env.SCENARIOS_COV }}
-        color: ${{ env.SCENARIO_BADGE_COLOR }}
+        PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)
+        SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)
+        PARSERS_COV_NUMBER=$(echo "$PARSERS_COV" | tr -d '%' | tr -d '[[:space:]]')
+        SCENARIOS_COV_NUMBER=$(echo "$SCENARIOS_COV" | tr -d '%' | tr -d '[[:space:]]')
+        {
+          echo "parsers_cov=$PARSERS_COV"
+          echo "scenarios_cov=$SCENARIOS_COV"
+          echo "parser_color=$(if [ "$PARSERS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)"
+          echo "scenario_color=$(if [ "$SCENARIOS_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)"
+        } >> "$GITHUB_OUTPUT"
+
+  update-badges:
+    needs: run-hub-tests
+    if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'crowdsecurity' }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+    - name: Update coverage badges
+      env:
+        GH_TOKEN: ${{ secrets.GIST_BADGES_SECRET }}
+        GIST_ID: ${{ secrets.GIST_BADGES_ID }}
+        PARSERS_COV: ${{ needs.run-hub-tests.outputs.parsers_cov }}
+        SCENARIOS_COV: ${{ needs.run-hub-tests.outputs.scenarios_cov }}
+        PARSER_COLOR: ${{ needs.run-hub-tests.outputs.parser_color }}
+        SCENARIO_COLOR: ${{ needs.run-hub-tests.outputs.scenario_color }}
+      run: |
+        set -euo pipefail
+        badge() { jq -cn --arg l "$1" --arg m "$2" --arg c "$3" \
+          '{schemaVersion:1,label:$l,message:$m,color:$c}'; }
+        jq -n \
+          --arg p "$(badge 'Hub Parsers'   "$PARSERS_COV"   "$PARSER_COLOR")" \
+          --arg s "$(badge 'Hub Scenarios' "$SCENARIOS_COV" "$SCENARIO_COLOR")" \
+          '{files:{"hub_parsers_badge.json":{content:$p},
+                   "hub_scenarios_badge.json":{content:$s}}}' \
+          | gh api --method PATCH "/gists/${GIST_ID}" --input -
 
