@@ -65,8 +65,8 @@ jobs:
         cscli hubtest run --all --clean --max-jobs 8
         PARSERS_COV=$(cscli hubtest coverage --parsers --percent | cut -d '=' -f2)
         SCENARIOS_COV=$(cscli hubtest coverage --scenarios --percent | cut -d '=' -f2)
-        PARSERS_COV_NUMBER=$(echo "$PARSERS_COV" | tr -d '%' | tr -d '[[:space:]]')
-        SCENARIOS_COV_NUMBER=$(echo "$SCENARIOS_COV" | tr -d '%' | tr -d '[[:space:]]')
+        PARSERS_COV_NUMBER=$(echo "$PARSERS_COV" | tr -d '%' | tr -d '[:space:]')
+        SCENARIOS_COV_NUMBER=$(echo "$SCENARIOS_COV" | tr -d '%' | tr -d '[:space:]')
         {
           echo "parsers_cov=$PARSERS_COV"
           echo "scenarios_cov=$SCENARIOS_COV"

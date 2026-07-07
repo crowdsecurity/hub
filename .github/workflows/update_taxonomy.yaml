@@ -45,8 +45,8 @@ jobs:
 
       - name: Get changed files
         run: |
-          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
-          echo "changed_files=${changed_files}" >> $GITHUB_ENV
+          changed_files=$(git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> "$GITHUB_ENV"
       - name: Create local changes
         env:
           AUTHOR: ${{ github.actor }}
@@ -54,7 +54,7 @@ jobs:
           uv sync --all-extras --dev --locked
           uv run mitre-db -o taxonomy/mitre_attack.json
           uv run scenario-taxonomy --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
-          [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
+          [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> "$GITHUB_ENV" || echo "taxonomy_errors=0" >> "$GITHUB_ENV"
       - uses: jwalton/gh-find-current-pr@f3d61b485d2801773f7a07b2aaa3306bd8f8e653 # v1.3.5
         id: findPr
         with:
@@ -102,7 +102,7 @@ jobs:
           role-session-name: github-action
           aws-region: eu-west-1
       - name: Get branch name
-        run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: echo "version=${GITHUB_REF#refs/heads/}" >> "$GITHUB_ENV"
       - name: Invalidate cache
         run: |
           aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/taxonomy/*"

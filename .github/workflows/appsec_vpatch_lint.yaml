@@ -5,7 +5,7 @@ on:
       - "appsec-rules/**.yaml"
       - "appsec-rules/**.yml"
       - ".github/workflows/appsec_vpatch_lint.yaml"
-      - "./collections/crowdsecurity/appsec-virtual-patching.yaml"
+      - "collections/crowdsecurity/appsec-virtual-patching.yaml"
       - "src/cshub/appsec_vpatch_lint.py"
       - "pyproject.toml"
       - "uv.lock"
@@ -39,15 +39,15 @@ jobs:
 
       - name: Get changed files
         run: |
-          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
-          echo "changed_files=${changed_files}" >> $GITHUB_ENV
+          changed_files=$(git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> "$GITHUB_ENV"
       - name: Create local changes
         env:
           AUTHOR: ${{ github.actor }}
         run: |
           uv sync --all-extras --dev --locked
           uv run appsec-vpatch-lint -e appsec_vpatch_cve_error.md --hub ./
-          [ -f "appsec_vpatch_cve_error.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
+          [ -f "appsec_vpatch_cve_error.md" ] && echo "taxonomy_errors=1" >> "$GITHUB_ENV" || echo "taxonomy_errors=0" >> "$GITHUB_ENV"
       - uses: jwalton/gh-find-current-pr@f3d61b485d2801773f7a07b2aaa3306bd8f8e653 # v1.3.5
         id: findPr
         with:

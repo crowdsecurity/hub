@@ -43,7 +43,7 @@ jobs:
         sudo apt install -y libre2-dev gettext
         go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.1.7
         # yes it's ugly, no I don't care
-        cp $HOME/go/bin/nuclei /usr/local/bin/
+        cp "$HOME/go/bin/nuclei" /usr/local/bin/
     - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
@@ -60,9 +60,9 @@ jobs:
     - name: run tests on last crowdsec tag
       run: |
         sudo cscli hubtest run --all --appsec --target http://127.0.0.1:7822
-        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
+        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> "$GITHUB_ENV"
+        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[:space:]')
+        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> "$GITHUB_ENV"
     - name: Update appsec coverage badge
       if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'crowdsecurity' }}
       env:
