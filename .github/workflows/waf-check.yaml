@@ -25,6 +25,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -51,6 +54,9 @@ jobs:
   run:
     runs-on: ubuntu-22.04
     needs: build
+    permissions:
+      contents: read
+      actions: write
     strategy:
       matrix:
         dataset_folder:
