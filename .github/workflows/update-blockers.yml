@@ -54,7 +54,7 @@ jobs:
   invalidate-cache:
     runs-on: ubuntu-latest
     if: |
-        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+        startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/master'
     permissions:
       id-token: write
       contents: read
