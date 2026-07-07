@@ -48,14 +48,17 @@ jobs:
           uv sync --all-extras --dev --locked
           uv run appsec-vpatch-lint -e appsec_vpatch_cve_error.md --hub ./
           [ -f "appsec_vpatch_cve_error.md" ] && echo "taxonomy_errors=1" >> "$GITHUB_ENV" || echo "taxonomy_errors=0" >> "$GITHUB_ENV"
-      - uses: jwalton/gh-find-current-pr@f3d61b485d2801773f7a07b2aaa3306bd8f8e653 # v1.3.5
-        id: findPr
-        with:
-          state: open
       - name: Comment PR if errors
         if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'push') && (github.ref != 'refs/heads/master') }}
-        uses: thollander/actions-comment-pull-request@fabd468d3a1a0b97feee5f6b9e499eab0dd903f6 # v2.5.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          filePath: appsec_vpatch_cve_error.md
-          pr_number: ${{ steps.findPr.outputs.pr }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          pr=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$pr" ]; then
+            gh pr comment "$pr" --body-file appsec_vpatch_cve_error.md
+          else
+            echo "No open PR for $BRANCH_NAME; skipping comment"
+          fi

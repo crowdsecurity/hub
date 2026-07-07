@@ -119,8 +119,16 @@ jobs:
           name: waf-check-result
           path: ./waf-check/output/
           retention-days: 1
-      - uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
+      - name: Delete dataset artifact
         if: always()
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: waf-check-dataset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          gh api "repos/${GH_REPO}/actions/runs/${RUN_ID}/artifacts" --paginate \
+            --jq '.artifacts[] | select(.name=="waf-check-dataset") | .id' \
+          | while read -r id; do
+              gh api --method DELETE "repos/${GH_REPO}/actions/artifacts/${id}" || true
+            done
