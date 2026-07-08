@@ -2,6 +2,9 @@ name: Update Blockers Meta
 
 on:
   push:
+    branches:
+      - "master"
+      - "v[0-9]+.[0-9]+.[0-9]+*"
     paths:
       - '.github/workflows/update-blockers.yml'
       - "src/cshub/mkblockers.py"
