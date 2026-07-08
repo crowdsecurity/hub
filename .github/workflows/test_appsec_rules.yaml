@@ -23,13 +23,18 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   run-appsec-rules-tests:
     runs-on: ubuntu-latest 
     steps:
     - name: Check out code into the Go module directory
-      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
+    - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
       with:
         go-version: '1.26'
     - name: Install requirements
@@ -38,7 +43,7 @@ jobs:
         sudo apt install -y libre2-dev gettext
         go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.1.7
         # yes it's ugly, no I don't care
-        cp $HOME/go/bin/nuclei /usr/local/bin/
+        cp "$HOME/go/bin/nuclei" /usr/local/bin/
     - name: Install CrowdSec
       run: |
         git clone https://github.com/crowdsecurity/crowdsec.git
@@ -55,19 +60,20 @@ jobs:
     - name: run tests on last crowdsec tag
       run: |
         sudo cscli hubtest run --all --appsec --target http://127.0.0.1:7822
-        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> $GITHUB_ENV
-        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[[:space:]]')
-        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> $GITHUB_ENV
-    - name: Create appsec badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
-      if: ${{ github.ref == 'refs/heads/master' }}
-      with:
-        auth: ${{ secrets.GIST_BADGES_SECRET }}
-        gistID: ${{ secrets.GIST_BADGES_ID }}
-        filename: hub_appsec_badge.json
-        label: Hub Appsec
-        message: ${{ env.APPSEC_RULE_COV }}
-        color: ${{ env.APPSEC_RULE_BADGE_COLOR }}
+        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> "$GITHUB_ENV"
+        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[:space:]')
+        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> "$GITHUB_ENV"
+    - name: Update appsec coverage badge
+      if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'crowdsecurity' }}
+      env:
+        GH_TOKEN: ${{ secrets.GIST_BADGES_SECRET }}
+        GIST_ID: ${{ secrets.GIST_BADGES_ID }}
+      run: |
+        set -euo pipefail
+        content=$(jq -cn --arg l 'Hub Appsec' --arg m "$APPSEC_RULE_COV" --arg c "$APPSEC_RULE_BADGE_COLOR" \
+          '{schemaVersion:1,label:$l,message:$m,color:$c}')
+        jq -n --arg c "$content" '{files:{"hub_appsec_badge.json":{content:$c}}}' \
+          | gh api --method PATCH "/gists/${GIST_ID}" --input -
     - name: Stop containers
       if: always()
       run: docker compose -f docker/appsec/docker-compose.yaml down
