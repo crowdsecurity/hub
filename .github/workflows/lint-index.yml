@@ -1,4 +1,4 @@
-name: Lint
+name: Lint Index
 
 on:
   pull_request:
@@ -56,26 +56,31 @@ on:
       - "src/**"
       - "pyproject.toml"
       - "uv.lock"
+
+permissions:
+  contents: read
+
 jobs:
   run-linter:
     runs-on: ubuntu-latest
     steps:
 
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
+          persist-credentials: false
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@f98e06938123ccabd21905ea5d0069192241f9f1 # v8.3.1
         with:
           version: 0.5.24
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
       - name: set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version-file: ".python-version"
 

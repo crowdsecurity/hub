@@ -2,6 +2,9 @@ name: Update Blockers Meta
 
 on:
   push:
+    branches:
+      - "master"
+      - "v[0-9]+.[0-9]+.[0-9]+*"
     paths:
       - '.github/workflows/update-blockers.yml'
       - "src/cshub/mkblockers.py"
@@ -15,22 +18,24 @@ on:
 jobs:
   update_blockers:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
 
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@f98e06938123ccabd21905ea5d0069192241f9f1 # v8.3.1
         with:
           version: 0.5.24
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
       - name: set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version-file: ".python-version"
 
@@ -39,37 +44,32 @@ jobs:
           uv sync --all-extras --dev --locked
           uv run mkblockers
 
-      - uses: nelonoel/branch-name@v1.0.1
-
-      - name: Commit files
+      - name: Commit and push
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Update blockers meta" blockers.json || exit 0
-          git pull --rebase origin ${BRANCH_NAME}
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          git pull --rebase origin "$BRANCH_NAME"
+          git push origin "HEAD:$BRANCH_NAME"
 
   invalidate-cache:
     runs-on: ubuntu-latest
     if: |
-        startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+        startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/master'
     permissions:
       id-token: write
       contents: read
     steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
       with:
         role-to-assume: ${{ secrets.CF_AWS_ROLE }}
         role-session-name: github-action
         aws-region: eu-west-1
     - name: Get branch name
-      run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      run: echo "version=${GITHUB_REF#refs/heads/}" >> "$GITHUB_ENV"
     - name: Invalidate cache
       run: |
         aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/blockers.json"
