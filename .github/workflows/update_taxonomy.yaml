@@ -15,32 +15,38 @@ on:
       - "pyproject.toml"
       - "uv.lock"
 
+permissions:
+  contents: read
+
 jobs:
   update-taxonomy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
           ref: master
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
         with:
           version: 0.5.24
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
       - name: set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version-file: ".python-version"
 
       - name: Get changed files
         run: |
-          changed_files=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA | tr '\n' ',' | sed 's/,$/\n/')
-          echo "changed_files=${changed_files}" >> $GITHUB_ENV
+          changed_files=$(git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | tr '\n' ',' | sed 's/,$/\n/')
+          echo "changed_files=${changed_files}" >> "$GITHUB_ENV"
       - name: Create local changes
         env:
           AUTHOR: ${{ github.actor }}
@@ -48,31 +54,34 @@ jobs:
           uv sync --all-extras --dev --locked
           uv run mitre-db -o taxonomy/mitre_attack.json
           uv run scenario-taxonomy --hub ./ -b taxonomy/behaviors.json -m taxonomy/mitre_attack.json -o taxonomy/scenarios.json -e taxonomy/scenario_taxonomy_errors.md
-          [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> $GITHUB_ENV || echo "taxonomy_errors=0" >> $GITHUB_ENV
-      - uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-        with:
-          state: open
+          [ -f "taxonomy/scenario_taxonomy_errors.md" ] && echo "taxonomy_errors=1" >> "$GITHUB_ENV" || echo "taxonomy_errors=0" >> "$GITHUB_ENV"
       - name: Comment PR if errors
         if: ${{ (env.taxonomy_errors == '1') && (github.event_name == 'push') && (github.ref != 'refs/heads/master') }}
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          filePath: taxonomy/scenario_taxonomy_errors.md
-          pr_number: ${{ steps.findPr.outputs.pr }}
-      - uses: nelonoel/branch-name@v1.0.1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          pr=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$pr" ]; then
+            gh pr comment "$pr" --body-file taxonomy/scenario_taxonomy_errors.md
+          else
+            echo "No open PR for $BRANCH_NAME; skipping comment"
+          fi
       - name: Commit files
-        if: ${{ github.event_name == 'push'}}
+        if: ${{ github.event_name == 'push' }}
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          (git add taxonomy/ && git commit -m "Update taxonomy" && git pull --rebase origin ${BRANCH_NAME}) || exit 0
+          (git add taxonomy/ && git commit -m "Update taxonomy" && git pull --rebase origin "$BRANCH_NAME") || exit 0
       - name: Push changes
-        if: ${{ github.event_name == 'push' && (startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master') }}
-        uses: ad-m/github-push-action@v0.8.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+        if: ${{ github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/master') }}
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: git push origin "HEAD:$BRANCH_NAME"
 
   invalidate-cache:
     runs-on: ubuntu-latest
@@ -81,20 +90,22 @@ jobs:
     #Branches that don't match this pattern are only used for dev, so we can manually invalidate if needed
     #We should avoid naming dev branches with something starting with v :D
     if: |
-      startsWith('refs/heads/v', github.ref) || github.ref == 'refs/heads/master'
+      startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/master'
     permissions:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@517a711dbcd0e402f90c77e7e2f81e849156e31d # v6.2.2
         with:
           role-to-assume: ${{ secrets.CF_AWS_ROLE }}
           role-session-name: github-action
           aws-region: eu-west-1
       - name: Get branch name
-        run: echo "version=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: echo "version=${GITHUB_REF#refs/heads/}" >> "$GITHUB_ENV"
       - name: Invalidate cache
         run: |
           aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/${{ env.version }}/taxonomy/*"
