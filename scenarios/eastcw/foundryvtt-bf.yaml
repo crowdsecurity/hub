@@ -1,0 +1,38 @@
+type: leaky
+name: eastcw/foundryvtt_fast_bf
+description: "Detect Foundry VTT bruteforce"
+
+filter: "evt.Meta.log_type in ['foundryvtt_failed_admin_auth', 'foundryvtt_failed_game_auth']"
+leakspeed: 10s
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: foundryvtt
+  behavior: "generic:bruteforce"
+  classification: attack.T1110
+  label: "Foundry VTT Bruteforce"
+  spoofable: 0
+  confidence: 3
+  remediation: true
+
+---
+type: leaky
+name: eastcw/foundryvtt_slow_bf
+description: "Detect Foundry VTT bruteforce"
+
+filter: "evt.Meta.log_type in ['foundryvtt_failed_admin_auth', 'foundryvtt_failed_game_auth']"
+leakspeed: 90s
+capacity: 10
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: foundryvtt
+  behavior: "generic:bruteforce"
+  classification: attack.T1110
+  label: "Foundry VTT Bruteforce"
+  spoofable: 0
+  confidence: 3
+  remediation: true
