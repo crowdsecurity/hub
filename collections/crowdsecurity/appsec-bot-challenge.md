@@ -6,16 +6,16 @@ fast bot detection are rejected.
 
 What it ships:
 
- - `crowdsecurity/appsec-bot-challenge-simple`: challenges incoming requests, skips verified good bots
-   and rejects challenge submissions whose fingerprint trips the bot detection.
- - Verified-good-bot datafiles that back the exclusion above, split by family so you can enable only the
-   ones you need:
-   - `crowdsecurity/appsec-bot-legit-search-engines`: googlebot, bingbot, applebot, amazonbot, yandex,
-     baidu, yahoo, sogou, qwant, babbar, duckduckbot
-   - `crowdsecurity/appsec-bot-legit-ai-crawlers`: gptbot, openai-searchbot, openai-chatgpt-user,
+ - `crowdsecurity/appsec-bot-challenge-simple`: challenges incoming requests and rejects challenge
+   submissions whose fingerprint trips the bot detection.
+ - Verified-good-bot exclusion configs that exempt known bots from the challenge, split by family so you
+   can enable only the ones you need. Each config both declares the datafiles and exempts a match:
+   - `crowdsecurity/appsec-bot-challenge-exclude-search-engines`: googlebot, bingbot, applebot, amazonbot,
+     yandex, baidu, yahoo, sogou, qwant, babbar, duckduckbot
+   - `crowdsecurity/appsec-bot-challenge-exclude-ai-crawlers`: gptbot, openai-searchbot, openai-chatgpt-user,
      perplexitybot
-   - `crowdsecurity/appsec-bot-legit-social`: meta, discord, telegram, twitterbot, pinterest
-   - `crowdsecurity/appsec-bot-legit-monitoring`: uptimerobot, cookiebot, datadog, pagerduty
+   - `crowdsecurity/appsec-bot-challenge-exclude-social`: meta, discord, telegram, twitterbot, pinterest
+   - `crowdsecurity/appsec-bot-challenge-exclude-monitoring`: uptimerobot, cookiebot, datadog, pagerduty
 
    A bot is exempted **only** when it can be network-verified (dns or ip range).
  - Path exclusion configs that let machine-facing or non-navigational requests through without a

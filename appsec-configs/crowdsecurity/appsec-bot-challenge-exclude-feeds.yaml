@@ -7,4 +7,4 @@ inband:
         req.URL.Path in ['/feed', '/rss', '/atom.xml', '/feed.xml', '/rss.xml', '/index.xml', '/feed.atom'] ||
         req.URL.Path startsWith '/feed/' || req.URL.Path startsWith '/rss/'
       apply:
-        - ExemptFromChallenge()
+        - ExemptFromChallenge("feeds")

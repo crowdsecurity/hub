@@ -7,4 +7,4 @@ inband:
         req.URL.Path matches '\\.(css|js|mjs|map|png|jpe?g|gif|svg|webp|avif|ico|bmp|woff2?|ttf|otf|eot|mp4|m4v|webm|mov|mp3|m4a|wav|ogg|oga|ogv|flac|aac|webmanifest)$' ||
         req.URL.Path in ['/manifest.json', '/browserconfig.xml']
       apply:
-        - ExemptFromChallenge()
+        - ExemptFromChallenge("static")
