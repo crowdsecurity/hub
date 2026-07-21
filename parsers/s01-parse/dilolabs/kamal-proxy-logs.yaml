@@ -1,0 +1,46 @@
+name: dilolabs/kamal-proxy-logs
+description: "Parse Kamal proxy logs"
+filter: "evt.Parsed.program startsWith 'kamal-proxy'"
+#debug: true
+onsuccess: next_stage
+nodes:
+  - filter: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "kamalproxy") in ["", nil]
+    statics:
+      - parsed: host
+        expression: evt.Unmarshaled.kamalproxy.host
+      - parsed: remote_addr
+        expression: evt.Unmarshaled.kamalproxy.remote_addr
+      - parsed: http_user_agent
+        expression: evt.Unmarshaled.kamalproxy.user_agent
+      - parsed: time_local
+        expression: evt.Unmarshaled.kamalproxy.time
+      - parsed: verb
+        expression: evt.Unmarshaled.kamalproxy.method
+        # TODO: Add query after path
+      - parsed: request
+        expression: evt.Unmarshaled.kamalproxy.path
+      - parsed: http_version
+        expression: Split(evt.Unmarshaled.kamalproxy.proto, '/')[1]
+      - parsed: status
+        expression: evt.Unmarshaled.kamalproxy.status
+statics:
+  - meta: target_fqdn
+    expression: "evt.Parsed.host"
+  - meta: service
+    value: http
+  - meta: http_status
+    expression: "evt.Parsed.status"
+  - meta: http_path
+    expression: "evt.Parsed.request"
+#  - meta: user
+#    expression: "evt.Parsed.remote_user"
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: log_type
+    value: http_access-log
+  - target: evt.StrTime
+    expression: "evt.Parsed.time_local"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
