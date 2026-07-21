@@ -1,0 +1,27 @@
+# Scenario: Very slow Postfix HELO rejected
+# Detects attackers sending invalid HELO commands at < 1 attempt per hour
+# Detection window: 4h x 6 = 24 hours (6 failures needed)
+#
+# Standard crowdsecurity/postfix-helo-rejected has only a 10-minute window.
+# Evasive spammers space invalid HELO commands ~70 minutes apart to avoid it.
+#
+# Real-world example: 31.192.235.95 targeting laportette.fr with ~70min intervals
+type: leaky
+name: melite/postfix-helo-very-slow
+description: "Detect very slow HELO rejection attacks (evasive spammers)"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.action == 'reject' && evt.Meta.reason startsWith 'Helo command rejected'"
+leakspeed: "4h"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: false
+labels:
+  service: postfix
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+    - attack.T1592
+  behavior: "smtp:very-slow-helo-spam"
+  label: "Postfix Very Slow HELO Rejected"
