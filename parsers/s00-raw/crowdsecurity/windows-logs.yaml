@@ -1,24 +1,45 @@
 filter: "evt.Line.Module == 'wineventlog'"
 onsuccess: next_stage
 name: crowdsecurity/windows-eventlog
+nodes:
+  - filter: TrimSpace(evt.Line.Raw) startsWith '<'
+    statics:
+      - parsed: StrTime
+        #We need XMLGetAttributeValue because etree does not support getting an attribute value (or at least, i didn't manage to make the correct query)
+        expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/TimeCreated", "SystemTime")
+      - parsed: Channel
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Channel")
+      - parsed: EventID
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
+      - parsed: Source
+        expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Provider", "Name")
+      - parsed: Computer
+        expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Computer")
+      - parsed: UserSID
+        expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Security", "UserID")
+  - filter: TrimSpace(evt.Line.Raw) startsWith '{' && UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, 'wineventlog') in ['', nil]
+    statics:
+      - parsed: StrTime
+        expression: evt.Unmarshaled.wineventlog.timeCreated
+      - parsed: Channel
+        expression: evt.Unmarshaled.wineventlog.channel
+      - parsed: EventID
+        expression: string(int(evt.Unmarshaled.wineventlog.event_id))
+      - parsed: Source
+        expression: evt.Unmarshaled.wineventlog.source
+      - parsed: Computer
+        expression: evt.Unmarshaled.wineventlog.computer
+      - parsed: UserSID
+        expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='UserID']")
+      - parsed: EventData
+        expression: evt.Unmarshaled.wineventlog.event_data
 statics:
   - meta: datasource_path
     expression: evt.Line.Src
   - meta: datasource_type
     expression: evt.Line.Module
   - target: evt.StrTime
-    #We need XMLGetAttributeValue because etree does not support getting an attribute value (or at least, i didn't manage to make the correct query)
-    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/TimeCreated", "SystemTime")
-  - parsed: Channel
-    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Channel")
-  - parsed: EventID
-    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/EventID")
-  - parsed: Source
-    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Provider", "Name")
-  - parsed: Computer
-    expression: XMLGetNodeValue(evt.Line.Raw, "/Event/System[1]/Computer")
-  - parsed: UserSID
-    expression: XMLGetAttributeValue(evt.Line.Raw, "/Event/System[1]/Security", "UserID")
+    expression: evt.Parsed.StrTime
   - parsed: program
     expression: evt.Line.Labels.type
 ---
@@ -34,4 +55,3 @@ statics:
     expression: evt.Line.Src
   - meta: datasource_type
     expression: evt.Line.Module
-
