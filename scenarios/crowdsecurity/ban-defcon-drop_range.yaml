@@ -4,7 +4,7 @@ type: leaky
 name: crowdsecurity/ban-defcon-drop_range
 description: "Ban a range if more than 5 ips from it are banned at a time"
 #it's an overflow from a scenario that triggered a remediation ;)
-filter: "evt.GetType() == 'overflow' && evt.Overflow.Alert.Remediation == true"
+filter: "evt.GetType() == 'overflow' && evt.Overflow.Alert.Remediation == true && evt.Overflow.Alert.Source.Range != nil && evt.Overflow.Alert.Source.Range != ''"
 groupby: "evt.Overflow.Alert.Source.Range"
 distinct: "evt.Overflow.Alert.Source.IP"
 capacity: 5
