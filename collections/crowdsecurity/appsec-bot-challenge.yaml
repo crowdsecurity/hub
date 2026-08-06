@@ -1,0 +1,26 @@
+name: crowdsecurity/appsec-bot-challenge
+parsers:
+  - crowdsecurity/appsec-logs
+  - crowdsecurity/appsec-bot-detection-logs
+appsec-configs:
+  - crowdsecurity/simple-bot-challenge
+  - crowdsecurity/challenge-exclude-crawler-files
+  - crowdsecurity/challenge-exclude-feeds
+  - crowdsecurity/challenge-exclude-webhooks
+scenarios:
+  - crowdsecurity/appsec-bot-detected
+  - crowdsecurity/appsec-challenge-too-many-requests
+  - crowdsecurity/appsec-challenge-too-many-submissions
+  - crowdsecurity/appsec-challenge-request-with-no-submission
+contexts:
+  - crowdsecurity/appsec_base
+  - crowdsecurity/appsec_bot_detection
+description: "AppSec bot detection: challenge mode with fast-detect bot rejection and well-known-path exclusions"
+labels:
+  label: "WAF - Bot Challenge"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot
