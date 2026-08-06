@@ -1,0 +1,14 @@
+name: xulianh/xray-brute-force-test
+description: "Integration test for X-ray brute-force detection providing full stage pipeline"
+scenarios:
+  - xulianh/xray-brute-force
+parsers:
+  # Crucial baseline ingestion parser to populate evt.Parsed.message
+  - crowdsecurity/non-syslog
+  - xulianh/xray-logs
+  # Timeline refinement component
+  - crowdsecurity/dateparse-enrich
+log_file: xray_sample.log
+log_type: xray
+labels:
+  program: xray
