@@ -1,0 +1,36 @@
+onsuccess: next_stage
+format: 3.0
+#debug: true
+filter: "evt.Parsed.program == 'appsec' && evt.Parsed.source == 'crowdsec-appsec-challenge'"
+name: crowdsecurity/appsec-bot-detection-logs
+description: "Parse AppSec bot-detection / challenge events"
+statics:
+  - meta: service
+    value: appsec
+  - meta: log_type
+    value: appsec-challenge
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: target_host
+    expression: "evt.Parsed.target_host"
+  - meta: request_uuid
+    expression: "evt.Parsed.req_uuid"
+  - meta: target_uri
+    expression: "evt.Parsed.target_uri"
+  - meta: challenge_event
+    expression: evt.Parsed.challenge_event
+  - meta: challenge_difficulty
+    expression: evt.Parsed.challenge_difficulty
+  - meta: challenge_fail_reason
+    expression: evt.Parsed.challenge_fail_reason
+  - meta: fsid
+    expression: evt.Parsed.fsid
+  - meta: fingerprint_bot
+    expression: evt.Parsed.fingerprint_bot
+  - meta: http_user_agent
+    expression: evt.Parsed.user_agent
+  # Friendly OS straight from the fingerprint helper (high-entropy client-hint
+  # platform, falling back to navigator.platform). The nil guard covers
+  # "requested" challenge events, which carry no fingerprint.
+  - meta: os
+    expression: 'evt.Unmarshaled.fingerprint != nil ? evt.Unmarshaled.fingerprint.Platform() : ""'

@@ -1,0 +1,18 @@
+# User-friendly context for AppSec bot-detection / challenge events.
+# detected_signals uses the fingerprint helper BotSignals(), which returns the
+# names of the fast-detection signals that fired; the alert-context engine
+# renders the []string as a list. The nil guard covers "requested" events that
+# carry no fingerprint.
+context:
+  fingerprint_id:
+    - evt.Meta.fsid
+  operating_system:
+    - evt.Meta.os
+  user_agent:
+    - evt.Meta.http_user_agent
+  bot_detected:
+    - evt.Meta.fingerprint_bot
+  challenge_event:
+    - evt.Meta.challenge_event
+  detected_signals:
+    - 'evt.Unmarshaled.fingerprint != nil ? evt.Unmarshaled.fingerprint.BotSignals() : ""'

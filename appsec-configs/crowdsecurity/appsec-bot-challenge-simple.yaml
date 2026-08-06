@@ -1,0 +1,14 @@
+name: crowdsecurity/appsec-bot-challenge-simple
+inband:
+  post_eval:
+    # Challenge every request. Requests a pre_eval exclusion config flagged via
+    # ExemptFromChallenge() (verified bots, well-known paths) are skipped by
+    # SendChallenge itself, so no explicit bot check is needed here.
+    - filter: "true"
+      apply:
+        - SendChallenge()
+  on_challenge_submit:
+    # Reject submissions whose fingerprint fast-detect flags a known bot.
+    - filter: "fingerprint.IsBot()"
+      apply:
+        - RejectSubmission("known bot (fast bot detection)")
