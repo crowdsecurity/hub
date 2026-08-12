@@ -1,30 +1,11 @@
 name: crowdsecurity/appsec-bot-challenge-scoring
-parsers:
-  - crowdsecurity/appsec-logs
-  - crowdsecurity/appsec-bot-detection-logs
+# Bot Challenge scoring engine. Weights fingerprint signals into a request score.
+# Pair it with a threshold config that decides when to reject
 appsec-configs:
   - crowdsecurity/appsec-bot-challenge-scoring
-  - crowdsecurity/appsec-bot-challenge-scoring-balanced
-  - crowdsecurity/appsec-bot-challenge-exclude-crawler-files
-  - crowdsecurity/appsec-bot-challenge-exclude-feeds
-  - crowdsecurity/appsec-bot-challenge-exclude-webhooks
-  - crowdsecurity/appsec-bot-challenge-exclude-static
-  - crowdsecurity/appsec-bot-challenge-exclude-api
-  - crowdsecurity/appsec-bot-challenge-exclude-search-engines
-  - crowdsecurity/appsec-bot-challenge-exclude-ai-crawlers
-  - crowdsecurity/appsec-bot-challenge-exclude-social
-  - crowdsecurity/appsec-bot-challenge-exclude-monitoring
-scenarios:
-  - crowdsecurity/appsec-bot-detected
-  - crowdsecurity/appsec-bot-challenge-too-many-requests
-  - crowdsecurity/appsec-bot-challenge-too-many-submissions
-  - crowdsecurity/appsec-bot-challenge-request-with-no-submission
-contexts:
-  - crowdsecurity/appsec_base
-  - crowdsecurity/appsec-bot-detection
-description: "AppSec bot detection: challenge mode with weighted fingerprint signals and a tunable score threshold"
+description: "AppSec bot challenge: weighted fingerprint scoring engine (serves the challenge, computes the score)"
 labels:
-  label: "WAF - Bot Challenge (scoring)"
+  label: "WAF - Bot Challenge Scoring"
 author: crowdsecurity
 tags:
   - waf

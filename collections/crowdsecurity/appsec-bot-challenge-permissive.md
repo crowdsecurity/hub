@@ -1,16 +1,12 @@
-# AppSec Bot Challenge
+# AppSec Bot Challenge (permissive)
 
-Enables CrowdSec AppSec **challenge mode** for bot detection: visitors are served a lightweight
-proof-of-work + browser-fingerprint challenge, each fingerprint mismatch signal adds a weighted score, and
-submissions scoring **`>= 75`** (the balanced threshold) are rejected.
+Permissive variant of [appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge).
+Same scoring engine and exclusions, but only rejects challenge submissions scoring **`>= 100`** — a near-certain
+automation signal. It minimises false positives by acting only on the strongest evidence.
 
-This is the recommended default. Two variants share the same scoring engine and exclusions, differing only
-in the rejection threshold:
-
- - [appsec-bot-challenge-strict](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-strict)
-   — rejects at `>= 45` (catches more bots, more false positives)
- - [appsec-bot-challenge-permissive](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-permissive)
-   — rejects at `>= 100` (near-certain automation only)
+To catch more bots, use
+[appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge) (`>= 75`)
+or [appsec-bot-challenge-strict](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-strict) (`>= 45`).
 
 ## What it contains
 
@@ -25,8 +21,8 @@ in the rejection threshold:
 
 **Threshold config:**
 
- - [appsec-bot-challenge-scoring-balanced](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-scoring-balanced)
-   — rejects submissions scoring `>= 75`.
+ - [appsec-bot-challenge-scoring-permissive](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-scoring-permissive)
+   — rejects submissions scoring `>= 100`.
 
 **Scenarios** (alert on challenge abuse):
 
@@ -43,20 +39,5 @@ in the rejection threshold:
  - [appsec_base](https://app.crowdsec.net/hub/author/crowdsecurity/configurations/appsec_base)
  - [appsec-bot-detection](https://app.crowdsec.net/hub/author/crowdsecurity/configurations/appsec-bot-detection)
 
-## Tuning
-
-To change restrictiveness, install a variant above, or swap the bundled threshold config for one of the
-standalone `appsec-bot-challenge-scoring-{balanced,strict,permissive}` configs.
-
-## Enabling bot challenge
-
-Add the `crowdsecurity/appsec-bot-*` appsec-configs to your WAF acquisition:
-
-```yaml
-appsec_configs:
- - crowdsecurity/appsec-bot-*
-labels:
-  type: appsec
-listen_addr: 127.0.0.1:7422
-source: appsec
-```
+See [appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge)
+for setup and WAF acquisition details.
