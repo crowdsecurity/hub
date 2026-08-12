@@ -29,6 +29,10 @@ statics:
     expression: evt.Parsed.fingerprint_bot
   - meta: http_user_agent
     expression: evt.Parsed.user_agent
+  - meta: request_score
+    expression: evt.Parsed.request_score
+  - meta: request_score_reasons
+    expression: evt.Parsed.request_score_reasons
   # Friendly OS straight from the fingerprint helper (high-entropy client-hint
   # platform, falling back to navigator.platform). The nil guard covers
   # "requested" challenge events, which carry no fingerprint.
