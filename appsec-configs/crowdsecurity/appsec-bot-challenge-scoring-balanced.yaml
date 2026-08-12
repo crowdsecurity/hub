@@ -3,4 +3,4 @@ inband:
   on_challenge_submit:
     - filter: RequestScore() >= 75
       apply:
-        - 'RejectSubmission("request score " + string(RequestScore()) + ": " + join(RequestScoreReasons(), ","), "verbose")'
+        - 'RejectSubmission("request score " + string(RequestScore()), "verbose")'
