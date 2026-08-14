@@ -1,0 +1,45 @@
+# Scenario: Glacial SSH bruteforce
+# Detects extremely slow SSH bruteforce (~1 attempt per 8 hours over 3 days)
+# Detection window: 18h x 4 = 72 hours / 3 days (4 failures needed)
+#
+# Real-world example: 36.50.176.13 doing 1 attempt every ~8 hours targeting
+# ISPConfig usernames. These attackers evade ultra-slow-bf which needs 10
+# events (too high for a 1/8h rate over practical observation windows).
+type: leaky
+name: melite/ssh-glacial-bf
+description: "Detect glacial SSH bruteforce (1 attempt per ~8h over 3 days)"
+filter: "evt.Meta.log_type == 'ssh_failed-auth'"
+leakspeed: "18h"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:glacial-bruteforce"
+  label: "SSH Glacial Bruteforce"
+---
+# User enumeration variant
+type: leaky
+name: melite/ssh-glacial-bf_user-enum
+description: "Detect glacial SSH user enumeration (3-day window)"
+filter: evt.Meta.log_type == 'ssh_failed-auth'
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: "18h"
+capacity: 3
+blackhole: 5m
+labels:
+  service: ssh
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "ssh:user-enumeration"
+  label: "SSH Glacial User Enumeration"
