@@ -1,9 +1,7 @@
-filter: "evt.Line.Labels.type == 'radicale'"
 name: nikita-popov/radicale-logs
 description: "Parse Radicale CalDAV/CardDAV server logs (file or journald)"
-author: nikita-popov
+filter: "evt.Line.Labels.type == 'radicale'"
 onsuccess: next_stage
-
 nodes:
   # Proxied request with User-Agent (most specific first)
   # WebDAV methods (PROPFIND, REPORT, ...) may carry an optional "with depth 'N'" clause
@@ -26,7 +24,6 @@ nodes:
         expression: evt.Parsed.http_path
       - meta: useragent
         expression: evt.Parsed.useragent_raw
-
   # Proxied request without User-Agent
   - filter: "evt.Line.Raw contains 'request for' && evt.Line.Raw contains 'forwarded for' && !(evt.Line.Raw contains 'using')"
     grok:
@@ -45,7 +42,6 @@ nodes:
         expression: evt.Parsed.real_ip
       - meta: http_path
         expression: evt.Parsed.http_path
-
   # Direct request with User-Agent
   - filter: "evt.Line.Raw contains 'request for' && !(evt.Line.Raw contains 'forwarded for') && evt.Line.Raw contains 'using'"
     grok:
@@ -66,7 +62,6 @@ nodes:
         expression: evt.Parsed.http_path
       - meta: useragent
         expression: evt.Parsed.useragent_raw
-
   # Direct request without User-Agent
   - filter: "evt.Line.Raw contains 'request for' && !(evt.Line.Raw contains 'forwarded for') && !(evt.Line.Raw contains 'using')"
     grok:
@@ -85,7 +80,6 @@ nodes:
         expression: evt.Parsed.src_ip
       - meta: http_path
         expression: evt.Parsed.http_path
-
   # Access denied
   - filter: "evt.Line.Raw contains 'denied for'"
     grok:
@@ -98,7 +92,6 @@ nodes:
         expression: evt.Parsed.http_path
       - meta: source_ip
         expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
-
   # Response with HTTP status code (WebDAV methods may carry an optional "with depth 'N'" clause)
   - filter: "evt.Line.Raw contains 'response status'"
     grok:
@@ -113,7 +106,6 @@ nodes:
         expression: evt.Parsed.http_path
       - meta: source_ip
         expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
-
   # Successful login: 'user' (auth_method)
   - filter: "evt.Line.Raw contains 'Successful login'"
     grok:
@@ -124,7 +116,6 @@ nodes:
         value: auth_success
       - meta: source_ip
         expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
-
   # Failed login attempt from IP (forwarded for 'IP'): 'user'
   - filter: "evt.Line.Raw contains 'Failed login attempt'"
     grok:
@@ -135,7 +126,6 @@ nodes:
         value: auth_failed
       - meta: source_ip
         expression: "evt.Parsed.real_ip != nil ? evt.Parsed.real_ip : evt.Parsed.src_ip"
-
 statics:
   - meta: service
     value: radicale
