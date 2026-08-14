@@ -1,0 +1,17 @@
+type: trigger
+format: 3.0
+#debug: true
+name: crowdsecurity/appsec-bot-detected
+description: "A known bot was detected and rejected by the AppSec challenge (fast bot detection)"
+filter: "evt.Meta.log_type == 'appsec-challenge' && evt.Meta.challenge_event == 'rejected'"
+groupby: evt.Meta.source_ip
+blackhole: 1m
+labels:
+  service: http
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1071
+  label: "Bot detected by CrowdSec AppSec challenge"
+  behavior: "http:bot"
+  remediation: false
