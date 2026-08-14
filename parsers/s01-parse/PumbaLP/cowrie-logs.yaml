@@ -1,0 +1,21 @@
+name: PumbaLP/cowrie-logs
+description: "Parse cowrie honeypot JSON logs"
+filter: "JsonExtract(evt.Line.Raw, 'eventid') != ''"
+onsuccess: next_stage
+statics:
+  - parsed: "cowrie_success"
+    value: "true"
+  - target: evt.StrTime
+    expression: JsonExtract(evt.Line.Raw, "timestamp")
+  - meta: service
+    expression: JsonExtract(evt.Line.Raw, "protocol")
+  - meta: log_type
+    expression: JsonExtract(evt.Line.Raw, "eventid")
+  - meta: source_ip
+    expression: JsonExtract(evt.Line.Raw, "src_ip")
+  - meta: dest_ip
+    expression: JsonExtract(evt.Line.Raw, "dst_ip")
+  - meta: dest_port
+    expression: JsonExtract(evt.Line.Raw, "dst_port")
+  - meta: target_user
+    expression: JsonExtract(evt.Line.Raw, "username")
