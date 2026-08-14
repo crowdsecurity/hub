@@ -1,0 +1,22 @@
+name: ananace/stalwart-blocked
+description: Detect IPs blocked by Stalwart
+#debug: true
+type: leaky
+filter: evt.Meta.log_type == 'stalwart_blocked_ip'
+references:
+  - https://stalw.art/docs/server/auto-ban
+groupby: evt.Meta.source_ip
+capacity: 1
+leakspeed: 600s
+blackhole: 1m
+reprocess: false
+labels:
+  service: stalwart
+  confidence: 3
+  spoofable: 0
+  classification:
+  - attack.T1595
+  - attack.T1190
+  behavior: "smtp:spam"
+  label: "Stalwart IP Blocked"
+  remediation: true
