@@ -3,7 +3,7 @@ description: "Parse Radicale CalDAV/CardDAV server logs (file or journald)"
 filter: "evt.Line.Labels.type == 'radicale'"
 onsuccess: next_stage
 nodes:
-  # Proxied request with User-Agent (most specific first)
+  # Proxied request with User-Agent
   # WebDAV methods (PROPFIND, REPORT, ...) may carry an optional "with depth 'N'" clause
   - filter: "evt.Line.Raw contains 'request for' && evt.Line.Raw contains 'forwarded for' && evt.Line.Raw contains 'using'"
     grok:
