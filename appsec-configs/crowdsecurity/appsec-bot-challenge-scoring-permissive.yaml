@@ -1,0 +1,6 @@
+name: crowdsecurity/appsec-bot-challenge-scoring-permissive
+inband:
+  on_challenge_submit:
+    - filter: RequestScore() >= 100
+      apply:
+        - 'RejectSubmission("request score " + string(RequestScore()), "verbose")'
