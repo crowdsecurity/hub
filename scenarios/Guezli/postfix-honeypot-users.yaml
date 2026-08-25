@@ -14,6 +14,13 @@
 # addresses as actual SMTP-AUTH logins, any attempt is a clear attacker
 # signal -- ban on first hit.
 #
+# Wordlist covers:
+#   - English role addresses (postmaster, admin, info, support, ...)
+#   - Spanish / Portuguese i18n variants (teste, prueba, contacto, comercial)
+#   - Accounting / billing (billing, accounts, account)
+#   - Office-equipment honeypots (copier, fax, scanner, monitor)
+#   - Auto-generated mailbox-probe patterns (nonexistent_user, nonexistent_user_<N>)
+#
 # Requires the official `crowdsecurity/postfix-logs` parser, which extracts
 # SASL fields and source_ip from the postfix log line.
 #
@@ -27,7 +34,7 @@ filter: |
   evt.Meta.log_type == 'postfix'
   && evt.Parsed.message contains 'SASL'
   && evt.Parsed.message contains 'authentication failed'
-  && evt.Parsed.message matches '(?i)sasl_username=(postmaster|admin|info|test|support|office|sales|contact|webmaster|root|noreply|abuse|hostmaster|marketing|mail|news|sysadmin|administrator|user|service|helpdesk)@'
+  && evt.Parsed.message matches '(?i)sasl_username=(postmaster|admin|info|test|support|office|sales|contact|webmaster|root|noreply|abuse|hostmaster|marketing|mail|news|sysadmin|administrator|user|service|helpdesk|teste|prueba|contacto|comercial|billing|accounts|account|tech|reception|copier|fax|scanner|monitor|mailtest|testing|shared|nonexistent_user(?:_[0-9]+)?)@'
 groupby: evt.Meta.source_ip
 # trigger = first hit overflows; blackhole prevents bucket spam from the
 # same IP within the next 24h
