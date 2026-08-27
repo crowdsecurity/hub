@@ -10,6 +10,12 @@ nodes:
     statics:
       - meta: log_type
         value: failed_authentication
+  - grok:
+      pattern: "%{TIMESTAMP_ISO8601:timestamp} %{WORD:log_level} %{DATA:logger} \\[%{DATA:thread}\\] Invalid password for user: %{DATA:username} from IP: %{IP:source_ip}"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: failed_authentication
 statics:
   - meta: service
     value: stirling-pdf

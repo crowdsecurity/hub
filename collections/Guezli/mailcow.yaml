@@ -1,0 +1,26 @@
+name: Guezli/mailcow
+collections:
+  - crowdsecurity/postfix
+  - crowdsecurity/dovecot
+parsers:
+  - Guezli/mailcow-f2b-bans
+scenarios:
+  - Guezli/postfix-sasl-bf
+  - Guezli/postfix-honeypot-users
+  - Guezli/mailcow-f2b-feed
+  - melite/dovecot-slow-bf
+  - melite/dovecot-time-based-bf
+  - hitech95/mail-generic-bf
+description: "Comprehensive Mailcow protection: postfix SMTP + dovecot IMAP/POP + Mailcow-internal F2B propagation"
+labels:
+  label: "Mailcow - Comprehensive Mail-Server Protection"
+author: Guezli
+tags:
+  - security_engine
+  - linux
+  - mail
+  - mailcow
+  - postfix
+  - dovecot
+  - bruteforce
+  - spam
