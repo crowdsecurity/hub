@@ -1,0 +1,27 @@
+type: trigger
+name: crowdsecurity/http-technology-probing
+description: "Detect HTTP technology/vendor probing"
+filter: |
+  if (evt.Meta.service == 'http' and
+      evt.Meta.log_type in ['http_access-log', 'http_error-log'] and
+      evt.Meta.http_status in ['404', '403'])
+    {
+      let target_technology = LookupFile(evt.Meta.http_path, "technology_probing.json");
+      target_technology != "" ? evt.SetMeta("target_technology", target_technology)  : false
+    } else { false }
+groupby: evt.Meta.source_ip
+blackhole: 1m
+data:
+  # 
+  - dest_file: technology_probing.json
+    source_url: https://hub-data.crowdsec.net/web/technology_probing.json
+    type: map
+labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "http:scan"
+  label: "HTTP Technology Probing"
+  service: http
+  remediation: false

@@ -7,9 +7,9 @@ groupby: evt.Meta.source_ip
 capacity: -1
 cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
-    let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
-    len(failedAuths) >= 4 &&
-    MedianInterval(map(failedAuths[-4:], {#.Time})) > duration("10m")
+  let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
+  len(failedAuths) >= 4 &&
+  MedianInterval(map(failedAuths[-4:], {#.Time})) > duration("10m")
 leakspeed: 2h
 blackhole: 5m
 reprocess: true
@@ -17,7 +17,7 @@ labels:
   service: ssh
   behavior: "ssh:bruteforce"
   spoofable: 0
-  confidence: 3
+  confidence: 1
   classification:
     - attack.T1110
   label: "SSH Time-Based Bruteforce"
@@ -33,9 +33,9 @@ distinct: evt.Meta.target_user
 capacity: -1
 cancel_on: "evt.Meta.log_type == 'auth_success'"
 condition: |
-    let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
-    len(failedAuths) >= 4 &&
-    MedianInterval(map(failedAuths[-4:], {#.Time})) > duration("10m")
+  let failedAuths = filter(queue.Queue, {#.Meta.log_type == 'ssh_failed-auth'});
+  len(failedAuths) >= 4 &&
+  MedianInterval(map(failedAuths[-4:], {#.Time})) > duration("10m")
 leakspeed: 2h
 blackhole: 5m
 reprocess: true
@@ -43,7 +43,7 @@ labels:
   service: ssh
   behavior: "ssh:bruteforce"
   spoofable: 0
-  confidence: 3
+  confidence: 1
   classification:
     - attack.T1589
     - attack.T1110

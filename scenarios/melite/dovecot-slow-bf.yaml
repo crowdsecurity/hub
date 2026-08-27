@@ -1,0 +1,42 @@
+# Slow bruteforce on Dovecot (POP3/IMAP)
+# Tier 2: Detects distributed attacks spacing attempts 7-30 minutes apart
+# Complements crowdsecurity/dovecot-spam (Tier 1, 360s/3)
+# Detection window: 60min x 3 = 3 hours max (4 failures needed)
+type: leaky
+name: melite/dovecot-slow-bf
+description: "Detect slow Dovecot bruteforce (distributed attacks)"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+leakspeed: 3600s
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:slow-bruteforce"
+  label: "Dovecot Slow Bruteforce"
+---
+# User enumeration variant
+type: leaky
+name: melite/dovecot-slow-bf_user-enum
+description: "Detect slow Dovecot user enumeration"
+filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
+groupby: evt.Meta.source_ip
+distinct: evt.Parsed.dovecot_user
+leakspeed: 3600s
+capacity: 3
+blackhole: 5m
+labels:
+  service: dovecot
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:user-enumeration"
+  label: "Dovecot Slow User Enumeration"
