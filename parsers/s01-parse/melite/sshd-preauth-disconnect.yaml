@@ -15,7 +15,7 @@ description: "Parse SSH preauth disconnect lines"
 nodes:
   - grok:
       apply_on: message
-      pattern: 'Received disconnect from %{IP:source_ip} port %{INT:port}:%{DATA}%{GREEDYDATA}'
+      pattern: 'Received disconnect from %{IP:source_ip} port %{INT:port}:%{INT:disconnect_code}:%{SPACE}%{DATA:disconnect_reason}%{SPACE}\[preauth\]'
     statics:
       - meta: log_type
         value: ssh_preauth-disconnect
