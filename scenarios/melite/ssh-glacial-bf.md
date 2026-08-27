@@ -1,12 +1,12 @@
 ## Description
 
-Detects extremely slow SSH brute-force attacks where attackers perform only ~1 attempt every 8 hours over 3 days. These attackers evade even the `melite/ssh-ultra-slow-bf` scenario which requires 10 events (too many for such a low rate).
+Detects SSH brute-force attacks that are slower than the standard `crowdsecurity/ssh-slow-bf` scenario and generate only a few failed authentications over many hours.
 
-Uses a leaky bucket with an 18-hour leak rate and capacity of 3, creating a 72-hour (3-day) detection window. Triggers after just 4 failed authentication attempts from the same IP.
+Uses a leaky bucket with an 18-hour leak rate and capacity of 3. Triggers on the 4th failed authentication attempt from the same IP when the previous events have not leaked enough from the bucket, for example 4 failures over roughly 15 to 18 hours.
 
-Includes a `_user-enum` variant for slow username enumeration over 3 days.
+Includes a `_user-enum` variant for slow username enumeration over the same period.
 
-**Detection window**: 72 hours / 3 days (leakspeed 18h × 4 events)
+**Typical triggering pattern**: 4 failed authentications from the same IP over less than 18 hours.
 
 ## Remediation
 
@@ -14,16 +14,15 @@ Ban the attacking IP.
 
 ## Example
 
-An attacker targets ISPConfig-related usernames with ~8 hour intervals:
+An attacker targets ISPConfig-related usernames with several hours between attempts:
 
 ```
-Jan 15 06:00:00 server sshd[1001]: Failed password for ispconfig from 203.0.113.1 port 54321 ssh2
-Jan 15 14:00:00 server sshd[1002]: Failed password for admin from 203.0.113.1 port 54322 ssh2
-Jan 16 00:00:00 server sshd[1003]: Failed password for webmaster from 203.0.113.1 port 54323 ssh2
-Jan 16 08:00:00 server sshd[1004]: Failed password for root from 203.0.113.1 port 54324 ssh2
+Jan 15 01:00:00 server sshd[1001]: Failed password for ispconfig from 203.0.113.1 port 54321 ssh2
+Jan 15 06:00:00 server sshd[1002]: Failed password for admin from 203.0.113.1 port 54322 ssh2
+Jan 15 11:00:00 server sshd[1003]: Failed password for webmaster from 203.0.113.1 port 54323 ssh2
+Jan 15 16:00:00 server sshd[1004]: Failed password for root from 203.0.113.1 port 54324 ssh2
 ```
 
 ## Dependencies
 
 - Parser: `crowdsecurity/sshd-logs`
-- Optional: `melite/sshd-preauth-disconnect` (doubles event count from key-scanning attempts)
