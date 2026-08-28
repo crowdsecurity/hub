@@ -22,6 +22,9 @@ inband:
     - filter: EvaluateMismatches().Has("webdriver_worker")
       apply:
         - AddRequestScore(100, "webdriver_worker")
+    - filter: EvaluateMismatches().Has("bot_user_agent")
+      apply:
+        - AddRequestScore(100, "bot_user_agent")
 
     # --- Strong: headless environments and cross-context inconsistencies that are
     # hard to fake away, but each has a thin tail of legitimate clients. ---
@@ -58,9 +61,6 @@ inband:
     - filter: EvaluateMismatches().Has("high_cpu_count")
       apply:
         - AddRequestScore(30, "high_cpu_count")
-    - filter: EvaluateMismatches().Has("bot_user_agent")
-      apply:
-        - AddRequestScore(30, "bot_user_agent")
 
     # --- Weak: common enough among real visitors that acting on one alone would be
     # a false positive. A UTC timezone is the canonical example — servers, VPNs and
