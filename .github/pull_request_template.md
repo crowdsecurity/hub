@@ -13,7 +13,12 @@ Quick description of your changes
 
 Add a x inside the [] to tick an item if it applies.
 
-For AI use: we do not prevent you from using AI to help you create new hub items, but you must understand and be able to explain *yourself* what was generated.
+For AI use: we do not prevent you from using AI to help you create new hub
+items, but you must understand and be able to explain *yourself* what was
+generated.
+
+If not filled properly, your PR can be closed without further notice.
+
 -->
  - [ ] I have read the [contributing guide](https://docs.crowdsec.net/docs/next/contributing/contributing_hub)
  - [ ] I have tested my changes locally
