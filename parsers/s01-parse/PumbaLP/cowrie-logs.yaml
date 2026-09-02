@@ -1,5 +1,6 @@
 name: PumbaLP/cowrie-logs
 description: "Parse cowrie honeypot JSON logs"
+stage: s01-parse
 filter: "JsonExtract(evt.Line.Raw, 'eventid') != ''"
 onsuccess: next_stage
 statics:
