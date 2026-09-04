@@ -9,11 +9,13 @@ be verified by dns or ip range, so a spoofed user-agent alone is never enough.
 Per-family exclusion configs (each declares its datafiles and exempts the matching bots):
 
  - [appsec-bot-challenge-exclude-search-engines](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-search-engines)
-   — googlebot, bingbot, applebot, amazonbot, yandex, baidu, yahoo, sogou, qwant, babbar, duckduckbot
+   — googlebot, bingbot, applebot, amazonbot, yandex, baidu, yahoo, sogou, qwant, babbar, duckduckbot,
+     ahrefs, semrush, lumar, seznam, naver, internet-archive
  - [appsec-bot-challenge-exclude-ai-crawlers](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-ai-crawlers)
-   — gptbot, openai-searchbot, openai-chatgpt-user, perplexitybot
+   — gptbot, openai-searchbot, openai-chatgpt-user, openai-adsbot, perplexitybot, perplexity-user,
+     anthropic, mistralai-index, mistralai-user, duckassistbot, youbot, commoncrawl
  - [appsec-bot-challenge-exclude-social](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-social)
-   — meta, discord, telegram, twitterbot, pinterest
+   — meta, discord, telegram, twitterbot, pinterest, linkedin, flipboard
  - [appsec-bot-challenge-exclude-monitoring](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-monitoring)
    — uptimerobot, cookiebot, datadog, pagerduty
 

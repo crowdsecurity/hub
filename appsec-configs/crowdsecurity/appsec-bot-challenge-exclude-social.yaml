@@ -18,6 +18,12 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/pinterest.json")
       apply:
         - ExemptFromChallenge("pinterest")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/linkedin.json")
+      apply:
+        - ExemptFromChallenge("linkedin")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/flipboard.json")
+      apply:
+        - ExemptFromChallenge("flipboard")
 
 # Declares the datafiles so crowdsec downloads them.
 data:
@@ -35,4 +41,10 @@ data:
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/pinterest.json
     dest_file: legit_bots/pinterest.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/linkedin.json
+    dest_file: legit_bots/linkedin.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/flipboard.json
+    dest_file: legit_bots/flipboard.json
     type: bots
