@@ -1,0 +1,19 @@
+name: nikita-popov/radicale-scan
+description: "Radicale path scan - non-CalDAV paths probed from single IP"
+type: leaky
+filter: >
+  evt.Meta.service == 'radicale' &&
+  evt.Meta.log_type == 'http_request' &&
+  (evt.Meta.http_path contains '.php' ||
+   evt.Meta.http_path contains 'wp-' ||
+   evt.Meta.http_path contains '/admin' ||
+   evt.Meta.http_path contains '/shell')
+groupby: "evt.Meta.source_ip"
+capacity: 3
+leakspeed: "30s"
+blackhole: 10m
+reprocess: true
+labels:
+  service: radicale
+  type: scan
+  remediation: true

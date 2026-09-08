@@ -1,0 +1,16 @@
+len(results) == 2
+"4.241.228.159" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["4.241.228.159"].IP == "4.241.228.159"
+results[0].Overflow.Sources["4.241.228.159"].Range == ""
+results[0].Overflow.Sources["4.241.228.159"].GetScope() == "Ip"
+results[0].Overflow.Sources["4.241.228.159"].GetValue() == "4.241.228.159"
+results[0].Overflow.Alert.GetScenario() == "nikita-popov/radicale-scan"
+results[0].Overflow.Alert.Remediation == true
+
+"5.5.5.5" in results[1].Overflow.GetSources()
+results[1].Overflow.Sources["5.5.5.5"].IP == "5.5.5.5"
+results[1].Overflow.Sources["5.5.5.5"].Range == ""
+results[1].Overflow.Sources["5.5.5.5"].GetScope() == "Ip"
+results[1].Overflow.Sources["5.5.5.5"].GetValue() == "5.5.5.5"
+results[1].Overflow.Alert.GetScenario() == "nikita-popov/radicale-bf"
+results[1].Overflow.Alert.Remediation == true
