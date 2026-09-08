@@ -36,6 +36,24 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/duckduckbot.json")
       apply:
         - ExemptFromChallenge("duckduckbot")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/ahrefs.json")
+      apply:
+        - ExemptFromChallenge("ahrefs")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/semrush.json")
+      apply:
+        - ExemptFromChallenge("semrush")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/lumar.json")
+      apply:
+        - ExemptFromChallenge("lumar")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/seznam.json")
+      apply:
+        - ExemptFromChallenge("seznam")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/naver.json")
+      apply:
+        - ExemptFromChallenge("naver")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/internet-archive.json")
+      apply:
+        - ExemptFromChallenge("internet-archive")
 
 # Declares the datafiles so crowdsec downloads them.
 data:
@@ -71,4 +89,22 @@ data:
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/duckduckbot.json
     dest_file: legit_bots/duckduckbot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/ahrefs.json
+    dest_file: legit_bots/ahrefs.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/semrush.json
+    dest_file: legit_bots/semrush.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/lumar.json
+    dest_file: legit_bots/lumar.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/seznam.json
+    dest_file: legit_bots/seznam.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/naver.json
+    dest_file: legit_bots/naver.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/internet-archive.json
+    dest_file: legit_bots/internet-archive.json
     type: bots
