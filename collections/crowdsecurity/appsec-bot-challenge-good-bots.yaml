@@ -1,0 +1,17 @@
+name: crowdsecurity/appsec-bot-challenge-good-bots
+# Building block: exempts network-verified good bots (dns/ip range) from the challenge.
+# Compose it into a top-level appsec-bot-challenge collection, or enable configs individually.
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-exclude-search-engines
+  - crowdsecurity/appsec-bot-challenge-exclude-ai-crawlers
+  - crowdsecurity/appsec-bot-challenge-exclude-social
+  - crowdsecurity/appsec-bot-challenge-exclude-monitoring
+description: "AppSec bot challenge: exempt verified good bots (search engines, AI crawlers, social, monitoring)"
+labels:
+  label: "WAF - Bot Challenge Good Bots"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

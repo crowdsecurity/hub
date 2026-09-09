@@ -1,0 +1,12 @@
+type: leaky
+name: nicoh88/proxmox-backup-auth-bf
+description: "Detect failed PBS API authentications (bruteforce)"
+filter: "evt.Meta.log_type == 'pbs_failed-auth'"
+leakspeed: 10s
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+labels:
+  service: proxmox-backup
+  remediation: true
+  confidence: 3

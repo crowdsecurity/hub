@@ -1,0 +1,15 @@
+name: crowdsecurity/google-special-crawlers-whitelist
+description: "Whitelist events from Google special crawlers (e.g. Google-InspectionTool, GoogleOther)"
+whitelist:
+  reason: "Google special crawlers ip range"
+  expression:
+    - "any(File('google_special_crawlers_ipv4.txt'), { len(#) > 0 && IpInRange(evt.Overflow.Alert.Source.IP, #)})"
+    - "any(File('google_special_crawlers_ipv6.txt'), { len(#) > 0 && IpInRange(evt.Overflow.Alert.Source.IP, #)})"
+
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/search_engine_crawlers/google_special_crawlers_ipv4.txt
+    dest_file: google_special_crawlers_ipv4.txt
+    type: string
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/search_engine_crawlers/google_special_crawlers_ipv6.txt
+    dest_file: google_special_crawlers_ipv6.txt
+    type: string

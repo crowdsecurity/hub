@@ -5,7 +5,7 @@ description: "Parse suricata fast.log"
 pattern_syntax:
   SURICATA_MARKER: '\[\*\*\]'
   SURICATA_DATE: '%{DATE_US:date}-%{TIME:time}'
-  SURICATA_RULE_ID: '\[%{NUMBER:suricata_rule_severity}:%{NUMBER:rule_id}:%{NUMBER:suricata_alert_signature_rev}\]'
+  SURICATA_RULE_ID: '\[%{NUMBER:suricata_gid}:%{NUMBER:rule_id}:%{NUMBER:suricata_alert_signature_rev}\]'
 grok: 
   pattern: '%{SURICATA_DATE}  %{SURICATA_MARKER} %{SURICATA_RULE_ID} %{DATA:suricata_alert_signature} %{SURICATA_MARKER} \[Classification: %{DATA:suricata_classification}\] \[Priority: %{NUMBER:suricata_priority}\] \{%{DATA:proto}\} %{IP:source_ip}:%{NUMBER:source_port} \-> %{IP:dest_ip}:%{NUMBER:dest_port}'
   apply_on: message
@@ -24,7 +24,7 @@ statics:
   - meta: suricata_alert_signature_id
     expression: evt.Parsed.rule_id
   - meta: suricata_rule_severity
-    expression: evt.Parsed.suricata_rule_severity
+    expression: evt.Parsed.suricata_priority
   - meta: source_ip
     expression: evt.Parsed.source_ip
 ---

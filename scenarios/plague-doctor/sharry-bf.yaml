@@ -1,0 +1,20 @@
+# Sharry bruteforce
+type: leaky
+name: plague-doctor/sharry-bf
+description: "Detect Sharry bruteforce attacks"
+filter: "evt.Meta.service == 'sharry' && evt.Meta.log_type == 'sharry_failed_auth'"
+leakspeed: 20s
+capacity: 4
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+    service: sharry
+    type: bruteforce
+    classification:
+        - attack.T1110
+    remediation: true
+    behavior: http:bruteforce
+    spoofable: 0
+    confidence: 3
+

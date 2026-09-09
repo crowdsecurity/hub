@@ -24,7 +24,7 @@ name: LePresidente/authelia-bf_user-enum
 description: "Detect authelia user enum bruteforce"
 filter: "evt.Meta.service == 'authelia' && evt.Meta.log_type == 'auth_failed'"
 groupby: evt.Meta.source_ip
-distinct: evt.Meta.user
+distinct: evt.Meta.target_user
 leakspeed: 10s
 capacity: 5
 blackhole: 1m
