@@ -16,6 +16,13 @@ pattern_syntax:
   SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
   SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
+  # OpenSSH gives up after MaxAuthTries and logs this instead of another
+  # "Invalid user" line, so a brute force that exhausts the limit was dropped
+  # at s01-parse. The "invalid user " part is absent when the account exists.
+  SSHD_MAX_AUTH_ATTEMPTS: 'maximum authentication attempts exceeded for (invalid user )?%{USERNAME:sshd_invalid_user} from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  # Emitted alongside the above; note "Disconnecting", not the "Disconnected from"
+  # that SSHD_PREAUTH_AUTHENTICATING_USER_ALT matches, and no "from" before the IP.
+  SSHD_DISCONNECTING_INVALID_USER: 'Disconnecting (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+'
   SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
   # in case they are blocked by /etc/ssh/sshd_config AllowUsers xx yy
   SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
@@ -53,6 +60,22 @@ nodes:
   - grok:
       name: "SSHD_BAD_VERSION"
       apply_on: message
+  - grok:
+      name: "SSHD_MAX_AUTH_ATTEMPTS"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_DISCONNECTING_INVALID_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_INVALID_USER"
       apply_on: message
