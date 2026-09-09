@@ -15,6 +15,30 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/perplexitybot.json")
       apply:
         - ExemptFromChallenge("perplexitybot")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/anthropic.json")
+      apply:
+        - ExemptFromChallenge("anthropic")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/commoncrawl.json")
+      apply:
+        - ExemptFromChallenge("commoncrawl")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/mistralai-index.json")
+      apply:
+        - ExemptFromChallenge("mistralai-index")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/mistralai-user.json")
+      apply:
+        - ExemptFromChallenge("mistralai-user")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/openai-adsbot.json")
+      apply:
+        - ExemptFromChallenge("openai-adsbot")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/perplexity-user.json")
+      apply:
+        - ExemptFromChallenge("perplexity-user")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/duckassistbot.json")
+      apply:
+        - ExemptFromChallenge("duckassistbot")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/youbot.json")
+      apply:
+        - ExemptFromChallenge("youbot")
 
 # Declares the datafiles so crowdsec downloads them.
 data:
@@ -29,4 +53,28 @@ data:
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/perplexitybot.json
     dest_file: legit_bots/perplexitybot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/anthropic.json
+    dest_file: legit_bots/anthropic.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/commoncrawl.json
+    dest_file: legit_bots/commoncrawl.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/mistralai-index.json
+    dest_file: legit_bots/mistralai-index.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/mistralai-user.json
+    dest_file: legit_bots/mistralai-user.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/openai-adsbot.json
+    dest_file: legit_bots/openai-adsbot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/perplexity-user.json
+    dest_file: legit_bots/perplexity-user.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/duckassistbot.json
+    dest_file: legit_bots/duckassistbot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/youbot.json
+    dest_file: legit_bots/youbot.json
     type: bots
