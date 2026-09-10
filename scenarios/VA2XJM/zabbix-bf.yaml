@@ -1,0 +1,12 @@
+type: leaky
+name: VA2XJM/zabbix-bf
+description: "Detect attempt to brute force Zabbix web GUI"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '200' && evt.Meta.http_path contains '/zabbix/index.php'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 1m
+blackhole: 1m
+labels:
+  service: http
+  type: bruteforce
+  remediation: true
