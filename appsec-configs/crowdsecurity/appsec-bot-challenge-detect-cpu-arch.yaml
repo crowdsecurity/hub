@@ -1,0 +1,46 @@
+name: crowdsecurity/appsec-bot-challenge-detect-cpu-arch
+# CPU architecture against the platform claimed.
+#
+# The shipped module reports the bytes of 0.0/0.0 as computed by a small
+# WebAssembly module: the spec leaves an arithmetic NaN's bit pattern
+# implementation-defined, so the answer identifies the processor actually
+# executing rather than anything the user agent says.
+#
+#   x86 -> "0000c0ff"      arm -> "0000c07f"
+#
+# Only iOS and Android are checked. Both are always ARM, so an x86 answer under
+# either is a lie the user agent cannot cover. Windows and macOS are
+# deliberately not checked this way: Apple Silicon and Windows-on-ARM are both
+# real, so neither architecture is evidence there.
+#
+# Requires 'wasm-unsafe-eval' in the challenge CSP (crowdsec 1.8+). On an engine
+# without it the module reports its sentinel and these rules stay silent.
+data:
+  # Branch URL while in review. Flip to
+  # https://hub-data.crowdsec.net/challenge/cpu-arch-v1.js when sec-lists merges.
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/challenge-detection-modules/challenge/cpu-arch-v1.js
+    dest_file: challenge/cpu-arch.js
+    type: challenge-js
+
+inband:
+  on_challenge_submit:
+    - filter: >-
+        (req.UserAgent() contains "iPhone" || req.UserAgent() contains "iPad") &&
+        fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
+      apply:
+        - AddRequestScore(100, "arm_platform_on_x86_ios")
+
+    - filter: >-
+        req.UserAgent() contains "Android" &&
+        fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
+      apply:
+        - AddRequestScore(100, "arm_platform_on_x86_android")
+
+    # The module writes its key on every run, using an empty string when it
+    # cannot measure, so an absent key means it never ran at all. One key, so
+    # the weight carries the whole family: still under a 75 threshold on its
+    # own, because a module cut by the shared time budget must not reject a
+    # real visitor.
+    - filter: '!fingerprint.HasCustom("cfArchNan")'
+      apply:
+        - AddRequestScore(50, "missing_cf_arch_nan")

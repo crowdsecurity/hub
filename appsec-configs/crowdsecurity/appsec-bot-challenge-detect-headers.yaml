@@ -1,0 +1,38 @@
+name: crowdsecurity/appsec-bot-challenge-detect-headers
+# Client hints against the user agent string. Overriding the user agent is one
+# line in every automation framework; carrying the matching userAgentMetadata
+# is an extra step that is often skipped, and the platform hint then keeps
+# telling the truth.
+#
+# Ships no JavaScript. Each rule is guarded on the hint actually being present,
+# so deployments where the browser sends none (plain HTTP, or a browser that
+# does not implement client hints) score nothing rather than everything.
+inband:
+  on_challenge_submit:
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Windows NT" &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "Windows")
+      apply:
+        - AddRequestScore(100, "ch_platform_windows")
+
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Android" &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "Android")
+      apply:
+        - AddRequestScore(100, "ch_platform_android")
+
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Mac OS X" &&
+        !(req.UserAgent() contains "iPhone") &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "macOS")
+      apply:
+        - AddRequestScore(100, "ch_platform_macos")
+
+    # Safari on iOS implements no client hints at all, so an iPhone user agent
+    # that sends them is Blink wearing the string.
+    - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
+      apply:
+        - AddRequestScore(100, "ios_sends_client_hints")
