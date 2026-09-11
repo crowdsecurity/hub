@@ -1,0 +1,29 @@
+len(results) == 2
+results[0].Overflow.Alert.GetScenario() == "jacob-masse/flowtriq-ddos-attack"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_path") == "flowtriq-logs.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("destination_ip") == "203.0.113.50"
+results[0].Overflow.Alert.Events[0].GetMeta("attack_type") == "udp_flood"
+results[0].Overflow.Alert.Events[0].GetMeta("event_name") == "DDoS Attack Detected"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "flowtriq_DDoS Attack Detected"
+results[0].Overflow.Alert.Events[0].GetMeta("pps") == "500000"
+results[0].Overflow.Alert.Events[0].GetMeta("bps") == "4000000000"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "flowtriq"
+results[0].Overflow.Alert.Events[0].GetMeta("severity") == "high"
+results[0].Overflow.Alert.Events[0].GetMeta("incident_id") == "INC-2024-0001"
+results[1].Overflow.Alert.GetScenario() == "jacob-masse/flowtriq-ddos-attack"
+results[1].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetEventsCount() == 1
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_path") == "flowtriq-logs.log"
+results[1].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[1].Overflow.Alert.Events[0].GetMeta("destination_ip") == "198.51.100.10"
+results[1].Overflow.Alert.Events[0].GetMeta("attack_type") == "syn_flood"
+results[1].Overflow.Alert.Events[0].GetMeta("event_name") == "DDoS Attack Detected"
+results[1].Overflow.Alert.Events[0].GetMeta("log_type") == "flowtriq_DDoS Attack Detected"
+results[1].Overflow.Alert.Events[0].GetMeta("pps") == "750000"
+results[1].Overflow.Alert.Events[0].GetMeta("bps") == "6000000000"
+results[1].Overflow.Alert.Events[0].GetMeta("service") == "flowtriq"
+results[1].Overflow.Alert.Events[0].GetMeta("severity") == "critical"
+results[1].Overflow.Alert.Events[0].GetMeta("incident_id") == "INC-2024-0002"
