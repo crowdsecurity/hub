@@ -1,0 +1,9 @@
+len(results) == 2
+len(results["s01-parse"]["PumbaLP/cowrie-logs"]) == 1
+results["s01-parse"]["PumbaLP/cowrie-logs"][0].Success == true
+results["s01-parse"]["PumbaLP/cowrie-logs"][0].Evt.Parsed["cowrie_success"] == "true"
+results["s01-parse"]["PumbaLP/cowrie-logs"][0].Evt.Meta["log_type"] == "cowrie.login.success"
+results["s01-parse"]["PumbaLP/cowrie-logs"][0].Evt.Meta["source_ip"] == "192.168.1.100"
+results["s01-parse"]["PumbaLP/cowrie-logs"][0].Evt.Whitelisted == false
+len(results["success"][""]) == 0
+
