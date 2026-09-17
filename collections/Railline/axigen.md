@@ -2,8 +2,8 @@
 
 Adds CrowdSec support for the Axigen mail server. The collection includes the
 native-log parser and scenarios for authentication brute force, account
-enumeration, suspicious SMTP probes, TLS scanner behavior, and connection
-floods.
+enumeration, native WebMail login brute force, suspicious SMTP probes, TLS
+scanner behavior, and connection floods.
 
 ### Acquisition
 

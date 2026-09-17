@@ -13,6 +13,7 @@ pattern_syntax:
   AXIGEN_LOG_TLS_ALERT: "SSL alert remote %{IP:source_ip}:%{INT:source_port}, %{GREEDYDATA:tls_error}"
   AXIGEN_LOG_AUTH_ERROR: "Authentication error for user '%{DATA:target_user}': %{GREEDYDATA:auth_error}"
   AXIGEN_LOG_AUTH_SUCCESS: "User \\[%{DATA:target_user}\\] successfully authorized!"
+  AXIGEN_LOG_WEBMAIL_LOGIN: "<%{DATA:webmail_session}> POST /api/v1/login/cookie HTTP/%{NUMBER:http_version} u=%{DATA:webmail_user} code=%{INT:http_status} time=%{INT:response_time_ms}"
 nodes:
   - grok:
       name: AXIGEN_LOG_PREFIX
@@ -122,6 +123,22 @@ nodes:
               expression: GetFromStash('axigen_session_to_ip', evt.Parsed.session_id)
             - meta: target_user
               expression: evt.Parsed.target_user
+      - grok:
+          name: AXIGEN_LOG_WEBMAIL_LOGIN
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_webmail_auth
+            - meta: source_ip
+              expression: GetFromStash('axigen_session_to_ip', evt.Parsed.session_id)
+            - meta: target_user
+              expression: evt.Parsed.webmail_user
+            - meta: http_status
+              expression: evt.Parsed.http_status
+            - meta: http_verb
+              value: POST
+            - meta: http_path
+              value: /api/v1/login/cookie
 statics:
   - meta: service
     value: axigen

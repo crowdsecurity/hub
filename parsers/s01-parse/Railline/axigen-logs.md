@@ -5,7 +5,9 @@ with the remote address recorded when the session was accepted. It supports
 SMTP, IMAP, POP3 and WebMail service logs.
 
 Extracted events include connection attempts, authentication failures and
-successes, SMTP EHLO/SPF probes, TLS alerts, and session closures.
+successes, native WebMail login results, SMTP EHLO/SPF probes, TLS alerts, and
+session closures. WebMail request events are correlated with the public remote
+address through Axigen's session identifier.
 
 ### Acquisition example
 
