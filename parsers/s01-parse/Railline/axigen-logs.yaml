@@ -1,0 +1,135 @@
+onsuccess: next_stage
+filter: "evt.Line.Labels.type == 'axigen'"
+name: Railline/axigen-logs
+description: "Parse Axigen mail server logs"
+pattern_syntax:
+  AXIGEN_LOG_TS: "%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME} %{ISO8601_TIMEZONE}"
+  AXIGEN_LOG_PREFIX: "%{AXIGEN_LOG_TS:timestamp} %{NUMBER:severity} %{HOSTNAME:hostname} %{DATA:axigen_service}:%{DATA:session_id}: %{GREEDYDATA:axigen_message}"
+  AXIGEN_LOG_ACCEPT: "\\[%{IP:local_ip}:%{INT:local_port}\\] connection accepted from \\[%{IP:source_ip}(?::%{INT:source_port})?\\]"
+  AXIGEN_LOG_REMOTE_UPDATE: "Remote address updated from '%{IP:previous_source_ip}' to '%{IP:source_ip}'"
+  AXIGEN_LOG_CLOSE: "closing session from \\[%{IP:source_ip}(?::%{INT:source_port})?\\]"
+  AXIGEN_LOG_CLOSING_CONNECTION: "Closing connection from \\[%{IP:source_ip}(?::%{INT:source_port})?\\]"
+  AXIGEN_LOG_SPF_RESULT: "SPF result for EHLO domain <%{DATA:ehlo_domain}> connected from <%{IP:source_ip}>: %{WORD:spf_result}.*"
+  AXIGEN_LOG_TLS_ALERT: "SSL alert remote %{IP:source_ip}:%{INT:source_port}, %{GREEDYDATA:tls_error}"
+  AXIGEN_LOG_AUTH_ERROR: "Authentication error for user '%{DATA:target_user}': %{GREEDYDATA:auth_error}"
+  AXIGEN_LOG_AUTH_SUCCESS: "User \\[%{DATA:target_user}\\] successfully authorized!"
+nodes:
+  - grok:
+      name: AXIGEN_LOG_PREFIX
+      apply_on: message
+    nodes:
+      - grok:
+          name: AXIGEN_LOG_ACCEPT
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_connection
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+            - meta: source_port
+              expression: evt.Parsed.source_port
+            - meta: destination_ip
+              expression: evt.Parsed.local_ip
+            - meta: destination_port
+              expression: evt.Parsed.local_port
+        stash:
+          - name: axigen_session_to_ip
+            key: evt.Parsed.session_id
+            value: evt.Parsed.source_ip
+            ttl: 10m
+            size: 20000
+      - grok:
+          name: AXIGEN_LOG_REMOTE_UPDATE
+          apply_on: axigen_message
+          statics:
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+        stash:
+          - name: axigen_session_to_ip
+            key: evt.Parsed.session_id
+            value: evt.Parsed.source_ip
+            ttl: 10m
+            size: 20000
+      - grok:
+          name: AXIGEN_LOG_SPF_RESULT
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_smtp_ehlo_spf
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+            - meta: ehlo_domain
+              expression: evt.Parsed.ehlo_domain
+            - meta: spf_result
+              expression: evt.Parsed.spf_result
+        stash:
+          - name: axigen_session_to_ip
+            key: evt.Parsed.session_id
+            value: evt.Parsed.source_ip
+            ttl: 10m
+            size: 20000
+      - grok:
+          name: AXIGEN_LOG_TLS_ALERT
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_tls_probe
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+            - meta: source_port
+              expression: evt.Parsed.source_port
+            - meta: tls_error
+              expression: evt.Parsed.tls_error
+      - grok:
+          name: AXIGEN_LOG_CLOSE
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_session_close
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+            - meta: source_port
+              expression: evt.Parsed.source_port
+      - grok:
+          name: AXIGEN_LOG_CLOSING_CONNECTION
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_session_close
+            - meta: source_ip
+              expression: evt.Parsed.source_ip
+            - meta: source_port
+              expression: evt.Parsed.source_port
+      - grok:
+          name: AXIGEN_LOG_AUTH_ERROR
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_failed_auth
+            - meta: source_ip
+              expression: GetFromStash('axigen_session_to_ip', evt.Parsed.session_id)
+            - meta: target_user
+              expression: evt.Parsed.target_user
+            - meta: auth_error
+              expression: evt.Parsed.auth_error
+      - grok:
+          name: AXIGEN_LOG_AUTH_SUCCESS
+          apply_on: axigen_message
+          statics:
+            - meta: log_type
+              value: axigen_successful_auth
+            - meta: source_ip
+              expression: GetFromStash('axigen_session_to_ip', evt.Parsed.session_id)
+            - meta: target_user
+              expression: evt.Parsed.target_user
+statics:
+  - meta: service
+    value: axigen
+  - meta: axigen_service
+    expression: evt.Parsed.axigen_service
+  - meta: session_id
+    expression: evt.Parsed.session_id
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - target: evt.StrTimeFormat
+    value: "2006-01-02 15:04:05 -0700"
