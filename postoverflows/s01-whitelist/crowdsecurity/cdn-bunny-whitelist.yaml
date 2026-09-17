@@ -1,0 +1,14 @@
+name: crowdsecurity/cdn-bunny-whitelist
+description: "Whitelist CDN provider Bunny"
+whitelist:
+  reason: "CDN provider Bunny"
+  expression:
+    - "evt.Overflow.Alert.Source.IP in File('bunny_ips.txt')"
+    - "evt.Overflow.Alert.Source.IP in File('bunny_ip6s.txt')"
+data:
+  - source_url: https://api.bunny.net/system/edgeserverlist/plain
+    dest_file: bunny_ips.txt
+    type: string
+  - source_url: https://api.bunny.net/system/edgeserverlist/IPv6/plain
+    dest_file: bunny_ip6s.txt
+    type: string
