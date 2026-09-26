@@ -1,0 +1,52 @@
+name: crowdsecurity/appsec-bot-challenge-detect-codecs
+# Codec capability cross-checks.
+#
+# The shipped module reports what two different APIs say about H.264:
+# mediaCapabilities.decodingInfo() (rarely instrumented, and normalised by
+# builds that want to look like a capable desktop) and
+# RTCRtpSender.getCapabilities() (generally left alone).
+#
+# The rule below is one-directional on purpose. The tempting version --
+# "these two APIs disagree" -- is wrong: real Firefox on Linux reports H.264
+# unsupported for playback while still listing H264 for WebRTC, because Gecko
+# gets WebRTC H.264 from OpenH264 independently of the system codecs. A
+# symmetric rule fires on every Linux Firefox user.
+data:
+  # Branch URL while in review. Flip to
+  # https://hub-data.crowdsec.net/challenge/codecs-v1.js when sec-lists merges.
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/challenge-detection-modules/challenge/codecs-v1.js
+    dest_file: challenge/codecs.js
+    type: challenge-js
+
+inband:
+  on_challenge_submit:
+    # Claims hardware-efficient H.264 playback while its own WebRTC stack
+    # offers no H264 codec at all.
+    - filter: >-
+        fingerprint.Custom["cfH264Sup"].Bool &&
+        fingerprint.Custom["cfH264Eff"].Bool &&
+        !fingerprint.Custom["cfRtcH264"].Bool
+      apply:
+        - AddRequestScore(100, "h264_capability_mismatch")
+
+    # Firefox on Windows and macOS decodes H.264 through the OS. One that
+    # claims either and cannot is not running on what it claims.
+    - filter: >-
+        req.UserAgent() contains "Firefox/" &&
+        (req.UserAgent() contains "Windows NT" || req.UserAgent() contains "Mac OS X") &&
+        fingerprint.HasCustom("cfH264Sup") &&
+        !fingerprint.Custom["cfH264Sup"].Bool
+      apply:
+        - AddRequestScore(100, "gecko_no_h264_on_native_os")
+
+    # Each key is written on every run, so an absent key means the module never
+    # ran. 18 points x 3 keys = 54, under a 75 threshold on its own.
+    - filter: '!fingerprint.HasCustom("cfH264Sup")'
+      apply:
+        - AddRequestScore(18, "missing_cf_h264_sup")
+    - filter: '!fingerprint.HasCustom("cfH264Eff")'
+      apply:
+        - AddRequestScore(18, "missing_cf_h264_eff")
+    - filter: '!fingerprint.HasCustom("cfRtcH264")'
+      apply:
+        - AddRequestScore(18, "missing_cf_rtc_h264")
