@@ -1,0 +1,6 @@
+name: crowdsecurity/ipv6_shared_buckets
+description: ""
+filter: "IsIPV6(evt.Meta.source_ip)"
+statics:
+  - target: evt.Meta.source_ip
+    expression: TrimSuffix(IpToRange(evt.Meta.source_ip,"/64"),"/64")
