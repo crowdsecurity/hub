@@ -3,16 +3,31 @@ onsuccess: next_stage
 filter: "evt.Parsed.Channel == 'Security' && evt.Parsed.EventID == '4625'"
 name: crowdsecurity/windows-auth
 description: "Parse windows authentication failure events (id 4625)"
+nodes:
+  - filter: TrimSpace(evt.Line.Raw) startsWith '<'
+    statics:
+        - meta: source_ip
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IpAddress']")
+        - meta: username
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetUserName']")
+        - meta: status
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Status']")
+        - meta: sub_status
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SubStatus']")
+        - meta: logon_type
+          expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonType']")
+  - filter: TrimSpace(evt.Line.Raw) startsWith '{'
+    statics:
+        - meta: source_ip
+          expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='IpAddress']")
+        - meta: username
+          expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='TargetUserName']")
+        - meta: status
+          expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='Status']")
+        - meta: sub_status
+          expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='SubStatus']")
+        - meta: logon_type
+          expression: XMLGetNodeValue(evt.Unmarshaled.wineventlog.event_data, "/Data[@Name='LogonType']")
 statics:
-    - meta: source_ip
-      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IpAddress']")
-    - meta: username
-      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetUserName']")
-    - meta: status
-      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Status']")
-    - meta: sub_status
-      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SubStatus']")
-    - meta: logon_type
-      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonType']")
-    - meta: log_type
-      value: windows_failed_auth
+  - meta: log_type
+    value: windows_failed_auth
