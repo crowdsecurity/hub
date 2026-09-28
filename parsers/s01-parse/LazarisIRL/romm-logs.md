@@ -10,7 +10,7 @@ labels:
   type: romm
 ```
 
-If you are using file based acquisition, add the following to your RomM `docker-compose.yaml`:
+If you are using file-based acquisition, you will need to add the following to your RomM `docker-compose.yaml` in order to write the logs to a file:
 
 ```yaml
 command: sh -c "/init 2>&1 | tee /path/to/romm.log"
