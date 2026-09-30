@@ -26,43 +26,53 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  CROWDSEC_IMAGE: ghcr.io/crowdsecurity/crowdsec:dev
+  NUCLEI_VERSION: "3.1.7"
+
 jobs:
   run-appsec-rules-tests:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         persist-credentials: false
-    - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
-      with:
-        go-version: '1.26'
-    - name: Install requirements
+    - name: Install nuclei
       run: |
-        sudo apt update
-        sudo apt install -y libre2-dev gettext
-        go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.1.7
-        # yes it's ugly, no I don't care
-        cp "$HOME/go/bin/nuclei" /usr/local/bin/
-    - name: Install CrowdSec
-      run: |
-        git clone https://github.com/crowdsecurity/crowdsec.git
-        cd crowdsec
-        BUILD_STATIC=1 make release
-        cd crowdsec-v*
-        sudo ./wizard.sh --unattended --docker-mode
-    - name: Register Remediation Component API Key
-      run: |
-        sudo cscli bouncers add hubtestAppsec -k "this_is_a_bad_password"
+        set -euo pipefail
+        curl -fsSL -o /tmp/nuclei.zip \
+          "https://github.com/projectdiscovery/nuclei/releases/download/v${NUCLEI_VERSION}/nuclei_${NUCLEI_VERSION}_linux_amd64.zip"
+        unzip -j -o /tmp/nuclei.zip nuclei -d /tmp/nuclei-bin
+        chmod +x /tmp/nuclei-bin/nuclei
     - name: Start OpenResty Container
       run: |
         docker compose -f docker/appsec/docker-compose.yaml up -d --build
-    - name: run tests on last crowdsec tag
+    - name: run tests with crowdsec from master branch
       run: |
-        sudo cscli hubtest run --all --appsec --target http://127.0.0.1:7822
-        echo "APPSEC_RULE_COV=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2)" >> "$GITHUB_ENV"
-        APPSEC_RULE_COV_NUMBER=$(cscli hubtest coverage --appsec --percent | cut -d '=' -f2 | tr -d '%' | tr -d '[:space:]')
-        echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)" >> "$GITHUB_ENV"
+        set -euo pipefail
+        docker run --rm --network host \
+          -v "$PWD:$PWD" -w "$PWD" \
+          -v /tmp/nuclei-bin/nuclei:/usr/local/bin/nuclei:ro \
+          --entrypoint bash "$CROWDSEC_IMAGE" -c '
+            set -eu
+            mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/
+            cscli hubtest run --all --appsec --target http://127.0.0.1:7822
+          '
+    - name: Compute appsec coverage
+      run: |
+        set -euo pipefail
+        APPSEC_RULE_COV=$(docker run --rm \
+          -v "$PWD:$PWD" -w "$PWD" \
+          --entrypoint bash "$CROWDSEC_IMAGE" -c '
+            { mkdir -p /etc/crowdsec && cp -r /staging/etc/* /etc/; } >&2
+            cscli hubtest coverage --appsec --percent
+          ' | cut -d '=' -f2)
+        APPSEC_RULE_COV_NUMBER=$(echo "$APPSEC_RULE_COV" | tr -d '%' | tr -d '[:space:]')
+        {
+          echo "APPSEC_RULE_COV=$APPSEC_RULE_COV"
+          echo "APPSEC_RULE_BADGE_COLOR=$(if [ "$APPSEC_RULE_COV_NUMBER" -lt "70" ]; then echo 'red'; else echo 'green'; fi)"
+        } >> "$GITHUB_ENV"
     - name: Update appsec coverage badge
       if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'crowdsecurity' }}
       env:
@@ -77,4 +87,3 @@ jobs:
     - name: Stop containers
       if: always()
       run: docker compose -f docker/appsec/docker-compose.yaml down
-
