@@ -10,7 +10,7 @@ pattern_syntax:
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
   SECOND_WORKAROUND: '(?:[0-5]?[0-9]|60)?'
   TIMESTAMP_WORKAROUND: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{HOUR}:?%{MINUTE}(?::?%{SECOND_WORKAROUND})?%{ISO8601_TIMEZONE}?'
-  CAS_AUTH_FAIL: '^%{TIMESTAMP_WORKAROUND:time}(?:,\d+)? %{LOGLEVEL:loglevel} \[%{DATA:threadname}\] - (.*)\|CAS\|(.*)\|AUTHENTICATION_FAILED\|%{USERNAME:cas_invalid_user}\|%{IP_WORKAROUND:cas_client_ip}\|(.*)$'
+  CAS_AUTH_FAIL: '^%{TIMESTAMP_WORKAROUND:time}(?:,\d+)? %{LOGLEVEL:loglevel} \[%{DATA:threadname}\] - [^|]+\|%{USERNAME:cas_invalid_user}\|[^|]+\|AUTHENTICATION_FAILED\|%{IP_WORKAROUND:cas_client_ip}\|'
 nodes:
   - grok: 
       name: "CAS_AUTH_FAIL"
