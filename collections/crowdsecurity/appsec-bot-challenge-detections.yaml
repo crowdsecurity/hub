@@ -1,0 +1,24 @@
+name: crowdsecurity/appsec-bot-challenge-detections
+# Platform-consistency detections for the bot challenge. Each config checks a
+# fingerprint against the platform it claims to be -- never against the
+# server's own host -- so a genuine Windows, macOS, Android or iOS visitor is
+# unaffected while a process wearing one of those user agents is not.
+#
+# form-factor and headers ship no JavaScript. fonts, cpu-arch and codecs ship a
+# detection module through the hub and also score its absence, so stripping the
+# script is itself evidence.
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-detect-form-factor
+  - crowdsecurity/appsec-bot-challenge-detect-headers
+  - crowdsecurity/appsec-bot-challenge-detect-fonts
+  - crowdsecurity/appsec-bot-challenge-detect-cpu-arch
+  - crowdsecurity/appsec-bot-challenge-detect-codecs
+description: "AppSec bot challenge: platform-consistency detections (fonts, form factor, client hints, CPU architecture, codecs)"
+labels:
+  label: "WAF - Bot Challenge Detections"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

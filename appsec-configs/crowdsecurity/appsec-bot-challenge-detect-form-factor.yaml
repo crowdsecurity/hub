@@ -1,0 +1,38 @@
+name: crowdsecurity/appsec-bot-challenge-detect-form-factor
+# Consistency checks between the platform a visitor claims and the input stack
+# it actually has. Every signal here already exists in the fingerprint, so this
+# config ships no JavaScript and cannot be evaded by blocking it.
+#
+# Must be loaded before a scoring config calls RejectSubmission, which halts
+# every later on_challenge_submit rule.
+inband:
+  on_challenge_submit:
+    # A phone with a mouse. Real Android and iOS report a coarse pointer and no
+    # hover; a desktop browser wearing a mobile user agent reports neither.
+    - filter: >-
+        (req.UserAgent() contains "Android" || req.UserAgent() contains "iPhone") &&
+        fingerprint.Signals.Device.MediaQueries.Pointer == "fine" &&
+        string(fingerprint.Signals.Device.MediaQueries.Hover) == "true"
+      apply:
+        - AddRequestScore(100, "mobile_desktop_input")
+
+    # Every browser on iOS is WebKit, so Blink's window.chrome surface cannot
+    # exist there.
+    - filter: 'req.UserAgent() contains "iPhone" && string(fingerprint.Signals.Browser.Features.Chrome) == "true"'
+      apply:
+        - AddRequestScore(100, "ios_blink_surface")
+
+    # Chrome and Firefox report a colour depth of 24 on every platform they
+    # support. 32 is a value real engines stopped emitting long ago.
+    - filter: 'int(fingerprint.Signals.Device.ScreenResolution.ColorDepth) == 32'
+      apply:
+        - AddRequestScore(50, "color_depth_32")
+
+    # A desktop-sized screen with no pointing device and no hover at all: a
+    # headless input stack wearing a desktop screen size.
+    - filter: >-
+        fingerprint.Signals.Device.MediaQueries.Pointer == "none" &&
+        string(fingerprint.Signals.Device.MediaQueries.Hover) == "false" &&
+        int(fingerprint.Signals.Device.ScreenResolution.Width) >= 1024
+      apply:
+        - AddRequestScore(50, "no_pointer_desktop")
