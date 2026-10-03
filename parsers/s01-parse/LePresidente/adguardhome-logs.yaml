@@ -5,6 +5,12 @@ description: "Parse adguardhome logs"
 filter: "evt.Parsed.program == 'adguardhome'"
 nodes:
   - grok:
+      pattern: '%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{TIME:time}\.%{GREEDYDATA:milliseconds} \[%{LOGLEVEL:level}\] %{WORD:service}: http error host=%{HOSTNAME:host} method=%{WORD:method} url=%{URIPATH:url} status=%{NUMBER:status} ip=%{IP:source_ip} err="%{GREEDYDATA:error_message}"'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: adguardhome_failed_auth
+  - grok:
       pattern: '%{DATE_X:date} %{TIME:time}.* POST %{HOSTNAME} /control/login: from ip %{IP:source_ip}: invalid username or password$'
       apply_on: message
       statics:
