@@ -1,0 +1,13 @@
+type: leaky
+name: boris22100/jmap-http-bf
+description: "Detect JMAP brute force attacks on HTTP/HTTPS endpoints"
+filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.request matches '^/jmap' && int(evt.Parsed.status) in [401, 403]"
+groupby: "evt.Meta.source_ip"
+capacity: 5
+leakspeed: "30s"
+blackhole: 5m
+labels:
+  service: http
+  remediation: ban
+  taxonomy:
+    attack: brute-force
