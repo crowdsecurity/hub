@@ -15,7 +15,7 @@ or [appsec-bot-challenge-strict](https://app.crowdsec.net/hub/author/crowdsecuri
  - [appsec-bot-challenge-scoring](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-scoring)
    — the scoring engine: serves the challenge and weights fingerprint signals into a request score.
  - [appsec-bot-challenge-good-bots](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-good-bots)
-   — exempts network-verified good bots (search engines, AI crawlers, social, monitoring).
+   — exempts network-verified good bots (search engines, AI crawlers, ad crawlers, social, monitoring).
  - [appsec-bot-challenge-exclude-paths](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-exclude-paths)
    — exempts machine-facing paths (crawler files, static assets, API, feeds, webhooks).
 
