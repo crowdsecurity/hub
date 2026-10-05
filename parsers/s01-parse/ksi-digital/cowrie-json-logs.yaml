@@ -1,0 +1,41 @@
+onsuccess: next_stage
+name: ksi-digital/cowrie-json-logs
+description: "Parse Cowrie honeypot JSON logs (cowrie.json)"
+# The line is decoded once into evt.Unmarshaled.cowrie. Lines that are not a
+# JSON object (for example Cowrie text logs, handled by crowdsecurity/cowrie-logs)
+# are skipped before decoding.
+filter: >-
+  evt.Parsed.program == 'cowrie' &&
+  evt.Parsed.message startsWith '{' &&
+  UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'cowrie') in ['', nil] &&
+  (evt.Unmarshaled.cowrie.eventid ?? '') startsWith 'cowrie.' &&
+  (evt.Unmarshaled.cowrie.src_ip ?? '') != ''
+statics:
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.cowrie.timestamp
+  # Cowrie writes "%Y-%m-%dT%H:%M:%S.%fZ" (TZ=UTC) or "%Y-%m-%dT%H:%M:%S.%f%z"
+  - target: evt.StrTimeFormat
+    value: "2006-01-02T15:04:05Z0700"
+  - meta: source_ip
+    expression: evt.Unmarshaled.cowrie.src_ip
+  - meta: dest_ip
+    expression: evt.Unmarshaled.cowrie.dst_ip
+  - meta: dest_port
+    expression: "evt.Unmarshaled.cowrie.dst_port != nil ? string(int(evt.Unmarshaled.cowrie.dst_port)) : nil"
+  - meta: target_user
+    expression: evt.Unmarshaled.cowrie.username
+  # Cowrie >= 2.9.0 sets "protocol" on every event; older releases only on cowrie.session.connect
+  - meta: service
+    expression: "evt.Unmarshaled.cowrie.protocol in ['ssh', 'telnet'] ? evt.Unmarshaled.cowrie.protocol : 'cowrie'"
+  # Telnet connections and SSH failed logins reuse the log_type of the hub
+  # telnet/sshd parsers so crowdsecurity/telnet-bf and crowdsecurity/ssh-bf apply.
+  # Every other event becomes cowrie_<eventid suffix>, e.g. cowrie_command_input.
+  # A file_download without a URL is a file written by shell redirection.
+  - meta: log_type
+    expression: |
+      let eventid = evt.Unmarshaled.cowrie.eventid;
+      let protocol = evt.Unmarshaled.cowrie.protocol ?? '';
+      eventid == 'cowrie.session.connect' && protocol == 'telnet' ? 'telnet_new_session' :
+      eventid == 'cowrie.login.failed' && protocol == 'ssh' ? 'ssh_failed-auth' :
+      eventid == 'cowrie.session.file_download' && (evt.Unmarshaled.cowrie.url ?? '') == '' ? 'cowrie_session_file_redirect' :
+      'cowrie_' + replace(trimPrefix(eventid, 'cowrie.'), '.', '_')

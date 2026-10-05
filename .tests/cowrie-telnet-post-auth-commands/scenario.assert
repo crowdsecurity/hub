@@ -1,0 +1,17 @@
+len(results) == 1
+"198.51.100.23" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["198.51.100.23"].IP == "198.51.100.23"
+results[0].Overflow.Sources["198.51.100.23"].Range == ""
+results[0].Overflow.Sources["198.51.100.23"].GetScope() == "Ip"
+results[0].Overflow.Sources["198.51.100.23"].GetValue() == "198.51.100.23"
+basename(results[0].Overflow.Alert.Events[0].GetMeta("datasource_path")) == "cowrie-telnet-post-auth-commands.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("dest_ip") == "172.16.0.10"
+results[0].Overflow.Alert.Events[0].GetMeta("dest_port") == "2223"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "cowrie_command_input"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "telnet"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "198.51.100.23"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2026-10-04T08:15:06.32Z"
+results[0].Overflow.Alert.GetScenario() == "ksi-digital/cowrie-telnet-post-auth-commands"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1

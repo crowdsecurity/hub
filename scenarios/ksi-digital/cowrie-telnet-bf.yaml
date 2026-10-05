@@ -1,0 +1,17 @@
+type: leaky
+name: ksi-digital/cowrie-telnet-bf
+description: "Detect telnet brute force (failed logins) on a Cowrie honeypot"
+filter: "evt.Meta.log_type == 'cowrie_login_failed' && evt.Meta.service == 'telnet'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 10s
+blackhole: 1m
+labels:
+  service: telnet
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "telnet:bruteforce"
+  label: "Cowrie Telnet Bruteforce"
+  remediation: true

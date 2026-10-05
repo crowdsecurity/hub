@@ -1,0 +1,27 @@
+name: ksi-digital/cowrie
+description: "Cowrie honeypot JSON logs: parser, post-login command and payload transfer detection, SSH and telnet brute force"
+author: ksi-digital
+parsers:
+  - ksi-digital/cowrie-json-logs
+  - crowdsecurity/dateparse-enrich
+scenarios:
+  - ksi-digital/cowrie-ssh-post-auth-commands
+  - ksi-digital/cowrie-telnet-post-auth-commands
+  - ksi-digital/cowrie-ssh-payload-download
+  - ksi-digital/cowrie-telnet-payload-download
+  - ksi-digital/cowrie-telnet-bf
+  - crowdsecurity/ssh-bf
+  - crowdsecurity/ssh-slow-bf
+  - crowdsecurity/telnet-bf
+contexts:
+  - crowdsecurity/bf_base
+labels:
+  label: "Cowrie Honeypot"
+tags:
+  - security_engine
+  - linux
+  - honeypot
+  - cowrie
+  - ssh
+  - telnet
+  - bruteforce

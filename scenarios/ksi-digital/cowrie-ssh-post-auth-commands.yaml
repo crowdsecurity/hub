@@ -1,0 +1,16 @@
+type: trigger
+name: ksi-digital/cowrie-ssh-post-auth-commands
+description: "Detect shell commands run on a Cowrie honeypot after an SSH login"
+filter: "evt.Meta.log_type == 'cowrie_command_input' && evt.Meta.service == 'ssh'"
+groupby: evt.Meta.source_ip
+blackhole: 1h
+labels:
+  service: ssh
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1059.004
+  behavior: "ssh:bruteforce"
+  label: "Cowrie SSH Post-Login Commands"
+  remediation: true

@@ -1,0 +1,17 @@
+len(results) == 1
+"192.0.2.45" in results[0].Overflow.GetSources()
+results[0].Overflow.Sources["192.0.2.45"].IP == "192.0.2.45"
+results[0].Overflow.Sources["192.0.2.45"].Range == ""
+results[0].Overflow.Sources["192.0.2.45"].GetScope() == "Ip"
+results[0].Overflow.Sources["192.0.2.45"].GetValue() == "192.0.2.45"
+basename(results[0].Overflow.Alert.Events[0].GetMeta("datasource_path")) == "cowrie-ssh-post-auth-commands.log"
+results[0].Overflow.Alert.Events[0].GetMeta("datasource_type") == "file"
+results[0].Overflow.Alert.Events[0].GetMeta("dest_ip") == "172.16.0.10"
+results[0].Overflow.Alert.Events[0].GetMeta("dest_port") == "2222"
+results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "cowrie_command_input"
+results[0].Overflow.Alert.Events[0].GetMeta("service") == "ssh"
+results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.0.2.45"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2026-10-04T08:15:01.32Z"
+results[0].Overflow.Alert.GetScenario() == "ksi-digital/cowrie-ssh-post-auth-commands"
+results[0].Overflow.Alert.Remediation == true
+results[0].Overflow.Alert.GetEventsCount() == 1

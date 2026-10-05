@@ -1,0 +1,10 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/ksi-digital/cowrie-json-logs.yaml
+  - crowdsecurity/dateparse-enrich
+scenarios:
+  - ./scenarios/ksi-digital/cowrie-ssh-payload-download.yaml
+postoverflows: []
+log_file: cowrie-ssh-payload-download.log
+log_type: cowrie
+ignore_parsers: true

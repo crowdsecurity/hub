@@ -1,0 +1,15 @@
+type: trigger
+name: ksi-digital/cowrie-telnet-payload-download
+description: "Detect file downloads and download attempts on a Cowrie honeypot over telnet"
+filter: "evt.Meta.log_type in ['cowrie_session_file_download', 'cowrie_session_file_download_failed', 'cowrie_session_file_upload'] && evt.Meta.service == 'telnet'"
+groupby: evt.Meta.source_ip
+blackhole: 1h
+labels:
+  service: telnet
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1105
+  behavior: "linux:post-exploitation"
+  label: "Cowrie Telnet Payload Download"
+  remediation: true
