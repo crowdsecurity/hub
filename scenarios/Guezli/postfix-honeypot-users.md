@@ -1,11 +1,26 @@
 ## Postfix SASL honeypot-username instant ban
 
 Instant-bans IPs that try postfix SASL authentication with a honeypot
-username -- well-known admin / role addresses (`postmaster@`, `admin@`,
-`info@`, `test@`, `support@`, `office@`, `sales@`, `contact@`,
-`webmaster@`, `root@`, `noreply@`, `abuse@`, `hostmaster@`, `marketing@`,
-`mail@`, `news@`, `sysadmin@`, `administrator@`, `user@`, `service@`,
-`helpdesk@`) that should never be used as actual SMTP-AUTH login accounts.
+username -- addresses that should never be used as actual SMTP-AUTH login
+accounts. The wordlist covers four classes:
+
+**Classic English role addresses:** `postmaster@`, `admin@`, `info@`,
+`test@`, `support@`, `office@`, `sales@`, `contact@`, `webmaster@`,
+`root@`, `noreply@`, `abuse@`, `hostmaster@`, `marketing@`, `mail@`,
+`news@`, `sysadmin@`, `administrator@`, `user@`, `service@`, `helpdesk@`.
+
+**Spanish / Portuguese i18n variants** (frequently seen in real-world
+bot wordlists): `teste@`, `prueba@`, `contacto@`, `comercial@`.
+
+**Accounting / billing role honeypots:** `billing@`, `accounts@`,
+`account@`, `tech@`, `reception@`, `shared@`.
+
+**Office-equipment honeypots:** `copier@`, `fax@`, `scanner@`,
+`monitor@`, `mailtest@`, `testing@`.
+
+**Auto-generated mailbox-probe patterns:** `nonexistent_user@`,
+`nonexistent_user_<N>@` (where `<N>` is any digit sequence -- catches
+stealth bots that probe with numbered test mailboxes).
 
 The filter matches any SASL mechanism (LOGIN, PLAIN, CRAM-MD5, DIGEST-MD5)
 parsed by `crowdsecurity/postfix-logs` -- attackers using PLAIN against

@@ -1,0 +1,27 @@
+name: crowdsecurity/appsec-bot-challenge-strict
+# Strict bot-challenge bundle: same building blocks as appsec-bot-challenge, but rejects submissions
+# scoring >= 45. Catches more bots at the cost of more false positives.
+parsers:
+  - crowdsecurity/appsec-logs
+  - crowdsecurity/appsec-bot-detection-logs
+collections:
+  - crowdsecurity/appsec-bot-challenge-scoring
+  - crowdsecurity/appsec-bot-challenge-good-bots
+  - crowdsecurity/appsec-bot-challenge-exclude-paths
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-scoring-strict
+scenarios:
+  - crowdsecurity/appsec-bot-challenge-too-many-requests
+  - crowdsecurity/appsec-bot-challenge-too-many-submissions
+contexts:
+  - crowdsecurity/appsec_base
+  - crowdsecurity/appsec-bot-detection
+description: "WAF bot detection: Rejecting at a strict threshold (>= 45)"
+labels:
+  label: "WAF - Bot Challenge (strict)"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

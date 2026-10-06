@@ -1,0 +1,28 @@
+name: crowdsecurity/appsec-bot-challenge
+# Default (balanced) bot-challenge bundle: scoring engine + good-bot/path exclusions, rejecting
+# submissions that score >= 75. For a different restrictiveness use appsec-bot-challenge-strict (>= 45)
+# or appsec-bot-challenge-permissive (>= 100).
+parsers:
+  - crowdsecurity/appsec-logs
+  - crowdsecurity/appsec-bot-detection-logs
+collections:
+  - crowdsecurity/appsec-bot-challenge-scoring
+  - crowdsecurity/appsec-bot-challenge-good-bots
+  - crowdsecurity/appsec-bot-challenge-exclude-paths
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-scoring-balanced
+scenarios:
+  - crowdsecurity/appsec-bot-challenge-too-many-requests
+  - crowdsecurity/appsec-bot-challenge-too-many-submissions
+contexts:
+  - crowdsecurity/appsec_base
+  - crowdsecurity/appsec-bot-detection
+description: "AppSec bot detection: challenge mode with weighted fingerprint scoring, rejecting at a balanced threshold (>= 75)"
+labels:
+  label: "WAF - Bot Challenge"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

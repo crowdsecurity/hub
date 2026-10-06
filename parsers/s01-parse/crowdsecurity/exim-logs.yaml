@@ -13,7 +13,7 @@ pattern_syntax:
   EXIM_SOURCE_TLS: 'H=%{EXIM_SOURCE}(?::%{POSINT:source_port})? (:?X=%{NOTSPACE:tls_cipher} CV=(:?yes|no) )?'
 nodes:
   - grok:
-      pattern: '%{EXIM_OPT_DATE}%{EXIM_AUTH:exim_auth} authenticator failed for %{EXIM_SOURCE}:(?:%{POSINT:source_port}:)? 535 Incorrect authentication data \(set_id=%{NO_END_PAR:target_user}\)'
+      pattern: '%{EXIM_OPT_DATE}%{EXIM_AUTH:exim_auth} authenticator failed for %{EXIM_SOURCE}:(?:%{POSINT:source_port}:)? 535 Incorrect authentication data(?: \(set_id=%{NO_END_PAR:target_user}\))?'
       apply_on: message
       statics:
         - meta: log_type
