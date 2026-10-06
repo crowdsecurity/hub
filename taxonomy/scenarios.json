@@ -16,7 +16,7 @@
     "description": "Protect against no user agent",
     "label": "Missing User-Agent Header",
     "behaviors": [
-      "http:exploit"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -50,7 +50,7 @@
     "description": "Protect Wordpress uploads directory from listing files",
     "label": "WordPress Uploads - Directory Listing",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4694,7 +4694,7 @@
     "description": "Detect bots exploiting laravel debug mode",
     "label": "Laravel Debug Mode - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4716,7 +4716,7 @@
     "description": "Detect abuse of symfony profiler",
     "label": "Symfony Profiler - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4732,7 +4732,9 @@
     "name": "Azlaroc/sftpgo-bf",
     "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
     "label": "SFTPGo Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -5187,12 +5189,12 @@
   "lepresidente/ssh-bad-keyexchange-bf": {
     "name": "lepresidente/ssh-bad-keyexchange-bf",
     "description": "Detect ssh bad key exchange",
-    "label": "SSH Bad Key Bruteforce",
+    "label": "SSH Bad Key Exchange",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5434,7 +5436,9 @@
     "name": "aidalinfo/couchdb-slow-bf",
     "description": "Detect slow Couchdb bruteforce/enum",
     "label": "Couchdb low Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -5448,7 +5452,9 @@
     "name": "aidalinfo/couchdb-bf",
     "description": "Detect Couchdb bruteforce/enum",
     "label": "Couchdb Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -5478,7 +5484,9 @@
     "name": "aidalinfo/tcpudp-flood-traefik",
     "description": "Detect TCP/UDP flood",
     "label": "UDP or TCP Flood Traefik",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -5993,7 +6001,7 @@
     "description": "Detect CVE-2022-46169 brute forcing",
     "label": "Cacti CVE-2022-46169",
     "behaviors": [
-      "http:bruteforce"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1592"
@@ -6186,7 +6194,9 @@
     "name": "crowdsecurity/amavis-blocked",
     "description": "Ban IPs that are blocked by amavis",
     "label": "Infected Email",
-    "behaviors": [],
+    "behaviors": [
+      "smtp:spam"
+    ],
     "mitre_attacks": [
       "TA0002:T1203",
       "TA0002:T1204"
@@ -6784,13 +6794,13 @@
   },
   "crowdsecurity/endlessh-bf": {
     "name": "crowdsecurity/endlessh-bf",
-    "description": "Detect SSH bruteforce caught by Endlessh",
-    "label": "Endlessh Bruteforce",
+    "description": "Detect SSH scanning caught by Endlessh",
+    "label": "Endlessh SSH Scan",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6905,12 +6915,12 @@
   "crowdsecurity/freeswitch-acl-reject": {
     "name": "crowdsecurity/freeswitch-acl-reject",
     "description": "Detect freeswitch acl rejects",
-    "label": "CVE-2018-13379",
+    "label": "FreeSWITCH ACL Reject",
     "behaviors": [
-      "http:exploit"
+      "sip:bruteforce"
     ],
     "mitre_attacks": [
-      "TA0001:T1190"
+      "TA0006:T1110"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -7039,7 +7049,7 @@
     "description": "Detect attempt to common backdoors",
     "label": "Scanning for backdoors",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595"
@@ -7884,12 +7894,12 @@
   "crowdsecurity/nextcloud-bf_domain_error": {
     "name": "crowdsecurity/nextcloud-bf_domain_error",
     "description": "Detect Nextcloud domain error",
-    "label": "NextCloud Bruteforce",
+    "label": "NextCloud Untrusted Domain",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -8232,9 +8242,7 @@
     "name": "crowdsecurity/ssh-generic-test",
     "description": "Crowdsec Generic Test Scenario: SSH brute force trigger",
     "label": "Crowdsec Generic Test Scenario",
-    "behaviors": [
-      "ssh:bruteforce"
-    ],
+    "behaviors": [],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8427,7 +8435,9 @@
     "name": "crowdsecurity/teleport-bf",
     "description": "detect teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8441,7 +8451,9 @@
     "name": "crowdsecurity/teleport-slow-bf",
     "description": "detect slow teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8598,12 +8610,12 @@
   "crowdsecurity/wireguard-auth": {
     "name": "crowdsecurity/wireguard-auth",
     "description": "Detects rejected connections attempts and unauthorized packets through wireguard tunnels",
-    "label": "Wireguard Bruteforce",
+    "label": "Wireguard Rejected Packets",
     "behaviors": [
-      "generic:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -8615,8 +8627,12 @@
     "name": "cyrille37/sympa_ww-http-scan",
     "description": "Detect http scan on Sympa endpoint",
     "label": "Http Scan",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
@@ -9118,7 +9134,9 @@
     "name": "melite/dovecot-slow-bf",
     "description": "Detect slow Dovecot bruteforce (distributed attacks)",
     "label": "Dovecot Slow Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9132,7 +9150,9 @@
     "name": "melite/dovecot-slow-bf_user-enum",
     "description": "Detect slow Dovecot user enumeration",
     "label": "Dovecot Slow User Enumeration",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9146,7 +9166,9 @@
     "name": "melite/dovecot-time-based-bf",
     "description": "Detect time-based Dovecot bruteforce (evasive attacks)",
     "label": "Dovecot Time-Based Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9160,7 +9182,9 @@
     "name": "melite/dovecot-time-based-bf_user-enum",
     "description": "Detect time-based Dovecot user enumeration (evasive attacks)",
     "label": "Dovecot Time-Based User Enumeration",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9181,7 +9205,7 @@
       "TA0043:T1590"
     ],
     "confidence": 3,
-    "spoofable": 0,
+    "spoofable": 2,
     "cti": true,
     "service": "domain",
     "created_at": "2022-11-21T12:14:27"
@@ -9206,8 +9230,12 @@
     "name": "nicoh88/proxmox-backup-auth-bf",
     "description": "Detect failed PBS API authentications (bruteforce)",
     "label": "Failed PBS API Authentications (bruteforce)",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "behaviors": [
+      "vm-management:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
@@ -9219,7 +9247,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Bot Protection' events (when waf blocks malicious request)",
     "label": "Openappsec 'Bot Protection' detection",
     "behaviors": [
-      "http:spam"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9285,7 +9313,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'error limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9336,7 +9364,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'http limit violation' detection",
     "behaviors": [
-      "http:spam"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9353,7 +9381,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Illegal http method violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'illegal http method violation' detection",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9455,7 +9483,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Request Rate Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'request rate limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0040:T1498"
@@ -15973,7 +16001,7 @@
     "description": "Detect sshesame commands",
     "label": "Sshesame Commands",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"
@@ -15989,7 +16017,7 @@
     "description": "Detect sshesame input spam",
     "label": "Sshesame Input Spam",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"

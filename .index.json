@@ -587,10 +587,10 @@
     },
     "crowdsecurity/experimental-no-user-agent": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9leHBlcmltZW50YWwtbm8tdXNlci1hZ2VudApkZXNjcmlwdGlvbjogIlByb3RlY3QgYWdhaW5zdCBubyB1c2VyIGFnZW50IgpydWxlczoKIyMgVXNlcmFnZW50IGhlYWRlciBkb2VzIG5vdCBleGlzdAogIC0gYW5kOgogICAgICAtIHpvbmVzOgogICAgICAgIC0gTUVUSE9ECiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiByZWdleAogICAgICAgICAgdmFsdWU6ICdeR0VUfFBPU1R8UFVUfERFTEVURXxQQVRDSCQnCiAgICAgIC0gem9uZXM6CiAgICAgICAgLSBIRUFERVJTCiAgICAgICAgdmFyaWFibGVzOgogICAgICAgICAtICJVc2VyLUFnZW50IgogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gY291bnQKICAgICAgICBtYXRjaDoKICAgICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgICAgdmFsdWU6ICIwIgoKCgogICAgCmxhYmVsczoKICAgdHlwZTogZXhwbG9pdAogICBzZXJ2aWNlOiBodHRwCiAgIGNvbmZpZGVuY2U6IDAKICAgc3Bvb2ZhYmxlOiAwCiAgIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogICBsYWJlbDogIk1pc3NpbmcgVXNlci1BZ2VudCBIZWFkZXIiCiAgIGNsYXNzaWZpY2F0aW9uOgogICAgIC0gYXR0YWNrLlQxNTk1CiAgICAgLSBhdHRhY2suVDExOTAK",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9leHBlcmltZW50YWwtbm8tdXNlci1hZ2VudApkZXNjcmlwdGlvbjogIlByb3RlY3QgYWdhaW5zdCBubyB1c2VyIGFnZW50IgpydWxlczoKIyMgVXNlcmFnZW50IGhlYWRlciBkb2VzIG5vdCBleGlzdAogIC0gYW5kOgogICAgICAtIHpvbmVzOgogICAgICAgIC0gTUVUSE9ECiAgICAgICAgbWF0Y2g6CiAgICAgICAgICB0eXBlOiByZWdleAogICAgICAgICAgdmFsdWU6ICdeR0VUfFBPU1R8UFVUfERFTEVURXxQQVRDSCQnCiAgICAgIC0gem9uZXM6CiAgICAgICAgLSBIRUFERVJTCiAgICAgICAgdmFyaWFibGVzOgogICAgICAgICAtICJVc2VyLUFnZW50IgogICAgICAgIHRyYW5zZm9ybToKICAgICAgICAgIC0gY291bnQKICAgICAgICBtYXRjaDoKICAgICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgICAgdmFsdWU6ICIwIgoKCgogICAgCmxhYmVsczoKICAgdHlwZTogZXhwbG9pdAogICBzZXJ2aWNlOiBodHRwCiAgIGNvbmZpZGVuY2U6IDAKICAgc3Bvb2ZhYmxlOiAwCiAgIGJlaGF2aW9yOiAiaHR0cDpsaWtlbHktYm90IgogICBsYWJlbDogIk1pc3NpbmcgVXNlci1BZ2VudCBIZWFkZXIiCiAgIGNsYXNzaWZpY2F0aW9uOgogICAgIC0gYXR0YWNrLlQxNTk1CiAgICAgLSBhdHRhY2suVDExOTAK",
       "description": "Protect against no user agent",
       "labels": {
-        "behavior": "http:exploit",
+        "behavior": "http:likely-bot",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -602,7 +602,7 @@
         "type": "exploit"
       },
       "path": "appsec-rules/crowdsecurity/experimental-no-user-agent.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -611,6 +611,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "5180f622d961f42d81de8846409acd8d4430ab2af84b1dfe996aaa28990bc135"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "0f7852533bce55b0069a4a1bf6cee00708533886cf40efdb5ca4a0665d747b3a"
         }
       }
     },
@@ -653,10 +657,10 @@
     },
     "crowdsecurity/generic-wordpress-uploads-listing": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLWxpc3RpbmcKZGVzY3JpcHRpb246ICJQcm90ZWN0IFdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSBmcm9tIGxpc3RpbmcgZmlsZXMiCnJ1bGVzOgogIC0gYW5kOgogICAgLSB6b25lczoKICAgICAgLSBNRVRIT0QKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogZXF1YWxzCiAgICAgICAgdmFsdWU6IEdFVAogICAgLSB6b25lczoKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIHVybGRlY29kZQogICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiByZWdleAogICAgICAgIHZhbHVlOiAnXi93cC1jb250ZW50L3VwbG9hZHMvKC4qLyk/JCcKICAgIApsYWJlbHM6CiAgIHR5cGU6IGV4cGxvaXQKICAgc2VydmljZTogaHR0cAogICBjb25maWRlbmNlOiAyCiAgIHNwb29mYWJsZTogMAogICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICAgbGFiZWw6ICJXb3JkUHJlc3MgVXBsb2FkcyAtIERpcmVjdG9yeSBMaXN0aW5nIgogICBjbGFzc2lmaWNhdGlvbjoKICAgICAtIGF0dGFjay5UMTU5NQogICAgIC0gYXR0YWNrLlQxMTkwCg==",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9nZW5lcmljLXdvcmRwcmVzcy11cGxvYWRzLWxpc3RpbmcKZGVzY3JpcHRpb246ICJQcm90ZWN0IFdvcmRwcmVzcyB1cGxvYWRzIGRpcmVjdG9yeSBmcm9tIGxpc3RpbmcgZmlsZXMiCnJ1bGVzOgogIC0gYW5kOgogICAgLSB6b25lczoKICAgICAgLSBNRVRIT0QKICAgICAgbWF0Y2g6CiAgICAgICAgdHlwZTogZXF1YWxzCiAgICAgICAgdmFsdWU6IEdFVAogICAgLSB6b25lczoKICAgICAgLSBVUkkKICAgICAgdHJhbnNmb3JtOgogICAgICAtIHVybGRlY29kZQogICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiByZWdleAogICAgICAgIHZhbHVlOiAnXi93cC1jb250ZW50L3VwbG9hZHMvKC4qLyk/JCcKICAgIApsYWJlbHM6CiAgIHR5cGU6IHNjYW4KICAgc2VydmljZTogaHR0cAogICBjb25maWRlbmNlOiAyCiAgIHNwb29mYWJsZTogMAogICBiZWhhdmlvcjogImh0dHA6c2NhbiIKICAgbGFiZWw6ICJXb3JkUHJlc3MgVXBsb2FkcyAtIERpcmVjdG9yeSBMaXN0aW5nIgogICBjbGFzc2lmaWNhdGlvbjoKICAgICAtIGF0dGFjay5UMTU5NQogICAgIC0gYXR0YWNrLlQxMTkwCg==",
       "description": "Protect Wordpress uploads directory from listing files",
       "labels": {
-        "behavior": "http:exploit",
+        "behavior": "http:scan",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -665,10 +669,10 @@
         "label": "WordPress Uploads - Directory Listing",
         "service": "http",
         "spoofable": 0,
-        "type": "exploit"
+        "type": "scan"
       },
       "path": "appsec-rules/crowdsecurity/generic-wordpress-uploads-listing.yaml",
-      "version": "0.5",
+      "version": "0.6",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -689,6 +693,10 @@
         "0.5": {
           "deprecated": false,
           "digest": "f55a58ed2bf00e14340a3d959f0bbb70d6420bdb37f9fe3412240275fac212d4"
+        },
+        "0.6": {
+          "deprecated": false,
+          "digest": "62b42dbc5c6f95edf740823b19487a844b10dca89714acd8045a51fed61de33e"
         }
       }
     },
@@ -7346,10 +7354,10 @@
     },
     "crowdsecurity/vpatch-laravel-debug-mode": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtbGFyYXZlbC1kZWJ1Zy1tb2RlCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGJvdHMgZXhwbG9pdGluZyBsYXJhdmVsIGRlYnVnIG1vZGUiCiNzZWUgaHR0cHM6Ly9naXRodWIuY29tL3MxbWlpaS9jYXBlL2Jsb2IvbWFpbi9sZXIucHkgOiBib3QgaXMgdHJ5aW5nIHRvIHRyaWdnZXIgYSBkZWJ1ZyBsb2cgdG8gZXh0cmFjdCBzZWNyZXRzLgpydWxlczoKICAtIGFuZDoKICAgIC0gem9uZXM6CiAgICAgIC0gTUVUSE9ECiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgIHZhbHVlOiBQT1NUCiAgICAtIHpvbmVzOgogICAgICAgIC0gQk9EWV9BUkdTX05BTUVTCiAgICAgIHRyYW5zZm9ybToKICAgICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBlcXVhbHMKICAgICAgICB2YWx1ZTogIjB4W10iCmxhYmVsczoKICB0eXBlOiBzY2FuCiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogImh0dHA6c2NhbiIKICBsYWJlbDogIkxhcmF2ZWwgRGVidWcgTW9kZSAtIEV4cG9zdXJlIgogICN3aGlsZSB0aGUgdnBhdGNoIGRvZXNuJ3QgYWRkcmVzcyBkaXJlY3RseSB0aGUgQ1ZFcyBiZWxvdywgaXQgZGV0ZWN0cyB0aGUgYm90IHRoYXQgYWJ1c2VzIHRoZW0uCiAgY2xhc3NpZmljYXRpb246CiAgIC0gYXR0YWNrLlQxNTk1CiAgIC0gYXR0YWNrLlQxMTkwCiAgIC0gY3ZlLkNWRS0yMDE3LTE2ODk0CiAgIC0gY3ZlLkNWRS0yMDIxLTQxNzE0CiAgIC0gY3ZlLkNWRS0yMDE5LTE3MDUwCg==",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtbGFyYXZlbC1kZWJ1Zy1tb2RlCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGJvdHMgZXhwbG9pdGluZyBsYXJhdmVsIGRlYnVnIG1vZGUiCiNzZWUgaHR0cHM6Ly9naXRodWIuY29tL3MxbWlpaS9jYXBlL2Jsb2IvbWFpbi9sZXIucHkgOiBib3QgaXMgdHJ5aW5nIHRvIHRyaWdnZXIgYSBkZWJ1ZyBsb2cgdG8gZXh0cmFjdCBzZWNyZXRzLgpydWxlczoKICAtIGFuZDoKICAgIC0gem9uZXM6CiAgICAgIC0gTUVUSE9ECiAgICAgIG1hdGNoOgogICAgICAgIHR5cGU6IGVxdWFscwogICAgICAgIHZhbHVlOiBQT1NUCiAgICAtIHpvbmVzOgogICAgICAgIC0gQk9EWV9BUkdTX05BTUVTCiAgICAgIHRyYW5zZm9ybToKICAgICAgICAtIGxvd2VyY2FzZQogICAgICBtYXRjaDoKICAgICAgICB0eXBlOiBlcXVhbHMKICAgICAgICB2YWx1ZTogIjB4W10iCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICBsYWJlbDogIkxhcmF2ZWwgRGVidWcgTW9kZSAtIEV4cG9zdXJlIgogICN3aGlsZSB0aGUgdnBhdGNoIGRvZXNuJ3QgYWRkcmVzcyBkaXJlY3RseSB0aGUgQ1ZFcyBiZWxvdywgaXQgZGV0ZWN0cyB0aGUgYm90IHRoYXQgYWJ1c2VzIHRoZW0uCiAgY2xhc3NpZmljYXRpb246CiAgIC0gYXR0YWNrLlQxNTk1CiAgIC0gYXR0YWNrLlQxMTkwCiAgIC0gY3ZlLkNWRS0yMDE3LTE2ODk0CiAgIC0gY3ZlLkNWRS0yMDIxLTQxNzE0CiAgIC0gY3ZlLkNWRS0yMDE5LTE3MDUwCg==",
       "description": "Detect bots exploiting laravel debug mode",
       "labels": {
-        "behavior": "http:scan",
+        "behavior": "http:exploit",
         "classification": [
           "attack.T1595",
           "attack.T1190",
@@ -7361,10 +7369,10 @@
         "label": "Laravel Debug Mode - Exposure",
         "service": "http",
         "spoofable": 0,
-        "type": "scan"
+        "type": "exploit"
       },
       "path": "appsec-rules/crowdsecurity/vpatch-laravel-debug-mode.yaml",
-      "version": "0.4",
+      "version": "0.5",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -7381,15 +7389,19 @@
         "0.4": {
           "deprecated": false,
           "digest": "d5c6e2acec3f5e27f75d376f31feee87f606a15c2fdc971cc99078bc8d9f9957"
+        },
+        "0.5": {
+          "deprecated": false,
+          "digest": "b794b1a5aac40f7244955326c2ed10fd60fa837187c45672296fefab468d31c5"
         }
       }
     },
     "crowdsecurity/vpatch-symfony-profiler": {
       "author": "crowdsecurity",
-      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtc3ltZm9ueS1wcm9maWxlcgpkZXNjcmlwdGlvbjogIkRldGVjdCBhYnVzZSBvZiBzeW1mb255IHByb2ZpbGVyIgpydWxlczoKICAtIHpvbmVzOgogICAgLSBVUkkKICAgIHRyYW5zZm9ybToKICAgIC0gbG93ZXJjYXNlCiAgICBtYXRjaDoKICAgICAgdHlwZTogY29udGFpbnMKICAgICAgdmFsdWU6IC9fcHJvZmlsZXIvcGhwaW5mbwogIC0gem9uZXM6CiAgICAtIFVSSQogICAgdHJhbnNmb3JtOgogICAgLSBsb3dlcmNhc2UKICAgIG1hdGNoOgogICAgICB0eXBlOiBjb250YWlucwogICAgICB2YWx1ZTogL19wcm9maWxlci9vcGVuCmxhYmVsczoKICB0eXBlOiBzY2FuCiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogImh0dHA6c2NhbiIKICBsYWJlbDogIlN5bWZvbnkgUHJvZmlsZXIgLSBFeHBvc3VyZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgLSBhdHRhY2suVDE1OTUKICAgLSBhdHRhY2suVDExOTAK",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS92cGF0Y2gtc3ltZm9ueS1wcm9maWxlcgpkZXNjcmlwdGlvbjogIkRldGVjdCBhYnVzZSBvZiBzeW1mb255IHByb2ZpbGVyIgpydWxlczoKICAtIHpvbmVzOgogICAgLSBVUkkKICAgIHRyYW5zZm9ybToKICAgIC0gbG93ZXJjYXNlCiAgICBtYXRjaDoKICAgICAgdHlwZTogY29udGFpbnMKICAgICAgdmFsdWU6IC9fcHJvZmlsZXIvcGhwaW5mbwogIC0gem9uZXM6CiAgICAtIFVSSQogICAgdHJhbnNmb3JtOgogICAgLSBsb3dlcmNhc2UKICAgIG1hdGNoOgogICAgICB0eXBlOiBjb250YWlucwogICAgICB2YWx1ZTogL19wcm9maWxlci9vcGVuCmxhYmVsczoKICB0eXBlOiBleHBsb2l0CiAgc2VydmljZTogaHR0cAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICBsYWJlbDogIlN5bWZvbnkgUHJvZmlsZXIgLSBFeHBvc3VyZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgLSBhdHRhY2suVDE1OTUKICAgLSBhdHRhY2suVDExOTAK",
       "description": "Detect abuse of symfony profiler",
       "labels": {
-        "behavior": "http:scan",
+        "behavior": "http:exploit",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -7398,10 +7410,10 @@
         "label": "Symfony Profiler - Exposure",
         "service": "http",
         "spoofable": 0,
-        "type": "scan"
+        "type": "exploit"
       },
       "path": "appsec-rules/crowdsecurity/vpatch-symfony-profiler.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -7410,6 +7422,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "ce3e7f1602c14bf36db8c5a11e15004d85928277e14148a10558f891cc300efe"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "be080b393101118193c578d32a142ec239e439a7d6d57a0d2f58302c17b5707f"
         }
       }
     }
@@ -18548,6 +18564,22 @@
         }
       }
     },
+    "crowdsecurity/cdn-bunny-whitelist": {
+      "author": "crowdsecurity",
+      "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9jZG4tYnVubnktd2hpdGVsaXN0CmRlc2NyaXB0aW9uOiAiV2hpdGVsaXN0IENETiBwcm92aWRlciBCdW5ueSIKd2hpdGVsaXN0OgogIHJlYXNvbjogIkNETiBwcm92aWRlciBCdW5ueSIKICBleHByZXNzaW9uOgogICAgLSAiZXZ0Lk92ZXJmbG93LkFsZXJ0LlNvdXJjZS5JUCBpbiBGaWxlKCdidW5ueV9pcHMudHh0JykiCiAgICAtICJldnQuT3ZlcmZsb3cuQWxlcnQuU291cmNlLklQIGluIEZpbGUoJ2J1bm55X2lwNnMudHh0JykiCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL2h1Yi1kYXRhLmNyb3dkc2VjLm5ldC93aGl0ZWxpc3RzL2Nkbl9wcm92aWRlcnMvYnVubnlfaXBzLnR4dAogICAgZGVzdF9maWxlOiBidW5ueV9pcHMudHh0CiAgICB0eXBlOiBzdHJpbmcKICAtIHNvdXJjZV91cmw6IGh0dHBzOi8vaHViLWRhdGEuY3Jvd2RzZWMubmV0L3doaXRlbGlzdHMvY2RuX3Byb3ZpZGVycy9idW5ueV9pcDZzLnR4dAogICAgZGVzdF9maWxlOiBidW5ueV9pcDZzLnR4dAogICAgdHlwZTogc3RyaW5nCg==",
+      "description": "Whitelist CDN provider Bunny",
+      "labels": null,
+      "long_description": "IyBDRE4gQnVubnkgd2hpdGVsaXN0CgpDRE4gd2hpdGVsaXN0IGJhc2VkIG9uIHRoZSBmb2xsb3dpbmcgbGlzdHM6CiogaHR0cHM6Ly9hcGkuYnVubnkubmV0L3N5c3RlbS9lZGdlc2VydmVybGlzdC9wbGFpbgoqIGh0dHBzOi8vYXBpLmJ1bm55Lm5ldC9zeXN0ZW0vZWRnZXNlcnZlcmxpc3QvSVB2Ni9wbGFpbgoKSXQgd2lsbCB3aGl0ZWxpc3Qgb3ZlcmZsb3dzIHRyaWdnZXJlZCBvbiBhbiBJUCBpbiB0aG9zZSBsaXN0cyAodGhlIEJ1bm55IGVkZ2Ugc2VydmVycykuCg==",
+      "path": "postoverflows/s01-whitelist/crowdsecurity/cdn-bunny-whitelist.yaml",
+      "stage": "s01-whitelist",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "bf905b5283e0f9e929c970efb6cac59c98c3b61f8fe066ed03395b83320b31d0"
+        }
+      }
+    },
     "crowdsecurity/cdn-qc-whitelsit": {
       "author": "crowdsecurity",
       "content": "bmFtZTogY3Jvd2RzZWN1cml0eS9xdWljLWNkbi13aGl0ZWxpc3QKZGVzY3JpcHRpb246ICJXaGl0ZWxpc3QgQ0ROIHByb3ZpZGVyIFFVSUMuY2xvdWQiCndoaXRlbGlzdDoKICByZWFzb246ICJDRE4gcHJvdmlkZXIgUVVJQy5jbG91ZCIKICBleHByZXNzaW9uOiAKICAgIC0gImV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuSVAgaW4gRmlsZSgncXVpY19jbG91ZF9pcHMudHh0JykiCgpkYXRhOgogIC0gc291cmNlX3VybDogaHR0cHM6Ly9odWItZGF0YS5jcm93ZHNlYy5uZXQvd2hpdGVsaXN0cy9jZG5fcHJvdmlkZXJzL3F1aWNfY2xvdWRfaXBzLnR4dAogICAgZGVzdF9maWxlOiBxdWljX2Nsb3VkX2lwcy50eHQKICAgIHR5cGU6IHN0cmluZwoK",
@@ -18730,10 +18762,10 @@
   "scenarios": {
     "Azlaroc/sftpgo-bf": {
       "author": "Azlaroc",
-      "content": "dHlwZTogbGVha3kKbmFtZTogQXpsYXJvYy9zZnRwZ28tYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU0ZUUEdvIGJydXRlZm9yY2UgYXR0YWNrcyBvbiBGVFAvU1NIIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnc2Z0cGdvX2F1dGgnICYmIGV2dC5NZXRhLmlzX2ZhaWxlZF9sb2dpbiA9PSAndHJ1ZSciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogMwpsZWFrc3BlZWQ6ICIzMHMiCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IHNmdHBnbwogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJzZnRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJTRlRQR28gQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogbGVha3kKbmFtZTogQXpsYXJvYy9zZnRwZ28tYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU0ZUUEdvIGJydXRlZm9yY2UgYXR0YWNrcyBvbiBGVFAvU1NIIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnc2Z0cGdvX2F1dGgnICYmIGV2dC5NZXRhLmlzX2ZhaWxlZF9sb2dpbiA9PSAndHJ1ZSciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogMwpsZWFrc3BlZWQ6ICIzMHMiCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IHNmdHBnbwogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJnZW5lcmljOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJTRlRQR28gQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
       "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
       "labels": {
-        "behavior": "sftp:bruteforce",
+        "behavior": "generic:bruteforce",
         "classification": [
           "attack.T1110"
         ],
@@ -18744,7 +18776,7 @@
         "spoofable": 0
       },
       "path": "scenarios/Azlaroc/sftpgo-bf.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -18753,6 +18785,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "2c64e2b01a64c37da8507d067dae0b89f08448c72c34596f53bb92ff8ab51ded"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "fc9dc4172070b836bf66905e2574fe1dba8ea8b2c243ca183d67c9d0898e2a52"
         }
       }
     },
@@ -19314,15 +19350,15 @@
     },
     "LePresidente/ssh-bad-keyexchange-bf": {
       "author": "LePresidente",
-      "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBsZXByZXNpZGVudGUvc3NoLWJhZC1rZXlleGNoYW5nZS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzc2ggYmFkIGtleSBleGNoYW5nZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9iYWRfa2V5ZXhjaGFuZ2UnIgpsZWFrc3BlZWQ6ICIxMHMiCnJlZmVyZW5jZXM6CiAgLSBodHRwOi8vd2lraXBlZGlhLmNvbS9zc2gtYmYtaXMtYmFkCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgYmVoYXZpb3I6ICJzc2g6YnJ1dGVmb3JjZSIKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgbGFiZWw6ICJTU0ggQmFkIEtleSBCcnV0ZWZvcmNlIgo=",
+      "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBsZXByZXNpZGVudGUvc3NoLWJhZC1rZXlleGNoYW5nZS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzc2ggYmFkIGtleSBleGNoYW5nZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaF9iYWRfa2V5ZXhjaGFuZ2UnIgpsZWFrc3BlZWQ6ICIxMHMiCnJlZmVyZW5jZXM6CiAgLSBodHRwOi8vd2lraXBlZGlhLmNvbS9zc2gtYmYtaXMtYmFkCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgYmVoYXZpb3I6ICJnZW5lcmljOnNjYW4iCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICByZW1lZGlhdGlvbjogdHJ1ZQogIGxhYmVsOiAiU1NIIEJhZCBLZXkgRXhjaGFuZ2UiCg==",
       "description": "Detect ssh bad key exchange",
       "labels": {
-        "behavior": "ssh:bruteforce",
+        "behavior": "generic:scan",
         "classification": [
-          "attack.T1110"
+          "attack.T1595"
         ],
         "confidence": 3,
-        "label": "SSH Bad Key Bruteforce",
+        "label": "SSH Bad Key Exchange",
         "remediation": true,
         "service": "ssh",
         "spoofable": 0
@@ -19332,7 +19368,7 @@
       "references": [
         "http://wikipedia.com/ssh-bf-is-bad"
       ],
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -19341,6 +19377,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "3c1b4148eedb8f632dc80ed11a186c7d534ce23533367ab3c8e3cd06345d6a2a"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "0cd29dd153efe96cb8e75430379040ea036064f40f88ef4af74f20699611e666"
         }
       }
     },
@@ -19638,9 +19678,10 @@
     },
     "aidalinfo/couchdb-bf": {
       "author": "aidalinfo",
-      "content": "IyBjb3VjaGRiIHNsb3cgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBhaWRhbGluZm8vY291Y2hkYi1zbG93LWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHNsb3cgQ291Y2hkYiBicnV0ZWZvcmNlL2VudW0iCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2JmLWVudW0tY291Y2hkYicKbGVha3NwZWVkOiAiNjBzIgpjYXBhY2l0eTogMTAKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBjb3VjaGRiCiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGxhYmVsOiAiQ291Y2hkYiBsb3cgQnJ1dGVmb3JjZSIKLS0tCiMgY291Y2hkYiBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IGFpZGFsaW5mby9jb3VjaGRiLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IENvdWNoZGIgYnJ1dGVmb3JjZS9lbnVtIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdiZi1lbnVtLWNvdWNoZGInCmxlYWtzcGVlZDogIjEwcyIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBjb3VjaGRiCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBsYWJlbDogIkNvdWNoZGIgQnJ1dGVmb3JjZSIKICByZW1lZGlhdGlvbjogdHJ1ZQ==",
+      "content": "IyBjb3VjaGRiIHNsb3cgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBhaWRhbGluZm8vY291Y2hkYi1zbG93LWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHNsb3cgQ291Y2hkYiBicnV0ZWZvcmNlL2VudW0iCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2JmLWVudW0tY291Y2hkYicKbGVha3NwZWVkOiAiNjBzIgpjYXBhY2l0eTogMTAKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBjb3VjaGRiCiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAiZGF0YWJhc2U6YnJ1dGVmb3JjZSIKICBsYWJlbDogIkNvdWNoZGIgbG93IEJydXRlZm9yY2UiCi0tLQojIGNvdWNoZGIgYnJ1dGVmb3JjZQp0eXBlOiBsZWFreQpuYW1lOiBhaWRhbGluZm8vY291Y2hkYi1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBDb3VjaGRiIGJydXRlZm9yY2UvZW51bSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYmYtZW51bS1jb3VjaGRiJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgc2VydmljZTogY291Y2hkYgogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJkYXRhYmFzZTpicnV0ZWZvcmNlIgogIGxhYmVsOiAiQ291Y2hkYiBCcnV0ZWZvcmNlIgogIHJlbWVkaWF0aW9uOiB0cnVl",
       "description": "Detect slow Couchdb bruteforce/enum",
       "labels": {
+        "behavior": "database:bruteforce",
         "classification": [
           "attack.T1110"
         ],
@@ -19652,11 +19693,15 @@
       },
       "long_description": "RGV0ZWN0IGZhaWxlZCBDb3VjaERCIGF1dGhlbnRpY2F0aW9uIDoKCmxlYWtzcGVlZCBvZiA2MHMsIGNhcGFjaXR5IG9mIDEwLCBHcm91cCBieSBJUApsZWFrc3BlZWQgb2YgMTBzLCBjYXBhY2l0eSBvZiA1LCBHcm91cCBieSBJUA==",
       "path": "scenarios/aidalinfo/couchdb-bf.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "51b01a6b282027299192db588a2e3de5b46fbcfcbe8cba15d419ba010ffcff71"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "37a15aa32c5d4f73ad0738b5b079e8c7e779aac1ee2a141ae467cd2d522f0f44"
         }
       }
     },
@@ -19695,9 +19740,10 @@
     },
     "aidalinfo/tcpudp-flood-traefik": {
       "author": "aidalinfo",
-      "content": "dHlwZTogbGVha3kKbmFtZTogYWlkYWxpbmZvL3RjcHVkcC1mbG9vZC10cmFlZmlrCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFRDUC9VRFAgZmxvb2QiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICd0cmFlZmlrX3RjcHVkcCciCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmNhcGFjaXR5OiAxMDAwCmNhY2hlX3NpemU6IDEwCmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgcmVtZWRpYXRpb246IHRydWUKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNDk4CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMgogIGxhYmVsOiAiVURQIG9yIFRDUCBGbG9vZCBUcmFlZmlrIgo=",
+      "content": "dHlwZTogbGVha3kKbmFtZTogYWlkYWxpbmZvL3RjcHVkcC1mbG9vZC10cmFlZmlrCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IFRDUC9VRFAgZmxvb2QiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICd0cmFlZmlrX3RjcHVkcCciCmdyb3VwYnk6ICJldnQuTWV0YS5zb3VyY2VfaXAiCmNhcGFjaXR5OiAxMDAwCmNhY2hlX3NpemU6IDEwCmxlYWtzcGVlZDogIjEwcyIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgcmVtZWRpYXRpb246IHRydWUKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNDk4CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMgogIGJlaGF2aW9yOiAiaHR0cDpkb3MiCiAgbGFiZWw6ICJVRFAgb3IgVENQIEZsb29kIFRyYWVmaWsiCg==",
       "description": "Detect TCP/UDP flood",
       "labels": {
+        "behavior": "http:dos",
         "classification": [
           "attack.T1498"
         ],
@@ -19708,11 +19754,15 @@
       },
       "long_description": "IyMgRGV0ZWN0IEZsb29kIFRDUCBvciBVRFAgd2l0aCBUcmFlZmlrIGRlYnVnIGxvZwoKLSBsZWFrc3BlZWQgb2YgMTAgc2Vjb25kcywgY2FwYWNpdHkgb2YgMTAwMCBvbiBzYW1lIGlwIGFkZHJlc3MK",
       "path": "scenarios/aidalinfo/tcpudp-flood-traefik.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "279599e76231935a36a5efafb12ddc5ed432f56d8c6c5c93daa277261a680182"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "25ae65db9800f033d6db0a47d884ead55445f4a01d5021f201ce0b3d906c6c25"
         }
       }
     },
@@ -20508,10 +20558,10 @@
     },
     "crowdsecurity/CVE-2022-46169": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMi00NjE2OS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBDVkUtMjAyMi00NjE2OSBicnV0ZSBmb3JjaW5nIgpmaWx0ZXI6IHwKICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIGNvbnRhaW5zIFVwcGVyKCcvcmVtb3RlX2FnZW50LnBocCcpICYmCiAgVXBwZXIoZXZ0LlBhcnNlZC52ZXJiKSA9PSAnR0VUJyAmJgogIExvd2VyKGV2dC5QYXJzZWQuaHR0cF9hcmdzKSBjb250YWlucyAnaG9zdF9pZCcgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgY29udGFpbnMgJ2xvY2FsX2RhdGFfaWRzJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTIKICAgIC0gY3ZlLkNWRS0yMDIyLTQ2MTY5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiQ2FjdGkgQ1ZFLTIwMjItNDYxNjkiCiAgc2VydmljZTogY2FjdGkKLS0tCnR5cGU6IHRyaWdnZXIKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMi00NjE2OS1jbWQKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjItNDYxNjkgY21kIGluamVjdGlvbiIKZmlsdGVyOiB8CiAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBjb250YWlucyBVcHBlcignL3JlbW90ZV9hZ2VudC5waHAnKSAmJgogIFVwcGVyKGV2dC5QYXJzZWQudmVyYikgPT0gJ0dFVCcgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgY29udGFpbnMgJ2FjdGlvbj1wb2xsZGF0YScgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgbWF0Y2hlcyAncG9sbGVyX2lkPS4qKDt8JTNiKScKYmxhY2tob2xlOiAxbQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5NQogICAgLSBhdHRhY2suVDExOTAKICAgIC0gY3ZlLkNWRS0yMDIyLTQ2MTY5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQ2FjdGkgQ1ZFLTIwMjItNDYxNjkiCiAgc2VydmljZTogY2FjdGkK",
+      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMi00NjE2OS1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBDVkUtMjAyMi00NjE2OSBicnV0ZSBmb3JjaW5nIgpmaWx0ZXI6IHwKICBVcHBlcihldnQuTWV0YS5odHRwX3BhdGgpIGNvbnRhaW5zIFVwcGVyKCcvcmVtb3RlX2FnZW50LnBocCcpICYmCiAgVXBwZXIoZXZ0LlBhcnNlZC52ZXJiKSA9PSAnR0VUJyAmJgogIExvd2VyKGV2dC5QYXJzZWQuaHR0cF9hcmdzKSBjb250YWlucyAnaG9zdF9pZCcgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgY29udGFpbnMgJ2xvY2FsX2RhdGFfaWRzJwpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiA1CmJsYWNraG9sZTogMW0KZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKbGFiZWxzOgogIHR5cGU6IGV4cGxvaXQKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTIKICAgIC0gY3ZlLkNWRS0yMDIyLTQ2MTY5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQ2FjdGkgQ1ZFLTIwMjItNDYxNjkiCiAgc2VydmljZTogY2FjdGkKLS0tCnR5cGU6IHRyaWdnZXIKbmFtZTogY3Jvd2RzZWN1cml0eS9DVkUtMjAyMi00NjE2OS1jbWQKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjItNDYxNjkgY21kIGluamVjdGlvbiIKZmlsdGVyOiB8CiAgVXBwZXIoZXZ0Lk1ldGEuaHR0cF9wYXRoKSBjb250YWlucyBVcHBlcignL3JlbW90ZV9hZ2VudC5waHAnKSAmJgogIFVwcGVyKGV2dC5QYXJzZWQudmVyYikgPT0gJ0dFVCcgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgY29udGFpbnMgJ2FjdGlvbj1wb2xsZGF0YScgJiYKICBMb3dlcihldnQuUGFyc2VkLmh0dHBfYXJncykgbWF0Y2hlcyAncG9sbGVyX2lkPS4qKDt8JTNiKScKYmxhY2tob2xlOiAxbQpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgpsYWJlbHM6CiAgdHlwZTogZXhwbG9pdAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5NQogICAgLSBhdHRhY2suVDExOTAKICAgIC0gY3ZlLkNWRS0yMDIyLTQ2MTY5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiQ2FjdGkgQ1ZFLTIwMjItNDYxNjkiCiAgc2VydmljZTogY2FjdGkK",
       "description": "Detect CVE-2022-46169 brute forcing",
       "labels": {
-        "behavior": "http:bruteforce",
+        "behavior": "http:exploit",
         "classification": [
           "attack.T1592",
           "cve.CVE-2022-46169"
@@ -20525,7 +20575,7 @@
       },
       "long_description": "IyMgQ1ZFLTIwMjItNDYxNjkKCkNhY3RpIGlzIGFuIG9wZW4gc291cmNlIHBsYXRmb3JtIHdoaWNoIHByb3ZpZGVzIGEgcm9idXN0IGFuZCBleHRlbnNpYmxlIG9wZXJhdGlvbmFsIG1vbml0b3JpbmcgYW5kIGZhdWx0IG1hbmFnZW1lbnQgZnJhbWV3b3JrIGZvciB1c2Vycy4gSW4gYWZmZWN0ZWQgdmVyc2lvbnMgYSBjb21tYW5kIGluamVjdGlvbiB2dWxuZXJhYmlsaXR5IGFsbG93cyBhbiB1bmF1dGhlbnRpY2F0ZWQgdXNlciB0byBleGVjdXRlIGFyYml0cmFyeSBjb2RlIG9uIGEgc2VydmVyIHJ1bm5pbmcgQ2FjdGksIGlmIGEgc3BlY2lmaWMgZGF0YSBzb3VyY2Ugd2FzIHNlbGVjdGVkIGZvciBhbnkgbW9uaXRvcmVkIGRldmljZS4KCltSZWFkIE1vcmVdKGh0dHBzOi8vbnZkLm5pc3QuZ292L3Z1bG4vZGV0YWlsL0NWRS0yMDIyLTQ2MTY5KQoK",
       "path": "scenarios/crowdsecurity/CVE-2022-46169.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -20534,6 +20584,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "a5da5fb136d8f1c254546d080049beba49ae22b28415f787029e0e1346ce6913"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "0572b5a53f053f4c8a5b2391530c51bb03b3f9d0c995717059368b36e8225102"
         }
       }
     },
@@ -20794,10 +20848,10 @@
     },
     "crowdsecurity/amavis-blocked": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2FtYXZpcy1ibG9ja2VkCmRlc2NyaXB0aW9uOiAiQmFuIElQcyB0aGF0IGFyZSBibG9ja2VkIGJ5IGFtYXZpcyIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYW1hdmlzJyAmJiBldnQuUGFyc2VkLmFtYXZpc19hY3Rpb24gPT0gJ0Jsb2NrZWQnICYmIGV2dC5QYXJzZWQuYW1hdmlzX2NhdGVnb3J5ID09ICdJTkZFQ1RFRCcKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IGFtYXZpcwogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMjAzCiAgICAtIGF0dGFjay5UMTIwNAogIGJlaGF2aW9yOiAibWFpbDptYWx3YXJlIgogIGxhYmVsOiAiSW5mZWN0ZWQgRW1haWwiCiAgcmVtZWRpYXRpb246IHRydWUK",
+      "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2FtYXZpcy1ibG9ja2VkCmRlc2NyaXB0aW9uOiAiQmFuIElQcyB0aGF0IGFyZSBibG9ja2VkIGJ5IGFtYXZpcyIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYW1hdmlzJyAmJiBldnQuUGFyc2VkLmFtYXZpc19hY3Rpb24gPT0gJ0Jsb2NrZWQnICYmIGV2dC5QYXJzZWQuYW1hdmlzX2NhdGVnb3J5ID09ICdJTkZFQ1RFRCcKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IGFtYXZpcwogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMjAzCiAgICAtIGF0dGFjay5UMTIwNAogIGJlaGF2aW9yOiAic210cDpzcGFtIgogIGxhYmVsOiAiSW5mZWN0ZWQgRW1haWwiCiAgcmVtZWRpYXRpb246IHRydWUK",
       "description": "Ban IPs that are blocked by amavis",
       "labels": {
-        "behavior": "mail:malware",
+        "behavior": "smtp:spam",
         "classification": [
           "attack.T1203",
           "attack.T1204"
@@ -20810,11 +20864,15 @@
       },
       "long_description": "VGhpcyBhbWF2aXMgc2NlbmFyaW8gYmFucyBhbiBJUCBhcyBzb29uIGFzIGl0IGlzIGRldGVjdGVkIHNlbmRpbmcgbWVzc2FnZXMgdGhhdCBoYXZlIGJlZW4gYmxvY2tlZCBieSBhbWF2aXMuCg==",
       "path": "scenarios/crowdsecurity/amavis-blocked.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "2f09014557f8900e50f5b33ae10f86292d9274a7f32cee54d783ab26abc8cafa"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "5e8eda2333a1b2741ae8dc04d98b81c42a5d940a701bea7bdeb2d4306ab9bf8d"
         }
       }
     },
@@ -21947,14 +22005,14 @@
     },
     "crowdsecurity/ban-defcon-drop_range": {
       "author": "crowdsecurity",
-      "content": "I1RBUCBJVCBUV0lDRSA6IGlmIG1vcmUgdGhhbiA1IHVuaXF1ZSBJUHMgb2YgYSByYW5nZSBhcmUgYmVpbmcgYmFubmVkLCBkcm9wIHRoZSByYW5nZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9iYW4tZGVmY29uLWRyb3BfcmFuZ2UKZGVzY3JpcHRpb246ICJCYW4gYSByYW5nZSBpZiBtb3JlIHRoYW4gNSBpcHMgZnJvbSBpdCBhcmUgYmFubmVkIGF0IGEgdGltZSIKI2l0J3MgYW4gb3ZlcmZsb3cgZnJvbSBhIHNjZW5hcmlvIHRoYXQgdHJpZ2dlcmVkIGEgcmVtZWRpYXRpb24gOykKZmlsdGVyOiAiZXZ0LkdldFR5cGUoKSA9PSAnb3ZlcmZsb3cnICYmIGV2dC5PdmVyZmxvdy5BbGVydC5SZW1lZGlhdGlvbiA9PSB0cnVlIgpncm91cGJ5OiAiZXZ0Lk92ZXJmbG93LkFsZXJ0LlNvdXJjZS5SYW5nZSIKZGlzdGluY3Q6ICJldnQuT3ZlcmZsb3cuQWxlcnQuU291cmNlLklQIgpjYXBhY2l0eTogNQpsZWFrc3BlZWQ6ICIxbSIKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiByZW1lZGlhdGlvbjogdHJ1ZQpzY29wZToKIHR5cGU6IFJhbmdlCgo=",
+      "content": "I1RBUCBJVCBUV0lDRSA6IGlmIG1vcmUgdGhhbiA1IHVuaXF1ZSBJUHMgb2YgYSByYW5nZSBhcmUgYmVpbmcgYmFubmVkLCBkcm9wIHRoZSByYW5nZQp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKbmFtZTogY3Jvd2RzZWN1cml0eS9iYW4tZGVmY29uLWRyb3BfcmFuZ2UKZGVzY3JpcHRpb246ICJCYW4gYSByYW5nZSBpZiBtb3JlIHRoYW4gNSBpcHMgZnJvbSBpdCBhcmUgYmFubmVkIGF0IGEgdGltZSIKI2l0J3MgYW4gb3ZlcmZsb3cgZnJvbSBhIHNjZW5hcmlvIHRoYXQgdHJpZ2dlcmVkIGEgcmVtZWRpYXRpb24gOykKZmlsdGVyOiAiZXZ0LkdldFR5cGUoKSA9PSAnb3ZlcmZsb3cnICYmIGV2dC5PdmVyZmxvdy5BbGVydC5SZW1lZGlhdGlvbiA9PSB0cnVlICYmIGV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuUmFuZ2UgIT0gbmlsICYmIGV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuUmFuZ2UgIT0gJyciCmdyb3VwYnk6ICJldnQuT3ZlcmZsb3cuQWxlcnQuU291cmNlLlJhbmdlIgpkaXN0aW5jdDogImV2dC5PdmVyZmxvdy5BbGVydC5Tb3VyY2UuSVAiCmNhcGFjaXR5OiA1CmxlYWtzcGVlZDogIjFtIgpibGFja2hvbGU6IDVtCmxhYmVsczoKIHJlbWVkaWF0aW9uOiB0cnVlCnNjb3BlOgogdHlwZTogUmFuZ2UKCg==",
       "description": "Ban a range if more than 5 ips from it are banned at a time",
       "labels": {
         "remediation": true
       },
       "long_description": "U2NlbmFyaW8gdG8gYmFuIGEgcmFuZ2UgaWYgbW9yZSB0aGFuIDUgSVBzIGZyb20gc2FpZCByYW5nZSBhcmUgYmFubmVkIGxlc3MgdGhhbiAxIG1pbnV0ZSBhcGFydC4KCkZvciB0aGlzIHRvIHdvcmssIHR3byBub24tZGVmYXVsdCB0aGluZ3MgbXVzdCBiZSBzZXQ6CgoxLiBZb3UgbXVzdCBhcHBlbmQgYSBwcm9maWxlIHRoYXQgd2lsbCBwcm9jZXNzIGRlY2lzaW9ucyBvbiByYW5nZXM6Cgo+IC9ldGMvY3Jvd2RzZWMvcHJvZmlsZXMueWFtbAoKYGBgeWFtbAojLi4uCi0tLQpuYW1lOiBkZWZhdWx0X3JhbmdlX3JlbWVkaWF0aW9uCmZpbHRlcnM6CiAtIEFsZXJ0LlJlbWVkaWF0aW9uID09IHRydWUgJiYgQWxlcnQuR2V0U2NvcGUoKSA9PSAiUmFuZ2UiCmRlY2lzaW9uczoKIC0gdHlwZTogYmFuCiAgIGR1cmF0aW9uOiA0aApvbl9zdWNjZXNzOiBicmVhawpgYGAKCjIuIFRoZSByZWxhdGVkIHNjZW5hcmlvKHMpIG11c3QgYmUgY29uZmlndXJlZCB0byBoYXZlIFtyZXByb2Nlc3NdKGh0dHBzOi8vZG9jLmNyb3dkc2VjLm5ldC9kb2NzL25leHQvc2NlbmFyaW9zL2Zvcm1hdC8jcmVwcm9jZXNzKSBzZXQgdG8gYHRydWVgOiBUaGlzIGlzIG5lZWRlZCBmb3IgdGhlIGV2ZW50cyAoZ2VuZXJhdGVkIGJ5IHRoZSBzY2VuYXJpb3MpIHRvIGJlIHByb2Nlc3NlZCBhZ2FpbiBieSBDcm93ZFNlYyBzbyB0aGV5IGNhbiB0cmlnZ2VyIG91ciBgY3Jvd2RzZWN1cml0eS9iYW4tZGVmY29uLWRyb3BfcmFuZ2VgIHNjZW5hcmlvLiBNb3N0IHNjZW5hcmlvcyBkbyBub3QgaGF2ZSB0aGlzIG9wdGlvbiBlbmFibGVkIGJ5IGRlZmF1bHQuCg==",
       "path": "scenarios/crowdsecurity/ban-defcon-drop_range.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -21963,6 +22021,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "e1068cba1ce38cc0c3b82b195e91b560e8675ae789c451bbef5c5b4aff1aff02"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "38dd196e5b9f1dc293f537e2e0cbe4cadb74f10d0c2258a2d3a72b9f4650fe49"
         }
       }
     },
@@ -22197,15 +22259,15 @@
     },
     "crowdsecurity/endlessh-bf": {
       "author": "crowdsecurity",
-      "content": "IyBlbmRsZXNzaCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU1NIIGJydXRlZm9yY2UgY2F1Z2h0IGJ5IEVuZGxlc3NoIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnZW5kbGVzc2hfYWNjZXB0JyIKbGVha3NwZWVkOiAiNW0iCnJlZmVyZW5jZXM6CiAgLSBodHRwOi8vd2lraXBlZGlhLmNvbS9zc2gtYmYtaXMtYmFkCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDEyMG0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAic3NoOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJFbmRsZXNzaCBCcnV0ZWZvcmNlIgogIHNlcnZpY2U6IGVuZGxlc3NoCiAgcmVtZWRpYXRpb246IHRydWUK",
-      "description": "Detect SSH bruteforce caught by Endlessh",
+      "content": "IyBlbmRsZXNzaCBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvZW5kbGVzc2gtYmYKZGVzY3JpcHRpb246ICJEZXRlY3QgU1NIIHNjYW5uaW5nIGNhdWdodCBieSBFbmRsZXNzaCIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2VuZGxlc3NoX2FjY2VwdCciCmxlYWtzcGVlZDogIjVtIgpyZWZlcmVuY2VzOgogIC0gaHR0cDovL3dpa2lwZWRpYS5jb20vc3NoLWJmLWlzLWJhZApjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxMjBtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICBiZWhhdmlvcjogImdlbmVyaWM6c2NhbiIKICBsYWJlbDogIkVuZGxlc3NoIFNTSCBTY2FuIgogIHNlcnZpY2U6IGVuZGxlc3NoCiAgcmVtZWRpYXRpb246IHRydWUK",
+      "description": "Detect SSH scanning caught by Endlessh",
       "labels": {
-        "behavior": "ssh:bruteforce",
+        "behavior": "generic:scan",
         "classification": [
-          "attack.T1110"
+          "attack.T1595"
         ],
         "confidence": 3,
-        "label": "Endlessh Bruteforce",
+        "label": "Endlessh SSH Scan",
         "remediation": true,
         "service": "endlessh",
         "spoofable": 0
@@ -22214,7 +22276,7 @@
       "references": [
         "http://wikipedia.com/ssh-bf-is-bad"
       ],
-      "version": "0.3",
+      "version": "0.4",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -22227,6 +22289,10 @@
         "0.3": {
           "deprecated": false,
           "digest": "6291aad0e47390f308dd859747e9044242df3c8f8c526beaae37fbd960e4d8aa"
+        },
+        "0.4": {
+          "deprecated": false,
+          "digest": "ba367d84a5f234f0b76ac22f05bfeca66f1691c47d96fd2e2210ed96cf3ea9ee"
         }
       }
     },
@@ -22428,22 +22494,22 @@
     },
     "crowdsecurity/freeswitch-acl-reject": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9mcmVlc3dpdGNoLWFjbC1yZWplY3QKZGVzY3JpcHRpb246ICJEZXRlY3QgZnJlZXN3aXRjaCBhY2wgcmVqZWN0cyIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnZnJlZXN3aXRjaCcgJiYgZXZ0Lk1ldGEuc3ViX3R5cGUgPT0gJ2FjbF9yZWplY3QnIgpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiAxNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExOTAKICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICBsYWJlbDogIkNWRS0yMDE4LTEzMzc5IgogIHJlbWVkaWF0aW9uOiB0cnVlCiAgc2VydmljZTogZnJlZXN3aXRjaAo=",
+      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS9mcmVlc3dpdGNoLWFjbC1yZWplY3QKZGVzY3JpcHRpb246ICJEZXRlY3QgZnJlZXN3aXRjaCBhY2wgcmVqZWN0cyIKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnZnJlZXN3aXRjaCcgJiYgZXZ0Lk1ldGEuc3ViX3R5cGUgPT0gJ2FjbF9yZWplY3QnIgpsZWFrc3BlZWQ6ICIxMHMiCmNhcGFjaXR5OiAxNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBiZWhhdmlvcjogInNpcDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiRnJlZVNXSVRDSCBBQ0wgUmVqZWN0IgogIHJlbWVkaWF0aW9uOiB0cnVlCiAgc2VydmljZTogZnJlZXN3aXRjaAo=",
       "description": "Detect freeswitch acl rejects",
       "labels": {
-        "behavior": "http:exploit",
+        "behavior": "sip:bruteforce",
         "classification": [
-          "attack.T1190"
+          "attack.T1110"
         ],
         "confidence": 3,
-        "label": "CVE-2018-13379",
+        "label": "FreeSWITCH ACL Reject",
         "remediation": true,
         "service": "freeswitch",
         "spoofable": 0
       },
       "long_description": "IyMgZnJlZXN3aXRjaCBhY2wgcmVqZWN0CgojIyMgRGVzY3JpcHRpb24KCkZyZWVTV0lUQ0ggaGFzIHRoZSBvcHRpb24gdG8gc2V0IHRydXN0ZWQgQUNMJ3MgdGhpcyB3aWxsIGRldGVjdCB3aGVuIGEgcmVxdWVzdCBpcyByZWplY3RlZCBkdWUgdG8gdGhlIEFDTC4gQW4gSVAgd2lsbCBoYXZlIDE1IGF0dGVtcHRzIGJlZm9yZSBiZWluZyBibG9ja2VkLg==",
       "path": "scenarios/crowdsecurity/freeswitch-acl-reject.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -22452,6 +22518,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "d8cb04c939b4e6e3eb315cd90535b5adec9368dada292602feb184f57a2db20d"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "7cd00b32421deb4d116ae2a8e176504a2a35fec76f60c6774680c86671472e22"
         }
       }
     },
@@ -22672,10 +22742,10 @@
     },
     "crowdsecurity/http-backdoors-attempts": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1iYWNrZG9vcnMtYXR0ZW1wdHMKZGVzY3JpcHRpb246ICJEZXRlY3QgYXR0ZW1wdCB0byBjb21tb24gYmFja2Rvb3JzIgpmaWx0ZXI6ICdldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdIGFuZCBhbnkoRmlsZSgiYmFja2Rvb3JzLnR4dCIpLCB7IGV2dC5QYXJzZWQuZmlsZV9uYW1lID09ICN9KScKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKZGlzdGluY3Q6IGV2dC5QYXJzZWQuZmlsZV9uYW1lCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL2h1Yi1kYXRhLmNyb3dkc2VjLm5ldC93ZWIvYmFja2Rvb3JzLnR4dAogICAgZGVzdF9maWxlOiBiYWNrZG9vcnMudHh0CiAgICB0eXBlOiBzdHJpbmcKY2FwYWNpdHk6IDEKbGVha3NwZWVkOiA1cwpibGFja2hvbGU6IDVtCmxhYmVsczoKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5NQogIGJlaGF2aW9yOiAiaHR0cDpleHBsb2l0IgogIGxhYmVsOiAiU2Nhbm5pbmcgZm9yIGJhY2tkb29ycyIKICBzZXJ2aWNlOiBodHRwCiAgcmVtZWRpYXRpb246IHRydWUK",
+      "content": "dHlwZTogbGVha3kKI2RlYnVnOiB0cnVlCm5hbWU6IGNyb3dkc2VjdXJpdHkvaHR0cC1iYWNrZG9vcnMtYXR0ZW1wdHMKZGVzY3JpcHRpb246ICJEZXRlY3QgYXR0ZW1wdCB0byBjb21tb24gYmFja2Rvb3JzIgpmaWx0ZXI6ICdldnQuTWV0YS5sb2dfdHlwZSBpbiBbImh0dHBfYWNjZXNzLWxvZyIsICJodHRwX2Vycm9yLWxvZyJdIGFuZCBhbnkoRmlsZSgiYmFja2Rvb3JzLnR4dCIpLCB7IGV2dC5QYXJzZWQuZmlsZV9uYW1lID09ICN9KScKZ3JvdXBieTogImV2dC5NZXRhLnNvdXJjZV9pcCIKZGlzdGluY3Q6IGV2dC5QYXJzZWQuZmlsZV9uYW1lCmRhdGE6CiAgLSBzb3VyY2VfdXJsOiBodHRwczovL2h1Yi1kYXRhLmNyb3dkc2VjLm5ldC93ZWIvYmFja2Rvb3JzLnR4dAogICAgZGVzdF9maWxlOiBiYWNrZG9vcnMudHh0CiAgICB0eXBlOiBzdHJpbmcKY2FwYWNpdHk6IDEKbGVha3NwZWVkOiA1cwpibGFja2hvbGU6IDVtCmxhYmVsczoKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5NQogIGJlaGF2aW9yOiAiaHR0cDpzY2FuIgogIGxhYmVsOiAiU2Nhbm5pbmcgZm9yIGJhY2tkb29ycyIKICBzZXJ2aWNlOiBodHRwCiAgcmVtZWRpYXRpb246IHRydWUK",
       "description": "Detect attempt to common backdoors",
       "labels": {
-        "behavior": "http:exploit",
+        "behavior": "http:scan",
         "classification": [
           "attack.T1595"
         ],
@@ -22687,7 +22757,7 @@
       },
       "long_description": "RGV0ZWN0IGF0dGVtcHRzIHRvIGFjY2VzcyBjb21tb24gYmFja2Rvb3JzIHN1Y2ggYXMgYzk5LnBocCAuLi4KCiMjIENvbmZpZ3VyYXRpb24KClRoaXMgc2NlbmFyaW8gd2lsbCBiZSB0cmlnZ2VyIGlmIGFuIGF0dGFja2VyIHJlcXVlc3RzIGEgbWluaW11bSBvZiB0d28gZGlmZmVyZW50cyBmaWxlIG9mIFt0aGUgbGlzdF0oaHR0cHM6Ly9odWItZGF0YS5jcm93ZHNlYy5uZXQvd2ViL2JhY2tkb29ycy50eHQpLwoKQ29uZmlndXJhdGlvbjoKCmBkaXN0aW5jdGAgOiBgZXZ0LlBhcnNlZC5yZXF1ZXN0YCAoSFRUUCByZXF1ZXN0IFVSSSkKCmBsZWFrc3BlZWRgIDogNSBzZWNvbmRlcwoKYGdyb3VwX2J5YCA6IGBldnQuTWV0YS5zb3VyY2VfaXBgCgoKIyMjIERhdGEKClRoaXMgc2NlbmFyaW8gdXNlIHRoZSBbZm9sbG93aW5nIGxpc3QgYmFja2Rvb3JzLnR4dF0oaHR0cHM6Ly9odWItZGF0YS5jcm93ZHNlYy5uZXQvd2ViL2JhY2tkb29ycy50eHQpIGZyb20gW2RhbmllbG1pZXNzbGVyXShodHRwczovL2dpdGh1Yi5jb20vZGFuaWVsbWllc3NsZXIvU2VjTGlzdHMp",
       "path": "scenarios/crowdsecurity/http-backdoors-attempts.yaml",
-      "version": "0.6",
+      "version": "0.7",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -22712,6 +22782,10 @@
         "0.6": {
           "deprecated": false,
           "digest": "dd5d8c02fff1fd939471358c61c9861387992f3062208a583839564bf644453b"
+        },
+        "0.7": {
+          "deprecated": false,
+          "digest": "7c1e950867a2a326aced9baf8ed042c5b693f30a88577b91a6fb4d9581308d18"
         }
       }
     },
@@ -24453,7 +24527,7 @@
     },
     "crowdsecurity/nextcloud-bf": {
       "author": "crowdsecurity",
-      "content": "LS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IE5leHRjbG91ZCBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ25leHRjbG91ZF9mYWlsZWRfYXV0aCcsICduZXh0Y2xvdWRfYnJ1dGVmb3JjZV9hdHRlbXB0J10iCmxlYWtzcGVlZDogIjFtIgpjYXBhY2l0eTogNQojIGlmIHdlIGhhdmUgYnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGVuYWJsZWQgaW4gbmV4dGNsb3VkLCB0aGUgc2FtZSBsb2dpbiBhdHRlbXB0CiMgY2FuIGxvZyAjIGJvdGggbG9naW4gZmFpbHVyZSBhbmQgYnJ1dGVmb3JjZSBhdHRlbXB0IGF0IHRoZSBzYW1lIHRpbWUsIHNvCiMga2VlcCB0aGVtIGluIHNlcGVyYXRlIGJ1Y2tldHMKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwICsgJy0tJyArIGV2dC5NZXRhLmxvZ190eXBlCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJOZXh0Q2xvdWQgQnJ1dGVmb3JjZSIKICBzZXJ2aWNlOiBuZXh0Y2xvdWQKLS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmX3VzZXJfZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBOZXh0Y2xvdWQgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICduZXh0Y2xvdWRfZmFpbGVkX2F1dGgnIgpsZWFrc3BlZWQ6ICIxbSIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDVtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiTmV4dENsb3VkIEJydXRlZm9yY2UiCiAgc2VydmljZTogbmV4dGNsb3VkCi0tLQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1iZl9kb21haW5fZXJyb3IKZGVzY3JpcHRpb246ICJEZXRlY3QgTmV4dGNsb3VkIGRvbWFpbiBlcnJvciIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ25leHRjbG91ZF9kb21haW5fZXJyb3InIgpsZWFrc3BlZWQ6ICIxbSIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJOZXh0Q2xvdWQgQnJ1dGVmb3JjZSIKICBzZXJ2aWNlOiBuZXh0Y2xvdWQK",
+      "content": "LS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IE5leHRjbG91ZCBicnV0ZWZvcmNlIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSBpbiBbJ25leHRjbG91ZF9mYWlsZWRfYXV0aCcsICduZXh0Y2xvdWRfYnJ1dGVmb3JjZV9hdHRlbXB0J10iCmxlYWtzcGVlZDogIjFtIgpjYXBhY2l0eTogNQojIGlmIHdlIGhhdmUgYnJ1dGVmb3JjZSBwcm90ZWN0aW9uIGVuYWJsZWQgaW4gbmV4dGNsb3VkLCB0aGUgc2FtZSBsb2dpbiBhdHRlbXB0CiMgY2FuIGxvZyAjIGJvdGggbG9naW4gZmFpbHVyZSBhbmQgYnJ1dGVmb3JjZSBhdHRlbXB0IGF0IHRoZSBzYW1lIHRpbWUsIHNvCiMga2VlcCB0aGVtIGluIHNlcGVyYXRlIGJ1Y2tldHMKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwICsgJy0tJyArIGV2dC5NZXRhLmxvZ190eXBlCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJOZXh0Q2xvdWQgQnJ1dGVmb3JjZSIKICBzZXJ2aWNlOiBuZXh0Y2xvdWQKLS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvbmV4dGNsb3VkLWJmX3VzZXJfZW51bQpkZXNjcmlwdGlvbjogIkRldGVjdCBOZXh0Y2xvdWQgdXNlciBlbnVtIGJydXRlZm9yY2UiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICduZXh0Y2xvdWRfZmFpbGVkX2F1dGgnIgpsZWFrc3BlZWQ6ICIxbSIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmRpc3RpbmN0OiBldnQuTWV0YS50YXJnZXRfdXNlcgpibGFja2hvbGU6IDVtCnJlcHJvY2VzczogdHJ1ZQpsYWJlbHM6CiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiTmV4dENsb3VkIEJydXRlZm9yY2UiCiAgc2VydmljZTogbmV4dGNsb3VkCi0tLQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L25leHRjbG91ZC1iZl9kb21haW5fZXJyb3IKZGVzY3JpcHRpb246ICJEZXRlY3QgTmV4dGNsb3VkIGRvbWFpbiBlcnJvciIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ25leHRjbG91ZF9kb21haW5fZXJyb3InIgpsZWFrc3BlZWQ6ICIxbSIKY2FwYWNpdHk6IDUKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTk1CiAgYmVoYXZpb3I6ICJodHRwOnNjYW4iCiAgbGFiZWw6ICJOZXh0Q2xvdWQgVW50cnVzdGVkIERvbWFpbiIKICBzZXJ2aWNlOiBuZXh0Y2xvdWQK",
       "description": "Detect Nextcloud bruteforce",
       "labels": {
         "behavior": "http:bruteforce",
@@ -24468,7 +24542,7 @@
       },
       "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIG9uIFtOZXh0Y2xvdWRdKGh0dHBzOi8vbmV4dGNsb3VkLmNvbSkgaW5zdGFuY2UuCgogLSBsZWFrc3BlZWQgb2YgMW0sIGNhcGFjaXR5IG9mIDUgb24gc2FtZSB0YXJnZXQgdXNlcgogLSBsZWFrc3BlZWQgb2YgMW0sIGNhcGFjaXR5IG9mIDUgdW5pcXVlIGRpc3RpbmN0IHVzZXJzCiAtIGxlYWtzcGVlZCBvZiAxbSwgY2FwYWNpdHkgb2YgNSBvbiB0cnVzdCBkb21haW4gZXJyb3IK",
       "path": "scenarios/crowdsecurity/nextcloud-bf.yaml",
-      "version": "0.3",
+      "version": "0.4",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -24481,6 +24555,10 @@
         "0.3": {
           "deprecated": false,
           "digest": "75b4f296618a383fd240413fd51bae1be786872d4f1b46421c8871d43c15d128"
+        },
+        "0.4": {
+          "deprecated": false,
+          "digest": "661a382b07dda4abb9659575ceaf2bb3bd43db8f06f936b090775b4562f2adfa"
         }
       }
     },
@@ -25052,10 +25130,10 @@
     },
     "crowdsecurity/ssh-generic-test": {
       "author": "crowdsecurity",
-      "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiB0cmlnZ2VyCm5hbWU6IGNyb3dkc2VjdXJpdHkvc3NoLWdlbmVyaWMtdGVzdApkZXNjcmlwdGlvbjogICJDcm93ZHNlYyBHZW5lcmljIFRlc3QgU2NlbmFyaW86IFNTSCBicnV0ZSBmb3JjZSB0cmlnZ2VyIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnc3NoX2ZhaWxlZC1hdXRoJyAmJiBldnQuTWV0YS50YXJnZXRfdXNlciA9PSAnY3Jvd2RzZWMtdGVzdC1OdGt0bEpIVjRUZkJTSzN3dmxoaU9CbmwnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgcmVtZWRpYXRpb246IGZhbHNlCiAgY29uZmlkZW5jZTogMAogIHNwb29mYWJsZTogMwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBiZWhhdmlvcjogInNzaDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiQ3Jvd2RzZWMgR2VuZXJpYyBUZXN0IFNjZW5hcmlvIgo=",
+      "content": "IyBzc2ggYnJ1dGVmb3JjZQp0eXBlOiB0cmlnZ2VyCm5hbWU6IGNyb3dkc2VjdXJpdHkvc3NoLWdlbmVyaWMtdGVzdApkZXNjcmlwdGlvbjogICJDcm93ZHNlYyBHZW5lcmljIFRlc3QgU2NlbmFyaW86IFNTSCBicnV0ZSBmb3JjZSB0cmlnZ2VyIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnc3NoX2ZhaWxlZC1hdXRoJyAmJiBldnQuTWV0YS50YXJnZXRfdXNlciA9PSAnY3Jvd2RzZWMtdGVzdC1OdGt0bEpIVjRUZkJTSzN3dmxoaU9CbmwnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoCiAgcmVtZWRpYXRpb246IGZhbHNlCiAgY29uZmlkZW5jZTogMAogIHNwb29mYWJsZTogMwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBiZWhhdmlvcjogInNzaDp0ZXN0IgogIGxhYmVsOiAiQ3Jvd2RzZWMgR2VuZXJpYyBUZXN0IFNjZW5hcmlvIgo=",
       "description": "Crowdsec Generic Test Scenario: SSH brute force trigger",
       "labels": {
-        "behavior": "ssh:bruteforce",
+        "behavior": "ssh:test",
         "classification": [
           "attack.T1110"
         ],
@@ -25067,7 +25145,7 @@
       },
       "long_description": "IyBzc2ggZ2VuZXJpYyB0ZXN0CgpUaGlzIHNjZW5hcmlvIGlzIG1lYW50IHRvIGNoZWNrIGlmIGNyb3dkc2VjIGlzIGNvcnJlY3RseSBjb25maWd1cmVkLCB0aGlzIHdpbGwKdHJpZ2dlciBhbiBhbGVydCwgYnV0IG5vIGRlY2lzaW9uLgoKCk9uIHRoZSBtYWNoaW5lIG9uZSB3YW50cyB0byB0ZXN0CmBzc2ggY3Jvd2RzZWMtdGVzdC1OdGt0bEpIVjRUZkJTSzN3dmxoaU9CbmxAPHlvdXItaXA+YAoKWW91IHdpbGwgc2VlIGluIHlvdXIgY3Jvd2RzZWMgbG9nczogCgpgYGAKdGltZT0iMjAyNS0wNi0xMlQxNjo1OTo0NSswMjowMCIgbGV2ZWw9aW5mbyBtc2c9IklwIDx5b3VyLWlwPiBwZXJmb3JtZWQgJ2Nyb3dkc2VjdXJpdHkvc3NoLWdlbmVyaWMtdGVzdCcgKDEgZXZlbnRzIG92ZXIgMHMpIGF0IDIwMjUtMDYtMTIgMTQ6NTk6NDUuNjM2ODg3OTU5ICswMDAwIFVUQyIKdGltZT0iMjAyNS0wNi0xMlQxNjo1OTo0NiswMjowMCIgbGV2ZWw9aW5mbyBtc2c9Iig8bG9jYWwgQVBJIGxvZ2luPikgYWxlcnQgOiBjcm93ZHNlY3VyaXR5L3NzaC1nZW5lcmljLXRlc3QgYnkgaXAgPHlvdXItaXA+IHh4eHh4eCIKdGltZT0iMjAyNS0wNi0xMlQxNjo1OTo0NyswMjowMCIgbGV2ZWw9aW5mbyBtc2c9IlNpZ25hbCBwdXNoOiAxIHNpZ25hbHMgdG8gcHVzaCIKYGBgCgpgY3NjbGkgYWxlcnQgbGlzdGAgd2lsbCBwcmVzZW50IHlvdSB0aGlzIGFsZXJ0IGFzIHdlbGwuIFBsZWFzZSBub3RlIHRoYXQgdGhpcwpzY2VuYXJpbyB3b24ndCB0cmlnZ2VyIGFueSBkZWNpc2lvbiwgYW5kIHJlc3VsdCBpbiBhbnkgcmVtZWRpYXRpb24uCgpJZiB5b3UgZG9uJ3Qgc2VlIGFueXRoaW5nIGluIGxvZ3Mgbm9yIGluIHRoZSBhbGVydHMgbGlzdCwgdGhlbiB5b3UgY2FuIGFzc3VtZSBhbgppc3N1ZSBpbiB5b3VyIHNldHVwCgpCZXdhcmUgdGhpcyBXT04nVCB3b3JrIHdpdGggbG9jYWwgaXBzIChzZWUKW3doaXRlbGlzdHNdKGh0dHBzOi8vZ2l0aHViLmNvbS9jcm93ZHNlY3VyaXR5L2h1Yi9ibG9iL21hc3Rlci9wYXJzZXJzL3MwMi1lbnJpY2gvY3Jvd2RzZWN1cml0eS93aGl0ZWxpc3RzLm1kKQp0aGF0IGFyZSBpbnN0YWxsZWQgYnkgZGVmYXVsdCkK",
       "path": "scenarios/crowdsecurity/ssh-generic-test.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -25076,6 +25154,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "eeb36b8d7ecd18a286e3e3fda9e3dd313b41476cd2fda342a2e8f49c7915f067"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "ee16e292f01060652f7bea4023608e9ceb581e53e2daa0cbff4a180ebad4a8ea"
         }
       }
     },
@@ -25330,10 +25412,10 @@
     },
     "crowdsecurity/teleport-bf": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS90ZWxlcG9ydC1iZgpkZXNjcmlwdGlvbjogImRldGVjdCB0ZWxlcG9ydCBicnV0ZWZvcmNlIgpmaWx0ZXI6IHwgCiAgZXZ0Lk1ldGEuc2VydmljZSA9PSAndGVsZXBvcnQnICYmCiAgZXZ0Lk1ldGEuc3ViX3R5cGUgaW4gWydhdXRoJywgJ3VzZXIubG9naW4nXSAmJgogIGV2dC5NZXRhLnN1Y2Nlc3MgPT0gJ2ZhbHNlJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAiMTBzIgpibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHRlbGVwb3J0CiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQogY29uZmlkZW5jZTogMwogc3Bvb2ZhYmxlOiAwCiBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiBsYWJlbDogIlRlbGVwb3J0IEJydXRlZm9yY2UiCiBiZWhhdmlvcjogInRlbGVwb3J0OmJydXRlZm9yY2UiCi0tLQp0eXBlOiBsZWFreQpuYW1lOiBjcm93ZHNlY3VyaXR5L3RlbGVwb3J0LXNsb3ctYmYKZGVzY3JpcHRpb246ICJkZXRlY3Qgc2xvdyB0ZWxlcG9ydCBicnV0ZWZvcmNlIgpmaWx0ZXI6IHwgCiAgZXZ0Lk1ldGEuc2VydmljZSA9PSAndGVsZXBvcnQnICYmCiAgZXZ0Lk1ldGEuc3ViX3R5cGUgaW4gWydhdXRoJywgJ3VzZXIubG9naW4nXSAmJgogIGV2dC5NZXRhLnN1Y2Nlc3MgPT0gJ2ZhbHNlJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDEwCmxlYWtzcGVlZDogMW0KYmxhY2tob2xlOiA1bQpsYWJlbHM6CiBzZXJ2aWNlOiB0ZWxlcG9ydAogdHlwZTogYnJ1dGVmb3JjZQogcmVtZWRpYXRpb246IHRydWUKIGNvbmZpZGVuY2U6IDMKIHNwb29mYWJsZTogMAogY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogbGFiZWw6ICJUZWxlcG9ydCBCcnV0ZWZvcmNlIgogYmVoYXZpb3I6ICJ0ZWxlcG9ydDpicnV0ZWZvcmNlIg==",
+      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS90ZWxlcG9ydC1iZgpkZXNjcmlwdGlvbjogImRldGVjdCB0ZWxlcG9ydCBicnV0ZWZvcmNlIgpmaWx0ZXI6IHwgCiAgZXZ0Lk1ldGEuc2VydmljZSA9PSAndGVsZXBvcnQnICYmCiAgZXZ0Lk1ldGEuc3ViX3R5cGUgaW4gWydhdXRoJywgJ3VzZXIubG9naW4nXSAmJgogIGV2dC5NZXRhLnN1Y2Nlc3MgPT0gJ2ZhbHNlJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAiMTBzIgpibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHRlbGVwb3J0CiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQogY29uZmlkZW5jZTogMwogc3Bvb2ZhYmxlOiAwCiBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiBsYWJlbDogIlRlbGVwb3J0IEJydXRlZm9yY2UiCiBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSIKLS0tCnR5cGU6IGxlYWt5Cm5hbWU6IGNyb3dkc2VjdXJpdHkvdGVsZXBvcnQtc2xvdy1iZgpkZXNjcmlwdGlvbjogImRldGVjdCBzbG93IHRlbGVwb3J0IGJydXRlZm9yY2UiCmZpbHRlcjogfCAKICBldnQuTWV0YS5zZXJ2aWNlID09ICd0ZWxlcG9ydCcgJiYKICBldnQuTWV0YS5zdWJfdHlwZSBpbiBbJ2F1dGgnLCAndXNlci5sb2dpbiddICYmCiAgZXZ0Lk1ldGEuc3VjY2VzcyA9PSAnZmFsc2UnCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApjYXBhY2l0eTogMTAKbGVha3NwZWVkOiAxbQpibGFja2hvbGU6IDVtCmxhYmVsczoKIHNlcnZpY2U6IHRlbGVwb3J0CiB0eXBlOiBicnV0ZWZvcmNlCiByZW1lZGlhdGlvbjogdHJ1ZQogY29uZmlkZW5jZTogMwogc3Bvb2ZhYmxlOiAwCiBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiBsYWJlbDogIlRlbGVwb3J0IEJydXRlZm9yY2UiCiBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSI=",
       "description": "detect teleport bruteforce",
       "labels": {
-        "behavior": "teleport:bruteforce",
+        "behavior": "generic:bruteforce",
         "classification": [
           "attack.T1110"
         ],
@@ -25346,11 +25428,15 @@
       },
       "long_description": "U2NlbmFyaW9zIHRvIGRldGVjdCB0ZWxlcG9ydCBhdXRoZW50aWNhdGlvbiBicnV0ZWZvcmNlIGF0dGFja3Mu",
       "path": "scenarios/crowdsecurity/teleport-bf.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "cfc359efcdedb98f82d200cea373d98de3ba94993b6cbd0f784df53134d0b428"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "7e11b1508a934edeeea9654777244a319d9710aff27c59f9bd85719d9ff6cff8"
         }
       }
     },
@@ -25567,10 +25653,10 @@
     },
     "crowdsecurity/windows-CVE-2022-30190-msdt": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L0NWRS0yMDIyLTMwMTkwLW1zZHQKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjItMzAxOTAgZnJvbSBzeXNtb24gZXZlbnRzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5zZXJ2aWNlID09ICdzeXNtb24nICYmIGV2dC5QYXJzZWQuRXZlbnRJRCA9PSAnMScgJiYgCiAgVXBwZXIoZXZ0LlBhcnNlZC5JbWFnZSkgZW5kc1dpdGggJ01TRFQuRVhFJyAmJiAKICBVcHBlcihldnQuUGFyc2VkLlBhcmVudEltYWdlKSBlbmRzV2l0aCAnV0lOV09SRC5FWEUnICYmCiAgKFVwcGVyKGV2dC5QYXJzZWQuQ29tbWFuZExpbmUpIGNvbnRhaW5zICdQQ1dESUFHTk9TVElDJyAmJiBVcHBlcihldnQuUGFyc2VkLkNvbW1hbmRMaW5lKSBjb250YWlucyAnSVRfUkVCUk9XU0VGT1JGSUxFJyAmJiBVcHBlcihldnQuUGFyc2VkLkNvbW1hbmRMaW5lKSBjb250YWlucyAnSVRfQlJPV1NFRk9SRklMRScpCmxhYmVsczoKICB0eXBlOiByY2UKICBub3RpZmljYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTA1OQogICAgLSBhdHRhY2suVDEyMDMKICAgIC0gY3ZlLkNWRS0yMDIyLTMwMTkwCiAgYmVoYXZpb3JzOiAid2luZG93czpyY2UiCiAgbGFiZWw6ICJDVkUtMjAyMi0zMDE5MCIKICBzZXJ2aWNlOiB3aW5kb3dzCnNjb3BlOgogIHR5cGU6IHVzZXJfYWNjb3VudAogIGV4cHJlc3Npb246IGV2dC5QYXJzZWQuVXNlcgo=",
+      "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L0NWRS0yMDIyLTMwMTkwLW1zZHQKZGVzY3JpcHRpb246ICJEZXRlY3QgQ1ZFLTIwMjItMzAxOTAgZnJvbSBzeXNtb24gZXZlbnRzIgpmaWx0ZXI6IHwKICBldnQuTWV0YS5zZXJ2aWNlID09ICdzeXNtb24nICYmIGV2dC5QYXJzZWQuRXZlbnRJRCA9PSAnMScgJiYgCiAgVXBwZXIoZXZ0LlBhcnNlZC5JbWFnZSkgZW5kc1dpdGggJ01TRFQuRVhFJyAmJiAKICBVcHBlcihldnQuUGFyc2VkLlBhcmVudEltYWdlKSBlbmRzV2l0aCAnV0lOV09SRC5FWEUnICYmCiAgKFVwcGVyKGV2dC5QYXJzZWQuQ29tbWFuZExpbmUpIGNvbnRhaW5zICdQQ1dESUFHTk9TVElDJyAmJiBVcHBlcihldnQuUGFyc2VkLkNvbW1hbmRMaW5lKSBjb250YWlucyAnSVRfUkVCUk9XU0VGT1JGSUxFJyAmJiBVcHBlcihldnQuUGFyc2VkLkNvbW1hbmRMaW5lKSBjb250YWlucyAnSVRfQlJPV1NFRk9SRklMRScpCmxhYmVsczoKICB0eXBlOiByY2UKICBub3RpZmljYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTA1OQogICAgLSBhdHRhY2suVDEyMDMKICAgIC0gY3ZlLkNWRS0yMDIyLTMwMTkwCiAgYmVoYXZpb3I6ICJ3aW5kb3dzOnJjZSIKICBsYWJlbDogIkNWRS0yMDIyLTMwMTkwIgogIHNlcnZpY2U6IHdpbmRvd3MKc2NvcGU6CiAgdHlwZTogdXNlcl9hY2NvdW50CiAgZXhwcmVzc2lvbjogZXZ0LlBhcnNlZC5Vc2VyCg==",
       "description": "Detect CVE-2022-30190 from sysmon events",
       "labels": {
-        "behaviors": "windows:rce",
+        "behavior": "windows:rce",
         "classification": [
           "attack.T1059",
           "attack.T1203",
@@ -25585,7 +25671,7 @@
       },
       "long_description": "VGhpcyBzY2VuYXJpbyBkZXRlY3RzIHNvbWUgYXR0ZW1wdHMgYXQgZXhwbG9pdGluZyBbQ1ZFLTIwMjItMzAxOTBdKGh0dHBzOi8vbXNyYy1ibG9nLm1pY3Jvc29mdC5jb20vMjAyMi8wNS8zMC9ndWlkYW5jZS1mb3ItY3ZlLTIwMjItMzAxOTAtbWljcm9zb2Z0LXN1cHBvcnQtZGlhZ25vc3RpYy10b29sLXZ1bG5lcmFiaWxpdHkvKSBvbiBXaW5kb3dzLgoKSXQgZG9lcyBzbyBieSBwYXJzaW5nIHN5c21vbiBsb2dzLCBtb3JlIHNwZWNpZmljYWxseSB0aGUgb25lIHdpdGggZXZlbnQgSUQgMSAocHJvY2VzcyBjcmVhdGlvbikuCgpUaGlzIG1lYW5zIHRoYXQgeW91IG5lZWQgYSB3b3JraW5nIHN5c21vbiBpbnN0YWxsYXRpb24gdG8gYmUgYWJsZSB0byB1c2UgdGhpcyBzY2VuYXJpby4g",
       "path": "scenarios/crowdsecurity/windows-CVE-2022-30190-msdt.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -25594,6 +25680,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "2e41d1c94e7af7e2cdb8eb0c22152a44f320b9e7ef00b6604b3f77977e86f3ed"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "b85cfc72136a45eaab7b8d3b33fb7aa75c758d069b77ccd2899bd43d2ca3522f"
         }
       }
     },
@@ -25628,22 +25718,22 @@
     },
     "crowdsecurity/wireguard-auth": {
       "author": "crowdsecurity",
-      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS93aXJlZ3VhcmQtYXV0aApkZXNjcmlwdGlvbjogIkRldGVjdHMgcmVqZWN0ZWQgY29ubmVjdGlvbnMgYXR0ZW1wdHMgYW5kIHVuYXV0aG9yaXplZCBwYWNrZXRzIHRocm91Z2ggd2lyZWd1YXJkIHR1bm5lbHMiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICd3aXJlZ3VhcmRfZmFpbGVkX2F1dGgnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAiMzBzIgpjYXBhY2l0eTogMwpibGFja2hvbGU6IDFtCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIHNlcnZpY2U6IHdpcmVndWFyZAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgbGFiZWw6ICJXaXJlZ3VhcmQgQnJ1dGVmb3JjZSIKICBiZWhhdmlvcjogImdlbmVyaWM6YnJ1dGVmb3JjZSIK",
+      "content": "dHlwZTogbGVha3kKbmFtZTogY3Jvd2RzZWN1cml0eS93aXJlZ3VhcmQtYXV0aApkZXNjcmlwdGlvbjogIkRldGVjdHMgcmVqZWN0ZWQgY29ubmVjdGlvbnMgYXR0ZW1wdHMgYW5kIHVuYXV0aG9yaXplZCBwYWNrZXRzIHRocm91Z2ggd2lyZWd1YXJkIHR1bm5lbHMiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICd3aXJlZ3VhcmRfZmFpbGVkX2F1dGgnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKbGVha3NwZWVkOiAiMzBzIgpjYXBhY2l0eTogMwpibGFja2hvbGU6IDFtCmxhYmVsczoKICByZW1lZGlhdGlvbjogdHJ1ZQogIHNlcnZpY2U6IHdpcmVndWFyZAogIGNvbmZpZGVuY2U6IDMKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTk1CiAgbGFiZWw6ICJXaXJlZ3VhcmQgUmVqZWN0ZWQgUGFja2V0cyIKICBiZWhhdmlvcjogImdlbmVyaWM6c2NhbiIK",
       "description": "Detects rejected connections attempts and unauthorized packets through wireguard tunnels",
       "labels": {
-        "behavior": "generic:bruteforce",
+        "behavior": "generic:scan",
         "classification": [
-          "attack.T1110"
+          "attack.T1595"
         ],
         "confidence": 3,
-        "label": "Wireguard Bruteforce",
+        "label": "Wireguard Rejected Packets",
         "remediation": true,
         "service": "wireguard",
         "spoofable": 0
       },
       "long_description": "RGV0ZWN0cyBicnV0ZWZvcmNlIGF0dGVtcHRzIGFnYWluc3QgYSB3aXJlZ3VhcmQgc2VydmVyLiBJdCB3aWxsIHBhcnNlIHRoZSB3aXJlZ3VhcmQgbG9nIGZpbGUgYW5kIGNvdW50IHRoZSBudW1iZXIgb2YgZmFpbGVkIGxvZ2luIGF0dGVtcHRzIHBlciBJUCBhZGRyZXNzLiBJZiB0aGUgbnVtYmVyIG9mIGZhaWxlZCBsb2dpbiBhdHRlbXB0cyBleGNlZWRzIHRoZSB0aHJlc2hvbGQsIHRoZSBJUCBhZGRyZXNzIHdpbGwgdHJpZ2dlciBhbiBhbGVydC4=",
       "path": "scenarios/crowdsecurity/wireguard-auth.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -25652,16 +25742,21 @@
         "0.2": {
           "deprecated": false,
           "digest": "e2620820c7b1b14d80075ba0613da2c75462bd10597d9236cf434eba5386ad4e"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "4efa7eb34591df18e854cf79c6ed1be914ce8191550c56946be24be0a0cd29e0"
         }
       }
     },
     "cyrille37/sympa_ww-http-scan": {
       "author": "cyrille37",
-      "content": "IyBjeXJpbGxlMzcvc3ltcGFfd3ctaHR0cC1zY2FuCiMgVmVyc2lvbjogMjAyNS0xMS0wOQojCiMgQHNlZSBzeW1wYV93dy1odHRwLXNjYW4ubWQKIwojIERvY3M6CiMgLSBbQ3JlYXRpbmcgc2NlbmFyaW9dKGh0dHBzOi8vZG9jcy5jcm93ZHNlYy5uZXQvZG9jcy9uZXh0L2xvZ19wcm9jZXNzb3Ivc2NlbmFyaW9zL2NyZWF0ZSkKIyAtIFtleHByZXNzaW9uIGxhbmd1YWdlXShodHRwczovL2V4cHItbGFuZy5vcmcvZG9jcy9sYW5ndWFnZS1kZWZpbml0aW9uKQojCmZvcm1hdDogMi4wCm5hbWU6IGN5cmlsbGUzNy9zeW1wYV93dy1odHRwLXNjYW4KZGVzY3JpcHRpb246ICJEZXRlY3QgaHR0cCBzY2FuIG9uIFN5bXBhIGVuZHBvaW50Igp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnd3dzeW1wYScgJiYgZXZ0Lk1ldGEuc3ltcGFfd2FybiAhPSAnJyAmJiBub3QgKGhhc1N1ZmZpeChldnQuTWV0YS5zeW1wYV9tZXNzYWdlLCAncm9ib3RzLnR4dCcpIHx8IGhhc1N1ZmZpeChldnQuTWV0YS5zeW1wYV9tZXNzYWdlLCAnc2l0ZW1hcC54bWwnKSB8fCBoYXNTdWZmaXgoZXZ0Lk1ldGEuc3ltcGFfbWVzc2FnZSwgJ2Zhdmljb24uaWNvJykpIgpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgojIEhlcmUgd2Ugc2F5IHRoYXQgaWYgYW4gSVAgYWRkcmVzcyBpcyBkb2luZyBtb3JlIHRoYW4gWCBtYXRjaGVzIGluIGxlc3MgdGhhbiBZIHNlY29uZHMsCiMgdGhlIHNjZW5hcmlvIHdpbGwgYmUgdHJpZ2dlcmVkIGFuZCB3aWxsIHRoZW4gYmUgc2lsZW50IGZvciBabSBmb3IgdGhlIHNhbWUgSVAuCmNhcGFjaXR5OiAxCmxlYWtzcGVlZDogMW0KYmxhY2tob2xlOiAxNW0KbGFiZWxzOgogIHNlcnZpY2U6IHd3c3ltcGEKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgdHlwZTogZGlzY292ZXJ5CiAgbGFiZWw6ICJIdHRwIFNjYW4iCiAgYmVoYXZpb3JzOiBbJ2h0dHA6c2NhbiddCiAgcmVtZWRpYXRpb246IHRydWUKCg==",
+      "content": "IyBjeXJpbGxlMzcvc3ltcGFfd3ctaHR0cC1zY2FuCiMgVmVyc2lvbjogMjAyNS0xMS0wOQojCiMgQHNlZSBzeW1wYV93dy1odHRwLXNjYW4ubWQKIwojIERvY3M6CiMgLSBbQ3JlYXRpbmcgc2NlbmFyaW9dKGh0dHBzOi8vZG9jcy5jcm93ZHNlYy5uZXQvZG9jcy9uZXh0L2xvZ19wcm9jZXNzb3Ivc2NlbmFyaW9zL2NyZWF0ZSkKIyAtIFtleHByZXNzaW9uIGxhbmd1YWdlXShodHRwczovL2V4cHItbGFuZy5vcmcvZG9jcy9sYW5ndWFnZS1kZWZpbml0aW9uKQojCmZvcm1hdDogMi4wCm5hbWU6IGN5cmlsbGUzNy9zeW1wYV93dy1odHRwLXNjYW4KZGVzY3JpcHRpb246ICJEZXRlY3QgaHR0cCBzY2FuIG9uIFN5bXBhIGVuZHBvaW50Igp0eXBlOiBsZWFreQojZGVidWc6IHRydWUKZmlsdGVyOiAiZXZ0Lk1ldGEuc2VydmljZSA9PSAnd3dzeW1wYScgJiYgZXZ0Lk1ldGEuc3ltcGFfd2FybiAhPSAnJyAmJiBub3QgKGhhc1N1ZmZpeChldnQuTWV0YS5zeW1wYV9tZXNzYWdlLCAncm9ib3RzLnR4dCcpIHx8IGhhc1N1ZmZpeChldnQuTWV0YS5zeW1wYV9tZXNzYWdlLCAnc2l0ZW1hcC54bWwnKSB8fCBoYXNTdWZmaXgoZXZ0Lk1ldGEuc3ltcGFfbWVzc2FnZSwgJ2Zhdmljb24uaWNvJykpIgpncm91cGJ5OiAiZXZ0Lk1ldGEuc291cmNlX2lwIgojIEhlcmUgd2Ugc2F5IHRoYXQgaWYgYW4gSVAgYWRkcmVzcyBpcyBkb2luZyBtb3JlIHRoYW4gWCBtYXRjaGVzIGluIGxlc3MgdGhhbiBZIHNlY29uZHMsCiMgdGhlIHNjZW5hcmlvIHdpbGwgYmUgdHJpZ2dlcmVkIGFuZCB3aWxsIHRoZW4gYmUgc2lsZW50IGZvciBabSBmb3IgdGhlIHNhbWUgSVAuCmNhcGFjaXR5OiAxCmxlYWtzcGVlZDogMW0KYmxhY2tob2xlOiAxNW0KbGFiZWxzOgogIHNlcnZpY2U6IHd3c3ltcGEKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgdHlwZTogZGlzY292ZXJ5CiAgbGFiZWw6ICJIdHRwIFNjYW4iCiAgYmVoYXZpb3I6ICJodHRwOnNjYW4iCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5NQogIHJlbWVkaWF0aW9uOiB0cnVlCgo=",
       "description": "Detect http scan on Sympa endpoint",
       "labels": {
-        "behaviors": [
-          "http:scan"
+        "behavior": "http:scan",
+        "classification": [
+          "attack.T1595"
         ],
         "confidence": 3,
         "label": "Http Scan",
@@ -25672,11 +25767,15 @@
       },
       "long_description": "IyBjeXJpbGxlMzcvc3ltcGFfd3ctaHR0cC1zY2FuCgpTeW1wYSBXZWIgU2VydmljZSBzY2FuIHNjZW5hcmlvIGJhc2VkIG9uIFN5bXBhIGxvZyBwYXJzZXIgImN5cmlsbGUzNy9zeW1wYV93dy1sb2dzIi4KCkFzIFN5bXBhIHJlcGx5IEhUVFAgMjAwIG9uIHVuZXhpc3RlZCBmaWxlcywgd2UgY2Fubm90IGRldGVjdCBodHRwIHNjYW4gb24gaHR0cCB3ZWIgc2VydmVyIGxvZ3MuCgpTbyB0aGlzICJsZWFreSIgc2NlbmFyaW8gbG9va3MgZm9yIGVycm9ycyBzaWduYWxlZCBieSAic3ltcGFfd3ctbG9ncyIgbG9ncyBwYXJzZXIgd2l0aCBtZXRhICJldnQuTWV0YS5zeW1wYV93YXJuIiBmb3IgYmxvY2tpbmcgc291cmNlIGFmdGVyIDEgYXR0ZW1wdCB3aXRoIGEgbm9uIGV4aXN0aW5nIGFjdGlvbiBvciBsaXN0LCBleGNlcHQgZm9yIGZpbGVzICJyb2JvdHMudHh0IiwgInNpdGVtYXAueG1sIiBhbmQgImZhdmljb24uaWNvIi4K",
       "path": "scenarios/cyrille37/sympa_ww-http-scan.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "1b498f2207bebe3f2385624a71792a073ee6629f1c26d5060341c8bc2304abb8"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "776a9eba197a9d05434cb16ea5343869c8788199b88d06cda94cc16d28f3aaac"
         }
       }
     },
@@ -26263,10 +26362,10 @@
     },
     "melite/dovecot-slow-bf": {
       "author": "melite",
-      "content": "IyBTbG93IGJydXRlZm9yY2Ugb24gRG92ZWNvdCAoUE9QMy9JTUFQKQojIFRpZXIgMjogRGV0ZWN0cyBkaXN0cmlidXRlZCBhdHRhY2tzIHNwYWNpbmcgYXR0ZW1wdHMgNy0zMCBtaW51dGVzIGFwYXJ0CiMgQ29tcGxlbWVudHMgY3Jvd2RzZWN1cml0eS9kb3ZlY290LXNwYW0gKFRpZXIgMSwgMzYwcy8zKQojIERldGVjdGlvbiB3aW5kb3c6IDYwbWluIHggMyA9IDMgaG91cnMgbWF4ICg0IGZhaWx1cmVzIG5lZWRlZCkKdHlwZTogbGVha3kKbmFtZTogbWVsaXRlL2RvdmVjb3Qtc2xvdy1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzbG93IERvdmVjb3QgYnJ1dGVmb3JjZSAoZGlzdHJpYnV0ZWQgYXR0YWNrcykiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdkb3ZlY290X2xvZ3MnICYmIGV2dC5NZXRhLmRvdmVjb3RfbG9naW5fcmVzdWx0ID09ICdhdXRoX2ZhaWxlZCciCmxlYWtzcGVlZDogMzYwMHMKY2FwYWNpdHk6IDMKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBkb3ZlY290CiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAicG9wMy9pbWFwOnNsb3ctYnJ1dGVmb3JjZSIKICBsYWJlbDogIkRvdmVjb3QgU2xvdyBCcnV0ZWZvcmNlIgotLS0KIyBVc2VyIGVudW1lcmF0aW9uIHZhcmlhbnQKdHlwZTogbGVha3kKbmFtZTogbWVsaXRlL2RvdmVjb3Qtc2xvdy1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3Qgc2xvdyBEb3ZlY290IHVzZXIgZW51bWVyYXRpb24iCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdkb3ZlY290X2xvZ3MnICYmIGV2dC5NZXRhLmRvdmVjb3RfbG9naW5fcmVzdWx0ID09ICdhdXRoX2ZhaWxlZCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0LlBhcnNlZC5kb3ZlY290X3VzZXIKbGVha3NwZWVkOiAzNjAwcwpjYXBhY2l0eTogMwpibGFja2hvbGU6IDVtCmxhYmVsczoKICBzZXJ2aWNlOiBkb3ZlY290CiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAicG9wMy9pbWFwOnVzZXItZW51bWVyYXRpb24iCiAgbGFiZWw6ICJEb3ZlY290IFNsb3cgVXNlciBFbnVtZXJhdGlvbiIK",
+      "content": "IyBTbG93IGJydXRlZm9yY2Ugb24gRG92ZWNvdCAoUE9QMy9JTUFQKQojIFRpZXIgMjogRGV0ZWN0cyBkaXN0cmlidXRlZCBhdHRhY2tzIHNwYWNpbmcgYXR0ZW1wdHMgNy0zMCBtaW51dGVzIGFwYXJ0CiMgQ29tcGxlbWVudHMgY3Jvd2RzZWN1cml0eS9kb3ZlY290LXNwYW0gKFRpZXIgMSwgMzYwcy8zKQojIERldGVjdGlvbiB3aW5kb3c6IDYwbWluIHggMyA9IDMgaG91cnMgbWF4ICg0IGZhaWx1cmVzIG5lZWRlZCkKdHlwZTogbGVha3kKbmFtZTogbWVsaXRlL2RvdmVjb3Qtc2xvdy1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCBzbG93IERvdmVjb3QgYnJ1dGVmb3JjZSAoZGlzdHJpYnV0ZWQgYXR0YWNrcykiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdkb3ZlY290X2xvZ3MnICYmIGV2dC5NZXRhLmRvdmVjb3RfbG9naW5fcmVzdWx0ID09ICdhdXRoX2ZhaWxlZCciCmxlYWtzcGVlZDogMzYwMHMKY2FwYWNpdHk6IDMKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KcmVwcm9jZXNzOiB0cnVlCmxhYmVsczoKICBzZXJ2aWNlOiBkb3ZlY290CiAgcmVtZWRpYXRpb246IHRydWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAicG9wMy9pbWFwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJEb3ZlY290IFNsb3cgQnJ1dGVmb3JjZSIKLS0tCiMgVXNlciBlbnVtZXJhdGlvbiB2YXJpYW50CnR5cGU6IGxlYWt5Cm5hbWU6IG1lbGl0ZS9kb3ZlY290LXNsb3ctYmZfdXNlci1lbnVtCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHNsb3cgRG92ZWNvdCB1c2VyIGVudW1lcmF0aW9uIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnZG92ZWNvdF9sb2dzJyAmJiBldnQuTWV0YS5kb3ZlY290X2xvZ2luX3Jlc3VsdCA9PSAnYXV0aF9mYWlsZWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5QYXJzZWQuZG92ZWNvdF91c2VyCmxlYWtzcGVlZDogMzYwMHMKY2FwYWNpdHk6IDMKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogZG92ZWNvdAogIHJlbWVkaWF0aW9uOiB0cnVlCiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBiZWhhdmlvcjogInBvcDMvaW1hcDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiRG92ZWNvdCBTbG93IFVzZXIgRW51bWVyYXRpb24iCg==",
       "description": "Detect slow Dovecot bruteforce (distributed attacks)",
       "labels": {
-        "behavior": "pop3/imap:slow-bruteforce",
+        "behavior": "pop3/imap:bruteforce",
         "classification": [
           "attack.T1110"
         ],
@@ -26278,20 +26377,24 @@
       },
       "long_description": "IyMgRGVzY3JpcHRpb24KCkRldGVjdHMgc2xvdyBicnV0ZS1mb3JjZSBhdHRhY2tzIG9uIERvdmVjb3QgKFBPUDMvSU1BUCkgd2hlcmUgYXR0YWNrZXJzIHNwYWNlIGxvZ2luIGF0dGVtcHRzIDctMzAgbWludXRlcyBhcGFydCB0byBldmFkZSBzdGFuZGFyZCBkZXRlY3Rpb24uCgpUaGlzIGlzIFRpZXIgMiBvZiB0aGUgRG92ZWNvdCBkZXRlY3Rpb24gY2hhaW4sIGNvbXBsZW1lbnRpbmcgYGNyb3dkc2VjdXJpdHkvZG92ZWNvdC1zcGFtYCAoVGllciAxLCB+MjRtaW4gd2luZG93KSBhbmQgYG1lbGl0ZS9kb3ZlY290LXRpbWUtYmFzZWQtYmZgIChUaWVyIDMsIHBhdHRlcm4tYmFzZWQpLgoKVXNlcyBhIGxlYWt5IGJ1Y2tldCB3aXRoIDYwLW1pbnV0ZSAoMzYwMHMpIGxlYWsgcmF0ZSBhbmQgY2FwYWNpdHkgb2YgMy4gVHJpZ2dlcnMgYWZ0ZXIgNCBmYWlsZWQgYXV0aGVudGljYXRpb24gYXR0ZW1wdHMgZnJvbSB0aGUgc2FtZSBJUC4gQXQgMTAtbWludXRlIGludGVydmFscywgYWxsIDQgZXZlbnRzIGFycml2ZSBiZWZvcmUgdGhlIGZpcnN0IGxlYWssIGd1YXJhbnRlZWluZyBkZXRlY3Rpb24uCgpJbmNsdWRlcyBhIGBfdXNlci1lbnVtYCB2YXJpYW50IHRoYXQgdHJpZ2dlcnMgd2hlbiB0aGUgc2FtZSBJUCB0cmllcyBkaWZmZXJlbnQgRG92ZWNvdCB1c2VybmFtZXMgc2xvd2x5LgoKKipEZXRlY3Rpb24gd2luZG93Kio6IDMgaG91cnMgbWF4IChsZWFrc3BlZWQgMzYwMHMgeCBjYXBhY2l0eSAzKSwgdHlwaWNhbGx5IHRyaWdnZXJzIHdpdGhpbiAzMC02MCBtaW51dGVzCgojIyBSZW1lZGlhdGlvbgoKQmFuIHRoZSBhdHRhY2tpbmcgSVAuCgojIyBFeGFtcGxlCgpBIGRpc3RyaWJ1dGVkIGF0dGFja2VyIHRlc3RzIERvdmVjb3QgY3JlZGVudGlhbHMgd2l0aCB+MTAtbWludXRlIGludGVydmFsczoKCmBgYApKYW4gMTUgMDg6MDA6MDAgc2VydmVyIGRvdmVjb3Q6IGltYXAtbG9naW46IERpc2Nvbm5lY3RlZCAoYXV0aCBmYWlsZWQsIDEgYXR0ZW1wdHMpOiB1c2VyPTxhZG1pbkBleGFtcGxlLmNvbT4sIG1ldGhvZD1QTEFJTiwgcmlwPTE5Mi4wLjIuMSwgbGlwPTEwLjAuMC4xLCBUTFMsIHNlc3Npb249PGFiYzAwMT4KSmFuIDE1IDA4OjEwOjAwIHNlcnZlciBkb3ZlY290OiBpbWFwLWxvZ2luOiBEaXNjb25uZWN0ZWQgKGF1dGggZmFpbGVkLCAxIGF0dGVtcHRzKTogdXNlcj08YWRtaW5AZXhhbXBsZS5jb20+LCBtZXRob2Q9UExBSU4sIHJpcD0xOTIuMC4yLjEsIGxpcD0xMC4wLjAuMSwgVExTLCBzZXNzaW9uPTxhYmMwMDI+CkphbiAxNSAwODoyMDowMCBzZXJ2ZXIgZG92ZWNvdDogcG9wMy1sb2dpbjogRGlzY29ubmVjdGVkIChhdXRoIGZhaWxlZCwgMSBhdHRlbXB0cyk6IHVzZXI9PGFkbWluQGV4YW1wbGUuY29tPiwgbWV0aG9kPVBMQUlOLCByaXA9MTkyLjAuMi4xLCBsaXA9MTAuMC4wLjEsIFRMUywgc2Vzc2lvbj08YWJjMDAzPgpKYW4gMTUgMDg6MzA6MDAgc2VydmVyIGRvdmVjb3Q6IGltYXAtbG9naW46IERpc2Nvbm5lY3RlZCAoYXV0aCBmYWlsZWQsIDEgYXR0ZW1wdHMpOiB1c2VyPTxhZG1pbkBleGFtcGxlLmNvbT4sIG1ldGhvZD1QTEFJTiwgcmlwPTE5Mi4wLjIuMSwgbGlwPTEwLjAuMC4xLCBUTFMsIHNlc3Npb249PGFiYzAwND4KYGBgCgojIyBEZXBlbmRlbmNpZXMKCi0gUGFyc2VyOiBgY3Jvd2RzZWN1cml0eS9kb3ZlY290LWxvZ3NgCg==",
       "path": "scenarios/melite/dovecot-slow-bf.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "8718489c128e811da230f482ef3597acb93781a103396e75a8d6dd51d7750462"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "e4ad0a72500dc47b546293613490bef9db94eaef267f8bafafe42b45f6ecb00b"
         }
       }
     },
     "melite/dovecot-time-based-bf": {
       "author": "melite",
-      "content": "IyBUaW1lLWJhc2VkIERvdmVjb3QgYnJ1dGVmb3JjZSBkZXRlY3Rpb24KIyBUaWVyIDM6IERldGVjdHMgZXZhc2l2ZSBhdHRhY2tzIHdpdGggPj0gMjBtaW4gbWVkaWFuIGludGVydmFsCiMgQ29tcGxlbWVudHMgbWVsaXRlL2RvdmVjb3Qtc2xvdy1iZiAoVGllciAyKSBhbmQgY3Jvd2RzZWN1cml0eS9kb3ZlY290LXNwYW0gKFRpZXIgMSkKIyBVc2VzIGNvbmRpdGlvbmFsIHR5cGUgd2l0aCBNZWRpYW5JbnRlcnZhbCBmb3IgcGF0dGVybi1iYXNlZCBkZXRlY3Rpb24KdHlwZTogY29uZGl0aW9uYWwKbmFtZTogbWVsaXRlL2RvdmVjb3QtdGltZS1iYXNlZC1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCB0aW1lLWJhc2VkIERvdmVjb3QgYnJ1dGVmb3JjZSAoZXZhc2l2ZSBhdHRhY2tzKSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2RvdmVjb3RfbG9ncycgJiYgZXZ0Lk1ldGEuZG92ZWNvdF9sb2dpbl9yZXN1bHQgPT0gJ2F1dGhfZmFpbGVkJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiAtMQpjb25kaXRpb246IHwKICAgIGxlbihxdWV1ZS5RdWV1ZSkgPj0gNCAmJgogICAgTWVkaWFuSW50ZXJ2YWwobWFwKHF1ZXVlLlF1ZXVlWy00Ol0sIHsjLlRpbWV9KSkgPj0gZHVyYXRpb24oIjIwbSIpCmxlYWtzcGVlZDogNGgKYmxhY2tob2xlOiA1bQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogIHNlcnZpY2U6IGRvdmVjb3QKICByZW1lZGlhdGlvbjogZmFsc2UKICBjb25maWRlbmNlOiAyCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAicG9wMy9pbWFwOnRpbWUtYmFzZWQtYnJ1dGVmb3JjZSIKICBsYWJlbDogIkRvdmVjb3QgVGltZS1CYXNlZCBCcnV0ZWZvcmNlIgotLS0KIyBVc2VyIGVudW1lcmF0aW9uIHZhcmlhbnQKdHlwZTogY29uZGl0aW9uYWwKbmFtZTogbWVsaXRlL2RvdmVjb3QtdGltZS1iYXNlZC1iZl91c2VyLWVudW0KZGVzY3JpcHRpb246ICJEZXRlY3QgdGltZS1iYXNlZCBEb3ZlY290IHVzZXIgZW51bWVyYXRpb24gKGV2YXNpdmUgYXR0YWNrcykiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdkb3ZlY290X2xvZ3MnICYmIGV2dC5NZXRhLmRvdmVjb3RfbG9naW5fcmVzdWx0ID09ICdhdXRoX2ZhaWxlZCciCmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApkaXN0aW5jdDogZXZ0LlBhcnNlZC5kb3ZlY290X3VzZXIKY2FwYWNpdHk6IC0xCmNvbmRpdGlvbjogfAogICAgbGVuKHF1ZXVlLlF1ZXVlKSA+PSA0ICYmCiAgICBNZWRpYW5JbnRlcnZhbChtYXAocXVldWUuUXVldWVbLTQ6XSwgeyMuVGltZX0pKSA+PSBkdXJhdGlvbigiMjBtIikKbGVha3NwZWVkOiA0aApibGFja2hvbGU6IDVtCmxhYmVsczoKICBzZXJ2aWNlOiBkb3ZlY290CiAgcmVtZWRpYXRpb246IGZhbHNlCiAgY29uZmlkZW5jZTogMgogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDExMTAKICBiZWhhdmlvcjogInBvcDMvaW1hcDp1c2VyLWVudW1lcmF0aW9uIgogIGxhYmVsOiAiRG92ZWNvdCBUaW1lLUJhc2VkIFVzZXIgRW51bWVyYXRpb24iCg==",
+      "content": "IyBUaW1lLWJhc2VkIERvdmVjb3QgYnJ1dGVmb3JjZSBkZXRlY3Rpb24KIyBUaWVyIDM6IERldGVjdHMgZXZhc2l2ZSBhdHRhY2tzIHdpdGggPj0gMjBtaW4gbWVkaWFuIGludGVydmFsCiMgQ29tcGxlbWVudHMgbWVsaXRlL2RvdmVjb3Qtc2xvdy1iZiAoVGllciAyKSBhbmQgY3Jvd2RzZWN1cml0eS9kb3ZlY290LXNwYW0gKFRpZXIgMSkKIyBVc2VzIGNvbmRpdGlvbmFsIHR5cGUgd2l0aCBNZWRpYW5JbnRlcnZhbCBmb3IgcGF0dGVybi1iYXNlZCBkZXRlY3Rpb24KdHlwZTogY29uZGl0aW9uYWwKbmFtZTogbWVsaXRlL2RvdmVjb3QtdGltZS1iYXNlZC1iZgpkZXNjcmlwdGlvbjogIkRldGVjdCB0aW1lLWJhc2VkIERvdmVjb3QgYnJ1dGVmb3JjZSAoZXZhc2l2ZSBhdHRhY2tzKSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2RvdmVjb3RfbG9ncycgJiYgZXZ0Lk1ldGEuZG92ZWNvdF9sb2dpbl9yZXN1bHQgPT0gJ2F1dGhfZmFpbGVkJyIKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmNhcGFjaXR5OiAtMQpjb25kaXRpb246IHwKICAgIGxlbihxdWV1ZS5RdWV1ZSkgPj0gNCAmJgogICAgTWVkaWFuSW50ZXJ2YWwobWFwKHF1ZXVlLlF1ZXVlWy00Ol0sIHsjLlRpbWV9KSkgPj0gZHVyYXRpb24oIjIwbSIpCmxlYWtzcGVlZDogNGgKYmxhY2tob2xlOiA1bQpyZXByb2Nlc3M6IHRydWUKbGFiZWxzOgogIHNlcnZpY2U6IGRvdmVjb3QKICByZW1lZGlhdGlvbjogZmFsc2UKICBjb25maWRlbmNlOiAyCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAicG9wMy9pbWFwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJEb3ZlY290IFRpbWUtQmFzZWQgQnJ1dGVmb3JjZSIKLS0tCiMgVXNlciBlbnVtZXJhdGlvbiB2YXJpYW50CnR5cGU6IGNvbmRpdGlvbmFsCm5hbWU6IG1lbGl0ZS9kb3ZlY290LXRpbWUtYmFzZWQtYmZfdXNlci1lbnVtCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IHRpbWUtYmFzZWQgRG92ZWNvdCB1c2VyIGVudW1lcmF0aW9uIChldmFzaXZlIGF0dGFja3MpIgpmaWx0ZXI6ICJldnQuTWV0YS5sb2dfdHlwZSA9PSAnZG92ZWNvdF9sb2dzJyAmJiBldnQuTWV0YS5kb3ZlY290X2xvZ2luX3Jlc3VsdCA9PSAnYXV0aF9mYWlsZWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKZGlzdGluY3Q6IGV2dC5QYXJzZWQuZG92ZWNvdF91c2VyCmNhcGFjaXR5OiAtMQpjb25kaXRpb246IHwKICAgIGxlbihxdWV1ZS5RdWV1ZSkgPj0gNCAmJgogICAgTWVkaWFuSW50ZXJ2YWwobWFwKHF1ZXVlLlF1ZXVlWy00Ol0sIHsjLlRpbWV9KSkgPj0gZHVyYXRpb24oIjIwbSIpCmxlYWtzcGVlZDogNGgKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogZG92ZWNvdAogIHJlbWVkaWF0aW9uOiBmYWxzZQogIGNvbmZpZGVuY2U6IDIKICBzcG9vZmFibGU6IDAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJwb3AzL2ltYXA6YnJ1dGVmb3JjZSIKICBsYWJlbDogIkRvdmVjb3QgVGltZS1CYXNlZCBVc2VyIEVudW1lcmF0aW9uIgo=",
       "description": "Detect time-based Dovecot bruteforce (evasive attacks)",
       "labels": {
-        "behavior": "pop3/imap:time-based-bruteforce",
+        "behavior": "pop3/imap:bruteforce",
         "classification": [
           "attack.T1110"
         ],
@@ -26303,17 +26406,21 @@
       },
       "long_description": "IyMgRGVzY3JpcHRpb24KCkRldGVjdHMgdGltZS1iYXNlZCBEb3ZlY290IGJydXRlLWZvcmNlIGF0dGFja3Mgd2hlcmUgZXZhc2l2ZSBhdHRhY2tlcnMgc3BhY2UgUE9QMy9JTUFQIGxvZ2luIGF0dGVtcHRzIDIwIG1pbnV0ZXMgb3IgbW9yZSBhcGFydC4KClRoaXMgaXMgVGllciAzIG9mIHRoZSBEb3ZlY290IGRldGVjdGlvbiBjaGFpbiwgY2F0Y2hpbmcgYXR0YWNrcyB0aGF0IGV2YWRlIGJvdGggYGNyb3dkc2VjdXJpdHkvZG92ZWNvdC1zcGFtYCAoVGllciAxKSBhbmQgYG1lbGl0ZS9kb3ZlY290LXNsb3ctYmZgIChUaWVyIDIpLgoKVXNlcyBhIGNvbmRpdGlvbmFsIGJ1Y2tldCB0aGF0IHRyaWdnZXJzIHdoZW4gYXQgbGVhc3QgNCBmYWlsZWQgYXV0aGVudGljYXRpb24gYXR0ZW1wdHMgZnJvbSB0aGUgc2FtZSBJUCBoYXZlIGEgbWVkaWFuIGludGVydmFsIG9mIDIwIG1pbnV0ZXMgb3IgbW9yZS4gVGhlIDQtaG91ciBsZWFrc3BlZWQgZGVmaW5lcyB0aGUgbWF4aW11bSBidWNrZXQgbGlmZXRpbWUsIGtlZXBpbmcgbWVtb3J5IHVzYWdlIGJvdW5kZWQuCgpSZW1lZGlhdGlvbiBpcyBkaXNhYmxlZCBieSBkZWZhdWx0IGJlY2F1c2UgdGhlIGBkb3ZlY290LWxvZ3NgIHBhcnNlciBkb2VzIG5vdCBjYXB0dXJlIHN1Y2Nlc3NmdWwgbG9naW5zLCBzbyBgY2FuY2VsX29uYCBjYW5ub3QgYmUgdXNlZCB0byByZWR1Y2UgZmFsc2UgcG9zaXRpdmVzICh1bmxpa2UgYGNyb3dkc2VjdXJpdHkvc3NoLXRpbWUtYmFzZWQtYmZgIHdoaWNoIGJlbmVmaXRzIGZyb20gYHNzaGQtc3VjY2Vzcy1sb2dzYCkuCgpJbmNsdWRlcyBhIGBfdXNlci1lbnVtYCB2YXJpYW50IGZvciB0aW1lLWJhc2VkIERvdmVjb3QgdXNlcm5hbWUgZW51bWVyYXRpb24uCgoqKkRldGVjdGlvbioqOiA0KyBmYWlsdXJlcyB3aXRoIG1lZGlhbiBpbnRlcnZhbCA+PSAyMCBtaW51dGVzICh3aXRoaW4gNGggd2luZG93KQoKIyMgUmVtZWRpYXRpb24KCkFsZXJ0IG9ubHkgKHJlbWVkaWF0aW9uIGRpc2FibGVkKS4gT3BlcmF0b3JzIGNhbiBlbmFibGUgcmVtZWRpYXRpb24gdmlhIENyb3dkU2VjIHByb2ZpbGVzIGlmIGRlc2lyZWQuCgojIyBFeGFtcGxlCgpBbiBldmFzaXZlIGF0dGFja2VyIHNwYWNlcyBEb3ZlY290IGxvZ2luIGF0dGVtcHRzIH4zMCBtaW51dGVzIGFwYXJ0OgoKYGBgCkphbiAxNSAwODowMDowMCBzZXJ2ZXIgZG92ZWNvdDogaW1hcC1sb2dpbjogRGlzY29ubmVjdGVkIChhdXRoIGZhaWxlZCwgMSBhdHRlbXB0cyk6IHVzZXI9PGFkbWluQGV4YW1wbGUuY29tPiwgbWV0aG9kPVBMQUlOLCByaXA9MTk4LjUxLjEwMC4xLCBsaXA9MTAuMC4wLjEsIFRMUywgc2Vzc2lvbj08ZGVmMDAxPgpKYW4gMTUgMDg6MzA6MDAgc2VydmVyIGRvdmVjb3Q6IGltYXAtbG9naW46IERpc2Nvbm5lY3RlZCAoYXV0aCBmYWlsZWQsIDEgYXR0ZW1wdHMpOiB1c2VyPTxpbmZvQGV4YW1wbGUuY29tPiwgbWV0aG9kPVBMQUlOLCByaXA9MTk4LjUxLjEwMC4xLCBsaXA9MTAuMC4wLjEsIFRMUywgc2Vzc2lvbj08ZGVmMDAyPgpKYW4gMTUgMDk6MDA6MDAgc2VydmVyIGRvdmVjb3Q6IHBvcDMtbG9naW46IERpc2Nvbm5lY3RlZCAoYXV0aCBmYWlsZWQsIDEgYXR0ZW1wdHMpOiB1c2VyPTxhZG1pbkBleGFtcGxlLmNvbT4sIG1ldGhvZD1QTEFJTiwgcmlwPTE5OC41MS4xMDAuMSwgbGlwPTEwLjAuMC4xLCBUTFMsIHNlc3Npb249PGRlZjAwMz4KSmFuIDE1IDA5OjMwOjAwIHNlcnZlciBkb3ZlY290OiBpbWFwLWxvZ2luOiBEaXNjb25uZWN0ZWQgKGF1dGggZmFpbGVkLCAxIGF0dGVtcHRzKTogdXNlcj08d2VibWFzdGVyQGV4YW1wbGUuY29tPiwgbWV0aG9kPVBMQUlOLCByaXA9MTk4LjUxLjEwMC4xLCBsaXA9MTAuMC4wLjEsIFRMUywgc2Vzc2lvbj08ZGVmMDA0PgpgYGAKCiMjIERlcGVuZGVuY2llcwoKLSBQYXJzZXI6IGBjcm93ZHNlY3VyaXR5L2RvdmVjb3QtbG9nc2AK",
       "path": "scenarios/melite/dovecot-time-based-bf.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "725dac5708fbeeabde4e57acada480cd47641456a0e2c34f4c97aed8825f1281"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "05fafed18a244cffbcadad69654295a69b037efebb05348c14476a4396215f3d"
         }
       }
     },
     "mstilkerich/bind9-refused": {
       "author": "mstilkerich",
-      "content": "dHlwZTogbGVha3kKbmFtZTogbXN0aWxrZXJpY2gvYmluZDktcmVmdXNlZApkZXNjcmlwdGlvbjogIkFjdCBvbiBxdWVyaWVzIC8gem9uZSB0cmFuc2ZlcnMgZGVuaWVkIGJ5IGJpbmQ5IHBvbGljeSIKZGVidWc6IGZhbHNlCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdiaW5kOV9kZW5pZWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAxMHMKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogZG9tYWluCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5MC4wMDIKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAzCiAgYmVoYXZpb3I6ICJnZW5lcmljOnNjYW4iCiAgbGFiZWw6ICJEb21haW4gdHJhbnNmZXIgYXR0ZW1wdCIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogbGVha3kKbmFtZTogbXN0aWxrZXJpY2gvYmluZDktcmVmdXNlZApkZXNjcmlwdGlvbjogIkFjdCBvbiBxdWVyaWVzIC8gem9uZSB0cmFuc2ZlcnMgZGVuaWVkIGJ5IGJpbmQ5IHBvbGljeSIKZGVidWc6IGZhbHNlCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdiaW5kOV9kZW5pZWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAxMHMKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogZG9tYWluCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTU5MC4wMDIKICBzcG9vZmFibGU6IDIKICBjb25maWRlbmNlOiAzCiAgYmVoYXZpb3I6ICJnZW5lcmljOnNjYW4iCiAgbGFiZWw6ICJEb21haW4gdHJhbnNmZXIgYXR0ZW1wdCIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
       "description": "Act on queries / zone transfers denied by bind9 policy",
       "labels": {
         "behavior": "generic:scan",
@@ -26324,11 +26431,11 @@
         "label": "Domain transfer attempt",
         "remediation": true,
         "service": "domain",
-        "spoofable": 0
+        "spoofable": 2
       },
       "long_description": "RGV0ZWN0IEFYRlIgcmVxdWVzdHMgYW5kIEROUyBxdWVyaWVzIHJlamVjdGVkIGJ5IGJpbmQ5IHNlY3VyaXR5IHBvbGljeToKIC0gbGVha3NwZWVkIG9mIDEwcywgY2FwYWNpdHkgb2YgNSBvbiBzb3VyY2UgaXAK",
       "path": "scenarios/mstilkerich/bind9-refused.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26337,6 +26444,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "a7567674f1b50c578195fa8e6a95c99e9573598c63720c8ae3b585ff492aa91e"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "058fdb695ceb7129e81a8231a7c55267a62617b2dbba79847c3210c3daa8afae"
         }
       }
     },
@@ -26371,29 +26482,37 @@
     },
     "nicoh88/proxmox-backup-auth-bf": {
       "author": "nicoh88",
-      "content": "dHlwZTogbGVha3kKbmFtZTogbmljb2g4OC9wcm94bW94LWJhY2t1cC1hdXRoLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGZhaWxlZCBQQlMgQVBJIGF1dGhlbnRpY2F0aW9ucyAoYnJ1dGVmb3JjZSkiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdwYnNfZmFpbGVkLWF1dGgnIgpsZWFrc3BlZWQ6IDEwcwpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogcHJveG1veC1iYWNrdXAKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMK",
+      "content": "dHlwZTogbGVha3kKbmFtZTogbmljb2g4OC9wcm94bW94LWJhY2t1cC1hdXRoLWJmCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IGZhaWxlZCBQQlMgQVBJIGF1dGhlbnRpY2F0aW9ucyAoYnJ1dGVmb3JjZSkiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdwYnNfZmFpbGVkLWF1dGgnIgpsZWFrc3BlZWQ6IDEwcwpjYXBhY2l0eTogNQpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogcHJveG1veC1iYWNrdXAKICByZW1lZGlhdGlvbjogdHJ1ZQogIGNvbmZpZGVuY2U6IDMKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJ2bS1tYW5hZ2VtZW50OmJydXRlZm9yY2UiCg==",
       "description": "Detect failed PBS API authentications (bruteforce)",
       "labels": {
+        "behavior": "vm-management:bruteforce",
+        "classification": [
+          "attack.T1110"
+        ],
         "confidence": 3,
         "remediation": true,
         "service": "proxmox-backup"
       },
       "long_description": "IyBQcm94bW94IEJhY2t1cCBTZXJ2ZXIgQXV0aCBCRgoKRGV0ZWN0cyBicnV0ZS1mb3JjZSBhdHRhY2tzIGFnYWluc3QgUHJveG1veCBCYWNrdXAgU2VydmVyIChQQlMpIGF1dGhlbnRpY2F0aW9uLgoKIyMgTG9naWMKCi0gKipUcmlnZ2VyOioqIDYgZmFpbGVkIGF1dGhlbnRpY2F0aW9uIGF0dGVtcHRzIHdpdGhpbiAxMCBzZWNvbmRzLgotICoqVGFyZ2V0OioqIFNhbWUgc291cmNlIElQLgotICoqTG9nIHR5cGU6KiogYHByb3htb3gtYmFja3VwLWF1dGhgIChmYWlsZWQgYXV0aCkuCg==",
       "path": "scenarios/nicoh88/proxmox-backup-auth-bf.yaml",
-      "version": "0.1",
+      "version": "0.2",
       "versions": {
         "0.1": {
           "deprecated": false,
           "digest": "251962a5e9b4f756fc35207e12ede1444a44c095891cd5265d572dd4dd6c65a9"
+        },
+        "0.2": {
+          "deprecated": false,
+          "digest": "83ec63c2db8ccf49d773b9b6e1785fe557d1796af27808c811eb58ce32056759"
         }
       }
     },
     "openappsec/openappsec-bot-protection": {
       "author": "openappsec",
-      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWJvdC1wcm90ZWN0aW9uCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnQm90IFByb3RlY3Rpb24nIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2JvdCBwcm90ZWN0aW9uJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMgogIGJlaGF2aW9yOiAiaHR0cDpzcGFtIgogIGxhYmVsOiAiT3BlbmFwcHNlYyAnQm90IFByb3RlY3Rpb24nIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWJvdC1wcm90ZWN0aW9uCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnQm90IFByb3RlY3Rpb24nIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2JvdCBwcm90ZWN0aW9uJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMgogIGJlaGF2aW9yOiAiaHR0cDpsaWtlbHktYm90IgogIGxhYmVsOiAiT3BlbmFwcHNlYyAnQm90IFByb3RlY3Rpb24nIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
       "description": "Detect openappsec 'prevent' securityActions on 'Bot Protection' events (when waf blocks malicious request)",
       "labels": {
-        "behavior": "http:spam",
+        "behavior": "http:likely-bot",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -26405,7 +26524,7 @@
         "spoofable": 0
       },
       "path": "scenarios/openappsec/openappsec-bot-protection.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26414,6 +26533,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "131dcf6809a4df02095cb2f1ad9cf85372b4b318823a63ef1a817a440652c91b"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "77c0b1d26a58e064d833c4a47c5e91f9e37d474b015e582e4fe9490f109cfed8"
         }
       }
     },
@@ -26504,10 +26627,10 @@
     },
     "openappsec/openappsec-error-limit": {
       "author": "openappsec",
-      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWVycm9yLWxpbWl0CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnRXJyb3IgTGltaXQnIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2Vycm9yIGxpbWl0Jwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAxCiAgY29uZmlkZW5jZTogMQogIGJlaGF2aW9yOiAiaHR0cDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiT3BlbmFwcHNlYyAnZXJyb3IgbGltaXQnIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWVycm9yLWxpbWl0CmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnRXJyb3IgTGltaXQnIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2Vycm9yIGxpbWl0Jwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAxCiAgY29uZmlkZW5jZTogMQogIGJlaGF2aW9yOiAiaHR0cDpzY2FuIgogIGxhYmVsOiAiT3BlbmFwcHNlYyAnZXJyb3IgbGltaXQnIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
       "description": "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)",
       "labels": {
-        "behavior": "http:bruteforce",
+        "behavior": "http:scan",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -26519,7 +26642,7 @@
         "spoofable": 1
       },
       "path": "scenarios/openappsec/openappsec-error-limit.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26528,6 +26651,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "890e27e4725874b45aa18a0df5e1e83a7621bdb2bb3a9c073ba085844d8a8012"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "18450bdf2ef69430b79472b948b87f7cff26263c7a35c7dabb7bb820942ea0b8"
         }
       }
     },
@@ -26591,10 +26718,10 @@
     },
     "openappsec/openappsec-http-limit-violation": {
       "author": "openappsec",
-      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWh0dHAtbGltaXQtdmlvbGF0aW9uCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnSHR0cCBsaW1pdCB2aW9sYXRpb24nIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2h0dHAgbGltaXQgdmlvbGF0aW9uJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMQogIGJlaGF2aW9yOiAiaHR0cDpzcGFtIgogIGxhYmVsOiAiT3BlbmFwcHNlYyAnaHR0cCBsaW1pdCB2aW9sYXRpb24nIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWh0dHAtbGltaXQtdmlvbGF0aW9uCmRlc2NyaXB0aW9uOiAiRGV0ZWN0IG9wZW5hcHBzZWMgJ3ByZXZlbnQnIHNlY3VyaXR5QWN0aW9ucyBvbiAnSHR0cCBsaW1pdCB2aW9sYXRpb24nIGV2ZW50cyAod2hlbiB3YWYgYmxvY2tzIG1hbGljaW91cyByZXF1ZXN0KSIKZmlsdGVyOiBldnQuTWV0YS5sb2dfdHlwZSA9PSAnb3BlbmFwcHNlY19zZWN1cml0eV9sb2cnIGFuZCBMb3dlcihldnQuTWV0YS5zZWN1cml0eV9hY3Rpb24pIGluIFsncHJldmVudCcsICdkZXRlY3QnXSBhbmQgTG93ZXIoZXZ0Lk1ldGEuaW5jaWRlbnRfdHlwZSkgY29udGFpbnMgJ2h0dHAgbGltaXQgdmlvbGF0aW9uJwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE1OTUKICAgIC0gYXR0YWNrLlQxMTkwCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMQogIGJlaGF2aW9yOiAiaHR0cDpkb3MiCiAgbGFiZWw6ICJPcGVuYXBwc2VjICdodHRwIGxpbWl0IHZpb2xhdGlvbicgZGV0ZWN0aW9uIgogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
       "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
       "labels": {
-        "behavior": "http:spam",
+        "behavior": "http:dos",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -26606,7 +26733,7 @@
         "spoofable": 0
       },
       "path": "scenarios/openappsec/openappsec-http-limit-violation.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26615,15 +26742,19 @@
         "0.2": {
           "deprecated": false,
           "digest": "2050cb2b8128ea8ce53cdc4fa1e43500ef9f11305ee4856a11801044e9f5644e"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "cae6bb1eeb7972a6857ce911f997773f8fb5b7ad73cc106755f136585ea4451f"
         }
       }
     },
     "openappsec/openappsec-http-method-violation": {
       "author": "openappsec",
-      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWh0dHAtbWV0aG9kLXZpb2xhdGlvbgpkZXNjcmlwdGlvbjogIkRldGVjdCBvcGVuYXBwc2VjICdwcmV2ZW50JyBzZWN1cml0eUFjdGlvbnMgb24gJ0lsbGVnYWwgaHR0cCBtZXRob2QgdmlvbGF0aW9uJyBldmVudHMgKHdoZW4gd2FmIGJsb2NrcyBtYWxpY2lvdXMgcmVxdWVzdCkiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ29wZW5hcHBzZWNfc2VjdXJpdHlfbG9nJyBhbmQgTG93ZXIoZXZ0Lk1ldGEuc2VjdXJpdHlfYWN0aW9uKSBpbiBbJ3ByZXZlbnQnLCAnZGV0ZWN0J10gYW5kIExvd2VyKGV2dC5NZXRhLmluY2lkZW50X3R5cGUpIGNvbnRhaW5zICdpbGxlZ2FsIGh0dHAgbWV0aG9kIHZpb2xhdGlvbicKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IGh0dHAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTk1CiAgICAtIGF0dGFjay5UMTE5MAogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBiZWhhdmlvcjogImh0dHA6ZXhwbG9pdCIKICBsYWJlbDogIk9wZW5hcHBzZWMgJ2lsbGVnYWwgaHR0cCBtZXRob2QgdmlvbGF0aW9uJyBkZXRlY3Rpb24iCiAgcmVtZWRpYXRpb246IHRydWUK",
+      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLWh0dHAtbWV0aG9kLXZpb2xhdGlvbgpkZXNjcmlwdGlvbjogIkRldGVjdCBvcGVuYXBwc2VjICdwcmV2ZW50JyBzZWN1cml0eUFjdGlvbnMgb24gJ0lsbGVnYWwgaHR0cCBtZXRob2QgdmlvbGF0aW9uJyBldmVudHMgKHdoZW4gd2FmIGJsb2NrcyBtYWxpY2lvdXMgcmVxdWVzdCkiCmZpbHRlcjogZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ29wZW5hcHBzZWNfc2VjdXJpdHlfbG9nJyBhbmQgTG93ZXIoZXZ0Lk1ldGEuc2VjdXJpdHlfYWN0aW9uKSBpbiBbJ3ByZXZlbnQnLCAnZGV0ZWN0J10gYW5kIExvd2VyKGV2dC5NZXRhLmluY2lkZW50X3R5cGUpIGNvbnRhaW5zICdpbGxlZ2FsIGh0dHAgbWV0aG9kIHZpb2xhdGlvbicKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogNW0KbGFiZWxzOgogIHNlcnZpY2U6IGh0dHAKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxNTk1CiAgICAtIGF0dGFjay5UMTE5MAogIHNwb29mYWJsZTogMAogIGNvbmZpZGVuY2U6IDMKICBiZWhhdmlvcjogImh0dHA6c2NhbiIKICBsYWJlbDogIk9wZW5hcHBzZWMgJ2lsbGVnYWwgaHR0cCBtZXRob2QgdmlvbGF0aW9uJyBkZXRlY3Rpb24iCiAgcmVtZWRpYXRpb246IHRydWUK",
       "description": "Detect openappsec 'prevent' securityActions on 'Illegal http method violation' events (when waf blocks malicious request)",
       "labels": {
-        "behavior": "http:exploit",
+        "behavior": "http:scan",
         "classification": [
           "attack.T1595",
           "attack.T1190"
@@ -26635,7 +26766,7 @@
         "spoofable": 0
       },
       "path": "scenarios/openappsec/openappsec-http-method-violation.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26644,6 +26775,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "f4ca829b97b0ee227fd90be71be8fd475eb63f791452ca634ff233e3085530a3"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "5024a21482b40a33cfb05a953c2f8dd01183c278116146292032f2486a83b742"
         }
       }
     },
@@ -26794,10 +26929,10 @@
     },
     "openappsec/openappsec-request-rate-limit": {
       "author": "openappsec",
-      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLXJlcXVlc3QtcmF0ZS1saW1pdApkZXNjcmlwdGlvbjogIkRldGVjdCBvcGVuYXBwc2VjICdwcmV2ZW50JyBzZWN1cml0eUFjdGlvbnMgb24gJ1JlcXVlc3QgUmF0ZSBMaW1pdCcgZXZlbnRzICh3aGVuIHdhZiBibG9ja3MgbWFsaWNpb3VzIHJlcXVlc3QpIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdvcGVuYXBwc2VjX3NlY3VyaXR5X2xvZycgYW5kIExvd2VyKGV2dC5NZXRhLnNlY3VyaXR5X2FjdGlvbikgaW4gWydwcmV2ZW50JywgJ2RldGVjdCddIGFuZCBMb3dlcihldnQuTWV0YS5pbmNpZGVudF90eXBlKSBjb250YWlucyAncmVxdWVzdCByYXRlIGxpbWl0Jwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAyCiAgYmVoYXZpb3I6ICJodHRwOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJPcGVuYXBwc2VjICdyZXF1ZXN0IHJhdGUgbGltaXQnIGRldGVjdGlvbiIKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "dHlwZTogdHJpZ2dlcgojZGVidWc6IHRydWUKbmFtZTogb3BlbmFwcHNlYy9vcGVuYXBwc2VjLXJlcXVlc3QtcmF0ZS1saW1pdApkZXNjcmlwdGlvbjogIkRldGVjdCBvcGVuYXBwc2VjICdwcmV2ZW50JyBzZWN1cml0eUFjdGlvbnMgb24gJ1JlcXVlc3QgUmF0ZSBMaW1pdCcgZXZlbnRzICh3aGVuIHdhZiBibG9ja3MgbWFsaWNpb3VzIHJlcXVlc3QpIgpmaWx0ZXI6IGV2dC5NZXRhLmxvZ190eXBlID09ICdvcGVuYXBwc2VjX3NlY3VyaXR5X2xvZycgYW5kIExvd2VyKGV2dC5NZXRhLnNlY3VyaXR5X2FjdGlvbikgaW4gWydwcmV2ZW50JywgJ2RldGVjdCddIGFuZCBMb3dlcihldnQuTWV0YS5pbmNpZGVudF90eXBlKSBjb250YWlucyAncmVxdWVzdCByYXRlIGxpbWl0Jwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiA1bQpsYWJlbHM6CiAgc2VydmljZTogaHR0cAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDE0OTgKICBzcG9vZmFibGU6IDAKICBjb25maWRlbmNlOiAyCiAgYmVoYXZpb3I6ICJodHRwOmRvcyIKICBsYWJlbDogIk9wZW5hcHBzZWMgJ3JlcXVlc3QgcmF0ZSBsaW1pdCcgZGV0ZWN0aW9uIgogIHJlbWVkaWF0aW9uOiB0cnVlCg==",
       "description": "Detect openappsec 'prevent' securityActions on 'Request Rate Limit' events (when waf blocks malicious request)",
       "labels": {
-        "behavior": "http:bruteforce",
+        "behavior": "http:dos",
         "classification": [
           "attack.T1498"
         ],
@@ -26808,7 +26943,7 @@
         "spoofable": 0
       },
       "path": "scenarios/openappsec/openappsec-request-rate-limit.yaml",
-      "version": "0.2",
+      "version": "0.3",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -26817,6 +26952,10 @@
         "0.2": {
           "deprecated": false,
           "digest": "98c6638dda03c0b6ffb29bcb5b09571890eae5c764a0d7ab3c9678d0458680f6"
+        },
+        "0.3": {
+          "deprecated": false,
+          "digest": "a804074fc9dabfcf12ab6a6c05d46bea44db4590922003cadebad1e9e164987e"
         }
       }
     },
@@ -41784,7 +41923,7 @@
     },
     "thespad/sshesame-honeypot": {
       "author": "thespad",
-      "content": "IyBzc2hlc2FtZSBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IHRoZXNwYWQvc3NoZXNhbWUtYmYKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2xvZ2luJyIKbGVha3NwZWVkOiAiMzBtIgpjYXBhY2l0eTogMwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoZXNhbWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAic3NoOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJTU0hlc2FtZSBCcnV0ZWZvcmNlIgogIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQojIHNzaGVzYW1lIGNvbW1hbmRzCnR5cGU6IHRyaWdnZXIKbmFtZTogdGhlc3BhZC9zc2hlc2FtZS1jbWQKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgY29tbWFuZHMiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdzc2hlc2FtZV9jbWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoZXNhbWUKICB0eXBlOiBjb21tYW5kCiAgYmVoYXZpb3I6ICJzc2g6YnJ1dGVmb3JjZSIKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMDU5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQojIHNzaGVzYW1lIGlucHV0CnR5cGU6IGxlYWt5Cm5hbWU6IHRoZXNwYWQvc3NoZXNhbWUtaW5wdXQKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgaW5wdXQgc3BhbSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2lucHV0JyIKbGVha3NwZWVkOiAiNW0iCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBzc2hlc2FtZQogIGJlaGF2aW9yOiAic3NoOmJydXRlZm9yY2UiCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDEwNTkKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
+      "content": "IyBzc2hlc2FtZSBicnV0ZWZvcmNlCnR5cGU6IGxlYWt5Cm5hbWU6IHRoZXNwYWQvc3NoZXNhbWUtYmYKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgYnJ1dGVmb3JjZSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2xvZ2luJyIKbGVha3NwZWVkOiAiMzBtIgpjYXBhY2l0eTogMwpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoZXNhbWUKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgICAtIGF0dGFjay5UMTExMAogIGJlaGF2aW9yOiAic3NoOmJydXRlZm9yY2UiCiAgbGFiZWw6ICJTU0hlc2FtZSBCcnV0ZWZvcmNlIgogIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQojIHNzaGVzYW1lIGNvbW1hbmRzCnR5cGU6IHRyaWdnZXIKbmFtZTogdGhlc3BhZC9zc2hlc2FtZS1jbWQKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgY29tbWFuZHMiCmZpbHRlcjogImV2dC5NZXRhLmxvZ190eXBlID09ICdzc2hlc2FtZV9jbWQnIgpncm91cGJ5OiBldnQuTWV0YS5zb3VyY2VfaXAKYmxhY2tob2xlOiAxbQpsYWJlbHM6CiAgc2VydmljZTogc3NoZXNhbWUKICB0eXBlOiBjb21tYW5kCiAgYmVoYXZpb3I6ICJsaW51eDpwb3N0LWV4cGxvaXRhdGlvbiIKICBjbGFzc2lmaWNhdGlvbjoKICAgIC0gYXR0YWNrLlQxMDU5CiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIHJlbWVkaWF0aW9uOiB0cnVlCi0tLQojIHNzaGVzYW1lIGlucHV0CnR5cGU6IGxlYWt5Cm5hbWU6IHRoZXNwYWQvc3NoZXNhbWUtaW5wdXQKZGVzY3JpcHRpb246ICJEZXRlY3Qgc3NoZXNhbWUgaW5wdXQgc3BhbSIKZmlsdGVyOiAiZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ3NzaGVzYW1lX2lucHV0JyIKbGVha3NwZWVkOiAiNW0iCmNhcGFjaXR5OiA1Cmdyb3VwYnk6IGV2dC5NZXRhLnNvdXJjZV9pcApibGFja2hvbGU6IDFtCmxhYmVsczoKICBzZXJ2aWNlOiBzc2hlc2FtZQogIGJlaGF2aW9yOiAibGludXg6cG9zdC1leHBsb2l0YXRpb24iCiAgc3Bvb2ZhYmxlOiAwCiAgY29uZmlkZW5jZTogMwogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDEwNTkKICByZW1lZGlhdGlvbjogdHJ1ZQo=",
       "description": "Detect sshesame bruteforce",
       "labels": {
         "behavior": "ssh:bruteforce",
@@ -41799,7 +41938,7 @@
       },
       "long_description": "IyBzc2hlc2FtZSBzY2VuYXJpb3MKClNjZW5hcmlvcyBmb3IgW3NzaGVzYW1lXShodHRwczovL2dpdGh1Yi5jb20vamFrc2kvc3NoZXNhbWUvKSBob25leXBvdCBsb2dzLgoKIyMgU2NlbmFyaW8gc2V0dXAKCiogQWxsIGxvZ2luIGV2ZW50czogbGVha3NwZWVkIG9mIDMwbSwgY2FwYWNpdHkgb2YgMwoqIEFueSBjb21tYW5kcyBzZW50IGJ5IGNsaWVudHMgYXMgcGFydCBvZiBhIGNvbm5lY3Rpb24gYXR0ZW1wdCB3aWxsIGltbWVkaWF0ZWx5IG92ZXJmbG93Cg==",
       "path": "scenarios/thespad/sshesame-honeypot.yaml",
-      "version": "0.4",
+      "version": "0.5",
       "versions": {
         "0.1": {
           "deprecated": false,
@@ -41816,6 +41955,10 @@
         "0.4": {
           "deprecated": false,
           "digest": "8254538cdb89d46898003bf5f3174f1948e36d5ea0067cf2e1c200026ed6b950"
+        },
+        "0.5": {
+          "deprecated": false,
+          "digest": "e13114af024fafad4639000869469cedd13c8655941faf6c112decece2bf7923"
         }
       }
     },
