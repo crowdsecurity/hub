@@ -1,8 +1,23 @@
-type: collection
 name: PumbaLP/cowrie
-description: "Collection for Cowrie Honeypot (Parser + Scenario)"
+description: "Cowrie honeypot JSON logs: parser, honeypot interaction detection, SSH and telnet brute force"
 author: PumbaLP
 parsers:
-  - PumbaLP/cowrie-logs
+  - PumbaLP/cowrie-json-logs
+  - crowdsecurity/dateparse-enrich
 scenarios:
   - PumbaLP/cowrie-precision
+  - crowdsecurity/ssh-bf
+  - crowdsecurity/ssh-slow-bf
+  - crowdsecurity/telnet-bf
+contexts:
+  - crowdsecurity/bf_base
+labels:
+  label: "Cowrie Honeypot"
+tags:
+  - security_engine
+  - linux
+  - honeypot
+  - cowrie
+  - ssh
+  - telnet
+  - bruteforce
