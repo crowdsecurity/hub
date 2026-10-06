@@ -1,6 +1,10 @@
 parsers:
-  - PumbaLP/cowrie-logs
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/PumbaLP/cowrie-json-logs.yaml
+  - crowdsecurity/dateparse-enrich
 scenarios:
-  - PumbaLP/cowrie-precision
-log_file: cowrie.log
+  - ./scenarios/PumbaLP/cowrie-precision.yaml
+postoverflows: []
+log_file: cowrie-precision.log
 log_type: cowrie
+ignore_parsers: true
