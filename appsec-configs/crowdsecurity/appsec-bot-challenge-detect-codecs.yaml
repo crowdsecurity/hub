@@ -27,7 +27,7 @@ inband:
         fingerprint.Custom["cfH264Eff"].Bool &&
         !fingerprint.Custom["cfRtcH264"].Bool
       apply:
-        - AddRequestScore(100, "h264_capability_mismatch")
+        - AddRequestScore(100, "h264_capability_mismatch", "detect")
 
     # Firefox on Windows and macOS decodes H.264 through the OS. One that
     # claims either and cannot is not running on what it claims.
@@ -37,16 +37,16 @@ inband:
         fingerprint.HasCustom("cfH264Sup") &&
         !fingerprint.Custom["cfH264Sup"].Bool
       apply:
-        - AddRequestScore(100, "gecko_no_h264_on_native_os")
+        - AddRequestScore(100, "gecko_no_h264_on_native_os", "detect")
 
     # Each key is written on every run, so an absent key means the module never
     # ran. 18 points x 3 keys = 54, under a 75 threshold on its own.
     - filter: '!fingerprint.HasCustom("cfH264Sup")'
       apply:
-        - AddRequestScore(18, "missing_cf_h264_sup")
+        - AddRequestScore(18, "missing_cf_h264_sup", "detect")
     - filter: '!fingerprint.HasCustom("cfH264Eff")'
       apply:
-        - AddRequestScore(18, "missing_cf_h264_eff")
+        - AddRequestScore(18, "missing_cf_h264_eff", "detect")
     - filter: '!fingerprint.HasCustom("cfRtcH264")'
       apply:
-        - AddRequestScore(18, "missing_cf_rtc_h264")
+        - AddRequestScore(18, "missing_cf_rtc_h264", "detect")

@@ -8,13 +8,23 @@ name: crowdsecurity/appsec-bot-challenge-detect-cpu-arch
 #
 #   x86 -> "0000c0ff"      arm -> "0000c07f"
 #
-# Only iOS and Android are checked. Both are always ARM, so an x86 answer under
-# either is a lie the user agent cannot cover. Windows and macOS are
+# Only iOS and Android are checked. Phones and tablets on either are ARM, so an
+# x86 answer under those user agents wants explaining. Windows and macOS are
 # deliberately not checked this way: Apple Silicon and Windows-on-ARM are both
 # real, so neither architecture is evidence there.
 #
 # Requires 'wasm-unsafe-eval' in the challenge CSP (crowdsec 1.8+). On an engine
 # without it the module reports its sentinel and these rules stay silent.
+#
+# Staged: every rule below scores 0 under the `detect-experimental` category,
+# so it records what it saw without moving the decision. An x86 Chromebook
+# running Android apps answers x86 under an Android user agent and is not a
+# lie. Alerts come from crowdsecurity/appsec-bot-challenge-warn-experimental.
+#
+# Shipped outside the default bundle, in
+# crowdsecurity/appsec-bot-challenge-detections-extra: the WebAssembly module
+# can fail on a browser the others are fine on, and it takes a share of the
+# shared client-side time budget.
 data:
   # Branch URL while in review. Flip to
   # https://hub-data.crowdsec.net/challenge/cpu-arch-v1.js when sec-lists merges.
@@ -28,19 +38,18 @@ inband:
         (req.UserAgent() contains "iPhone" || req.UserAgent() contains "iPad") &&
         fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
       apply:
-        - AddRequestScore(100, "arm_platform_on_x86_ios")
+        - AddRequestScore(0, "arm_platform_on_x86_ios", "detect-experimental")  # intended weight: 100
 
     - filter: >-
         req.UserAgent() contains "Android" &&
         fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
       apply:
-        - AddRequestScore(100, "arm_platform_on_x86_android")
+        - AddRequestScore(0, "arm_platform_on_x86_android", "detect-experimental")  # intended weight: 100
 
     # The module writes its key on every run, using an empty string when it
-    # cannot measure, so an absent key means it never ran at all. One key, so
-    # the weight carries the whole family: still under a 75 threshold on its
-    # own, because a module cut by the shared time budget must not reject a
-    # real visitor.
+    # cannot measure, so an absent key means it never ran at all. Scored with
+    # the rest of the family: an experimental module's absence must not move the
+    # decision any more than its findings do.
     - filter: '!fingerprint.HasCustom("cfArchNan")'
       apply:
-        - AddRequestScore(50, "missing_cf_arch_nan")
+        - AddRequestScore(0, "missing_cf_arch_nan", "detect-experimental")  # intended weight: 50

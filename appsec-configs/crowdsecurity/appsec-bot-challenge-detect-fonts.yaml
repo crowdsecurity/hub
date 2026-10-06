@@ -25,21 +25,21 @@ inband:
         fingerprint.Custom["cfFontBase"].Number != -1 &&
         fingerprint.Custom["cfFontSegoe"].Number == fingerprint.Custom["cfFontBase"].Number
       apply:
-        - AddRequestScore(100, "os_font_missing_windows")
+        - AddRequestScore(100, "os_font_missing_windows", "detect")
 
     - filter: >-
         (req.UserAgent() contains "Mac OS X" || req.UserAgent() contains "iPhone") &&
         fingerprint.Custom["cfFontBase"].Number != -1 &&
         fingerprint.Custom["cfFontHelv"].Number == fingerprint.Custom["cfFontBase"].Number
       apply:
-        - AddRequestScore(100, "os_font_missing_apple")
+        - AddRequestScore(100, "os_font_missing_apple", "detect")
 
     - filter: >-
         req.UserAgent() contains "Android" &&
         fingerprint.Custom["cfFontBase"].Number != -1 &&
         fingerprint.Custom["cfFontRoboto"].Number == fingerprint.Custom["cfFontBase"].Number
       apply:
-        - AddRequestScore(100, "os_font_missing_android")
+        - AddRequestScore(100, "os_font_missing_android", "detect")
 
     # A Linux desktop face resolving on a non-Linux claim says where the
     # process really runs. Scored only alongside a missing native font,
@@ -48,9 +48,9 @@ inband:
         !(req.UserAgent() contains "Linux" || req.UserAgent() contains "X11") &&
         fingerprint.Custom["cfFontBase"].Number != -1 &&
         fingerprint.Custom["cfFontDejavu"].Number != fingerprint.Custom["cfFontBase"].Number &&
-        RequestScoreFor("os_font_missing_windows") + RequestScoreFor("os_font_missing_apple") + RequestScoreFor("os_font_missing_android") != 0
+        any(RequestScoreReasons(), hasPrefix(#, "detect:os_font_missing_"))
       apply:
-        - AddRequestScore(50, "linux_font_on_foreign_os")
+        - AddRequestScore(50, "linux_font_on_foreign_os", "detect")
 
     # --- the CSS system font keyword --------------------------------------
     # Chrome and Firefox on Windows resolve `font: menu` to Segoe UI. A build
@@ -61,7 +61,7 @@ inband:
         fingerprint.Custom["cfFontSys"].Str != "" &&
         !(fingerprint.Custom["cfFontSys"].Str contains "Segoe UI")
       apply:
-        - AddRequestScore(100, "system_font_not_native")
+        - AddRequestScore(100, "system_font_not_native", "detect")
 
     # --- hinting ----------------------------------------------------------
     # cfFontFrac counts how many of the five advances landed on a whole pixel.
@@ -71,7 +71,7 @@ inband:
         !(req.UserAgent() contains "Linux" || req.UserAgent() contains "X11") &&
         fingerprint.Custom["cfFontFrac"].Number == 5
       apply:
-        - AddRequestScore(100, "font_advances_quantized")
+        - AddRequestScore(100, "font_advances_quantized", "detect")
 
     # --- emoji ------------------------------------------------------------
     # Each platform ships its own colour emoji font.
@@ -80,21 +80,21 @@ inband:
         fingerprint.Custom["cfFontEmojiBase"].Number != -1 &&
         fingerprint.Custom["cfFontEmojiSegoe"].Number == fingerprint.Custom["cfFontEmojiBase"].Number
       apply:
-        - AddRequestScore(50, "emoji_font_missing_windows")
+        - AddRequestScore(50, "emoji_font_missing_windows", "detect")
 
     - filter: >-
         (req.UserAgent() contains "Mac OS X" || req.UserAgent() contains "iPhone") &&
         fingerprint.Custom["cfFontEmojiBase"].Number != -1 &&
         fingerprint.Custom["cfFontEmojiApple"].Number == fingerprint.Custom["cfFontEmojiBase"].Number
       apply:
-        - AddRequestScore(50, "emoji_font_missing_apple")
+        - AddRequestScore(50, "emoji_font_missing_apple", "detect")
 
     - filter: >-
         req.UserAgent() contains "Android" &&
         fingerprint.Custom["cfFontEmojiBase"].Number != -1 &&
         fingerprint.Custom["cfFontEmojiNoto"].Number == fingerprint.Custom["cfFontEmojiBase"].Number
       apply:
-        - AddRequestScore(50, "emoji_font_missing_android")
+        - AddRequestScore(50, "emoji_font_missing_android", "detect")
 
     # --- the module did not report ----------------------------------------
     # Each key is written on every run, with a sentinel when a measurement is
@@ -104,34 +104,34 @@ inband:
     # reject a real visitor, while stripping several of them does.
     - filter: '!fingerprint.HasCustom("cfFontBase")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_base")
+        - AddRequestScore(5, "missing_cf_font_base", "detect")
     - filter: '!fingerprint.HasCustom("cfFontSegoe")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_segoe")
+        - AddRequestScore(5, "missing_cf_font_segoe", "detect")
     - filter: '!fingerprint.HasCustom("cfFontHelv")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_helv")
+        - AddRequestScore(5, "missing_cf_font_helv", "detect")
     - filter: '!fingerprint.HasCustom("cfFontRoboto")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_roboto")
+        - AddRequestScore(5, "missing_cf_font_roboto", "detect")
     - filter: '!fingerprint.HasCustom("cfFontDejavu")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_dejavu")
+        - AddRequestScore(5, "missing_cf_font_dejavu", "detect")
     - filter: '!fingerprint.HasCustom("cfFontSys")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_sys")
+        - AddRequestScore(5, "missing_cf_font_sys", "detect")
     - filter: '!fingerprint.HasCustom("cfFontFrac")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_frac")
+        - AddRequestScore(5, "missing_cf_font_frac", "detect")
     - filter: '!fingerprint.HasCustom("cfFontEmojiBase")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_emoji_base")
+        - AddRequestScore(5, "missing_cf_font_emoji_base", "detect")
     - filter: '!fingerprint.HasCustom("cfFontEmojiApple")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_emoji_apple")
+        - AddRequestScore(5, "missing_cf_font_emoji_apple", "detect")
     - filter: '!fingerprint.HasCustom("cfFontEmojiSegoe")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_emoji_segoe")
+        - AddRequestScore(5, "missing_cf_font_emoji_segoe", "detect")
     - filter: '!fingerprint.HasCustom("cfFontEmojiNoto")'
       apply:
-        - AddRequestScore(5, "missing_cf_font_emoji_noto")
+        - AddRequestScore(5, "missing_cf_font_emoji_noto", "detect")

@@ -1,0 +1,22 @@
+name: crowdsecurity/appsec-bot-challenge-detections-extra
+# Detections held out of the default bundle because they can fail on a browser
+# the others are fine on.
+#
+# detect-cpu-arch ships a WebAssembly module: it needs 'wasm-unsafe-eval' in
+# the challenge CSP, and it takes a share of the challenge's shared
+# client-side time budget away from fonts and codecs. Like form-factor and
+# headers it is staged -- its rules score 0 and only raise an alert through
+# warn-experimental, which is listed here too so this collection works on its
+# own.
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-detect-cpu-arch
+  - crowdsecurity/appsec-bot-challenge-warn-experimental
+description: "AppSec bot challenge: CPU architecture against the claimed platform (WebAssembly)"
+labels:
+  label: "WAF - Bot Challenge Detections (extra)"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

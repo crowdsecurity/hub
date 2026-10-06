@@ -3,8 +3,12 @@ name: crowdsecurity/appsec-bot-challenge-detect-form-factor
 # it actually has. Every signal here already exists in the fingerprint, so this
 # config ships no JavaScript and cannot be evaded by blocking it.
 #
-# Must be loaded before a scoring config calls RejectSubmission, which halts
-# every later on_challenge_submit rule.
+# Staged: every rule below scores 0 under the `detect-experimental` category,
+# so it records what it saw without moving the decision. The colour-depth and
+# pointer heuristics have not been measured against a real browser population
+# yet; once field data shows no false positives, a rule is promoted by moving
+# it to the `detect` category and restoring the weight in its trailing comment.
+# Alerts come from crowdsecurity/appsec-bot-challenge-warn-experimental.
 inband:
   on_challenge_submit:
     # A phone with a mouse. Real Android and iOS report a coarse pointer and no
@@ -14,19 +18,19 @@ inband:
         fingerprint.Signals.Device.MediaQueries.Pointer == "fine" &&
         string(fingerprint.Signals.Device.MediaQueries.Hover) == "true"
       apply:
-        - AddRequestScore(100, "mobile_desktop_input")
+        - AddRequestScore(0, "mobile_desktop_input", "detect-experimental")  # intended weight: 100
 
     # Every browser on iOS is WebKit, so Blink's window.chrome surface cannot
     # exist there.
     - filter: 'req.UserAgent() contains "iPhone" && string(fingerprint.Signals.Browser.Features.Chrome) == "true"'
       apply:
-        - AddRequestScore(100, "ios_blink_surface")
+        - AddRequestScore(0, "ios_blink_surface", "detect-experimental")  # intended weight: 100
 
     # Chrome and Firefox report a colour depth of 24 on every platform they
     # support. 32 is a value real engines stopped emitting long ago.
     - filter: 'int(fingerprint.Signals.Device.ScreenResolution.ColorDepth) == 32'
       apply:
-        - AddRequestScore(50, "color_depth_32")
+        - AddRequestScore(0, "color_depth_32", "detect-experimental")  # intended weight: 50
 
     # A desktop-sized screen with no pointing device and no hover at all: a
     # headless input stack wearing a desktop screen size.
@@ -35,4 +39,4 @@ inband:
         string(fingerprint.Signals.Device.MediaQueries.Hover) == "false" &&
         int(fingerprint.Signals.Device.ScreenResolution.Width) >= 1024
       apply:
-        - AddRequestScore(50, "no_pointer_desktop")
+        - AddRequestScore(0, "no_pointer_desktop", "detect-experimental")  # intended weight: 50

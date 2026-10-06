@@ -7,6 +7,12 @@ name: crowdsecurity/appsec-bot-challenge-detect-headers
 # Ships no JavaScript. Each rule is guarded on the hint actually being present,
 # so deployments where the browser sends none (plain HTTP, or a browser that
 # does not implement client hints) score nothing rather than everything.
+#
+# Staged: every rule below scores 0 under the `detect-experimental` category,
+# so it records what it saw without moving the decision. Once field data shows
+# no false positives, a rule is promoted by moving it to the `detect` category
+# and restoring the weight in its trailing comment. Alerts come from
+# crowdsecurity/appsec-bot-challenge-warn-experimental.
 inband:
   on_challenge_submit:
     - filter: >-
@@ -14,14 +20,14 @@ inband:
         req.UserAgent() contains "Windows NT" &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "Windows")
       apply:
-        - AddRequestScore(100, "ch_platform_windows")
+        - AddRequestScore(0, "ch_platform_windows", "detect-experimental")  # intended weight: 100
 
     - filter: >-
         req.Header.Get("Sec-CH-UA-Platform") != "" &&
         req.UserAgent() contains "Android" &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "Android")
       apply:
-        - AddRequestScore(100, "ch_platform_android")
+        - AddRequestScore(0, "ch_platform_android", "detect-experimental")  # intended weight: 100
 
     - filter: >-
         req.Header.Get("Sec-CH-UA-Platform") != "" &&
@@ -29,10 +35,12 @@ inband:
         !(req.UserAgent() contains "iPhone") &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "macOS")
       apply:
-        - AddRequestScore(100, "ch_platform_macos")
+        - AddRequestScore(0, "ch_platform_macos", "detect-experimental")  # intended weight: 100
 
-    # Safari on iOS implements no client hints at all, so an iPhone user agent
-    # that sends them is Blink wearing the string.
+    # Every browser on iOS is WebKit and implements no client hints, wrappers
+    # (CriOS/EdgiOS/FxiOS) included, so an iPhone user agent that sends them is
+    # Blink wearing the string. Untested against real iOS traffic, which is the
+    # only thing that would confirm it.
     - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
       apply:
-        - AddRequestScore(100, "ios_sends_client_hints")
+        - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental")  # intended weight: 100
