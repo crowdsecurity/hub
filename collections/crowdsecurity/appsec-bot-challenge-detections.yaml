@@ -1,17 +1,5 @@
 name: crowdsecurity/appsec-bot-challenge-detections
-# Platform-consistency detections for the bot challenge. Each config checks a
-# fingerprint against the platform it claims to be -- never against the
-# server's own host -- so a genuine Windows, macOS, Android or iOS visitor is
-# unaffected while a process wearing one of those user agents is not.
-#
-# Everything here is safe to run in any browser. fonts and codecs score into
-# the request total; form-factor and headers are staged -- they score 0 and
-# only raise an alert through warn-experimental, which is how they get
-# validated at scale before being promoted to a weight.
-#
-# The one detection not in this collection is detect-cpu-arch, in
-# crowdsecurity/appsec-bot-challenge-detections-extra: its WebAssembly module
-# can fail where the others are fine.
+# Platform-consistency detections for the bot challenge.
 appsec-configs:
   - crowdsecurity/appsec-bot-challenge-detect-fonts
   - crowdsecurity/appsec-bot-challenge-detect-codecs

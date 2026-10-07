@@ -3,31 +3,14 @@ name: crowdsecurity/appsec-bot-challenge-detect-cpu-arch
 #
 # The shipped module reports the bytes of 0.0/0.0 as computed by a small
 # WebAssembly module: the spec leaves an arithmetic NaN's bit pattern
-# implementation-defined, so the answer identifies the processor actually
-# executing rather than anything the user agent says.
+# implementation-defined, so the answer identifies the processor executing.
 #
 #   x86 -> "0000c0ff"      arm -> "0000c07f"
 #
-# Only iOS and Android are checked. Phones and tablets on either are ARM, so an
-# x86 answer under those user agents wants explaining. Windows and macOS are
-# deliberately not checked this way: Apple Silicon and Windows-on-ARM are both
-# real, so neither architecture is evidence there.
+# Only iOS and Android are checked. Phones and tablets on either are ARM.
 #
-# Requires 'wasm-unsafe-eval' in the challenge CSP (crowdsec 1.8+). On an engine
-# without it the module reports its sentinel and these rules stay silent.
-#
-# Staged: every rule below scores 0 under the `detect-experimental` category,
-# so it records what it saw without moving the decision. An x86 Chromebook
-# running Android apps answers x86 under an Android user agent and is not a
-# lie. Alerts come from crowdsecurity/appsec-bot-challenge-warn-experimental.
-#
-# Shipped outside the default bundle, in
-# crowdsecurity/appsec-bot-challenge-detections-extra: the WebAssembly module
-# can fail on a browser the others are fine on, and it takes a share of the
-# shared client-side time budget.
+# Requires 'wasm-unsafe-eval' in the challenge CSP (crowdsec 1.8+).
 data:
-  # Branch URL while in review. Flip to
-  # https://hub-data.crowdsec.net/challenge/cpu-arch-v1.js when sec-lists merges.
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/challenge-detection-modules/challenge/cpu-arch-v1.js
     dest_file: challenge/cpu-arch.js
     type: challenge-js
@@ -46,10 +29,7 @@ inband:
       apply:
         - AddRequestScore(0, "arm_platform_on_x86_android", "detect-experimental")  # intended weight: 100
 
-    # The module writes its key on every run, using an empty string when it
-    # cannot measure, so an absent key means it never ran at all. Scored with
-    # the rest of the family: an experimental module's absence must not move the
-    # decision any more than its findings do.
+    # Also track skips.
     - filter: '!fingerprint.HasCustom("cfArchNan")'
       apply:
         - AddRequestScore(0, "missing_cf_arch_nan", "detect-experimental")  # intended weight: 50

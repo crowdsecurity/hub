@@ -2,7 +2,7 @@
 
 Detections kept out of the
 [appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge)
-bundles because they can fail on a browser the default ones are fine on.
+bundles because they are considered more experimental.
 
  - `appsec-bot-challenge-detect-cpu-arch` — reads the processor actually executing from a
    WebAssembly NaN bit pattern and checks it against an iOS or Android claim. Needs

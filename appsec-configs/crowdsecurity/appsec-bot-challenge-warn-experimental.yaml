@@ -1,19 +1,5 @@
 name: crowdsecurity/appsec-bot-challenge-warn-experimental
 # Alerts on the staged detections without letting them decide.
-#
-# Every rule in a detect-* config that is still being validated scores 0 under
-# the `detect-experimental` category: it records that it fired and leaves the
-# request total alone. This config turns those records into an alert an
-# operator can triage, and the challenge cookie is still issued, so a client
-# that only tripped staged rules is not refused.
-#
-# Loaded last on purpose. RejectSubmission halts every later
-# on_challenge_submit rule, so a rejected submission never reaches this config
-# -- which is what makes the alert mutually exclusive with the rejection one.
-# A rejected submission needs no flag anyway: its own request_score_reasons
-# already names the staged detections that fired. The `warn-` prefix is what
-# puts this last when the documented `crowdsecurity/appsec-bot-*` wildcard
-# expands in name order, after every scoring config.
 inband:
   on_challenge_submit:
     - filter: '"detect-experimental" in RequestScoreCategories()'

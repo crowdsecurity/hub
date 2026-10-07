@@ -1,40 +1,14 @@
 name: crowdsecurity/appsec-bot-challenge-detect-fonts
 # Font evidence for the bot challenge.
 #
-# The shipped module measures text advances and reports numbers; every verdict
-# below is made here, where an operator can read and tune it. A process cannot
-# produce the fonts of a platform it is not running on, which is what these
-# rules test -- against the platform the visitor itself claims, never against
-# the server's own host, so a genuine Windows or macOS visitor is unaffected.
-#
-# Must be loaded before a scoring config calls RejectSubmission, which halts
-# every later on_challenge_submit rule.
+# The shipped module measures text advances and reports numbers
 data:
-  # Branch URL while in review. Flip to
-  # https://hub-data.crowdsec.net/challenge/fonts-v1.js when sec-lists merges.
   - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/challenge-detection-modules/challenge/fonts-v1.js
     dest_file: challenge/fonts.js
     type: challenge-js
 
 inband:
   on_challenge_submit:
-    # --- the measurement itself was defeated ------------------------------
-    # Every rule below reads "naming X did not move the advance" as "X is
-    # missing", so they are all guarded on cfFontResolved > 0. That guard is
-    # also an opt-out: a client reporting every advance equal to the baseline
-    # silences all of them at once. cloakbrowser already lands in that state,
-    # which cost it 200 points.
-    #
-    # On a desktop claim it is the anomaly, not the escape. Segoe UI,
-    # Helvetica Neue and DejaVu Sans cover Windows, macOS and Linux between
-    # them, so a real desktop resolves at least one -- measured on Chrome,
-    # Firefox and Safari across all three, Firefox with
-    # privacy.resistFingerprinting included. Android legitimately resolves
-    # none, which is why this is scoped to desktop claims only.
-    #
-    # Staged: a desktop browser that blocks font enumeration outright is the
-    # plausible false positive and has not been measured. Brave with
-    # fingerprint protection set to strict is the sample that would settle it.
     - filter: >-
         (req.UserAgent() contains "Windows NT" || req.UserAgent() contains "Mac OS X" ||
          req.UserAgent() contains "X11") &&
@@ -45,7 +19,6 @@ inband:
         - AddRequestScore(0, "no_font_name_resolution_on_desktop", "detect-experimental")  # intended weight: 100
 
     # --- the claimed platform's UI font does not resolve -------------------
-    # A named family that measures exactly the generic fallback was not found.
     - filter: >-
         req.UserAgent() contains "Windows NT" &&
         fingerprint.Custom["cfFontResolved"].Number > 0 &&
@@ -62,12 +35,6 @@ inband:
       apply:
         - AddRequestScore(100, "os_font_missing_apple", "detect")
 
-    # Guarded on cfFontResolved, which is what makes this safe. A real
-    # Chrome/Android resolves no family by name at all -- measured on a device
-    # with the frozen "Android 10; K" UA, where all four families collapsed to
-    # the baseline, DejaVu included -- so the guard keeps it silent there. A
-    # Linux host wearing an Android user agent still resolves DejaVu, and so is
-    # still caught.
     - filter: >-
         req.UserAgent() contains "Android" &&
         fingerprint.Custom["cfFontResolved"].Number > 0 &&
@@ -87,10 +54,6 @@ inband:
       apply:
         - AddRequestScore(50, "linux_font_on_foreign_os", "detect")
 
-    # --- the CSS system font keyword --------------------------------------
-    # Chrome and Firefox on Windows resolve `font: menu` to Segoe UI. A build
-    # that spoofs the user agent but leaves font resolution to the host
-    # answers with the host default instead.
     - filter: >-
         req.UserAgent() contains "Windows NT" &&
         fingerprint.Custom["cfFontSys"].Str != "" &&
@@ -121,11 +84,6 @@ inband:
     # emoji font draws them far wider. Measured present at 288 against a
     # 173.39 baseline on macOS/Chrome and 360 against 173.39 on Linux/Chrome,
     # with every absent family landing exactly on the baseline.
-    #
-    # Naming an emoji font cannot be tested with emoji: a text font has no
-    # emoji glyph, so the baseline already borrows the system emoji font and
-    # both sides measure the same thing. That is what made the previous
-    # version of these rules fire on genuine Macs, iPhones and Androids.
     #
     # cfFontKcCtrl names a family that cannot exist, so it must equal the
     # baseline; when it does not, family resolution is misbehaving and none of
@@ -161,12 +119,7 @@ inband:
       apply:
         - AddRequestScore(0, "emoji_font_missing_android", "detect-experimental")  # intended weight: 50
 
-    # --- the module did not report ----------------------------------------
-    # Each key is written on every run, with a sentinel when a measurement is
-    # impossible, so an absent key means the module never ran. Suppressing it
-    # is therefore itself scoreable. 5 points x 11 keys = 55, deliberately
-    # under a 75 threshold: one module cut by the shared time budget must not
-    # reject a real visitor, while stripping several of them does.
+    # Also track skips.
     - filter: '!fingerprint.HasCustom("cfFontBase")'
       apply:
         - AddRequestScore(5, "missing_cf_font_base", "detect")

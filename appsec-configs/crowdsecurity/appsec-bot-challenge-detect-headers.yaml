@@ -1,18 +1,9 @@
 name: crowdsecurity/appsec-bot-challenge-detect-headers
-# Client hints against the user agent string. Overriding the user agent is one
-# line in every automation framework; carrying the matching userAgentMetadata
-# is an extra step that is often skipped, and the platform hint then keeps
-# telling the truth.
+# Client hints against the user agent string.
 #
 # Ships no JavaScript. Each rule is guarded on the hint actually being present,
 # so deployments where the browser sends none (plain HTTP, or a browser that
 # does not implement client hints) score nothing rather than everything.
-#
-# Staged: every rule below scores 0 under the `detect-experimental` category,
-# so it records what it saw without moving the decision. Once field data shows
-# no false positives, a rule is promoted by moving it to the `detect` category
-# and restoring the weight in its trailing comment. Alerts come from
-# crowdsecurity/appsec-bot-challenge-warn-experimental.
 inband:
   on_challenge_submit:
     - filter: >-
@@ -38,9 +29,7 @@ inband:
         - AddRequestScore(0, "ch_platform_macos", "detect-experimental")  # intended weight: 100
 
     # Every browser on iOS is WebKit and implements no client hints, wrappers
-    # (CriOS/EdgiOS/FxiOS) included, so an iPhone user agent that sends them is
-    # Blink wearing the string. Untested against real iOS traffic, which is the
-    # only thing that would confirm it.
+    # (CriOS/EdgiOS/FxiOS) included.
     - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
       apply:
         - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental")  # intended weight: 100
