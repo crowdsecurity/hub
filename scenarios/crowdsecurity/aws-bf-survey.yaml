@@ -1,0 +1,24 @@
+type: leaky
+capacity: 5
+leakspeed: 30s
+name: crowdsecurity/aws-cloudtrail-bf-survey
+description: "Detect AWS console login user enumeration"
+filter: |
+    evt.Meta.log_type == 'aws-cloudtrail' && (
+      (evt.Meta.event_name == 'ConsoleLogin' && evt.Unmarshaled.cloudtrail.errorMessage == 'No username found in supplied account')
+    )
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+scope:
+  type: Ip
+labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+   - attack.T1589
+   - attack.T1110
+  behavior: "cloud:bruteforce"
+  label: "AWS Console User Enumeration"
+  service: aws
+  remediation: false
