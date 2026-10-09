@@ -12,7 +12,16 @@ inband:
   on_challenge_submit:
     # Claims hardware-efficient H.264 playback while its own WebRTC stack
     # offers no H264 codec at all.
+    #
+    # Guarded on cfRtcAvail: a client with WebRTC switched off has no sender to
+    # ask, and the module's sentinel then reports cfRtcH264 = false, which is
+    # indistinguishable from a stack that answered and offered no H264.
+    # Measured on Firefox 155: media.peerconnection.enabled=false flips
+    # cfRtcH264 to false on its own, and that pref is a commonly recommended
+    # WebRTC-leak mitigation. Without this guard, such a client on any machine
+    # with hardware H.264 decode scores 100.
     - filter: >-
+        fingerprint.Custom["cfRtcAvail"].Bool &&
         fingerprint.Custom["cfH264Sup"].Bool &&
         fingerprint.Custom["cfH264Eff"].Bool &&
         !fingerprint.Custom["cfRtcH264"].Bool
