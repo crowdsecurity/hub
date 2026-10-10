@@ -1,0 +1,16 @@
+len(results["s01-parse"]["crowdsecurity/pgsql-logs"]) == 2
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Success == true
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["timestamp"] == "1970-01-01 21:37:00.005"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["zone"] == "CEST"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["pid"] == "1625783"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["connection_id"] == "0x560d63ecd828"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["pgsql_dbname"] == "postgres"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["pgsql_target_user"] == "app_user"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["source_ip"] == "192.0.2.10"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["source_port"] == "54878"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Parsed["auth_method"] == "password"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["log_type"] == "pgsql_failed_auth"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["source_ip"] == "192.0.2.10"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["user"] == "app_user"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][0].Evt.Meta["db"] == "postgres"
+results["s01-parse"]["crowdsecurity/pgsql-logs"][1].Success == false
