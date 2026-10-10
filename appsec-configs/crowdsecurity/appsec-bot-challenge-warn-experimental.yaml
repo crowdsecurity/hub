@@ -1,0 +1,7 @@
+name: crowdsecurity/appsec-bot-challenge-warn-experimental
+# Generate an alert for analysis purpose without blocking the client
+inband:
+  on_challenge_submit:
+    - filter: '"detect-experimental" in RequestScoreCategories()'
+      apply:
+        - 'FlagSubmission(RequestScoreDetail(), "verbose")'

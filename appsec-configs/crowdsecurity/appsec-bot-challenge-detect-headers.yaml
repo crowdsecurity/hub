@@ -1,0 +1,35 @@
+name: crowdsecurity/appsec-bot-challenge-detect-headers
+# Client hints against the user agent string.
+#
+# Ships no JavaScript. Each rule is guarded on the hint actually being present,
+# so deployments where the browser sends none (plain HTTP, or a browser that
+# does not implement client hints) score nothing rather than everything.
+inband:
+  on_challenge_submit:
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Windows NT" &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "Windows")
+      apply:
+        - AddRequestScore(0, "ch_platform_windows", "detect-experimental")  # intended weight: 100
+
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Android" &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "Android")
+      apply:
+        - AddRequestScore(0, "ch_platform_android", "detect-experimental")  # intended weight: 100
+
+    - filter: >-
+        req.Header.Get("Sec-CH-UA-Platform") != "" &&
+        req.UserAgent() contains "Mac OS X" &&
+        !(req.UserAgent() contains "iPhone") &&
+        !(req.Header.Get("Sec-CH-UA-Platform") contains "macOS")
+      apply:
+        - AddRequestScore(0, "ch_platform_macos", "detect-experimental")  # intended weight: 100
+
+    # Every browser on iOS is WebKit and implements no client hints, wrappers
+    # (CriOS/EdgiOS/FxiOS) included.
+    - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
+      apply:
+        - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental")  # intended weight: 100
