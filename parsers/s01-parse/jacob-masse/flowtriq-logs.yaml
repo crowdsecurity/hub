@@ -1,0 +1,37 @@
+onsuccess: next_stage
+filter: "evt.Parsed.cef_device_vendor == 'Flowtriq' && ParseKV(evt.Parsed.message, evt.Unmarshaled, 'flowtriq') in [nil, '']"
+name: jacob-masse/flowtriq-logs
+description: "Parse Flowtriq DDoS detection CEF logs"
+statics:
+  - meta: service
+    value: flowtriq
+  - meta: log_type
+    expression: "'flowtriq_' + evt.Parsed.cef_event_name"
+  - meta: vendor
+    expression: evt.Parsed.cef_device_vendor
+  - meta: product
+    expression: evt.Parsed.cef_device_product
+  - meta: device_version
+    expression: evt.Parsed.cef_device_version
+  - meta: event_severity
+    expression: evt.Parsed.cef_severity
+  - meta: signature_id
+    expression: evt.Parsed.cef_signature_id
+  - meta: event_name
+    expression: evt.Parsed.cef_event_name
+  - meta: destination_ip
+    expression: evt.Unmarshaled.flowtriq.dst
+  - meta: attack_type
+    expression: evt.Unmarshaled.flowtriq.cs1
+  - meta: pps
+    expression: evt.Unmarshaled.flowtriq.cn1
+  - meta: bps
+    expression: evt.Unmarshaled.flowtriq.cn2
+  - meta: severity
+    expression: evt.Unmarshaled.flowtriq.cs2
+  - meta: source_count
+    expression: evt.Unmarshaled.flowtriq.cnt
+  - meta: incident_id
+    expression: evt.Unmarshaled.flowtriq.cs3
+  - meta: message
+    expression: evt.Unmarshaled.flowtriq.msg
