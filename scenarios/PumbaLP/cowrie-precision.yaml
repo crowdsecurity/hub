@@ -1,0 +1,20 @@
+type: leaky
+name: PumbaLP/cowrie-precision
+description: "Detect repeated logins or shell commands from one source on a Cowrie honeypot (SSH/telnet)"
+filter: |
+  evt.Parsed.program == 'cowrie' &&
+  evt.Meta.log_type in ['cowrie_login_success', 'cowrie_login_failed', 'ssh_failed-auth', 'cowrie_command_input', 'cowrie_command_failed']
+groupby: evt.Meta.source_ip
+capacity: 2
+leakspeed: 5m
+blackhole: 1m
+labels:
+  service: cowrie
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+    - attack.T1059.004
+  behavior: "generic:bruteforce"
+  label: "Cowrie Honeypot Interaction"
+  remediation: true
