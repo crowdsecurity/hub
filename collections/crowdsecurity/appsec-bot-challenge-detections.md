@@ -11,8 +11,10 @@ bundles.
 
 **Staged** — scores 0, alert only, never rejects:
 
- - `appsec-bot-challenge-detect-form-factor` : whether the input stack matches the device claimed.
  - `appsec-bot-challenge-detect-headers` : whether `Sec-CH-UA-Platform` agrees with the user agent.
+ - `appsec-bot-challenge-detect-form-factor` : whether the input stack matches the device claimed.
+   Staged except `no_pointer_desktop` — no pointing device and no hover on a non-mobile claim —
+   which scores, and is what catches a headless browser.
 
 `appsec-bot-challenge-warn-experimental` raises a `crowdsecurity/suspicious-browser-submission`
 alert naming what fired **but carries no remediation**.
