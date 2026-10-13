@@ -1,5 +1,5 @@
 len(results) == 3
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 24
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 30
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -240,7 +240,67 @@ basename(results["s00-raw"]["crowdsecurity/syslog-logs"][23].Evt.Meta["datasourc
 results["s00-raw"]["crowdsecurity/syslog-logs"][23].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][23].Evt.Meta["machine"] == "myhost"
 results["s00-raw"]["crowdsecurity/syslog-logs"][23].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 24
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for alice from 192.0.2.24 port 48256 ssh2 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Parsed["pid"] == "3859"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][24].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Parsed["message"] == "Disconnecting authenticating user alice 192.0.2.24 port 48256: Too many authentication failures [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Parsed["pid"] == "3859"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][25].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for invalid user nosuchuser from 2001:db8::1 port 48262 ssh2 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Parsed["pid"] == "3862"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][26].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Parsed["message"] == "Disconnecting invalid user nosuchuser 2001:db8::1 port 48262: Too many authentication failures [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Parsed["pid"] == "3862"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Parsed["program"] == "sshd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][27].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for invalid user nosuchuser from 198.51.100.7 port 53416 ssh2 [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Parsed["pid"] == "1042"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Parsed["program"] == "sshd-session"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Parsed["timestamp"] == "Oct 13 20:24:49"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][28].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Parsed["message"] == "Disconnecting invalid user nosuchuser 198.51.100.7 port 53416: Too many authentication failures [preauth]"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Parsed["pid"] == "1042"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Parsed["program"] == "sshd-session"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Parsed["timestamp"] == "Oct 13 20:24:49"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Meta["machine"] == "myhost"
+results["s00-raw"]["crowdsecurity/syslog-logs"][29].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/sshd-logs"]) == 30
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/sshd-logs"][0].Evt.Parsed["message"] == "Invalid user pascal from 35.188.49.176 port 53502"
@@ -596,4 +656,100 @@ results["s01-parse"]["crowdsecurity/sshd-logs"][23].Evt.Meta["machine"] == "myho
 results["s01-parse"]["crowdsecurity/sshd-logs"][23].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-logs"][23].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/sshd-logs"][23].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for alice from 192.0.2.24 port 48256 ssh2 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["pid"] == "3859"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["sshd_client_ip"] == "192.0.2.24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["sshd_invalid_user"] == "alice"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["source_ip"] == "192.0.2.24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Meta["target_user"] == "alice"
+results["s01-parse"]["crowdsecurity/sshd-logs"][24].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["message"] == "Disconnecting authenticating user alice 192.0.2.24 port 48256: Too many authentication failures [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["pid"] == "3859"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["sshd_client_ip"] == "192.0.2.24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["sshd_invalid_user"] == "alice"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["source_ip"] == "192.0.2.24"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Meta["target_user"] == "alice"
+results["s01-parse"]["crowdsecurity/sshd-logs"][25].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for invalid user nosuchuser from 2001:db8::1 port 48262 ssh2 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["pid"] == "3862"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["sshd_client_ip"] == "2001:db8::1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["sshd_invalid_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["source_ip"] == "2001:db8::1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Meta["target_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][26].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["message"] == "Disconnecting invalid user nosuchuser 2001:db8::1 port 48262: Too many authentication failures [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["pid"] == "3862"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["program"] == "sshd"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["sshd_client_ip"] == "2001:db8::1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["sshd_invalid_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Parsed["timestamp"] == "Oct 13 20:24:11"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["source_ip"] == "2001:db8::1"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Meta["target_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][27].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["message"] == "error: maximum authentication attempts exceeded for invalid user nosuchuser from 198.51.100.7 port 53416 ssh2 [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["pid"] == "1042"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["program"] == "sshd-session"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["sshd_client_ip"] == "198.51.100.7"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["sshd_invalid_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Parsed["timestamp"] == "Oct 13 20:24:49"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["source_ip"] == "198.51.100.7"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Meta["target_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][28].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Success == true
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["message"] == "Disconnecting invalid user nosuchuser 198.51.100.7 port 53416: Too many authentication failures [preauth]"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["pid"] == "1042"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["program"] == "sshd-session"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["sshd_client_ip"] == "198.51.100.7"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["sshd_invalid_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Parsed["timestamp"] == "Oct 13 20:24:49"
+basename(results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["datasource_path"]) == "sshd-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["log_type"] == "ssh_failed-auth"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["machine"] == "myhost"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["service"] == "ssh"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["source_ip"] == "198.51.100.7"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Meta["target_user"] == "nosuchuser"
+results["s01-parse"]["crowdsecurity/sshd-logs"][29].Evt.Whitelisted == false
 len(results["success"][""]) == 0
