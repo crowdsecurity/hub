@@ -21578,6 +21578,32 @@
         }
       }
     },
+    "crowdsecurity/aws-bf-survey": {
+      "author": "crowdsecurity",
+      "content": "dHlwZTogbGVha3kKY2FwYWNpdHk6IDUKbGVha3NwZWVkOiAzMHMKbmFtZTogY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbC1iZi1zdXJ2ZXkKZGVzY3JpcHRpb246ICJEZXRlY3QgQVdTIGNvbnNvbGUgbG9naW4gdXNlciBlbnVtZXJhdGlvbiIKZmlsdGVyOiB8CiAgICBldnQuTWV0YS5sb2dfdHlwZSA9PSAnYXdzLWNsb3VkdHJhaWwnICYmICgKICAgICAgKGV2dC5NZXRhLmV2ZW50X25hbWUgPT0gJ0NvbnNvbGVMb2dpbicgJiYgZXZ0LlVubWFyc2hhbGVkLmNsb3VkdHJhaWwuZXJyb3JNZXNzYWdlID09ICdObyB1c2VybmFtZSBmb3VuZCBpbiBzdXBwbGllZCBhY2NvdW50JykKICAgICkKZ3JvdXBieTogZXZ0Lk1ldGEuc291cmNlX2lwCmJsYWNraG9sZTogMW0KcmVwcm9jZXNzOiB0cnVlCnNjb3BlOgogIHR5cGU6IElwCmxhYmVsczoKICBjb25maWRlbmNlOiAzCiAgc3Bvb2ZhYmxlOiAwCiAgY2xhc3NpZmljYXRpb246CiAgIC0gYXR0YWNrLlQxNTg5CiAgIC0gYXR0YWNrLlQxMTEwCiAgYmVoYXZpb3I6ICJjbG91ZDpicnV0ZWZvcmNlIgogIGxhYmVsOiAiQVdTIENvbnNvbGUgVXNlciBFbnVtZXJhdGlvbiIKICBzZXJ2aWNlOiBhd3MKICByZW1lZGlhdGlvbjogZmFsc2UK",
+      "description": "Detect AWS console login user enumeration",
+      "labels": {
+        "behavior": "cloud:bruteforce",
+        "classification": [
+          "attack.T1589",
+          "attack.T1110"
+        ],
+        "confidence": 3,
+        "label": "AWS Console User Enumeration",
+        "remediation": false,
+        "service": "aws",
+        "spoofable": 0
+      },
+      "long_description": "IyBkZXRlY3QgYXdzIGNvbnNvbGUgdXNlciBlbnVtZXJhdGlvbgoKVGhpcyBzY2VuYXJpbyBuZWVkcyB0aGUgY3Jvd2RzZWN1cml0eS9hd3MtY2xvdWR0cmFpbCBwYXJzZXIgYW5kIGRldGVjdHMKYXR0ZW1wdHMgdG8gZ3Vlc3MgSUFNIHVzZXIgbmFtZXMgb24gdGhlIGF3cyBjb25zb2xlIHNpZ24taW4gcGFnZS4KCldoZW4gc29tZW9uZSB0cmllcyB0byBzaWduIGluIHRvIHRoZSBjb25zb2xlIHdpdGggYW4gSUFNIHVzZXIgbmFtZSB0aGF0CmRvZXMgbm90IGV4aXN0IGluIHRoZSBhY2NvdW50LCBDbG91ZFRyYWlsIGxvZ3MgYSBmYWlsZWQgYENvbnNvbGVMb2dpbmAKZXZlbnQgd2l0aCB0aGUgZXJyb3IgbWVzc2FnZSBgTm8gdXNlcm5hbWUgZm91bmQgaW4gc3VwcGxpZWQgYWNjb3VudGAKKHRoZSB1c2VyIG5hbWUgaXRzZWxmIGlzIHJlcGxhY2VkIGJ5IGBISURERU5fRFVFX1RPX1NFQ1VSSVRZX1JFQVNPTlNgKS4KVGhlIHNjZW5hcmlvIHRyaWdnZXJzIHdoZW4gYSBzaW5nbGUgSVAgcHJvZHVjZXMgbW9yZSB0aGFuIDUgb2YgdGhlc2UKZmFpbHVyZXMgaW4gYSBzaG9ydCB0aW1lLgoKRmFpbHVyZXMgZm9yIGV4aXN0aW5nIHVzZXJzIChgRmFpbGVkIGF1dGhlbnRpY2F0aW9uYCkgYXJlIG5vdCBjb3VudGVkCmhlcmUuIGNyb3dkc2VjdXJpdHkvYXdzLWJmIGNvdW50cyBldmVyeSBjb25zb2xlIGxvZ2luIGZhaWx1cmUsIHRoaXMKc2NlbmFyaW8gb25seSBmbGFncyB0aGUgdXNlciBuYW1lIGd1ZXNzaW5nIHBhcnQuCgpBcyBmb3IgY3Jvd2RzZWN1cml0eS9hd3MtYmYsIHRha2UgZXh0cmEgY2FyZSBvZiB5b3VyIGNsb3VkdHJhaWwgcmVnaW9uCmNvbmZpZ3VyYXRpb246IGNvbnNvbGUgc2lnbi1pbiBldmVudHMgbWlnaHQgbm90IGJlIGxvZ2dlZCBpbiB0aGUgcmVnaW9uCnlvdSBleHBlY3QsIHNlZSB0aGUKW2RvY3VtZW50YXRpb25dKGh0dHBzOi8vZG9jcy5hd3MuYW1hem9uLmNvbS9hd3NjbG91ZHRyYWlsL2xhdGVzdC91c2VyZ3VpZGUvY2xvdWR0cmFpbC1ldmVudC1yZWZlcmVuY2UtYXdzLWNvbnNvbGUtc2lnbi1pbi1ldmVudHMuaHRtbCkuCg==",
+      "path": "scenarios/crowdsecurity/aws-bf-survey.yaml",
+      "version": "0.1",
+      "versions": {
+        "0.1": {
+          "deprecated": false,
+          "digest": "c29b55b853cdf04ba2110567c8f0be9f8ecd117403d749255afce0ce74ad0c5e"
+        }
+      }
+    },
     "crowdsecurity/aws-cis-benchmark-cloudtrail-config-change": {
       "author": "crowdsecurity",
       "content": "dHlwZTogdHJpZ2dlcgpuYW1lOiBjcm93ZHNlY3VyaXR5L2F3cy1jaXMtYmVuY2htYXJrLWNsb3VkdHJhaWwtY29uZmlnLWNoYW5nZQpkZXNjcmlwdGlvbjogIkRldGVjdCBBV1MgQ2xvdWRUcmFpbCBjb25maWd1cmF0aW9uIGNoYW5nZSIKZmlsdGVyOiB8CiAgZXZ0Lk1ldGEubG9nX3R5cGUgPT0gJ2F3cy1jbG91ZHRyYWlsJyAmJgogICgKICBldnQuTWV0YS5ldmVudF9uYW1lID09ICJDcmVhdGVUcmFpbCIgfHwKICBldnQuTWV0YS5ldmVudF9uYW1lID09ICJVcGRhdGVUcmFpbCIgfHwKICBldnQuTWV0YS5ldmVudF9uYW1lID09ICJEZWxldGVUcmFpbCIgfHwKICBldnQuTWV0YS5ldmVudF9uYW1lID09ICJTdGFydExvZ2dpbmciIHx8CiAgZXZ0Lk1ldGEuZXZlbnRfbmFtZSA9PSAiU3RvcExvZ2dpbmciCiAgKQpsYWJlbHM6CiAgY29uZmlkZW5jZTogMwogIHNwb29mYWJsZTogMAogIGNsYXNzaWZpY2F0aW9uOgogICAgLSBhdHRhY2suVDEwNzAKICBiZWhhdmlvcjogImNsb3VkOmF1ZGl0IgogIGxhYmVsOiAiQVdTIENsb3VkVHJhaWwgaW5kaWNhdG9yIHJlbW92YWwiCiAgc2VydmljZTogYXdzCiAgY3RpOiBmYWxzZQogIHJlbWVkaWF0aW9uOiBmYWxzZQo=",
