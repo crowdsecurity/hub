@@ -26,11 +26,12 @@ inband:
       apply:
         - AddRequestScore(0, "color_depth_32", "detect-experimental")  # intended weight: 50
 
-    # A desktop-sized screen with no pointing device and no hover at all: a
-    # headless input stack wearing a desktop screen size.
+    # No pointing device and no hover at all: a headless input stack.
+    # TBD: Test with smart tv with no pointing device and kiosk.
     - filter: >-
+        !(req.UserAgent() contains "Android" || req.UserAgent() contains "iPhone" ||
+          req.UserAgent() contains "iPad" || req.UserAgent() contains "Mobile") &&
         fingerprint.Signals.Device.MediaQueries.Pointer == "none" &&
-        string(fingerprint.Signals.Device.MediaQueries.Hover) == "false" &&
-        int(fingerprint.Signals.Device.ScreenResolution.Width) >= 1024
+        string(fingerprint.Signals.Device.MediaQueries.Hover) == "false"
       apply:
-        - AddRequestScore(0, "no_pointer_desktop", "detect-experimental")  # intended weight: 50
+        - AddRequestScore(50, "no_pointer_desktop", "detect")
