@@ -1,0 +1,36 @@
+name: PumbaLP/adguardhome-dot-errors
+description: "Parse AdGuard Home DoT (DNS-over-TLS, port 853) connection reset errors to detect port scanners and probers"
+#
+# Matches AdGuard Home log lines containing a remote IP address:
+# 2026/04/04 20:41:41.673779 [error] dnsproxy: reading msg proto=tcp err="reading len: read tcp 172.20.2.2:853->85.217.140.42:59208: read: connection reset by peer"
+#
+# Note: Other DoT error types (TLS version mismatch, cipher suite errors,
+# unexpected EOF, bad DNS header) do not contain a remote IP and are
+# therefore not actionable by this parser.
+#
+# Note: DoQ (port 8853/udp) and direct DoH (port 443) errors also do not
+# contain remote IPs in AdGuard Home logs and cannot be blocked this way.
+# DoH via a reverse proxy (e.g. Nginx) is covered by crowdsecurity/nginx-logs.
+#
+# Acquisition example:
+#   source: docker
+#   container_name:
+#     - adguardhome
+#   labels:
+#     type: adguardhome
+#
+filter: "evt.Line.Labels.type == 'adguardhome'"
+nodes:
+  - grok:
+      pattern: '%{YEAR:year}/%{MONTHNUM:month}/%{MONTHDAY:day} %{TIME:time} \[error\] dnsproxy: reading msg proto=tcp err="reading len: read tcp [^>]+->%{IP:remote_ip}:%{INT}: read: connection reset by peer"'
+      apply_on: Line.Raw
+    onsuccess: next_stage
+    statics:
+      - meta: source_ip
+        expression: evt.Parsed.remote_ip
+      - meta: service
+        value: adguardhome_dot
+      - meta: log_type
+        value: dot_connection_reset
+      - target: evt.StrTime
+        expression: evt.Parsed.year + "/" + evt.Parsed.month + "/" + evt.Parsed.day + " " + evt.Parsed.time
