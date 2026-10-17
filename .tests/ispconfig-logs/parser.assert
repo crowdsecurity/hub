@@ -1,0 +1,76 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 2
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "Failed login for user 'test_username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "ispconfig"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "Failed login for user 'test-username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "ispconfig"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 2
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+len(results["s01-parse"]["LearningSpot/ispconfig-logs"]) == 2
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Success == true
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Parsed["message"] == "Failed login for user 'test_username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Parsed["program"] == "ispconfig"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Parsed["target_user"] == "test_username"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Parsed["timestamp"] == "2026-01-21 07:33:27"
+basename(results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["log_type"] == "ispconfig_failed_auth"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["service"] == "ispconfig"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Meta["target_user"] == "test_username"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Success == true
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Parsed["message"] == "Failed login for user 'test-username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Parsed["program"] == "ispconfig"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Parsed["target_user"] == "test-username"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Parsed["timestamp"] == "2026-01-21 07:33:27"
+basename(results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["log_type"] == "ispconfig_failed_auth"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["service"] == "ispconfig"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Meta["target_user"] == "test-username"
+results["s01-parse"]["LearningSpot/ispconfig-logs"][1].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 2
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "Failed login for user 'test_username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "ispconfig"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["target_user"] == "test_username"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2026-01-21 07:33:27"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "ispconfig_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "ispconfig"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "test_username"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2026-01-21T07:33:27Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2026-01-21T07:33:27Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "Failed login for user 'test-username' from 1.2.3.4 at 2026-01-21 07:33:27"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "ispconfig"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["target_user"] == "test-username"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2026-01-21 07:33:27"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "ispconfig-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "ispconfig_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "ispconfig"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "test-username"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2026-01-21T07:33:27Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2026-01-21T07:33:27Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+len(results["success"][""]) == 0
