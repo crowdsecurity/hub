@@ -1,0 +1,7 @@
+name: crowdsecurity/doh-traffic
+description: "Whitelist legitimate DNS over HTTPS traffic (self-hosted resolvers)"
+whitelist:
+  reason: "Legitimate DoH queries"
+  expression:
+   - evt.Meta.http_path matches '^/dn?s?-?(q(u(e(r(y)?)?)?)?)?$' #When discovering the endpoint, clients (Chrome on Android) probe every prefix of the DoH path (/d, /dn, /dns, /dns-qu...) and the server answers 401 for the incomplete ones, which looks like a login brute-force
+   - evt.Parsed.request contains '/dns-query' #The DoH endpoint itself (RFC 8484, GET and POST): the path has no extension, so it looks like a dynamic asset to http-crawl-non_statics
