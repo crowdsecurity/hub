@@ -56,6 +56,7 @@ When pushes changes to a text session, a 403 error is thrown if the user session
 ### Collabora Online / richdocumentscode
 When using Collabora Online (richdocumentscode app), the application uses `proxy.php` to access resources such as images and icons. Some of these resources may return 404 errors if they are missing or not available, which can trigger http-probing.
 
+---
 ### Memories app
 When a folder is opened, Memories requests the preview of every media in it at once. The URLs end with the media id, so they are not detected as static assets and can trigger http-crawl-non_statics. Previews that cannot be generated answer 404, which can trigger http-probing.
 
