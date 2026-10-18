@@ -16,6 +16,9 @@
 
 # Foreword
 
+[![GetMerged Scorecard](https://getmerged.abhishekco.de/api/badge/crowdsecurity/hub)](https://getmerged.abhishekco.de/crowdsecurity/hub)
+
+
 This repository stores most of the official parsers/scenarios/collections for crowdsec.
 
 The repository is not intended for use as-is, but rather as source of truth for the [CrowdSec Hub](https://hub.crowdsec.net/) and `cscli`.
