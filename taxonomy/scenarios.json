@@ -4261,7 +4261,7 @@
   },
   "crowdsecurity/vpatch-CVE-2026-109618": {
     "name": "crowdsecurity/vpatch-CVE-2026-109618",
-    "description": "Tentative vpatch for CVE-2026-109618 : block multipart uploads with non-empty PHP_SESSION_UPLOAD_PROGRESS.",
+    "description": "Tentative vpatch for CVE-2026-109618 : block requests crafted to exhaust PHP memory during input parsing.",
     "label": "PHP - RCE",
     "behaviors": [
       "http:exploit"
@@ -4275,7 +4275,28 @@
     "service": "http",
     "created_at": "2026-10-21T10:13:38",
     "cves": [
-      "CVE-2026-109618",
+      "CVE-2026-109618"
+    ],
+    "cwes": [
+      "CWE-908"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-109619": {
+    "name": "crowdsecurity/vpatch-CVE-2026-109619",
+    "description": "Tentative vpatch for CVE-2026-109619 : block multipart requests engaging PHP session.upload_progress.",
+    "label": "PHP - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T16:25:11",
+    "cves": [
       "CVE-2026-109619"
     ],
     "cwes": [
