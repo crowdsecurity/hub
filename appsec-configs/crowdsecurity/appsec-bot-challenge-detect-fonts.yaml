@@ -1,0 +1,152 @@
+name: crowdsecurity/appsec-bot-challenge-detect-fonts
+# Font evidence for the bot challenge.
+#
+# The shipped module measures text advances and reports numbers
+data:
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/bot-challenge_detection-modules/challenge/fonts-v1.js
+    dest_file: challenge/fonts.js
+    type: challenge-js
+
+inband:
+  on_challenge_submit:
+    - filter: >-
+        (req.UserAgent() contains "Windows NT" || req.UserAgent() contains "Mac OS X" ||
+         req.UserAgent() contains "X11") &&
+        !(req.UserAgent() contains "Android") &&
+        fingerprint.Custom["cfFontBase"].Number != -1 &&
+        fingerprint.Custom["cfFontResolved"].Number == 0
+      apply:
+        - AddRequestScore(0, "no_font_name_resolution_on_desktop", "detect-experimental")  # intended weight: 100
+
+    # --- the claimed platform's UI font does not resolve -------------------
+    - filter: >-
+        req.UserAgent() contains "Windows NT" &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontBase"].Number != -1 &&
+        fingerprint.Custom["cfFontSegoe"].Number == fingerprint.Custom["cfFontBase"].Number
+      apply:
+        - AddRequestScore(100, "os_font_missing_windows", "detect")
+
+    - filter: >-
+        (req.UserAgent() contains "Mac OS X" || req.UserAgent() contains "iPhone") &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontBase"].Number != -1 &&
+        fingerprint.Custom["cfFontHelv"].Number == fingerprint.Custom["cfFontBase"].Number
+      apply:
+        - AddRequestScore(100, "os_font_missing_apple", "detect")
+
+    - filter: >-
+        req.UserAgent() contains "Android" &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontBase"].Number != -1 &&
+        fingerprint.Custom["cfFontRoboto"].Number == fingerprint.Custom["cfFontBase"].Number
+      apply:
+        - AddRequestScore(100, "os_font_missing_android", "detect")
+
+    # A Linux desktop face resolving on a non-Linux claim says where the
+    # process really runs. Scored only alongside a missing native font,
+    # because LibreOffice ships DejaVu on Windows and macOS.
+    - filter: >-
+        !(req.UserAgent() contains "Linux" || req.UserAgent() contains "X11") &&
+        fingerprint.Custom["cfFontBase"].Number != -1 &&
+        fingerprint.Custom["cfFontDejavu"].Number != fingerprint.Custom["cfFontBase"].Number &&
+        any(RequestScoreReasons(), hasPrefix(#, "detect:os_font_missing_"))
+      apply:
+        - AddRequestScore(50, "linux_font_on_foreign_os", "detect")
+
+    - filter: >-
+        req.UserAgent() contains "Windows NT" &&
+        fingerprint.Custom["cfFontSys"].Str != "" &&
+        !(fingerprint.Custom["cfFontSys"].Str contains "Segoe UI")
+      apply:
+        - AddRequestScore(100, "system_font_not_native", "detect")
+
+    # --- hinting ----------------------------------------------------------
+    # cfFontFrac counts how many of the five advances landed on a whole pixel.
+    # All five means hinting was pinned, which mainstream desktop stacks do not
+    # do. Linux is excluded: hintfull is uncommon but legitimate there.
+    #
+    # Guarded on cfFontResolved for a sharper reason than the rules above. The
+    # five values are base plus four named families, so on a client that
+    # resolves no name they are all the *same* number -- and then the count can
+    # only ever be 0 or 5, decided by whether that one monospace advance
+    # happens to be an integer. A genuine device would be rejected on a coin
+    # flip. The measured Android came in at 828.13 and so scored 0, by luck.
+    - filter: >-
+        !(req.UserAgent() contains "Linux" || req.UserAgent() contains "X11") &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontFrac"].Number == 5
+      apply:
+        - AddRequestScore(100, "font_advances_quantized", "detect")
+
+    # --- emoji ------------------------------------------------------------
+    # The keycap bases "0123#*" are the probe: monospace has them, a colour
+    # emoji font draws them far wider. Measured present at 288 against a
+    # 173.39 baseline on macOS/Chrome and 360 against 173.39 on Linux/Chrome,
+    # with every absent family landing exactly on the baseline.
+    #
+    # cfFontKcCtrl names a family that cannot exist, so it must equal the
+    # baseline; when it does not, family resolution is misbehaving and none of
+    # these comparisons mean anything.
+    #
+    # Staged: verified on macOS and Linux only. Whether Segoe UI Emoji covers
+    # the keycap bases is still an assumption until a real Windows client is
+    # measured -- assuming it is exactly what produced the previous bug.
+    - filter: >-
+        req.UserAgent() contains "Windows NT" &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontKcBase"].Number != -1 &&
+        fingerprint.Custom["cfFontKcCtrl"].Number == fingerprint.Custom["cfFontKcBase"].Number &&
+        fingerprint.Custom["cfFontKcSegoe"].Number == fingerprint.Custom["cfFontKcBase"].Number
+      apply:
+        - AddRequestScore(0, "emoji_font_missing_windows", "detect-experimental")  # intended weight: 50
+
+    - filter: >-
+        (req.UserAgent() contains "Mac OS X" || req.UserAgent() contains "iPhone") &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontKcBase"].Number != -1 &&
+        fingerprint.Custom["cfFontKcCtrl"].Number == fingerprint.Custom["cfFontKcBase"].Number &&
+        fingerprint.Custom["cfFontKcApple"].Number == fingerprint.Custom["cfFontKcBase"].Number
+      apply:
+        - AddRequestScore(0, "emoji_font_missing_apple", "detect-experimental")  # intended weight: 50
+
+    - filter: >-
+        req.UserAgent() contains "Android" &&
+        fingerprint.Custom["cfFontResolved"].Number > 0 &&
+        fingerprint.Custom["cfFontKcBase"].Number != -1 &&
+        fingerprint.Custom["cfFontKcCtrl"].Number == fingerprint.Custom["cfFontKcBase"].Number &&
+        fingerprint.Custom["cfFontKcNoto"].Number == fingerprint.Custom["cfFontKcBase"].Number
+      apply:
+        - AddRequestScore(0, "emoji_font_missing_android", "detect-experimental")  # intended weight: 50
+
+    # Also track skips.
+    - filter: '!fingerprint.HasCustom("cfFontBase")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_base", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontSegoe")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_segoe", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontHelv")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_helv", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontRoboto")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_roboto", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontDejavu")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_dejavu", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontSys")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_sys", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontFrac")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_frac", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontEmojiBase")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_emoji_base", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontResolved")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_resolved", "detect")
+    - filter: '!fingerprint.HasCustom("cfFontKcBase")'
+      apply:
+        - AddRequestScore(5, "missing_cf_font_kc_base", "detect")

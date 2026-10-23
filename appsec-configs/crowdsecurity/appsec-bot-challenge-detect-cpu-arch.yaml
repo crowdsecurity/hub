@@ -1,0 +1,35 @@
+name: crowdsecurity/appsec-bot-challenge-detect-cpu-arch
+# CPU architecture against the platform claimed.
+#
+# The shipped module reports the bytes of 0.0/0.0 as computed by a small
+# WebAssembly module: the spec leaves an arithmetic NaN's bit pattern
+# implementation-defined, so the answer identifies the processor executing.
+#
+#   x86 -> "0000c0ff"      arm -> "0000c07f"
+#
+# Only iOS and Android are checked. Phones and tablets on either are ARM.
+#
+# Requires 'wasm-unsafe-eval' in the challenge CSP (crowdsec 1.8+).
+data:
+  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/bot-challenge_detection-modules/challenge/cpu-arch-v1.js
+    dest_file: challenge/cpu-arch.js
+    type: challenge-js
+
+inband:
+  on_challenge_submit:
+    - filter: >-
+        (req.UserAgent() contains "iPhone" || req.UserAgent() contains "iPad") &&
+        fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
+      apply:
+        - AddRequestScore(0, "arm_platform_on_x86_ios", "detect-experimental")  # intended weight: 100
+
+    - filter: >-
+        req.UserAgent() contains "Android" &&
+        fingerprint.Custom["cfArchNan"].Str == "0000c0ff"
+      apply:
+        - AddRequestScore(0, "arm_platform_on_x86_android", "detect-experimental")  # intended weight: 100
+
+    # Also track skips.
+    - filter: '!fingerprint.HasCustom("cfArchNan")'
+      apply:
+        - AddRequestScore(0, "missing_cf_arch_nan", "detect-experimental")  # intended weight: 50
