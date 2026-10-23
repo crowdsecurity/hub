@@ -1,0 +1,9 @@
+name: my/matrix-whitelist
+description: "Whitelist Matrix/Synapse requests from NPMplus logs"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Matrix federation/client traffic"
+  expression:
+    - "evt.Meta.http_path startsWith '/_matrix/'"
+    - "evt.Meta.http_path startsWith '/_synapse/'"
+    - "evt.Meta.http_path startsWith '/.well-known/matrix/'"
