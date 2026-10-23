@@ -1,0 +1,20 @@
+name: LearningSpot/ispconfig-logs
+description: "Parse IspConfig panel Logs"
+filter: "evt.Parsed.program == 'ispconfig'"
+onsuccess: next_stage
+nodes:
+ - grok:
+     pattern: "^Failed login for user '%{USERNAME:target_user}' from %{IP:source_ip} at %{TIMESTAMP_ISO8601:timestamp}"
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: ispconfig_failed_auth
+statics:
+   - meta: service
+     value: ispconfig
+   - target: evt.StrTime
+     expression: evt.Parsed.timestamp
+   - meta: source_ip
+     expression: evt.Parsed.source_ip
+   - meta: target_user
+     expression: evt.Parsed.target_user
