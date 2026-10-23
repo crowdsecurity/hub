@@ -1,0 +1,11 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/ananace/stalwart-logs.yaml
+  - crowdsecurity/dateparse-enrich
+scenarios:
+  - ./scenarios/ananace/stalwart-relay-denied.yaml
+postoverflows:
+  - ""
+log_file: stalwart-relay-denied.log
+log_type: stalwart
+ignore_parsers: true
