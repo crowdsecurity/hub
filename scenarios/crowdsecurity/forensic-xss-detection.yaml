@@ -1,0 +1,25 @@
+type: trigger
+name: crowdsecurity/forensic-xss-detection
+description: "Detect XSS attempts in GET parameters with libinjection"
+# this requires the http-logs parser
+filter: |
+ let has_args = len(evt.Parsed.http_args) > 0;
+ if has_args && evt.Meta.log_type == "http_access-log" && evt.Meta.http_status == "200" {
+   let full_uri = evt.Parsed.request + "?" + evt.Parsed.http_args;
+   let http_params = ParseUri(full_uri);
+   let vals = flatten(values(http_params));
+   any(vals, { LibInjectionIsXSS(#) })
+ } else {
+  false
+ }
+# This scenario has no blackhole
+# It's intended to be used while replaying logs, in which case you likely want to see all matches
+labels:
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1190
+  behavior: "http:exploit"
+  label: "HTTP XSS Detection - GET parameters"
+  service: http
+  remediation: false
