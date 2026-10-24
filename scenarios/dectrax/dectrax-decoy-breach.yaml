@@ -1,0 +1,18 @@
+type: trigger
+name: dectrax/dectrax-decoy-breach
+description: "Trigger immediate high-confidence remediation decisions when an adversarial host breaches or interacts with DECTRAX honeypot decoys (RDP, LDAP, Modbus, SCADA)"
+filter: "evt.Meta.log_type in ['dectrax-decoy-breach', 'dectrax-honeypot', 'dectrax-honeytoken'] and evt.Meta.source_ip != nil and evt.Meta.source_ip != ''"
+groupby: evt.Meta.source_ip
+blackhole: 10m
+labels:
+  service: dectrax
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1021.001
+    - attack.T1078
+    - attack.T1046
+    - attack.T1110
+  behavior: "deception:decoy_breach"
+  label: "DECTRAX Decoy Engagement & Interdiction Trigger"
+  remediation: true
