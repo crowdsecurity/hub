@@ -9,3 +9,8 @@ Enriches syslog and CEF events originating from DECTRAX autonomous deception sen
 - `evt.Meta.dest_port`: Target port probed.
 - `evt.Meta.threat_level`: DECTRAX threat severity (`CRITICAL`, `HIGH`).
 - `evt.Meta.log_type`: Sets `dectrax-decoy-breach` to feed downstream CrowdSec scenarios.
+
+## Documentation & Project Links
+
+- Official Website: [https://dectrax.com](https://dectrax.com)
+- Platform Documentation: [https://dectrax.com/docs](https://dectrax.com/docs)

@@ -16,3 +16,8 @@ Immediately bans the offender IP address via configured CrowdSec bouncers (iptab
 - `T1078`: Valid Accounts
 - `T1046`: Network Service Discovery
 - `T1110`: Brute Force
+
+## Documentation & Project Links
+
+- Official Website: [https://dectrax.com](https://dectrax.com)
+- Platform Documentation: [https://dectrax.com/docs](https://dectrax.com/docs)
