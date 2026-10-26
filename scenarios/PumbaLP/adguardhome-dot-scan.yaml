@@ -6,13 +6,13 @@ description: "Detect DoT (DNS-over-TLS, port 853) scanners and probers via repea
 # Repeated connection resets from the same IP indicate a scanner or prober
 # testing port 853 without proper TLS support.
 #
-# Capacity: 5 resets within 10 minutes triggers a ban.
+# Capacity 4, leakspeed 2m: the 5th reset within about 10 minutes bans the IP.
 # Tested against AdGuard Home v0.107.x
 #
 filter: "evt.Meta.log_type == 'dot_connection_reset' && evt.Meta.service == 'adguardhome_dot'"
 groupby: evt.Meta.source_ip
-capacity: 5
-leakspeed: "10m"
+capacity: 4
+leakspeed: "2m"
 blackhole: 5m
 labels:
   service: adguardhome
@@ -21,5 +21,5 @@ labels:
   confidence: 3
   classification:
     - attack.T1046
-  behavior: "network:scan"
+  behavior: "tcp:scan"
   remediation: true
