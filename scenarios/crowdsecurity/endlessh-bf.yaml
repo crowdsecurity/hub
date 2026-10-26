@@ -1,7 +1,7 @@
 # endlessh bruteforce
 type: leaky
 name: crowdsecurity/endlessh-bf
-description: "Detect SSH bruteforce caught by Endlessh"
+description: "Detect SSH scanning caught by Endlessh"
 filter: "evt.Meta.log_type == 'endlessh_accept'"
 leakspeed: "5m"
 references:
@@ -14,8 +14,8 @@ labels:
   confidence: 3
   spoofable: 0
   classification:
-    - attack.T1110
-  behavior: "ssh:bruteforce"
-  label: "Endlessh Bruteforce"
+    - attack.T1595
+  behavior: "generic:scan"
+  label: "Endlessh SSH Scan"
   service: endlessh
   remediation: true

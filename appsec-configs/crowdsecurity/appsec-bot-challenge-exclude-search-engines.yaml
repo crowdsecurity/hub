@@ -6,6 +6,9 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/googlebot.json")
       apply:
         - ExemptFromChallenge("googlebot")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/googleother.json")
+      apply:
+        - ExemptFromChallenge("googleother")
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/bingbot.json")
       apply:
         - ExemptFromChallenge("bingbot")
@@ -59,6 +62,9 @@ inband:
 data:
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/googlebot.json
     dest_file: legit_bots/googlebot.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/googleother.json
+    dest_file: legit_bots/googleother.json
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/bingbot.json
     dest_file: legit_bots/bingbot.json
