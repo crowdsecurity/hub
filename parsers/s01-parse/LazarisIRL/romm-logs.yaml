@@ -6,7 +6,7 @@ pattern_syntax:
   DATE_YMD: "%{YEAR:year}-%{MONTHNUM:month}-%{MONTHDAY:day}"
 nodes:
   - grok:
-      pattern: '^%{WORD:log_level}:\s+\[%{WORD:app}\]\[%{WORD:service}\]\[%{DATE_YMD:date} %{TIME:time}\]\s+%{IP:proxy_ip} \| %{IP:source_ip} \| %{WORD:http_method} /api/login (401|403|429) \|.*$'
+      pattern: '^%{WORD:log_level}:\s+\[%{WORD:app}\]\[%{WORD:service}\]\[%{DATE_YMD:date} %{TIME:time}\]\s+%{IP:peer_ip} \| %{DATA:forwarded_for} \| %{WORD:http_method} /api/(login|token)/?(\?\S*)? (401|403|429) \|.*$'
       apply_on: message
       statics:
         - meta: log_type
@@ -18,6 +18,11 @@ statics:
   - meta: service
     value: romm
   - meta: source_ip
-    expression: "evt.Parsed.source_ip"
+    expression: |
+      let trusted = ["127.0.0.0/8", "::1/128", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "100.64.0.0/10", "fc00::/7"];
+      let peer = evt.Parsed.peer_ip;
+      let hops = evt.Parsed.forwarded_for in ["", "-"] ? [] : map(Split(evt.Parsed.forwarded_for, ","), TrimSpace(#));
+      let untrusted = filter(hops, {let ip = #; none(trusted, IpInRange(ip, #))});
+      any(trusted, IpInRange(peer, #)) && len(untrusted) > 0 ? untrusted[-1] : peer
   - target: evt.StrTime
     expression: "evt.Parsed.timestamp"
