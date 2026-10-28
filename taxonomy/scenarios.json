@@ -16,7 +16,7 @@
     "description": "Protect against no user agent",
     "label": "Missing User-Agent Header",
     "behaviors": [
-      "http:exploit"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -50,7 +50,7 @@
     "description": "Protect Wordpress uploads directory from listing files",
     "label": "WordPress Uploads - Directory Listing",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4193,6 +4193,28 @@
       "CWE-287"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-0768": {
+    "name": "crowdsecurity/vpatch-CVE-2026-0768",
+    "description": "Detects unauthenticated Python code execution through Langflow validate/code.",
+    "label": "Langflow - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-0768"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-0926": {
     "name": "crowdsecurity/vpatch-CVE-2026-0926",
     "description": "Detects LFI in Prodigy Commerce WordPress plugin via parameters[template_name] in admin-ajax.php",
@@ -4213,6 +4235,72 @@
     ],
     "cwes": [
       "CWE-98"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-104935": {
+    "name": "crowdsecurity/vpatch-CVE-2026-104935",
+    "description": "Detects Ivanti Connect Secure authentication bypass attempts that route a public welcome endpoint to a protected CGI handler.",
+    "label": "Ivanti Connect Secure - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T13:49:45",
+    "cves": [
+      "CVE-2026-104935"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-109618": {
+    "name": "crowdsecurity/vpatch-CVE-2026-109618",
+    "description": "Tentative vpatch for CVE-2026-109618 : block requests crafted to exhaust PHP memory during input parsing.",
+    "label": "PHP2Shell - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T10:13:38",
+    "cves": [
+      "CVE-2026-109618"
+    ],
+    "cwes": [
+      "CWE-908"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-109619": {
+    "name": "crowdsecurity/vpatch-CVE-2026-109619",
+    "description": "Tentative vpatch for CVE-2026-109619 : block multipart requests engaging PHP session.upload_progress.",
+    "label": "PHP2Shell - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T16:25:11",
+    "cves": [
+      "CVE-2026-109619"
+    ],
+    "cwes": [
+      "CWE-416"
     ]
   },
   "crowdsecurity/vpatch-CVE-2026-1207": {
@@ -4327,6 +4415,28 @@
       "CWE-434"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-21589": {
+    "name": "crowdsecurity/vpatch-CVE-2026-21589",
+    "description": "Detects Atlassian arbitrary file read attempts using traversal through web resource download routes.",
+    "label": "Atlassian - Arbitrary File Read",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-21589"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-21643": {
     "name": "crowdsecurity/vpatch-CVE-2026-21643",
     "description": "Detects SQL injection in Fortinet FortiClientEMS via the Site HTTP header on /api/v1/init_consts.",
@@ -4371,6 +4481,28 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-26217": {
+    "name": "crowdsecurity/vpatch-CVE-2026-26217",
+    "description": "Detects local file inclusion in Crawl4AI through a file scheme supplied to the execute_js endpoint.",
+    "label": "Crawl4AI - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-26217"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-26980": {
     "name": "crowdsecurity/vpatch-CVE-2026-26980",
     "description": "Detects SQL injection in Ghost CMS Content API filter parameter (CVE-2026-26980).",
@@ -4413,6 +4545,28 @@
     ],
     "cwes": [
       "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-34910": {
+    "name": "crowdsecurity/vpatch-CVE-2026-34910",
+    "description": "Detects command injection in UniFi OS through the package update endpoint and the pkg_name parameter.",
+    "label": "UniFi OS - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-34910"
+    ],
+    "cwes": [
+      "CWE-78"
     ]
   },
   "crowdsecurity/vpatch-CVE-2026-41940": {
@@ -4614,6 +4768,72 @@
       "CWE-89"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-96652": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96652",
+    "description": "Detects Plex Media Server player timeline SSRF via a URL in the protocol parameter.",
+    "label": "Plex Media Server - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96652"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-96655": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96655",
+    "description": "Detects Plex Media Server transcode SSRF via an arbitrary URL in the path parameter.",
+    "label": "Plex Media Server - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96655"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-96656": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96656",
+    "description": "Detects Plex Media Server TranscoderH264Options preference abuse to write a shared object file.",
+    "label": "Plex Media Server - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96656"
+    ],
+    "cwes": [
+      "CWE-73"
+    ]
+  },
   "crowdsecurity/vpatch-WT-2026-0001": {
     "name": "crowdsecurity/vpatch-WT-2026-0001",
     "description": "Detects authentication bypass in SmarterTools SmarterMail via force-reset-password endpoint when IsSysAdmin is true",
@@ -4694,7 +4914,7 @@
     "description": "Detect bots exploiting laravel debug mode",
     "label": "Laravel Debug Mode - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4716,7 +4936,7 @@
     "description": "Detect abuse of symfony profiler",
     "label": "Symfony Profiler - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -4732,7 +4952,9 @@
     "name": "Azlaroc/sftpgo-bf",
     "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
     "label": "SFTPGo Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -4888,6 +5110,22 @@
     "cti": true,
     "service": "ntfy",
     "created_at": "2025-09-30T09:33:37"
+  },
+  "LazarisIRL/romm-bf": {
+    "name": "LazarisIRL/romm-bf",
+    "description": "Detect RomM bruteforce",
+    "label": "RomM Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 3,
+    "cti": true,
+    "service": "romm",
+    "created_at": "2026-10-28T14:42:49"
   },
   "LePresidente/adguardhome-bf": {
     "name": "LePresidente/adguardhome-bf",
@@ -5187,12 +5425,12 @@
   "lepresidente/ssh-bad-keyexchange-bf": {
     "name": "lepresidente/ssh-bad-keyexchange-bf",
     "description": "Detect ssh bad key exchange",
-    "label": "SSH Bad Key Bruteforce",
+    "label": "SSH Bad Key Exchange",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5346,6 +5584,23 @@
     "service": "technitium",
     "created_at": "2025-10-02T10:22:05"
   },
+  "PumbaLP/cowrie-precision": {
+    "name": "PumbaLP/cowrie-precision",
+    "description": "Detect repeated logins or shell commands from one source on a Cowrie honeypot (SSH/telnet)",
+    "label": "Cowrie Honeypot Interaction",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "cowrie",
+    "created_at": "2026-10-14T08:53:12"
+  },
   "a1ad/meshcentral-bf": {
     "name": "a1ad/meshcentral-bf",
     "description": "Detect meshcentral bruteforce",
@@ -5434,7 +5689,9 @@
     "name": "aidalinfo/couchdb-slow-bf",
     "description": "Detect slow Couchdb bruteforce/enum",
     "label": "Couchdb low Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -5448,7 +5705,9 @@
     "name": "aidalinfo/couchdb-bf",
     "description": "Detect Couchdb bruteforce/enum",
     "label": "Couchdb Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -5478,7 +5737,9 @@
     "name": "aidalinfo/tcpudp-flood-traefik",
     "description": "Detect TCP/UDP flood",
     "label": "UDP or TCP Flood Traefik",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -5993,7 +6254,7 @@
     "description": "Detect CVE-2022-46169 brute forcing",
     "label": "Cacti CVE-2022-46169",
     "behaviors": [
-      "http:bruteforce"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1592"
@@ -6186,7 +6447,9 @@
     "name": "crowdsecurity/amavis-blocked",
     "description": "Ban IPs that are blocked by amavis",
     "label": "Infected Email",
-    "behaviors": [],
+    "behaviors": [
+      "smtp:spam"
+    ],
     "mitre_attacks": [
       "TA0002:T1203",
       "TA0002:T1204"
@@ -6410,6 +6673,23 @@
     "cti": true,
     "service": "linux",
     "created_at": "2023-05-22T12:21:56"
+  },
+  "crowdsecurity/aws-cloudtrail-bf-survey": {
+    "name": "crowdsecurity/aws-cloudtrail-bf-survey",
+    "description": "Detect AWS console login user enumeration",
+    "label": "AWS Console User Enumeration",
+    "behaviors": [
+      "cloud:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "aws",
+    "created_at": "2026-10-13T08:47:46"
   },
   "crowdsecurity/aws-cloudtrail-bf-console-login": {
     "name": "crowdsecurity/aws-cloudtrail-bf-console-login",
@@ -6784,13 +7064,13 @@
   },
   "crowdsecurity/endlessh-bf": {
     "name": "crowdsecurity/endlessh-bf",
-    "description": "Detect SSH bruteforce caught by Endlessh",
-    "label": "Endlessh Bruteforce",
+    "description": "Detect SSH scanning caught by Endlessh",
+    "label": "Endlessh SSH Scan",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6905,12 +7185,12 @@
   "crowdsecurity/freeswitch-acl-reject": {
     "name": "crowdsecurity/freeswitch-acl-reject",
     "description": "Detect freeswitch acl rejects",
-    "label": "CVE-2018-13379",
+    "label": "FreeSWITCH ACL Reject",
     "behaviors": [
-      "http:exploit"
+      "sip:bruteforce"
     ],
     "mitre_attacks": [
-      "TA0001:T1190"
+      "TA0006:T1110"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -7039,7 +7319,7 @@
     "description": "Detect attempt to common backdoors",
     "label": "Scanning for backdoors",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595"
@@ -7884,12 +8164,12 @@
   "crowdsecurity/nextcloud-bf_domain_error": {
     "name": "crowdsecurity/nextcloud-bf_domain_error",
     "description": "Detect Nextcloud domain error",
-    "label": "NextCloud Bruteforce",
+    "label": "NextCloud Untrusted Domain",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -8232,9 +8512,7 @@
     "name": "crowdsecurity/ssh-generic-test",
     "description": "Crowdsec Generic Test Scenario: SSH brute force trigger",
     "label": "Crowdsec Generic Test Scenario",
-    "behaviors": [
-      "ssh:bruteforce"
-    ],
+    "behaviors": [],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8427,7 +8705,9 @@
     "name": "crowdsecurity/teleport-bf",
     "description": "detect teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8441,7 +8721,9 @@
     "name": "crowdsecurity/teleport-slow-bf",
     "description": "detect slow teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -8598,12 +8880,12 @@
   "crowdsecurity/wireguard-auth": {
     "name": "crowdsecurity/wireguard-auth",
     "description": "Detects rejected connections attempts and unauthorized packets through wireguard tunnels",
-    "label": "Wireguard Bruteforce",
+    "label": "Wireguard Rejected Packets",
     "behaviors": [
-      "generic:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -8615,8 +8897,12 @@
     "name": "cyrille37/sympa_ww-http-scan",
     "description": "Detect http scan on Sympa endpoint",
     "label": "Http Scan",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
@@ -9118,7 +9404,9 @@
     "name": "melite/dovecot-slow-bf",
     "description": "Detect slow Dovecot bruteforce (distributed attacks)",
     "label": "Dovecot Slow Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9132,7 +9420,9 @@
     "name": "melite/dovecot-slow-bf_user-enum",
     "description": "Detect slow Dovecot user enumeration",
     "label": "Dovecot Slow User Enumeration",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9146,7 +9436,9 @@
     "name": "melite/dovecot-time-based-bf",
     "description": "Detect time-based Dovecot bruteforce (evasive attacks)",
     "label": "Dovecot Time-Based Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9160,7 +9452,9 @@
     "name": "melite/dovecot-time-based-bf_user-enum",
     "description": "Detect time-based Dovecot user enumeration (evasive attacks)",
     "label": "Dovecot Time-Based User Enumeration",
-    "behaviors": [],
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -9181,7 +9475,7 @@
       "TA0043:T1590"
     ],
     "confidence": 3,
-    "spoofable": 0,
+    "spoofable": 2,
     "cti": true,
     "service": "domain",
     "created_at": "2022-11-21T12:14:27"
@@ -9206,8 +9500,12 @@
     "name": "nicoh88/proxmox-backup-auth-bf",
     "description": "Detect failed PBS API authentications (bruteforce)",
     "label": "Failed PBS API Authentications (bruteforce)",
-    "behaviors": [],
-    "mitre_attacks": [],
+    "behaviors": [
+      "vm-management:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
@@ -9219,7 +9517,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Bot Protection' events (when waf blocks malicious request)",
     "label": "Openappsec 'Bot Protection' detection",
     "behaviors": [
-      "http:spam"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9285,7 +9583,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'error limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9336,7 +9634,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'http limit violation' detection",
     "behaviors": [
-      "http:spam"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9353,7 +9651,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Illegal http method violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'illegal http method violation' detection",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -9455,7 +9753,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Request Rate Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'request rate limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0040:T1498"
@@ -15973,7 +16271,7 @@
     "description": "Detect sshesame commands",
     "label": "Sshesame Commands",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"
@@ -15989,7 +16287,7 @@
     "description": "Detect sshesame input spam",
     "label": "Sshesame Input Spam",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"
