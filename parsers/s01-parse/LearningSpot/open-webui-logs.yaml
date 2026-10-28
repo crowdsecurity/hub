@@ -4,7 +4,7 @@ filter: "evt.Parsed.program == 'open-webui'"
 onsuccess: next_stage
 nodes:
  - grok:
-     pattern: '%{LOGLEVEL:log_level}:%{SPACE}%{IP:source_ip}:0 - "POST /api/v1/auths/signin HTTP/1.1" %{NUMBER:status} Bad Request'
+     pattern: '%{LOGLEVEL:log_level}:%{SPACE}%{IP:source_ip}:%{INT} - "POST /api/v1/auths/signin HTTP/1.1" %{NUMBER:status} Bad Request'
      apply_on: message
      statics:
        - meta: log_type
