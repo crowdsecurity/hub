@@ -1,7 +1,7 @@
 #contribution by @ltsich
 type: leaky
 name: crowdsecurity/dovecot-spam
-description: "detect errors on dovecot"
+description: "Detect Dovecot bruteforce"
 debug: false
 filter: "evt.Meta.log_type == 'dovecot_logs' && evt.Meta.dovecot_login_result == 'auth_failed'"
 groupby: evt.Meta.source_ip

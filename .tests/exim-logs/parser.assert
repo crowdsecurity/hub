@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 12
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 13
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2022-06-29 16:04:19 dovecot_login authenticator failed for ([1.2.3.5]) [1.2.3.4]:55379: 535 Incorrect authentication data (set_id=abuse@test.com)"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "exim"
@@ -60,7 +60,12 @@ results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["message"] == "202
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["program"] == "exim"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_path"] == "exim-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_type"] == "file"
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 12
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["message"] == "2023-05-30 06:10:15 login authenticator failed for (U8kjDR) [192.0.2.14]: 535 Incorrect authentication data"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["program"] == "exim"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_path"] == "exim-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_type"] == "file"
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 13
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -73,7 +78,8 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][10].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][11].Success == false
-len(results["s01-parse"]["crowdsecurity/exim-logs"]) == 12
+results["s00-raw"]["crowdsecurity/syslog-logs"][12].Success == false
+len(results["s01-parse"]["crowdsecurity/exim-logs"]) == 13
 results["s01-parse"]["crowdsecurity/exim-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/exim-logs"][0].Evt.Parsed["source_helo"] == "[1.2.3.5]"
 results["s01-parse"]["crowdsecurity/exim-logs"][0].Evt.Parsed["target_user"] == "abuse@test.com"
@@ -285,7 +291,24 @@ results["s01-parse"]["crowdsecurity/exim-logs"][11].Evt.Meta["source_dns"] == "n
 results["s01-parse"]["crowdsecurity/exim-logs"][11].Evt.Meta["source_ip"] == "192.0.2.13"
 results["s01-parse"]["crowdsecurity/exim-logs"][11].Evt.Meta["username"] == "user"
 results["s01-parse"]["crowdsecurity/exim-logs"][11].Evt.Meta["datasource_path"] == "exim-logs.log"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 12
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Success == true
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["message"] == "2023-05-30 06:10:15 login authenticator failed for (U8kjDR) [192.0.2.14]: 535 Incorrect authentication data"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["program"] == "exim"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["date"] == "2023-05-30 06:10:15"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["exim_auth"] == "login"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["exim_year"] == "2023"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["exim_month"] == "05"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["exim_day"] == "30"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["exim_time"] == "06:10:15"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["source_helo"] == "U8kjDR"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Parsed["source_ip"] == "192.0.2.14"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["log_type"] == "exim_failed_auth"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["service"] == "exim"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["source_helo"] == "U8kjDR"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["source_ip"] == "192.0.2.14"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["datasource_path"] == "exim-logs.log"
+results["s01-parse"]["crowdsecurity/exim-logs"][12].Evt.Meta["datasource_type"] == "file"
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 13
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "1.2.3.4"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_port"] == "55379"
@@ -521,4 +544,19 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["timestamp"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["username"] == "user"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_path"] == "exim-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Enriched["MarshaledTime"] == "2023-05-30T06:10:14Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["message"] == "2023-05-30 06:10:15 login authenticator failed for (U8kjDR) [192.0.2.14]: 535 Incorrect authentication data"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["program"] == "exim"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["date"] == "2023-05-30 06:10:15"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["exim_auth"] == "login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["source_helo"] == "U8kjDR"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["source_ip"] == "192.0.2.14"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["log_type"] == "exim_failed_auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["service"] == "exim"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["source_helo"] == "U8kjDR"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["source_ip"] == "192.0.2.14"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["timestamp"] == "2023-05-30T06:10:15Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_path"] == "exim-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Enriched["MarshaledTime"] == "2023-05-30T06:10:15Z"
 len(results["success"][""]) == 0

@@ -60,7 +60,8 @@ func (m *Manager) processFile(file string) {
 	for _, request := range requests {
 		req, err := NewHTTPRequest(m.WafURL, &request)
 		if err != nil {
-			log.Fatalf("error creating http request for file '%s': %s", file, err)
+			log.Printf("error creating http request for file '%s': %s", file, err)
+			continue
 		}
 
 		resp, err := client.Do(&req)

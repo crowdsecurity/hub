@@ -24,14 +24,20 @@ nodes:
       apply_on: message
       statics:
         - meta: log_type
-          value: vaultwarden_failed_totp
+          value: vaultwarden_failed_2fa_totp
+  - grok:
+      pattern: '^\[%{TIMESTAMP_ISO8601:datetimestamp}\]\[vaultwarden::api::core::two_factor::email\]\[ERROR\] Token is invalid! IP: %{IP:source_ip}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: vaultwarden_failed_2fa_email
 
 statics:
-    - meta: service
-      value: vaultwarden
-    - meta: source_ip
-      expression: "evt.Parsed.source_ip"
-    - target: evt.StrTimeFormat
-      value: "2006-01-02 15:04:05.000-0700"
-    - target: evt.StrTime
-      expression: evt.Parsed.datetimestamp
+  - meta: service
+    value: vaultwarden
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - target: evt.StrTimeFormat
+    value: "2006-01-02 15:04:05.000-0700"
+  - target: evt.StrTime
+    expression: evt.Parsed.datetimestamp

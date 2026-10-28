@@ -1,0 +1,19 @@
+# Technitium bruteforce
+type: leaky
+name: PintjesB/technitium-bf
+description: "Detect Technitium bruteforce attacks"
+filter: "evt.Meta.log_type == 'technitium_failed_auth'"
+leakspeed: 1m
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 5m
+reprocess: true
+labels:
+  service: technitium
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Technitium bruteforce"
+  behavior: "http:bruteforce"
+  remediation: true

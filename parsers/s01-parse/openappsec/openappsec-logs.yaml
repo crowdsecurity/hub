@@ -1,6 +1,6 @@
 name: openappsec/openappsec-logs
 description: "Parse openappsec logs"
-filter: "evt.Parsed.program == 'openappsec' && JsonExtract(evt.Parsed.message, 'eventAudience') == 'Security' && Lower(JsonExtract(evt.Parsed.message, 'eventSeverity')) in ['critical', 'high'] && Lower(JsonExtract(evt.Parsed.message, 'eventData.practiceSubType')) in ['web application','web api']"  
+filter: "evt.Parsed.program == 'openappsec' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'openappsec') in ['', nil] && evt.Unmarshaled.openappsec.eventAudience == 'Security' && Lower(evt.Unmarshaled.openappsec.eventSeverity) in ['critical', 'high'] && Lower(evt.Unmarshaled.openappsec.eventData.practiceSubType) in ['web application','web api']"
 debug: false
 onsuccess: next_stage
 statics:
@@ -11,28 +11,30 @@ statics:
   - target: evt.StrTimeFormat
     value: "2006-01-02T15:04:05"
   - target: evt.StrTime
-    expression: JsonExtract(evt.Parsed.message, "eventTime")
+    expression: evt.Unmarshaled.openappsec.eventTime
   - meta: event_name
-    expression: JsonExtract(evt.Parsed.message, "eventName")
+    expression: evt.Unmarshaled.openappsec.eventName
   - meta: event_severity
-    expression: JsonExtract(evt.Parsed.message, "eventSeverity")
+    expression: evt.Unmarshaled.openappsec.eventSeverity
   - meta: event_priority
-    expression: JsonExtract(evt.Parsed.message, "eventPriority")
+    expression: evt.Unmarshaled.openappsec.eventPriority
   - meta: event_audience
-    expression: JsonExtract(evt.Parsed.message, "eventAudience")
+    expression: evt.Unmarshaled.openappsec.eventAudience
   - meta: source_ip
-    expression: JsonExtract(evt.Parsed.message, "eventData.httpSourceId")
+    expression: evt.Unmarshaled.openappsec.eventData.httpSourceId
   - meta: event_confidence
-    expression: JsonExtract(evt.Parsed.message, "eventData.eventConfidence")
+    expression: evt.Unmarshaled.openappsec.eventData.eventConfidence
   - meta: security_action
-    expression: JsonExtract(evt.Parsed.message, "eventData.securityAction")
+    expression: evt.Unmarshaled.openappsec.eventData.securityAction
   - meta: source_identifier
-    expression: JsonExtract(evt.Parsed.message, "eventData.httpSourceId")
+    expression: evt.Unmarshaled.openappsec.eventData.httpSourceId
+  - meta: target_fqdn
+    expression: evt.Unmarshaled.openappsec.eventData.httpHostName
   - meta: matched_sample
-    expression: JsonExtract(evt.Parsed.message, "eventData.matchedSample")
+    expression: evt.Unmarshaled.openappsec.eventData.matchedSample
   - meta: matched_parameter
-    expression: JsonExtract(evt.Parsed.message, "eventData.matchedParameter")
+    expression: evt.Unmarshaled.openappsec.eventData.matchedParameter
   - meta: matched_location
-    expression: JsonExtract(evt.Parsed.message, "eventData.matchedLocation")
+    expression: evt.Unmarshaled.openappsec.eventData.matchedLocation
   - meta: incident_type
-    expression: JsonExtract(evt.Parsed.message, "eventData.waapIncidentType")
+    expression: evt.Unmarshaled.openappsec.eventData.waapIncidentType

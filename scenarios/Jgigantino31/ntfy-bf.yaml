@@ -1,0 +1,19 @@
+# ntfy BF scan
+name: Jgigantino31/ntfy-bf
+description: "Detect ntfy bruteforce"
+filter: "evt.Meta.log_type == 'ntfy_failed_auth'"
+#debug: true
+type: leaky
+groupby: evt.Meta.source_ip
+leakspeed: 20s
+capacity: 5
+blackhole: 1m
+labels:
+  service: ntfy
+  behavior: "http:bruteforce"
+  spoofable: 0
+  confidence: 3
+  classification:
+    - attack.T1110
+  label: "Ntfy Bruteforce"
+  remediation: true

@@ -15,13 +15,11 @@ labels:
     - attack.T1190
   label: "Triggered multiple OutOfBand CrowdSec AppSec rules"
   service: http
-  
 groupby: "evt.Meta.source_ip"
 #---
 # at least requests blocked on 3 distinct URIs
 #type: leaky
-#debug: true
-#filter: evt.Parsed.program == 'crowdsec-waap' && evt.Parsed.action == "deny"
+#filter: evt.Parsed.source == 'crowdsec-appsec' && evt.Appsec.HasOutBandMatches == true && evt.Parsed.outofband_action in ["deny", "drop"]
 #name: crowdsecurity/waf-probing
 #description: "WAF probing"
 #blackhole: 2m
@@ -31,28 +29,3 @@ groupby: "evt.Meta.source_ip"
 #labels:
 #  type: exploit
 #  remediation: true
-#---
-# # at least 5 requests blocked with **distinct** IDs
-#type: conditional
-#debug: true
-#name: crowdsecurity/xss-probing
-#description: at least 5 different XSS rules
-#filter: evt.Parsed.program == 'crowdsec-waap' && evt.Parsed.action == "deny"
-#condition: len( distinct( merge( all(evt.Queue, { #.Waap.GetIDs()}) ) ) ) > 5
-#condition: |
-#  LogInfo("%+v", FlattenDistinct( 
-#      map( queue.Queue, 
-#      #.Waap.ByTagRx(".*xss.*").GetRuleIDs()
-#      ) 
-#    )) &&
-#  len( 
-#    FlattenDistinct( 
-#      map( queue.Queue, 
-#      #.Waap.ByTagRx(".*xss.*").GetRuleIDs()
-#      ) 
-#    )) > 5
-#condition: 'Distance("aa", "bb", "cc", { #.Parsed.toto == 1 })'
-#capacity: -1
-#cache_size: 1000
-#leakspeed: 30s
-#distinct: evt.Meta.source_ip

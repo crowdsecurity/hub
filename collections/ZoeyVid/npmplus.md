@@ -1,8 +1,9 @@
 ## NPMplus collection
 
-A collection to defend nginx against common attacks:
- - [NPMplus](https://github.com/ZoeyVid/NPMplus) parser
+A collection to defend [NPMplus](https://github.com/ZoeyVid/NPMplus) against common attacks:
+ - NPMplus access log parser
  - base http scenarios (crawl, 404 scan, bf)
+ - appsec virtual patching and generic rules
 
 ## Acquisition template
 
@@ -10,14 +11,9 @@ Example acquisition for this collection:
 
 ```yaml
 filenames:
-  - /opt/npmplus/nginx/*.log
+  - /opt/npmplus/nginx/logs/access.log
 labels:
   type: npmplus
----
-filenames:
-  - /opt/npmplus/nginx/*.log
-labels:
-  type: modsecurity
 ---
 listen_addr: 0.0.0.0:7422
 appsec_config: crowdsecurity/appsec-default
@@ -25,16 +21,9 @@ name: appsec
 source: appsec
 labels:
   type: appsec
-# if you use openappsec you can enable this
-#---
-#source: file
-#filenames:
-# - /opt/openappsec/logs/cp-nano-http-transaction-handler.log*
-#labels:
-#  type: openappsec
 ```
 
-
 notes:
+ -  NPMplus only writes this log file when `LOGROTATE` is set to `true`
  -  Depending on your configuration, paths to log files might change
  -  please read more [here](https://github.com/ZoeyVid/NPMplus/?tab=readme-ov-file#crowdsec)

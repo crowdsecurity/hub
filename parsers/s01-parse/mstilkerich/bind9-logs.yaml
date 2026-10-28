@@ -10,7 +10,7 @@ pattern_syntax:
   # categories: security, client, update-security, etc.
   BIND9_CATEGORY: '[a-z]+'
   BIND9_SEVERITY: '[a-z]+'
-  BIND9_PREFIX: '^(%{BIND9_TIMESTAMP:timestamp} )?(%{BIND9_CATEGORY}: )?(%{BIND9_SEVERITY}: )?client @0x[0-9a-fA-F]+ %{IP:remote_addr}#%{POSINT:remote_port}.*: '
+  BIND9_PREFIX: '^(%{BIND9_TIMESTAMP:timestamp} )?(%{BIND9_CATEGORY}: )?(%{BIND9_SEVERITY}: )?client (@0x[0-9a-fA-F]+ )?%{IP:remote_addr}#%{POSINT:remote_port}.*: '
 name: mstilkerich/bind9
 description: "Parse bind9 logs"
 nodes:

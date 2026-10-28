@@ -1,0 +1,18 @@
+name: crowdsecurity/appsec-bot-challenge-exclude-wikimedia-citation
+inband:
+  pre_eval:
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/wikimedia-citoid.json")
+      apply:
+        - ExemptFromChallenge("wikimedia-citoid")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/wikimedia-zotero-translation-server.json")
+      apply:
+        - ExemptFromChallenge("wikimedia-zotero-translation-server")
+
+# Declares the datafiles so crowdsec downloads them.
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/wikimedia-citoid.json
+    dest_file: legit_bots/wikimedia-citoid.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/wikimedia-zotero-translation-server.json
+    dest_file: legit_bots/wikimedia-zotero-translation-server.json
+    type: bots

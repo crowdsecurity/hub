@@ -1,4 +1,9 @@
 {
+    "ai:anthropic": {
+        "description": "IP is used by Anthropic and should not be flagged as a threat.",
+        "label": "Anthropic",
+        "name": "ai:anthropic"
+    },
     "cdn:cloudflare_exit_node": {
         "description": "IP is a Cloudflare CDN exit IP and should not be flagged as a threat.",
         "label": "Cloudflare CDN",
@@ -19,6 +24,11 @@
         "label": "Cloudfront CDN",
         "name": "cdn:cloudfront_exit_node"
     },
+    "cdn:gcore_exit_node": {
+        "description": "IP is a Gcore CDN exit IP and should not be flagged as a threat.",
+        "label": "Gcore CDN",
+        "name": "cdn:gcore_exit_node"
+    },
     "cdn:cdn77_exit_node": {
         "description": "IP is a CDN77 CDN exit IP and should not be flagged as a threat.",
         "label": "CDN77 CDN",
@@ -38,6 +48,11 @@
         "description": "IP is a Bunny CDN exit IP and should not be flagged as a threat.",
         "label": "Bunny CDN",
         "name": "cdn:bunny_exit_node"
+    },
+    "cdn:webflow_exit_node": {
+        "description": "IP is a Webflow CDN exit IP and should not be flagged as a threat.",
+        "label": "Webflow CDN",
+        "name": "cdn:webflow_exit_node"
     },
     "cdn:shopify_exit_node": {
         "description": "IP is a Shopify CDN exit IP and should not be flagged as a threat.",
@@ -64,6 +79,11 @@
         "label": "SEO crawler",
         "name": "seo:crawler"
     },
+    "seo:dataforseo": {
+        "description": "IP belongs to DataForSEO crawler and should not be flagged as a threat.",
+        "label": "DataForSEO crawler",
+        "name": "seo:dataforseo"
+    },
     "seo:duckduckbot": {
         "description": "IP belongs to Duckduckbot SEO crawler and should not be flagged as a threat.",
         "label": "Duckduckbot SEO crawler",
@@ -73,6 +93,11 @@
         "description": "IP belongs to Googlebot SEO crawler and should not be flagged as a threat.",
         "label": "Googlebot SEO crawler",
         "name": "seo:googlebot"
+    },
+    "seo:semrush": {
+        "description": "IP belongs to Semrush SEO crawler and should not be flagged as a threat.",
+        "label": "Semrush SEO crawler",
+        "name": "seo:semrush"
     },
     "seo:bingbot": {
         "description": "IP belongs to Bingbot SEO crawler and should not be flagged as a threat.",
@@ -93,6 +118,11 @@
         "description": "IP belongs to Pinterest crawler and should not be flagged as a threat.",
         "label": "Pinterest crawler",
         "name": "seo:pinterest"
+    },
+    "seo:meta": {
+        "description": "IP belongs to Meta crawler and should not be flagged as a threat.",
+        "label": "Meta crawler",
+        "name": "seo:meta"
     },
     "seo:rdns": {
         "description": "IP belongs to a known SEO crawler and should not be flagged as a threat.",
@@ -119,19 +149,124 @@
         "label": "SSL Certificate Renewer",
         "name": "ssl:renewal"
     },
-    "scanner:cert.ssi.gouv.fr": {
-        "description": "IP belongs to an entity that scans the internet: cert.ssi.gouv.fr.",
-        "label": "Known CERT: CERT-FR",
-        "name": "scanner:cert.ssi.gouv.fr"
+    "cert:fr": {
+        "description": "IP belongs to CERT-FR.",
+        "label": "CERT-FR",
+        "name": "cert:fr"
     },
-    "scanner:cisa.dhs.gov": {
-        "description": "IP belongs to an entity that scans the internet: cisa.dhs.gov.",
-        "label": "Known CERT: CISA",
-        "name": "scanner:cisa.dhs.gov"
+    "cert:us": {
+        "description": "IP belongs to US-CERT.",
+        "label": "US-CERT",
+        "name": "cert:us"
     },
-    "scanner:cert.pl": {
-        "description": "IP belongs to an entity that scans the internet: cert.pl",
-        "label": "Known CERT",
-        "name": "scanner:cert.pl"
+    "cert:pl": {
+        "description": "IP belongs to CERT Polska.",
+        "label": "CERT Polska",
+        "name": "cert:pl"
+    },
+    "crawler:bitly": {
+        "description": "IP belongs to Bitly and should not be flagged as a threat.",
+        "label": "Bitly",
+        "name": "crawler:bitly"
+    },
+    "crawler:ibou": {
+        "description": "IP belongs to IBOU's crawler and should not be flagged as a threat.",
+        "label": "IBOU",
+        "name": "crawler:ibou"
+    },
+    "crawler:archive.org": {
+        "description": "IP belongs to Internet Archive and should not be flagged as a threat.",
+        "label": "Internet Archive",
+        "name": "crawler:archive.org"
+    },
+    "crawler:turnitin": {
+        "description": "IP belongs to Turnitin and should not be flagged as a threat.",
+        "label": "Turnitin",
+        "name": "crawler:turnitin"
+    },
+    "crawler:x": {
+        "description": "IP belongs to X and should not be flagged as a threat.",
+        "label": "X",
+        "name": "crawler:x"
+    },
+    "crawler:commoncrawl": {
+        "description": "IP belongs to Common Crawl and should not be flagged as a threat.",
+        "label": "Common Crawl",
+        "name": "crawler:commoncrawl"
+    },
+    "crawler:yandex": {
+        "description": "IP belongs to Yandex and should not be flagged as a threat.",
+        "label": "Yandex Search Engine",
+        "name": "crawler:yandex"
+    },
+    "crawler:linkedin": {
+        "description": "IP belongs to LinkedIn and should not be flagged as a threat.",
+        "label": "LinkedIn Crawler",
+        "name": "crawler:linkedin"
+    },
+    "proxy:icloud-private-relay": {
+        "description": "IP belongs to iCloud Private Relay and should not be flagged as a threat.",
+        "label": "iCloud Private Relay",
+        "name": "proxy:icloud-private-relay"
+    },
+    "mail:gmail": {
+        "description": "This IP belongs to a company that provides an email service.",
+        "label": "Gmail",
+        "name": "mail:gmail"
+    },
+    "crawler:apple": {
+        "description": "IP belongs to Apple and should not be flagged as a threat.",
+        "label": "Apple Crawler",
+        "name": "crawler:apple"
+    },
+    "crawler:coccoc": {
+        "description": "IP belongs to Coccoc and should not be flagged as a threat.",
+        "label": "Coccoc Search Engine",
+        "name": "crawler:coccoc"
+    },
+    "crawler:telegram": {
+        "description": "IP belongs to Telegram and should not be flagged as a threat.",
+        "label": "Telegram Crawler",
+        "name": "crawler:telegram"
+    },
+    "payment:paypal": {
+        "description": "IP belongs to PayPal's payment infrastructure and should not be flagged as a threat.",
+        "label": "PayPal",
+        "name": "payment:paypal"
+    },
+    "payment:polar": {
+        "description": "IP belongs to Polar's payment infrastructure and should not be flagged as a threat.",
+        "label": "Polar",
+        "name": "payment:polar"
+    },
+    "payment:paddle": {
+        "description": "IP belongs to Paddle's payment infrastructure and should not be flagged as a threat.",
+        "label": "Paddle",
+        "name": "payment:paddle"
+    },
+    "payment:square": {
+        "description": "IP belongs to Square's payment infrastructure and should not be flagged as a threat.",
+        "label": "Square",
+        "name": "payment:square"
+    },
+    "payment:recurly": {
+        "description": "IP belongs to Recurly's payment infrastructure and should not be flagged as a threat.",
+        "label": "Recurly",
+        "name": "payment:recurly"
+    },
+    "payment:stripe": {
+        "description": "IP belongs to Stripe's API infrastructure and should not be flagged as a threat.",
+        "label": "Stripe",
+        "name": "payment:stripe"
+    },
+    "webhook:stripe": {
+        "description": "IP belongs to Stripe's webhook delivery service and should not be flagged as a threat.",
+        "label": "Stripe Webhooks",
+        "name": "webhook:stripe"
+    },
+    "monitoring:uptimerobot": {
+        "description": "IP belongs to UptimeRobot's monitoring service and should not be flagged as a threat.",
+        "label": "UptimeRobot Monitoring",
+        "name": "monitoring:uptimerobot"
     }
 }

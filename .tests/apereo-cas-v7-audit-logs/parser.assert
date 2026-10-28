@@ -1,0 +1,123 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2026-10-06 11:01:20,654 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:01:20.654500278|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=590, registeredServiceFriendlyName=CAS Client, registeredServiceName=site www.domain.fr, service=https://site1.domain.fr/site1/login/index.php?authCAS=CAS}|AUTHENTICATION_FAILED|192.0.2.10|127.0.0.1|>"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "cas"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "2026-10-06 11:22:18,054 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:22:18.054821147|john.doe|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/}|AUTHENTICATION_FAILED|198.51.100.22|0:0:0:0:0:0:0:1|>"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "cas"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "2026-10-06 11:32:14,256 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:32:14.256567495|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/index.html}|AUTHENTICATION_FAILED|2001:db8::1|127.0.0.1|>"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "cas"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["jusabatier/apereo-cas-audit-logs"]) == 3
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Success == true
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["cas_client_ip"] == "192.0.2.10"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["cas_invalid_user"] == "user"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["loglevel"] == "INFO"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["message"] == "2026-10-06 11:01:20,654 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:01:20.654500278|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=590, registeredServiceFriendlyName=CAS Client, registeredServiceName=site www.domain.fr, service=https://site1.domain.fr/site1/login/index.php?authCAS=CAS}|AUTHENTICATION_FAILED|192.0.2.10|127.0.0.1|>"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["program"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Parsed["time"] == "2026-10-06 11:01:20"
+basename(results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["service"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["source_ip"] == "192.0.2.10"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Meta["target_user"] == "user"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Success == true
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["cas_client_ip"] == "198.51.100.22"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["cas_invalid_user"] == "john.doe"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["loglevel"] == "INFO"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["message"] == "2026-10-06 11:22:18,054 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:22:18.054821147|john.doe|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/}|AUTHENTICATION_FAILED|198.51.100.22|0:0:0:0:0:0:0:1|>"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["program"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Parsed["time"] == "2026-10-06 11:22:18"
+basename(results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["service"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["source_ip"] == "198.51.100.22"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Meta["target_user"] == "john.doe"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Success == true
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["cas_client_ip"] == "2001:db8::1"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["cas_invalid_user"] == "user"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["loglevel"] == "INFO"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["message"] == "2026-10-06 11:32:14,256 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:32:14.256567495|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/index.html}|AUTHENTICATION_FAILED|2001:db8::1|127.0.0.1|>"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["program"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Parsed["time"] == "2026-10-06 11:32:14"
+basename(results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["service"] == "cas"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["source_ip"] == "2001:db8::1"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Meta["target_user"] == "user"
+results["s01-parse"]["jusabatier/apereo-cas-audit-logs"][2].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["cas_client_ip"] == "192.0.2.10"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["cas_invalid_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["loglevel"] == "INFO"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2026-10-06 11:01:20,654 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:01:20.654500278|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=590, registeredServiceFriendlyName=CAS Client, registeredServiceName=site www.domain.fr, service=https://site1.domain.fr/site1/login/index.php?authCAS=CAS}|AUTHENTICATION_FAILED|192.0.2.10|127.0.0.1|>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["time"] == "2026-10-06 11:01:20"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.0.2.10"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["target_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2026-10-06T11:01:20Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2026-10-06T11:01:20Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["cas_client_ip"] == "198.51.100.22"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["cas_invalid_user"] == "john.doe"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["loglevel"] == "INFO"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "2026-10-06 11:22:18,054 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:22:18.054821147|john.doe|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/}|AUTHENTICATION_FAILED|198.51.100.22|0:0:0:0:0:0:0:1|>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["time"] == "2026-10-06 11:22:18"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "198.51.100.22"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["target_user"] == "john.doe"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2026-10-06T11:22:18Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2026-10-06T11:22:18Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["cas_client_ip"] == "2001:db8::1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["cas_invalid_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["loglevel"] == "INFO"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "2026-10-06 11:32:14,256 INFO [org.apereo.inspektr.audit.AuditTrailManager] - <2026-10-06T09:32:14.256567495|user|{credential=****************, source=null, customFields={})], registeredServiceUrl=^https://.*.domain.fr/.*, registeredServiceId=689, registeredServiceFriendlyName=CAS Client, registeredServiceName=site site2, service=https://site2.domain.fr/portal/index.html}|AUTHENTICATION_FAILED|2001:db8::1|127.0.0.1|>"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["threadname"] == "org.apereo.inspektr.audit.AuditTrailManager"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["time"] == "2026-10-06 11:32:14"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "apereo-cas-v7-audit-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "cas_failed-auth"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "cas"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "2001:db8::1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["target_user"] == "user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2026-10-06T11:32:14Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2026-10-06T11:32:14Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0

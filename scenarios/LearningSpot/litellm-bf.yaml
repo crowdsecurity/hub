@@ -1,0 +1,18 @@
+# Litellm bruteforce
+type: leaky
+name: LearningSpot/litellm-bf
+description: "Detect bruteforce attempts to Litellm"
+filter: "evt.Meta.log_type == 'litellm_failed_auth' && evt.Meta.status == '401'"
+groupby: evt.Meta.source_ip
+leakspeed: 1m
+capacity: 5
+blackhole: 1m
+labels:
+  service: litellm
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  confidence: 3
+  spoofable: 0
+  label: "Litellm Bruteforce"
+  remediation: true
