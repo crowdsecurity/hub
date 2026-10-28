@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/dectrax/dectrax-syslog.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- ./scenarios/dectrax/dectrax-decoy-breach.yaml
+postoverflows:
+- ""
+log_file: dectrax.log
+log_type: syslog
+labels: {}
+ignore_parsers: false

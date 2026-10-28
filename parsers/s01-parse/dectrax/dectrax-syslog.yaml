@@ -1,6 +1,6 @@
 onsuccess: next_stage
 filter: "evt.Parsed.program in ['dectrax', 'dectrax-sensor', 'dectrax-decoy', 'dectrax-syslog'] or (evt.Parsed.message != nil and (evt.Parsed.message contains 'dectrax' or evt.Parsed.message contains 'DECTRAX'))"
-description: "Enrich DECTRAX decoy and deception syslog events"
+description: "Parse DECTRAX decoy and deception syslog events"
 name: dectrax/dectrax-syslog
 nodes:
   # Node 1: Key-Value parsing for structured syslog (RFC 5424 / key-value payloads)
