@@ -46,6 +46,9 @@ nodes:
       statics:
         - meta: log_type_enh
           value: spam-attempt
+        # postfix appends ", sasl_username=<user>" when the client sent a username
+        - meta: sasl_username
+          expression: "evt.Parsed.message_failure contains ', sasl_username=' ? TrimSpace(Split(evt.Parsed.message_failure, ', sasl_username=')[1]) : ''"
   - grok:
       apply_on: message
       pattern: 'warning: non-SMTP command from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: %{GREEDYDATA:command}'
