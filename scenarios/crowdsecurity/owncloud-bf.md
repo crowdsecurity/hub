@@ -2,4 +2,4 @@ Detects bruteforce on [Owncloud](https://owncloud.com) instance.
 
  - leakspeed of 1m, capacity of 5 on same target user
  - leakspeed of 1m, capacity of 5 unique distinct users
- - leakspeed of 1m, capacity of 5 on trust domain error
+ - leakspeed of 1m, capacity of 5 on trusted domain error

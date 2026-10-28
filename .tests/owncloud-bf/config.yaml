@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/owncloud-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/owncloud-bf.yaml
+postoverflows:
+- ""
+log_file: owncloud-bf.log
+log_type: Owncloud
+labels: {}
+ignore_parsers: true

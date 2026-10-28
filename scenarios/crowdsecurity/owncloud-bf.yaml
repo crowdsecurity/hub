@@ -1,6 +1,6 @@
 ---
 type: leaky
-name: owncloud-bf
+name: crowdsecurity/owncloud-bf
 description: "Detect Owncloud bruteforce"
 filter: "evt.Meta.log_type in ['owncloud_failed_auth', 'owncloud_bruteforce_attempt']"
 leakspeed: "1m"
@@ -22,7 +22,7 @@ labels:
   service: owncloud
 ---
 type: leaky
-name: owncloud-bf_user_enum
+name: crowdsecurity/owncloud-bf_user_enum
 description: "Detect Owncloud user enum bruteforce"
 filter: "evt.Meta.log_type == 'owncloud_failed_auth'"
 leakspeed: "1m"
@@ -42,7 +42,7 @@ labels:
   service: owncloud
 ---
 type: leaky
-name: owncloud-bf_domain_error
+name: crowdsecurity/owncloud-bf_domain_error
 description: "Detect Owncloud domain error"
 filter: "evt.Meta.log_type == 'owncloud_domain_error'"
 leakspeed: "1m"
