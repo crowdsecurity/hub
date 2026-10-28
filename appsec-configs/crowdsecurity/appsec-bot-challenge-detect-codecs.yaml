@@ -4,7 +4,7 @@ name: crowdsecurity/appsec-bot-challenge-detect-codecs
 # The module reports what two different APIs say about H.264:
 # mediaCapabilities.decodingInfo() and RTCRtpSender.getCapabilities().
 data:
-  - source_url: https://raw.githubusercontent.com/crowdsecurity/sec-lists/bot-challenge_detection-modules/challenge/codecs-v1.js
+  - source_url: https://hub-data.crowdsec.net/custom-bot-detections/codecs-v1.js
     dest_file: challenge/codecs.js
     type: challenge-js
 
@@ -21,7 +21,7 @@ inband:
         fingerprint.Custom["cfH264Eff"].Bool &&
         !fingerprint.Custom["cfRtcH264"].Bool
       apply:
-        - AddRequestScore(100, "h264_capability_mismatch", "detect")
+        - AddRequestScore(0, "h264_capability_mismatch", "detect-experimental-codecs")
 
     # Firefox on Windows and macOS decodes H.264 through the OS. One that
     # claims either and cannot is not running on what it claims.
@@ -31,15 +31,15 @@ inband:
         fingerprint.HasCustom("cfH264Sup") &&
         !fingerprint.Custom["cfH264Sup"].Bool
       apply:
-        - AddRequestScore(100, "gecko_no_h264_on_native_os", "detect")
+        - AddRequestScore(0, "gecko_no_h264_on_native_os", "detect-experimental-codecs")
 
     # Also track skips.
     - filter: '!fingerprint.HasCustom("cfH264Sup")'
       apply:
-        - AddRequestScore(18, "missing_cf_h264_sup", "detect")
+        - AddRequestScore(0, "missing_cf_h264_sup", "detect-experimental-codecs")
     - filter: '!fingerprint.HasCustom("cfH264Eff")'
       apply:
-        - AddRequestScore(18, "missing_cf_h264_eff", "detect")
+        - AddRequestScore(0, "missing_cf_h264_eff", "detect-experimental-codecs")
     - filter: '!fingerprint.HasCustom("cfRtcH264")'
       apply:
-        - AddRequestScore(18, "missing_cf_rtc_h264", "detect")
+        - AddRequestScore(0, "missing_cf_rtc_h264", "detect-experimental-codecs")

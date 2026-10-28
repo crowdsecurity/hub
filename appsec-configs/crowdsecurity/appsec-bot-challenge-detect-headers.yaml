@@ -11,14 +11,14 @@ inband:
         req.UserAgent() contains "Windows NT" &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "Windows")
       apply:
-        - AddRequestScore(0, "ch_platform_windows", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "ch_platform_windows", "detect-experimental-headers")  # intended weight: 100
 
     - filter: >-
         req.Header.Get("Sec-CH-UA-Platform") != "" &&
         req.UserAgent() contains "Android" &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "Android")
       apply:
-        - AddRequestScore(0, "ch_platform_android", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "ch_platform_android", "detect-experimental-headers")  # intended weight: 100
 
     - filter: >-
         req.Header.Get("Sec-CH-UA-Platform") != "" &&
@@ -26,10 +26,10 @@ inband:
         !(req.UserAgent() contains "iPhone") &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "macOS")
       apply:
-        - AddRequestScore(0, "ch_platform_macos", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "ch_platform_macos", "detect-experimental-headers")  # intended weight: 100
 
     # Every browser on iOS is WebKit and implements no client hints, wrappers
     # (CriOS/EdgiOS/FxiOS) included.
     - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
       apply:
-        - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental-headers")  # intended weight: 100

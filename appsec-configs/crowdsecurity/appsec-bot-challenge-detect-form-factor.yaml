@@ -12,19 +12,19 @@ inband:
         fingerprint.Signals.Device.MediaQueries.Pointer == "fine" &&
         string(fingerprint.Signals.Device.MediaQueries.Hover) == "true"
       apply:
-        - AddRequestScore(0, "mobile_desktop_input", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "mobile_desktop_input", "detect-experimental-form-factor")  # intended weight: 100
 
     # Every browser on iOS is WebKit, so Blink's window.chrome surface cannot
     # exist there.
     - filter: 'req.UserAgent() contains "iPhone" && string(fingerprint.Signals.Browser.Features.Chrome) == "true"'
       apply:
-        - AddRequestScore(0, "ios_blink_surface", "detect-experimental")  # intended weight: 100
+        - AddRequestScore(0, "ios_blink_surface", "detect-experimental-form-factor")  # intended weight: 100
 
     # Chrome and Firefox report a colour depth of 24 on every platform they
     # support. 32 is a value real engines stopped emitting long ago.
     - filter: 'int(fingerprint.Signals.Device.ScreenResolution.ColorDepth) == 32'
       apply:
-        - AddRequestScore(0, "color_depth_32", "detect-experimental")  # intended weight: 50
+        - AddRequestScore(0, "color_depth_32", "detect-experimental-form-factor")  # intended weight: 50
 
     # No pointing device and no hover at all: a headless input stack.
     # TBD: Test with smart tv with no pointing device and kiosk.
@@ -34,4 +34,4 @@ inband:
         fingerprint.Signals.Device.MediaQueries.Pointer == "none" &&
         string(fingerprint.Signals.Device.MediaQueries.Hover) == "false"
       apply:
-        - AddRequestScore(50, "no_pointer_desktop", "detect")
+        - AddRequestScore(0, "no_pointer_desktop", "detect-experimental-form-factor")
