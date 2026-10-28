@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_advancedrun_priv_user
+description: |
+  Detects the execution of AdvancedRun utility in the context of the TrustedInstaller, SYSTEM, Local Service or Network Service accounts
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains '/EXEFilename' || evt.Parsed.CommandLine contains '/CommandLine') && (evt.Parsed.CommandLine contains ' /RunAs 8 ' || evt.Parsed.CommandLine contains ' /RunAs 4 ' || evt.Parsed.CommandLine contains ' /RunAs 10 ' || evt.Parsed.CommandLine contains ' /RunAs 11 ' || evt.Parsed.CommandLine endsWith '/RunAs 8' || evt.Parsed.CommandLine endsWith '/RunAs 4' || evt.Parsed.CommandLine endsWith '/RunAs 10' || evt.Parsed.CommandLine endsWith '/RunAs 11'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134.002
+
+  label: "PUA - AdvancedRun Suspicious Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

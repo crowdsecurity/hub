@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_seatbelt
+description: |
+  Detects the execution of the PUA/Recon tool Seatbelt via PE information of command line parameters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Seatbelt.exe' || evt.Parsed.OriginalFileName == 'Seatbelt.exe' || evt.Parsed.Description == 'Seatbelt' || evt.Parsed.CommandLine contains ' DpapiMasterKeys' || evt.Parsed.CommandLine contains ' InterestingProcesses' || evt.Parsed.CommandLine contains ' InterestingFiles' || evt.Parsed.CommandLine contains ' CertificateThumbprints' || evt.Parsed.CommandLine contains ' ChromiumBookmarks' || evt.Parsed.CommandLine contains ' ChromiumHistory' || evt.Parsed.CommandLine contains ' ChromiumPresence' || evt.Parsed.CommandLine contains ' CloudCredentials' || evt.Parsed.CommandLine contains ' CredEnum' || evt.Parsed.CommandLine contains ' CredGuard' || evt.Parsed.CommandLine contains ' FirefoxHistory' || evt.Parsed.CommandLine contains ' ProcessCreationEvents' || (evt.Parsed.CommandLine contains ' -group=misc' || evt.Parsed.CommandLine contains ' -group=remote' || evt.Parsed.CommandLine contains ' -group=chromium' || evt.Parsed.CommandLine contains ' -group=slack' || evt.Parsed.CommandLine contains ' -group=system' || evt.Parsed.CommandLine contains ' -group=user' || evt.Parsed.CommandLine contains ' -group=all') && evt.Parsed.CommandLine contains ' -outputfile=')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1526
+   - attack.t1087
+   - attack.t1083
+
+  label: "PUA - Seatbelt Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

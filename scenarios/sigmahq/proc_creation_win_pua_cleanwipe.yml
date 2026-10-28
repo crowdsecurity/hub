@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_cleanwipe
+description: |
+  Detects the use of CleanWipe a tool usually used to delete Symantec antivirus.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SepRemovalToolNative_x64.exe' || evt.Parsed.Image endsWith '\\CATClean.exe' && evt.Parsed.CommandLine contains '--uninstall' || evt.Parsed.Image endsWith '\\NetInstaller.exe' && evt.Parsed.CommandLine contains '-r' || evt.Parsed.Image endsWith '\\WFPUnins.exe' && evt.Parsed.CommandLine contains '/uninstall' && evt.Parsed.CommandLine contains '/enterprise')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "PUA - CleanWipe Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

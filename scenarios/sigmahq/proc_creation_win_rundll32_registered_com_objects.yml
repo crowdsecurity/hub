@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_registered_com_objects
+description: |
+  load malicious registered COM objects
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && (evt.Parsed.CommandLine contains '-sta ' || evt.Parsed.CommandLine contains '-localserver ') && evt.Parsed.CommandLine contains '{' && evt.Parsed.CommandLine contains '}')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.015
+
+  label: "Rundll32 Registered COM Objects"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

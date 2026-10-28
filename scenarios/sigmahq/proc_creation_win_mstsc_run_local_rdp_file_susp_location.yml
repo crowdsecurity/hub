@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mstsc_run_local_rdp_file_susp_location
+description: |
+  Detects potential RDP connection via Mstsc using a local ".rdp" file located in suspicious locations.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mstsc.exe' || evt.Parsed.OriginalFileName == 'mstsc.exe') && (evt.Parsed.CommandLine endsWith '.rdp' || evt.Parsed.CommandLine endsWith '.rdp"') && (evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\spool\\drivers\\color' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Tasks_Migrated ' || evt.Parsed.CommandLine contains ':\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tracing\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\Downloads\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1219
+
+  label: "Suspicious Mstsc.EXE Execution With Local RDP File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,39 @@
+# sabnzbd bruteforce
+type: leaky
+name: crowdsecurity/sabnzbd-bf
+description: "Detect sabnzbd bruteforce"
+filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.log_type == 'sabnzbd_failed_auth'"
+leakspeed: "10s"
+capacity: 3
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: sabnzbd
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Sabnzbd Bruteforce"
+  behavior: "generic:bruteforce"
+  remediation: true
+---
+# sabnzbd slow bruteforce
+type: leaky
+name: crowdsecurity/sabnzbd-slow-bf
+description: "Detect sabnzbd slow bruteforce"
+filter: "evt.Meta.service == 'sabnzbd' && evt.Meta.log_type == 'sabnzbd_failed_auth'"
+leakspeed: "60s"
+capacity: 10
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+  service: sabnzbd
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  label: "Sabnzbd Bruteforce"
+  behavior: "generic:bruteforce"
+  remediation: true

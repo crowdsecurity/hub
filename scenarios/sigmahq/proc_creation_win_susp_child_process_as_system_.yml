@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_child_process_as_system_
+description: |
+  Detection of child processes spawned with SYSTEM privileges by parents with LOCAL SERVICE or NETWORK SERVICE accounts
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentUser contains 'AUTHORI' || evt.Parsed.ParentUser contains 'AUTORI') && (evt.Parsed.ParentUser endsWith '\\NETWORK SERVICE' || evt.Parsed.ParentUser endsWith '\\LOCAL SERVICE') && (evt.Parsed.User contains 'AUTHORI' || evt.Parsed.User contains 'AUTORI') && (evt.Parsed.User endsWith '\\SYSTEM' || evt.Parsed.User endsWith '\\Système' || evt.Parsed.User endsWith '\\СИСТЕМА') && evt.Parsed.IntegrityLevel == 'System' && not (evt.Parsed.Image endsWith '\\rundll32.exe' && evt.Parsed.CommandLine contains 'DavSetCookie'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134.002
+
+  label: "Suspicious Child Process Created as System"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

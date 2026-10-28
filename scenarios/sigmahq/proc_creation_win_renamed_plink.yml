@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_plink
+description: |
+  Detects the execution of a renamed version of the Plink binary
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Plink' || evt.Parsed.CommandLine contains ' -l forward' && evt.Parsed.CommandLine contains ' -P ' && evt.Parsed.CommandLine contains ' -R ') && not (evt.Parsed.Image endsWith '\\plink.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Renamed Plink Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

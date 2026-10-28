@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_control_panel_item
+description: |
+  Detects the malicious use of a control panel item
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'CurrentVersion\\Control Panel\\CPLs' || evt.Parsed.CommandLine endsWith '.cpl' && not (evt.Parsed.CommandLine contains '\\System32\\' || evt.Parsed.CommandLine contains '%System%' || evt.Parsed.CommandLine contains '|C:\\Windows\\system32|' || evt.Parsed.CommandLine contains 'regsvr32 ' && evt.Parsed.CommandLine contains ' /s ' && evt.Parsed.CommandLine contains 'igfxCPL.cpl'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.002
+   - attack.t1546
+
+  label: "Control Panel Items"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

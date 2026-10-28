@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_odbcconf_exec_susp_locations
+description: |
+  Detects execution of "odbcconf" where the path of the DLL being registered is located in a potentially suspicious location.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\odbcconf.exe' || evt.Parsed.OriginalFileName == 'odbcconf.exe') && (evt.Parsed.CommandLine contains ':\\PerfLogs\\' || evt.Parsed.CommandLine contains ':\\ProgramData\\' || evt.Parsed.CommandLine contains ':\\Temp\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\' || evt.Parsed.CommandLine contains ':\\Windows\\Registration\\CRMLog' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\com\\dmp\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\FxsTmp\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Microsoft\\Crypto\\RSA\\MachineKeys\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\spool\\drivers\\color\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\spool\\PRINTERS\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\spool\\SERVERS\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Tasks_Migrated\\' || evt.Parsed.CommandLine contains ':\\Windows\\System32\\Tasks\\Microsoft\\Windows\\SyncCenter\\' || evt.Parsed.CommandLine contains ':\\Windows\\SysWOW64\\com\\dmp\\' || evt.Parsed.CommandLine contains ':\\Windows\\SysWOW64\\FxsTmp\\' || evt.Parsed.CommandLine contains ':\\Windows\\SysWOW64\\Tasks\\Microsoft\\Windows\\PLA\\System\\' || evt.Parsed.CommandLine contains ':\\Windows\\SysWOW64\\Tasks\\Microsoft\\Windows\\SyncCenter\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tasks\\' || evt.Parsed.CommandLine contains ':\\Windows\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\Tracing\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains '\\AppData\\Roaming\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.008
+
+  label: "Odbcconf.EXE Suspicious DLL Location"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

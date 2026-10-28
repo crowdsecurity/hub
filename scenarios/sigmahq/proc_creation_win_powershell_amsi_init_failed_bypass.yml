@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_amsi_init_failed_bypass
+description: |
+  Detects Request to "amsiInitFailed" that can be used to disable AMSI Scanning
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'System.Management.Automation.AmsiUtils' && evt.Parsed.CommandLine contains 'amsiInitFailed' || evt.Parsed.CommandLine contains '[Ref].Assembly.GetType' && evt.Parsed.CommandLine contains 'SetValue($null,$true)' && evt.Parsed.CommandLine contains 'NonPublic,Static')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Potential AMSI Bypass Via .NET Reflection"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

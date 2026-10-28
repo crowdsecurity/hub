@@ -1,0 +1,20 @@
+name: LearningSpot/dockge-logs
+description: "Parse Dockge Logs"
+filter: "evt.Parsed.program == 'dockge'"
+onsuccess: next_stage
+nodes:
+ - grok:
+     pattern: '%{TIMESTAMP_ISO8601:timestamp} \[AUTH\] WARN: Incorrect username or password for user %{DATA:username}.? IP=%{IP:source_ip}'
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: dockge_failed_auth
+       - target: evt.StrTime
+         expression: evt.Parsed.timestamp
+       - meta: username
+         expression: evt.Parsed.username
+statics:
+   - meta: service
+     value: dockge
+   - meta: source_ip
+     expression: evt.Parsed.source_ip

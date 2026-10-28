@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_public_folder
+description: |
+  This rule detects execution of PowerShell scripts located in the "C:\Users\Public" folder
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains '-f C:\\Users\\Public' || evt.Parsed.CommandLine contains '-f "C:\\Users\\Public' || evt.Parsed.CommandLine contains '-f %Public%' || evt.Parsed.CommandLine contains '-fi C:\\Users\\Public' || evt.Parsed.CommandLine contains '-fi "C:\\Users\\Public' || evt.Parsed.CommandLine contains '-fi %Public%' || evt.Parsed.CommandLine contains '-fil C:\\Users\\Public' || evt.Parsed.CommandLine contains '-fil "C:\\Users\\Public' || evt.Parsed.CommandLine contains '-fil %Public%' || evt.Parsed.CommandLine contains '-file C:\\Users\\Public' || evt.Parsed.CommandLine contains '-file "C:\\Users\\Public' || evt.Parsed.CommandLine contains '-file %Public%'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Execution of Powershell Script in Public Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

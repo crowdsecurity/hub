@@ -1,0 +1,22 @@
+# postfix helo rejected because it did not match postfix restrictions
+type: leaky
+name: crowdsecurity/postfix-helo-rejected
+description: "Detect HELO rejections"
+filter: "evt.Meta.log_type == 'postfix' && evt.Meta.action == 'reject' && evt.Meta.reason startsWith 'Helo command rejected'"
+references:
+  - https://www.postfix.org/postconf.5.html#smtpd_helo_restrictions
+groupby: evt.Meta.source_ip
+capacity: 1
+leakspeed: 600s
+blackhole: 1m
+reprocess: false
+labels:
+  service: postfix
+  remediation: true
+  confidence: 2
+  spoofable: 0
+  classification:
+  - attack.T1595
+  - attack.T1592
+  behavior: "smtp:spam"
+  label: "Postfix Helo Rejected"

@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_dumpstack_log_evasion
+description: |
+  Detects the use of the filename DumpStack.log to evade Microsoft Defender
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\DumpStack.log' || evt.Parsed.CommandLine contains ' -o DumpStack.log')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "DumpStack.log Defender Evasion"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_net_user_default_accounts_manipulation
+description: |
+  Detects suspicious manipulations of default accounts such as 'administrator' and 'guest'. For example 'enable' or 'disable' accounts or change the password...etc
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\net1.exe' || evt.Parsed.OriginalFileName in ['net.exe', 'net1.exe']) && evt.Parsed.CommandLine contains ' user ' && (evt.Parsed.CommandLine contains ' Järjestelmänvalvoja ' || evt.Parsed.CommandLine contains ' Rendszergazda ' || evt.Parsed.CommandLine contains ' Администратор ' || evt.Parsed.CommandLine contains ' Administrateur ' || evt.Parsed.CommandLine contains ' Administrador ' || evt.Parsed.CommandLine contains ' Administratör ' || evt.Parsed.CommandLine contains ' Administrator ' || evt.Parsed.CommandLine contains ' guest ' || evt.Parsed.CommandLine contains ' DefaultAccount ' || evt.Parsed.CommandLine contains ' "Järjestelmänvalvoja" ' || evt.Parsed.CommandLine contains ' "Rendszergazda" ' || evt.Parsed.CommandLine contains ' "Администратор" ' || evt.Parsed.CommandLine contains ' "Administrateur" ' || evt.Parsed.CommandLine contains ' "Administrador" ' || evt.Parsed.CommandLine contains ' "Administratör" ' || evt.Parsed.CommandLine contains ' "Administrator" ' || evt.Parsed.CommandLine contains ' "guest" ' || evt.Parsed.CommandLine contains ' "DefaultAccount" ' || evt.Parsed.CommandLine contains ' \'Järjestelmänvalvoja\' ' || evt.Parsed.CommandLine contains ' \'Rendszergazda\' ' || evt.Parsed.CommandLine contains ' \'Администратор\' ' || evt.Parsed.CommandLine contains ' \'Administrateur\' ' || evt.Parsed.CommandLine contains ' \'Administrador\' ' || evt.Parsed.CommandLine contains ' \'Administratör\' ' || evt.Parsed.CommandLine contains ' \'Administrator\' ' || evt.Parsed.CommandLine contains ' \'guest\' ' || evt.Parsed.CommandLine contains ' \'DefaultAccount\' ') && not (evt.Parsed.CommandLine contains 'guest' && evt.Parsed.CommandLine contains '/active no'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1560.001
+
+  label: "Suspicious Manipulation Of Default Accounts Via Net.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

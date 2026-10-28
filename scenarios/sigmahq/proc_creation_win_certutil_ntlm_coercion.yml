@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_certutil_ntlm_coercion
+description: |
+  Detects possible NTLM coercion via certutil using the 'syncwithWU' flag
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.OriginalFileName == 'CertUtil.exe') && evt.Parsed.CommandLine contains ' -syncwithWU ' && evt.Parsed.CommandLine contains ' \\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Potential NTLM Coercion Via Certutil.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

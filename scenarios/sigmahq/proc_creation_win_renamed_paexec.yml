@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_renamed_paexec
+description: |
+  Detects execution of renamed version of PAExec. Often used by attackers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Description == 'PAExec Application' || evt.Parsed.OriginalFileName == 'PAExec.exe' || evt.Parsed.Product contains 'PAExec' || evt.Parsed.Imphash in ['11D40A7B7876288F919AB819CC2D9802', '6444f8a34e99b8f7d9647de66aabe516', 'dfd6aa3f7b2b1035b76b718f1ddc689f', '1a6cca4d5460b1710a12dea39e4a592c'] || evt.Parsed.Hashes contains 'IMPHASH=11D40A7B7876288F919AB819CC2D9802' || evt.Parsed.Hashes contains 'IMPHASH=6444f8a34e99b8f7d9647de66aabe516' || evt.Parsed.Hashes contains 'IMPHASH=dfd6aa3f7b2b1035b76b718f1ddc689f' || evt.Parsed.Hashes contains 'IMPHASH=1a6cca4d5460b1710a12dea39e4a592c') && not (evt.Parsed.Image endsWith '\\paexec.exe' || evt.Parsed.Image startsWith 'C:\\Windows\\PAExec-'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Renamed PAExec Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

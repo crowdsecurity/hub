@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_wscript_cscript_uncommon_extension_exec
+description: |
+  Detects Wscript/Cscript executing a file with an uncommon (i.e. non-script) extension
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName in ['wscript.exe', 'cscript.exe'] || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cscript.exe') && (evt.Parsed.CommandLine contains '.csv' || evt.Parsed.CommandLine contains '.dat' || evt.Parsed.CommandLine contains '.doc' || evt.Parsed.CommandLine contains '.gif' || evt.Parsed.CommandLine contains '.jpeg' || evt.Parsed.CommandLine contains '.jpg' || evt.Parsed.CommandLine contains '.png' || evt.Parsed.CommandLine contains '.ppt' || evt.Parsed.CommandLine contains '.txt' || evt.Parsed.CommandLine contains '.xls' || evt.Parsed.CommandLine contains '.xml'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.005
+   - attack.t1059.007
+
+  label: "Cscript/Wscript Uncommon Script Extension Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

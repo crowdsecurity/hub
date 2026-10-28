@@ -1,7 +1,7 @@
 ## Generic bucket to handle impossible travel for authentication
 type: conditional
 name: crowdsecurity/impossible-travel
-description: "impossible travel"
+description: "Detect Impossible Travel"
 filter: "evt.Meta.log_type == 'auth_success' && evt.Meta.user not in ['', nil]"
 groupby: "evt.Meta.service + evt.Meta.user"
 # To make it generic we concatenate the service name and the user

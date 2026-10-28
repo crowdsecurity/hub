@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_etw_modification_cmdline
+description: |
+  Detects changes to environment variables related to ETW logging via the CommandLine. This could indicate potential adversaries stopping ETW providers recording loaded .NET assemblies. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'COMPlus_ETWEnabled' || evt.Parsed.CommandLine contains 'COMPlus_ETWFlags')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562
+
+  label: "ETW Logging Tamper In .NET Processes Via CommandLine"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

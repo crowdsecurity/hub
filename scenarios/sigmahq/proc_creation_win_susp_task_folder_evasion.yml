@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_task_folder_evasion
+description: |
+  The Tasks folder in system32 and syswow64 are globally writable paths. Adversaries can take advantage of this and load or influence any script hosts or ANY .NET Application in Tasks to load and execute a custom assembly into cscript, wscript, regsvr32, mshta, eventvwr 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'echo ' || evt.Parsed.CommandLine contains 'copy ' || evt.Parsed.CommandLine contains 'type ' || evt.Parsed.CommandLine contains 'file createnew') && (evt.Parsed.CommandLine contains ' C:\\Windows\\System32\\Tasks\\' || evt.Parsed.CommandLine contains ' C:\\Windows\\SysWow64\\Tasks\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.002
+
+  label: "Tasks Folder Evasion"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

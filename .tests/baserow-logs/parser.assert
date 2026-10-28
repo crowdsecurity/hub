@@ -1,0 +1,117 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "baserow"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "baserow"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "baserow"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["LearningSpot/baserow-logs"]) == 3
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Success == true
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["length"] == "0"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["program"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["service"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Meta["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Success == true
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["length"] == "0"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["program"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["service"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Meta["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Success == true
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["length"] == "0"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["program"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["service"] == "baserow"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Meta["status"] == "401"
+results["s01-parse"]["LearningSpot/baserow-logs"][2].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["length"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["length"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["length"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == " [BACKEND][2024-11-29 15:58:55] 192.168.1.1:0 - \"POST /api/user/token-auth/ HTTP/1.1\" 401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["timestamp"] == "2024-11-29 15:58:55"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "baserow-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "baserow_failed_login"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "baserow"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["status"] == "401"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2024-11-29T15:58:55Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0

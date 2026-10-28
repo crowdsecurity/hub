@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wuauclt_no_cli_flags_execution
+description: |
+  Detects suspicious Windows Update Agent activity in which a wuauclt.exe process command line doesn't contain any command line flags 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\Wuauclt.exe' || evt.Parsed.OriginalFileName == 'Wuauclt.exe') && (evt.Parsed.CommandLine endsWith 'Wuauclt' || evt.Parsed.CommandLine endsWith 'Wuauclt.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Suspicious Windows Update Agent Empty Cmdline"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

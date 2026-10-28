@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_mpcmdrun_download_arbitrary_file
+description: |
+  Detects the use of Windows Defender MpCmdRun.EXE to download files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'MpCmdRun.exe' || evt.Parsed.Image endsWith '\\MpCmdRun.exe' || evt.Parsed.CommandLine contains 'MpCmdRun.exe' || evt.Parsed.Description == 'Microsoft Malware Protection Command Line Utility') && evt.Parsed.CommandLine contains 'DownloadFile' && evt.Parsed.CommandLine contains 'url')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+   - attack.t1105
+
+  label: "File Download Via Windows Defender MpCmpRun.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

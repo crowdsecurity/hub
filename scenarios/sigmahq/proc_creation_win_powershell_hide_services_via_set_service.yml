@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_hide_services_via_set_service
+description: |
+  Detects usage of the "Set-Service" powershell cmdlet to configure a new SecurityDescriptor that allows a service to be hidden from other utilities such as "sc.exe", "Get-Service"...etc. (Works only in powershell 7)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName == 'pwsh.dll') && evt.Parsed.CommandLine contains 'Set-Service ' && evt.Parsed.CommandLine contains 'DCLCWPDTSD' && (evt.Parsed.CommandLine contains '-SecurityDescriptorSddl ' || evt.Parsed.CommandLine contains '-sd '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.011
+
+  label: "Abuse of Service Permissions to Hide Services Via Set-Service"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

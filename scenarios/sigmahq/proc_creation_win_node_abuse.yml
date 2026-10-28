@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_node_abuse
+description: |
+  Detects the execution node.exe which is shipped with multiple software such as VMware, Adobe...etc. In order to execute arbitrary code. For example to establish reverse shell as seen in Log4j attacks...etc
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\node.exe' && (evt.Parsed.CommandLine contains ' -e ' || evt.Parsed.CommandLine contains ' --eval ') && evt.Parsed.CommandLine contains '.exec(' && evt.Parsed.CommandLine contains 'net.socket' && evt.Parsed.CommandLine contains '.connect' && evt.Parsed.CommandLine contains 'child_process')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1127
+
+  label: "Potential Arbitrary Code Execution Via Node.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

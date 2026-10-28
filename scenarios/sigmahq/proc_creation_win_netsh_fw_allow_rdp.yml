@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_netsh_fw_allow_rdp
+description: |
+  Detects usage of the netsh command to open and allow connections to port 3389 (RDP). As seen used by Sarwent Malware
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\netsh.exe' || evt.Parsed.OriginalFileName == 'netsh.exe') && evt.Parsed.CommandLine contains 'firewall ' && evt.Parsed.CommandLine contains 'add ' && evt.Parsed.CommandLine contains 'tcp ' && evt.Parsed.CommandLine contains '3389' && (evt.Parsed.CommandLine contains 'portopening' || evt.Parsed.CommandLine contains 'allow'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.004
+
+  label: "RDP Connection Allowed Via Netsh.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

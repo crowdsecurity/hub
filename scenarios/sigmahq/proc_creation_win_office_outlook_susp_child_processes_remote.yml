@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_outlook_susp_child_processes_remote
+description: |
+  Detects a suspicious child process spawning from Outlook where the image is located in a remote location (SMB/WebDav shares).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\outlook.exe' && evt.Parsed.Image startsWith '\\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+   - attack.t1202
+
+  label: "Suspicious Remote Child Process From Outlook"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

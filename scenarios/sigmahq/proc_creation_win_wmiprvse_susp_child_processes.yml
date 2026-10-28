@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmiprvse_susp_child_processes
+description: |
+  Detects suspicious and uncommon child processes of WmiPrvSE
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\wbem\\WmiPrvSE.exe' && (evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\verclsid.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\cmd.exe' && (evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'pwsh' || evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'wscript')) && not (evt.Parsed.Image endsWith '\\WerFault.exe' || evt.Parsed.Image endsWith '\\WmiPrvSE.exe' || evt.Parsed.Image endsWith '\\msiexec.exe' && evt.Parsed.CommandLine contains '/i '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1204.002
+   - attack.t1218.010
+
+  label: "Suspicious WmiPrvSE Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

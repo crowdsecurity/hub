@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_rubeus
+description: |
+  Detects the execution of the hacktool Rubeus via PE information of command line parameters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Rubeus.exe' || evt.Parsed.OriginalFileName == 'Rubeus.exe' || evt.Parsed.Description == 'Rubeus' || evt.Parsed.CommandLine contains 'asreproast ' || evt.Parsed.CommandLine contains 'dump /service:krbtgt ' || evt.Parsed.CommandLine contains 'dump /luid:0x' || evt.Parsed.CommandLine contains 'kerberoast ' || evt.Parsed.CommandLine contains 'createnetonly /program:' || evt.Parsed.CommandLine contains 'ptt /ticket:' || evt.Parsed.CommandLine contains '/impersonateuser:' || evt.Parsed.CommandLine contains 'renew /ticket:' || evt.Parsed.CommandLine contains 'asktgt /user:' || evt.Parsed.CommandLine contains 'harvest /interval:' || evt.Parsed.CommandLine contains 's4u /user:' || evt.Parsed.CommandLine contains 's4u /ticket:' || evt.Parsed.CommandLine contains 'hash /password:' || evt.Parsed.CommandLine contains 'golden /aes256:' || evt.Parsed.CommandLine contains 'silver /user:')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1003
+   - attack.t1558.003
+   - attack.t1550.003
+
+  label: "HackTool - Rubeus Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

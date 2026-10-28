@@ -5,7 +5,7 @@ description: "Parse adguardhome logs"
 filter: "evt.Parsed.program == 'adguardhome'"
 nodes:
   - grok:
-      pattern: '%{DATE_X:date} %{TIME:time}.* POST %{IP} /control/login: from ip %{IP:source_ip}: invalid username or password$'
+      pattern: '%{DATE_X:date} %{TIME:time}.* POST %{HOSTNAME} /control/login: from ip %{IP:source_ip}: invalid username or password$'
       apply_on: message
       statics:
         - meta: log_type

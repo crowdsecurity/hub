@@ -1,0 +1,18 @@
+type: leaky
+name: crowdsecurity/fortinet-vpn-bruteforce
+description: "Detect fortinet VPN bruteforce"
+debug: false
+filter: "evt.Meta.service == 'fortinet' && evt.Meta.sub_type == 'vpn' && evt.Meta.action == 'ssl-login-fail' && evt.Meta.tunnel_type == 'ssl-web'"
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 2m
+blackhole: 5m
+labels:
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Fortinet VPN Bruteforce"
+  service: fortinet
+  remediation: true

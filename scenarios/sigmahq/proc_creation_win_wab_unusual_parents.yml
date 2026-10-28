@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_wab_unusual_parents
+description: |
+  Detects unusual parent or children of the wab.exe (Windows Contacts) and Wabmig.exe (Microsoft Address Book Import Tool) processes as seen being used with bumblebee activity
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\WmiPrvSE.exe' || evt.Parsed.ParentImage endsWith '\\svchost.exe' || evt.Parsed.ParentImage endsWith '\\dllhost.exe') && (evt.Parsed.Image endsWith '\\wab.exe' || evt.Parsed.Image endsWith '\\wabmig.exe') || evt.Parsed.ParentImage endsWith '\\wab.exe' || evt.Parsed.ParentImage endsWith '\\wabmig.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Wab/Wabmig Unusual Parent Or Child Processes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

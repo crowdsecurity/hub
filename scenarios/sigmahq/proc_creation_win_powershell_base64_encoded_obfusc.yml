@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_encoded_obfusc
+description: |
+  Detects suspicious UTF16 and base64 encoded and often obfuscated PowerShell code often used in command lines
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'IAAtAGIAeABvAHIAIAAwAHgA' || evt.Parsed.CommandLine contains 'AALQBiAHgAbwByACAAMAB4A' || evt.Parsed.CommandLine contains 'gAC0AYgB4AG8AcgAgADAAeA' || evt.Parsed.CommandLine contains 'AC4ASQBuAHYAbwBrAGUAKAApACAAfAAg' || evt.Parsed.CommandLine contains 'AuAEkAbgB2AG8AawBlACgAKQAgAHwAI' || evt.Parsed.CommandLine contains 'ALgBJAG4AdgBvAGsAZQAoACkAIAB8AC' || evt.Parsed.CommandLine contains 'AHsAMQB9AHsAMAB9ACIAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADEAfQB7ADAAfQAiACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAxAH0AewAwAH0AIgAgAC0AZgAg' || evt.Parsed.CommandLine contains 'AHsAMAB9AHsAMwB9ACIAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADAAfQB7ADMAfQAiACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAwAH0AewAzAH0AIgAgAC0AZgAg' || evt.Parsed.CommandLine contains 'AHsAMgB9AHsAMAB9ACIAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADIAfQB7ADAAfQAiACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAyAH0AewAwAH0AIgAgAC0AZgAg' || evt.Parsed.CommandLine contains 'AHsAMQB9AHsAMAB9ACcAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADEAfQB7ADAAfQAnACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAxAH0AewAwAH0AJwAgAC0AZgAg' || evt.Parsed.CommandLine contains 'AHsAMAB9AHsAMwB9ACcAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADAAfQB7ADMAfQAnACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAwAH0AewAzAH0AJwAgAC0AZgAg' || evt.Parsed.CommandLine contains 'AHsAMgB9AHsAMAB9ACcAIAAtAGYAI' || evt.Parsed.CommandLine contains 'B7ADIAfQB7ADAAfQAnACAALQBmAC' || evt.Parsed.CommandLine contains 'AewAyAH0AewAwAH0AJwAgAC0AZgAg')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Obfuscated PowerShell Code"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

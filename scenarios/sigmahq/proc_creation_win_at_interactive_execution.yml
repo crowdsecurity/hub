@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_at_interactive_execution
+description: |
+  Detects an interactive AT job, which may be used as a form of privilege escalation.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\at.exe' && evt.Parsed.CommandLine contains 'interactive')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1053.002
+
+  label: "Interactive AT Job"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

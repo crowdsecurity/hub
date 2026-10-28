@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_calc_uncommon_exec
+description: |
+  Detects suspicious use of 'calc.exe' with command line parameters or in a suspicious directory, which is likely caused by some PoC or detection evasion. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '\\calc.exe ' || evt.Parsed.Image endsWith '\\calc.exe' && not (evt.Parsed.Image contains ':\\Windows\\System32\\' || evt.Parsed.Image contains ':\\Windows\\SysWOW64\\' || evt.Parsed.Image contains ':\\Windows\\WinSxS\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Suspicious Calculator Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

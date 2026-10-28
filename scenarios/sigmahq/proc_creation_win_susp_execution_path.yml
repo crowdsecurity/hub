@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_execution_path
+description: |
+  Detects a potentially suspicious execution from an uncommon folder.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains ':\\Perflogs\\' || evt.Parsed.Image contains ':\\Users\\All Users\\' || evt.Parsed.Image contains ':\\Users\\Default\\' || evt.Parsed.Image contains ':\\Users\\NetworkService\\' || evt.Parsed.Image contains ':\\Windows\\addins\\' || evt.Parsed.Image contains ':\\Windows\\debug\\' || evt.Parsed.Image contains ':\\Windows\\Fonts\\' || evt.Parsed.Image contains ':\\Windows\\Help\\' || evt.Parsed.Image contains ':\\Windows\\IME\\' || evt.Parsed.Image contains ':\\Windows\\Media\\' || evt.Parsed.Image contains ':\\Windows\\repair\\' || evt.Parsed.Image contains ':\\Windows\\security\\' || evt.Parsed.Image contains ':\\Windows\\System32\\Tasks\\' || evt.Parsed.Image contains ':\\Windows\\Tasks\\' || evt.Parsed.Image contains '$Recycle.bin' || evt.Parsed.Image contains '\\config\\systemprofile\\' || evt.Parsed.Image contains '\\Intel\\Logs\\' || evt.Parsed.Image contains '\\RSA\\MachineKeys\\') && not (evt.Parsed.Image startsWith 'C:\\Users\\Public\\IBM\\ClientSolutions\\Start_Programs\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\config\\systemprofile\\Citrix\\UpdaterBinaries\\' && evt.Parsed.Image endsWith '\\CitrixReceiverUpdater.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Process Execution From A Potentially Suspicious Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

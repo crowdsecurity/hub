@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_iex_patterns
+description: |
+  Detects suspicious ways to run Invoke-Execution using IEX alias
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe') && (evt.Parsed.CommandLine contains ' | iex;' || evt.Parsed.CommandLine contains ' | iex ' || evt.Parsed.CommandLine contains ' | iex}' || evt.Parsed.CommandLine contains ' | IEX ;' || evt.Parsed.CommandLine contains ' | IEX -Error' || evt.Parsed.CommandLine contains ' | IEX (new' || evt.Parsed.CommandLine contains ');IEX ') && (evt.Parsed.CommandLine contains '::FromBase64String' || evt.Parsed.CommandLine contains '.GetString([System.Convert]::') || evt.Parsed.CommandLine contains ')|iex;$' || evt.Parsed.CommandLine contains ');iex($' || evt.Parsed.CommandLine contains ');iex $' || evt.Parsed.CommandLine contains ' | IEX | ' || evt.Parsed.CommandLine contains ' | iex\\"')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Suspicious PowerShell IEX Execution Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

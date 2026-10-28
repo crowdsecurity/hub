@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_susp_ps_downloadfile
+description: |
+  Detects the execution of powershell, a WebClient object creation and the invocation of DownloadFile in a single command line
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'powershell' && evt.Parsed.CommandLine contains '.DownloadFile' && evt.Parsed.CommandLine contains 'System.Net.WebClient')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1104
+   - attack.t1105
+
+  label: "PowerShell DownloadFile"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

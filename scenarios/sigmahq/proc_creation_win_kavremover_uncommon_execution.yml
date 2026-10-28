@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_kavremover_uncommon_execution
+description: |
+  Detects the execution of a signed binary dropped by Kaspersky Lab Products Remover (kavremover) which can be abused as a LOLBIN to execute arbitrary commands and binaries.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' run run-cmd ' && not (evt.Parsed.ParentImage endsWith '\\cleanapi.exe' || evt.Parsed.ParentImage endsWith '\\kavremover.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1127
+
+  label: "Kavremover Dropped Binary LOLBIN Usage"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

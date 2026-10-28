@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_sticky_key_like_backdoor_execution
+description: |
+  Detects the usage and installation of a backdoor that uses an option to register a malicious debugger for built-in tools that are accessible in the login screen
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\winlogon.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.Image endsWith '\\wt.exe') && (evt.Parsed.CommandLine contains 'sethc.exe' || evt.Parsed.CommandLine contains 'utilman.exe' || evt.Parsed.CommandLine contains 'osk.exe' || evt.Parsed.CommandLine contains 'Magnify.exe' || evt.Parsed.CommandLine contains 'Narrator.exe' || evt.Parsed.CommandLine contains 'DisplaySwitch.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.008
+
+  label: "Sticky Key Like Backdoor Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_ntlmrelay
+description: |
+  Detects a privilege elevation attempt by coercing NTLM authentication on the Printer Spooler service
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine contains 'C:\\windows\\system32\\davclnt.dll,DavSetCookie' && evt.Parsed.CommandLine contains 'http' && (evt.Parsed.CommandLine contains 'spoolss' || evt.Parsed.CommandLine contains 'srvsvc' || evt.Parsed.CommandLine contains '/print/pipe/'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1212
+
+  label: "Suspicious NTLM Authentication on the Printer Spooler Service"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

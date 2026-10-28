@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_splwow64_cli_anomaly
+description: |
+  Detects suspicious Splwow64.exe process without any command line parameters
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\splwow64.exe' && evt.Parsed.CommandLine endsWith 'splwow64.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Suspicious Splwow64 Without Params"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

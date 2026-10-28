@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_add_safeboot
+description: |
+  Detects execution of "reg.exe" commands with the "add" or "copy" flags on safe boot registry keys. Often used by attacker to allow the ransomware to work in safe mode as some security products do not
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && evt.Parsed.CommandLine contains '\\SYSTEM\\CurrentControlSet\\Control\\SafeBoot' && (evt.Parsed.CommandLine contains ' copy ' || evt.Parsed.CommandLine contains ' add '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Add SafeBoot Keys Via Reg Utility"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

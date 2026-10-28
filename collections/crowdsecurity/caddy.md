@@ -11,6 +11,7 @@ Example acquisition for this collection :
 ```yaml
 filenames:
   - /var/log/caddy/*.log
+labels:
   type: caddy
 ```
 

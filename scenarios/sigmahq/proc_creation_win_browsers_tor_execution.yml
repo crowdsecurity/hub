@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_browsers_tor_execution
+description: |
+  Detects the use of Tor or Tor-Browser to connect to onion routing networks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\tor.exe' || evt.Parsed.Image endsWith '\\Tor Browser\\Browser\\firefox.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1090.003
+
+  label: "Tor Client/Browser Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

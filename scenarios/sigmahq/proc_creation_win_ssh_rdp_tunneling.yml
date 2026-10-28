@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_ssh_rdp_tunneling
+description: |
+  Execution of ssh.exe to perform data exfiltration and tunneling through RDP
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ssh.exe' && evt.Parsed.CommandLine contains ':3389')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1572
+
+  label: "Potential RDP Tunneling Via SSH"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

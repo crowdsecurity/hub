@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_explorer_nouaccheck
+description: |
+  Detects suspicious starts of explorer.exe that use the /NOUACCHECK flag that allows to run all sub processes of that newly started explorer.exe without any UAC checks
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\explorer.exe' && evt.Parsed.CommandLine contains '/NOUACCHECK' && not (evt.Parsed.ParentCommandLine == 'C:\\Windows\\system32\\svchost.exe -k netsvcs -p -s Schedule' || evt.Parsed.ParentImage == 'C:\\Windows\\System32\\svchost.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "Explorer NOUACCHECK Flag"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

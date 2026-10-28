@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_copy_dmp_from_share
+description: |
+  Detects usage of the copy builtin cmd command to copy files with the ".dmp"/".dump" extension from a remote share
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && evt.Parsed.CommandLine contains 'copy ' && evt.Parsed.CommandLine contains ' \\\\' && (evt.Parsed.CommandLine contains '.dmp' || evt.Parsed.CommandLine contains '.dump' || evt.Parsed.CommandLine contains '.hdmp'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Copy .DMP/.DUMP Files From Remote Share Via Cmd.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

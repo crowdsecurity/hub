@@ -1,0 +1,27 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_pchunter
+description: |
+  Detects suspicious use of PCHunter, a tool like Process Hacker to view and manipulate processes, kernel options and other low level stuff
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\PCHunter64.exe' || evt.Parsed.Image endsWith '\\PCHunter32.exe' || evt.Parsed.OriginalFileName == 'PCHunter.exe' || evt.Parsed.Description == 'Epoolsoft Windows Information View Tools' || evt.Parsed.Hashes contains 'SHA1=5F1CBC3D99558307BC1250D084FA968521482025' || evt.Parsed.Hashes contains 'MD5=987B65CD9B9F4E9A1AFD8F8B48CF64A7' || evt.Parsed.Hashes contains 'SHA256=2B214BDDAAB130C274DE6204AF6DBA5AEEC7433DA99AA950022FA306421A6D32' || evt.Parsed.Hashes contains 'IMPHASH=444D210CEA1FF8112F256A4997EED7FF' || evt.Parsed.Hashes contains 'SHA1=3FB89787CB97D902780DA080545584D97FB1C2EB' || evt.Parsed.Hashes contains 'MD5=228DD0C2E6287547E26FFBD973A40F14' || evt.Parsed.Hashes contains 'SHA256=55F041BF4E78E9BFA6D4EE68BE40E496CE3A1353E1CA4306598589E19802522C' || evt.Parsed.Hashes contains 'IMPHASH=0479F44DF47CFA2EF1CCC4416A538663' || evt.Parsed.md5 in ['228dd0c2e6287547e26ffbd973a40f14', '987b65cd9b9f4e9a1afd8f8b48cf64a7'] || evt.Parsed.sha1 in ['5f1cbc3d99558307bc1250d084fa968521482025', '3fb89787cb97d902780da080545584d97fb1c2eb'] || evt.Parsed.sha256 in ['2b214bddaab130c274de6204af6dba5aeec7433da99aa950022fa306421a6d32', '55f041bf4e78e9bfa6d4ee68be40e496ce3a1353e1ca4306598589e19802522c'] || evt.Parsed.Imphash in ['444d210cea1ff8112f256a4997eed7ff', '0479f44df47cfa2ef1ccc4416a538663'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1082
+   - attack.t1057
+   - attack.t1012
+   - attack.t1083
+   - attack.t1007
+
+  label: "HackTool - PCHunter Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

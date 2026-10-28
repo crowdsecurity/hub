@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_mklink_osk_cmd
+description: |
+  Detects the creation of a symbolic link between "cmd.exe" and the accessibility on-screen keyboard binary (osk.exe) using "mklink". This technique provides an elevated command prompt to the user from the login screen without the need to log in.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.OriginalFileName == 'Cmd.Exe') && evt.Parsed.CommandLine contains 'mklink' && evt.Parsed.CommandLine contains '\\osk.exe' && evt.Parsed.CommandLine contains '\\cmd.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1546.008
+
+  label: "Potential Privilege Escalation Using Symlink Between Osk and Cmd"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

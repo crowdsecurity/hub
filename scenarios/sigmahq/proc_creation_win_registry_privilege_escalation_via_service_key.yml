@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_registry_privilege_escalation_via_service_key
+description: |
+  Detect modification of services configuration (ImagePath, FailureCommand and ServiceDLL) in registry by processes with Medium integrity level
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.IntegrityLevel == 'Medium' && evt.Parsed.CommandLine contains 'ControlSet' && evt.Parsed.CommandLine contains 'services' && (evt.Parsed.CommandLine contains '\\ImagePath' || evt.Parsed.CommandLine contains '\\FailureCommand' || evt.Parsed.CommandLine contains '\\ServiceDll'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1574.011
+
+  label: "Potential Privilege Escalation via Service Permissions Weakness"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

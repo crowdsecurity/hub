@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_bitsadmin_download_direct_ip
+description: |
+  Detects usage of bitsadmin downloading a file using an URL that contains an IP
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.OriginalFileName == 'bitsadmin.exe') && (evt.Parsed.CommandLine contains ' /transfer ' || evt.Parsed.CommandLine contains ' /create ' || evt.Parsed.CommandLine contains ' /addfile ') && (evt.Parsed.CommandLine contains '://1' || evt.Parsed.CommandLine contains '://2' || evt.Parsed.CommandLine contains '://3' || evt.Parsed.CommandLine contains '://4' || evt.Parsed.CommandLine contains '://5' || evt.Parsed.CommandLine contains '://6' || evt.Parsed.CommandLine contains '://7' || evt.Parsed.CommandLine contains '://8' || evt.Parsed.CommandLine contains '://9') && not (evt.Parsed.CommandLine contains '://7-'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1197
+   - attack.t1036.003
+
+  label: "Suspicious Download From Direct IP Via Bitsadmin"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

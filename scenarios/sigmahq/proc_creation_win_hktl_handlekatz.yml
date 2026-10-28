@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_handlekatz
+description: |
+  Detects the use of HandleKatz, a tool that demonstrates the usage of cloned handles to Lsass in order to create an obfuscated memory dump of the same
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\loader.exe' && evt.Parsed.CommandLine contains '--pid:' || evt.Parsed.Imphash in ['38d9e015591bbfd4929e0d0f47fa0055', '0e2216679ca6e1094d63322e3412d650'] || evt.Parsed.Hashes contains 'IMPHASH=38D9E015591BBFD4929E0D0F47FA0055' || evt.Parsed.Hashes contains 'IMPHASH=0E2216679CA6E1094D63322E3412D650' || evt.Parsed.CommandLine contains '--pid:' && evt.Parsed.CommandLine contains '--outfile:' && (evt.Parsed.CommandLine contains '.dmp' || evt.Parsed.CommandLine contains 'lsass' || evt.Parsed.CommandLine contains '.obf' || evt.Parsed.CommandLine contains 'dump'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1003.001
+
+  label: "HackTool - HandleKatz LSASS Dumper Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

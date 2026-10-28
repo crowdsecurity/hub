@@ -1,0 +1,27 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharpview
+description: |
+  Adversaries may look for details about the network configuration and settings of systems they access or through information discovery of remote systems
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.OriginalFileName == 'SharpView.exe' || evt.Parsed.Image endsWith '\\SharpView.exe' || evt.Parsed.CommandLine contains 'Add-RemoteConnection' || evt.Parsed.CommandLine contains 'Convert-ADName' || evt.Parsed.CommandLine contains 'ConvertFrom-SID' || evt.Parsed.CommandLine contains 'ConvertFrom-UACValue' || evt.Parsed.CommandLine contains 'Convert-SidToName' || evt.Parsed.CommandLine contains 'Export-PowerViewCSV' || evt.Parsed.CommandLine contains 'Find-DomainObjectPropertyOutlier' || evt.Parsed.CommandLine contains 'Find-DomainProcess' || evt.Parsed.CommandLine contains 'Find-DomainShare' || evt.Parsed.CommandLine contains 'Find-DomainUserEvent' || evt.Parsed.CommandLine contains 'Find-DomainUserLocation' || evt.Parsed.CommandLine contains 'Find-ForeignGroup' || evt.Parsed.CommandLine contains 'Find-ForeignUser' || evt.Parsed.CommandLine contains 'Find-GPOComputerAdmin' || evt.Parsed.CommandLine contains 'Find-GPOLocation' || evt.Parsed.CommandLine contains 'Find-Interesting' || evt.Parsed.CommandLine contains 'Find-LocalAdminAccess' || evt.Parsed.CommandLine contains 'Find-ManagedSecurityGroups' || evt.Parsed.CommandLine contains 'Get-CachedRDPConnection' || evt.Parsed.CommandLine contains 'Get-DFSshare' || evt.Parsed.CommandLine contains 'Get-DomainComputer' || evt.Parsed.CommandLine contains 'Get-DomainController' || evt.Parsed.CommandLine contains 'Get-DomainDFSShare' || evt.Parsed.CommandLine contains 'Get-DomainDNSRecord' || evt.Parsed.CommandLine contains 'Get-DomainFileServer' || evt.Parsed.CommandLine contains 'Get-DomainForeign' || evt.Parsed.CommandLine contains 'Get-DomainGPO' || evt.Parsed.CommandLine contains 'Get-DomainGroup' || evt.Parsed.CommandLine contains 'Get-DomainGUIDMap' || evt.Parsed.CommandLine contains 'Get-DomainManagedSecurityGroup' || evt.Parsed.CommandLine contains 'Get-DomainObject' || evt.Parsed.CommandLine contains 'Get-DomainOU' || evt.Parsed.CommandLine contains 'Get-DomainPolicy' || evt.Parsed.CommandLine contains 'Get-DomainSID' || evt.Parsed.CommandLine contains 'Get-DomainSite' || evt.Parsed.CommandLine contains 'Get-DomainSPNTicket' || evt.Parsed.CommandLine contains 'Get-DomainSubnet' || evt.Parsed.CommandLine contains 'Get-DomainTrust' || evt.Parsed.CommandLine contains 'Get-DomainUserEvent' || evt.Parsed.CommandLine contains 'Get-ForestDomain' || evt.Parsed.CommandLine contains 'Get-ForestGlobalCatalog' || evt.Parsed.CommandLine contains 'Get-ForestTrust' || evt.Parsed.CommandLine contains 'Get-GptTmpl' || evt.Parsed.CommandLine contains 'Get-GroupsXML' || evt.Parsed.CommandLine contains 'Get-LastLoggedOn' || evt.Parsed.CommandLine contains 'Get-LoggedOnLocal' || evt.Parsed.CommandLine contains 'Get-NetComputer' || evt.Parsed.CommandLine contains 'Get-NetDomain' || evt.Parsed.CommandLine contains 'Get-NetFileServer' || evt.Parsed.CommandLine contains 'Get-NetForest' || evt.Parsed.CommandLine contains 'Get-NetGPO' || evt.Parsed.CommandLine contains 'Get-NetGroupMember' || evt.Parsed.CommandLine contains 'Get-NetLocalGroup' || evt.Parsed.CommandLine contains 'Get-NetLoggedon' || evt.Parsed.CommandLine contains 'Get-NetOU' || evt.Parsed.CommandLine contains 'Get-NetProcess' || evt.Parsed.CommandLine contains 'Get-NetRDPSession' || evt.Parsed.CommandLine contains 'Get-NetSession' || evt.Parsed.CommandLine contains 'Get-NetShare' || evt.Parsed.CommandLine contains 'Get-NetSite' || evt.Parsed.CommandLine contains 'Get-NetSubnet' || evt.Parsed.CommandLine contains 'Get-NetUser' || evt.Parsed.CommandLine contains 'Get-PathAcl' || evt.Parsed.CommandLine contains 'Get-PrincipalContext' || evt.Parsed.CommandLine contains 'Get-RegistryMountedDrive' || evt.Parsed.CommandLine contains 'Get-RegLoggedOn' || evt.Parsed.CommandLine contains 'Get-WMIRegCachedRDPConnection' || evt.Parsed.CommandLine contains 'Get-WMIRegLastLoggedOn' || evt.Parsed.CommandLine contains 'Get-WMIRegMountedDrive' || evt.Parsed.CommandLine contains 'Get-WMIRegProxy' || evt.Parsed.CommandLine contains 'Invoke-ACLScanner' || evt.Parsed.CommandLine contains 'Invoke-CheckLocalAdminAccess' || evt.Parsed.CommandLine contains 'Invoke-Kerberoast' || evt.Parsed.CommandLine contains 'Invoke-MapDomainTrust' || evt.Parsed.CommandLine contains 'Invoke-RevertToSelf' || evt.Parsed.CommandLine contains 'Invoke-Sharefinder' || evt.Parsed.CommandLine contains 'Invoke-UserImpersonation' || evt.Parsed.CommandLine contains 'Remove-DomainObjectAcl' || evt.Parsed.CommandLine contains 'Remove-RemoteConnection' || evt.Parsed.CommandLine contains 'Request-SPNTicket' || evt.Parsed.CommandLine contains 'Set-DomainObject' || evt.Parsed.CommandLine contains 'Test-AdminAccess')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1049
+   - attack.t1069.002
+   - attack.t1482
+   - attack.t1135
+   - attack.t1033
+
+  label: "HackTool - SharpView Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -8,5 +8,11 @@ statics:
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='IpAddress']")
     - meta: username
       expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='TargetUserName']")
+    - meta: status
+      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='Status']")
+    - meta: sub_status
+      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='SubStatus']")
+    - meta: logon_type
+      expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='LogonType']")
     - meta: log_type
       value: windows_failed_auth

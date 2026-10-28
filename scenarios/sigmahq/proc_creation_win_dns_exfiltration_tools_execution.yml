@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_dns_exfiltration_tools_execution
+description: |
+  Well-known DNS Exfiltration tools execution
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\iodine.exe' || evt.Parsed.Image contains '\\dnscat2')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1048.001
+   - attack.t1071.004
+   - attack.t1132.001
+
+  label: "DNS Exfiltration and Tunneling Tools Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

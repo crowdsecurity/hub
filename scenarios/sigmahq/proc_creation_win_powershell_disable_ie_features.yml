@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_disable_ie_features
+description: |
+  Detects command lines that indicate unwanted modifications to registry keys that disable important Internet Explorer security features
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains ' -name IEHarden ' && evt.Parsed.CommandLine contains ' -value 0 ' || evt.Parsed.CommandLine contains ' -name DEPOff ' && evt.Parsed.CommandLine contains ' -value 1 ' || evt.Parsed.CommandLine contains ' -name DisableFirstRunCustomize ' && evt.Parsed.CommandLine contains ' -value 2 ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Disabled IE Security Features"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

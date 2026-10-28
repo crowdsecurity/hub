@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mmc_mmc20_lateral_movement
+description: |
+  Detects MMC20.Application Lateral Movement; specifically looks for the spawning of the parent MMC.exe with a command line of "-Embedding" as a child of svchost.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\svchost.exe' && evt.Parsed.Image endsWith '\\mmc.exe' && evt.Parsed.CommandLine contains '-Embedding')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.003
+
+  label: "MMC20 Lateral Movement"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -16,10 +16,10 @@ type Config struct {
 	NbRoutines      int    `yaml:"nb_routines"`
 	OutputFolder    string `yaml:"output_folder"`
 	DownloadDataset bool   `yaml:"download_dataset"`
-	statusCode      int    `yaml:"-"`
-	path            string `yaml:"-"`
-	batch           bool   `yaml:"-"`
-	dirCount        int    `yaml:"-"`
+	statusCode      int
+	path            string
+	batch           bool
+	dirCount        int
 }
 
 func LoadConfig() (Config, error) {
@@ -38,12 +38,12 @@ func LoadConfig() (Config, error) {
 
 	data, err := os.ReadFile(*configFile)
 	if err != nil {
-		return config, fmt.Errorf("error reading YAML file: %s", err)
+		return config, fmt.Errorf("error reading YAML file: %w", err)
 	}
 
 	err = yaml.Unmarshal(data, &config)
 	if err != nil {
-		return config, fmt.Errorf("error unmarshaling YAML: %s", err)
+		return config, fmt.Errorf("error unmarshaling YAML: %w", err)
 	}
 
 	if *outputFolder != "" {

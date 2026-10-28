@@ -1,0 +1,12 @@
+parsers:
+- crowdsecurity/syslog-logs
+- ./parsers/s01-parse/crowdsecurity/stirling-pdf-logs.yaml
+- crowdsecurity/dateparse-enrich
+scenarios:
+- "./scenarios/crowdsecurity/stirling-pdf-bf.yaml"
+postoverflows:
+- ""
+log_file: stirling-pdf.log
+log_type: stirling-pdf
+labels: {}
+ignore_parsers: true

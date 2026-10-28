@@ -29,6 +29,9 @@ pattern_syntax:
   POSTFIX_COMMAND: '(AUTH|STARTTLS|CONNECT|EHLO|HELO|RCPT)'
   POSTFIX_ACTION: 'discard|dunno|filter|hold|ignore|info|prepend|redirect|replace|reject|warn'
   RELAY: '(?:%{HOSTNAME:remote_host}(?:\[%{IP:remote_addr}\](?::[0-9]+(.[0-9]+)?)?)?)'
+  SMTP_BASIC_STATUS_CODE: '[0-9]{3}' #250
+  SMTP_ENHANCED_STATUS_CODE: '[0-9.]+' #2.0.0
+  SMTP_RETURN_CODES: '%{SMTP_BASIC_STATUS_CODE:smtp_basic_status_code}( %{SMTP_ENHANCED_STATUS_CODE:smtp_enhanced_status_code})?' #250 2.0.0
 description: "Parse postfix logs"
 nodes:
   - grok:
@@ -45,10 +48,27 @@ nodes:
           value: spam-attempt
   - grok:
       apply_on: message
-      pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{GREEDYDATA:reason}'
+      pattern: 'warning: non-SMTP command from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: %{GREEDYDATA:command}'
+      statics:
+        - meta: log_type_enh
+          value: non-smtp-command
+  - grok:
+      apply_on: message
+      pattern: 'NOQUEUE: %{POSTFIX_ACTION:action}: %{DATA:command} from %{RELAY}: %{SMTP_RETURN_CODES:smtp_return_codes} %{GREEDYDATA:reason}'
       statics:
         - meta: action
-          expression: "evt.Parsed.action"        
+          expression: "evt.Parsed.action"
+    nodes:
+      ## We check if the reason is not a service unavailable if so we parser more information
+      - filter: "evt.Parsed.reason != 'Service unavailable'"
+        grok:
+          apply_on: reason
+          pattern: "<%{DATA:helo}>: %{GREEDYDATA:reason}; %{GREEDYDATA:kvItems}"
+        statics:
+          - parsed: unused
+            expression: ParseKV(evt.Parsed.kvItems, evt.Unmarshaled, "postfix")
+          - meta: reason
+            expression: "evt.Parsed.reason"
 statics:
     - meta: service
       value: postfix

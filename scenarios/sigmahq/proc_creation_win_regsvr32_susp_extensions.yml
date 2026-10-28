@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regsvr32_susp_extensions
+description: |
+  Detects the execution of REGSVR32.exe with DLL files masquerading as other files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == 'REGSVR32.EXE') && (evt.Parsed.CommandLine endsWith '.bin' || evt.Parsed.CommandLine endsWith '.bmp' || evt.Parsed.CommandLine endsWith '.cr2' || evt.Parsed.CommandLine endsWith '.dat' || evt.Parsed.CommandLine endsWith '.eps' || evt.Parsed.CommandLine endsWith '.gif' || evt.Parsed.CommandLine endsWith '.ico' || evt.Parsed.CommandLine endsWith '.jpeg' || evt.Parsed.CommandLine endsWith '.jpg' || evt.Parsed.CommandLine endsWith '.nef' || evt.Parsed.CommandLine endsWith '.orf' || evt.Parsed.CommandLine endsWith '.png' || evt.Parsed.CommandLine endsWith '.raw' || evt.Parsed.CommandLine endsWith '.sr2' || evt.Parsed.CommandLine endsWith '.temp' || evt.Parsed.CommandLine endsWith '.tif' || evt.Parsed.CommandLine endsWith '.tiff' || evt.Parsed.CommandLine endsWith '.tmp' || evt.Parsed.CommandLine endsWith '.rtf' || evt.Parsed.CommandLine endsWith '.txt'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.010
+
+  label: "Regsvr32 DLL Execution With Suspicious File Extension"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

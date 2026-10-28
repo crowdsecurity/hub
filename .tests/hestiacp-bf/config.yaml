@@ -1,0 +1,11 @@
+parsers:
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/dateparse-enrich
+    - ./parsers/s01-parse/LearningSpot/hestiacp-logs.yaml
+scenarios:
+    - ./scenarios/LearningSpot/hestiacp-bf.yaml
+postoverflows:
+    - ""
+log_file: hestiacp-bf.log
+log_type: hestiacp
+ignore_parsers: true

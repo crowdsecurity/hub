@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_forfiles_child_process_masquerading
+description: |
+  Detects the execution of "forfiles" from a non-default location, in order to potentially spawn a custom "cmd.exe" from the current working directory. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentCommandLine endsWith '.exe' || evt.Parsed.ParentCommandLine endsWith '.exe"') && evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine startsWith '/c echo "' && not ((evt.Parsed.ParentImage contains ':\\Windows\\System32\\' || evt.Parsed.ParentImage contains ':\\Windows\\SysWOW64\\') && evt.Parsed.ParentImage endsWith '\\forfiles.exe' && (evt.Parsed.Image contains ':\\Windows\\System32\\' || evt.Parsed.Image contains ':\\Windows\\SysWOW64\\') && evt.Parsed.Image endsWith '\\cmd.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+
+  label: "Forfiles.EXE Child Process Masquerading"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

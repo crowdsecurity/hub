@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_cobaltstrike_bloopers_cmd
+description: |
+  Detects use of Cobalt Strike commands accidentally entered in the CMD shell
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.OriginalFileName == 'Cmd.Exe' || evt.Parsed.Image endsWith '\\cmd.exe') && (evt.Parsed.CommandLine startsWith 'cmd ' || evt.Parsed.CommandLine startsWith 'cmd.exe' || evt.Parsed.CommandLine startsWith 'c:\\windows\\system32\\cmd.exe') && (evt.Parsed.CommandLine contains 'psinject' || evt.Parsed.CommandLine contains 'spawnas' || evt.Parsed.CommandLine contains 'make_token' || evt.Parsed.CommandLine contains 'remote-exec' || evt.Parsed.CommandLine contains 'rev2self' || evt.Parsed.CommandLine contains 'dcsync' || evt.Parsed.CommandLine contains 'logonpasswords' || evt.Parsed.CommandLine contains 'execute-assembly' || evt.Parsed.CommandLine contains 'getsystem'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.003
+
+  label: "Operator Bloopers Cobalt Strike Commands"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

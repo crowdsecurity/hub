@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharpldapwhoami
+description: |
+  Detects SharpLdapWhoami, a whoami alternative that queries the LDAP service on a domain controller
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharpLdapWhoami.exe' || evt.Parsed.OriginalFileName contains 'SharpLdapWhoami' || evt.Parsed.Product == 'SharpLdapWhoami' || evt.Parsed.CommandLine endsWith ' /method:ntlm' || evt.Parsed.CommandLine endsWith ' /method:kerb' || evt.Parsed.CommandLine endsWith ' /method:nego' || evt.Parsed.CommandLine endsWith ' /m:nego' || evt.Parsed.CommandLine endsWith ' /m:ntlm' || evt.Parsed.CommandLine endsWith ' /m:kerb')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1033
+
+  label: "HackTool - SharpLdapWhoami Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_registry_provlaunch_provisioning_command
+description: |
+  Detects potential abuse of the provisioning registry key for indirect command execution through "Provlaunch.exe".
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'SOFTWARE\\Microsoft\\Provisioning\\Commands\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Potential Provisioning Registry Key Abuse For Binary Proxy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

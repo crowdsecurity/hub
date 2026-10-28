@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_w32tm
+description: |
+  When configured with suitable command line arguments, w32tm can act as a delay mechanism
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\w32tm.exe' || evt.Parsed.OriginalFileName == 'w32time.dll') && evt.Parsed.CommandLine contains '/stripchart' && evt.Parsed.CommandLine contains '/computer:' && evt.Parsed.CommandLine contains '/period:' && evt.Parsed.CommandLine contains '/dataonly' && evt.Parsed.CommandLine contains '/samples:')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1124
+
+  label: "Use of W32tm as Timer"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

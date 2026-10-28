@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_mstsc_run_local_rpd_file_susp_parent
+description: |
+  Detects potential RDP connection via Mstsc using a local ".rdp" file located in suspicious locations.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\brave.exe' || evt.Parsed.ParentImage endsWith '\\CCleanerBrowser.exe' || evt.Parsed.ParentImage endsWith '\\chrome.exe' || evt.Parsed.ParentImage endsWith '\\chromium.exe' || evt.Parsed.ParentImage endsWith '\\firefox.exe' || evt.Parsed.ParentImage endsWith '\\iexplore.exe' || evt.Parsed.ParentImage endsWith '\\microsoftedge.exe' || evt.Parsed.ParentImage endsWith '\\msedge.exe' || evt.Parsed.ParentImage endsWith '\\opera.exe' || evt.Parsed.ParentImage endsWith '\\vivaldi.exe' || evt.Parsed.ParentImage endsWith '\\whale.exe' || evt.Parsed.ParentImage endsWith '\\outlook.exe') && (evt.Parsed.Image endsWith '\\mstsc.exe' || evt.Parsed.OriginalFileName == 'mstsc.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Mstsc.EXE Execution From Uncommon Parent"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

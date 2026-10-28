@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmic_uninstall_security_products
+description: |
+  Detects uninstallation or termination of security products using the WMIC utility
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'wmic' && evt.Parsed.CommandLine contains 'product where ' && evt.Parsed.CommandLine contains 'call' && evt.Parsed.CommandLine contains 'uninstall' && evt.Parsed.CommandLine contains '/nointeractive' || evt.Parsed.CommandLine contains 'wmic' && evt.Parsed.CommandLine contains 'caption like ' && (evt.Parsed.CommandLine contains 'call delete' || evt.Parsed.CommandLine contains 'call terminate') || evt.Parsed.CommandLine contains 'process ' && evt.Parsed.CommandLine contains 'where ' && evt.Parsed.CommandLine contains 'delete') && (evt.Parsed.CommandLine contains '%carbon%' || evt.Parsed.CommandLine contains '%cylance%' || evt.Parsed.CommandLine contains '%endpoint%' || evt.Parsed.CommandLine contains '%eset%' || evt.Parsed.CommandLine contains '%malware%' || evt.Parsed.CommandLine contains '%Sophos%' || evt.Parsed.CommandLine contains '%symantec%' || evt.Parsed.CommandLine contains 'Antivirus' || evt.Parsed.CommandLine contains 'AVG ' || evt.Parsed.CommandLine contains 'Carbon Black' || evt.Parsed.CommandLine contains 'CarbonBlack' || evt.Parsed.CommandLine contains 'Cb Defense Sensor 64-bit' || evt.Parsed.CommandLine contains 'Crowdstrike Sensor' || evt.Parsed.CommandLine contains 'Cylance ' || evt.Parsed.CommandLine contains 'Dell Threat Defense' || evt.Parsed.CommandLine contains 'DLP Endpoint' || evt.Parsed.CommandLine contains 'Endpoint Detection' || evt.Parsed.CommandLine contains 'Endpoint Protection' || evt.Parsed.CommandLine contains 'Endpoint Security' || evt.Parsed.CommandLine contains 'Endpoint Sensor' || evt.Parsed.CommandLine contains 'ESET File Security' || evt.Parsed.CommandLine contains 'LogRhythm System Monitor Service' || evt.Parsed.CommandLine contains 'Malwarebytes' || evt.Parsed.CommandLine contains 'McAfee Agent' || evt.Parsed.CommandLine contains 'Microsoft Security Client' || evt.Parsed.CommandLine contains 'Sophos Anti-Virus' || evt.Parsed.CommandLine contains 'Sophos AutoUpdate' || evt.Parsed.CommandLine contains 'Sophos Credential Store' || evt.Parsed.CommandLine contains 'Sophos Management Console' || evt.Parsed.CommandLine contains 'Sophos Management Database' || evt.Parsed.CommandLine contains 'Sophos Management Server' || evt.Parsed.CommandLine contains 'Sophos Remote Management System' || evt.Parsed.CommandLine contains 'Sophos Update Manager' || evt.Parsed.CommandLine contains 'Threat Protection' || evt.Parsed.CommandLine contains 'VirusScan' || evt.Parsed.CommandLine contains 'Webroot SecureAnywhere' || evt.Parsed.CommandLine contains 'Windows Defender'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Potential Tampering With Security Products Via WMIC"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

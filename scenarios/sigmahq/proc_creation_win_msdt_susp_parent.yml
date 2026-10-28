@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_msdt_susp_parent
+description: |
+  Detects msdt.exe executed by a suspicious parent as seen in CVE-2022-30190 / Follina exploitation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\mshta.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\schtasks.exe' || evt.Parsed.ParentImage endsWith '\\wmic.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe' || evt.Parsed.ParentImage endsWith '\\wsl.exe') && (evt.Parsed.Image endsWith '\\msdt.exe' || evt.Parsed.OriginalFileName == 'msdt.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1036
+   - attack.t1218
+
+  label: "Suspicious MSDT Parent Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

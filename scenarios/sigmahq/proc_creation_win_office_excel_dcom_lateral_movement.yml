@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_excel_dcom_lateral_movement
+description: |
+  Detects suspicious child processes of Excel which could be an indicator of lateral movement leveraging the "ActivateMicrosoftApp" Excel DCOM object. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\excel.exe' && (evt.Parsed.OriginalFileName in ['foxprow.exe', 'schdplus.exe', 'winproj.exe'] || evt.Parsed.Image endsWith '\\foxprow.exe' || evt.Parsed.Image endsWith '\\schdplus.exe' || evt.Parsed.Image endsWith '\\winproj.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1021.003
+
+  label: "Potential Excel.EXE DCOM Lateral Movement Via ActivateMicrosoftApp"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

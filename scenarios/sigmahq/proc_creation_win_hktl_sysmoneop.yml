@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sysmoneop
+description: |
+  Detects the execution of the PoC that can be used to exploit Sysmon CVE-2022-41120
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SysmonEOP.exe' || evt.Parsed.Hashes contains 'IMPHASH=22F4089EB8ABA31E1BB162C6D9BF72E5' || evt.Parsed.Hashes contains 'IMPHASH=5123FA4C4384D431CD0D893EEB49BBEC' || evt.Parsed.Imphash in ['22f4089eb8aba31e1bb162c6d9bf72e5', '5123fa4c4384d431cd0d893eeb49bbec'])
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1068
+
+  label: "HackTool - SysmonEOP Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/fortinet-logs.yaml
+scenarios:
+- ./scenarios/crowdsecurity/fortinet-vpn-bruteforce.yaml
+postoverflows:
+- ""
+log_file: fortinet-vpn-bf.log
+log_type: fortinet
+labels: {}
+ignore_parsers: false
+override_statics: []

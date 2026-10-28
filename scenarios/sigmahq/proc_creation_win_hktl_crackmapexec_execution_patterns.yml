@@ -1,0 +1,26 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_crackmapexec_execution_patterns
+description: |
+  Detects various execution patterns of the CrackMapExec pentesting framework
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (Match('cmd.exe /Q /c  1> \\\\\\\\ 2>&1', evt.Parsed.CommandLine) || Match('cmd.exe /C  > \\\\\\\\ 2>&1', evt.Parsed.CommandLine) || Match('cmd.exe /C  > \\Temp\\ 2>&1', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains 'powershell.exe -exec bypass -noni -nop -w 1 -C "' || evt.Parsed.CommandLine contains 'powershell.exe -noni -nop -w 1 -enc ')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1047
+   - attack.t1053
+   - attack.t1059.003
+   - attack.t1059.001
+
+  label: "HackTool - CrackMapExec Execution Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

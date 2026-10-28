@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_disable_sec_services
+description: |
+  Detects execution of "reg.exe" to disable security services such as Windows Defender.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'reg' && evt.Parsed.CommandLine contains 'add' && evt.Parsed.CommandLine contains 'd 4' && evt.Parsed.CommandLine contains 'v Start' && (evt.Parsed.CommandLine contains '\\AppIDSvc' || evt.Parsed.CommandLine contains '\\MsMpSvc' || evt.Parsed.CommandLine contains '\\NisSrv' || evt.Parsed.CommandLine contains '\\SecurityHealthService' || evt.Parsed.CommandLine contains '\\Sense' || evt.Parsed.CommandLine contains '\\UsoSvc' || evt.Parsed.CommandLine contains '\\WdBoot' || evt.Parsed.CommandLine contains '\\WdFilter' || evt.Parsed.CommandLine contains '\\WdNisDrv' || evt.Parsed.CommandLine contains '\\WdNisSvc' || evt.Parsed.CommandLine contains '\\WinDefend' || evt.Parsed.CommandLine contains '\\wscsvc' || evt.Parsed.CommandLine contains '\\wuauserv'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Security Service Disabled Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

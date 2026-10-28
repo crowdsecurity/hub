@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_relay_attacks_tools
+description: |
+  Detects different hacktools used for relay attacks on Windows for privilege escalation
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains 'PetitPotam' || evt.Parsed.Image contains 'RottenPotato' || evt.Parsed.Image contains 'HotPotato' || evt.Parsed.Image contains 'JuicyPotato' || evt.Parsed.Image contains '\\just_dce_' || evt.Parsed.Image contains 'Juicy Potato' || evt.Parsed.Image contains '\\temp\\rot.exe' || evt.Parsed.Image contains '\\Potato.exe' || evt.Parsed.Image contains '\\SpoolSample.exe' || evt.Parsed.Image contains '\\Responder.exe' || evt.Parsed.Image contains '\\smbrelayx' || evt.Parsed.Image contains '\\ntlmrelayx' || evt.Parsed.Image contains '\\LocalPotato' || evt.Parsed.CommandLine contains 'Invoke-Tater' || evt.Parsed.CommandLine contains ' smbrelay' || evt.Parsed.CommandLine contains ' ntlmrelay' || evt.Parsed.CommandLine contains 'cme smb ' || evt.Parsed.CommandLine contains ' /ntlm:NTLMhash ' || evt.Parsed.CommandLine contains 'Invoke-PetitPotam' || Match('.exe -t  -p ', evt.Parsed.CommandLine) || evt.Parsed.CommandLine contains '.exe -c "{' && evt.Parsed.CommandLine endsWith '}" -z') && not (evt.Parsed.Image contains 'HotPotatoes6' || evt.Parsed.Image contains 'HotPotatoes7' || evt.Parsed.Image contains 'HotPotatoes '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1557.001
+
+  label: "Potential SMB Relay Attack Tool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

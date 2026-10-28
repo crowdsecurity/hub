@@ -1,15 +1,22 @@
+name: crowdsecurity/unifi
 parsers:
   - crowdsecurity/unifi-logs
+  - crowdsecurity/cef-logs
+  - crowdsecurity/unifi-cef
   - crowdsecurity/dropbear-logs
 scenarios:
   - crowdsecurity/ssh-bf
 collections:
   - crowdsecurity/iptables
-description: "Unifi support: syslog parser + port scan + SSH BF detection"
+description: "Unifi support: syslog + CEF parsers + port scan + SSH BF detection"
+labels:
+  label: "UniFi - Generic Protection"
 author: crowdsecurity
 tags:
+  - security_engine
   - unifi
   - ssh
   - bruteforce
   - dropbear
   - portscan
+  - cef

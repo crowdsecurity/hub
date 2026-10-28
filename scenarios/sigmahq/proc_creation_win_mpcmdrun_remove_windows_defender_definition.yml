@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mpcmdrun_remove_windows_defender_definition
+description: |
+  Adversaries may disable security tools to avoid possible detection of their tools and activities by removing Windows Defender Definition Files
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\MpCmdRun.exe' || evt.Parsed.OriginalFileName == 'MpCmdRun.exe') && evt.Parsed.CommandLine contains ' -RemoveDefinitions' && evt.Parsed.CommandLine contains ' -All')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Windows Defender Definition Files Removed"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

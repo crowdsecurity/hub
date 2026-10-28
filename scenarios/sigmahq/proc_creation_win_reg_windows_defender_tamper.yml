@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_reg_windows_defender_tamper
+description: |
+  Detects the usage of "reg.exe" to tamper with different Windows Defender registry keys in order to disable some important features related to protection and detection
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\reg.exe' || evt.Parsed.OriginalFileName == 'reg.exe') && (evt.Parsed.CommandLine contains 'SOFTWARE\\Microsoft\\Windows Defender\\' || evt.Parsed.CommandLine contains 'SOFTWARE\\Policies\\Microsoft\\Windows Defender Security Center' || evt.Parsed.CommandLine contains 'SOFTWARE\\Policies\\Microsoft\\Windows Defender\\') && (evt.Parsed.CommandLine contains ' add ' && evt.Parsed.CommandLine contains 'd 0' && (evt.Parsed.CommandLine contains 'DisallowExploitProtectionOverride' || evt.Parsed.CommandLine contains 'EnableControlledFolderAccess' || evt.Parsed.CommandLine contains 'MpEnablePus' || evt.Parsed.CommandLine contains 'PUAProtection' || evt.Parsed.CommandLine contains 'SpynetReporting' || evt.Parsed.CommandLine contains 'SubmitSamplesConsent' || evt.Parsed.CommandLine contains 'TamperProtection') || evt.Parsed.CommandLine contains ' add ' && evt.Parsed.CommandLine contains 'd 1' && (evt.Parsed.CommandLine contains 'DisableAntiSpyware' || evt.Parsed.CommandLine contains 'DisableAntiSpywareRealtimeProtection' || evt.Parsed.CommandLine contains 'DisableAntiVirus' || evt.Parsed.CommandLine contains 'DisableArchiveScanning' || evt.Parsed.CommandLine contains 'DisableBehaviorMonitoring' || evt.Parsed.CommandLine contains 'DisableBlockAtFirstSeen' || evt.Parsed.CommandLine contains 'DisableConfig' || evt.Parsed.CommandLine contains 'DisableEnhancedNotifications' || evt.Parsed.CommandLine contains 'DisableIntrusionPreventionSystem' || evt.Parsed.CommandLine contains 'DisableIOAVProtection' || evt.Parsed.CommandLine contains 'DisableOnAccessProtection' || evt.Parsed.CommandLine contains 'DisablePrivacyMode' || evt.Parsed.CommandLine contains 'DisableRealtimeMonitoring' || evt.Parsed.CommandLine contains 'DisableRoutinelyTakingAction' || evt.Parsed.CommandLine contains 'DisableScanOnRealtimeEnable' || evt.Parsed.CommandLine contains 'DisableScriptScanning' || evt.Parsed.CommandLine contains 'Notification_Suppress' || evt.Parsed.CommandLine contains 'SignatureDisableUpdateOnStartupWithoutEngine')))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.001
+
+  label: "Suspicious Windows Defender Registry Key Tampering Via Reg.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_pkgmgr_dism
+description: |
+  Detects the pattern of UAC Bypass using pkgmgr.exe and dism.exe (UACMe 23)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\pkgmgr.exe' && evt.Parsed.Image endsWith '\\dism.exe' && (evt.Parsed.IntegrityLevel in ['High', 'System']))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Using PkgMgr and DISM"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

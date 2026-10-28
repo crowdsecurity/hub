@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_office_spawn_exe_from_users_directory
+description: |
+  Detects an executable in the users directory started from one of the Microsoft Office suite applications (Word, Excel, PowerPoint, Publisher, Visio)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\WINWORD.EXE' || evt.Parsed.ParentImage endsWith '\\EXCEL.EXE' || evt.Parsed.ParentImage endsWith '\\POWERPNT.exe' || evt.Parsed.ParentImage endsWith '\\MSPUB.exe' || evt.Parsed.ParentImage endsWith '\\VISIO.exe' || evt.Parsed.ParentImage endsWith '\\MSACCESS.exe' || evt.Parsed.ParentImage endsWith '\\EQNEDT32.exe') && evt.Parsed.Image startsWith 'C:\\users\\' && evt.Parsed.Image endsWith '.exe' && not (evt.Parsed.Image endsWith '\\Teams.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1204.002
+
+  label: "Suspicious Binary In User Directory Spawned From Office Application"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

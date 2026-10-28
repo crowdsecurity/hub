@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_sharpevtmute
+description: |
+  Detects the use of SharpEvtHook, a tool that tampers with the Windows event logs
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SharpEvtMute.exe' || evt.Parsed.Description == 'SharpEvtMute' || evt.Parsed.CommandLine contains '--Filter "rule ' || evt.Parsed.CommandLine contains '--Encoded --Filter \\"')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1562.002
+
+  label: "HackTool - SharpEvtMute Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

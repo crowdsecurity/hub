@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_python_pty_spawn
+description: |
+  Detects python spawning a pretty tty
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith 'python.exe' || evt.Parsed.Image endsWith 'python3.exe' || evt.Parsed.Image endsWith 'python2.exe') && (evt.Parsed.CommandLine contains 'import pty' && evt.Parsed.CommandLine contains '.spawn(' || evt.Parsed.CommandLine contains 'from pty import spawn'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "Python Spawning Pretty TTY on Windows"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

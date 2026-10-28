@@ -1,0 +1,45 @@
+onsuccess: next_stage
+#debug: true
+filter: "evt.Parsed.program == 'sabnzbd'"
+name: crowdsecurity/sabnzbd-logs
+description: "Parse sabnzbd authentication failures"
+pattern_syntax:
+  SABNZBD_TIMESTAMP: '%{SYSLOGTIMESTAMP:timestamp}'
+  SABNZBD_SUFFIX: '( \(X-Forwarded-For: %{IP:first_forwarded}.*\))? \[%{GREEDYDATA:user_agent}\]'
+nodes:
+  - grok:
+      pattern: '%{TIMESTAMP_ISO8601:timestamp}::%{DATA:log_level}::\[%{DATA}:%{INT:pid}\] %{GREEDYDATA:sabnzbd_message}'
+      apply_on: message
+    nodes:
+      - grok:
+          pattern: 'Unsuccessful login attempt from %{IP:first_ip}%{SABNZBD_SUFFIX}'
+          apply_on: sabnzbd_message
+          statics:
+            - meta: log_type
+              value: sabnzbd_failed_auth
+      - grok:
+          pattern: 'Fehlerhafter Login Versuch von %{IP:first_ip}%{SABNZBD_SUFFIX}'
+          apply_on: sabnzbd_message
+          statics:
+            - meta: log_type
+              value: sabnzbd_failed_auth
+      - grok:
+          pattern: 'Echec de la tentative de connexion de %{IP:first_ip}%{SABNZBD_SUFFIX}'
+          apply_on: sabnzbd_message
+          statics:
+            - meta: log_type
+              value: sabnzbd_failed_auth
+      - grok:
+          pattern: 'Mislukte login poging van %{IP:first_ip}%{SABNZBD_SUFFIX}'
+          apply_on: sabnzbd_message
+          statics:
+            - meta: log_type
+              value: sabnzbd_failed_auth
+
+statics:
+  - meta: service
+    value: sabnzbd
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
+  - meta: source_ip
+    expression: "evt.Parsed.first_forwarded != '' ? evt.Parsed.first_forwarded : evt.Parsed.first_ip"

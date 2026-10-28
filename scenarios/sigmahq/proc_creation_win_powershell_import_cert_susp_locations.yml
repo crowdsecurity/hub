@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_import_cert_susp_locations
+description: |
+  Adversaries may install a root certificate on a compromised system to avoid warnings when connecting to adversary controlled web servers.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'Import-Certificate' && evt.Parsed.CommandLine contains ' -FilePath ' && evt.Parsed.CommandLine contains 'Cert:\\LocalMachine\\Root' && (evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp\\' || evt.Parsed.CommandLine contains ':\\Windows\\TEMP\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Perflogs\\' || evt.Parsed.CommandLine contains ':\\Users\\Public\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1553.004
+
+  label: "Root Certificate Installed From Susp Locations"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

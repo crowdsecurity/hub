@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_archiver_iso_phishing
+description: |
+  Detects cases in which an ISO files is opend within an archiver like 7Zip or Winrar, which is a sign of phishing as threat actors put small ISO files in archives as email attachments to bypass certain filters and protective measures (mark of web)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\Winrar.exe' || evt.Parsed.ParentImage endsWith '\\7zFM.exe' || evt.Parsed.ParentImage endsWith '\\peazip.exe') && (evt.Parsed.Image endsWith '\\isoburn.exe' || evt.Parsed.Image endsWith '\\PowerISO.exe' || evt.Parsed.Image endsWith '\\ImgBurn.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1566
+
+  label: "Phishing Pattern ISO in Archive"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

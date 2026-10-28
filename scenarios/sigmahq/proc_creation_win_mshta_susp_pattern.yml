@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_mshta_susp_pattern
+description: |
+  Detects suspicious mshta process execution patterns
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.OriginalFileName == 'MSHTA.EXE') && (evt.Parsed.ParentImage endsWith '\\cmd.exe' || evt.Parsed.ParentImage endsWith '\\cscript.exe' || evt.Parsed.ParentImage endsWith '\\powershell.exe' || evt.Parsed.ParentImage endsWith '\\pwsh.exe' || evt.Parsed.ParentImage endsWith '\\regsvr32.exe' || evt.Parsed.ParentImage endsWith '\\rundll32.exe' || evt.Parsed.ParentImage endsWith '\\wscript.exe') && (evt.Parsed.CommandLine contains '\\AppData\\Local\\' || evt.Parsed.CommandLine contains 'C:\\ProgramData\\' || evt.Parsed.CommandLine contains 'C:\\Users\\Public\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\Temp\\') || (evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.OriginalFileName == 'MSHTA.EXE') && not (evt.Parsed.Image startsWith 'C:\\Windows\\System32\\' || evt.Parsed.Image startsWith 'C:\\Windows\\SysWOW64\\' || evt.Parsed.CommandLine contains '.htm' || evt.Parsed.CommandLine contains '.hta' || evt.Parsed.CommandLine endsWith 'mshta.exe' || evt.Parsed.CommandLine endsWith 'mshta'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1106
+
+  label: "Suspicious Mshta.EXE Execution Patterns"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

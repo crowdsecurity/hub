@@ -1,0 +1,22 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_recycle_bin_fake_execution
+description: |
+  Detects process execution from a fake recycle bin folder, often used to avoid security solution.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image contains 'RECYCLERS.BIN\\' || evt.Parsed.Image contains 'RECYCLER.BIN\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+
+  label: "Suspicious Process Execution From Fake Recycle.Bin Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

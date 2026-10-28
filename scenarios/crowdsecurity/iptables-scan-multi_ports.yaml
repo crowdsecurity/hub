@@ -1,6 +1,6 @@
 type: leaky
 name: crowdsecurity/iptables-scan-multi_ports
-description: "ban IPs that are scanning us"
+description: "Detect aggressive portscans"
 filter: "evt.Meta.log_type == 'iptables_drop' && evt.Meta.service == 'tcp'"
 groupby: evt.Meta.source_ip
 distinct: evt.Parsed.dst_port

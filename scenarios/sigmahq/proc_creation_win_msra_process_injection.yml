@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_msra_process_injection
+description: |
+  Detects potential process injection via Microsoft Remote Asssistance (Msra.exe) by looking at suspicious child processes spawned from the aforementioned process. It has been a target used by many threat actors and used for discovery and persistence tactics
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\msra.exe' && evt.Parsed.ParentCommandLine endsWith 'msra.exe' && (evt.Parsed.Image endsWith '\\arp.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\net.exe' || evt.Parsed.Image endsWith '\\netstat.exe' || evt.Parsed.Image endsWith '\\nslookup.exe' || evt.Parsed.Image endsWith '\\route.exe' || evt.Parsed.Image endsWith '\\schtasks.exe' || evt.Parsed.Image endsWith '\\whoami.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1055
+
+  label: "Potential Process Injection Via Msra.EXE"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

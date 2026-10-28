@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_no_space_execution
+description: |
+  Detects Windows command lines that miss a space before or after the /c flag when running a command using the cmd.exe. This could be a sign of obfuscation of a fat finger problem (typo by the developer). 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'cmd.exe/c' || evt.Parsed.CommandLine contains '\\cmd/c' || evt.Parsed.CommandLine contains '"cmd/c' || evt.Parsed.CommandLine contains 'cmd.exe/k' || evt.Parsed.CommandLine contains '\\cmd/k' || evt.Parsed.CommandLine contains '"cmd/k' || evt.Parsed.CommandLine contains 'cmd.exe/r' || evt.Parsed.CommandLine contains '\\cmd/r' || evt.Parsed.CommandLine contains '"cmd/r' || evt.Parsed.CommandLine contains '/cwhoami' || evt.Parsed.CommandLine contains '/cpowershell' || evt.Parsed.CommandLine contains '/cschtasks' || evt.Parsed.CommandLine contains '/cbitsadmin' || evt.Parsed.CommandLine contains '/ccertutil' || evt.Parsed.CommandLine contains '/kwhoami' || evt.Parsed.CommandLine contains '/kpowershell' || evt.Parsed.CommandLine contains '/kschtasks' || evt.Parsed.CommandLine contains '/kbitsadmin' || evt.Parsed.CommandLine contains '/kcertutil' || evt.Parsed.CommandLine contains 'cmd.exe /c' || evt.Parsed.CommandLine contains 'cmd /c' || evt.Parsed.CommandLine contains 'cmd.exe /k' || evt.Parsed.CommandLine contains 'cmd /k' || evt.Parsed.CommandLine contains 'cmd.exe /r' || evt.Parsed.CommandLine contains 'cmd /r') && not (evt.Parsed.CommandLine contains 'cmd.exe /c ' || evt.Parsed.CommandLine contains 'cmd /c ' || evt.Parsed.CommandLine contains 'cmd.exe /k ' || evt.Parsed.CommandLine contains 'cmd /k ' || evt.Parsed.CommandLine contains 'cmd.exe /r ' || evt.Parsed.CommandLine contains 'cmd /r ' || evt.Parsed.CommandLine contains 'AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\node_modules' || evt.Parsed.CommandLine endsWith 'cmd.exe/c .' || evt.Parsed.CommandLine == 'cmd.exe /c'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+
+  label: "Cmd.EXE Missing Space Characters Execution Anomaly"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

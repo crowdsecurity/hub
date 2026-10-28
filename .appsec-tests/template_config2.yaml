@@ -1,0 +1,24 @@
+common:
+  daemonize: false
+  log_media: file
+  log_dir: ${TESTDIR}/runtime/log/
+config_paths:
+  config_dir: ${TESTDIR}/runtime/
+  data_dir: ${DATADIR}
+  simulation_path: ${TESTDIR}/runtime/simulation.yaml
+  hub_dir: ${TESTDIR}/runtime/hub/
+  index_path: ${TESTDIR}/runtime/hub/.index.json
+  notification_dir: ${TESTDIR}/runtime/notifications/
+  plugin_dir: /usr/local/lib/crowdsec/plugins/
+crowdsec_service:
+  parser_routines: 1
+  acquisition_path: ${TESTDIR}/runtime/acquis.yaml
+db_config:
+  type: sqlite
+  db_path: ${TESTDIR}/runtime/data/crowdsec.db
+api:
+  client:
+    credentials_path: ${TESTDIR}/runtime/local_api_credentials.yaml
+  server:
+    listen_uri: 127.0.0.1:8181
+    profiles_path: ${TESTDIR}/runtime/profiles.yaml

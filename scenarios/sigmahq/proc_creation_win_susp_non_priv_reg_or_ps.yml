@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_non_priv_reg_or_ps
+description: |
+  Search for usage of reg or Powershell by non-privileged users to modify service configuration in registry
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains 'reg ' && evt.Parsed.CommandLine contains 'add' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'set-itemproperty' || evt.Parsed.CommandLine contains ' sp ' || evt.Parsed.CommandLine contains 'new-itemproperty') && evt.Parsed.IntegrityLevel == 'Medium' && evt.Parsed.CommandLine contains 'ControlSet' && evt.Parsed.CommandLine contains 'Services' && (evt.Parsed.CommandLine contains 'ImagePath' || evt.Parsed.CommandLine contains 'FailureCommand' || evt.Parsed.CommandLine contains 'ServiceDLL'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1112
+
+  label: "Non-privileged Usage of Reg or Powershell"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

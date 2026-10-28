@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_runxcmd
+description: |
+  Detects the use of the RunXCmd tool to execute commands with System or TrustedInstaller accounts
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' /account=system ' || evt.Parsed.CommandLine contains ' /account=ti ') && evt.Parsed.CommandLine contains '/exec=')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1569.002
+
+  label: "PUA - RunXCmd Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

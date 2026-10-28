@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_c3_rundll32_pattern
+description: |
+  F-Secure C3 produces DLLs with a default exported StartNodeRelay function.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'rundll32.exe' && evt.Parsed.CommandLine contains '.dll' && evt.Parsed.CommandLine contains 'StartNodeRelay')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "HackTool - F-Secure C3 Load by Rundll32"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

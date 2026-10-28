@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_shell32_susp_execution
+description: |
+  Detects shell32.dll executing a DLL in a suspicious directory
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.OriginalFileName == 'RUNDLL32.EXE') && evt.Parsed.CommandLine contains 'shell32.dll' && evt.Parsed.CommandLine contains 'Control_RunDLL' && (evt.Parsed.CommandLine contains '%AppData%' || evt.Parsed.CommandLine contains '%LocalAppData%' || evt.Parsed.CommandLine contains '%Temp%' || evt.Parsed.CommandLine contains '%tmp%' || evt.Parsed.CommandLine contains '\\AppData\\' || evt.Parsed.CommandLine contains '\\Temp\\' || evt.Parsed.CommandLine contains '\\Users\\Public\\'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "Shell32 DLL Execution in Suspicious Directory"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

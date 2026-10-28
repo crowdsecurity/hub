@@ -1,0 +1,96 @@
+name: crowdsecurity/appsec-bot-challenge-scoring
+inband:
+  on_challenge_submit:
+    - filter: EvaluateMismatches().Has("cdp")
+      apply:
+        - AddRequestScore(100, "cdp")
+    - filter: EvaluateMismatches().Has("webdriver")
+      apply:
+        - AddRequestScore(100, "webdriver")
+    - filter: EvaluateMismatches().Has("webdriver_writable")
+      apply:
+        - AddRequestScore(100, "webdriver_writable")
+    - filter: EvaluateMismatches().Has("selenium")
+      apply:
+        - AddRequestScore(100, "selenium")
+    - filter: EvaluateMismatches().Has("playwright")
+      apply:
+        - AddRequestScore(100, "playwright")
+    - filter: EvaluateMismatches().Has("webdriver_iframe")
+      apply:
+        - AddRequestScore(100, "webdriver_iframe")
+    - filter: EvaluateMismatches().Has("webdriver_worker")
+      apply:
+        - AddRequestScore(100, "webdriver_worker")
+    - filter: EvaluateMismatches().Has("bot_user_agent")
+      apply:
+        - AddRequestScore(100, "bot_user_agent")
+
+    # --- Strong: headless environments and cross-context inconsistencies that are
+    # hard to fake away, but each has a thin tail of legitimate clients. ---
+    - filter: EvaluateMismatches().Has("headless_screen_resolution")
+      apply:
+        - AddRequestScore(50, "headless_screen_resolution")
+    - filter: EvaluateMismatches().Has("missing_chrome_object")
+      apply:
+        - AddRequestScore(50, "missing_chrome_object")
+    - filter: EvaluateMismatches().Has("impossible_memory")
+      apply:
+        - AddRequestScore(50, "impossible_memory")
+    - filter: EvaluateMismatches().Has("inconsistent_etsl")
+      apply:
+        - AddRequestScore(50, "inconsistent_etsl")
+    - filter: EvaluateMismatches().Has("mismatch_webgl_worker")
+      apply:
+        - AddRequestScore(50, "mismatch_webgl_worker")
+    - filter: EvaluateMismatches().Has("mismatch_platform_iframe")
+      apply:
+        - AddRequestScore(50, "mismatch_platform_iframe")
+    - filter: EvaluateMismatches().Has("mismatch_platform_worker")
+      apply:
+        - AddRequestScore(50, "mismatch_platform_worker")
+
+    # --- Moderate: suspicious, but reachable by odd-but-real setups (VMs, remote
+    # desktops, self-declared crawlers not covered by an exclusion config). ---
+    - filter: EvaluateMismatches().Has("platform_mismatch")
+      apply:
+        - AddRequestScore(30, "platform_mismatch")
+    - filter: EvaluateMismatches().Has("gpu_mismatch")
+      apply:
+        - AddRequestScore(30, "gpu_mismatch")
+    - filter: EvaluateMismatches().Has("high_cpu_count")
+      apply:
+        - AddRequestScore(30, "high_cpu_count")
+
+    # --- Weak: common enough among real visitors that acting on one alone would be
+    # a false positive. A UTC timezone is the canonical example — servers, VPNs and
+    # privacy tooling all produce it. ---
+    - filter: EvaluateMismatches().Has("utc_timezone")
+      apply:
+        - AddRequestScore(15, "utc_timezone")
+    - filter: EvaluateMismatches().Has("ua_mobile")
+      apply:
+        - AddRequestScore(15, "ua_mobile")
+    - filter: EvaluateMismatches().Has("accept_language")
+      apply:
+        - AddRequestScore(15, "accept_language")
+
+    # --- Very weak: only meaningful in aggregate. timezone_country fires on any
+    # traveller or VPN user. ---
+    - filter: EvaluateMismatches().Has("swiftshader_renderer")
+      apply:
+        - AddRequestScore(5, "swiftshader_renderer")
+    - filter: EvaluateMismatches().Has("mismatch_languages")
+      apply:
+        - AddRequestScore(5, "mismatch_languages")
+    - filter: EvaluateMismatches().Has("timezone_country")
+      apply:
+        - AddRequestScore(5, "timezone_country")
+
+  post_eval:
+    # Challenge every request. Requests a pre_eval exclusion config flagged via
+    # ExemptFromChallenge() (verified bots, well-known paths) are skipped by
+    # SendChallenge itself, so no explicit bot check is needed here.
+    - filter: "true"
+      apply:
+        - SendChallenge()

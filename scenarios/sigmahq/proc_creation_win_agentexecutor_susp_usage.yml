@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_agentexecutor_susp_usage
+description: |
+  Detects execution of the AgentExecutor.exe binary. Which can be abused as a LOLBIN to execute powershell scripts with the ExecutionPolicy "Bypass" or any binary named "powershell.exe" located in the path provided by 6th positional argument
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\AgentExecutor.exe' || evt.Parsed.OriginalFileName == 'AgentExecutor.exe') && (evt.Parsed.CommandLine contains ' -powershell' || evt.Parsed.CommandLine contains ' -remediationScript') && not (evt.Parsed.CommandLine contains 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\' || evt.Parsed.ParentImage endsWith '\\Microsoft.Management.Services.IntuneWindowsAgent.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Suspicious AgentExecutor PowerShell Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

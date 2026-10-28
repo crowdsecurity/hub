@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_workfolders
+description: |
+  Detects using WorkFolders.exe to execute an arbitrary control.exe
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\control.exe' && evt.Parsed.ParentImage endsWith '\\WorkFolders.exe' && not (evt.Parsed.Image == 'C:\\Windows\\System32\\control.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218
+
+  label: "Execution via WorkFolders.exe"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

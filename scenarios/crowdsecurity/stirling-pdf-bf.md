@@ -1,0 +1,1 @@
+Detects authentication bruteforce on stirling-pdf login panel with a capacity of 3 and a leakspeed of 10 seconds per event

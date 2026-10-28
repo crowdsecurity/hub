@@ -1,0 +1,25 @@
+name: cbrandlehner/mailscanner-logs
+description: Parse MailScanner logs (spam and blacklist)
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'MailScanner'"
+nodes:
+  - grok:
+      pattern: 'Message %{NOTSPACE:message_id} from %{IP:source_ip} \(%{EMAILADDRESS:from_email}\) to %{NOTSPACE:to_domain} is spam.*(score|Wertung)=%{NUMBER:spam_score}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: mailscanner_spam
+      - parsed: spam_score
+        expression: float(evt.Parsed.spam_score)
+  - grok:
+      pattern: 'Message %{NOTSPACE:message_id} from %{IP:source_ip} \(%{EMAILADDRESS:from_email}\) to %{NOTSPACE:to_domain} is spam \(%{WORD:spam_reason}\)'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: mailscanner_blacklist
+      - parsed: spam_reason
+        expression: evt.Parsed.spam_reason
+
+statics:
+  - meta: source_ip
+    expression: evt.Parsed.source_ip

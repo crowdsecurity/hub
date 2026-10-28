@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_vmware_vmtoolsd_susp_child_process
+description: |
+  Detects suspicious child process creations of VMware Tools process which may indicate persistence setup
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage endsWith '\\vmtoolsd.exe' && (evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.OriginalFileName in ['Cmd.Exe', 'cscript.exe', 'MSHTA.EXE', 'PowerShell.EXE', 'pwsh.dll', 'REGSVR32.EXE', 'RUNDLL32.EXE', 'wscript.exe']) && not (evt.Parsed.Image endsWith '\\cmd.exe' && (evt.Parsed.CommandLine contains '\\VMware\\VMware Tools\\poweron-vm-default.bat' || evt.Parsed.CommandLine contains '\\VMware\\VMware Tools\\poweroff-vm-default.bat' || evt.Parsed.CommandLine contains '\\VMware\\VMware Tools\\resume-vm-default.bat' || evt.Parsed.CommandLine contains '\\VMware\\VMware Tools\\suspend-vm-default.bat') || evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine == '' || evt.Parsed.Image endsWith '\\cmd.exe' && evt.Parsed.CommandLine == ''))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059
+
+  label: "VMToolsd Suspicious Child Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

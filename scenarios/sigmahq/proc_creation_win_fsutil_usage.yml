@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_fsutil_usage
+description: |
+  Detects suspicious parameters of fsutil (deleting USN journal, configuring it with small size, etc). Might be used by ransomwares during the attack (seen by NotPetya and others). 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\fsutil.exe' || evt.Parsed.OriginalFileName == 'fsutil.exe') && (evt.Parsed.CommandLine contains 'deletejournal' || evt.Parsed.CommandLine contains 'createjournal' || evt.Parsed.CommandLine contains 'setZeroData'))
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1070
+   - attack.t1485
+
+  label: "Fsutil Suspicious Invocation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

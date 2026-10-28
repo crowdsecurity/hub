@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_regsvr32_remote_share
+description: |
+  Detects REGSVR32.exe to execute DLL hosted on remote shares
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.OriginalFileName == '\\REGSVR32.EXE') && evt.Parsed.CommandLine contains ' \\\\')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.010
+
+  label: "Suspicious Regsvr32 Execution From Remote Share"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

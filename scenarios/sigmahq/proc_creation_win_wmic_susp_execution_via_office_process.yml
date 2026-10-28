@@ -1,0 +1,25 @@
+type: trigger
+name: sigmahq/proc_creation_win_wmic_susp_execution_via_office_process
+description: |
+  Office application called wmic to proxye execution through a LOLBIN process. This is often used to break suspicious parent-child chain (Office app spawns LOLBin).
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.ParentImage endsWith '\\WINWORD.EXE' || evt.Parsed.ParentImage endsWith '\\EXCEL.EXE' || evt.Parsed.ParentImage endsWith '\\POWERPNT.exe' || evt.Parsed.ParentImage endsWith '\\MSPUB.exe' || evt.Parsed.ParentImage endsWith '\\VISIO.exe' || evt.Parsed.ParentImage endsWith '\\MSACCESS.EXE' || evt.Parsed.ParentImage endsWith '\\EQNEDT32.EXE' || evt.Parsed.ParentImage endsWith '\\ONENOTE.EXE' || evt.Parsed.ParentImage endsWith '\\wordpad.exe' || evt.Parsed.ParentImage endsWith '\\wordview.exe') && (evt.Parsed.Image endsWith '\\wbem\\WMIC.exe' || evt.Parsed.OriginalFileName == 'wmic.exe') && evt.Parsed.CommandLine contains 'process' && evt.Parsed.CommandLine contains 'create' && evt.Parsed.CommandLine contains 'call' && (evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'msiexec' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'verclsid' || evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'cscript'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1204.002
+   - attack.t1047
+   - attack.t1218.010
+
+  label: "Suspicious WMIC Execution Via Office Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

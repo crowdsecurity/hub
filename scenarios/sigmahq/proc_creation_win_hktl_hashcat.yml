@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_hashcat
+description: |
+  Execute Hashcat.exe with provided SAM file from registry of Windows and Password list to crack against
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\hashcat.exe' || evt.Parsed.CommandLine contains '-a ' && evt.Parsed.CommandLine contains '-m 1000 ' && evt.Parsed.CommandLine contains '-r ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1110.002
+
+  label: "HackTool - Hashcat Password Cracker Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

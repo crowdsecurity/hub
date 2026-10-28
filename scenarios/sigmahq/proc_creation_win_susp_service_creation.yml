@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_service_creation
+description: |
+  Detects creation of a new service via "sc" command or the powershell "new-service" cmdlet with suspicious binary paths
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\sc.exe' && evt.Parsed.CommandLine contains 'create' && evt.Parsed.CommandLine contains 'binPath=' || evt.Parsed.CommandLine contains 'New-Service' && evt.Parsed.CommandLine contains '-BinaryPathName') && (evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'wscript' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'svchost' || evt.Parsed.CommandLine contains 'dllhost' || evt.Parsed.CommandLine contains 'cmd ' || evt.Parsed.CommandLine contains 'cmd.exe /c' || evt.Parsed.CommandLine contains 'cmd.exe /k' || evt.Parsed.CommandLine contains 'cmd.exe /r' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'C:\\Users\\Public' || evt.Parsed.CommandLine contains '\\Downloads\\' || evt.Parsed.CommandLine contains '\\Desktop\\' || evt.Parsed.CommandLine contains '\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\' || evt.Parsed.CommandLine contains 'C:\\Windows\\TEMP\\' || evt.Parsed.CommandLine contains '\\AppData\\Local\\Temp'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1543.003
+
+  label: "Suspicious New Service Creation"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

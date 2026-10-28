@@ -5,7 +5,7 @@ filter: "evt.Meta.log_type == 'jellyfin_failed_auth'"
 #debug: true
 type: leaky
 groupby: evt.Meta.source_ip
-leakspeed: "20s"
+leakspeed: 20s
 capacity: 5
 blackhole: 1m
 labels:
@@ -25,7 +25,7 @@ description: "Detect jellyfin user enum bruteforce"
 filter: "evt.Meta.log_type == 'jellyfin_failed_auth'"
 groupby: evt.Meta.source_ip
 distinct: evt.Meta.user
-leakspeed: 10s
+leakspeed: 1m
 capacity: 5
 blackhole: 1m
 labels:
@@ -36,5 +36,5 @@ labels:
   classification:
     - attack.T1589
     - attack.T1110
-  label: "Harbor User Enumeration"
+  label: "Jellyfin User Enumeration"
   remediation: true

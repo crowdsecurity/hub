@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_base64_wmi_classes
+description: |
+  Detects calls to base64 encoded WMI class such as "Win32_ShadowCopy", "Win32_ScheduledJob", etc.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (evt.Parsed.CommandLine contains 'VwBpAG4AMwAyAF8AUwBoAGEAZABvAHcAYwBvAHAAeQ' || evt.Parsed.CommandLine contains 'cAaQBuADMAMgBfAFMAaABhAGQAbwB3AGMAbwBwAHkA' || evt.Parsed.CommandLine contains 'XAGkAbgAzADIAXwBTAGgAYQBkAG8AdwBjAG8AcAB5A' || evt.Parsed.CommandLine contains 'V2luMzJfU2hhZG93Y29we' || evt.Parsed.CommandLine contains 'dpbjMyX1NoYWRvd2NvcH' || evt.Parsed.CommandLine contains 'XaW4zMl9TaGFkb3djb3B5' || evt.Parsed.CommandLine contains 'VwBpAG4AMwAyAF8AUwBjAGgAZQBkAHUAbABlAGQASgBvAGIA' || evt.Parsed.CommandLine contains 'cAaQBuADMAMgBfAFMAYwBoAGUAZAB1AGwAZQBkAEoAbwBiA' || evt.Parsed.CommandLine contains 'XAGkAbgAzADIAXwBTAGMAaABlAGQAdQBsAGUAZABKAG8AYg' || evt.Parsed.CommandLine contains 'V2luMzJfU2NoZWR1bGVkSm9i' || evt.Parsed.CommandLine contains 'dpbjMyX1NjaGVkdWxlZEpvY' || evt.Parsed.CommandLine contains 'XaW4zMl9TY2hlZHVsZWRKb2' || evt.Parsed.CommandLine contains 'VwBpAG4AMwAyAF8AUAByAG8AYwBlAHMAcw' || evt.Parsed.CommandLine contains 'cAaQBuADMAMgBfAFAAcgBvAGMAZQBzAHMA' || evt.Parsed.CommandLine contains 'XAGkAbgAzADIAXwBQAHIAbwBjAGUAcwBzA' || evt.Parsed.CommandLine contains 'V2luMzJfUHJvY2Vzc' || evt.Parsed.CommandLine contains 'dpbjMyX1Byb2Nlc3' || evt.Parsed.CommandLine contains 'XaW4zMl9Qcm9jZXNz' || evt.Parsed.CommandLine contains 'VwBpAG4AMwAyAF8AVQBzAGUAcgBBAGMAYwBvAHUAbgB0A' || evt.Parsed.CommandLine contains 'cAaQBuADMAMgBfAFUAcwBlAHIAQQBjAGMAbwB1AG4AdA' || evt.Parsed.CommandLine contains 'XAGkAbgAzADIAXwBVAHMAZQByAEEAYwBjAG8AdQBuAHQA' || evt.Parsed.CommandLine contains 'V2luMzJfVXNlckFjY291bn' || evt.Parsed.CommandLine contains 'dpbjMyX1VzZXJBY2NvdW50' || evt.Parsed.CommandLine contains 'XaW4zMl9Vc2VyQWNjb3Vud' || evt.Parsed.CommandLine contains 'VwBpAG4AMwAyAF8ATABvAGcAZwBlAGQATwBuAFUAcwBlAHIA' || evt.Parsed.CommandLine contains 'cAaQBuADMAMgBfAEwAbwBnAGcAZQBkAE8AbgBVAHMAZQByA' || evt.Parsed.CommandLine contains 'XAGkAbgAzADIAXwBMAG8AZwBnAGUAZABPAG4AVQBzAGUAcg' || evt.Parsed.CommandLine contains 'V2luMzJfTG9nZ2VkT25Vc2Vy' || evt.Parsed.CommandLine contains 'dpbjMyX0xvZ2dlZE9uVXNlc' || evt.Parsed.CommandLine contains 'XaW4zMl9Mb2dnZWRPblVzZX'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1059.001
+   - attack.t1027
+
+  label: "PowerShell Base64 Encoded WMI Classes"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

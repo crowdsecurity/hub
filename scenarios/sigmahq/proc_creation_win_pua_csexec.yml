@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_csexec
+description: |
+  Detects the use of the lesser known remote execution tool named CsExec a PsExec alternative
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\csexec.exe' || evt.Parsed.Description == 'csexec')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1587.001
+   - attack.t1569.002
+
+  label: "PUA - CsExec Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

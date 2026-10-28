@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_dismhost
+description: |
+  Detects the pattern of UAC Bypass using DismHost DLL hijacking (UACMe 63)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage contains 'C:\\Users\\' && evt.Parsed.ParentImage contains '\\AppData\\Local\\Temp\\' && evt.Parsed.ParentImage contains '\\DismHost.exe' && (evt.Parsed.IntegrityLevel in ['High', 'System']))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Using DismHost"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

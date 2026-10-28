@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_selectmyparent
+description: |
+  Detects the use of parent process ID spoofing tools like Didier Stevens tool SelectMyParent
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\SelectMyParent.exe' || evt.Parsed.CommandLine contains 'PPID-spoof' || evt.Parsed.CommandLine contains 'ppid_spoof' || evt.Parsed.CommandLine contains 'spoof-ppid' || evt.Parsed.CommandLine contains 'spoof_ppid' || evt.Parsed.CommandLine contains 'ppidspoof' || evt.Parsed.CommandLine contains 'spoofppid' || evt.Parsed.CommandLine contains 'spoofedppid' || evt.Parsed.CommandLine contains ' -spawnto ' || evt.Parsed.OriginalFileName contains 'PPID-spoof' || evt.Parsed.OriginalFileName contains 'ppid_spoof' || evt.Parsed.OriginalFileName contains 'spoof-ppid' || evt.Parsed.OriginalFileName contains 'spoof_ppid' || evt.Parsed.OriginalFileName contains 'ppidspoof' || evt.Parsed.OriginalFileName contains 'spoofppid' || evt.Parsed.OriginalFileName contains 'spoofedppid' || evt.Parsed.Description == 'SelectMyParent' || evt.Parsed.Imphash in ['04d974875bd225f00902b4cad9af3fbc', 'a782af154c9e743ddf3f3eb2b8f3d16e', '89059503d7fbf470e68f7e63313da3ad', 'ca28337632625c8281ab8a130b3d6bad'] || evt.Parsed.Hashes contains 'IMPHASH=04D974875BD225F00902B4CAD9AF3FBC' || evt.Parsed.Hashes contains 'IMPHASH=A782AF154C9E743DDF3F3EB2B8F3D16E' || evt.Parsed.Hashes contains 'IMPHASH=89059503D7FBF470E68F7E63313DA3AD' || evt.Parsed.Hashes contains 'IMPHASH=CA28337632625C8281AB8A130B3D6BAD')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1134.004
+
+  label: "HackTool - PPID Spoofing SelectMyParent Tool Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

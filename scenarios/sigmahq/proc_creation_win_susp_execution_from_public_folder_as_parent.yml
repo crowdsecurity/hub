@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_execution_from_public_folder_as_parent
+description: |
+  Detects a potentially suspicious execution of a parent process located in the "\Users\Public" folder executing a child process containing references to shell or scripting binaries and commandlines. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.ParentImage contains ':\\Users\\Public\\' && (evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.Image endsWith '\\certutil.exe' || evt.Parsed.Image endsWith '\\cmd.exe' || evt.Parsed.Image endsWith '\\cscript.exe' || evt.Parsed.Image endsWith '\\mshta.exe' || evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.Image endsWith '\\regsvr32.exe' || evt.Parsed.Image endsWith '\\rundll32.exe' || evt.Parsed.Image endsWith '\\wscript.exe' || evt.Parsed.CommandLine contains 'bitsadmin' || evt.Parsed.CommandLine contains 'certutil' || evt.Parsed.CommandLine contains 'cscript' || evt.Parsed.CommandLine contains 'mshta' || evt.Parsed.CommandLine contains 'powershell' || evt.Parsed.CommandLine contains 'regsvr32' || evt.Parsed.CommandLine contains 'rundll32' || evt.Parsed.CommandLine contains 'wscript'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1564
+   - attack.t1059
+
+  label: "Potentially Suspicious Execution From Parent Process In Public Folder"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_secutyxploded
+description: |
+  Detects the execution of SecurityXploded Tools
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Company == 'SecurityXploded' || evt.Parsed.Image endsWith 'PasswordDump.exe' || evt.Parsed.OriginalFileName endsWith 'PasswordDump.exe')
+blackhole: 2m
+#status: stable
+labels:
+  service: windows
+  confidence: 2
+  spoofable: 0
+  classification:
+   - attack.t1555
+
+  label: "HackTool - SecurityXploded Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

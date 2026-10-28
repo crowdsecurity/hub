@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_rundll32_sys
+description: |
+  Detects suspicious process related to rundll32 based on command line that includes a *.sys file as seen being used by UNC2452
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains 'rundll32.exe' && (evt.Parsed.CommandLine contains '.sys,' || evt.Parsed.CommandLine contains '.sys '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1218.011
+
+  label: "Suspicious Rundll32 Activity Invoking Sys File"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

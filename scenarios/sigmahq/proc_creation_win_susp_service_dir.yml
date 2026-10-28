@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_susp_service_dir
+description: |
+  Detects a service binary running in a suspicious directory
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image contains '\\Users\\Public\\' || evt.Parsed.Image contains '\\$Recycle.bin' || evt.Parsed.Image contains '\\Users\\All Users\\' || evt.Parsed.Image contains '\\Users\\Default\\' || evt.Parsed.Image contains '\\Users\\Contacts\\' || evt.Parsed.Image contains '\\Users\\Searches\\' || evt.Parsed.Image contains 'C:\\Perflogs\\' || evt.Parsed.Image contains '\\config\\systemprofile\\' || evt.Parsed.Image contains '\\Windows\\Fonts\\' || evt.Parsed.Image contains '\\Windows\\IME\\' || evt.Parsed.Image contains '\\Windows\\addins\\') && (evt.Parsed.ParentImage endsWith '\\services.exe' || evt.Parsed.ParentImage endsWith '\\svchost.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1202
+
+  label: "Suspicious Service Binary Directory"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

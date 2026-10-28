@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_gup_download
+description: |
+  Detects execution of the Notepad++ updater (gup) from a process other than Notepad++ to download files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\GUP.exe' || evt.Parsed.OriginalFileName == 'gup.exe') && evt.Parsed.CommandLine contains ' -unzipTo ' && evt.Parsed.CommandLine contains 'http' && not (evt.Parsed.ParentImage endsWith '\\notepad++.exe'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "File Download Using Notepad++ GUP Utility"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

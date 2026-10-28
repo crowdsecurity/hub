@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_invoke_obfuscation_via_var
+description: |
+  Detects Obfuscated Powershell via VAR++ LAUNCHER
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.CommandLine contains '&&set' && evt.Parsed.CommandLine contains 'cmd' && evt.Parsed.CommandLine contains '/c' && evt.Parsed.CommandLine contains '-f' && (evt.Parsed.CommandLine contains '{0}' || evt.Parsed.CommandLine contains '{1}' || evt.Parsed.CommandLine contains '{2}' || evt.Parsed.CommandLine contains '{3}' || evt.Parsed.CommandLine contains '{4}' || evt.Parsed.CommandLine contains '{5}'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+   - attack.t1059.001
+
+  label: "Invoke-Obfuscation VAR++ LAUNCHER OBFUSCATION"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

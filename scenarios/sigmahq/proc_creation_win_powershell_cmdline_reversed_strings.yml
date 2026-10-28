@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_powershell_cmdline_reversed_strings
+description: |
+  Detects the presence of reversed PowerShell commands in the CommandLine. This is often used as a method of obfuscation by attackers
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\powershell.exe' || evt.Parsed.Image endsWith '\\pwsh.exe' || evt.Parsed.OriginalFileName in ['PowerShell.EXE', 'pwsh.dll']) && (evt.Parsed.CommandLine contains 'hctac' || evt.Parsed.CommandLine contains 'kaerb' || evt.Parsed.CommandLine contains 'dnammoc' || evt.Parsed.CommandLine contains 'ekovn' || evt.Parsed.CommandLine contains 'eliFd' || evt.Parsed.CommandLine contains 'rahc' || evt.Parsed.CommandLine contains 'etirw' || evt.Parsed.CommandLine contains 'golon' || evt.Parsed.CommandLine contains 'tninon' || evt.Parsed.CommandLine contains 'eddih' || evt.Parsed.CommandLine contains 'tpircS' || evt.Parsed.CommandLine contains 'ssecorp' || evt.Parsed.CommandLine contains 'llehsrewop' || evt.Parsed.CommandLine contains 'esnopser' || evt.Parsed.CommandLine contains 'daolnwod' || evt.Parsed.CommandLine contains 'tneilCbeW' || evt.Parsed.CommandLine contains 'tneilc' || evt.Parsed.CommandLine contains 'ptth' || evt.Parsed.CommandLine contains 'elifotevas' || evt.Parsed.CommandLine contains '46esab' || evt.Parsed.CommandLine contains 'htaPpmeTteG' || evt.Parsed.CommandLine contains 'tcejbO' || evt.Parsed.CommandLine contains 'maerts' || evt.Parsed.CommandLine contains 'hcaerof' || evt.Parsed.CommandLine contains 'retupmoc') && not (evt.Parsed.CommandLine contains ' -EncodedCommand ' || evt.Parsed.CommandLine contains ' -enc '))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1027
+   - attack.t1059.001
+
+  label: "Potential PowerShell Obfuscation Via Reversed Commands"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

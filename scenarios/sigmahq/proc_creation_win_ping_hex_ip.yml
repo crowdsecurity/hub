@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_ping_hex_ip
+description: |
+  Detects a ping command that uses a hex encoded IP address
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\ping.exe' && evt.Parsed.CommandLine contains '0x')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1140
+   - attack.t1027
+
+  label: "Ping Hex IP"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

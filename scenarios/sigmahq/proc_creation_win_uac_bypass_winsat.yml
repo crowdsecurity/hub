@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_uac_bypass_winsat
+description: |
+  Detects the pattern of UAC Bypass using a path parsing issue in winsat.exe (UACMe 52)
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.IntegrityLevel in ['High', 'System']) && evt.Parsed.ParentImage endsWith '\\AppData\\Local\\Temp\\system32\\winsat.exe' && evt.Parsed.ParentCommandLine contains 'C:\\Windows \\system32\\winsat.exe')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1548.002
+
+  label: "UAC Bypass Abusing Winsat Path Parsing - Process"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

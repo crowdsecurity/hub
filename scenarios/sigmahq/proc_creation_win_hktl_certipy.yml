@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_hktl_certipy
+description: |
+  Detects Certipy execution, a tool for Active Directory Certificate Services enumeration and abuse based on PE metadata characteristics and common command line arguments. 
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\Certipy.exe' || evt.Parsed.OriginalFileName == 'Certipy.exe' || evt.Parsed.Description contains 'Certipy' || (evt.Parsed.CommandLine contains ' account ' || evt.Parsed.CommandLine contains ' auth ' || evt.Parsed.CommandLine contains ' cert ' || evt.Parsed.CommandLine contains ' find ' || evt.Parsed.CommandLine contains ' forge ' || evt.Parsed.CommandLine contains ' ptt ' || evt.Parsed.CommandLine contains ' relay ' || evt.Parsed.CommandLine contains ' req ' || evt.Parsed.CommandLine contains ' shadow ' || evt.Parsed.CommandLine contains ' template ') && (evt.Parsed.CommandLine contains ' -bloodhound' || evt.Parsed.CommandLine contains ' -ca-pfx ' || evt.Parsed.CommandLine contains ' -dc-ip ' || evt.Parsed.CommandLine contains ' -kirbi' || evt.Parsed.CommandLine contains ' -old-bloodhound' || evt.Parsed.CommandLine contains ' -pfx ' || evt.Parsed.CommandLine contains ' -target' || evt.Parsed.CommandLine contains ' -template' || evt.Parsed.CommandLine contains ' -username ' || evt.Parsed.CommandLine contains ' -vulnerable' || evt.Parsed.CommandLine contains 'auth -pfx' || evt.Parsed.CommandLine contains 'shadow auto' || evt.Parsed.CommandLine contains 'shadow list'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1649
+
+  label: "HackTool - Certipy Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

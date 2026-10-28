@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_pua_nimgrab
+description: |
+  Detects the usage of nimgrab, a tool bundled with the Nim programming framework and used for downloading files.
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && (evt.Parsed.Image endsWith '\\nimgrab.exe' || evt.Parsed.Hashes contains 'MD5=2DD44C3C29D667F5C0EF5F9D7C7FFB8B' || evt.Parsed.Hashes contains 'SHA256=F266609E91985F0FE3E31C5E8FAEEEC4FFA5E0322D8B6F15FE69F4C5165B9559' || evt.Parsed.Hashes contains 'IMPHASH=C07FDDD21D123EA9B3A08EEF44AAAC45' || evt.Parsed.md5 == '2DD44C3C29D667F5C0EF5F9D7C7FFB8B' || evt.Parsed.sha256 == 'F266609E91985F0FE3E31C5E8FAEEEC4FFA5E0322D8B6F15FE69F4C5165B9559' || evt.Parsed.Imphash == 'C07FDDD21D123EA9B3A08EEF44AAAC45')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1105
+
+  label: "PUA - Nimgrab Execution"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

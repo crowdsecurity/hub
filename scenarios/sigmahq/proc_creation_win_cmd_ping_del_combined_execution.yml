@@ -1,0 +1,23 @@
+type: trigger
+name: sigmahq/proc_creation_win_cmd_ping_del_combined_execution
+description: |
+  Detects a method often used by ransomware. Which combines the "ping" to wait a couple of seconds and then "del" to delete the file in question. Its used to hide the file responsible for the initial infection for example
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.CommandLine contains ' -n ' || evt.Parsed.CommandLine contains ' /n ' || evt.Parsed.CommandLine contains ' –n ' || evt.Parsed.CommandLine contains ' —n ' || evt.Parsed.CommandLine contains ' ―n ') && evt.Parsed.CommandLine contains 'Nul' && (evt.Parsed.CommandLine contains ' -f ' || evt.Parsed.CommandLine contains ' /f ' || evt.Parsed.CommandLine contains ' –f ' || evt.Parsed.CommandLine contains ' —f ' || evt.Parsed.CommandLine contains ' ―f ' || evt.Parsed.CommandLine contains ' -q ' || evt.Parsed.CommandLine contains ' /q ' || evt.Parsed.CommandLine contains ' –q ' || evt.Parsed.CommandLine contains ' —q ' || evt.Parsed.CommandLine contains ' ―q ') && evt.Parsed.CommandLine contains 'ping' && evt.Parsed.CommandLine contains 'del ')
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1070.004
+
+  label: "Suspicious Ping/Del Command Combination"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+

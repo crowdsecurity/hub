@@ -12,5 +12,11 @@ filenames:
  - /var/log/syslog
 labels:
   type: syslog
+---
+source: file
+filenames:
+ - /var/log/sonarr.txt
+labels:
+  type: Sonarr
 ```
 Depending on your installation method, you may need to change the acquisition template.

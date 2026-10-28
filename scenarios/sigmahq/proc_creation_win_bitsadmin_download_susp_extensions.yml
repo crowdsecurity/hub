@@ -1,0 +1,24 @@
+type: trigger
+name: sigmahq/proc_creation_win_bitsadmin_download_susp_extensions
+description: |
+  Detects usage of bitsadmin downloading a file with a suspicious extension
+filter: |
+  (evt.Meta.service == 'sysmon' && evt.Parsed.EventID == '1') && ((evt.Parsed.Image endsWith '\\bitsadmin.exe' || evt.Parsed.OriginalFileName == 'bitsadmin.exe') && (evt.Parsed.CommandLine contains ' /transfer ' || evt.Parsed.CommandLine contains ' /create ' || evt.Parsed.CommandLine contains ' /addfile ') && (evt.Parsed.CommandLine contains '.7z' || evt.Parsed.CommandLine contains '.asax' || evt.Parsed.CommandLine contains '.ashx' || evt.Parsed.CommandLine contains '.asmx' || evt.Parsed.CommandLine contains '.asp' || evt.Parsed.CommandLine contains '.aspx' || evt.Parsed.CommandLine contains '.bat' || evt.Parsed.CommandLine contains '.cfm' || evt.Parsed.CommandLine contains '.cgi' || evt.Parsed.CommandLine contains '.chm' || evt.Parsed.CommandLine contains '.cmd' || evt.Parsed.CommandLine contains '.dll' || evt.Parsed.CommandLine contains '.gif' || evt.Parsed.CommandLine contains '.jpeg' || evt.Parsed.CommandLine contains '.jpg' || evt.Parsed.CommandLine contains '.jsp' || evt.Parsed.CommandLine contains '.jspx' || evt.Parsed.CommandLine contains '.log' || evt.Parsed.CommandLine contains '.png' || evt.Parsed.CommandLine contains '.ps1' || evt.Parsed.CommandLine contains '.psm1' || evt.Parsed.CommandLine contains '.rar' || evt.Parsed.CommandLine contains '.scf' || evt.Parsed.CommandLine contains '.sct' || evt.Parsed.CommandLine contains '.txt' || evt.Parsed.CommandLine contains '.vbe' || evt.Parsed.CommandLine contains '.vbs' || evt.Parsed.CommandLine contains '.war' || evt.Parsed.CommandLine contains '.wsf' || evt.Parsed.CommandLine contains '.wsh' || evt.Parsed.CommandLine contains '.xll' || evt.Parsed.CommandLine contains '.zip'))
+blackhole: 2m
+#status: test
+labels:
+  service: windows
+  confidence: 1
+  spoofable: 0
+  classification:
+   - attack.t1197
+   - attack.t1036.003
+
+  label: "File With Suspicious Extension Downloaded Via Bitsadmin"
+  behavior : "windows:audit"
+  remediation: false
+
+scope:
+  type: ParentProcessId
+  expression: evt.Parsed.ParentProcessId
+
