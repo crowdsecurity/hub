@@ -24,6 +24,9 @@ func main() {
 		}
 	} else {
 		filesList, err = listJSONFiles(config.DatasetFolder)
+		if err != nil {
+			log.Fatalf("fail listing files: %s", err)
+		}
 	}
 
 	if len(filesList) == 0 {
@@ -63,6 +66,5 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Printf("everything went well!\n")
-
+	fmt.Print("everything went well!\n")
 }

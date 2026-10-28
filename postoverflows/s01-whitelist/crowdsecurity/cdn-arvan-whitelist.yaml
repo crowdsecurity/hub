@@ -1,0 +1,10 @@
+name: crowdsecurity/cdn-arvan-whitelist
+description: "Whitelist CDN Arvan providers"
+whitelist:
+  reason: "CDN Arvan provider"
+  expression: 
+    - "any(File('arvancloud_ips.txt'), { IpInRange(evt.Overflow.Alert.Source.IP ,#)})"
+data:
+  - source_url: https://www.arvancloud.ir/en/ips.txt
+    dest_file: arvancloud_ips.txt
+    type: string

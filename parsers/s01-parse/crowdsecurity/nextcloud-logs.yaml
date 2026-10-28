@@ -7,7 +7,7 @@ pattern_syntax:
   NEXTCLOUD_USER: '[a-zA-Z0-9\.\@\-\+_%]+'
 nodes:
   - grok:
-      pattern: 'Login failed: %{NEXTCLOUD_USER:target_user} \(Remote IP: %{IP:source_ip}\)'
+      pattern: 'Login failed: ''?%{NEXTCLOUD_USER:target_user}''? \(Remote IP: ''?%{IP:source_ip}''?\)'
       expression: JsonExtract(evt.Parsed.message, "message")
     statics:
       - meta: target_user

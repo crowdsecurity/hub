@@ -1,0 +1,58 @@
+name: Lint Python
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/lint-python.yaml'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'src/cshub/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/lint-python.yaml'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'src/cshub/**'
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: ruff + basedpyright
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+      with:
+        version: 0.9.5
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+
+    - name: "Set up Python"
+      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      with:
+        python-version-file: ".python-version"
+
+    - name: Install the project
+      run: uv sync --all-extras --dev
+
+    - name: Lint
+      run: |
+        uv run ruff check || ruff_status=$? || ruff_status=0
+        uv run basedpyright || pyright_status=$? || pyright_status=0
+
+        if [ "${ruff_status:-0}" -ne 0 ] || [ "${pyright_status:-0}" -ne 0 ]; then
+            echo "❌ Linting failed:"
+            echo "  Ruff exit code: ${ruff_status:-0}"
+            echo "  BasedPyright exit code: ${pyright_status:-0}"
+            exit 1
+        fi

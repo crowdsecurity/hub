@@ -1,5 +1,5 @@
 type: leaky
-filter: evt.Parsed.program == 'crowdsec-appsec' && evt.Appsec.HasInBandMatches == true && evt.Parsed.action in ["deny", "drop"]
+filter: evt.Meta.log_type == 'appsec-block' && evt.Parsed.action in ["deny", "drop"]
 #debug: true
 name: crowdsecurity/crowdsec-appsec-inband
 description: IP has triggered multiples InBand CrowdSec appsec rules

@@ -6,9 +6,9 @@ description: A parser for modsecurity WAF
 pattern_syntax:
   APACHEERRORPREFIX2: "\\[%{APACHEERRORTIME:timestamp}\\] \\[%{NOTSPACE:apacheseverity}\\] (\\[pid %{INT}(:tid %{INT})?\\] )?\\[(client|remote) %{IPORHOST:sourcehost}(:%{INT:source_port})?\\] (\\[client %{IPORHOST}\\])?"
   NGINXERRORPREFIX: "%{NGINXERRTIME:time} \\[%{LOGLEVEL:loglevel}\\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\\*%{NONNEGINT:cid} )?(\\[client %{IPORHOST}\\] )?"
-  NGINXERRORSUFFIX: "client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: \"%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}\"(, host: \"%{IPORHOST}(:%{INT})?\")?"
-  MODSECNGINXPREFIX: "%{NGINXERRORPREFIX}ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
-  MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: (%{NOTSPACE:modsecseverity}\\. )?%{GREEDYDATA:modsecmessage}"
+  NGINXERRORSUFFIX: "client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: \"%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:http_version}\"(, upstream: \"%{DATA:upstream}\")?(, host: \"%{IPORHOST}(:%{INT})?\")?"
+  MODSECNGINXPREFIX: "%{NGINXERRORPREFIX}ModSecurity: ((?:%{NOTSPACE:modsecseverity}\\. )?(?:Access denied with code %{INT:http_code} \\(phase %{INT:phase}\\)\\. )?)?%{GREEDYDATA:modsecmessage}"
+  MODSECPREFIX2: "%{APACHEERRORPREFIX2} ModSecurity: ((?:%{NOTSPACE:modsecseverity}\\. )?(?:Access denied with code %{INT:http_code} \\(phase %{INT:phase}\\)\\. )?)?%{GREEDYDATA:modsecmessage}"
   MODSECRULEFILE2: "\\[file \"%{DATA:rulefile}\"\\]"
   MODSECRULELINE2: "\\[line \"%{DATA:ruleline}\"\\]"
   MODSECMATCHOFFSET2: "\\[offset \"%{DATA:matchoffset}\"\\]"
@@ -26,7 +26,7 @@ pattern_syntax:
   MODSECUID2: "\\[unique_id \"%{DATA:uniqueid}\"\\]"
   MODSECREF2: "\\[ref \"%{DATA:ref}\"\\]"
   MODSECAPACHEERROR2: "%{MODSECPREFIX2} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2}"
-  MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?(?:%{MODSECRULEMATURITY} )?(?:%{MODSECRULEACCURACY} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2} %{MODSECREF2}, %{NGINXERRORSUFFIX}"
+  MODSECNGINXERROR: "%{MODSECNGINXPREFIX} %{MODSECRULEFILE2} %{MODSECRULELINE2} (?:%{MODSECMATCHOFFSET2} )?(?:%{MODSECRULEID2} )?(?:%{MODSECRULEREV2} )?(?:%{MODSECRULEMSG2} )?(?:%{MODSECRULEDATA2} )?(?:%{MODSECRULESEVERITY2} )?(?:%{MODSECRULEVERS2} )?(?:%{MODSECRULEMATURITY} )?(?:%{MODSECRULEACCURACY} )?%{MODSECRULETAGS2}%{MODSECHOSTNAME2} %{MODSECURI2} %{MODSECUID2} %{MODSECREF2}(?:, | while sending to client, )%{NGINXERRORSUFFIX}"
 
 nodes:
   - grok:
@@ -45,6 +45,10 @@ nodes:
           expression: evt.Parsed.rulemessage
         - meta: modsec_ruledata
           expression: evt.Parsed.ruledata
+        - meta: modsec_phase
+          expression: evt.Parsed.phase
+        - meta: http_code
+          expression: evt.Parsed.http_code
   - grok:
       name: MODSECNGINXERROR
       apply_on: message
@@ -61,4 +65,8 @@ nodes:
           expression: evt.Parsed.rulemessage
         - meta: modsec_ruledata
           expression: evt.Parsed.ruledata
+        - meta: modsec_phase
+          expression: evt.Parsed.phase
+        - meta: http_code
+          expression: evt.Parsed.http_code
 

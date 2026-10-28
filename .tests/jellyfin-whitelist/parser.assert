@@ -1,35 +1,42 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 5
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "192.168.1.1 - - [24/Aug/2024:22:32:18 +0000] \"GET /Items/5203a7e70b667d2cfaee2cd2eb3de082/Images/Primary?MaxHeight=330&MaxWidth=234&quality=90&Tags=null HTTP/2.0\" 404 57 \"-\" \"Roku/DVP-13.1 (13.1.4.01510-30)\""
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "nginx"
-results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "192.168.1.1 - - [24/Aug/2024:22:32:18 +0000] \"GET /Items/fbef2493eb1b8191acf97cd81af4992f/Images/Thumb?MaxHeight=330&MaxWidth=234&quality=90&Tags=null HTTP/2.0\" 404 52 \"-\" \"Roku/DVP-13.1 (13.1.4.01510-30)\""
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "nginx"
-results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "192.168.1.1 - - [13/Jan/2024:23:17:58 +0100] \"GET /Items/77c40737e58d0f8d03c5047ee17c4185/Images/primary?maxWidth=400 HTTP/2.0\" 404 52 \"-\" \"Swiftfin%20tvOS/70 CFNetwork/1490.0.4>\""
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "nginx"
-results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "192.168.1.1 - - [13/Jan/2024:23:17:58 +0100] \"GET /Items/4851eba90426dea053284919c7a53e40/Images/thumb?maxWidth=400 HTTP/2.0\" 404 52 \"-\" \"Swiftfin%20tvOS/70 CFNetwork/1490.0.4>\""
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "nginx"
-results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["message"] == "192.168.1.1 - - [24/Jul/2025:18:46:15 -0400] \"POST /Sessions/Playing/Progress HTTP/2.0\" 403 0 \"-\" \"\""
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Parsed["program"] == "nginx"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][4].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
-len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
+len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 5
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["body_bytes_sent"] == "57"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["http_referer"] == "-"
@@ -43,7 +50,7 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["request"] == "/I
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["status"] == "404"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Meta["http_path"] == "/Items/5203a7e70b667d2cfaee2cd2eb3de082/Images/Primary?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s01-parse"]["crowdsecurity/nginx-logs"][0].Evt.Meta["http_status"] == "404"
@@ -66,7 +73,7 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Parsed["request"] == "/I
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Parsed["status"] == "404"
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Meta["http_path"] == "/Items/fbef2493eb1b8191acf97cd81af4992f/Images/Thumb?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s01-parse"]["crowdsecurity/nginx-logs"][1].Evt.Meta["http_status"] == "404"
@@ -89,7 +96,7 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Parsed["request"] == "/I
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Parsed["status"] == "404"
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Meta["http_path"] == "/Items/77c40737e58d0f8d03c5047ee17c4185/Images/primary?maxWidth=400"
 results["s01-parse"]["crowdsecurity/nginx-logs"][2].Evt.Meta["http_status"] == "404"
@@ -112,7 +119,7 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Parsed["request"] == "/I
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Parsed["status"] == "404"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Parsed["verb"] == "GET"
-results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["datasource_type"] == "file"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["http_path"] == "/Items/4851eba90426dea053284919c7a53e40/Images/thumb?maxWidth=400"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["http_status"] == "404"
@@ -122,7 +129,28 @@ results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["log_type"] == "htt
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["service"] == "http"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/nginx-logs"][3].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Success == true
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["body_bytes_sent"] == "0"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["http_referer"] == "-"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["http_version"] == "2.0"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["message"] == "192.168.1.1 - - [24/Jul/2025:18:46:15 -0400] \"POST /Sessions/Playing/Progress HTTP/2.0\" 403 0 \"-\" \"\""
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["program"] == "nginx"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["remote_user"] == "-"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["request"] == "/Sessions/Playing/Progress"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["status"] == "403"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["time_local"] == "24/Jul/2025:18:46:15 -0400"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Parsed["verb"] == "POST"
+basename(results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["http_path"] == "/Sessions/Playing/Progress"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["http_status"] == "403"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["http_verb"] == "POST"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["service"] == "http"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/nginx-logs"][4].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["body_bytes_sent"] == "57"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_referer"] == "-"
@@ -136,7 +164,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["request"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["http_path"] == "/Items/5203a7e70b667d2cfaee2cd2eb3de082/Images/Primary?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["http_status"] == "404"
@@ -161,7 +189,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["request"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["http_path"] == "/Items/fbef2493eb1b8191acf97cd81af4992f/Images/Thumb?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["http_status"] == "404"
@@ -186,7 +214,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["request"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["http_path"] == "/Items/77c40737e58d0f8d03c5047ee17c4185/Images/primary?maxWidth=400"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["http_status"] == "404"
@@ -211,7 +239,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["request"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["http_path"] == "/Items/4851eba90426dea053284919c7a53e40/Images/thumb?maxWidth=400"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["http_status"] == "404"
@@ -223,7 +251,30 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Meta["timestamp"] == "2024-01-13T23:17:58+01:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Enriched["MarshaledTime"] == "2024-01-13T23:17:58+01:00"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][3].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"]) == 4
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["body_bytes_sent"] == "0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["http_referer"] == "-"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "192.168.1.1 - - [24/Jul/2025:18:46:15 -0400] \"POST /Sessions/Playing/Progress HTTP/2.0\" 403 0 \"-\" \"\""
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "nginx"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["remote_user"] == "-"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["request"] == "/Sessions/Playing/Progress"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["status"] == "403"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["time_local"] == "24/Jul/2025:18:46:15 -0400"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["verb"] == "POST"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["http_path"] == "/Sessions/Playing/Progress"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["http_status"] == "403"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["http_verb"] == "POST"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"] == "2025-07-24T18:46:15-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"] == "2025-07-24T18:46:15-04:00"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"]) == 5
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Success == true
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["body_bytes_sent"] == "57"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["http_referer"] == "-"
@@ -237,7 +288,7 @@ results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["request
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Meta["http_path"] == "/Items/5203a7e70b667d2cfaee2cd2eb3de082/Images/Primary?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][0].Evt.Meta["http_status"] == "404"
@@ -263,7 +314,7 @@ results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Parsed["request
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Parsed["time_local"] == "24/Aug/2024:22:32:18 +0000"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Meta["http_path"] == "/Items/fbef2493eb1b8191acf97cd81af4992f/Images/Thumb?MaxHeight=330&MaxWidth=234&quality=90&Tags=null"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][1].Evt.Meta["http_status"] == "404"
@@ -289,7 +340,7 @@ results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Parsed["request
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Meta["http_path"] == "/Items/77c40737e58d0f8d03c5047ee17c4185/Images/primary?maxWidth=400"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][2].Evt.Meta["http_status"] == "404"
@@ -315,7 +366,7 @@ results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Parsed["request
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Parsed["status"] == "404"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Parsed["time_local"] == "13/Jan/2024:23:17:58 +0100"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Parsed["verb"] == "GET"
-results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["datasource_path"] == "jellyfin-logs.log"
+basename(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["datasource_type"] == "file"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["http_path"] == "/Items/4851eba90426dea053284919c7a53e40/Images/thumb?maxWidth=400"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["http_status"] == "404"
@@ -328,4 +379,28 @@ results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Meta["timestamp
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Enriched["MarshaledTime"] == "2024-01-13T23:17:58+01:00"
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.Whitelisted == true
 results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][3].Evt.WhitelistReason == "Jellyfin whitelist"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Success == true
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["body_bytes_sent"] == "0"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["http_referer"] == "-"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["http_version"] == "2.0"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["message"] == "192.168.1.1 - - [24/Jul/2025:18:46:15 -0400] \"POST /Sessions/Playing/Progress HTTP/2.0\" 403 0 \"-\" \"\""
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["program"] == "nginx"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["remote_user"] == "-"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["request"] == "/Sessions/Playing/Progress"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["status"] == "403"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["time_local"] == "24/Jul/2025:18:46:15 -0400"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Parsed["verb"] == "POST"
+basename(results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["datasource_path"]) == "jellyfin-logs.log"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["http_path"] == "/Sessions/Playing/Progress"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["http_status"] == "403"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["http_verb"] == "POST"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Meta["timestamp"] == "2025-07-24T18:46:15-04:00"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Enriched["MarshaledTime"] == "2025-07-24T18:46:15-04:00"
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/jellyfin-whitelist"][4].Evt.WhitelistReason == "Jellyfin whitelist"
 len(results["success"][""]) == 0

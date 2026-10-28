@@ -1,0 +1,17 @@
+type: leaky
+name: crowdsecurity/supavisor-bf
+description: "Detect brute force attacks against PostgreSQL via Supavisor connection pooler"
+filter: evt.Meta.log_type == 'supavisor_auth_fail'
+groupby: evt.Meta.source_ip
+capacity: 5
+leakspeed: 30s
+blackhole: 5m
+labels:
+  service: supavisor
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "database:bruteforce"
+  label: "Supavisor bruteforce"
+  remediation: true

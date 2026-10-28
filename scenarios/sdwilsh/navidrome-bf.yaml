@@ -1,0 +1,20 @@
+---
+blackhole: 1m
+capacity: 5
+description: A scenario that detects excessive login attempts per unique IP
+filter: evt.Meta.log_type == 'navidrome_failed_auth'
+groupby: evt.Meta.source_ip
+labels:
+  behavior: generic:bruteforce
+  classification:
+    - attack.T1110
+  confidence: 3
+  cti: true
+  label: Navidrome Login Bruteforce
+  remediation: true
+  service: navidrome
+  spoofable: 0
+  type: bruteforce
+leakspeed: 20s
+name: sdwilsh/navidrome-bf
+type: leaky

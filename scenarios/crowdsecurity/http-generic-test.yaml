@@ -1,0 +1,16 @@
+# EICAR style scenario
+# This scenario is used to test CrowdSec installation and configuration and doesn't generate any decisions.
+type: trigger
+name: crowdsecurity/http-generic-test
+description: "Crowdsec Generic Test Scenario: basic HTTP trigger"
+filter: evt.Meta.log_type in ["http_access-log", "http_error-log"] and
+  evt.Meta.http_path == "/crowdsec-test-NtktlJHV4TfBSK3wvlhiOBnl"
+blackhole: 5m
+groupby: "evt.Meta.source_ip"
+labels:
+  confidence: 0
+  spoofable: 3
+  behavior: "http:test"
+  label: "CrowdSec Generic Test Scenario"
+  service: http
+  remediation: false

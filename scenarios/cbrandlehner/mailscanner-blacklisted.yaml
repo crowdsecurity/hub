@@ -1,0 +1,15 @@
+name: cbrandlehner/mailscanner-blacklisted
+description: Detects MailScanner logs where a message is marked as spam due to blacklisting
+type: trigger
+filter: "evt.Meta.log_type == 'mailscanner_blacklist' && evt.Parsed.spam_reason == 'blacklisted'"
+groupby: evt.Parsed.source_ip
+blackhole: 5m
+labels:
+  type: spam
+  remediation: true
+  behavior: "smtp:spam"
+  spoofable: 0
+  confidence: 2
+  label: "MailScanner detected an SMTP message from a blacklisted sender"
+  service: smtp
+

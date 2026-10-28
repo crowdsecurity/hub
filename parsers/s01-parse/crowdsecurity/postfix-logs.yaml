@@ -48,7 +48,7 @@ nodes:
           value: spam-attempt
   - grok:
       apply_on: message
-      pattern: 'warning: non-SMTP command from unknown\[%{IP:remote_addr}\]: %{GREEDYDATA:command}'
+      pattern: 'warning: non-SMTP command from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: %{GREEDYDATA:command}'
       statics:
         - meta: log_type_enh
           value: non-smtp-command

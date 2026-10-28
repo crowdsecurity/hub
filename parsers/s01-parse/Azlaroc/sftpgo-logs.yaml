@@ -1,0 +1,51 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program == 'sftpgo' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'sftpgo') in ['', nil]"
+name: Azlaroc/sftpgo-logs
+description: "Parse SFTPGo logs from JSON"
+statics:
+  - meta: service
+    value: sftpgo
+  - meta: log_level
+    expression: evt.Unmarshaled.sftpgo.level
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.sftpgo.time
+nodes:
+  - filter: "evt.Unmarshaled.sftpgo.sender == 'login'"
+    statics:
+      - meta: log_type
+        value: auth_success
+      - meta: source_ip
+        expression: evt.Unmarshaled.sftpgo.ip
+      - meta: user
+        expression: evt.Unmarshaled.sftpgo.username
+      - meta: protocol
+        expression: evt.Unmarshaled.sftpgo.protocol
+      - meta: login_method
+        expression: evt.Unmarshaled.sftpgo.method
+  - filter: "evt.Unmarshaled.sftpgo.sender in ['SSH', 'FTP'] && evt.Unmarshaled.sftpgo.message != nil && evt.Unmarshaled.sftpgo.message contains 'logged in'"
+    grok:
+      expression: evt.Unmarshaled.sftpgo.message
+      pattern: 'User "%{DATA:username}" logged in.* from ip "%{IP:source_ip}"'
+    statics:
+      - meta: log_type
+        value: auth_success
+      - meta: source_ip
+        expression: evt.Parsed.source_ip
+      - meta: user
+        expression: evt.Parsed.username
+  - filter: "evt.Unmarshaled.sftpgo.sender == 'connection_failed'"
+    statics:
+      - meta: log_type
+        value: sftpgo_auth
+      - meta: source_ip
+        expression: evt.Unmarshaled.sftpgo.client_ip
+      - meta: target_user
+        expression: evt.Unmarshaled.sftpgo.username
+      - meta: protocol
+        expression: evt.Unmarshaled.sftpgo.protocol
+      - meta: login_type
+        expression: evt.Unmarshaled.sftpgo.login_type
+      - meta: error
+        expression: evt.Unmarshaled.sftpgo.error
+      - meta: is_failed_login
+        value: "true"

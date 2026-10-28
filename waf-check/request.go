@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
-	"net/url"
 	"strings"
 )
 
@@ -28,15 +27,12 @@ func NewHTTPRequest(baseURL string, request *Request) (http.Request, error) {
 	var err error
 
 	request.URL = fmt.Sprintf("/%s", strings.TrimLeft(request.URL, "/"))
-	request.FullURL, err = url.JoinPath(baseURL, request.URL)
-	if err != nil {
-		return http.Request{}, fmt.Errorf("error joining URL: %w", err)
-	}
+	request.FullURL = baseURL + request.URL
 
-	if request.Method == "POST" || request.Method == "PUT" {
+	if request.Method == http.MethodPost || request.Method == http.MethodPut {
 		req, err = http.NewRequest(request.Method, request.FullURL, bytes.NewBufferString(request.Data))
 	} else {
-		req, err = http.NewRequest(request.Method, request.FullURL, nil)
+		req, err = http.NewRequest(request.Method, request.FullURL, http.NoBody)
 	}
 
 	if err != nil {
@@ -56,12 +52,12 @@ func (r *Request) Curl() string {
 	curlCmd.WriteString("curl -X " + r.Method)
 
 	for key, value := range r.Headers {
-		curlCmd.WriteString(fmt.Sprintf(" -H '%s: %s'", key, value))
+		fmt.Fprintf(&curlCmd, " -H '%s: %s'", key, value)
 	}
-	if r.Method == "POST" || r.Method == "PUT" {
-		curlCmd.WriteString(fmt.Sprintf(" -d '%s'", r.Data))
+	if r.Method == http.MethodPost || r.Method == http.MethodPut {
+		fmt.Fprintf(&curlCmd, " -d '%s'", r.Data)
 	}
-	curlCmd.WriteString(fmt.Sprintf(" '%s'", r.FullURL))
+	fmt.Fprintf(&curlCmd, " '%s'", r.FullURL)
 
 	return curlCmd.String()
 }
