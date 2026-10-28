@@ -2,11 +2,11 @@
 
 Detects very slow brute-force attacks on the Postfix submission port (587). These attacks are invisible to standard Postfix scenarios because port 587 with STARTTLS does not log explicit "SASL authentication failed" messages — failures only appear as `auth=0/N` in disconnect lines.
 
-Uses a leaky bucket with a 4-hour leak rate and capacity of 5, creating a 24-hour detection window. Triggers after 6 failed submission auth attempts from the same IP.
+Uses a leaky bucket with a 4-hour leak rate and capacity of 5. Triggers after 6 disconnect lines with failed AUTH (`auth=0/N`) from the same IP. The scenario counts connections, not individual AUTH attempts: a single line such as `auth=0/3` is one event, even though it holds 3 failed attempts.
 
 **Requires** the `crowdsecurity/postfix-logs` parser which extracts `auth=0/N` patterns from disconnect lines (added in this PR).
 
-**Detection window**: 24 hours (leakspeed 4h × 6 events)
+**Detection window**: 24 hours (leakspeed 4h × 6 disconnect events)
 
 ## Remediation
 
