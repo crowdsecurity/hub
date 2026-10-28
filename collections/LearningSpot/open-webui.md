@@ -18,4 +18,4 @@ labels:
 
 ## Reverse proxy
 
-If Open WebUI sits behind a reverse proxy, make sure the real client IP is forwarded (`X-Forwarded-For`) and trusted by Open WebUI, otherwise the proxy's IP gets banned. See the `LearningSpot/open-webui-logs` parser documentation for details.
+If Open WebUI sits behind a reverse proxy, make sure the real client IP is forwarded (`X-Forwarded-For`), otherwise the proxy's IP gets banned. Also set `FORWARDED_ALLOW_IPS` to your proxy's address: by default Open WebUI trusts this header from anyone. See the `LearningSpot/open-webui-logs` parser documentation for details.
