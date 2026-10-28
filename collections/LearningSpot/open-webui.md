@@ -15,3 +15,7 @@ container_name:
 labels:
   type: open-webui
 ```
+
+## Reverse proxy
+
+If Open WebUI sits behind a reverse proxy, make sure the real client IP is forwarded (`X-Forwarded-For`) and trusted by Open WebUI, otherwise the proxy's IP gets banned. See the `LearningSpot/open-webui-logs` parser documentation for details.
