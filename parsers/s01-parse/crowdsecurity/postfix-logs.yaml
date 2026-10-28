@@ -52,7 +52,8 @@ nodes:
       statics:
         - meta: log_type_enh
           value: non-smtp-command
-  - grok:
+  - filter: "evt.Parsed.program matches '/submissions?/'"
+    grok:
       apply_on: message
       pattern: 'disconnect from %{RELAY} %{DATA}auth=0/%{INT:auth_attempts}'
       statics:
