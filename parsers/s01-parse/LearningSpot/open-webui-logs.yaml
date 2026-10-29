@@ -1,0 +1,16 @@
+name: LearningSpot/open-webui-logs
+description: "Parse Open WebUI logs"
+filter: "evt.Parsed.program == 'open-webui'"
+onsuccess: next_stage
+nodes:
+ - grok:
+     pattern: '%{LOGLEVEL:log_level}:%{SPACE}%{IP:source_ip}:%{INT} - "POST /api/v1/auths/signin HTTP/1.1" %{NUMBER:status} Bad Request'
+     apply_on: message
+     statics:
+       - meta: log_type
+         value: open_webui_failed_auth
+statics:
+   - meta: service
+     value: open_webui
+   - meta: source_ip
+     expression: evt.Parsed.source_ip
