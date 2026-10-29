@@ -4303,6 +4303,28 @@
       "CWE-416"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2026-111497": {
+    "name": "crowdsecurity/vpatch-CVE-2026-111497",
+    "description": "Blocks Brotli-compressed request bodies (Content-Encoding: br), the delivery path of the Brotli decoder out-of-bounds write CVE-2026-111497 (Node2Shell). Can trigger false positives if your clients legitimately send Brotli-compressed bodies.",
+    "label": "Brotli - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-29T08:46:18",
+    "cves": [
+      "CVE-2026-111497"
+    ],
+    "cwes": [
+      "CWE-787"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2026-1207": {
     "name": "crowdsecurity/vpatch-CVE-2026-1207",
     "description": "Detects SQL injection via the band parameter in Django RasterField/PostGIS endpoint",
