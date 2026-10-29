@@ -1,5 +1,4 @@
 Detects bruteforce on [Owncloud](https://owncloud.com) instance.
 
- - leakspeed of 1m, capacity of 5 on same target user
- - leakspeed of 1m, capacity of 5 unique distinct users
- - leakspeed of 1m, capacity of 5 on trusted domain error
+ - leakspeed of 1m, capacity of 5, on the same source IP
+ - failed logins and Owncloud's own "Bruteforce attempt" messages are counted in separate buckets
