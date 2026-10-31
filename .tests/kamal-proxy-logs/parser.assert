@@ -1,0 +1,219 @@
+len(results) == 3
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 4
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T10:05:09.280683958Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":80,\"path\":\"/.env\",\"request_id\":\"2ffa00e8-f73a-428c-94d4-bf27031e9ee2\",\"status\":404,\"service\":\"\",\"target\":\"\",\"duration\":145443,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":4492,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);\",\"proto\":\"HTTP/1.1\",\"scheme\":\"http\",\"query\":\"\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "kamal-proxy-logs"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T10:05:09.54742456Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":80,\"path\":\"/.git/config\",\"request_id\":\"0d30cb3d-8042-4c0a-a13e-4197ddccffb8\",\"status\":404,\"service\":\"\",\"target\":\"\",\"duration\":172052,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":4492,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);\",\"proto\":\"HTTP/1.1\",\"scheme\":\"http\",\"query\":\"\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "kamal-proxy-logs"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T12:00:23.436744895Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":443,\"path\":\"/favicon.ico\",\"request_id\":\"a70e96a0-f98f-4bbd-bd25-932bf578ae73\",\"status\":200,\"service\":\"rails-web-production\",\"target\":\"62f9812b3c1d:80\",\"duration\":2259778,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":1413,\"resp_content_type\":\"image/vnd.microsoft.icon\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\"proto\":\"HTTP/2.0\",\"scheme\":\"https\",\"query\":\"\",\"req_cache_control\":\"\",\"req_last_modified\":\"\",\"req_user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "kamal-proxy-logs"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T14:10:48.827717761Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":443,\"path\":\"/users/sign_up\",\"request_id\":\"c9194711-9a44-49be-a700-f22b255336b8\",\"status\":200,\"service\":\"rails-web-production\",\"target\":\"62f9812b3c1d:80\",\"duration\":22711086,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":2892,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1\",\"proto\":\"HTTP/2.0\",\"scheme\":\"https\",\"query\":\"domain=crowdsec.net\",\"req_cache_control\":\"\",\"req_last_modified\":\"\",\"req_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Parsed["program"] == "kamal-proxy-logs"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][3].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
+len(results["s01-parse"]["dilolabs/kamal-proxy-logs"]) == 4
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Success == true
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["http_user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["http_version"] == "1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T10:05:09.280683958Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":80,\"path\":\"/.env\",\"request_id\":\"2ffa00e8-f73a-428c-94d4-bf27031e9ee2\",\"status\":404,\"service\":\"\",\"target\":\"\",\"duration\":145443,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":4492,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);\",\"proto\":\"HTTP/1.1\",\"scheme\":\"http\",\"query\":\"\"}"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["program"] == "kamal-proxy-logs"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["request"] == "/.env"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["status"] == "404.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["time_local"] == "2025-06-04T10:05:09.280683958Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["http_path"] == "/.env"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["http_status"] == "404.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["http_user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["service"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Meta["target_fqdn"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["port"] == 80
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["service"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["status"] == 404
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["target"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["level"] == "INFO"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["req_content_length"] == 0
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["duration"] == 145443
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["method"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["query"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["req_content_type"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["resp_content_type"] == "text/html; charset=utf-8"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["time"] == "2025-06-04T10:05:09.280683958Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["client_port"] == "12345"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["path"] == "/.env"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["proto"] == "HTTP/1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["request_id"] == "2ffa00e8-f73a-428c-94d4-bf27031e9ee2"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["resp_content_length"] == 4492
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["scheme"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["client_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Unmarshaled["kamalproxy"]["msg"] == "Request"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][0].Evt.Whitelisted == false
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Success == true
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["http_user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["http_version"] == "1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T10:05:09.54742456Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":80,\"path\":\"/.git/config\",\"request_id\":\"0d30cb3d-8042-4c0a-a13e-4197ddccffb8\",\"status\":404,\"service\":\"\",\"target\":\"\",\"duration\":172052,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":4492,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);\",\"proto\":\"HTTP/1.1\",\"scheme\":\"http\",\"query\":\"\"}"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["program"] == "kamal-proxy-logs"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["request"] == "/.git/config"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["status"] == "404.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["time_local"] == "2025-06-04T10:05:09.54742456Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["http_path"] == "/.git/config"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["http_status"] == "404.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["http_user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["service"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Meta["target_fqdn"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["msg"] == "Request"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["port"] == 80
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["proto"] == "HTTP/1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["resp_content_length"] == 4492
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["duration"] == 172052
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["scheme"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["service"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["time"] == "2025-06-04T10:05:09.54742456Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["query"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["req_content_length"] == 0
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["req_content_type"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["path"] == "/.git/config"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["request_id"] == "0d30cb3d-8042-4c0a-a13e-4197ddccffb8"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["status"] == 404
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["target"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["client_port"] == "12345"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["resp_content_type"] == "text/html; charset=utf-8"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["user_agent"] == "Mozilla/5.0; Keydrop.io/1.0(onlyscans.com/about);"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["client_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["level"] == "INFO"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Unmarshaled["kamalproxy"]["method"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][1].Evt.Whitelisted == false
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Success == true
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["http_version"] == "2.0"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T12:00:23.436744895Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":443,\"path\":\"/favicon.ico\",\"request_id\":\"a70e96a0-f98f-4bbd-bd25-932bf578ae73\",\"status\":200,\"service\":\"rails-web-production\",\"target\":\"62f9812b3c1d:80\",\"duration\":2259778,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":1413,\"resp_content_type\":\"image/vnd.microsoft.icon\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\"proto\":\"HTTP/2.0\",\"scheme\":\"https\",\"query\":\"\",\"req_cache_control\":\"\",\"req_last_modified\":\"\",\"req_user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\"}"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["program"] == "kamal-proxy-logs"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["request"] == "/favicon.ico"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["status"] == "200.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["time_local"] == "2025-06-04T12:00:23.436744895Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["http_path"] == "/favicon.ico"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["http_status"] == "200.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["service"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Meta["target_fqdn"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["resp_content_type"] == "image/vnd.microsoft.icon"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["scheme"] == "https"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["method"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["proto"] == "HTTP/2.0"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["request_id"] == "a70e96a0-f98f-4bbd-bd25-932bf578ae73"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["service"] == "rails-web-production"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["status"] == 200
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["target"] == "62f9812b3c1d:80"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["client_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["time"] == "2025-06-04T12:00:23.436744895Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["req_content_length"] == 0
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["client_port"] == "12345"
+FloatApproxEqual(results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["duration"], 2259778.000000)
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["level"] == "INFO"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["msg"] == "Request"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["query"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["resp_content_length"] == 1413
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["path"] == "/favicon.ico"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["port"] == 443
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["req_cache_control"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["req_content_type"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["req_last_modified"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Unmarshaled["kamalproxy"]["req_user_agent"] == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][2].Evt.Whitelisted == false
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Success == true
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["http_version"] == "2.0"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["message"] == "{\"time\":\"2025-06-04T14:10:48.827717761Z\",\"level\":\"INFO\",\"msg\":\"Request\",\"host\":\"crowdsec.net\",\"port\":443,\"path\":\"/users/sign_up\",\"request_id\":\"c9194711-9a44-49be-a700-f22b255336b8\",\"status\":200,\"service\":\"rails-web-production\",\"target\":\"62f9812b3c1d:80\",\"duration\":22711086,\"method\":\"GET\",\"req_content_length\":0,\"req_content_type\":\"\",\"resp_content_length\":2892,\"resp_content_type\":\"text/html; charset=utf-8\",\"client_addr\":\"1.2.3.4\",\"client_port\":\"12345\",\"remote_addr\":\"1.2.3.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1\",\"proto\":\"HTTP/2.0\",\"scheme\":\"https\",\"query\":\"domain=crowdsec.net\",\"req_cache_control\":\"\",\"req_last_modified\":\"\",\"req_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1\"}"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["program"] == "kamal-proxy-logs"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["request"] == "/users/sign_up"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["status"] == "200.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["time_local"] == "2025-06-04T14:10:48.827717761Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Parsed["verb"] == "GET"
+basename(results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["datasource_path"]) == "kamal-proxy-logs.log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["http_path"] == "/users/sign_up"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["http_status"] == "200.000000"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["http_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["http_verb"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["log_type"] == "http_access-log"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["service"] == "http"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["source_ip"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Meta["target_fqdn"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["req_content_type"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["req_last_modified"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["req_user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["user_agent"] == "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["level"] == "INFO"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["msg"] == "Request"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["time"] == "2025-06-04T14:10:48.827717761Z"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["client_port"] == "12345"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["host"] == "crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["path"] == "/users/sign_up"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["port"] == 443
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["query"] == "domain=crowdsec.net"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["remote_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["resp_content_length"] == 2892
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["resp_content_type"] == "text/html; charset=utf-8"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["client_addr"] == "1.2.3.4"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["proto"] == "HTTP/2.0"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["req_cache_control"] == ""
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["request_id"] == "c9194711-9a44-49be-a700-f22b255336b8"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["scheme"] == "https"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["service"] == "rails-web-production"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["status"] == 200
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["target"] == "62f9812b3c1d:80"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["req_content_length"] == 0
+FloatApproxEqual(results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["duration"], 22711086.000000)
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Unmarshaled["kamalproxy"]["method"] == "GET"
+results["s01-parse"]["dilolabs/kamal-proxy-logs"][3].Evt.Whitelisted == false
+len(results["success"][""]) == 0
