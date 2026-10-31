@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 7
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 8
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -70,7 +70,17 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][6].Evt.Meta["datasource_path"] =
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Evt.Meta["machine"] == "machine"
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Evt.Whitelisted == false
-len(results["s01-parse"]["crowdsecurity/postfix-logs"]) == 7
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure, sasl_username=alice@example.com"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Parsed["pid"] == "26897"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Parsed["program"] == "postfix/smtpd"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Parsed["timestamp"] == "May 11 04:02:37"
+basename(results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Meta["datasource_path"]) == "postfix-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Meta["machine"] == "host1"
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Evt.Whitelisted == false
+len(results["s01-parse"]["crowdsecurity/postfix-logs"]) == 8
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s01-parse"]["crowdsecurity/postfix-logs"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -238,7 +248,26 @@ results["s01-parse"]["crowdsecurity/postfix-logs"][6].Evt.Meta["service"] == "po
 results["s01-parse"]["crowdsecurity/postfix-logs"][6].Evt.Meta["source_hostname"] == "not.stretchoid.com"
 results["s01-parse"]["crowdsecurity/postfix-logs"][6].Evt.Meta["source_ip"] == "192.168.1.1"
 results["s01-parse"]["crowdsecurity/postfix-logs"][6].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 7
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Success == true
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure, sasl_username=alice@example.com"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["message_failure"] == " authentication failure, sasl_username=alice@example.com"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["pid"] == "26897"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["program"] == "postfix/smtpd"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["remote_host"] == "unknown"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Parsed["timestamp"] == "May 11 04:02:37"
+basename(results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["datasource_path"]) == "postfix-logs.log"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["log_type"] == "postfix"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["log_type_enh"] == "spam-attempt"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["machine"] == "host1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["sasl_username"] == "alice@example.com"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["service"] == "postfix"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["source_hostname"] == "unknown"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s01-parse"]["crowdsecurity/postfix-logs"][7].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 8
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["logsource"] == "syslog"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure"
@@ -420,4 +449,25 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Meta["timestamp"][4:] == "-02-27T07:14:47.545612Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Enriched["MarshaledTime"][4:] == "-02-27T07:14:47.545612Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][6].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message"] == "warning: unknown[192.168.1.1]: SASL LOGIN authentication failed: authentication failure, sasl_username=alice@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["message_failure"] == " authentication failure, sasl_username=alice@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["pid"] == "26897"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["program"] == "postfix/smtpd"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["remote_addr"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["remote_host"] == "unknown"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Parsed["timestamp"] == "May 11 04:02:37"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_path"]) == "postfix-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["log_type"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["log_type_enh"] == "spam-attempt"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["machine"] == "host1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["sasl_username"] == "alice@example.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["service"] == "postfix"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_hostname"] == "unknown"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["source_ip"] == "192.168.1.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Meta["timestamp"][4:] == "-05-11T04:02:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Enriched["MarshaledTime"][4:] == "-05-11T04:02:37Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][7].Evt.Whitelisted == false
 len(results["success"][""]) == 0
