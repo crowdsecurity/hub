@@ -1,0 +1,47 @@
+onsuccess: next_stage
+filter: "evt.Parsed.program in ['dectrax', 'dectrax-sensor', 'dectrax-decoy', 'dectrax-syslog'] or (evt.Parsed.message != nil and (evt.Parsed.message contains 'dectrax' or evt.Parsed.message contains 'DECTRAX'))"
+description: "Parse DECTRAX decoy and deception syslog events"
+name: dectrax/dectrax-syslog
+nodes:
+  # Node 1: Key-Value parsing for structured syslog (RFC 5424 / key-value payloads)
+  - filter: "ParseKVLax(evt.Parsed.message, evt.Unmarshaled, 'dectrax') == nil"
+    statics:
+      - meta: log_type
+        value: dectrax-decoy-breach
+      - meta: service
+        expression: "evt.Unmarshaled.dectrax.decoy != nil ? evt.Unmarshaled.dectrax.decoy : 'dectrax'"
+      - meta: source_ip
+        expression: "evt.Unmarshaled.dectrax.src_ip != nil ? evt.Unmarshaled.dectrax.src_ip : evt.Unmarshaled.dectrax.src"
+      - meta: dest_port
+        expression: "evt.Unmarshaled.dectrax.dest_port != nil ? evt.Unmarshaled.dectrax.dest_port : evt.Unmarshaled.dectrax.dpt"
+      - meta: threat_level
+        expression: "evt.Unmarshaled.dectrax.threat_level != nil ? evt.Unmarshaled.dectrax.threat_level : evt.Unmarshaled.dectrax.severity"
+      - meta: action
+        expression: "evt.Unmarshaled.dectrax.action != nil ? evt.Unmarshaled.dectrax.action : 'alert'"
+
+  # Node 2: Grok pattern for traditional syslog format
+  - grok:
+      pattern: "^.*attacker=(%{IP:src_ip})\\s+decoy=(%{WORD:decoy_service})\\s+port=(%{INT:dest_port})\\s+severity=(%{WORD:threat_level}).*$"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: dectrax-decoy-breach
+        - meta: source_ip
+          expression: "evt.Parsed.src_ip"
+        - meta: service
+          expression: "evt.Parsed.decoy_service"
+        - meta: dest_port
+          expression: "evt.Parsed.dest_port"
+        - meta: threat_level
+          expression: "evt.Parsed.threat_level"
+
+  # Node 3: CEF fallback format
+  - filter: "evt.Parsed.message contains 'CEF:'"
+    grok:
+      pattern: "^.*CEF:0\\|DECTRAX\\|%{DATA:device_product}\\|%{DATA:device_version}\\|%{DATA:signature_id}\\|%{DATA:name}\\|%{DATA:severity}\\|%{GREEDYDATA:cef_extension}$"
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: dectrax-decoy-breach
+      - meta: service
+        value: dectrax
