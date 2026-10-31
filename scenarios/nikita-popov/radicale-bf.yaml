@@ -1,0 +1,13 @@
+name: nikita-popov/radicale-bf
+description: "Radicale brute-force - too many 401 responses from single IP"
+type: leaky
+filter: "evt.Meta.service == 'radicale' && evt.Meta.log_type == 'http_response' && evt.Meta.http_status == '401'"
+groupby: "evt.Meta.source_ip"
+capacity: 10
+leakspeed: "10s"
+blackhole: 5m
+reprocess: true
+labels:
+  service: radicale
+  type: bruteforce
+  remediation: true
