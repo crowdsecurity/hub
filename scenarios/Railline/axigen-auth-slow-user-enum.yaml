@@ -1,0 +1,19 @@
+type: leaky
+name: Railline/axigen-auth-slow-user-enum
+description: "Detect slow enumeration of Axigen accounts from one source"
+filter: "evt.Meta.log_type == 'axigen_failed_auth' && evt.Meta.source_ip != '' && evt.Meta.target_user != ''"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.target_user
+leakspeed: 5m
+capacity: 5
+blackhole: 10m
+reprocess: true
+labels:
+  service: axigen
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1589
+  behavior: "generic:bruteforce"
+  label: "Axigen Slow User Enumeration"
+  remediation: true
