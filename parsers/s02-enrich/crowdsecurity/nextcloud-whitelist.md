@@ -10,6 +10,8 @@ On first load the photos app calls a preview endpoint, however, if it fails to l
 
 When opening the photos app, multiple requests are made very quickly for images, since they are not marked as images (ending in png,jpg etc) it can trigger HTTP crawl non statics.
 
+Depending on the Photos version, previews are requested as `/apps/photos/api/v1/preview/<fileid>?etag=<etag>&x=<width>&y=<height>` or, in recent versions, as `/apps/photos/api/v1/preview/<fileid>?x=<width>&y=<height>` (no `etag`). Both formats are whitelisted, for successful (`200`) `GET` requests only.
+
 ---
 ### Backup app
 When loading backups for a file if those backups have been modified or deleted by (OS/USER) it can easily trigger http-probing
