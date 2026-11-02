@@ -4900,6 +4900,7 @@
   },
   "crowdsecurity/vpatch-env-access": {
     "name": "crowdsecurity/vpatch-env-access",
+    "intent": "malicious",
     "description": "Detect access to .env files",
     "label": "Environment File - Exposure",
     "behaviors": [
@@ -4917,6 +4918,7 @@
   },
   "crowdsecurity/vpatch-git-config": {
     "name": "crowdsecurity/vpatch-git-config",
+    "intent": "malicious",
     "description": "Detect access to .git files",
     "label": "Git Configuration - Exposure",
     "behaviors": [
@@ -5021,6 +5023,7 @@
   },
   "Guezli/mailcow-f2b-feed": {
     "name": "Guezli/mailcow-f2b-feed",
+    "intent": "anomalous",
     "description": "Propagate Mailcow internal F2B bans into the local Crowdsec LAPI",
     "label": "Mailcow F2B Cross-Layer Feed",
     "behaviors": [
@@ -5037,6 +5040,7 @@
   },
   "Guezli/postfix-honeypot-users": {
     "name": "Guezli/postfix-honeypot-users",
+    "intent": "anomalous",
     "description": "Instant-ban IPs hitting postfix SASL authentication with honeypot usernames",
     "label": "Postfix Honeypot Username",
     "behaviors": [
@@ -5046,7 +5050,7 @@
       "TA0006:T1110",
       "TA0003:T1078"
     ],
-    "confidence": 0,
+    "confidence": 1,
     "spoofable": 0,
     "cti": true,
     "service": "postfix",
@@ -5119,6 +5123,7 @@
   },
   "Jgigantino31/ntfy-bf": {
     "name": "Jgigantino31/ntfy-bf",
+    "intent": "reconnaissance",
     "description": "Detect ntfy bruteforce",
     "label": "Ntfy Bruteforce",
     "behaviors": [
@@ -5544,6 +5549,7 @@
   },
   "LearningSpot/litellm-bf": {
     "name": "LearningSpot/litellm-bf",
+    "intent": "reconnaissance",
     "description": "Detect bruteforce attempts to Litellm",
     "label": "Litellm Bruteforce",
     "behaviors": [
@@ -5725,6 +5731,7 @@
   },
   "aidalinfo/couchdb-slow-bf": {
     "name": "aidalinfo/couchdb-slow-bf",
+    "intent": "reconnaissance",
     "description": "Detect slow Couchdb bruteforce/enum",
     "label": "Couchdb low Bruteforce",
     "behaviors": [
@@ -5741,6 +5748,7 @@
   },
   "aidalinfo/couchdb-bf": {
     "name": "aidalinfo/couchdb-bf",
+    "intent": "reconnaissance",
     "description": "Detect Couchdb bruteforce/enum",
     "label": "Couchdb Bruteforce",
     "behaviors": [
@@ -5885,6 +5893,7 @@
   },
   "barnoux/crs-anomaly-score": {
     "name": "barnoux/crs-anomaly-score",
+    "intent": "anomalous",
     "description": "Web exploitation detected via Core Rule Set inbound anomaly scoring set by the user in crs-setup.conf",
     "label": "CRS Anomaly Alert",
     "behaviors": [
@@ -6618,6 +6627,7 @@
   },
   "crowdsecurity/auditd-base64-exec-behavior": {
     "name": "crowdsecurity/auditd-base64-exec-behavior",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : base64 + interpreter (perl/bash/python)",
     "label": "Post Exploitation command execution from base64 encoded payload",
     "behaviors": [
@@ -6634,6 +6644,7 @@
   },
   "crowdsecurity/auditd-postexploit-exec-from-net": {
     "name": "crowdsecurity/auditd-postexploit-exec-from-net",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : curl/wget and exec",
     "label": "Post Exploitation command execution from Internet",
     "behaviors": [
@@ -6650,6 +6661,7 @@
   },
   "crowdsecurity/auditd-postexploit-pkill": {
     "name": "crowdsecurity/auditd-postexploit-pkill",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : pkill execve bursts",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -6666,6 +6678,7 @@
   },
   "crowdsecurity/auditd-postexploit-rm": {
     "name": "crowdsecurity/auditd-postexploit-rm",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : rm execve bursts",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -6682,6 +6695,7 @@
   },
   "crowdsecurity/auditd-suid-crash": {
     "name": "crowdsecurity/auditd-suid-crash",
+    "intent": "anomalous",
     "description": "Detect root suid process crashing",
     "label": "Suspicious suid process crash",
     "behaviors": [
@@ -6698,6 +6712,7 @@
   },
   "crowdsecurity/auditd-sus-exec": {
     "name": "crowdsecurity/auditd-sus-exec",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : exec from suspicious locations",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -6779,6 +6794,7 @@
   },
   "crowdsecurity/aws-cis-benchmark-console-auth-fail": {
     "name": "crowdsecurity/aws-cis-benchmark-console-auth-fail",
+    "intent": "anomalous",
     "description": "Detect AWS console authentication failure",
     "label": "AWS bruteforce",
     "behaviors": [
@@ -7222,6 +7238,7 @@
   },
   "crowdsecurity/freeswitch-acl-reject": {
     "name": "crowdsecurity/freeswitch-acl-reject",
+    "intent": "reconnaissance",
     "description": "Detect freeswitch acl rejects",
     "label": "FreeSWITCH ACL Reject",
     "behaviors": [
@@ -7354,6 +7371,7 @@
   },
   "crowdsecurity/http-backdoors-attempts": {
     "name": "crowdsecurity/http-backdoors-attempts",
+    "intent": "malicious",
     "description": "Detect attempt to common backdoors",
     "label": "Scanning for backdoors",
     "behaviors": [
@@ -7474,6 +7492,7 @@
   },
   "crowdsecurity/http-cve-probing": {
     "name": "crowdsecurity/http-cve-probing",
+    "intent": "malicious",
     "description": "Detect generic HTTP cve probing",
     "label": "HTTP CVE Probing",
     "behaviors": [
@@ -7570,6 +7589,7 @@
   },
   "LePresidente/http-generic-401-bf": {
     "name": "LePresidente/http-generic-401-bf",
+    "intent": "reconnaissance",
     "description": "Detect generic 401 Authorization error brute force",
     "label": "HTTP Bruteforce",
     "behaviors": [
@@ -7586,6 +7606,7 @@
   },
   "LePresidente/http-generic-403-bf": {
     "name": "LePresidente/http-generic-403-bf",
+    "intent": "reconnaissance",
     "description": "Detect generic 403 Forbidden (Authorization) error brute force",
     "label": "HTTP Bruteforce",
     "behaviors": [
@@ -7630,6 +7651,7 @@
   },
   "crowdsecurity/http-magento-ccs-by-as": {
     "name": "crowdsecurity/http-magento-ccs-by-as",
+    "intent": "anomalous",
     "description": "Detect distributed credit card stuffing from same AS",
     "label": "Magento Credit Card Stuffing By AS",
     "behaviors": [
@@ -7646,6 +7668,7 @@
   },
   "crowdsecurity/http-magento-ccs-by-country": {
     "name": "crowdsecurity/http-magento-ccs-by-country",
+    "intent": "anomalous",
     "description": "Detect distributed credit card stuffing from same country",
     "label": "Magento Credit Card Stuffing By Country",
     "behaviors": [
@@ -7742,6 +7765,7 @@
   },
   "crowdsecurity/http-sensitive-files": {
     "name": "crowdsecurity/http-sensitive-files",
+    "intent": "malicious",
     "description": "Detect attempt to access to sensitive files (.log, .db ..) or folders (.git)",
     "label": "Access to sensitive files over HTTP",
     "behaviors": [
@@ -7824,6 +7848,7 @@
   },
   "crowdsecurity/http-wordpress_wpconfig": {
     "name": "crowdsecurity/http-wordpress_wpconfig",
+    "intent": "malicious",
     "description": "Detect WordPress probing: variations around wp-config.php by wpscan",
     "label": "Access to WordPress wp-config.php",
     "behaviors": [
@@ -7856,6 +7881,7 @@
   },
   "crowdsecurity/impossible-travel-user": {
     "name": "crowdsecurity/impossible-travel-user",
+    "intent": "anomalous",
     "description": "impossible travel user",
     "label": "Impossible travel",
     "behaviors": [],
@@ -7870,6 +7896,7 @@
   },
   "crowdsecurity/impossible-travel": {
     "name": "crowdsecurity/impossible-travel",
+    "intent": "anomalous",
     "description": "Detect Impossible Travel",
     "label": "Impossible travel",
     "behaviors": [],
@@ -7938,6 +7965,7 @@
   },
   "crowdsecurity/k8s-audit-api-server-bruteforce": {
     "name": "crowdsecurity/k8s-audit-api-server-bruteforce",
+    "intent": "reconnaissance",
     "description": "Detect bruteforce attempts against K8S API server",
     "label": "Kubernetes API Bruteforce",
     "behaviors": [
@@ -8083,6 +8111,7 @@
   },
   "crowdsecurity/modsecurity": {
     "name": "crowdsecurity/modsecurity",
+    "intent": "anomalous",
     "description": "Web exploitation via modsecurity",
     "label": "Modsecurity Alert",
     "behaviors": [
@@ -8347,6 +8376,7 @@
   },
   "crowdsecurity/postfix-non-smtp-command": {
     "name": "crowdsecurity/postfix-non-smtp-command",
+    "intent": "malicious",
     "description": "Detect scanning of postfix service through non-SMTP commands",
     "label": "Postfix Non-SMTP Command",
     "behaviors": [
@@ -8675,6 +8705,7 @@
   },
   "crowdsecurity/suricata-major-severity": {
     "name": "crowdsecurity/suricata-major-severity",
+    "intent": "anomalous",
     "description": "Detect exploit attempts via emerging threat rules",
     "label": "Suricata Severity 1 Event",
     "behaviors": [
@@ -8692,6 +8723,7 @@
   },
   "crowdsecurity/suricata-high-medium-severity": {
     "name": "crowdsecurity/suricata-high-medium-severity",
+    "intent": "reconnaissance",
     "description": "Detect exploit attempts via emerging threat rules",
     "label": "Suricata Severity 2 Event",
     "behaviors": [
@@ -8773,6 +8805,7 @@
   },
   "crowdsecurity/telnet-bf": {
     "name": "crowdsecurity/telnet-bf",
+    "intent": "reconnaissance",
     "description": "detect telnet bruteforce",
     "label": "Telnet Bruteforce",
     "behaviors": [
@@ -9569,6 +9602,7 @@
   },
   "openappsec/openappsec-cross-site-redirect": {
     "name": "openappsec/openappsec-cross-site-redirect",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Redirect' events (when waf blocks malicious request)",
     "label": "Openappsec 'cross site redirect' detection",
     "behaviors": [
@@ -9585,6 +9619,7 @@
   },
   "openappsec/openappsec-csrf": {
     "name": "openappsec/openappsec-csrf",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Request Forgery' events (when waf blocks malicious request)",
     "label": "Openappsec 'cross site request forgery' detection",
     "behaviors": [
@@ -9720,6 +9755,7 @@
   },
   "openappsec/openappsec-open-redirect": {
     "name": "openappsec/openappsec-open-redirect",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Open Redirect' events (when waf blocks malicious request)",
     "label": "Openappsec 'open redirect' detection",
     "behaviors": [
@@ -9804,6 +9840,7 @@
   },
   "openappsec/openappsec-schema-validation": {
     "name": "openappsec/openappsec-schema-validation",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Schema Validation' events (when waf blocks malicious request)",
     "label": "Openappsec 'schema validations' detection",
     "behaviors": [
@@ -9921,9 +9958,12 @@
   },
   "pserranoa/openvpn-bf": {
     "name": "pserranoa/openvpn-bf",
+    "intent": "reconnaissance",
     "description": "Detect openvpn bruteforce",
     "label": "OpenVPN Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
