@@ -17,13 +17,5 @@ labels:
   type: Owncloud
 ```
 
-```yaml
----
-source: journalctl
-journalctl_filter:
-  - "SYSLOG_IDENTIFIER=Owncloud"
-labels:
-  type: syslog
-```
-- Use the filename version if you have the default settings of logging to file
-- Use the journalctl version if you are sending logs to syslog or systemd and read the logs from journald
+This parser requires ownCloud's default file logging (`log_type` set to `owncloud`), which writes JSON lines.
+ownCloud's syslog output (`log_type` set to `syslog`) uses a different, non-JSON format and is not supported.
