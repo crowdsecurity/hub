@@ -1,8 +1,12 @@
 onsuccess: next_stage
 name: crowdsecurity/pgsql-logs
 description: "Parse PgSQL logs"
-filter: "evt.Parsed.program == 'postgres'"
+filter: "evt.Parsed.program in ['postgres', 'pgbouncer']"
 nodes:
+  - grok:
+      # PgBouncer authentication failure
+      pattern: '%{TIMESTAMP_ISO8601:timestamp} %{WORD:zone} \[%{INT:pid}\] ERROR C-%{NOTSPACE:connection_id}: %{NOTSPACE:pgsql_dbname}/%{NOTSPACE:pgsql_target_user}@%{IP:source_ip}:%{INT:source_port} %{WORD:auth_method} authentication failed'
+      apply_on: message
   - grok:
     #pgsql 12
       pattern: '%{DATESTAMP:timestamp} %{WORD:zone} \[%{INT:PID}\] %{IP:source_ip} %{USERNAME:pgsql_user}@%{GREEDYDATA:pgsql_dbname} FATAL:  %{WORD:auth_method} authentication failed for user "%{USERNAME:pgsql_target_user}"'
