@@ -46,9 +46,10 @@ nodes:
       statics:
         - meta: log_type_enh
           value: spam-attempt
-        # postfix appends ", sasl_username=<user>" when the client sent a username
+        # postfix (3.5.22+, 3.6.12+, 3.7.8+, 3.8.3+) appends ", sasl_username=<user>",
+        # or ", sasl_username=(unavailable)" when the client sent no username
         - meta: sasl_username
-          expression: "evt.Parsed.message_failure contains ', sasl_username=' ? TrimSpace(Split(evt.Parsed.message_failure, ', sasl_username=')[1]) : ''"
+          expression: "evt.Parsed.message_failure contains ', sasl_username=' && !(evt.Parsed.message_failure endsWith ', sasl_username=(unavailable)') ? TrimSpace(Split(evt.Parsed.message_failure, ', sasl_username=')[1]) : ''"
   - grok:
       apply_on: message
       pattern: 'warning: non-SMTP command from %{POSTFIX_HOSTNAME:remote_host}\[%{IP:remote_addr}\]: %{GREEDYDATA:command}'
