@@ -32,15 +32,6 @@ labels:
   type: pgbouncer
 ```
 
-If PgBouncer logs to systemd journal or syslog:
-
-```yaml
-journalctl_filter:
-  - _SYSTEMD_UNIT=pgbouncer.service
-labels:
-  type: syslog
-```
-
 *Note: Both `type: pgbouncer` and `type: postgres` are supported by this parser.*
 
 ## Parsed Fields
