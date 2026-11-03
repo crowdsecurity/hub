@@ -3,11 +3,11 @@ onsuccess: next_stage
 filter: "Upper(evt.Parsed.program) == 'OWNCLOUD'"
 name: martyduniaud98/owncloud-logs
 description: "Parse owncloud logs"
-pattern_syntax:
-  OWNCLOUD_USER: '[a-zA-Z0-9\.\@\-\+_%]+'
 nodes:
   - grok:
-      pattern: 'Login failed: ''%{OWNCLOUD_USER:target_user}'' \(Remote IP: ''%{IP:source_ip}''\)'
+      # the username is free text: capture it up to the trailing "(Remote IP: ...)",
+      # and never take the IP from the message (see source_ip below)
+      pattern: '^Login failed: ''%{GREEDYDATA:target_user}'' \(Remote IP: ''%{IP}''\)$'
       expression: JsonExtract(evt.Parsed.message, "message")
     statics:
       - meta: target_user
@@ -33,7 +33,9 @@ nodes:
 statics:
   - meta: service
     value: owncloud
+  # remoteAddr is the address ownCloud itself resolved for the request; the
+  # message text can contain attacker-controlled data (e.g. the username)
   - meta: source_ip
-    expression: "evt.Parsed.source_ip"
+    expression: JsonExtract(evt.Parsed.message, "remoteAddr")
   - target: evt.StrTime
     expression: JsonExtract(evt.Parsed.message, "time")
