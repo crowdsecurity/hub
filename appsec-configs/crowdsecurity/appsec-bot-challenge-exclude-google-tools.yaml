@@ -1,0 +1,18 @@
+name: crowdsecurity/appsec-bot-challenge-exclude-google-tools
+inband:
+  pre_eval:
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/google-inspectiontool.json")
+      apply:
+        - ExemptFromChallenge("google-inspectiontool")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/google-site-verification.json")
+      apply:
+        - ExemptFromChallenge("google-site-verification")
+
+# Declares the datafiles so crowdsec downloads them.
+data:
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/google-inspectiontool.json
+    dest_file: legit_bots/google-inspectiontool.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/google-site-verification.json
+    dest_file: legit_bots/google-site-verification.json
+    type: bots
