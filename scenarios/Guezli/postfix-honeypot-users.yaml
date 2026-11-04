@@ -42,12 +42,13 @@ blackhole: 24h
 labels:
   service: postfix
   remediation: true
-  confidence: 5
+  confidence: 1
   spoofable: 0
   classification:
     - attack.T1110
     - attack.T1078
   behavior: "pop3/imap:bruteforce"
+  intent: anomalous
   label: "Postfix Honeypot Username"
 references:
   - https://www.postfix.org/SASL_README.html
