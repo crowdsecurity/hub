@@ -46,11 +46,14 @@ inband:
     # A Linux desktop face resolving on a non-Linux claim says where the
     # process really runs. Scored only alongside a missing native font,
     # because LibreOffice ships DejaVu on Windows and macOS.
+    #
+    # Reasons render as "<category>:<name>" and the category changes on
+    # promotion, so match on the name.
     - filter: >-
         !(req.UserAgent() contains "Linux" || req.UserAgent() contains "X11") &&
         fingerprint.Custom["cfFontBase"].Number != -1 &&
         fingerprint.Custom["cfFontDejavu"].Number != fingerprint.Custom["cfFontBase"].Number &&
-        any(RequestScoreReasons(), hasPrefix(#, "detect:os_font_missing_"))
+        any(RequestScoreReasons(), # contains ":os_font_missing_")
       apply:
         - AddRequestScore(0, "linux_font_on_foreign_os", "detect-experimental-fonts")
 
@@ -117,7 +120,7 @@ inband:
         fingerprint.Custom["cfFontKcCtrl"].Number == fingerprint.Custom["cfFontKcBase"].Number &&
         fingerprint.Custom["cfFontKcNoto"].Number == fingerprint.Custom["cfFontKcBase"].Number
       apply:
-        - AddRequestScore(0, "emoji_font_missing_android", "detect-experimental")  # intended weight: 50
+        - AddRequestScore(0, "emoji_font_missing_android", "detect-experimental-fonts")  # intended weight: 50
 
     # Also track skips.
     - filter: '!fingerprint.HasCustom("cfFontBase")'
