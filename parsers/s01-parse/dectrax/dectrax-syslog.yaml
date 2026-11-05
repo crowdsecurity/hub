@@ -11,11 +11,11 @@ nodes:
       - meta: service
         expression: "evt.Unmarshaled.dectrax.decoy != nil ? evt.Unmarshaled.dectrax.decoy : 'dectrax'"
       - meta: source_ip
-        expression: "evt.Unmarshaled.dectrax.src_ip != nil ? evt.Unmarshaled.dectrax.src_ip : evt.Unmarshaled.dectrax.src"
+        expression: "evt.Unmarshaled.dectrax.src_ip != nil ? evt.Unmarshaled.dectrax.src_ip : (evt.Unmarshaled.dectrax.src != nil ? evt.Unmarshaled.dectrax.src : evt.Unmarshaled.dectrax.attacker)"
       - meta: dest_port
-        expression: "evt.Unmarshaled.dectrax.dest_port != nil ? evt.Unmarshaled.dectrax.dest_port : evt.Unmarshaled.dectrax.dpt"
+        expression: "evt.Unmarshaled.dectrax.dest_port != nil ? evt.Unmarshaled.dectrax.dest_port : (evt.Unmarshaled.dectrax.dpt != nil ? evt.Unmarshaled.dectrax.dpt : evt.Unmarshaled.dectrax.port)"
       - meta: threat_level
-        expression: "evt.Unmarshaled.dectrax.threat_level != nil ? evt.Unmarshaled.dectrax.threat_level : evt.Unmarshaled.dectrax.severity"
+        expression: "evt.Unmarshaled.dectrax.threat_level != nil ? evt.Unmarshaled.dectrax.threat_level : (evt.Unmarshaled.dectrax.severity != nil ? evt.Unmarshaled.dectrax.severity : 'critical')"
       - meta: action
         expression: "evt.Unmarshaled.dectrax.action != nil ? evt.Unmarshaled.dectrax.action : 'alert'"
 
