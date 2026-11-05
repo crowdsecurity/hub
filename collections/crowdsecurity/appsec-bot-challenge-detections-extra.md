@@ -2,7 +2,7 @@
 
 Detections kept out of the
 [appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge)
-bundles because they are considered more experimental.
+bundles because of the cost they would impose on every install.
 
  - `appsec-bot-challenge-detect-cpu-arch` — reads the processor actually executing from a
    WebAssembly NaN bit pattern and checks it against an iOS or Android claim. Needs
@@ -11,8 +11,11 @@ bundles because they are considered more experimental.
  - `appsec-bot-challenge-warn-experimental` — the alert policy, listed here as well so this
    collection works on its own.
 
-Staged like the other unvalidated detections: the rules score 0 and only raise a
-`crowdsecurity/suspicious-browser-submission` alert.
+Experimental like the other unvalidated signals: they are added with a `detect-experimental-*`
+category and a weight of 0, so they only raise a `crowdsecurity/suspicious-browser-submission`
+alert and never reject. See
+[appsec-bot-challenge-detections](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-detections)
+for how a signal gets promoted out of that state.
 
 ```bash
 cscli collections install crowdsecurity/appsec-bot-challenge-detections-extra
