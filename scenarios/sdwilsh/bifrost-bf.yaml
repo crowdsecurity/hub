@@ -1,0 +1,20 @@
+---
+blackhole: 1m
+capacity: 5
+description: A scenario that detects excessive failed authentication attempts per unique IP
+filter: evt.Meta.log_type == 'bifrost_failed_auth'
+groupby: evt.Meta.source_ip
+labels:
+  behavior: generic:bruteforce
+  classification:
+    - attack.T1110
+  confidence: 3
+  cti: true
+  label: Bifrost Authentication Bruteforce
+  remediation: true
+  service: bifrost
+  spoofable: 0
+  type: bruteforce
+leakspeed: 20s
+name: sdwilsh/bifrost-bf
+type: leaky

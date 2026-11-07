@@ -1,0 +1,29 @@
+---
+filter: "evt.Parsed.program == 'bifrost' && evt.Parsed.message startsWith '{' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'bifrost') in ['', nil]"
+onsuccess: next_stage
+name: sdwilsh/bifrost-logs
+description: Parses logs from Bifrost
+nodes:
+  - filter: "evt.Unmarshaled.bifrost['http.method'] != nil"
+    statics:
+      - meta: log_type
+        expression: |
+          evt.Unmarshaled.bifrost['http.status_code'] == 401 ? 'bifrost_failed_auth' : ''
+      - meta: http_verb
+        expression: evt.Unmarshaled.bifrost['http.method']
+      - meta: http_path
+        expression: evt.Unmarshaled.bifrost['http.target']
+      - meta: http_status
+        expression: string(evt.Unmarshaled.bifrost['http.status_code'])
+      - meta: http_user_agent
+        expression: evt.Unmarshaled.bifrost['http.user_agent']
+      - meta: source_ip
+        expression: |
+          let fwd = trim(split(evt.Unmarshaled.bifrost['http.forwarded_for'] ?? '', ',')[0]);
+          let addr = split(evt.Unmarshaled.bifrost['http.remote_addr'] ?? '', ':');
+          IsIP(fwd) ? fwd : trim(join(addr[:len(addr) - 1], ':'), '[]')
+statics:
+  - meta: service
+    value: bifrost
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.bifrost.time
