@@ -1,0 +1,17 @@
+type: trigger
+name: sayan9168/http-path-traversal
+description: "Detect common HTTP path traversal attempts"
+filter: "evt.Meta.http_path contains '../' or evt.Meta.http_path contains '..\\' or evt.Meta.http_path contains '%2e%2e'"
+blackhole: 1m
+groupby: "evt.Meta.source_ip"
+labels:
+  type: exploit
+  remediation: true
+  classification:
+    - attack.T1190
+    - attack.T1083
+  spoofable: 0
+  confidence: 2
+  behavior: "http:exploit"
+  service: http
+  label: "HTTP Path Traversal"
