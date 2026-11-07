@@ -16,6 +16,7 @@ pattern_syntax:
   SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
   SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
+  SSHD_PREAUTH_AUTHENTICATING_IP: 'Connection (closed|reset) by %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
   SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
   # in case they are blocked by /etc/ssh/sshd_config AllowUsers xx yy
   SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
@@ -41,6 +42,14 @@ nodes:
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
       name: "SSHD_PREAUTH_AUTHENTICATING_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: ssh_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.sshd_invalid_user"
+  - grok:
+      name: "SSHD_PREAUTH_AUTHENTICATING_IP"
       apply_on: message
       statics:
         - meta: log_type
