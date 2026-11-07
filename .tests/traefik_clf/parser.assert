@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 7
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 8
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "172.17.0.1 - - [08/Dec/2021:09:16:05 +0000] \"GET /scripts/cpshost.dll HTTP/1.1\" 200 414 \"-\" \"-\" 500 \"test@docker\" \"http://172.17.0.3:80\" 0ms"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "traefik"
@@ -42,7 +42,7 @@ results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "trae
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"]) == "traefik_clf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 7
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 8
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -50,7 +50,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
-len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 7
+len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 8
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["body_bytes_sent"] == "414"
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["http_referer"] == "-"
@@ -269,7 +269,7 @@ results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Meta["traefik_router_n
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Meta["traefik_router_name_root"] == "root@docker"
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Meta["user"] == "-"
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 7
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 8
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["body_bytes_sent"] == "414"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_referer"] == "-"
@@ -781,3 +781,7 @@ results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Meta["user"] == "-"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Enriched["MarshaledTime"] == "2024-11-24T13:40:15Z"
 results["s02-enrich"]["crowdsecurity/http-logs"][6].Evt.Whitelisted == false
 len(results["success"][""]) == 0
+results["s01-parse"]["crowdsecurity/traefik-logs"][7].Success == true
+results["s01-parse"]["crowdsecurity/traefik-logs"][7].Evt.Parsed["http_user_agent"] == "Mozilla/5.0 \\\"test\\\""
+results["s01-parse"]["crowdsecurity/traefik-logs"][7].Evt.Parsed["request"] == "/.env"
+results["s01-parse"]["crowdsecurity/traefik-logs"][7].Evt.Meta["http_user_agent"] == "Mozilla/5.0 \\\"test\\\""
