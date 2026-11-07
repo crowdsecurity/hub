@@ -1,0 +1,16 @@
+
+
+len(results["s01-parse"]["ruokki/mailu-front"]) == 11
+results["s01-parse"]["ruokki/mailu-front"][0].Success == true
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Parsed["source_ip"] == "10.0.0.1"
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Parsed["time"] == "2025/03/30 04:06:16"
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Parsed["loglevel"] == "info"
+
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Meta["source_ip"] == "10.0.0.1"
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Meta["log_type"] == "mailu-front"
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.Meta["sub_type"] == "auth_fail"
+
+results["s01-parse"]["ruokki/mailu-front"][0].Evt.StrTime == "2025/03/30 04:06:16"
+
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-03-30T04:06:16Z"
