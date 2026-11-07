@@ -1,0 +1,11 @@
+len(results["s02-enrich"]["crowdsecurity/naxsi-logs"]) == 1
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Success == true
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["naxsi_src_ip"] == "203.0.113.10"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["http_path"] == "%2Fapi%2Fv1%2Fstatus"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["naxsi_id"] == "1000"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["target_ip"] == "seerr.example.com"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Meta["source_ip"] == "203.0.113.10"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Meta["http_path"] == "%2Fapi%2Fv1%2Fstatus"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Meta["dest_ip"] == "seerr.example.com"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["naxsi_zone"] == "ARGS|NAME"
+results["s02-enrich"]["crowdsecurity/naxsi-logs"][0].Evt.Parsed["naxsi_rid"] == "0123456789abcdef0123456789abcdef"

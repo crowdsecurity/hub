@@ -2,6 +2,12 @@
 filter: "evt.Meta.log_type == 'http_error-log' && evt.Parsed.program == 'nginx'"
 description: "Enrich logs if its from NAXSI"
 name: crowdsecurity/naxsi-logs
+pattern_syntax:
+  # Local definition (issue #1946): the shared pattern expects uri right
+  # after server, uses PATH (no URL-encoded URIs) and WORD for zone (no
+  # "|"). Extended NAXSI logs add a rid field between server and uri,
+  # URL-encode the uri, and use zone values like "ARGS|NAME".
+  NAXSI_EXLOG: 'NAXSI_EXLOG: ip=%{IP:naxsi_src_ip}&server=%{HOSTNAME:target_ip}(?:&rid=%{DATA:naxsi_rid})?&uri=%{DATA:http_path}&id=%{WORD:naxsi_id}&zone=%{DATA:naxsi_zone}&var_name=%{DATA:naxsi_var_name}&content=%{GREEDYDATA:naxsi_content}'
 grok:
   name: "NAXSI_EXLOG"
   apply_on: message
