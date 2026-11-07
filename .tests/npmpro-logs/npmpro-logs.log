@@ -1,0 +1,27 @@
+[25/Oct/2026:12:20:14 +0000] 127.0.0.1:81 127.0.0.1 0.005 "GET /api HTTP/2.0" 200 1530 "-" "NPMpro/healthcheck" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519MLKEM768 - 81
+[25/Oct/2026:12:20:15 +0000] npmpro.example.com:19381 192.168.1.10 0.294 "POST /api/users/setup HTTP/1.1" 201 2187 "-" "Python-urllib/3.12" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 81
+[25/Oct/2026:12:20:15 +0000] npmpro.example.com:19381 192.168.1.10 0.072 "POST /api/tokens HTTP/1.1" 200 2521 "-" "Python-urllib/3.12" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 81
+[25/Oct/2026:12:20:15 +0000] npmpro.example.com:19381 192.168.1.10 0.004 "POST /api/nginx/proxy-hosts HTTP/1.1" 400 1877 "-" "Python-urllib/3.12" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 81
+[25/Oct/2026:12:21:03 +0000] npmpro.example.com:19381 192.168.1.11 0.002 "POST /api/tokens HTTP/2.0" 403 1530 "-" "curl/8.5.0" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 81
+[25/Oct/2026:12:21:03 +0000] npmpro.example.com:19381 192.168.1.11 0.001 "POST /api/tokens HTTP/2.0" 429 1487 "-" "curl/8.5.0" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 81
+[25/Oct/2026:12:21:03 +0000] app.example.com 192.168.2.1 0.000 "GET / HTTP/1.1" 301 1680 "-" "Mozilla/5.0 (X11; Linux x86_64) Firefox/131.0" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519MLKEM768 - 81
+[25/Oct/2026:12:21:03 +0000] app.example.com 192.168.2.1 0.007 "GET / HTTP/1.1" 301 1686 "-" "Mozilla/5.0 (X11; Linux x86_64) Firefox/131.0" "-" "text/html" - - - - 80
+[25/Oct/2026:12:21:03 +0000] gone.example.com 192.168.2.7 0.000 "GET /.env HTTP/1.1" 404 1891 "-" "Mozilla/5.0 (X11; Linux x86_64) Firefox/131.0" "-" "text/html" - - - - 80
+[25/Oct/2026:12:21:03 +0000] private.example.com 192.168.4.4 0.001 "GET / HTTP/1.1" 301 1690 "-" "curl/8.5.0" "alice" "text/html" - - - - 80
+[25/Oct/2026:12:21:03 +0000] app.example.com 192.168.6.6 0.001 "GET / HTTP/2.0" 200 2339 "-" "curl/8.5.0" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 443
+[25/Oct/2026:12:21:37 +0000] private.example.com:19343 192.168.4.4 0.001 "GET / HTTP/2.0" 200 2340 "-" "curl/8.5.0" "carol" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 443
+[25/Oct/2026:12:21:40 +0000] private.example.com 192.168.4.5 0.001 "GET /private/ HTTP/2.0" 401 590 "-" "curl/8.5.0" "mallory" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 443
+[25/Oct/2026:12:21:41 +0000] private.example.com 192.168.4.5 0.001 "GET /private/ HTTP/2.0" 401 590 "-" "curl/8.5.0" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 443
+[25/Oct/2026:12:21:42 +0000] private.example.com 192.168.4.6 0.001 "GET /private/ HTTP/1.1" 401 590 "https://app.example.com/a b" "curl/8.5.0" "ev il\x22 401 \x22x" "text/html" - - - - 80
+[25/Oct/2026:12:21:45 +0000] _ 192.168.7.7 0.811 "\x16\x03\x01\x02\x00\x01\x00\x01\xFC\x03\x03" 400 122 "-" "-" "-" "text/html" - - - - 80
+[25/Oct/2026:12:21:46 +0000] shop.example.com 192.168.7.8 0.001 "GET /malformed" 400 153 "-" "-" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 - 443
+[25/Oct/2026:12:21:47 +0000] shop.example.com:8443 192.168.7.9 0.031 "GET /checkout?id=1 HTTP/1.1" 200 812 "-" "Mozilla/5.0 (X11; Linux x86_64) Firefox/131.0" "-" "text/html; charset=UTF-8" TLSv1.3 TLS_AES_128_GCM_SHA256 X25519 HIT 8443
+[25/Oct/2026:12:21:48 +0000] [2001:db8::1]:443 2001:db8::10 0.003 "GET /index.html HTTP/2.0" 200 1200 "-" "curl/8.5.0" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519MLKEM768 - 443
+[25/Oct/2026:12:21:49 +0000] shop.example.com 192.168.7.10 0.002 "GET /socket HTTP/1.1" 200 512 "-" "curl/8.5.0" "-" "text/html" - - - - 
+[25/Oct/2026:12:21:50 +0000] shop.example.com 192.168.7.11 0.002 "GET /before-port HTTP/1.1" 200 512 "-" "curl/8.5.0" "-" "text/html" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519 MISS
+2026/10/25 12:22:10 [error] 123#123: *55 user "admin" was not found in "/data/nginx/access/1", client: 192.168.5.5, server: private.example.com, request: "GET / HTTP/2.0", host: "private.example.com"
+2026/10/25 12:22:11 [error] 123#123: *56 user "alice": password mismatch, client: 192.168.5.6, server: private.example.com, request: "GET / HTTP/2.0", host: "private.example.com"
+2026/10/25 12:22:12 [error] 123#123: *57 limiting requests, excess: 1.000 by zone "one", client: 192.168.5.7, server: shop.example.com, request: "GET /cart HTTP/1.1", host: "shop.example.com:8443"
+2026/10/25 12:22:13 [error] 123#123: *58 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.5.8, server: shop.example.com, request: "GET /page HTTP/1.1", subrequest: "/auth", upstream: "http://10.0.0.2:4181/auth", host: "shop.example.com"
+2026/10/25 12:22:14 [warn] 123#123: conflicting server name "shop.example.com" on 0.0.0.0:443, ignored
+[25/Oct/2026:12:22:30 +0000] 5432 192.168.8.8 TCP - 200 1024 512 1.003

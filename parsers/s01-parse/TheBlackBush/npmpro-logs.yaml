@@ -1,0 +1,88 @@
+filter: "evt.Parsed.program startsWith 'npmpro'"
+onsuccess: next_stage
+name: TheBlackBush/npmpro-logs
+description: "Parse NPMpro access and error logs"
+nodes:
+  - grok:
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" %{NOTSPACE} %{NOTSPACE} %{NOTSPACE} %{NOTSPACE}(?: %{NONNEGINT:server_port})?)?'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+    onsuccess: next_stage
+    nodes:
+      - filter: "evt.Parsed.status == '401' && evt.Parsed.remote_user != '-'"
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.remote_user
+  ## Parse malformed requests
+  - grok:
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{DATA:request}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" %{NOTSPACE} %{NOTSPACE} %{NOTSPACE} %{NOTSPACE}(?: %{NONNEGINT:server_port})?)?'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: http_access-log
+      - target: evt.StrTime
+        expression: evt.Parsed.time_local
+  ## Parse the error log
+  - grok:
+      pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_error-log
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+    pattern_syntax:
+      NPMPRO_NO_DOUBLE_QUOTE: '[^"]+'
+    onsuccess: next_stage
+    nodes:
+      - filter: "evt.Parsed.message contains 'was not found in'"
+        pattern_syntax:
+          NPMPRO_USER_NOT_FOUND: 'user "%{NPMPRO_NO_DOUBLE_QUOTE:username}" was not found in "%{NPMPRO_NO_DOUBLE_QUOTE}"'
+        grok:
+          pattern: '%{NPMPRO_USER_NOT_FOUND}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.username
+      - filter: "evt.Parsed.message contains 'password mismatch'"
+        pattern_syntax:
+          NPMPRO_PASSWORD_MISMATCH: 'user "%{NPMPRO_NO_DOUBLE_QUOTE:username}": password mismatch'
+        grok:
+          pattern: '%{NPMPRO_PASSWORD_MISMATCH}'
+          apply_on: message
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.username
+      - filter: "evt.Parsed.message contains 'limiting requests, excess'"
+        statics:
+          - meta: sub_type
+            value: "req_limit_exceeded"
+
+# these ones apply for all grok patterns
+statics:
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: http_status
+    expression: "evt.Parsed.status"
+  - meta: http_path
+    expression: "evt.Parsed.request"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
+  - meta: http_user_agent
+    expression: "evt.Parsed.http_user_agent"
+  - meta: target_fqdn
+    expression: "evt.Parsed.target_fqdn"
+  - meta: target_port
+    expression: "evt.Parsed.server_port"
