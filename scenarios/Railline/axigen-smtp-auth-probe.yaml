@@ -1,0 +1,18 @@
+type: leaky
+name: Railline/axigen-smtp-auth-probe
+description: "Detect repeated suspicious SMTP EHLO/SPF probes against Axigen"
+filter: "evt.Meta.log_type == 'axigen_smtp_ehlo_spf' && evt.Meta.source_ip != '' && evt.Meta.spf_result in ['None', 'Neutral', 'Fail', 'SoftFail'] && evt.Meta.ehlo_domain in ['User', 'localhost']"
+groupby: evt.Meta.source_ip
+leakspeed: 30s
+capacity: 8
+blackhole: 5m
+reprocess: true
+labels:
+  service: axigen
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "generic:scan"
+  label: "Axigen SMTP Probe"
+  remediation: true

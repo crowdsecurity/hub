@@ -1,0 +1,18 @@
+type: leaky
+name: Railline/axigen-webmail-slow-bf
+description: "Detect slow WebMail login brute force against Axigen"
+filter: "evt.Meta.log_type == 'axigen_webmail_auth' && evt.Meta.http_status == '401' && evt.Meta.source_ip != ''"
+groupby: evt.Meta.source_ip
+leakspeed: 5m
+capacity: 8
+blackhole: 10m
+reprocess: true
+labels:
+  service: axigen-webmail
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "http:bruteforce"
+  label: "Axigen WebMail Slow Login Bruteforce"
+  remediation: true
