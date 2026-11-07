@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 11
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 12
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"level\":\"info\",\"ts\":1693840791.7564995,\"logger\":\"http.log.access\",\"msg\":\"handled request\",\"request\":{\"remote_ip\":\"172.17.0.1\",\"remote_port\":\"44790\",\"client_ip\":\"127.0.0.1\",\"proto\":\"HTTP/1.0\",\"method\":\"GET\",\"host\":\"127.0.0.1:8080\",\"uri\":\"/\",\"headers\":{\"X-Forwarded-Port\":[\"80\"],\"X-Real-Ip\":[\"127.0.0.1\"],\"Forwarded\":[\"for=127.0.0.1\"],\"X-Forwarded-Host\":[\"127.0.0.1\"],\"User-Agent\":[\"curl/7.74.0\"],\"Accept\":[\"*/*\"],\"Connection\":[\"close\"],\"X-Forwarded-For\":[\"127.0.0.1\"],\"X-Forwarded-Proto\":[\"http\"]}},\"bytes_read\":0,\"user_id\":\"\",\"duration\":0.000002701,\"size\":0,\"status\":0,\"resp_headers\":{\"Server\":[\"Caddy\"]}}"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "caddy"
@@ -66,7 +66,7 @@ results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["program"] == "cad
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_path"]) == "caddy-logs.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 11
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 12
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -78,7 +78,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][10].Success == false
-len(results["s01-parse"]["crowdsecurity/caddy-logs"]) == 11
+len(results["s01-parse"]["crowdsecurity/caddy-logs"]) == 12
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
 results["s01-parse"]["crowdsecurity/caddy-logs"][0].Evt.Parsed["http_version"] == "1.0"
@@ -432,7 +432,7 @@ results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["by
 FloatApproxEqual(results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Unmarshaled["caddy"]["duration"], 0.794682)
 results["s01-parse"]["crowdsecurity/caddy-logs"][9].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/caddy-logs"][10].Success == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 11
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["http_version"] == "1.0"
@@ -805,7 +805,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["cadd
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["request"]["remote_ip"] == "127.0.0.1"
 FloatApproxEqual(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Unmarshaled["caddy"]["ts"], 1711741864.947103)
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 10
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 11
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Success == true
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["file_dir"] == "/"
 results["s02-enrich"]["crowdsecurity/http-logs"][0].Evt.Parsed["http_user_agent"] == "curl/7.74.0"
@@ -1219,3 +1219,6 @@ results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["re
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Unmarshaled["caddy"]["size"] == 18630
 results["s02-enrich"]["crowdsecurity/http-logs"][9].Evt.Whitelisted == false
 len(results["success"][""]) == 0
+results["s01-parse"]["crowdsecurity/caddy-logs"][11].Success == true
+results["s01-parse"]["crowdsecurity/caddy-logs"][11].Evt.Parsed["http_path"] == "/index.php/204"
+results["s01-parse"]["crowdsecurity/caddy-logs"][11].Evt.Meta["http_path"] == "/index.php/204"
