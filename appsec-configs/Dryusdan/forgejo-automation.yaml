@@ -1,0 +1,62 @@
+name: Dryusdan/forgejo-automation
+# Bypass the WAF for the legitimate automation traffic of a Forgejo instance:
+# the Actions runner RPC, the job containers (idtoken / artifacts / OIDC), the
+# Git Smart HTTP protocol (clone/fetch/push) and authenticated pushes/pulls on
+# the Container Registry /v2/. Everything else stays fully evaluated. The
+# bypass is locked down to protocol markers (exact paths, Forgejo runner UA,
+# Bearer/Basic auth, git service + content-type) so it does not grant any
+# access the server would not already allow: private repositories still require
+# credentials, anonymous pushes and anonymous registry access stay refused.
+# The hook is declared at the top level ("pre_eval:", not "inband: pre_eval:"),
+# so it runs in both the in-band and the out-of-band phases: matched requests
+# skip the in-band rules AND the out-of-band rulesets (e.g. CRS), producing
+# neither a block nor an event/alert for the legitimate automation traffic.
+pre_eval:
+  # A runner (RPC) and job containers are identified by their exact paths; the
+  # runner additionally by its User-Agent. Job artifacts (v4, twirp) are
+  # authorized by Bearer token or a signed URL.
+  # Git Smart HTTP is bypassed either when authenticated (Basic/Bearer), or
+  # when anonymously using the upload-pack protocol (public clone), so only git
+  # clients with the exact service/content-type markers match. Anonymous push
+  # (receive-pack) and the root /.git/ directory stay WAF-evaluated.
+  # The Container Registry /v2/ is bypassed only when the request carries
+  # credentials (Basic/Bearer, as docker/buildkit send after "docker login"):
+  # anonymous /v2/ stays WAF-evaluated.
+  - filter: >-
+      (
+        (
+          req.URL.Path startsWith '/api/actions/ping.v1.PingService/' ||
+          req.URL.Path startsWith '/api/actions/runner.v1.RunnerService/'
+        ) && req.UserAgent() matches '^forgejo-runner/' || (
+          req.URL.Path startsWith '/api/actions/_apis/pipelines/workflows/' ||
+          req.URL.Path startsWith '/api/actions_pipeline/_apis/pipelines/workflows/'
+        ) && req.Header.Get("Authorization") startsWith 'Bearer ' || (
+          req.URL.Path startsWith '/twirp/github.actions.results.api.v1.ArtifactService/' &&
+          (
+            req.Header.Get("Authorization") startsWith 'Bearer ' ||
+            req.URL.Query().Get("sig") != ''
+          )
+        ) || req.URL.Path in [
+          '/api/actions/.well-known/keys',
+          '/api/actions/.well-known/openid-configuration'
+        ] || (
+          req.URL.Path matches '/[^/]+\\.git/(info/refs|git-upload-pack|git-receive-pack)$' &&
+          (
+            req.Header.Get("Authorization") matches '^(Basic|Bearer) ' ||
+            (
+              req.Header.Get("Authorization") == '' &&
+              (
+                (req.URL.Path endsWith '/info/refs' &&
+                 req.URL.Query().Get("service") == 'git-upload-pack') ||
+                (req.URL.Path endsWith '/git-upload-pack' &&
+                 req.Header.Get("Content-Type") == 'application/x-git-upload-pack-request')
+              )
+            )
+          )
+        ) || (
+          req.URL.Path startsWith '/v2/' &&
+          req.Header.Get("Authorization") matches '^(Basic|Bearer) '
+        )
+      )
+    apply:
+      - SkipProcessing("Forgejo")
