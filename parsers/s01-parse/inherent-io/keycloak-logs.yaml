@@ -11,7 +11,7 @@ nodes:
       name: "KEYCLOAK_LOG_LINE"
       apply_on: message
     nodes:
-      - filter: ParseKV(evt.Parsed.parsed_message, evt.Unmarshaled, "keycloak") in ["", nil]
+      - filter: evt.Parsed.parsed_message contains "type=" && ParseKV(evt.Parsed.parsed_message, evt.Unmarshaled, "keycloak") in ["", nil]
         statics:
           - meta: log_type
             expression: trimSuffix(evt.Unmarshaled.keycloak.type, ",")
