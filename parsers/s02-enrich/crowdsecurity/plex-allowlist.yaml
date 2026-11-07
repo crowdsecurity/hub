@@ -5,6 +5,7 @@ whitelist:
   reason: "Plex Allowlist"
   expression:
    - evt.Meta.http_status in ['200', '206', '403', '404'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/video/:/transcode'
+   - evt.Meta.http_status in ['200', '206', '400', '403', '404'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/subtitles/:/transcode'
    - evt.Meta.http_status in ['200', '206', '403', '404'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/photo/:/transcode'
    - evt.Meta.http_status in ['200', '400', '403'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/:/timeline'
    - evt.Meta.http_status in ['200', '403', '404'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path startsWith '/library/metadata'
