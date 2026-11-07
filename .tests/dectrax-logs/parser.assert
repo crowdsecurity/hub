@@ -1,0 +1,8 @@
+len(results) >= 2
+len(results["s01-parse"]["dectrax/dectrax-syslog"]) == 2
+results["s01-parse"]["dectrax/dectrax-syslog"][0].Success == true
+results["s01-parse"]["dectrax/dectrax-syslog"][0].Evt.Meta["source_ip"] == "198.51.100.42"
+results["s01-parse"]["dectrax/dectrax-syslog"][0].Evt.Meta["log_type"] == "dectrax-decoy-breach"
+results["s01-parse"]["dectrax/dectrax-syslog"][1].Success == true
+results["s01-parse"]["dectrax/dectrax-syslog"][1].Evt.Meta["source_ip"] == "203.0.113.15"
+results["s01-parse"]["dectrax/dectrax-syslog"][1].Evt.Meta["log_type"] == "dectrax-decoy-breach"
