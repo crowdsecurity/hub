@@ -3,7 +3,7 @@ name: crowdsecurity/home-assistant-logs
 description: "Parse Home Assistant logs"
 filter: "evt.Parsed.program in ['home-assistant', 'hass'] or evt.Parsed.program endsWith 'homeassistant'"
 pattern_syntax:
-  TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
+  TIMESTAMP: '%{TIMESTAMP_ISO8601}'
 nodes:
   - grok:
       pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
