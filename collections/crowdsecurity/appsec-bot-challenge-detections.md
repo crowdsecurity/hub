@@ -1,25 +1,28 @@
 # AppSec Bot Challenge — Detections
 
-Checks a fingerprint against the platform the visitor itself claims. Installed by the
+Checks a fingerprint against the platform the visitor itself claims, adding signals on top of the
+ones the engine collects natively. Installed by the
 [appsec-bot-challenge](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge)
 bundles.
 
-**Scoring** — contributes to the request total, so these can take a submission over the threshold:
+ - `appsec-bot-challenge-detect-fonts` — whether the fonts installed match the OS claimed.
+ - `appsec-bot-challenge-detect-codecs` — whether a browser's claimed H.264 support holds.
+ - `appsec-bot-challenge-detect-headers` — whether `Sec-CH-UA-Platform` agrees with the user agent.
+ - `appsec-bot-challenge-detect-form-factor` — whether the input stack matches the device claimed.
 
- - `appsec-bot-challenge-detect-fonts` : whether the fonts installed match the OS claimed.
- - `appsec-bot-challenge-detect-codecs` : whether a browser's claimed H.264 hold.
+## Experimental signals
 
-**Staged** — scores 0, alert only, never rejects:
+These signals are **experimental**: they are added with a `detect-experimental-*` score category and
+a weight of `0`, so they contribute nothing to the request score and can never reject a submission.
+`appsec-bot-challenge-warn-experimental` turns them into a
+`crowdsecurity/suspicious-browser-submission` alert naming what fired, **with no remediation**.
 
- - `appsec-bot-challenge-detect-headers` : whether `Sec-CH-UA-Platform` agrees with the user agent.
- - `appsec-bot-challenge-detect-form-factor` : whether the input stack matches the device claimed.
-   Staged except `no_pointer_desktop` — no pointing device and no hover on a non-mobile claim —
-   which scores, and is what catches a headless browser.
+The point is to validate a signal against real traffic before it is given a weight. A signal that
+holds up is promoted: its weight becomes non-zero and its category becomes `detect`.
 
-`appsec-bot-challenge-warn-experimental` raises a `crowdsecurity/suspicious-browser-submission`
-alert naming what fired **but carries no remediation**.
-
-Staged rules exist to be validated on real traffic before being promoted to main detection rules.
+To tell which state a signal is in on your own install, read the category prefix in an alert's
+`score_reasons` — `detect-experimental-fonts:os_font_missing_windows` is still experimental,
+`detect:os_font_missing_windows` has been promoted and counts toward your threshold.
 
 `appsec-bot-challenge-detect-cpu-arch` is not here — see
 [appsec-bot-challenge-detections-extra](https://app.crowdsec.net/hub/author/crowdsecurity/collections/appsec-bot-challenge-detections-extra).
