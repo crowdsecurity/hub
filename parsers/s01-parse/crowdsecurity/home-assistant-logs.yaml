@@ -17,7 +17,7 @@ nodes:
           value: home-assistant_failed_auth
 statics:
   - target: evt.StrTimeFormat
-    value: "2006-01-02 15:04:05.000-07:00"
+    expression: "evt.Parsed.timestamp matches '[+-][0-9]{2}:[0-9]{2}$' ? '2006-01-02 15:04:05.999999999-07:00' : '2006-01-02 15:04:05.999999999'"
   - target: evt.StrTime
     expression: evt.Parsed.timestamp
   - meta: service
