@@ -24,7 +24,10 @@ type: leaky
 name: LePresidente/http-generic-401-bf
 description: "Detect generic 401 Authorization error brute force"
 filter: "evt.Meta.log_type == 'http_access-log' && evt.Parsed.verb == 'POST' && evt.Meta.http_status == '401'"
-groupby: evt.Meta.source_ip
+# group by path too: a credential brute force repeats the same endpoint, while
+# 401s spread over different paths (client probing an endpoint being configured,
+# path enumeration) are not a credential attack
+groupby: "evt.Meta.source_ip + ' ' + evt.Meta.http_path"
 capacity: 5
 leakspeed: "10s"
 blackhole: 1m
