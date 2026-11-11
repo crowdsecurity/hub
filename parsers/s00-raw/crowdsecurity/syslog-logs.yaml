@@ -7,6 +7,10 @@ pattern_syntax:
 name: crowdsecurity/syslog-logs
 nodes:
   - grok:
+      # BusyBox syslogd places facility.severity after the hostname.
+      pattern: '^%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:logsource} %{WORD:facility}\.%{WORD:severity} %{SYSLOGPROG}: %{GREEDYDATA:message}$'
+      apply_on: Line.Raw
+  - grok:
       #this is a named regular expression. grok patterns can be kept into separate files for readability
       pattern: "^%{SYSLOGLINE}" 
       #This is the field of the `Event` to which the regexp should be applied

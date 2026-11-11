@@ -9,12 +9,19 @@ pattern_syntax:
   TRAEFIK_SERVER_URL: '(%{URI}|\-)'
   NUMBER_MINUS: '[0-9-]+'
   NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
-  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGCUSTOMUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}"'
+  ## Traefik >= 3.6.18 and 3.7.2 write " as \" (not \), older ones write it raw. Lazy DATA with the anchored tail below parses both
+  NGINXACCESS2: '%{IPORHOST:remote_addr} - %{NGCUSTOMUSER:remote_user} \[%{HTTPDATE:time_local}\] "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER_MINUS:status} %{NUMBER_MINUS:body_bytes_sent} "%{DATA:http_referer}" "%{DATA:http_user_agent}"'
 nodes:
   ## CLF parser - extract fields and store full router chain in traefik_router_name (backwards compatible)
   - grok:
-      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{DATA:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms'
+      pattern: '%{NGINXACCESS2} %{NUMBER:number_of_requests_received_since_traefik_started} "%{NOTDQUOTE:traefik_router_name}" "%{TRAEFIK_SERVER_URL:traefik_server_url}" %{NUMBER:request_duration_in_ms}ms$'
       apply_on: message
+    statics:
+      ## Undo the \" escaping so the values match the JSON format
+      - parsed: http_referer
+        expression: replace(evt.Parsed.http_referer, `\"`, `"`)
+      - parsed: http_user_agent
+        expression: replace(evt.Parsed.http_user_agent, `\"`, `"`)
     nodes:
       ## Parse root, intermediate (if any), and leaf routers from full router chain
       - grok:

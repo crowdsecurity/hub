@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- parsers/s01-parse/crowdsecurity/aws-cloudtrail.yaml
+scenarios:
+- scenarios/crowdsecurity/aws-bf-survey.yaml
+postoverflows:
+- ""
+log_file: aws-bf-survey.log
+log_type: aws-cloudtrail
+labels: {}
+ignore_parsers: true
+override_statics: []

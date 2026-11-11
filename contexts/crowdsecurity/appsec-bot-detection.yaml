@@ -1,0 +1,21 @@
+# User-friendly context for AppSec bot-detection / challenge events.
+# score_reasons reads "cdp=100,utc_timezone=15": the signals that fired and the
+# points each contributed under the loaded scoring config. It is empty when no
+# scoring config ran.
+context:
+  fingerprint_id:
+    - evt.Meta.fsid
+  operating_system:
+    - evt.Meta.os
+  user_agent:
+    - evt.Meta.http_user_agent
+  bot_detected:
+    - evt.Meta.fingerprint_bot
+  challenge_event:
+    - evt.Meta.challenge_event
+  request_score:
+    - evt.Meta.request_score
+  score_reasons:
+    - evt.Meta.request_score_reasons
+  fail_reason:
+    - evt.Meta.challenge_fail_reason

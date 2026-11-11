@@ -11,9 +11,21 @@ pattern_syntax:
   SECOND_WORKAROUND: '(?:[0-5]?[0-9]|60)?'
   TIMESTAMP_WORKAROUND: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{HOUR}:?%{MINUTE}(?::?%{SECOND_WORKAROUND})?%{ISO8601_TIMEZONE}?'
   CAS_AUTH_FAIL: '^%{TIMESTAMP_WORKAROUND:time}(?:,\d+)? %{LOGLEVEL:loglevel} \[%{DATA:threadname}\] - (.*)\|CAS\|(.*)\|AUTHENTICATION_FAILED\|%{USERNAME:cas_invalid_user}\|%{IP_WORKAROUND:cas_client_ip}\|(.*)$'
+  # CAS v7: <timestamp|user|details|AUTHENTICATION_FAILED|client_ip|server_ip|>
+  CAS_V7_AUTH_FAIL: '^%{TIMESTAMP_WORKAROUND:time}(?:,\d+)? %{LOGLEVEL:loglevel} \[%{DATA:threadname}\] - <[^|]+\|%{USERNAME:cas_invalid_user}\|[^|]+\|AUTHENTICATION_FAILED\|%{IP_WORKAROUND:cas_client_ip}\|'
 nodes:
   - grok: 
       name: "CAS_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: cas_failed-auth
+        - meta: target_user
+          expression: "evt.Parsed.cas_invalid_user"
+        - target: evt.StrTime
+          expression: evt.Parsed.time
+  - grok:
+      name: "CAS_V7_AUTH_FAIL"
       apply_on: message
       statics:
         - meta: log_type

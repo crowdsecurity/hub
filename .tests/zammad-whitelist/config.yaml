@@ -1,0 +1,15 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/nginx-logs
+- crowdsecurity/http-logs
+- ./parsers/s02-enrich/crowdsecurity/zammad-whitelist.yaml
+scenarios:
+- ""
+postoverflows:
+- ""
+log_file: zammad-whitelist.log
+log_type: nginx
+labels: {}
+ignore_parsers: false
+override_statics: []
