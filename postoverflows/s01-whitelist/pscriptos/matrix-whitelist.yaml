@@ -1,0 +1,20 @@
+name: pscriptos/matrix-whitelist
+description: "Whitelist known false positives from Matrix/Synapse clients and federation"
+whitelist:
+  reason: "Matrix/Synapse known false positives"
+  expression:
+    # http-probing: clients checking for the encryption state of unencrypted rooms,
+    # remote homeservers fetching events that are unknown to this server
+    - |
+      evt.Overflow.Alert.GetScenario() == 'crowdsecurity/http-probing' && all(evt.Overflow.Alert.Events, {
+        .GetMeta('http_verb') == 'GET' && .GetMeta('http_status') == '404' && (
+          .GetMeta('http_path') matches '^/_matrix/client/(r0|v3)/rooms/[^/?]+/state/m\\.room\\.encryption/?(\\?.*)?$' ||
+          .GetMeta('http_path') matches '^/_matrix/federation/v1/event/[^/?]+(\\?.*)?$'
+        )
+      })
+    # http-crawl-non_statics: clients loading media thumbnails (avatars, previews) of a room
+    - |
+      evt.Overflow.Alert.GetScenario() == 'crowdsecurity/http-crawl-non_statics' && all(evt.Overflow.Alert.Events, {
+        .GetMeta('http_verb') == 'GET' && .GetMeta('http_status') in ['200', '304'] &&
+        .GetMeta('http_path') matches '^/_matrix/client/v1/media/thumbnail/[^/?]+/[^/?]+(\\?.*)?$'
+      })

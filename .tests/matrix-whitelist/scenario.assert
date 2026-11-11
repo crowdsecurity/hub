@@ -1,0 +1,5 @@
+len(results) == 3
+all(results, {.Overflow.Alert.GetScenario() == "crowdsecurity/http-probing"})
+len(filter(results, {.Overflow.Whitelisted})) == 2
+all(filter(results, {.Overflow.Whitelisted}), {"203.0.113.10" in .Overflow.GetSources() || "203.0.113.20" in .Overflow.GetSources()})
+len(filter(results, {!.Overflow.Whitelisted && "203.0.113.30" in .Overflow.GetSources()})) == 1
