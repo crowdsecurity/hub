@@ -1,6 +1,6 @@
 name: firix/authentik-logs
 description: "Parse Authentik logs"
-filter: "Lower(evt.Parsed.program) == 'authentik'"
+filter: "Lower(evt.Parsed.program) in ['authentik', 'authentik-server']"
 onsuccess: next_stage
 nodes:
   - filter: "JsonExtract(evt.Parsed.message, 'action') == 'login_failed'"

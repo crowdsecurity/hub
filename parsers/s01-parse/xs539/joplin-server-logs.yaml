@@ -13,6 +13,12 @@ nodes:
           value: joplin_server_failed_auth
         - meta: target_user
           expression: evt.Parsed.target_user
+  - grok:
+      pattern: '%{JOPLIN_DATE:timestamp}: App: %{IPORHOST:remote_addr}: %{NUMBER:body_bytes_sent} B: %{WORD:http_method} %{URIPATH:http_path} \(%{NUMBER:http_status}\) \(%{NUMBER:response_time}ms\)'
+      apply_on: message
+      statics:
+        - meta: log_type
+          expression: 'evt.Parsed.http_status == "403" and evt.Parsed.http_path == "/login" ? "joplin_server_failed_auth" : ""'
 statics:
     - meta: service
       value: joplin

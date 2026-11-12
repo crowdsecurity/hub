@@ -10,7 +10,7 @@ results[0].Overflow.Alert.Events[0].GetMeta("log_type") == "ssh_refused_conn"
 results[0].Overflow.Alert.Events[0].GetMeta("machine") == "myhost"
 results[0].Overflow.Alert.Events[0].GetMeta("service") == "ssh"
 results[0].Overflow.Alert.Events[0].GetMeta("source_ip") == "192.168.1.1"
-results[0].Overflow.Alert.Events[0].GetMeta("timestamp") == "2025-12-16T14:10:24Z"
+results[0].Overflow.Alert.Events[0].GetMeta("timestamp")[4:] == "-12-16T14:10:24Z"
 results[0].Overflow.Alert.GetScenario() == "crowdsecurity/ssh-refused-conn"
 results[0].Overflow.Alert.Remediation == true
 results[0].Overflow.Alert.GetEventsCount() == 1

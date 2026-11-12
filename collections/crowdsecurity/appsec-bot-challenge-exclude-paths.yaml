@@ -1,0 +1,18 @@
+name: crowdsecurity/appsec-bot-challenge-exclude-paths
+# Building block: exempts machine-facing / non-navigational paths from the challenge.
+# Compose it into a top-level appsec-bot-challenge collection, or enable configs individually.
+appsec-configs:
+  - crowdsecurity/appsec-bot-challenge-exclude-crawler-files
+  - crowdsecurity/appsec-bot-challenge-exclude-static
+  - crowdsecurity/appsec-bot-challenge-exclude-api
+  - crowdsecurity/appsec-bot-challenge-exclude-feeds
+  - crowdsecurity/appsec-bot-challenge-exclude-webhooks
+description: "AppSec bot challenge: exempt well-known paths (crawler files, static assets, API, feeds, webhooks)"
+labels:
+  label: "WAF - Bot Challenge Path Exclusions"
+author: crowdsecurity
+tags:
+  - waf
+  - appsec
+  - http
+  - bot

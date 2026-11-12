@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 10
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 13
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "2024-10-10 12:59:53,237 ERROR s.s.S.c.s.CustomAuthenticationFailureHandler [qtp877788296-102] Failed login attempt from IP: [::1]"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "stirling-pdf"
@@ -60,7 +60,25 @@ results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Parsed["program"] == "stir
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_path"] == "stirling-pdf.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][9].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 10
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["message"] == "2026-04-08 09:16:09,366 WARN s.s.p.s.c.a.AuthController [jetty-169] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Parsed["program"] == "stirling-pdf"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][10].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["message"] == "2026-04-08 09:24:58,908 WARN s.s.p.s.c.a.AuthController [jetty-275] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Parsed["program"] == "stirling-pdf"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][11].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["message"] == "2026-04-08 09:25:01,732 WARN s.s.p.s.c.a.AuthController [jetty-279] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Parsed["program"] == "stirling-pdf"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][12].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 13
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -71,7 +89,10 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][9].Success == false
-len(results["s01-parse"]["crowdsecurity/stirling-pdf-logs"]) == 10
+results["s00-raw"]["crowdsecurity/syslog-logs"][10].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][11].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][12].Success == false
+len(results["s01-parse"]["crowdsecurity/stirling-pdf-logs"]) == 13
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][0].Evt.Parsed["log_level"] == "ERROR"
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][0].Evt.Parsed["message"] == "2024-10-10 12:59:53,237 ERROR s.s.S.c.s.CustomAuthenticationFailureHandler [qtp877788296-102] Failed login attempt from IP: [::1]"
@@ -192,7 +213,43 @@ results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][9].Evt.Meta["log_type"] 
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][9].Evt.Meta["service"] == "stirling-pdf"
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][9].Evt.Meta["source_ip"] == "192.168.111.213"
 results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][9].Evt.Whitelisted == false
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 10
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Success == true
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Parsed["log_level"] == "WARN"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Parsed["message"] == "2026-04-08 09:16:09,366 WARN s.s.p.s.c.a.AuthController [jetty-169] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Parsed["program"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Parsed["timestamp"] == "2026-04-08 09:16:09,366"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Meta["log_type"] == "failed_authentication"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Meta["service"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][10].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Success == true
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Parsed["log_level"] == "WARN"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Parsed["message"] == "2026-04-08 09:24:58,908 WARN s.s.p.s.c.a.AuthController [jetty-275] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Parsed["program"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Parsed["timestamp"] == "2026-04-08 09:24:58,908"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Meta["log_type"] == "failed_authentication"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Meta["service"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][11].Evt.Whitelisted == false
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Success == true
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Parsed["log_level"] == "WARN"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Parsed["message"] == "2026-04-08 09:25:01,732 WARN s.s.p.s.c.a.AuthController [jetty-279] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Parsed["program"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Parsed["timestamp"] == "2026-04-08 09:25:01,732"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Meta["log_type"] == "failed_authentication"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Meta["service"] == "stirling-pdf"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s01-parse"]["crowdsecurity/stirling-pdf-logs"][12].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 13
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["log_level"] == "ERROR"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "2024-10-10 12:59:53,237 ERROR s.s.S.c.s.CustomAuthenticationFailureHandler [qtp877788296-102] Failed login attempt from IP: [::1]"
@@ -333,4 +390,46 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["source_ip"]
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Meta["timestamp"] == "2024-10-10T13:04:30.558Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Enriched["MarshaledTime"] == "2024-10-10T13:04:30.558Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][9].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["log_level"] == "WARN"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["message"] == "2026-04-08 09:16:09,366 WARN s.s.p.s.c.a.AuthController [jetty-169] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["program"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Parsed["timestamp"] == "2026-04-08 09:16:09,366"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["log_type"] == "failed_authentication"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["service"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Meta["timestamp"] == "2026-04-08T09:16:09.366Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Enriched["MarshaledTime"] == "2026-04-08T09:16:09.366Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][10].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["log_level"] == "WARN"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["message"] == "2026-04-08 09:24:58,908 WARN s.s.p.s.c.a.AuthController [jetty-275] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["program"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Parsed["timestamp"] == "2026-04-08 09:24:58,908"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["log_type"] == "failed_authentication"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["service"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Meta["timestamp"] == "2026-04-08T09:24:58.908Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Enriched["MarshaledTime"] == "2026-04-08T09:24:58.908Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][11].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["log_level"] == "WARN"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["message"] == "2026-04-08 09:25:01,732 WARN s.s.p.s.c.a.AuthController [jetty-279] Invalid password for user: testuser from IP: 192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["program"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Parsed["timestamp"] == "2026-04-08 09:25:01,732"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_path"] == "stirling-pdf.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["log_type"] == "failed_authentication"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["service"] == "stirling-pdf"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["source_ip"] == "192.168.111.213"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Meta["timestamp"] == "2026-04-08T09:25:01.732Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Enriched["MarshaledTime"] == "2026-04-08T09:25:01.732Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][12].Evt.Whitelisted == false
 len(results["success"][""]) == 0

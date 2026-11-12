@@ -4,7 +4,7 @@ filter: "Upper(evt.Parsed.program) == 'AUDIOBOOKSHELF'"
 name: plague-doctor/audiobookshelf-logs
 description: "Parse Audiobookshelf logs"
 pattern_syntax:
-    ABS_FAILED_AUTH: '\[Auth\] Failed login attempt for username \\?"%{USERNAME:username}\\?" from ip %{IP:source_ip} \(%{DATA:reason}\)'
+    ABS_FAILED_AUTH: '\[(Local)?Auth\] Failed login attempt for username \\?"%{USERNAME:username}\\?" from ip %{IP:source_ip} \(%{DATA:reason}\)'
 nodes:
     - grok:
         pattern: '\[%{TIMESTAMP_ISO8601:timestamp}\] ERROR: %{ABS_FAILED_AUTH}'

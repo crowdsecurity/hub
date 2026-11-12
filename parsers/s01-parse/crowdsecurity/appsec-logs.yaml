@@ -1,7 +1,7 @@
 onsuccess: next_stage
 format: 3.0
 #debug: true
-filter: "evt.Parsed.program == 'appsec'"
+filter: "evt.Parsed.program == 'appsec' && evt.Parsed.source not in ['crowdsec-appsec-challenge', 'crowdsec-appsec-rate-limit']"
 name: crowdsecurity/appsec-logs
 description: "Parse Appsec events"
 statics:

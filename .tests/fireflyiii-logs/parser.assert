@@ -1,0 +1,115 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "[2026-02-05 12:34:56] local.WARNING: AUDIT: Login failed. Attempt for user \"User@EmailDomain.com\" failed. (192.168.1.124 -> POST:https://FireflyiiiDomain.com/login)"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "fireflyiii"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["message"] == "[2026-01-04 01:23:45] local.INFO: AUDIT: User is trying to login using \"User@EmailDomain.com\" (192.168.1.123 -> POST:https://FireflyiiiDomain.com/login)"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Parsed["program"] == "fireflyiii"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][1].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["message"] == "[2026-03-06 23:45:12] local.INFO: AUDIT: MFA failure count is set to 1. (192.168.1.125 (User@EmailDomain.com) -> POST:http://FireflyiiiDomain.com/two-factor/submit)"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Parsed["program"] == "fireflyiii"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][2].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
+len(results["s01-parse"]["vspaziani/fireflyiii"]) == 3
+results["s01-parse"]["vspaziani/fireflyiii"][0].Success == true
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Parsed["event_timestamp"] == "2026-02-05 12:34:56"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Parsed["message"] == "[2026-02-05 12:34:56] local.WARNING: AUDIT: Login failed. Attempt for user \"User@EmailDomain.com\" failed. (192.168.1.124 -> POST:https://FireflyiiiDomain.com/login)"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Parsed["program"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Parsed["source_ip"] == "192.168.1.124"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["log_type"] == "fireflyiii_bad_password"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["service"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["source_ip"] == "192.168.1.124"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s01-parse"]["vspaziani/fireflyiii"][0].Evt.Whitelisted == false
+results["s01-parse"]["vspaziani/fireflyiii"][1].Success == true
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Parsed["event_timestamp"] == "2026-01-04 01:23:45"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Parsed["message"] == "[2026-01-04 01:23:45] local.INFO: AUDIT: User is trying to login using \"User@EmailDomain.com\" (192.168.1.123 -> POST:https://FireflyiiiDomain.com/login)"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Parsed["program"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Parsed["source_ip"] == "192.168.1.123"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["log_type"] == "fireflyiii_bad_user"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["service"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["source_ip"] == "192.168.1.123"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s01-parse"]["vspaziani/fireflyiii"][1].Evt.Whitelisted == false
+results["s01-parse"]["vspaziani/fireflyiii"][2].Success == true
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["event_timestamp"] == "2026-03-06 23:45:12"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["message"] == "[2026-03-06 23:45:12] local.INFO: AUDIT: MFA failure count is set to 1. (192.168.1.125 (User@EmailDomain.com) -> POST:http://FireflyiiiDomain.com/two-factor/submit)"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["mfa_fail_count"] == "1"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["program"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["source_ip"] == "192.168.1.125"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["log_type"] == "fireflyiii_bad_mfa"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["mfa_count"] == "1"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["service"] == "fireflyiii"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["source_ip"] == "192.168.1.125"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s01-parse"]["vspaziani/fireflyiii"][2].Evt.Whitelisted == false
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["event_timestamp"] == "2026-02-05 12:34:56"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["message"] == "[2026-02-05 12:34:56] local.WARNING: AUDIT: Login failed. Attempt for user \"User@EmailDomain.com\" failed. (192.168.1.124 -> POST:https://FireflyiiiDomain.com/login)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["program"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["source_ip"] == "192.168.1.124"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "fireflyiii_bad_password"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["service"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.124"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2026-02-05T12:34:56Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2026-02-05T12:34:56Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["event_timestamp"] == "2026-01-04 01:23:45"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["message"] == "[2026-01-04 01:23:45] local.INFO: AUDIT: User is trying to login using \"User@EmailDomain.com\" (192.168.1.123 -> POST:https://FireflyiiiDomain.com/login)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["program"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["source_ip"] == "192.168.1.123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "fireflyiii_bad_user"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["service"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.123"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2026-01-04T01:23:45Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2026-01-04T01:23:45Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["event_timestamp"] == "2026-03-06 23:45:12"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["message"] == "[2026-03-06 23:45:12] local.INFO: AUDIT: MFA failure count is set to 1. (192.168.1.125 (User@EmailDomain.com) -> POST:http://FireflyiiiDomain.com/two-factor/submit)"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["mfa_fail_count"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["program"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["source_ip"] == "192.168.1.125"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Parsed["user"] == "User@EmailDomain.com"
+basename(results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_path"]) == "fireflyiii-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["log_type"] == "fireflyiii_bad_mfa"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["mfa_count"] == "1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["service"] == "fireflyiii"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["source_ip"] == "192.168.1.125"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["timestamp"] == "2026-03-06T23:45:12Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Meta["username"] == "User@EmailDomain.com"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Enriched["MarshaledTime"] == "2026-03-06T23:45:12Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][2].Evt.Whitelisted == false
+len(results["success"][""]) == 0

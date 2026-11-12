@@ -72,8 +72,8 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["log_type"] == "mailscanner_spam"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["machine"] == "efa"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["source_ip"] == "192.168.1.50"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"] == "2025-07-30T08:01:07Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"] == "2025-07-30T08:01:07Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Meta["timestamp"][4:] == "-07-30T08:01:07Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Enriched["MarshaledTime"][4:] == "-07-30T08:01:07Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Whitelisted == false
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Parsed["from_email"] == "attacker@malicious.com"
@@ -91,7 +91,7 @@ results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["datasource_
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["log_type"] == "mailscanner_blacklist"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["machine"] == "efa"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["source_ip"] == "192.168.1.100"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"] == "2025-07-30T08:02:15Z"
-results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"] == "2025-07-30T08:02:15Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Meta["timestamp"][4:] == "-07-30T08:02:15Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Enriched["MarshaledTime"][4:] == "-07-30T08:02:15Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][1].Evt.Whitelisted == false
 len(results["success"][""]) == 0

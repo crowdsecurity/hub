@@ -1,5 +1,5 @@
 onsuccess: next_stage
-filter: "Upper(evt.Parsed.program) == 'GITLAB' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'gitlab') in ['', nil]"
+filter: "Upper(evt.Parsed.program) == 'GITLAB' && TrimSpace(evt.Parsed.message) startsWith '{' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'gitlab') in ['', nil]"
 name: timokoessler/gitlab-logs
 description: "Parse GitLab Logs"
 nodes:

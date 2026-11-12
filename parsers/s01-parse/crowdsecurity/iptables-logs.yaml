@@ -1,6 +1,6 @@
 onsuccess: next_stage
 #debug: true
-filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'IN=' and not (evt.Parsed.message contains 'ACCEPT')"
+filter: "evt.Parsed.program == 'kernel' and evt.Parsed.message contains 'IN=' and not (evt.Parsed.message contains 'ACCEPT') and not (evt.Parsed.message contains '[UFW AUDIT]' )"
 name: crowdsecurity/iptables-logs
 description: "Parse iptables drop logs"
 statics:

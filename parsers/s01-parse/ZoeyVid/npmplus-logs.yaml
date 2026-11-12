@@ -1,21 +1,55 @@
 filter: "evt.Parsed.program startsWith 'npmplus'"
 onsuccess: next_stage
 name: ZoeyVid/npmplus-logs
-description: "Parse NPMplus access and error logs"
-pattern_syntax:
-  NPMPLUSFQDN: '%{IPORHOST}||%{DATA}'
+description: "Parse NPMplus access logs"
 nodes:
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"'
       apply_on: message
       statics:
         - meta: log_type
           value: http_access-log
         - target: evt.StrTime
           expression: evt.Parsed.time_local
+    onsuccess: next_stage
+    nodes:
+      - filter: "evt.Parsed.status == '401' && evt.Parsed.remote_user != '-'"
+        statics:
+          - meta: sub_type
+            value: "auth_fail"
+          - meta: username
+            expression: evt.Parsed.remote_user
+  ## Parse malformed requests
+  - grok:
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{DATA:request}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: http_access-log
+      - target: evt.StrTime
+        expression: evt.Parsed.time_local
+
+  ## Parse the old access log format and error logs
+  - grok:
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} %{NUMBER} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: http_access-log
+        - target: evt.StrTime
+          expression: evt.Parsed.time_local
+  ## Parse malformed requests
+  - grok:
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{DATA:request}" %{NUMBER:status} %{NUMBER} %{NUMBER} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: http_access-log
+      - target: evt.StrTime
+        expression: evt.Parsed.time_local
   - grok:
       # and this one the error log
-      pattern: '(%{IPORHOST:target_fqdn} )?%{NGINXERRTIME:time} \[%{LOGLEVEL:loglevel}\] %{NONNEGINT:pid}#%{NONNEGINT:tid}: (\*%{NONNEGINT:cid} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA:target_fqdn}, request: "%{WORD:verb} ([^/]+)?%{URIPATHPARAM:request}( HTTP/%{NUMBER:http_version})?", host: "%{IPORHOST}(:%{NONNEGINT})?"'
+      pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
       apply_on: message
       statics:
         - meta: log_type
@@ -52,16 +86,8 @@ nodes:
         statics:
           - meta: sub_type
             value: "req_limit_exceeded"
-  ## Parse malformed requests
-  - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{NPMPLUSFQDN:target_fqdn} %{IPORHOST:remote_addr} %{NUMBER:request_time} "%{DATA:request}" %{NUMBER:status} %{NUMBER:body_bytes_sent} %{NUMBER:bytes_sent} %{DATA:http_referer} %{GREEDYDATA:http_user_agent}'
-      apply_on: message
-    statics:
-      - meta: log_type
-        value: http_access-log
-      - target: evt.StrTime
-        expression: evt.Parsed.time_local
-    # these ones apply for both grok patterns
+
+# these ones apply for all grok patterns
 statics:
   - meta: service
     value: http

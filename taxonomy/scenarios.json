@@ -14,9 +14,9 @@
   "crowdsecurity/experimental-no-user-agent": {
     "name": "crowdsecurity/experimental-no-user-agent",
     "description": "Protect against no user agent",
-    "label": "Protect against no user agent",
+    "label": "Missing User-Agent Header",
     "behaviors": [
-      "http:exploit"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -31,7 +31,7 @@
   "crowdsecurity/generic-freemarker-ssti": {
     "name": "crowdsecurity/generic-freemarker-ssti",
     "description": "Generic FreeMarker SSTI",
-    "label": "Generic FreeMarker SSTI",
+    "label": "FreeMarker - Server-Side Template Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -48,9 +48,9 @@
   "crowdsecurity/generic-wordpress-uploads-listing": {
     "name": "crowdsecurity/generic-wordpress-uploads-listing",
     "description": "Protect Wordpress uploads directory from listing files",
-    "label": "Protect Wordpress uploads directory from listing files",
+    "label": "WordPress Uploads - Directory Listing",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -65,7 +65,7 @@
   "crowdsecurity/generic-wordpress-uploads-php": {
     "name": "crowdsecurity/generic-wordpress-uploads-php",
     "description": "Detect php execution in wordpress uploads directory",
-    "label": "Detect Wordpress PHP execution in uploads directory",
+    "label": "WordPress Uploads - PHP Execution",
     "behaviors": [
       "http:exploit"
     ],
@@ -123,10 +123,32 @@
       "CWE-79"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2014-5181": {
+    "name": "crowdsecurity/vpatch-CVE-2014-5181",
+    "description": "Detects path traversal in Last.fm Rotation plugin via snode parameter in lastfm-proxy.php",
+    "label": "Last.fm Rotation - Local File Inclusion",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-25T14:43:56",
+    "cves": [
+      "CVE-2014-5181"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2017-9841": {
     "name": "crowdsecurity/vpatch-CVE-2017-9841",
     "description": "PHPUnit RCE (CVE-2017-9841)",
-    "label": "PHPUnit RCE",
+    "label": "PHPUnit - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -172,7 +194,7 @@
   "crowdsecurity/vpatch-CVE-2018-10562": {
     "name": "crowdsecurity/vpatch-CVE-2018-10562",
     "description": "Dasan GPON RCE (CVE-2018-10562)",
-    "label": "Dasan GPON RCE",
+    "label": "Dasan GPON - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -195,7 +217,7 @@
   "crowdsecurity/vpatch-CVE-2018-11511": {
     "name": "crowdsecurity/vpatch-CVE-2018-11511",
     "description": "Detects SQL injection attempts in ASUSTOR ADM via album_id parameter in /photo-gallery/api/album/tree_lists/.",
-    "label": "ASUSTOR ADM - SQLI",
+    "label": "ASUSTOR ADM - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -234,6 +256,28 @@
     ],
     "cwes": [
       "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2018-13317": {
+    "name": "crowdsecurity/vpatch-CVE-2018-13317",
+    "description": "Detects unauthenticated access to TOTOLINK A3002RU password disclosure endpoint.",
+    "label": "Totolink A3002RU - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-29T14:37:48",
+    "cves": [
+      "CVE-2018-13317"
+    ],
+    "cwes": [
+      "CWE-79"
     ]
   },
   "crowdsecurity/vpatch-CVE-2018-13379": {
@@ -305,7 +349,7 @@
   "crowdsecurity/vpatch-CVE-2019-12989": {
     "name": "crowdsecurity/vpatch-CVE-2019-12989",
     "description": "Citrix SQLi (CVE-2019-12989)",
-    "label": "Citrix SQLi",
+    "label": "Citrix - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -373,7 +417,7 @@
   "crowdsecurity/vpatch-CVE-2019-5418": {
     "name": "crowdsecurity/vpatch-CVE-2019-5418",
     "description": "Detects Rails file content disclosure via crafted Accept header (CVE-2019-5418)",
-    "label": "Rails - LFI",
+    "label": "Rails - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -414,10 +458,54 @@
       "CWE-78"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2019-9762": {
+    "name": "crowdsecurity/vpatch-CVE-2019-9762",
+    "description": "Detects SQL injection in PHPSHE 1.7 via the id parameter in pay.php",
+    "label": "PHPSHE - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-30T14:25:27",
+    "cves": [
+      "CVE-2019-9762"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2020-10987": {
+    "name": "crowdsecurity/vpatch-CVE-2020-10987",
+    "description": "Detects command injection in Tenda AC15 AC1900 via deviceName parameter in setUsbUnload endpoint.",
+    "label": "Tenda AC15 - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-11-27T14:37:25",
+    "cves": [
+      "CVE-2020-10987"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2020-11738": {
     "name": "crowdsecurity/vpatch-CVE-2020-11738",
     "description": "Wordpress Snap Creek Duplicator - Path Traversal (CVE-2020-11738)",
-    "label": "Wordpress Snap Creek Duplicator",
+    "label": "WordPress Duplicator - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -440,7 +528,7 @@
   "crowdsecurity/vpatch-CVE-2020-13640": {
     "name": "crowdsecurity/vpatch-CVE-2020-13640",
     "description": "Detects SQL injection in wpDiscuz plugin via the order parameter in wpdLoadMoreComments action.",
-    "label": "WpDiscuz - SQLI",
+    "label": "WpDiscuz - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -462,7 +550,7 @@
   "crowdsecurity/vpatch-CVE-2020-17496": {
     "name": "crowdsecurity/vpatch-CVE-2020-17496",
     "description": "vBulletin RCE (CVE-2020-17496)",
-    "label": "vBulletin RCE",
+    "label": "vBulletin - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -504,6 +592,28 @@
       "CWE-200"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2020-37123": {
+    "name": "crowdsecurity/vpatch-CVE-2020-37123",
+    "description": "Detects remote code execution via unsanitized ping parameter in Pinger 1.0",
+    "label": "Pinger - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2020-37123"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2020-5902": {
     "name": "crowdsecurity/vpatch-CVE-2020-5902",
     "description": "F5 BIG-IP TMUI - RCE (CVE-2020-5902)",
@@ -530,7 +640,7 @@
   "crowdsecurity/vpatch-CVE-2020-8656": {
     "name": "crowdsecurity/vpatch-CVE-2020-8656",
     "description": "Detects SQL injection in EyesOfNetwork getApiKey endpoint via username parameter.",
-    "label": "EyesOfNetwork - SQLI",
+    "label": "EyesOfNetwork - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -574,7 +684,7 @@
   "crowdsecurity/vpatch-CVE-2021-22941": {
     "name": "crowdsecurity/vpatch-CVE-2021-22941",
     "description": "Citrix RCE (CVE-2021-22941)",
-    "label": "Citrix RCE",
+    "label": "Citrix - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -592,6 +702,28 @@
     ],
     "cwes": [
       "CWE-284"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2021-25281": {
+    "name": "crowdsecurity/vpatch-CVE-2021-25281",
+    "description": "Detects SaltStack Salt API authentication bypass via wheel_async client in /run endpoint.",
+    "label": "SaltStack Salt - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-13T09:32:06",
+    "cves": [
+      "CVE-2021-25281"
+    ],
+    "cwes": [
+      "CWE-287"
     ]
   },
   "crowdsecurity/vpatch-CVE-2021-26072": {
@@ -619,7 +751,7 @@
   "crowdsecurity/vpatch-CVE-2021-26086": {
     "name": "crowdsecurity/vpatch-CVE-2021-26086",
     "description": "Atlassian Jira Server/Data Center 8.4.0 - Limited Remote File Read/Include (CVE-2021-26086)",
-    "label": "Atlassian Jira Server/Data Center 8.4.0 File Read",
+    "label": "Atlassian Jira - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -639,7 +771,7 @@
   "crowdsecurity/vpatch-CVE-2021-26294": {
     "name": "crowdsecurity/vpatch-CVE-2021-26294",
     "description": "Detects unauthorized access to AfterLogic Aurora/WebMail Pro WebDAV endpoint using default caldav_public_user credentials and path traversal.",
-    "label": "AfterLogic Aurora/WebMail Pro - Info Disclosure",
+    "label": "AfterLogic Aurora/WebMail Pro - Information Disclosure",
     "behaviors": [
       "http:exploit"
     ],
@@ -661,7 +793,7 @@
   "crowdsecurity/vpatch-CVE-2021-3129": {
     "name": "crowdsecurity/vpatch-CVE-2021-3129",
     "description": "Laravel with Ignition Debug Mode RCE (CVE-2021-3129)",
-    "label": "Laravel with Ignition Debug Mode RCE",
+    "label": "Laravel Ignition - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -703,10 +835,32 @@
       "CWE-79"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2021-34427": {
+    "name": "crowdsecurity/vpatch-CVE-2021-34427",
+    "description": "Detects JSP injection leading to remote code execution in Eclipse BIRT Viewer via crafted query parameters.",
+    "label": "Eclipse BIRT - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-29T14:57:23",
+    "cves": [
+      "CVE-2021-34427"
+    ],
+    "cwes": [
+      "CWE-434"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2021-43798": {
     "name": "crowdsecurity/vpatch-CVE-2021-43798",
     "description": "Grafana - Arbitrary File Read (CVE-2021-43798)",
-    "label": "Grafana - LFI",
+    "label": "Grafana - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -772,7 +926,7 @@
   "crowdsecurity/vpatch-CVE-2022-22954": {
     "name": "crowdsecurity/vpatch-CVE-2022-22954",
     "description": "VMWare Workspace ONE Access RCE (CVE-2022-22954)",
-    "label": "VMWare Workspace ONE RCE",
+    "label": "VMware Workspace ONE - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -837,7 +991,7 @@
   "crowdsecurity/vpatch-CVE-2022-25322": {
     "name": "crowdsecurity/vpatch-CVE-2022-25322",
     "description": "Detects SQL injection attempts in ZEROF Web Server 2.0 via /HandleEvent endpoint.",
-    "label": "ZEROF Web Server - SQLI",
+    "label": "ZEROF Web Server - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -859,7 +1013,7 @@
   "crowdsecurity/vpatch-CVE-2022-25488": {
     "name": "crowdsecurity/vpatch-CVE-2022-25488",
     "description": "Atom CMS - SQLi (CVE-2022-25488)",
-    "label": "Atom CMS - SQLi",
+    "label": "Atom CMS - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -946,10 +1100,54 @@
       "CWE-78"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2022-3236": {
+    "name": "crowdsecurity/vpatch-CVE-2022-3236",
+    "description": "Detects code injection in Sophos Firewall User Portal and Webadmin via JSON parameter",
+    "label": "Sophos Firewall - Code Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2022-3236"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2022-3254": {
+    "name": "crowdsecurity/vpatch-CVE-2022-3254",
+    "description": "Detects unauthenticated SQL injection in AWP Classifieds via admin-ajax.php action awpcp-get-regions-options.",
+    "label": "AWP Classifieds - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-15T13:43:05",
+    "cves": [
+      "CVE-2022-3254"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2022-35914": {
     "name": "crowdsecurity/vpatch-CVE-2022-35914",
     "description": "GLPI RCE (CVE-2022-35914)",
-    "label": "GLPI RCE",
+    "label": "GLPI - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -972,7 +1170,7 @@
   "crowdsecurity/vpatch-CVE-2022-38627": {
     "name": "crowdsecurity/vpatch-CVE-2022-38627",
     "description": "Detects SQL injection vulnerability in Linear eMerge E3-Series via idt parameter",
-    "label": "Linear eMerge E3-Series - SQLI",
+    "label": "Linear eMerge E3-Series - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1017,7 +1215,7 @@
   "crowdsecurity/vpatch-CVE-2022-44877": {
     "name": "crowdsecurity/vpatch-CVE-2022-44877",
     "description": "CentOS Web Panel 7 RCE (CVE-2022-44877)",
-    "label": "CentOS Web Panel 7 RCE",
+    "label": "CentOS Web Panel - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1040,7 +1238,7 @@
   "crowdsecurity/vpatch-CVE-2022-46169": {
     "name": "crowdsecurity/vpatch-CVE-2022-46169",
     "description": "Cacti RCE (CVE-2022-46169)",
-    "label": "Cacti <=1.2.22 - RCE",
+    "label": "Cacti - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1180,7 +1378,7 @@
   "crowdsecurity/vpatch-CVE-2023-20198": {
     "name": "crowdsecurity/vpatch-CVE-2023-20198",
     "description": "CISCO IOS XE Account Creation (CVE-2023-20198)",
-    "label": "CISCO IOS XE account creation",
+    "label": "Cisco IOS XE - Account Creation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1203,7 +1401,7 @@
   "crowdsecurity/vpatch-CVE-2023-22515": {
     "name": "crowdsecurity/vpatch-CVE-2023-22515",
     "description": "Atlassian Confluence Privesc (CVE-2023-22515)",
-    "label": "Atlassian Confluence Privesc",
+    "label": "Atlassian Confluence - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1226,7 +1424,7 @@
   "crowdsecurity/vpatch-CVE-2023-22527": {
     "name": "crowdsecurity/vpatch-CVE-2023-22527",
     "description": "RCE using SSTI in Confluence (CVE-2023-22527)",
-    "label": "Confluence RCE",
+    "label": "Atlassian Confluence - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1246,7 +1444,7 @@
   "crowdsecurity/vpatch-CVE-2023-23063": {
     "name": "crowdsecurity/vpatch-CVE-2023-23063",
     "description": "Detects local file disclosure in Cellinx NVT Web Server via GetFileContent.cgi PATH parameter.",
-    "label": "Cellinx NVT Web Server - LFI",
+    "label": "Cellinx NVT Web Server - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -1268,7 +1466,7 @@
   "crowdsecurity/vpatch-CVE-2023-23488": {
     "name": "crowdsecurity/vpatch-CVE-2023-23488",
     "description": "Wordpress Paid Memberships Pro Blind SQLi (CVE-2023-23488)",
-    "label": "Wordpress Paid Memberships Pro Blind SQLi",
+    "label": "WordPress Paid Memberships Pro - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1291,7 +1489,7 @@
   "crowdsecurity/vpatch-CVE-2023-23489": {
     "name": "crowdsecurity/vpatch-CVE-2023-23489",
     "description": "WordPress Easy Digital Downloads plugin SQL injection (CVE-2023-23489)",
-    "label": "WordPress Easy Digital Downloads plugin SQL injection",
+    "label": "WordPress Easy Digital Downloads - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1335,10 +1533,32 @@
       "CWE-266"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2023-24000": {
+    "name": "crowdsecurity/vpatch-CVE-2023-24000",
+    "description": "Detects SQL injection attempts in WordPress GamiPress plugin via trigger_type[] parameter.",
+    "label": "GamiPress - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-15T15:30:00",
+    "cves": [
+      "CVE-2023-24000"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2023-24489": {
     "name": "crowdsecurity/vpatch-CVE-2023-24489",
     "description": "Citrix ShareFile RCE (CVE-2023-24489)",
-    "label": "Citrix ShareFile RCE",
+    "label": "Citrix ShareFile - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1361,7 +1581,7 @@
   "crowdsecurity/vpatch-CVE-2023-28121": {
     "name": "crowdsecurity/vpatch-CVE-2023-28121",
     "description": "WooCommerce auth bypass (CVE-2023-28121)",
-    "label": "WooCommerce auth bypass",
+    "label": "WooCommerce - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1403,10 +1623,32 @@
       "CWE-79"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2023-3197": {
+    "name": "crowdsecurity/vpatch-CVE-2023-3197",
+    "description": "Detects unauthenticated SQL injection in WordPress MStore API plugin via id parameter.",
+    "label": "WordPress MStore API - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-15T13:44:20",
+    "cves": [
+      "CVE-2023-3197"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2023-33617": {
     "name": "crowdsecurity/vpatch-CVE-2023-33617",
     "description": "Atlassian Confluence Privesc (CVE-2023-33617)",
-    "label": "Atlassian Confluence Privesc",
+    "label": "Atlassian Confluence - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -1429,7 +1671,7 @@
   "crowdsecurity/vpatch-CVE-2023-34362": {
     "name": "crowdsecurity/vpatch-CVE-2023-34362",
     "description": "MOVEit Transfer RCE (CVE-2023-34362)",
-    "label": "MOVEit Transfer RCE",
+    "label": "MOVEit Transfer - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1452,7 +1694,7 @@
   "crowdsecurity/vpatch-CVE-2023-35078": {
     "name": "crowdsecurity/vpatch-CVE-2023-35078",
     "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35078)",
-    "label": "MobileIron Core API",
+    "label": "MobileIron Core - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1472,7 +1714,7 @@
   "crowdsecurity/vpatch-CVE-2023-35082": {
     "name": "crowdsecurity/vpatch-CVE-2023-35082",
     "description": "MobileIron Core Remote Unauthenticated API Access (CVE-2023-35082)",
-    "label": "MobileIron Core API",
+    "label": "MobileIron Core - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1492,7 +1734,7 @@
   "crowdsecurity/vpatch-CVE-2023-3519": {
     "name": "crowdsecurity/vpatch-CVE-2023-3519",
     "description": "Citrix RCE (CVE-2023-3519)",
-    "label": "Citrix RCE",
+    "label": "Citrix ADC - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1512,10 +1754,32 @@
       "CWE-94"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2023-35708": {
+    "name": "crowdsecurity/vpatch-CVE-2023-35708",
+    "description": "Detects SQL injection attempts in MOVEit Transfer via machine.aspx endpoint and crafted X-IPSGW-ClientCert header.",
+    "label": "MOVEit Transfer - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-01T13:00:53",
+    "cves": [
+      "CVE-2023-35708"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2023-38205": {
     "name": "crowdsecurity/vpatch-CVE-2023-38205",
     "description": "Adobe ColdFusion Access Control Bypass (CVE-2023-38205)",
-    "label": "Adobe ColdFusion Access Control Bypass",
+    "label": "Adobe ColdFusion - Access Control Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1538,7 +1802,7 @@
   "crowdsecurity/vpatch-CVE-2023-40044": {
     "name": "crowdsecurity/vpatch-CVE-2023-40044",
     "description": "WS_FTP .NET deserialize RCE (CVE-2023-40044)",
-    "label": "WS_FTP .NET deserialize RCE",
+    "label": "WS_FTP - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1561,7 +1825,7 @@
   "crowdsecurity/vpatch-CVE-2023-42793": {
     "name": "crowdsecurity/vpatch-CVE-2023-42793",
     "description": "JetBrains Teamcity Auth Bypass (CVE-2023-42793)",
-    "label": "JetBrains Teamcity Auth Bypass",
+    "label": "JetBrains TeamCity - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1584,7 +1848,7 @@
   "crowdsecurity/vpatch-CVE-2023-4634": {
     "name": "crowdsecurity/vpatch-CVE-2023-4634",
     "description": "Media Library Assistant - RCE 2023 4634",
-    "label": "Media Library Assistant RCE",
+    "label": "WordPress Media Library Assistant - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1606,7 +1870,7 @@
   "crowdsecurity/vpatch-CVE-2023-46805": {
     "name": "crowdsecurity/vpatch-CVE-2023-46805",
     "description": "Ivanti Connect Auth Bypass (CVE-2023-46805)",
-    "label": "Ivanti Connect Auth Bypass",
+    "label": "Ivanti Connect Secure - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -1678,7 +1942,7 @@
   "crowdsecurity/vpatch-CVE-2023-50164": {
     "name": "crowdsecurity/vpatch-CVE-2023-50164",
     "description": "Apache Struts2 Path Traversal (CVE-2023-50164)",
-    "label": "Apache Struts2 Path Traversal",
+    "label": "Apache Struts - Path Traversal",
     "behaviors": [
       "http:exploit"
     ],
@@ -1746,7 +2010,7 @@
   "crowdsecurity/vpatch-CVE-2023-6553": {
     "name": "crowdsecurity/vpatch-CVE-2023-6553",
     "description": "Backup Migration plugin for WordPress RCE (CVE-2023-6553)",
-    "label": "Backup Migration plugin for WordPress RCE",
+    "label": "WordPress Backup Migration - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -1792,7 +2056,7 @@
   "crowdsecurity/vpatch-CVE-2023-6623": {
     "name": "crowdsecurity/vpatch-CVE-2023-6623",
     "description": "Wordpress Essential Blocks plugin LFI (CVE-2023-6623)",
-    "label": "Wordpress Essential Blocks plugin LFI",
+    "label": "WordPress Essential Blocks - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -1815,7 +2079,7 @@
   "crowdsecurity/vpatch-CVE-2023-7028": {
     "name": "crowdsecurity/vpatch-CVE-2023-7028",
     "description": "Gitlab Password Reset Account Takeover (CVE-2023-7028)",
-    "label": "Gitlab Password Reset Account Takeover",
+    "label": "GitLab - Account Takeover",
     "behaviors": [
       "http:exploit"
     ],
@@ -1926,7 +2190,7 @@
   "crowdsecurity/vpatch-CVE-2024-1212": {
     "name": "crowdsecurity/vpatch-CVE-2024-1212",
     "description": "Progress Kemp LoadMaster Unauthenticated Command Injection (CVE-2024-1212)",
-    "label": "LoadMaster UCI",
+    "label": "Progress LoadMaster - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -1969,7 +2233,7 @@
   "crowdsecurity/vpatch-CVE-2024-23897": {
     "name": "crowdsecurity/vpatch-CVE-2024-23897",
     "description": "Jenkins CLI RCE (CVE-2024-23897)",
-    "label": "Jenkins CLI RCE",
+    "label": "Jenkins - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2015,7 +2279,7 @@
   "crowdsecurity/vpatch-CVE-2024-27292": {
     "name": "crowdsecurity/vpatch-CVE-2024-27292",
     "description": "Local File Inclusion - Docassemble",
-    "label": "Docassemble - LFI",
+    "label": "Docassemble - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -2105,7 +2369,7 @@
   "crowdsecurity/vpatch-CVE-2024-27956": {
     "name": "crowdsecurity/vpatch-CVE-2024-27956",
     "description": "WordPress Automatic Plugin - SQLi (CVE-2024-27956)",
-    "label": "WordPress Automatic Plugin - SQLi",
+    "label": "WordPress Automatic Plugin - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2148,10 +2412,32 @@
       "CWE-94"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-2862": {
+    "name": "crowdsecurity/vpatch-CVE-2024-2862",
+    "description": "Detects unauthenticated password reset in LG LED Assistant via spoofed X-Forwarded-For header.",
+    "label": "LG LED Assistant - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-07T15:35:21",
+    "cves": [
+      "CVE-2024-2862"
+    ],
+    "cwes": [
+      "CWE-640"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-28987": {
     "name": "crowdsecurity/vpatch-CVE-2024-28987",
     "description": "SolarWinds WHD Hardcoded Credentials (CVE-2024-28987)",
-    "label": "SolarWinds WHD Hardcoded Credentials",
+    "label": "SolarWinds WHD - Hardcoded Credentials",
     "behaviors": [
       "http:exploit"
     ],
@@ -2196,7 +2482,7 @@
   "crowdsecurity/vpatch-CVE-2024-29824": {
     "name": "crowdsecurity/vpatch-CVE-2024-29824",
     "description": "Ivanti EPM - SQLi (CVE-2024-29824)",
-    "label": "Ivanti EPM - SQLi",
+    "label": "Ivanti EPM - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2285,7 +2571,7 @@
   "crowdsecurity/vpatch-CVE-2024-3272": {
     "name": "crowdsecurity/vpatch-CVE-2024-3272",
     "description": " D-Link NAS - RCE (CVE-2024-3272)",
-    "label": " D-Link NAS - RCE",
+    "label": "D-Link NAS - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2308,7 +2594,7 @@
   "crowdsecurity/vpatch-CVE-2024-3273": {
     "name": "crowdsecurity/vpatch-CVE-2024-3273",
     "description": "D-LINK NAS Command Injection (CVE-2024-3273)",
-    "label": "D-LINK NAS Command Injection",
+    "label": "D-Link NAS - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2345,6 +2631,28 @@
     ],
     "cwes": [
       "CWE-200"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-3408": {
+    "name": "crowdsecurity/vpatch-CVE-2024-3408",
+    "description": "Detects authentication bypass and remote code execution in D-Tale via forged session cookie and malicious query parameter.",
+    "label": "D-Tale - Auth Bypass & RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-01T13:02:56",
+    "cves": [
+      "CVE-2024-3408"
+    ],
+    "cwes": [
+      "CWE-94"
     ]
   },
   "crowdsecurity/vpatch-CVE-2024-34102": {
@@ -2396,7 +2704,7 @@
   "crowdsecurity/vpatch-CVE-2024-38856": {
     "name": "crowdsecurity/vpatch-CVE-2024-38856",
     "description": "Apache OFBiz Incorrect Authorization (CVE-2024-38856)",
-    "label": "Apache OFBiz Incorrect Authorization",
+    "label": "Apache OFBiz - Incorrect Authorization",
     "behaviors": [
       "http:exploit"
     ],
@@ -2442,7 +2750,7 @@
   "crowdsecurity/vpatch-CVE-2024-4577": {
     "name": "crowdsecurity/vpatch-CVE-2024-4577",
     "description": "PHP CGI Command Injection - CVE-2024-4577",
-    "label": "PHP CGI Command Injection - CVE-2024-4577",
+    "label": "PHP CGI - Command Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2487,6 +2795,28 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-5057": {
+    "name": "crowdsecurity/vpatch-CVE-2024-5057",
+    "description": "Detects SQL injection vulnerability in WordPress Easy Digital Downloads <= 3.2.12 via the edd_download_search action.",
+    "label": "Easy Digital Downloads - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-20T10:29:16",
+    "cves": [
+      "CVE-2024-5057"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-51378": {
     "name": "crowdsecurity/vpatch-CVE-2024-51378",
     "description": "Cyberpanel - RCE (CVE-2024-51378)",
@@ -2510,10 +2840,32 @@
       "CWE-78"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-51482": {
+    "name": "crowdsecurity/vpatch-CVE-2024-51482",
+    "description": "Detects SQL injection attempts in ZoneMinder event.php via the tid parameter.",
+    "label": "ZoneMinder - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-30T13:49:48",
+    "cves": [
+      "CVE-2024-51482"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-51567": {
     "name": "crowdsecurity/vpatch-CVE-2024-51567",
     "description": "CyberPanel RCE (CVE-2024-51567)",
-    "label": "CyberPanel RCE",
+    "label": "CyberPanel - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -2624,6 +2976,50 @@
       "CWE-89"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-6235": {
+    "name": "crowdsecurity/vpatch-CVE-2024-6235",
+    "description": "Detects unauthorized access to sensitive NetScaler Console configuration endpoint disclosing ADM_SESSIONID.",
+    "label": "NetScaler Console - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-03T14:43:38",
+    "cves": [
+      "CVE-2024-6235"
+    ],
+    "cwes": [
+      "CWE-200"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-6671": {
+    "name": "crowdsecurity/vpatch-CVE-2024-6671",
+    "description": "WhatsUp Gold GetStatisticalMonitorList SQL Injection - Authentication Bypass",
+    "label": "WhatsUp Gold - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-31T07:48:48",
+    "cves": [
+      "CVE-2024-6671"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-7593": {
     "name": "crowdsecurity/vpatch-CVE-2024-7593",
     "description": "Ivanti vTM - Authentication Bypass (CVE-2024-7593)",
@@ -2647,6 +3043,28 @@
       "CWE-303"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2024-8181": {
+    "name": "crowdsecurity/vpatch-CVE-2024-8181",
+    "description": "Detects authentication bypass in Flowise <= 1.8.2 by matching unauthorized access to sensitive API endpoints.",
+    "label": "Flowise - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2024-8181"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2024-8190": {
     "name": "crowdsecurity/vpatch-CVE-2024-8190",
     "description": "Ivanti Cloud Services Appliance - RCE (CVE-2024-8190)",
@@ -2668,6 +3086,50 @@
     ],
     "cwes": [
       "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-8911": {
+    "name": "crowdsecurity/vpatch-CVE-2024-8911",
+    "description": "Detects SQL injection in LatePoint WordPress plugin via password_reset_token parameter in admin-ajax.php.",
+    "label": "LatePoint - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-18T15:18:24",
+    "cves": [
+      "CVE-2024-8911"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2024-8943": {
+    "name": "crowdsecurity/vpatch-CVE-2024-8943",
+    "description": "Detects authentication bypass in LatePoint WordPress plugin via crafted customer[id] parameter.",
+    "label": "LatePoint - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-20T11:03:30",
+    "cves": [
+      "CVE-2024-8943"
+    ],
+    "cwes": [
+      "CWE-287"
     ]
   },
   "crowdsecurity/vpatch-CVE-2024-8963": {
@@ -2719,7 +3181,7 @@
   "crowdsecurity/vpatch-CVE-2024-9474": {
     "name": "crowdsecurity/vpatch-CVE-2024-9474",
     "description": "PanOS - Privilege Escalation (CVE-2024-9474)",
-    "label": "PanOS - Privilege Escalation (CVE-2024-9474)",
+    "label": "PanOS - Privilege Escalation",
     "behaviors": [
       "http:exploit"
     ],
@@ -2737,6 +3199,182 @@
     ],
     "cwes": [
       "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-10353": {
+    "name": "crowdsecurity/vpatch-CVE-2025-10353",
+    "description": "Detects unrestricted file upload in Melis Platform CMS Slider module",
+    "label": "Melis Platform - Arbitrary File Upload",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-12T16:05:15",
+    "cves": [
+      "CVE-2025-10353"
+    ],
+    "cwes": [
+      "CWE-434"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-11700": {
+    "name": "crowdsecurity/vpatch-CVE-2025-11700",
+    "description": "Detects XML External Entities (XXE) injection in N-central via ServerMMS SOAP endpoint.",
+    "label": "N-central - XXE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-17T17:05:29",
+    "cves": [
+      "CVE-2025-11700"
+    ],
+    "cwes": [
+      "CWE-611"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-13315": {
+    "name": "crowdsecurity/vpatch-CVE-2025-13315",
+    "description": "Detects unauthenticated access to Twonky Server log file exposure endpoint.",
+    "label": "Twonky Server - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-17T17:58:44",
+    "cves": [
+      "CVE-2025-13315"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-13920": {
+    "name": "crowdsecurity/vpatch-CVE-2025-13920",
+    "description": "Detects unauthenticated email exposure in WP Directory Kit via wdk_public_action AJAX handler.",
+    "label": "WP Directory Kit - Exposure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-01T15:42:25",
+    "cves": [
+      "CVE-2025-13920"
+    ],
+    "cwes": [
+      "CWE-862"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-13956": {
+    "name": "crowdsecurity/vpatch-CVE-2025-13956",
+    "description": "Detects unauthenticated access to LearnPress order statistics endpoint",
+    "label": "LearnPress - Missing Authorization",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-13956"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-15503": {
+    "name": "crowdsecurity/vpatch-CVE-2025-15503",
+    "description": "Detects arbitrary file upload in Sangfor OSM via common.jsp endpoint",
+    "label": "Sangfor OSM - Arbitrary File Upload",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-15503"
+    ],
+    "cwes": [
+      "CWE-434"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-24582": {
+    "name": "crowdsecurity/vpatch-CVE-2025-24582",
+    "description": "Detects unauthenticated information disclosure in 12 Step Meeting List WordPress plugin via AJAX endpoints",
+    "label": "12 Step Meeting List - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-24582"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-24786": {
+    "name": "crowdsecurity/vpatch-CVE-2025-24786",
+    "description": "Detects path traversal in WhoDB via crafted database filename in /api/query",
+    "label": "WhoDB - Path Traversal",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-26T17:03:04",
+    "cves": [
+      "CVE-2025-24786"
+    ],
+    "cwes": [
+      "CWE-22"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-24893": {
@@ -2764,7 +3402,7 @@
   "crowdsecurity/vpatch-CVE-2025-25257": {
     "name": "crowdsecurity/vpatch-CVE-2025-25257",
     "description": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection (CVE-2025-25257)",
-    "label": "Fortinet FortiWeb Fabric Connector - Pre-Authenticated SQL Injection",
+    "label": "Fortinet FortiWeb - SQL Injection",
     "behaviors": [
       "http:exploit"
     ],
@@ -2785,7 +3423,7 @@
   },
   "crowdsecurity/vpatch-CVE-2025-2611": {
     "name": "crowdsecurity/vpatch-CVE-2025-2611",
-    "description": "Detects command injection in ICTBroadcast via BROADCAST cookie",
+    "description": "Detects unauthenticated RCE via session cookie shell injection in ICTBroadcast",
     "label": "ICTBroadcast - RCE",
     "behaviors": [
       "http:exploit"
@@ -2808,7 +3446,7 @@
   "crowdsecurity/vpatch-CVE-2025-27222": {
     "name": "crowdsecurity/vpatch-CVE-2025-27222",
     "description": "Detects path traversal in TRUfusion Enterprise via cobrandingImageName parameter in getCobrandingData endpoint.",
-    "label": "TRUfusion Enterprise - LFI",
+    "label": "TRUfusion Enterprise - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -2827,10 +3465,32 @@
       "CWE-22"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-27223": {
+    "name": "crowdsecurity/vpatch-CVE-2025-27223",
+    "description": "Detects authentication bypass via hard-coded cryptographic key in TRUfusion Enterprise",
+    "label": "TRUfusion Enterprise - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-11-27T08:17:40",
+    "cves": [
+      "CVE-2025-27223"
+    ],
+    "cwes": [
+      "CWE-798"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-28367": {
     "name": "crowdsecurity/vpatch-CVE-2025-28367",
     "description": "Detects directory traversal in mojoPortal BetterImageGallery API Controller (CVE-2025-28367)",
-    "label": "MojoPortal - LFI",
+    "label": "MojoPortal - Local File Inclusion",
     "behaviors": [
       "http:exploit"
     ],
@@ -2874,7 +3534,7 @@
   "crowdsecurity/vpatch-CVE-2025-29927": {
     "name": "crowdsecurity/vpatch-CVE-2025-29927",
     "description": "Next.js Middleware Bypass - (CVE-2025-29927)",
-    "label": "Next.js Middleware Bypass",
+    "label": "Next.js - Middleware Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -2961,6 +3621,28 @@
       "CWE-306"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-34291": {
+    "name": "crowdsecurity/vpatch-CVE-2025-34291",
+    "description": "Detects CORS misconfiguration in Langflow AI allowing any origin with credentials (CVE-2025-34291)",
+    "label": "Langflow AI - CORS Misconfiguration",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-20T10:10:31",
+    "cves": [
+      "CVE-2025-34291"
+    ],
+    "cwes": [
+      "CWE-942"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-3605": {
     "name": "crowdsecurity/vpatch-CVE-2025-3605",
     "description": "Detects privilege escalation in WordPress Frontend Login and Registration Blocks plugin via unauthorized email update.",
@@ -3005,6 +3687,94 @@
       "CWE-78"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-37164": {
+    "name": "crowdsecurity/vpatch-CVE-2025-37164",
+    "description": "Detects remote code execution attempts in HPE OneView via executeCommand endpoint.",
+    "label": "HPE OneView - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-18T15:23:38",
+    "cves": [
+      "CVE-2025-37164"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-40552": {
+    "name": "crowdsecurity/vpatch-CVE-2025-40552",
+    "description": "Detects authentication bypass in SolarWinds Web Help Desk via WebObjects wopage parameter access to sensitive pages",
+    "label": "SolarWinds Web Help Desk - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-27T09:11:25",
+    "cves": [
+      "CVE-2025-40552"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-4689": {
+    "name": "crowdsecurity/vpatch-CVE-2025-4689",
+    "description": "Detects WordPress Ads Pro Plugin unauthenticated SQLi + LFI chain via wp-ajax endpoint targeting a_id parameter (CVE-2025-4689)",
+    "label": "WordPress Ads Pro Plugin - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-4689"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-47188": {
+    "name": "crowdsecurity/vpatch-CVE-2025-47188",
+    "description": "Detects OS command injection in Mitel 6000 series SIP Phones via ringtone upload functionality.",
+    "label": "Mitel 6000 - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-07T14:54:26",
+    "cves": [
+      "CVE-2025-47188"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-47812": {
     "name": "crowdsecurity/vpatch-CVE-2025-47812",
     "description": "Detects Wing FTP Server <= 7.4.3 RCE via Lua code injection in username parameter during login.",
@@ -3030,7 +3800,7 @@
   "crowdsecurity/vpatch-CVE-2025-49113": {
     "name": "crowdsecurity/vpatch-CVE-2025-49113",
     "description": "Detects arbitrary remote code execution vulnerability via PHP Object Deserialization in Roundcube",
-    "label": "Roundcube - RCE via PHP Object Deserialization",
+    "label": "Roundcube - RCE",
     "behaviors": [
       "http:exploit"
     ],
@@ -3093,6 +3863,50 @@
       "CWE-200"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-52970": {
+    "name": "crowdsecurity/vpatch-CVE-2025-52970",
+    "description": "Detects authentication bypass to admin privilege in Fortinet FortiWeb via crafted Authorization header.",
+    "label": "Fortinet FortiWeb - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-07T15:34:14",
+    "cves": [
+      "CVE-2025-52970"
+    ],
+    "cwes": [
+      "CWE-223"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-53693": {
+    "name": "crowdsecurity/vpatch-CVE-2025-53693",
+    "description": "Detects Sitecore XAML AjaxScriptManager cache poisoning via AddToCache reflection method.",
+    "label": "Sitecore - Cache Poisoning",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2025-53693"
+    ],
+    "cwes": [
+      "CWE-20"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-54249": {
     "name": "crowdsecurity/vpatch-CVE-2025-54249",
     "description": "Detects SSRF in Adobe Experience Manager via /services/accesstoken/verify endpoint with crafted auth_url parameter.",
@@ -3113,6 +3927,28 @@
     ],
     "cwes": [
       "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-55182": {
+    "name": "crowdsecurity/vpatch-CVE-2025-55182",
+    "description": "Detects React RCE via crafted form action parameters exploiting server action handlers",
+    "label": "React - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-04T10:51:55",
+    "cves": [
+      "CVE-2025-55182"
+    ],
+    "cwes": [
+      "CWE-94"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-55748": {
@@ -3137,6 +3973,50 @@
       "CWE-23"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-55749": {
+    "name": "crowdsecurity/vpatch-CVE-2025-55749",
+    "description": "Detects unauthorized access to sensitive files in XWiki webapp directory (CVE-2025-55749)",
+    "label": "XWiki - Information Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1592"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-13T08:10:12",
+    "cves": [
+      "CVE-2025-55749"
+    ],
+    "cwes": [
+      "CWE-284"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-56520": {
+    "name": "crowdsecurity/vpatch-CVE-2025-56520",
+    "description": "Detects SSRF in Dify v1.6.0 via remote file fetch endpoint.",
+    "label": "Dify - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-16T12:24:51",
+    "cves": [
+      "CVE-2025-56520"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
   "crowdsecurity/vpatch-CVE-2025-57819": {
     "name": "crowdsecurity/vpatch-CVE-2025-57819",
     "description": "Detects unauthenticated SQL injection and RCE in FreePBX via vulnerable brand parameter in ajax.php endpoint.",
@@ -3157,6 +4037,50 @@
     ],
     "cwes": [
       "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-59528": {
+    "name": "crowdsecurity/vpatch-CVE-2025-59528",
+    "description": "Detects Flowise CustomMCP node RCE via unsafe evaluation in convertToValidJSONString.",
+    "label": "Flowise - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-26T10:50:30",
+    "cves": [
+      "CVE-2025-59528"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-61678": {
+    "name": "crowdsecurity/vpatch-CVE-2025-61678",
+    "description": "Detects FreePBX arbitrary file upload RCE via fwbrand directory traversal in Custom Firmware Management endpoint (CVE-2025-61678)",
+    "label": "FreePBX - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-61678"
+    ],
+    "cwes": [
+      "CWE-22"
     ]
   },
   "crowdsecurity/vpatch-CVE-2025-61882": {
@@ -3203,10 +4127,915 @@
       "CWE-23"
     ]
   },
+  "crowdsecurity/vpatch-CVE-2025-66039": {
+    "name": "crowdsecurity/vpatch-CVE-2025-66039",
+    "description": "Detects FreePBX authentication bypass and SQL injection chain via admin config endpoint (CVE-2025-66039, CVE-2025-61675)",
+    "label": "FreePBX - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-26T09:31:51",
+    "cves": [
+      "CVE-2025-66039"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-8110": {
+    "name": "crowdsecurity/vpatch-CVE-2025-8110",
+    "description": "Detects symlink bypass vulnerability in Gogs PutContents API allowing file overwrite and potential RCE (CVE-2025-8110)",
+    "label": "Gogs - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-30T15:00:15",
+    "cves": [
+      "CVE-2025-8110"
+    ],
+    "cwes": [
+      "CWE-59"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2025-9316": {
+    "name": "crowdsecurity/vpatch-CVE-2025-9316",
+    "description": "Detects unauthenticated session ID generation in N-central via ServerUI SOAP endpoint.",
+    "label": "N-central - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2025-12-17T15:19:39",
+    "cves": [
+      "CVE-2025-9316"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-0768": {
+    "name": "crowdsecurity/vpatch-CVE-2026-0768",
+    "description": "Detects unauthenticated Python code execution through Langflow validate/code.",
+    "label": "Langflow - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-0768"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-0926": {
+    "name": "crowdsecurity/vpatch-CVE-2026-0926",
+    "description": "Detects LFI in Prodigy Commerce WordPress plugin via parameters[template_name] in admin-ajax.php",
+    "label": "Prodigy Commerce - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-01T15:14:23",
+    "cves": [
+      "CVE-2026-0926"
+    ],
+    "cwes": [
+      "CWE-98"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-104736": {
+    "name": "crowdsecurity/vpatch-CVE-2026-104736",
+    "description": "Detects PHP object injection in LearnPress checkout AJAX requests.",
+    "label": "LearnPress - PHP Object Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-104736"
+    ],
+    "cwes": [
+      "CWE-502"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-104935": {
+    "name": "crowdsecurity/vpatch-CVE-2026-104935",
+    "description": "Detects Ivanti Connect Secure authentication bypass attempts that route a public welcome endpoint to a protected CGI handler.",
+    "label": "Ivanti Connect Secure - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T13:49:45",
+    "cves": [
+      "CVE-2026-104935"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-109618": {
+    "name": "crowdsecurity/vpatch-CVE-2026-109618",
+    "description": "Tentative vpatch for CVE-2026-109618 : block requests crafted to exhaust PHP memory during input parsing.",
+    "label": "PHP2Shell - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T10:13:38",
+    "cves": [
+      "CVE-2026-109618"
+    ],
+    "cwes": [
+      "CWE-908"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-109619": {
+    "name": "crowdsecurity/vpatch-CVE-2026-109619",
+    "description": "Tentative vpatch for CVE-2026-109619 : block multipart requests engaging PHP session.upload_progress.",
+    "label": "PHP2Shell - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-21T16:25:11",
+    "cves": [
+      "CVE-2026-109619"
+    ],
+    "cwes": [
+      "CWE-416"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-111497": {
+    "name": "crowdsecurity/vpatch-CVE-2026-111497",
+    "description": "Blocks Brotli-compressed request bodies (Content-Encoding: br), the delivery path of the Brotli decoder out-of-bounds write CVE-2026-111497 (Node2Shell). Can trigger false positives if your clients legitimately send Brotli-compressed bodies.",
+    "label": "Brotli - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-29T08:46:18",
+    "cves": [
+      "CVE-2026-111497"
+    ],
+    "cwes": [
+      "CWE-787"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-114509": {
+    "name": "crowdsecurity/vpatch-CVE-2026-114509",
+    "description": "Detects Laravel TokenGuard authentication bypass attempts sending api_token as an array.",
+    "label": "Laravel - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-114509"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-115886": {
+    "name": "crowdsecurity/vpatch-CVE-2026-115886",
+    "description": "Detects MLflow scorer invocation with TruLens scorer configuration indicative of SSRF.",
+    "label": "MLflow - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-115886"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-116690": {
+    "name": "crowdsecurity/vpatch-CVE-2026-116690",
+    "description": "Detects path traversal in MLflow model version creation requests.",
+    "label": "MLflow - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-116690"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-1207": {
+    "name": "crowdsecurity/vpatch-CVE-2026-1207",
+    "description": "Detects SQL injection via the band parameter in Django RasterField/PostGIS endpoint",
+    "label": "Django - SQL Injection",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-25T14:34:36",
+    "cves": [
+      "CVE-2026-1207"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-1281": {
+    "name": "crowdsecurity/vpatch-CVE-2026-1281",
+    "description": "Detects pre-auth RCE via Bash arithmetic expansion in Ivanti EPMM appstore endpoint",
+    "label": "Ivanti EPMM - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-04T08:15:22",
+    "cves": [
+      "CVE-2026-1281",
+      "CVE-2026-1340"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-1557": {
+    "name": "crowdsecurity/vpatch-CVE-2026-1557",
+    "description": "Detects path traversal in WP Responsive Images plugin via src parameter in image_handler.php",
+    "label": "WP Responsive Images - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-01T14:18:26",
+    "cves": [
+      "CVE-2026-1557"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-20127-dca-disclosure": {
+    "name": "crowdsecurity/vpatch-CVE-2026-20127-dca-disclosure",
+    "description": "Detects unauthenticated access to the DCA credential file in Cisco Catalyst SD-WAN Manager (CVE-2026-20127)",
+    "label": "Cisco SD-WAN vManage - Credentials Disclosure",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-06T10:00:35",
+    "cves": [
+      "CVE-2026-20127"
+    ],
+    "cwes": [
+      "CWE-552"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-20127": {
+    "name": "crowdsecurity/vpatch-CVE-2026-20127",
+    "description": "Detects path traversal file upload exploitation in Cisco Catalyst SD-WAN Manager (CVE-2026-20127)",
+    "label": "Cisco SD-WAN vManage - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-03-06T10:00:35",
+    "cves": [
+      "CVE-2026-20127"
+    ],
+    "cwes": [
+      "CWE-22",
+      "CWE-434"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-21589": {
+    "name": "crowdsecurity/vpatch-CVE-2026-21589",
+    "description": "Detects Atlassian arbitrary file read attempts using traversal through web resource download routes.",
+    "label": "Atlassian - Arbitrary File Read",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-21589"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-21643": {
+    "name": "crowdsecurity/vpatch-CVE-2026-21643",
+    "description": "Detects SQL injection in Fortinet FortiClientEMS via the Site HTTP header on /api/v1/init_consts.",
+    "label": "FortiClientEMS - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-06-02T09:30:07",
+    "cves": [
+      "CVE-2026-21643"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-23744": {
+    "name": "crowdsecurity/vpatch-CVE-2026-23744",
+    "description": "Detects RCE in MCPJam Inspector via crafted POST to /api/mcp/connect",
+    "label": "MCPJam Inspector - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-02-18T15:37:48",
+    "cves": [
+      "CVE-2026-23744"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-26217": {
+    "name": "crowdsecurity/vpatch-CVE-2026-26217",
+    "description": "Detects local file inclusion in Crawl4AI through a file scheme supplied to the execute_js endpoint.",
+    "label": "Crawl4AI - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-26217"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-26980": {
+    "name": "crowdsecurity/vpatch-CVE-2026-26980",
+    "description": "Detects SQL injection in Ghost CMS Content API filter parameter (CVE-2026-26980).",
+    "label": "Ghost - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-22T13:41:30",
+    "cves": [
+      "CVE-2026-26980"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-27483": {
+    "name": "crowdsecurity/vpatch-CVE-2026-27483",
+    "description": "Detects MindsDB < 25.9.1.1 path traversal in file upload endpoint leading to RCE.",
+    "label": "MindsDB - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-02T15:19:24",
+    "cves": [
+      "CVE-2026-27483"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-34151": {
+    "name": "crowdsecurity/vpatch-CVE-2026-34151",
+    "description": "Detects double-encoded path traversal targeting XWiki skin resources.",
+    "label": "XWiki - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-34151"
+    ],
+    "cwes": [
+      "CWE-24"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-34910": {
+    "name": "crowdsecurity/vpatch-CVE-2026-34910",
+    "description": "Detects command injection in UniFi OS through the package update endpoint and the pkg_name parameter.",
+    "label": "UniFi OS - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-07T13:15:19",
+    "cves": [
+      "CVE-2026-34910"
+    ],
+    "cwes": [
+      "CWE-78"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-41940": {
+    "name": "crowdsecurity/vpatch-CVE-2026-41940",
+    "description": "Detects cPanel & WHM authentication bypass (CVE-2026-41940) by identifying a whostmgrsession cookie with a stripped ob segment (no comma separator)",
+    "label": "cPanel WHM - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-04-29T20:29:03",
+    "cves": [
+      "CVE-2026-41940"
+    ],
+    "cwes": [
+      "CWE-306"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-46725": {
+    "name": "crowdsecurity/vpatch-CVE-2026-46725",
+    "description": "Detects PHP object injection in the TYPO3 ceselector extension via a serialized PHP object passed in the T3_ceselector_ cookie.",
+    "label": "TYPO3 ceselector - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-27T09:17:42",
+    "cves": [
+      "CVE-2026-46725"
+    ],
+    "cwes": [
+      "CWE-502"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-61511": {
+    "name": "crowdsecurity/vpatch-CVE-2026-61511",
+    "description": "Detects vBulletin runtime template runMaths pre-auth RCE via crafted pagenav[pagenumber] routed through routestring=ajax/render/pagenav.",
+    "label": "vBulletin - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-07-28T14:06:34",
+    "cves": [
+      "CVE-2026-61511"
+    ],
+    "cwes": [
+      "CWE-95"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-63030": {
+    "name": "crowdsecurity/vpatch-CVE-2026-63030",
+    "description": "Detects WordPress REST API batch route confusion (CVE-2026-63030) and related blind SQL injection attempts via author_exclude (CVE-2026-60137).",
+    "label": "WordPress - SQLi",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-07-20T11:54:01",
+    "cves": [
+      "CVE-2026-63030",
+      "CVE-2026-60137"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-72898": {
+    "name": "crowdsecurity/vpatch-CVE-2026-72898",
+    "description": "Metabase reset_password unauthenticated SQL injection (CVE-2026-72898)",
+    "label": "Metabase - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-08-12T10:33:17",
+    "cves": [
+      "CVE-2026-72898"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-75650": {
+    "name": "crowdsecurity/vpatch-CVE-2026-75650",
+    "description": "Magento \"StyleSmuggler\" RCE (CVE-2026-75650)",
+    "label": "Adobe Commerce & Magento - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-09-09T08:28:13",
+    "cves": [
+      "CVE-2026-75650"
+    ],
+    "cwes": [
+      "CWE-1336"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-7873": {
+    "name": "crowdsecurity/vpatch-CVE-2026-7873",
+    "description": "Detects Python code injection in Langflow code validation requests.",
+    "label": "Langflow - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-7873"
+    ],
+    "cwes": [
+      "CWE-94"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-85706": {
+    "name": "crowdsecurity/vpatch-CVE-2026-85706",
+    "description": "Detects GitLab unauthenticated arbitrary file read (CVE-2026-85706) via client-supplied file.path/file.size parameters",
+    "label": "GitLab - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-09-28T07:04:32",
+    "cves": [
+      "CVE-2026-85706"
+    ],
+    "cwes": [
+      "CWE-22"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-87902": {
+    "name": "crowdsecurity/vpatch-CVE-2026-87902",
+    "description": "Detects WordPress core path traversal in page template resolution (CVE-2026-87902)",
+    "label": "WordPress - LFI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-09-23T11:59:35",
+    "cves": [
+      "CVE-2026-87902"
+    ],
+    "cwes": [
+      "CWE-98"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-9082": {
+    "name": "crowdsecurity/vpatch-CVE-2026-9082",
+    "description": "Detects SQL injection in Drupal JSON:API filter parameter keys (CVE-2026-9082).",
+    "label": "Drupal - SQLI",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-22T13:41:30",
+    "cves": [
+      "CVE-2026-9082"
+    ],
+    "cwes": [
+      "CWE-89"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-96652": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96652",
+    "description": "Detects Plex Media Server player timeline SSRF via a URL in the protocol parameter.",
+    "label": "Plex Media Server - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96652"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-96655": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96655",
+    "description": "Detects Plex Media Server transcode SSRF via an arbitrary URL in the path parameter.",
+    "label": "Plex Media Server - SSRF",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96655"
+    ],
+    "cwes": [
+      "CWE-918"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-96656": {
+    "name": "crowdsecurity/vpatch-CVE-2026-96656",
+    "description": "Detects Plex Media Server TranscoderH264Options preference abuse to write a shared object file.",
+    "label": "Plex Media Server - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-10-28T15:27:18",
+    "cves": [
+      "CVE-2026-96656"
+    ],
+    "cwes": [
+      "CWE-73"
+    ]
+  },
+  "crowdsecurity/vpatch-CVE-2026-97229": {
+    "name": "crowdsecurity/vpatch-CVE-2026-97229",
+    "description": "Detects the crafted CI lint regex associated with GitLab Onigmo integer-overflow RCE.",
+    "label": "GitLab - RCE",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-11-04T15:17:10",
+    "cves": [
+      "CVE-2026-97229"
+    ],
+    "cwes": [
+      "CWE-190"
+    ]
+  },
+  "crowdsecurity/vpatch-WT-2026-0001": {
+    "name": "crowdsecurity/vpatch-WT-2026-0001",
+    "description": "Detects authentication bypass in SmarterTools SmarterMail via force-reset-password endpoint when IsSysAdmin is true",
+    "label": "SmarterMail - Authentication Bypass",
+    "behaviors": [
+      "http:exploit"
+    ],
+    "mitre_attacks": [
+      "TA0001:T1190"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-01-22T09:23:59",
+    "cves": [
+      "CVE-2026-23760"
+    ],
+    "cwes": [
+      "CWE-287"
+    ]
+  },
   "crowdsecurity/vpatch-connectwise-auth-bypass": {
     "name": "crowdsecurity/vpatch-connectwise-auth-bypass",
     "description": "Detect exploitation of auth bypass in ConnectWise ScreenConnect",
-    "label": "ConnectWise ScreenConnect - Auth Bypass",
+    "label": "ConnectWise ScreenConnect - Authentication Bypass",
     "behaviors": [
       "http:exploit"
     ],
@@ -3225,8 +5054,9 @@
   },
   "crowdsecurity/vpatch-env-access": {
     "name": "crowdsecurity/vpatch-env-access",
+    "intent": "malicious",
     "description": "Detect access to .env files",
-    "label": "Access to .env file",
+    "label": "Environment File - Exposure",
     "behaviors": [
       "http:scan"
     ],
@@ -3242,8 +5072,9 @@
   },
   "crowdsecurity/vpatch-git-config": {
     "name": "crowdsecurity/vpatch-git-config",
+    "intent": "malicious",
     "description": "Detect access to .git files",
-    "label": "Access to .git file",
+    "label": "Git Configuration - Exposure",
     "behaviors": [
       "http:scan"
     ],
@@ -3259,9 +5090,9 @@
   "crowdsecurity/vpatch-laravel-debug-mode": {
     "name": "crowdsecurity/vpatch-laravel-debug-mode",
     "description": "Detect bots exploiting laravel debug mode",
-    "label": "Access to laravel debug mode",
+    "label": "Laravel Debug Mode - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -3281,9 +5112,9 @@
   "crowdsecurity/vpatch-symfony-profiler": {
     "name": "crowdsecurity/vpatch-symfony-profiler",
     "description": "Detect abuse of symfony profiler",
-    "label": "Access to symfony profiler",
+    "label": "Symfony Profiler - Exposure",
     "behaviors": [
-      "http:scan"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -3299,7 +5130,9 @@
     "name": "Azlaroc/sftpgo-bf",
     "description": "Detect SFTPGo bruteforce attacks on FTP/SSH",
     "label": "SFTPGo Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -3342,6 +5175,57 @@
     "service": "vaultwarden",
     "created_at": "2022-02-15T13:18:17"
   },
+  "Guezli/mailcow-f2b-feed": {
+    "name": "Guezli/mailcow-f2b-feed",
+    "intent": "anomalous",
+    "description": "Propagate Mailcow internal F2B bans into the local Crowdsec LAPI",
+    "label": "Mailcow F2B Cross-Layer Feed",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "mailcow-f2b",
+    "created_at": "2026-06-08T13:25:13"
+  },
+  "Guezli/postfix-honeypot-users": {
+    "name": "Guezli/postfix-honeypot-users",
+    "intent": "anomalous",
+    "description": "Instant-ban IPs hitting postfix SASL authentication with honeypot usernames",
+    "label": "Postfix Honeypot Username",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0003:T1078"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix",
+    "created_at": "2026-06-08T12:35:42"
+  },
+  "Guezli/postfix-sasl-bf": {
+    "name": "Guezli/postfix-sasl-bf",
+    "description": "Detect slow / distributed SASL bruteforce against postfix",
+    "label": "Postfix SASL Bruteforce",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "postfix",
+    "created_at": "2026-05-26T16:18:47"
+  },
   "Jgigantino31/calibre-web-bf": {
     "name": "Jgigantino31/calibre-web-bf",
     "description": "Detect calibre-web bruteforce",
@@ -3375,8 +5259,25 @@
     "service": "calibre-web",
     "created_at": "2025-10-14T08:42:34"
   },
+  "Jgigantino31/mealie-bf": {
+    "name": "Jgigantino31/mealie-bf",
+    "description": "Detect mealie bruteforce",
+    "label": "Mealie Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "mealie",
+    "created_at": "2026-03-24T09:37:01"
+  },
   "Jgigantino31/ntfy-bf": {
     "name": "Jgigantino31/ntfy-bf",
+    "intent": "reconnaissance",
     "description": "Detect ntfy bruteforce",
     "label": "Ntfy Bruteforce",
     "behaviors": [
@@ -3390,6 +5291,22 @@
     "cti": true,
     "service": "ntfy",
     "created_at": "2025-09-30T09:33:37"
+  },
+  "LazarisIRL/romm-bf": {
+    "name": "LazarisIRL/romm-bf",
+    "description": "Detect RomM bruteforce",
+    "label": "RomM Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 3,
+    "cti": true,
+    "service": "romm",
+    "created_at": "2026-10-28T14:42:49"
   },
   "LePresidente/adguardhome-bf": {
     "name": "LePresidente/adguardhome-bf",
@@ -3689,12 +5606,12 @@
   "lepresidente/ssh-bad-keyexchange-bf": {
     "name": "lepresidente/ssh-bad-keyexchange-bf",
     "description": "Detect ssh bad key exchange",
-    "label": "SSH Bad Key Bruteforce",
+    "label": "SSH Bad Key Exchange",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -3786,6 +5703,7 @@
   },
   "LearningSpot/litellm-bf": {
     "name": "LearningSpot/litellm-bf",
+    "intent": "reconnaissance",
     "description": "Detect bruteforce attempts to Litellm",
     "label": "Litellm Bruteforce",
     "behaviors": [
@@ -3799,6 +5717,22 @@
     "cti": true,
     "service": "litellm",
     "created_at": "2025-05-01T11:03:17"
+  },
+  "LearningSpot/open-webui-bf": {
+    "name": "LearningSpot/open-webui-bf",
+    "description": "Detect Open WebUI bruteforce",
+    "label": "Open WebUI Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 3,
+    "cti": true,
+    "service": "open_webui",
+    "created_at": "2026-10-28T19:11:39"
   },
   "MariuszKociubinski/bitwarden-bf": {
     "name": "MariuszKociubinski/bitwarden-bf",
@@ -3847,6 +5781,23 @@
     "cti": true,
     "service": "technitium",
     "created_at": "2025-10-02T10:22:05"
+  },
+  "PumbaLP/cowrie-precision": {
+    "name": "PumbaLP/cowrie-precision",
+    "description": "Detect repeated logins or shell commands from one source on a Cowrie honeypot (SSH/telnet)",
+    "label": "Cowrie Honeypot Interaction",
+    "behaviors": [
+      "generic:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110",
+      "TA0002:T1059"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "cowrie",
+    "created_at": "2026-10-14T08:53:12"
   },
   "a1ad/meshcentral-bf": {
     "name": "a1ad/meshcentral-bf",
@@ -3926,7 +5877,7 @@
       "TA0007:T1018",
       "TA0007:T1046"
     ],
-    "confidence": 1,
+    "confidence": 0,
     "spoofable": 2,
     "cti": true,
     "service": "mikrotik",
@@ -3934,9 +5885,12 @@
   },
   "aidalinfo/couchdb-slow-bf": {
     "name": "aidalinfo/couchdb-slow-bf",
+    "intent": "reconnaissance",
     "description": "Detect slow Couchdb bruteforce/enum",
     "label": "Couchdb low Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -3948,9 +5902,12 @@
   },
   "aidalinfo/couchdb-bf": {
     "name": "aidalinfo/couchdb-bf",
+    "intent": "reconnaissance",
     "description": "Detect Couchdb bruteforce/enum",
     "label": "Couchdb Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "database:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -3980,7 +5937,9 @@
     "name": "aidalinfo/tcpudp-flood-traefik",
     "description": "Detect TCP/UDP flood",
     "label": "UDP or TCP Flood Traefik",
-    "behaviors": [],
+    "behaviors": [
+      "http:dos"
+    ],
     "mitre_attacks": [
       "TA0040:T1498"
     ],
@@ -4088,6 +6047,7 @@
   },
   "barnoux/crs-anomaly-score": {
     "name": "barnoux/crs-anomaly-score",
+    "intent": "anomalous",
     "description": "Web exploitation detected via Core Rule Set inbound anomaly scoring set by the user in crs-setup.conf",
     "label": "CRS Anomaly Alert",
     "behaviors": [
@@ -4495,7 +6455,7 @@
     "description": "Detect CVE-2022-46169 brute forcing",
     "label": "Cacti CVE-2022-46169",
     "behaviors": [
-      "http:bruteforce"
+      "http:exploit"
     ],
     "mitre_attacks": [
       "TA0043:T1592"
@@ -4688,7 +6648,9 @@
     "name": "crowdsecurity/amavis-blocked",
     "description": "Ban IPs that are blocked by amavis",
     "label": "Infected Email",
-    "behaviors": [],
+    "behaviors": [
+      "smtp:spam"
+    ],
     "mitre_attacks": [
       "TA0002:T1203",
       "TA0002:T1204"
@@ -4701,7 +6663,7 @@
   },
   "crowdsecurity/apache_log4j2_cve-2021-44228": {
     "name": "crowdsecurity/apache_log4j2_cve-2021-44228",
-    "description": "Detect cve-2021-44228 exploitation attemps",
+    "description": "Detect cve-2021-44228 exploitation attempts",
     "label": "Log4j CVE-2021-44228",
     "behaviors": [
       "http:exploit"
@@ -4719,6 +6681,38 @@
       "CVE-2021-44228"
     ]
   },
+  "crowdsecurity/appsec-bot-challenge-too-many-requests": {
+    "name": "crowdsecurity/appsec-bot-challenge-too-many-requests",
+    "description": "Client made too many request to challenge page",
+    "label": "Blocked by CrowdSec AppSec",
+    "behaviors": [
+      "http:likely-bot"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 0,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-08-31T15:45:57"
+  },
+  "crowdsecurity/appsec-bot-challenge-too-many-submissions": {
+    "name": "crowdsecurity/appsec-bot-challenge-too-many-submissions",
+    "description": "Client made too many submissions for challenge",
+    "label": "Blocked by CrowdSec AppSec",
+    "behaviors": [
+      "http:likely-bot"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 0,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-08-31T15:45:57"
+  },
   "crowdsecurity/appsec-native": {
     "name": "crowdsecurity/appsec-native",
     "description": "Identify attacks flagged by CrowdSec AppSec via native rules",
@@ -4727,7 +6721,7 @@
       "http:exploit"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0001:T1190"
     ],
     "confidence": 1,
     "spoofable": 0,
@@ -4743,7 +6737,7 @@
       "http:exploit"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0001:T1190"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -4787,6 +6781,7 @@
   },
   "crowdsecurity/auditd-base64-exec-behavior": {
     "name": "crowdsecurity/auditd-base64-exec-behavior",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : base64 + interpreter (perl/bash/python)",
     "label": "Post Exploitation command execution from base64 encoded payload",
     "behaviors": [
@@ -4803,6 +6798,7 @@
   },
   "crowdsecurity/auditd-postexploit-exec-from-net": {
     "name": "crowdsecurity/auditd-postexploit-exec-from-net",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : curl/wget and exec",
     "label": "Post Exploitation command execution from Internet",
     "behaviors": [
@@ -4819,6 +6815,7 @@
   },
   "crowdsecurity/auditd-postexploit-pkill": {
     "name": "crowdsecurity/auditd-postexploit-pkill",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : pkill execve bursts",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -4835,6 +6832,7 @@
   },
   "crowdsecurity/auditd-postexploit-rm": {
     "name": "crowdsecurity/auditd-postexploit-rm",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : rm execve bursts",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -4851,6 +6849,7 @@
   },
   "crowdsecurity/auditd-suid-crash": {
     "name": "crowdsecurity/auditd-suid-crash",
+    "intent": "anomalous",
     "description": "Detect root suid process crashing",
     "label": "Suspicious suid process crash",
     "behaviors": [
@@ -4867,6 +6866,7 @@
   },
   "crowdsecurity/auditd-sus-exec": {
     "name": "crowdsecurity/auditd-sus-exec",
+    "intent": "anomalous",
     "description": "Detect post-exploitation behaviour : exec from suspicious locations",
     "label": "Post Exploitation command execution",
     "behaviors": [
@@ -4880,6 +6880,23 @@
     "cti": true,
     "service": "linux",
     "created_at": "2023-05-22T12:21:56"
+  },
+  "crowdsecurity/aws-cloudtrail-bf-survey": {
+    "name": "crowdsecurity/aws-cloudtrail-bf-survey",
+    "description": "Detect AWS console login user enumeration",
+    "label": "AWS Console User Enumeration",
+    "behaviors": [
+      "cloud:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "aws",
+    "created_at": "2026-10-13T08:47:46"
   },
   "crowdsecurity/aws-cloudtrail-bf-console-login": {
     "name": "crowdsecurity/aws-cloudtrail-bf-console-login",
@@ -4931,6 +6948,7 @@
   },
   "crowdsecurity/aws-cis-benchmark-console-auth-fail": {
     "name": "crowdsecurity/aws-cis-benchmark-console-auth-fail",
+    "intent": "anomalous",
     "description": "Detect AWS console authentication failure",
     "label": "AWS bruteforce",
     "behaviors": [
@@ -5002,7 +7020,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5018,7 +7036,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5051,7 +7069,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5067,7 +7085,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5083,7 +7101,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5115,7 +7133,7 @@
       "cloud:audit"
     ],
     "mitre_attacks": [
-      "TA0005:T1578"
+      "TA0112:T1578"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5254,13 +7272,13 @@
   },
   "crowdsecurity/endlessh-bf": {
     "name": "crowdsecurity/endlessh-bf",
-    "description": "Detect SSH bruteforce caught by Endlessh",
-    "label": "Endlessh Bruteforce",
+    "description": "Detect SSH scanning caught by Endlessh",
+    "label": "Endlessh SSH Scan",
     "behaviors": [
-      "ssh:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5338,7 +7356,7 @@
   },
   "crowdsecurity/fortinet-cve-2018-13379": {
     "name": "crowdsecurity/fortinet-cve-2018-13379",
-    "description": "Detect cve-2018-13379 exploitation attemps",
+    "description": "Detect cve-2018-13379 exploitation attempts",
     "label": "CVE-2018-13379",
     "behaviors": [
       "http:exploit"
@@ -5374,13 +7392,14 @@
   },
   "crowdsecurity/freeswitch-acl-reject": {
     "name": "crowdsecurity/freeswitch-acl-reject",
+    "intent": "reconnaissance",
     "description": "Detect freeswitch acl rejects",
-    "label": "CVE-2018-13379",
+    "label": "FreeSWITCH ACL Reject",
     "behaviors": [
-      "http:exploit"
+      "sip:bruteforce"
     ],
     "mitre_attacks": [
-      "TA0001:T1190"
+      "TA0006:T1110"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -5506,10 +7525,11 @@
   },
   "crowdsecurity/http-backdoors-attempts": {
     "name": "crowdsecurity/http-backdoors-attempts",
+    "intent": "malicious",
     "description": "Detect attempt to common backdoors",
     "label": "Scanning for backdoors",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595"
@@ -5626,6 +7646,7 @@
   },
   "crowdsecurity/http-cve-probing": {
     "name": "crowdsecurity/http-cve-probing",
+    "intent": "malicious",
     "description": "Detect generic HTTP cve probing",
     "label": "HTTP CVE Probing",
     "behaviors": [
@@ -5722,6 +7743,7 @@
   },
   "LePresidente/http-generic-401-bf": {
     "name": "LePresidente/http-generic-401-bf",
+    "intent": "reconnaissance",
     "description": "Detect generic 401 Authorization error brute force",
     "label": "HTTP Bruteforce",
     "behaviors": [
@@ -5738,6 +7760,7 @@
   },
   "LePresidente/http-generic-403-bf": {
     "name": "LePresidente/http-generic-403-bf",
+    "intent": "reconnaissance",
     "description": "Detect generic 403 Forbidden (Authorization) error brute force",
     "label": "HTTP Bruteforce",
     "behaviors": [
@@ -5782,6 +7805,7 @@
   },
   "crowdsecurity/http-magento-ccs-by-as": {
     "name": "crowdsecurity/http-magento-ccs-by-as",
+    "intent": "anomalous",
     "description": "Detect distributed credit card stuffing from same AS",
     "label": "Magento Credit Card Stuffing By AS",
     "behaviors": [
@@ -5798,6 +7822,7 @@
   },
   "crowdsecurity/http-magento-ccs-by-country": {
     "name": "crowdsecurity/http-magento-ccs-by-country",
+    "intent": "anomalous",
     "description": "Detect distributed credit card stuffing from same country",
     "label": "Magento Credit Card Stuffing By Country",
     "behaviors": [
@@ -5894,6 +7919,7 @@
   },
   "crowdsecurity/http-sensitive-files": {
     "name": "crowdsecurity/http-sensitive-files",
+    "intent": "malicious",
     "description": "Detect attempt to access to sensitive files (.log, .db ..) or folders (.git)",
     "label": "Access to sensitive files over HTTP",
     "behaviors": [
@@ -5923,6 +7949,22 @@
     "cti": true,
     "service": "http",
     "created_at": "2020-05-29T10:32:32"
+  },
+  "crowdsecurity/http-technology-probing": {
+    "name": "crowdsecurity/http-technology-probing",
+    "description": "Detect HTTP technology/vendor probing",
+    "label": "HTTP Technology Probing",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "http",
+    "created_at": "2026-05-05T07:35:26"
   },
   "crowdsecurity/http-wordpress-scan": {
     "name": "crowdsecurity/http-wordpress-scan",
@@ -5960,6 +8002,7 @@
   },
   "crowdsecurity/http-wordpress_wpconfig": {
     "name": "crowdsecurity/http-wordpress_wpconfig",
+    "intent": "malicious",
     "description": "Detect WordPress probing: variations around wp-config.php by wpscan",
     "label": "Access to WordPress wp-config.php",
     "behaviors": [
@@ -5992,6 +8035,7 @@
   },
   "crowdsecurity/impossible-travel-user": {
     "name": "crowdsecurity/impossible-travel-user",
+    "intent": "anomalous",
     "description": "impossible travel user",
     "label": "Impossible travel",
     "behaviors": [],
@@ -6006,6 +8050,7 @@
   },
   "crowdsecurity/impossible-travel": {
     "name": "crowdsecurity/impossible-travel",
+    "intent": "anomalous",
     "description": "Detect Impossible Travel",
     "label": "Impossible travel",
     "behaviors": [],
@@ -6038,7 +8083,7 @@
   },
   "crowdsecurity/jira_cve-2021-26086": {
     "name": "crowdsecurity/jira_cve-2021-26086",
-    "description": "Detect Atlassian Jira CVE-2021-26086 exploitation attemps",
+    "description": "Detect Atlassian Jira CVE-2021-26086 exploitation attempts",
     "label": "Jira CVE-2021-26086 exploitation",
     "behaviors": [
       "http:exploit"
@@ -6074,6 +8119,7 @@
   },
   "crowdsecurity/k8s-audit-api-server-bruteforce": {
     "name": "crowdsecurity/k8s-audit-api-server-bruteforce",
+    "intent": "reconnaissance",
     "description": "Detect bruteforce attempts against K8S API server",
     "label": "Kubernetes API Bruteforce",
     "behaviors": [
@@ -6219,6 +8265,7 @@
   },
   "crowdsecurity/modsecurity": {
     "name": "crowdsecurity/modsecurity",
+    "intent": "anomalous",
     "description": "Web exploitation via modsecurity",
     "label": "Modsecurity Alert",
     "behaviors": [
@@ -6338,12 +8385,12 @@
   "crowdsecurity/nextcloud-bf_domain_error": {
     "name": "crowdsecurity/nextcloud-bf_domain_error",
     "description": "Detect Nextcloud domain error",
-    "label": "NextCloud Bruteforce",
+    "label": "NextCloud Untrusted Domain",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
@@ -6483,6 +8530,7 @@
   },
   "crowdsecurity/postfix-non-smtp-command": {
     "name": "crowdsecurity/postfix-non-smtp-command",
+    "intent": "malicious",
     "description": "Detect scanning of postfix service through non-SMTP commands",
     "label": "Postfix Non-SMTP Command",
     "behaviors": [
@@ -6547,7 +8595,7 @@
   },
   "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510": {
     "name": "crowdsecurity/pulse-secure-sslvpn-cve-2019-11510",
-    "description": "Detect cve-2019-11510 exploitation attemps",
+    "description": "Detect cve-2019-11510 exploitation attempts",
     "label": "Pulse Secure CVE-2019-11510",
     "behaviors": [
       "http:exploit"
@@ -6686,9 +8734,7 @@
     "name": "crowdsecurity/ssh-generic-test",
     "description": "Crowdsec Generic Test Scenario: SSH brute force trigger",
     "label": "Crowdsec Generic Test Scenario",
-    "behaviors": [
-      "ssh:bruteforce"
-    ],
+    "behaviors": [],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -6746,6 +8792,39 @@
     "service": "ssh",
     "created_at": "2021-09-27T15:17:49"
   },
+  "crowdsecurity/ssh-time-based-bf": {
+    "name": "crowdsecurity/ssh-time-based-bf",
+    "description": "Detect time-based ssh bruteforce attempts that evade rate limiting (with false positive reduction)",
+    "label": "SSH Time-Based Bruteforce",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "ssh",
+    "created_at": "2026-01-20T09:34:42"
+  },
+  "crowdsecurity/ssh-time-based-bf_user-enum": {
+    "name": "crowdsecurity/ssh-time-based-bf_user-enum",
+    "description": "Detect time-based ssh user enum bruteforce attempts (with false positive reduction)",
+    "label": "SSH Time-Based User Enumeration",
+    "behaviors": [
+      "ssh:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589",
+      "TA0006:T1110"
+    ],
+    "confidence": 1,
+    "spoofable": 0,
+    "cti": true,
+    "service": "ssh",
+    "created_at": "2026-01-20T09:34:42"
+  },
   "crowdsecurity/stirling-pdf-bf": {
     "name": "crowdsecurity/stirling-pdf-bf",
     "description": "Detect stirling pdf bruteforce",
@@ -6762,8 +8841,25 @@
     "service": "stirling-pdf",
     "created_at": "2024-10-23T13:40:37"
   },
+  "crowdsecurity/supavisor-bf": {
+    "name": "crowdsecurity/supavisor-bf",
+    "description": "Detect brute force attacks against PostgreSQL via Supavisor connection pooler",
+    "label": "Supavisor bruteforce",
+    "behaviors": [
+      "database:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "supavisor",
+    "created_at": "2026-01-20T09:46:14"
+  },
   "crowdsecurity/suricata-major-severity": {
     "name": "crowdsecurity/suricata-major-severity",
+    "intent": "anomalous",
     "description": "Detect exploit attempts via emerging threat rules",
     "label": "Suricata Severity 1 Event",
     "behaviors": [
@@ -6781,6 +8877,7 @@
   },
   "crowdsecurity/suricata-high-medium-severity": {
     "name": "crowdsecurity/suricata-high-medium-severity",
+    "intent": "reconnaissance",
     "description": "Detect exploit attempts via emerging threat rules",
     "label": "Suricata Severity 2 Event",
     "behaviors": [
@@ -6832,7 +8929,9 @@
     "name": "crowdsecurity/teleport-bf",
     "description": "detect teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -6846,7 +8945,9 @@
     "name": "crowdsecurity/teleport-slow-bf",
     "description": "detect slow teleport bruteforce",
     "label": "Teleport Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -6858,6 +8959,7 @@
   },
   "crowdsecurity/telnet-bf": {
     "name": "crowdsecurity/telnet-bf",
+    "intent": "reconnaissance",
     "description": "detect telnet bruteforce",
     "label": "Telnet Bruteforce",
     "behaviors": [
@@ -6890,7 +8992,7 @@
   },
   "crowdsecurity/thinkphp-cve-2018-20062": {
     "name": "crowdsecurity/thinkphp-cve-2018-20062",
-    "description": "Detect ThinkPHP CVE-2018-20062 exploitation attemps",
+    "description": "Detect ThinkPHP CVE-2018-20062 exploitation attempts",
     "label": "ThinkPHP CVE-2018-20062",
     "behaviors": [
       "http:exploit"
@@ -6930,7 +9032,7 @@
   },
   "crowdsecurity/vmware-vcenter-vmsa-2021-0027": {
     "name": "crowdsecurity/vmware-vcenter-vmsa-2021-0027",
-    "description": "Detect VMSA-2021-0027 exploitation attemps",
+    "description": "Detect VMSA-2021-0027 exploitation attempts",
     "label": "VMWARE VCenter VMSA CVE-2021-0027",
     "behaviors": [
       "vm-management:exploit"
@@ -7003,18 +9105,34 @@
   "crowdsecurity/wireguard-auth": {
     "name": "crowdsecurity/wireguard-auth",
     "description": "Detects rejected connections attempts and unauthorized packets through wireguard tunnels",
-    "label": "Wireguard Bruteforce",
+    "label": "Wireguard Rejected Packets",
     "behaviors": [
-      "generic:bruteforce"
+      "generic:scan"
     ],
     "mitre_attacks": [
-      "TA0006:T1110"
+      "TA0043:T1595"
     ],
     "confidence": 3,
     "spoofable": 0,
     "cti": true,
     "service": "wireguard",
     "created_at": "2023-08-11T15:12:59"
+  },
+  "cyrille37/sympa_ww-http-scan": {
+    "name": "cyrille37/sympa_ww-http-scan",
+    "description": "Detect http scan on Sympa endpoint",
+    "label": "Http Scan",
+    "behaviors": [
+      "http:scan"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1595"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "wwsympa",
+    "created_at": "2025-12-02T09:42:32"
   },
   "darkclip/charon-ipsec-bf": {
     "name": "darkclip/charon-ipsec-bf",
@@ -7077,7 +9195,7 @@
       "TA0007:T1018",
       "TA0007:T1046"
     ],
-    "confidence": 1,
+    "confidence": 0,
     "spoofable": 3,
     "cti": true,
     "service": "tcp",
@@ -7229,6 +9347,22 @@
     "cti": true,
     "service": "immich",
     "created_at": "2023-08-04T08:06:05"
+  },
+  "gilbsgilbs/qbittorrent-bf": {
+    "name": "gilbsgilbs/qbittorrent-bf",
+    "description": "Detect QBittorrent WebUI bruteforce",
+    "label": "QBittorrent Bruteforce",
+    "behaviors": [
+      "iot:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "qbittorrent",
+    "created_at": "2026-03-24T13:31:31"
   },
   "hitech95/email-generic-bf": {
     "name": "hitech95/email-generic-bf",
@@ -7491,6 +9625,70 @@
     "service": "http",
     "created_at": "2021-02-02T13:15:35"
   },
+  "melite/dovecot-slow-bf": {
+    "name": "melite/dovecot-slow-bf",
+    "description": "Detect slow Dovecot bruteforce (distributed attacks)",
+    "label": "Dovecot Slow Bruteforce",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-slow-bf_user-enum": {
+    "name": "melite/dovecot-slow-bf_user-enum",
+    "description": "Detect slow Dovecot user enumeration",
+    "label": "Dovecot Slow User Enumeration",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-time-based-bf": {
+    "name": "melite/dovecot-time-based-bf",
+    "description": "Detect time-based Dovecot bruteforce (evasive attacks)",
+    "label": "Dovecot Time-Based Bruteforce",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
+  "melite/dovecot-time-based-bf_user-enum": {
+    "name": "melite/dovecot-time-based-bf_user-enum",
+    "description": "Detect time-based Dovecot user enumeration (evasive attacks)",
+    "label": "Dovecot Time-Based User Enumeration",
+    "behaviors": [
+      "pop3/imap:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 2,
+    "spoofable": 0,
+    "cti": true,
+    "service": "dovecot",
+    "created_at": "2026-03-16T17:03:58"
+  },
   "mstilkerich/bind9-refused": {
     "name": "mstilkerich/bind9-refused",
     "description": "Act on queries / zone transfers denied by bind9 policy",
@@ -7502,7 +9700,7 @@
       "TA0043:T1590"
     ],
     "confidence": 3,
-    "spoofable": 0,
+    "spoofable": 2,
     "cti": true,
     "service": "domain",
     "created_at": "2022-11-21T12:14:27"
@@ -7523,12 +9721,28 @@
     "service": "http",
     "created_at": "2023-04-05T13:50:17"
   },
+  "nicoh88/proxmox-backup-auth-bf": {
+    "name": "nicoh88/proxmox-backup-auth-bf",
+    "description": "Detect failed PBS API authentications (bruteforce)",
+    "label": "Failed PBS API Authentications (bruteforce)",
+    "behaviors": [
+      "vm-management:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "proxmox-backup",
+    "created_at": "2026-03-16T07:56:34"
+  },
   "openappsec/openappsec-bot-protection": {
     "name": "openappsec/openappsec-bot-protection",
     "description": "Detect openappsec 'prevent' securityActions on 'Bot Protection' events (when waf blocks malicious request)",
     "label": "Openappsec 'Bot Protection' detection",
     "behaviors": [
-      "http:spam"
+      "http:likely-bot"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -7542,6 +9756,7 @@
   },
   "openappsec/openappsec-cross-site-redirect": {
     "name": "openappsec/openappsec-cross-site-redirect",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Redirect' events (when waf blocks malicious request)",
     "label": "Openappsec 'cross site redirect' detection",
     "behaviors": [
@@ -7558,6 +9773,7 @@
   },
   "openappsec/openappsec-csrf": {
     "name": "openappsec/openappsec-csrf",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Cross Site Request Forgery' events (when waf blocks malicious request)",
     "label": "Openappsec 'cross site request forgery' detection",
     "behaviors": [
@@ -7594,7 +9810,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Error Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'error limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -7645,7 +9861,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Http limit violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'http limit violation' detection",
     "behaviors": [
-      "http:spam"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -7662,7 +9878,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Illegal http method violation' events (when waf blocks malicious request)",
     "label": "Openappsec 'illegal http method violation' detection",
     "behaviors": [
-      "http:exploit"
+      "http:scan"
     ],
     "mitre_attacks": [
       "TA0043:T1595",
@@ -7693,6 +9909,7 @@
   },
   "openappsec/openappsec-open-redirect": {
     "name": "openappsec/openappsec-open-redirect",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Open Redirect' events (when waf blocks malicious request)",
     "label": "Openappsec 'open redirect' detection",
     "behaviors": [
@@ -7764,7 +9981,7 @@
     "description": "Detect openappsec 'prevent' securityActions on 'Request Rate Limit' events (when waf blocks malicious request)",
     "label": "Openappsec 'request rate limit' detection",
     "behaviors": [
-      "http:bruteforce"
+      "http:dos"
     ],
     "mitre_attacks": [
       "TA0040:T1498"
@@ -7777,6 +9994,7 @@
   },
   "openappsec/openappsec-schema-validation": {
     "name": "openappsec/openappsec-schema-validation",
+    "intent": "anomalous",
     "description": "Detect openappsec 'prevent' securityActions on 'Schema Validation' events (when waf blocks malicious request)",
     "label": "Openappsec 'schema validations' detection",
     "behaviors": [
@@ -7876,11 +10094,30 @@
     "service": "audiobookshelf",
     "created_at": "2024-11-15T09:28:37"
   },
+  "plague-doctor/sharry-bf": {
+    "name": "plague-doctor/sharry-bf",
+    "description": "Detect Sharry bruteforce attacks",
+    "label": "Sharry Bruteforce Attacks",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "sharry",
+    "created_at": "2026-08-27T14:28:03"
+  },
   "pserranoa/openvpn-bf": {
     "name": "pserranoa/openvpn-bf",
+    "intent": "reconnaissance",
     "description": "Detect openvpn bruteforce",
     "label": "OpenVPN Bruteforce",
-    "behaviors": [],
+    "behaviors": [
+      "generic:bruteforce"
+    ],
     "mitre_attacks": [
       "TA0006:T1110"
     ],
@@ -14266,7 +16503,7 @@
     "description": "Detect sshesame commands",
     "label": "Sshesame Commands",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"
@@ -14282,7 +16519,7 @@
     "description": "Detect sshesame input spam",
     "label": "Sshesame Input Spam",
     "behaviors": [
-      "ssh:bruteforce"
+      "linux:post-exploitation"
     ],
     "mitre_attacks": [
       "TA0002:T1059"
@@ -14408,6 +16645,55 @@
     "cti": true,
     "service": "uptime-kuma",
     "created_at": "2022-07-04T13:09:30"
+  },
+  "vspaziani/fireflyiii-logs-bf": {
+    "name": "vspaziani/fireflyiii-logs-bf",
+    "description": "Detect Fireflyiii bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
+  },
+  "vspaziani/fireflyiii-logs-enum": {
+    "name": "vspaziani/fireflyiii-logs-enum",
+    "description": "Detect Fireflyiii user enum bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0043:T1589"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
+  },
+  "vspaziani/fireflyiii-logs-MFA-bf": {
+    "name": "vspaziani/fireflyiii-logs-MFA-bf",
+    "description": "Detect Fireflyiii MFA bruteforce",
+    "label": "Fireflyiii Bruteforce",
+    "behaviors": [
+      "http:bruteforce"
+    ],
+    "mitre_attacks": [
+      "TA0006:T1621",
+      "TA0006:T1110"
+    ],
+    "confidence": 3,
+    "spoofable": 0,
+    "cti": true,
+    "service": "fireflyiii",
+    "created_at": "2026-02-17T10:09:17"
   },
   "xs539/bookstack-bf": {
     "name": "xs539/bookstack-bf",
