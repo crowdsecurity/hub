@@ -1,0 +1,9 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 3
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 3
+len(results["s01-parse"]["crowdsecurity/nginx-logs"]) == 3
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 3
+len(results["s02-enrich"]["crowdsecurity/plex-allowlist"]) == 3
+results["s02-enrich"]["crowdsecurity/plex-allowlist"][0].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/plex-allowlist"][1].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/plex-allowlist"][2].Evt.Whitelisted == true
