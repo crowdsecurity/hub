@@ -1,0 +1,13 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/andrebrait/plex-logs.yaml
+scenarios:
+- ./scenarios/andrebrait/plex-unauthorized-probing.yaml
+postoverflows:
+- ""
+log_file: plex-unauthorized-probing.log
+log_type: plex
+labels: {}
+ignore_parsers: true
+override_statics: []
