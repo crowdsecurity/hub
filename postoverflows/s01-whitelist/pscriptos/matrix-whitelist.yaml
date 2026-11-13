@@ -4,12 +4,20 @@ whitelist:
   reason: "Matrix/Synapse known false positives"
   expression:
     # http-probing: clients checking for the encryption state of unencrypted rooms,
+    # clients checking for a dehydrated device (MSC3814) on startup,
+    # clients resolving reply/thread parents in rooms they are not (or no longer) joined to,
     # remote homeservers fetching events that are unknown to this server
     - |
       evt.Overflow.Alert.GetScenario() == 'crowdsecurity/http-probing' && all(evt.Overflow.Alert.Events, {
-        .GetMeta('http_verb') == 'GET' && .GetMeta('http_status') == '404' && (
-          .GetMeta('http_path') matches '^/_matrix/client/(r0|v3)/rooms/[^/?]+/state/m\\.room\\.encryption/?(\\?.*)?$' ||
-          .GetMeta('http_path') matches '^/_matrix/federation/v1/event/[^/?]+(\\?.*)?$'
+        .GetMeta('http_verb') == 'GET' && (
+          (.GetMeta('http_status') == '404' && (
+            .GetMeta('http_path') matches '^/_matrix/client/(r0|v3)/rooms/[^/?]+/state/m\\.room\\.encryption/?(\\?.*)?$' ||
+            .GetMeta('http_path') matches '^/_matrix/client/(r0|v3)/rooms/[^/?]+/event/[^/?]+(\\?.*)?$' ||
+            .GetMeta('http_path') matches '^/_matrix/client/unstable/org\\.matrix\\.msc3814\\.v1/dehydrated_device/?(\\?.*)?$' ||
+            .GetMeta('http_path') matches '^/_matrix/federation/v1/event/[^/?]+(\\?.*)?$'
+          )) ||
+          (.GetMeta('http_status') == '403' &&
+            .GetMeta('http_path') matches '^/_matrix/client/v1/rooms/[^/?]+/relations/[^/?]+(/[^/?]+){0,2}(\\?.*)?$')
         )
       })
     # http-crawl-non_statics: clients loading media thumbnails (avatars, previews) of a room
