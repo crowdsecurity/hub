@@ -1,0 +1,11 @@
+parsers:
+    - crowdsecurity/syslog-logs
+    - ./parsers/s01-parse/ruokki/mailu-front-logs.yaml
+    - crowdsecurity/dateparse-enrich
+
+scenarios:
+    - ./scenarios/ruokki/mailu-front.yaml
+postoverflows:
+    - ""
+log_file: mailu-front.log
+log_type: mailu-front
