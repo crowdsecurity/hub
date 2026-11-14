@@ -1,0 +1,19 @@
+type: leaky
+name: andrebrait/plex-unauthorized-probing
+description: "Detect unauthenticated requests to many distinct Plex Media Server endpoints"
+# Plex answers 401 to requests without a valid token; crowdsecurity/http-probing only counts 400/403/404.
+filter: "evt.Parsed.program == 'plex' && evt.Meta.http_status == '401'"
+groupby: "evt.Meta.source_ip"
+distinct: "evt.Meta.http_path"
+capacity: 20
+leakspeed: "10s"
+blackhole: 5m
+labels:
+  service: plex
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595.003
+  behavior: "http:scan"
+  label: "Plex Unauthorized Probing"
+  remediation: true
