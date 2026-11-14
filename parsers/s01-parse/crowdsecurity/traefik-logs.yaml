@@ -6,7 +6,7 @@ filter: "evt.Parsed.program startsWith 'traefik'"
 onsuccess: next_stage
 pattern_syntax:
   TRAEFIK_ROUTER: '(%{USER}@%{URIHOST}|\-)'
-  TRAEFIK_SERVER_URL: '(%{URI}|\-)'
+  TRAEFIK_SERVER_URL: '([A-Za-z][A-Za-z0-9+.-]*://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST})?(?:%{URIPATHPARAM})?|\-)'
   NUMBER_MINUS: '[0-9-]+'
   NGCUSTOMUSER: '[a-zA-Z0-9\.\@\-\+_%]+'
   ## Traefik >= 3.6.18 and 3.7.2 write " as \" (not \), older ones write it raw. Lazy DATA with the anchored tail below parses both
