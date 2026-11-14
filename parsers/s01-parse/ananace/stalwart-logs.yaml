@@ -1,0 +1,58 @@
+onsuccess: next_stage
+debug: true
+filter: "evt.Parsed.program matches 'stalwart'"
+name: ananace/stalwart-logs
+description: "Parse Stalwart logs"
+pattern_syntax:
+  STALWART_LOG: '%{TIMESTAMP_ISO8601:date} %{WORD:log_level} %{DATA:event_description} \(%{DATA:event_type}\) listenerId = "%{DATA:listener}", localPort = %{INT:local_port}, remoteIp = %{IP:remote_ip}, remotePort = %{INT:remote_port}'
+grok:
+  name: STALWART_LOG
+  apply_on: message
+nodes:
+  # 2025-03-20T15:40:10Z INFO Blocked IP address (security.ip-blocked) listenerId = "submissions", localPort = 465, remoteIp = 10.4.5.6, remotePort = 35740
+  - filter: evt.Parsed.event_type == 'security.ip-blocked'
+    statics:
+      - meta: log_type
+        value: stalwart_blocked_ip
+  # 2025-03-20T15:41:34Z INFO Auth mechanism not supported (smtp.auth-mechanism-not-supported) listenerId = "submission", localPort = 587, remoteIp = 10.3.4.5, remotePort = 59532
+  - filter: evt.Parsed.event_type == 'smtp.auth-mechanism-not-supported'
+    statics:
+      - meta: log_type
+        value: mail_auth
+      - meta: sub_type
+        value: auth_fail
+  # 2025-03-20T16:09:17Z INFO Authentication not allowed (smtp.auth-not-allowed) listenerId = "smtp", localPort = 25, remoteIp = 10.2.3.4, remotePort = 61687
+  - filter: evt.Parsed.event_type == 'smtp.auth-not-allowed'
+    statics:
+      - meta: log_type
+        value: mail_auth
+      - meta: sub_type
+        value: auth_fail
+  # 2025-04-08T16:01:51Z INFO Relay not allowed (smtp.relay-not-allowed) listenerId = "smtp", localPort = 25, remoteIp = 10.2.3.4, remotePort = 52176, to = "user@example.com"
+  - filter: evt.Parsed.event_type == 'smtp.relay-not-allowed'
+    statics:
+      - meta: log_type
+        value: smtp
+      - meta: sub_type
+        value: relay_denied
+  # 2025-03-20T19:11:24Z INFO Authentication successful (auth.success) listenerId = "imaptls", localPort = 993, remoteIp = 192.168.0.1, remotePort = 45088, accountName = "ace", accountId = 35
+  - filter: evt.Parsed.event_type == 'auth.success'
+    statics:
+      - meta: log_type
+        value: mail_auth
+      - meta: sub_type
+        value: auth_success
+  # 2025-03-20T19:00:42Z INFO SMTP EHLO command (smtp.ehlo) listenerId = "submissions", localPort = 465, remoteIp = 10.1.2.3, remotePort = 63722, domain = "localhost"
+  - filter: evt.Parsed.event_type == 'smtp.ehlo'
+    statics:
+      - meta: log_type
+        value: smtp
+      - meta: sub_type
+        value: ehlo
+statics:
+  - target: evt.StrTime
+    expression: 'evt.Parsed.date'
+  - meta: service
+    value: stalwart
+  - meta: source_ip
+    expression: 'evt.Parsed.remote_ip'
