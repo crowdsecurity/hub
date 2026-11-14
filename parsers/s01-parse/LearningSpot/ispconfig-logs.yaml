@@ -4,7 +4,7 @@ filter: "evt.Parsed.program == 'ispconfig'"
 onsuccess: next_stage
 nodes:
  - grok:
-     pattern: "^Failed login for user '%{USERNAME:target_user}' from %{IP:source_ip} at %{TIMESTAMP_ISO8601:timestamp}"
+     pattern: "^Failed login for user '%{GREEDYDATA:target_user}' from %{IP:source_ip} at %{TIMESTAMP_ISO8601:timestamp}$"
      apply_on: message
      statics:
        - meta: log_type
