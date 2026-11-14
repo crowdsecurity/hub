@@ -2,24 +2,24 @@ onsuccess: next_stage
 name: crowdsecurity/home-assistant-logs
 description: "Parse Home Assistant logs"
 filter: "evt.Parsed.program in ['home-assistant', 'hass'] or evt.Parsed.program endsWith 'homeassistant'"
-pattern_syntax:
-  TIMESTAMP: '%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}'
 nodes:
   - grok:
-      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
+      pattern: "%{TIMESTAMP_ISO8601:timestamp} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). \\(%{GREEDYDATA:http_user_agent}\\)"
       apply_on: message
       statics:
         - meta: log_type
           value: home-assistant_failed_auth
   - grok:
-      pattern: "%{TIMESTAMP:time} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). Requested URL: '%{GREEDYDATA:url}'. \\(%{GREEDYDATA:http_user_agent}\\)"
+      pattern: "%{TIMESTAMP_ISO8601:timestamp} WARNING \\(%{DATA:threadName}\\) \\[homeassistant.components.http.ban\\] Login attempt or request with invalid authentication from %{DATA:source_rdns} \\(%{IPORHOST:source_ip}\\). Requested URL: '%{GREEDYDATA:url}'. \\(%{GREEDYDATA:http_user_agent}\\)"
       apply_on: message
       statics:
         - meta: log_type
           value: home-assistant_failed_auth
 statics:
-  - target: StrTime
-    expression: "evt.Parsed.time"
+  - target: evt.StrTimeFormat
+    expression: "evt.Parsed.timestamp matches '[+-][0-9]{2}:[0-9]{2}$' ? '2006-01-02 15:04:05.999999999-07:00' : '2006-01-02 15:04:05.999999999'"
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
   - meta: service
     value: http
   - meta: source_ip
