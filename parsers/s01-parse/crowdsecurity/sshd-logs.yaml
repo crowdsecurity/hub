@@ -8,23 +8,29 @@ pattern_syntax:
   # https://github.com/crowdsecurity/crowdsec/issues/938
   IPv4_WORKAROUND: (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
   IP_WORKAROUND: (?:%{IPV6}|%{IPv4_WORKAROUND})
-  SSHD_AUTH_FAIL: 'pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
-  SSHD_MAGIC_VALUE_FAILED: 'Magic value check failed \(\d+\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip} port \d+'
-  SSHD_INVALID_USER: 'Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
-  SSHD_INVALID_USER_ALT: 'Failed keyboard-interactive/pam for invalid user %{USERNAME:sshd_invalid_user} from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
-  SSHD_INVALID_BANNER: 'banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
-  SSHD_PREAUTH_AUTHENTICATING_USER: 'Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
+  # sshd logs client-chosen text (usernames, disconnect reasons) as-is, so patterns are anchored to keep it from supplying the IP: https://github.com/crowdsecurity/hub/issues/2003
+  # anchored copies of the built-in SSHD_FAIL, SSHD_USER_FAIL, SSHD_DISC_PREAUTH and SSHD_BAD_VERSION
+  SSHD_FAIL_ANCHORED: '^Failed %{WORD:sshd_auth_type} for %{USERNAME:sshd_invalid_user} from %{IP:sshd_client_ip} port %{NUMBER:sshd_port} %{WORD:sshd_protocol}'
+  SSHD_USER_FAIL_ANCHORED: '^Failed password for invalid user %{USERNAME:sshd_invalid_user} from %{IP:sshd_client_ip} port %{NUMBER:sshd_port} %{WORD:sshd_protocol}$'
+  SSHD_DISC_PREAUTH_ANCHORED: '^Disconnected from %{IP:sshd_client_ip} port %{NUMBER:sshd_port}\s*(?:\[%{GREEDYDATA:sshd_privsep}\]|)'
+  SSHD_BAD_VERSION_ANCHORED: '^Bad protocol version identification ''%{GREEDYDATA}'' from %{IP:sshd_client_ip}'
+  SSHD_AUTH_FAIL: '^pam_%{DATA:pam_type}\(sshd:auth\): authentication failure; logname= uid=%{NUMBER:uid}? euid=%{NUMBER:euid}? tty=ssh ruser= rhost=%{IP_WORKAROUND:sshd_client_ip}( %{SPACE}user=%{USERNAME:sshd_invalid_user})?'
+  SSHD_MAGIC_VALUE_FAILED: '^Magic value check failed \(\d+\) on obfuscated handshake from %{IP_WORKAROUND:sshd_client_ip} port \d+'
+  SSHD_INVALID_USER: '^Invalid user\s*%{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?$'
+  SSHD_INVALID_USER_ALT: '^Failed keyboard-interactive/pam for invalid user %{USERNAME:sshd_invalid_user} from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?( ssh2)?$'
+  SSHD_INVALID_BANNER: '^banner exchange: Connection from %{IP_WORKAROUND:sshd_client_ip} port \d+: invalid format'
+  SSHD_PREAUTH_AUTHENTICATING_USER: '^Connection (closed|reset) by( (authenticating|invalid) user %{USERNAME:sshd_invalid_user})? %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]$'
   #following: https://github.com/crowdsecurity/crowdsec/issues/1201 - some scanners behave differently and trigger this one
-  SSHD_PREAUTH_AUTHENTICATING_USER_ALT: 'Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]'
-  SSHD_BAD_KEY_NEGOTIATION: 'Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
+  SSHD_PREAUTH_AUTHENTICATING_USER_ALT: '^Disconnected from (authenticating|invalid) user %{USERNAME:sshd_invalid_user} %{IP_WORKAROUND:sshd_client_ip} port \d+ \[preauth\]$'
+  SSHD_BAD_KEY_NEGOTIATION: '^Unable to negotiate with %{IP_WORKAROUND:sshd_client_ip} port \d+: no matching (host key type|key exchange method|MAC) found.'
   # in case they are blocked by /etc/ssh/sshd_config AllowUsers xx yy
-  SSHD_NOT_ALLOWED_USER: 'User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
-  SSHD_AUTH_TIMEOUT: 'Timeout before authentication for %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
-  SSHD_DISPATCH_FATAL: 'ssh_dispatch_run_fatal: Connection from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?: message authentication code incorrect \[preauth\]'
-  SSHD_REFUSED_CONN: 'refused connect from.*\((::ffff:)?%{IP_WORKAROUND:sshd_client_ip}\)'
+  SSHD_NOT_ALLOWED_USER: '^User %{USERNAME:sshd_invalid_user}? from %{IP_WORKAROUND:sshd_client_ip}( port \d+)? not allowed because not listed in AllowUsers'
+  SSHD_AUTH_TIMEOUT: '^(fatal: )?Timeout before authentication for %{IP_WORKAROUND:sshd_client_ip}( port \d+)?'
+  SSHD_DISPATCH_FATAL: '^ssh_dispatch_run_fatal: Connection from %{IP_WORKAROUND:sshd_client_ip}( port \d+)?: message authentication code incorrect \[preauth\]'
+  SSHD_REFUSED_CONN: '^refused connect from.*\((::ffff:)?%{IP_WORKAROUND:sshd_client_ip}\)'
 nodes:
   - grok:
-      name: "SSHD_FAIL"
+      name: "SSHD_FAIL_ANCHORED"
       apply_on: message
       statics:
         - meta: log_type
@@ -48,10 +54,10 @@ nodes:
         - meta: target_user
           expression: "evt.Parsed.sshd_invalid_user"
   - grok:
-      name: "SSHD_DISC_PREAUTH"
+      name: "SSHD_DISC_PREAUTH_ANCHORED"
       apply_on: message
   - grok:
-      name: "SSHD_BAD_VERSION"
+      name: "SSHD_BAD_VERSION_ANCHORED"
       apply_on: message
   - grok:
       name: "SSHD_INVALID_USER"
@@ -86,7 +92,7 @@ nodes:
         - meta: extra_log_type
           value: ssh_bad_banner
   - grok:
-      name: "SSHD_USER_FAIL"
+      name: "SSHD_USER_FAIL_ANCHORED"
       apply_on: message
       statics:
         - meta: log_type
