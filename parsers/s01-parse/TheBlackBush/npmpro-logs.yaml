@@ -1,7 +1,7 @@
 filter: "evt.Parsed.program startsWith 'npmpro'"
 onsuccess: next_stage
 name: TheBlackBush/npmpro-logs
-description: "Parse NPMpro access logs (classic and JSON), stream logs (classic and JSON) and the limit_req lines of the error log"
+description: "Parse NPMpro access logs (classic and JSON), stream logs (classic and JSON), the limit_req lines of the error log and the TLS handshake log"
 nodes:
   - grok:
       pattern: '\[%{HTTPDATE:time_local}\] %{DATA:host}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})?(?: (?:%{NONNEGINT:server_port})?(?: "%{NOTDQUOTE:server_name}" %{NOTSPACE:host_id} %{NOTSPACE:request_id} %{NONNEGINT:connection} "%{NOTDQUOTE:upstream_status}" "%{NOTDQUOTE:upstream_response_time}")?)?)?'
@@ -121,7 +121,8 @@ nodes:
     onsuccess: next_stage
   ## Parse the limit_req lines of the error log. Failed basic auth lines are not parsed on purpose:
   ## the access log has the 401 line of the same request, and parsing both would count it twice.
-  - filter: "evt.Parsed.message contains 'limiting requests, excess'"
+  ## (tls.log repeats the error lines of the default site and the admin UI: they are counted from error.log only)
+  - filter: "evt.Parsed.message contains 'limiting requests, excess' && !(evt.Line.Src endsWith '/tls.log' || evt.Line.Src == 'tls.log')"
     grok:
       pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
       apply_on: message
@@ -132,6 +133,33 @@ nodes:
         expression: evt.Parsed.time
       - meta: sub_type
         value: "req_limit_exceeded"
+    onsuccess: next_stage
+
+  ## Parse the TLS handshake log (tls.log, NPMpro setting TLS handshake log): rejected handshakes, failed handshakes
+  ## with the aws-lc reason, plain HTTP on the TLS port and connections closed during the handshake. QUIC lines are
+  ## the ones handled "while handling frames". The other lines of the file are unparsed on purpose.
+  - filter: "evt.Parsed.message contains ' [info] ' && (evt.Parsed.message contains ' while SSL handshaking, client: ' || evt.Parsed.message contains ' handshake rejected while ' || evt.Parsed.message contains ' while handling frames, client: ' || evt.Parsed.message contains ' client sent plain HTTP request to HTTPS port while ')"
+    grok:
+      pattern: '%{NGINXERRTIME:time} \[info\] %{NONNEGINT}#%{NONNEGINT}: \*%{NONNEGINT:connection} (?:SSL_do_handshake\(\) failed \(SSL: error:[0-9a-fA-F]+:SSL routines:[A-Za-z_]+:%{WORD:tls_error}(?:[: ][^)]*)?\)|%{DATA:tls_message}) while %{DATA:tls_stage}, client: %{IPORHOST:remote_addr}, server: (?:\S+:%{NONNEGINT:server_port}|[^,]*)(?:, .*)?$'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: npmpro_tls-handshake
+      - target: evt.StrTime
+        expression: evt.Parsed.time
+      - meta: tls_error
+        expression: evt.Parsed.tls_error
+      - meta: tls_transport
+        expression: "evt.Parsed.tls_stage == 'handling frames' ? 'quic' : 'tcp'"
+      - meta: sub_type
+        expression: >-
+          evt.Parsed.tls_error in ['UNSUPPORTED_PROTOCOL', 'NO_APPLICATION_PROTOCOL'] ? 'protocol' :
+          (evt.Parsed.tls_error in ['NO_SHARED_CIPHER', 'NO_COMMON_SIGNATURE_ALGORITHMS'] ? 'cipher' :
+          (evt.Parsed.tls_error in ['WRONG_VERSION_NUMBER', 'EXCESSIVE_MESSAGE_SIZE', 'HTTP_REQUEST', 'HTTPS_PROXY_REQUEST'] ? 'garbage' :
+          (evt.Parsed.tls_error != '' ? 'other' :
+          (evt.Parsed.tls_message == 'handshake rejected' ? 'rejected' :
+          (evt.Parsed.tls_message == 'client sent plain HTTP request to HTTPS port' ? 'garbage' :
+          ((evt.Parsed.tls_message startsWith 'peer closed connection in SSL handshake' || evt.Parsed.tls_message == 'client closed connection') ? 'closed' : 'other'))))))
     onsuccess: next_stage
 
 # these ones apply for all grok patterns

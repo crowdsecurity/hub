@@ -1,10 +1,11 @@
-A parser for [NPMpro](https://github.com/TheBlackBush/NPMpro), supports the access log, the stream log and the `limit_req` lines of the error log.
+A parser for [NPMpro](https://github.com/TheBlackBush/NPMpro), supports the access log, the stream log, the TLS handshake log and the `limit_req` lines of the error log.
 
 It reads:
  - the NPMpro access log in the classic format (`alog` in [nginx.conf](https://github.com/TheBlackBush/NPMpro/blob/develop/rootfs/usr/local/nginx/conf/nginx.conf)), including lines written before the receiving port (`$server_port`) and the fields after it were added
  - the access log in the JSON format (Log format setting of NPMpro, one object per line). It gives the same `evt.Meta` as the classic line of the same request. A request line that does not parse (for example `GARBAGE`) is kept whole in `http_path`, in both formats
  - the stream log, in the classic and the JSON format (`log_type` `npmpro_stream-log`, `service` `tcp`, `target_port` and `stream_id`). Lines from before the stream id was added still parse
- - the `limiting requests, excess` lines of the nginx error log (`sub_type` `req_limit_exceeded`)
+ - the `limiting requests, excess` lines of the nginx error log (`sub_type` `req_limit_exceeded`). A `limiting requests, excess` line read from `tls.log` is skipped: that file repeats the error lines of the default site and the admin UI, and they are counted from `error.log`
+ - the TLS handshake log (`tls.log`): rejected and failed TLS handshakes of the default site and the admin UI, `log_type` `npmpro_tls-handshake`, with `sub_type` rejected, protocol, cipher, garbage, closed or other, `tls_error` (the aws-lc reason) and `tls_transport` (tcp or quic). Other lines of that file (keepalive closes, errors, warnings) give no event
 
 A file may hold classic and JSON lines one after the other (after a change of the Log format setting): each line is read by its own format.
 
