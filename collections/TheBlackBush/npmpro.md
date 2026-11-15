@@ -8,6 +8,7 @@ A collection to defend [NPMpro](https://github.com/TheBlackBush/NPMpro) against 
  - base http scenarios (crawl, 404 scan, bf)
  - nginx request limit exceeded (needs the error log)
  - appsec virtual patching and generic rules
+ - alert context: the NPMpro request id (`request_id`, the access log field) in AppSec alerts
 
 ## Acquisition template
 
@@ -36,4 +37,5 @@ notes:
  -  Both log formats (Log format setting in NPMpro) use the same `type: npmpro`, and a file may even hold both
  -  Depending on your configuration, paths to log files might change
  -  The web UI login scenario matches the admin UI by its host id `npmpro` (any `NPM_PORT`), and the default port 81 for older NPMpro lines without a host id, see `TheBlackBush/npmpro-login-bf`
+ -  The request id in AppSec alerts needs CrowdSec 1.6.4 or newer and an NPMpro image that sends `X-Npmpro-Request-Id` to the AppSec; other alerts carry no request id. CrowdSec 1.6.3 and older refuse to start with this context (`unknown name req`): update CrowdSec before installing the collection
  -  please read more [here](https://github.com/TheBlackBush/NPMpro/?tab=readme-ov-file#crowdsec)
