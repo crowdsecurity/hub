@@ -4,13 +4,15 @@ name: TheBlackBush/npmpro-logs
 description: "Parse NPMpro access and error logs"
 nodes:
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" %{NOTSPACE} %{NOTSPACE} %{NOTSPACE} %{NOTSPACE}(?: %{NONNEGINT:server_port})?)?'
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:host}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})?(?: (?:%{NONNEGINT:server_port})?(?: "%{NOTDQUOTE:server_name}" %{NOTSPACE:host_id} %{NOTSPACE:request_id} %{NONNEGINT:connection} "%{NOTDQUOTE:upstream_status}" "%{NOTDQUOTE:upstream_response_time}")?)?)?'
       apply_on: message
       statics:
         - meta: log_type
           value: http_access-log
         - target: evt.StrTime
           expression: evt.Parsed.time_local
+        - parsed: target_fqdn
+          expression: "evt.Parsed.server_name != '' ? evt.Parsed.server_name : evt.Parsed.host"
     onsuccess: next_stage
     nodes:
       - filter: "evt.Parsed.status == '401' && evt.Parsed.remote_user != '-'"
@@ -21,13 +23,15 @@ nodes:
             expression: evt.Parsed.remote_user
   ## Parse malformed requests
   - grok:
-      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:target_fqdn}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{DATA:request}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" %{NOTSPACE} %{NOTSPACE} %{NOTSPACE} %{NOTSPACE}(?: %{NONNEGINT:server_port})?)?'
+      pattern: '\[%{HTTPDATE:time_local}\] %{DATA:host}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{DATA:request}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})?(?: (?:%{NONNEGINT:server_port})?(?: "%{NOTDQUOTE:server_name}" %{NOTSPACE:host_id} %{NOTSPACE:request_id} %{NONNEGINT:connection} "%{NOTDQUOTE:upstream_status}" "%{NOTDQUOTE:upstream_response_time}")?)?)?'
       apply_on: message
     statics:
       - meta: log_type
         value: http_access-log
       - target: evt.StrTime
         expression: evt.Parsed.time_local
+      - parsed: target_fqdn
+        expression: "evt.Parsed.server_name != '' ? evt.Parsed.server_name : evt.Parsed.host"
   ## Parse the error log
   - grok:
       pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
@@ -86,3 +90,9 @@ statics:
     expression: "evt.Parsed.target_fqdn"
   - meta: target_port
     expression: "evt.Parsed.server_port"
+  - meta: host_id
+    expression: "evt.Parsed.host_id"
+  - meta: request_id
+    expression: "evt.Parsed.request_id"
+  - meta: connection
+    expression: "evt.Parsed.connection"

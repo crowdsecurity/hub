@@ -25,3 +25,10 @@
 2026/10/25 12:22:13 [error] 123#123: *58 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.5.8, server: shop.example.com, request: "GET /page HTTP/1.1", subrequest: "/auth", upstream: "http://10.0.0.2:4181/auth", host: "shop.example.com"
 2026/10/25 12:22:14 [warn] 123#123: conflicting server name "shop.example.com" on 0.0.0.0:443, ignored
 [25/Oct/2026:12:22:30 +0000] 5432 192.168.8.8 TCP - 200 1024 512 1.003
+[15/Nov/2026:07:36:44 +0000] 127.0.0.1:81 127.0.0.1 0.000 "GET /api HTTP/2.0" 200 1530 "-" "NPMpro/healthcheck" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519MLKEM768 - 81 "_" npmpro 8c66c9025ea47031e4ec35208fcb2315 792 "200" "0.001"
+[15/Nov/2026:07:36:56 +0000] 127.0.0.1:81 127.0.0.1 0.001 "GET /api/tokens HTTP/2.0" 401 1464 "-" "curl/8.5.0" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384 X25519MLKEM768 - 81 "_" npmpro c1e989de9ace82e46b0393cccb725ec5 796 "401" "0.000"
+[15/Nov/2026:07:36:56 +0000] lb.t40.example 127.0.0.1 0.001 "GET /api/items HTTP/1.1" 200 559 "-" "curl/8.5.0" "-" "application/json" - - - - 80 "lb.t40.example" proxy-2 f485824e5de398ec3b3bf12f73da3747 798 "502, 200" "0.000, 0.001"
+[15/Nov/2026:07:36:56 +0000] _ 127.0.0.1 0.000 "GARBAGE" 400 467 "-" "-" "-" "text/html" - - - - 80 "_" - 40cfdbe23c1f7db10b5f180a087a5667 801 "-" "-"
+[15/Nov/2026:07:36:56 +0000]  127.0.0.1 0.000 "GET / HTTP/1.0" 444 0 "-" "-" "-" "-" - - - - 80 "" default 60bb836dd271034765cabe2a6881b456 802 "-" "-"
+[15/Nov/2026:07:36:56 +0000] shop.example.com unix: 0.000 "GET /socket HTTP/1.1" 301 533 "-" "curl/8.5.0" "-" "text/html" - - - -  "_" default 23e5daf76538a15b49dbd31f1930f6ba 803 "-" "-"
+[15/Nov/2026:07:36:57 +0000] npmpro.example.com:19381 192.168.1.12 0.001 "GET /api/tokens HTTP/2.0" 401 1464 "-" "curl/8.5.0" "-" "application/json; charset=utf-8" TLSv1.3 TLS_AES_256_GCM_SHA384  - 81 "_" npmpro 5d0c7e2a9b4f41d3a6e8c1f07b29e4a6 805 "401" "0.000"
