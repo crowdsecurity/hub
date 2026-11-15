@@ -1,5 +1,14 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 4
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 5
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == true
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["program"] == "sshd-session"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["timestamp"] == "Sep  6 10:01:10"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["logsource"] == "syslog"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["message"] == "Accepted publickey for vagrant from 192.168.121.1 port 56310 ssh2: RSA SHA256:kzfjfps/WFgXAdNgzvHBLuI072Y+f+91rpinXJAAvkM"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Parsed["pid"] == "12100"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_path"] == "sshd-success-logs.log"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/syslog-logs"][4].Evt.Meta["machine"] == "bullseye"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == true
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["logsource"] == "syslog"
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Evt.Parsed["message"] == "Accepted publickey for vagrant from 192.168.121.1 port 56296 ssh2: RSA SHA256:1M4RzhMyWuFS/86uPY/ce2prh/dVTHW7iD2RhpquOZA"
@@ -36,7 +45,24 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Parsed["pid"] == "12032"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["machine"] == "bullseye"
 results["s00-raw"]["crowdsecurity/syslog-logs"][3].Evt.Meta["datasource_path"] == "sshd-success-logs.log"
-len(results["s01-parse"]["crowdsecurity/sshd-success-logs"]) == 4
+len(results["s01-parse"]["crowdsecurity/sshd-success-logs"]) == 5
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Success == true
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["sshd_client_port"] == "56310"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["pid"] == "12100"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["program"] == "sshd-session"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["sshd_auth_user"] == "vagrant"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["sshd_client_ip"] == "192.168.121.1"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["logsource"] == "syslog"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["message"] == "Accepted publickey for vagrant from 192.168.121.1 port 56310 ssh2: RSA SHA256:kzfjfps/WFgXAdNgzvHBLuI072Y+f+91rpinXJAAvkM"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["sshd_trail"] == ": RSA SHA256:kzfjfps/WFgXAdNgzvHBLuI072Y+f+91rpinXJAAvkM"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Parsed["timestamp"] == "Sep  6 10:01:10"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["source_ip"] == "192.168.121.1"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["user"] == "vagrant"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["datasource_path"] == "sshd-success-logs.log"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["datasource_type"] == "file"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["log_type"] == "auth_success"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["machine"] == "bullseye"
+results["s01-parse"]["crowdsecurity/sshd-success-logs"][4].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][0].Evt.Parsed["sshd_client_port"] == "56296"
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][0].Evt.Parsed["pid"] == "581"
@@ -104,7 +130,26 @@ results["s01-parse"]["crowdsecurity/sshd-success-logs"][3].Evt.Meta["log_type"] 
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][3].Evt.Meta["machine"] == "bullseye"
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][3].Evt.Meta["service"] == "ssh"
 results["s01-parse"]["crowdsecurity/sshd-success-logs"][3].Evt.Meta["source_ip"] == "192.168.121.1"
-len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 4
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 5
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Success == true
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshd_client_port"] == "56310"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshd_trail"] == ": RSA SHA256:kzfjfps/WFgXAdNgzvHBLuI072Y+f+91rpinXJAAvkM"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["logsource"] == "syslog"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["pid"] == "12100"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["program"] == "sshd-session"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshd_auth_user"] == "vagrant"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["sshd_client_ip"] == "192.168.121.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["timestamp"] == "Sep  6 10:01:10"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Parsed["message"] == "Accepted publickey for vagrant from 192.168.121.1 port 56310 ssh2: RSA SHA256:kzfjfps/WFgXAdNgzvHBLuI072Y+f+91rpinXJAAvkM"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_path"] == "sshd-success-logs.log"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["datasource_type"] == "file"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["log_type"] == "auth_success"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["machine"] == "bullseye"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["service"] == "ssh"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["source_ip"] == "192.168.121.1"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["user"] == "vagrant"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Meta["timestamp"][4:] == "-09-06T10:01:10Z"
+results["s02-enrich"]["crowdsecurity/dateparse-enrich"][4].Evt.Enriched["MarshaledTime"][4:] == "-09-06T10:01:10Z"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Success == true
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshd_client_port"] == "56296"
 results["s02-enrich"]["crowdsecurity/dateparse-enrich"][0].Evt.Parsed["sshd_trail"] == ": RSA SHA256:1M4RzhMyWuFS/86uPY/ce2prh/dVTHW7iD2RhpquOZA"

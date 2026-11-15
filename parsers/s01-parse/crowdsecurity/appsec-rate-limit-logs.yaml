@@ -1,0 +1,29 @@
+onsuccess: next_stage
+format: 3.0
+#debug: true
+filter: "evt.Parsed.program == 'appsec' && evt.Parsed.source == 'crowdsec-appsec-rate-limit'"
+name: crowdsecurity/appsec-rate-limit-logs
+description: "Parse AppSec rate limit events"
+statics:
+  - meta: service
+    value: appsec
+  - meta: log_type
+    value: appsec-rate-limit
+  - meta: source_ip
+    expression: "evt.Parsed.source_ip"
+  - meta: target_host
+    expression: "evt.Parsed.target_host"
+  - meta: request_uuid
+    expression: "evt.Parsed.req_uuid"
+  - meta: target_uri
+    expression: "evt.Parsed.target_uri"
+  - meta: http_verb
+    expression: "evt.Parsed.method"
+  - meta: http_user_agent
+    expression: "evt.Parsed.user_agent"
+  - meta: rate_limit_key
+    expression: "evt.Parsed.rate_limit_key"
+  - meta: rate_limit
+    expression: "evt.Parsed.rate_limit"
+  - meta: remediation_cmpt_ip
+    expression: "evt.Parsed.remediation_cmpt_ip"

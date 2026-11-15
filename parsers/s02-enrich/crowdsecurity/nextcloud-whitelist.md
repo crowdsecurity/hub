@@ -10,6 +10,8 @@ On first load the photos app calls a preview endpoint, however, if it fails to l
 
 When opening the photos app, multiple requests are made very quickly for images, since they are not marked as images (ending in png,jpg etc) it can trigger HTTP crawl non statics.
 
+Depending on the Photos version, previews are requested as `/apps/photos/api/v1/preview/<fileid>?etag=<etag>&x=<width>&y=<height>` or, in recent versions, as `/apps/photos/api/v1/preview/<fileid>?x=<width>&y=<height>` (no `etag`). Both formats are whitelisted, for successful (`200`) `GET` requests only.
+
 ---
 ### Backup app
 When loading backups for a file if those backups have been modified or deleted by (OS/USER) it can easily trigger http-probing
@@ -56,3 +58,14 @@ When pushes changes to a text session, a 403 error is thrown if the user session
 ### Collabora Online / richdocumentscode
 When using Collabora Online (richdocumentscode app), the application uses `proxy.php` to access resources such as images and icons. Some of these resources may return 404 errors if they are missing or not available, which can trigger http-probing.
 
+---
+### Memories app
+When a folder is opened, Memories requests the preview of every media in it at once. The URLs end with the media id, so they are not detected as static assets and can trigger http-crawl-non_statics. Previews that cannot be generated answer 404, which can trigger http-probing.
+
+When a media format cannot be decoded (transcoding/HEIC support disabled), the `decodable` endpoint answers 403 and can trigger http-probing as well.
+
+The API endpoints that are polled without an id in the path (`describe`, `system-status`, `multipreview`, the `days` base endpoint) repeat the same file name, so `http-crawl-non_statics` (which is grouped by `evt.Parsed.file_name`) counts them only once and they cannot overflow the bucket: they are intentionally left out of the whitelist.
+
+The endpoints that do carry ids in the path produce one distinct file name per request, so they can in principle overflow the same bucket: `days/<day ids>` requests the counters of the visible range and `image/info/<media id>` fetches the metadata of each visible media. A burst of 40 distinct values in 20 seconds reproduces the `http-crawl-non_statics` alert, so both paths are whitelisted too.
+
+Each rule matches the full path from the start and requires the numeric id, so a URL that merely contains one of these paths (for example in a query string) is not whitelisted. The rules accept `/apps/...`, `/index.php/apps/...`, and the same forms under a Nextcloud subfolder (`/nextcloud/apps/...`, `/nextcloud/index.php/apps/...`). Status codes are restricted to the relevant ones: `200`/`304`/`404` for previews, `200`/`403` for `decodable`, and `200` for `info` and `days`.

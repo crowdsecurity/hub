@@ -1,0 +1,32 @@
+---
+filter: "evt.Parsed.program == 'bifrost' && evt.Parsed.message startsWith '{' && UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'bifrost') in ['', nil]"
+onsuccess: next_stage
+name: sdwilsh/bifrost-logs
+description: Parses logs from Bifrost
+nodes:
+  - filter: "evt.Unmarshaled.bifrost['http.method'] != nil"
+    statics:
+      - meta: log_type
+        expression: |
+          evt.Unmarshaled.bifrost['http.status_code'] == 401 && evt.Unmarshaled.bifrost['http.request_duration_ms'] <= 10 ? 'bifrost_failed_auth' : ''
+      - meta: http_verb
+        expression: evt.Unmarshaled.bifrost['http.method']
+      - meta: http_path
+        expression: evt.Unmarshaled.bifrost['http.target']
+      - meta: http_status
+        expression: string(evt.Unmarshaled.bifrost['http.status_code'])
+      - meta: http_user_agent
+        expression: evt.Unmarshaled.bifrost['http.user_agent']
+      - meta: source_ip
+        expression: |
+          let trusted = ['127.0.0.0/8', '::1/128', '10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', '100.64.0.0/10', 'fc00::/7'];
+          let addr = split(evt.Unmarshaled.bifrost['http.remote_addr'] ?? '', ':');
+          let peer = trim(join(addr[:len(addr) - 1], ':'), '[]');
+          let forwarded = trim(evt.Unmarshaled.bifrost['http.forwarded_for'] ?? '');
+          let peerTrusted = IsIP(peer) && any(trusted, {IpInRange(peer, #)});
+          peerTrusted && forwarded != '' ? (IsIP(forwarded) ? forwarded : '') : peer
+statics:
+  - meta: service
+    value: bifrost
+  - target: evt.StrTime
+    expression: evt.Unmarshaled.bifrost.time
