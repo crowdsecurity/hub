@@ -1,7 +1,7 @@
 type: leaky
 name: TheBlackBush/npmpro-login-bf
 description: "Detect bruteforce on the NPMpro web UI login"
-filter: "evt.Meta.log_type == 'http_access-log' && evt.Meta.target_port == '81' && evt.Meta.http_verb == 'POST' && evt.Meta.http_status in ['401', '403', '429'] && evt.Meta.http_path matches '^/api/tokens(/totp)?([?]|$)'"
+filter: "evt.Meta.log_type == 'http_access-log' && (evt.Meta.host_id == 'npmpro' || (evt.Meta.host_id == '' && evt.Meta.target_port == '81')) && evt.Meta.http_verb == 'POST' && evt.Meta.http_status in ['401', '403', '429'] && evt.Meta.http_path matches '^/api/tokens(/totp)?([?]|$)'"
 groupby: evt.Meta.source_ip
 capacity: 5
 leakspeed: "2m"

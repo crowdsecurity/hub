@@ -1,7 +1,7 @@
 filter: "evt.Parsed.program startsWith 'npmpro'"
 onsuccess: next_stage
 name: TheBlackBush/npmpro-logs
-description: "Parse NPMpro access and error logs"
+description: "Parse NPMpro access logs (classic and JSON), stream logs (classic and JSON) and the limit_req lines of the error log"
 nodes:
   - grok:
       pattern: '\[%{HTTPDATE:time_local}\] %{DATA:host}(?::%{NONNEGINT})? %{IPORHOST:remote_addr} %{NUMBER} "%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}" %{NUMBER:status} %{NUMBER} "%{NOTDQUOTE:http_referer}" "%{NOTDQUOTE:http_user_agent}" "%{NOTDQUOTE:remote_user}"(?: "%{NOTDQUOTE}" (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})? (?:%{NOTSPACE})?(?: (?:%{NONNEGINT:server_port})?(?: "%{NOTDQUOTE:server_name}" %{NOTSPACE:host_id} %{NOTSPACE:request_id} %{NONNEGINT:connection} "%{NOTDQUOTE:upstream_status}" "%{NOTDQUOTE:upstream_response_time}")?)?)?'
@@ -32,64 +32,128 @@ nodes:
         expression: evt.Parsed.time_local
       - parsed: target_fqdn
         expression: "evt.Parsed.server_name != '' ? evt.Parsed.server_name : evt.Parsed.host"
-  ## Parse the error log
+  ## Parse the JSON stream log (it must come before the JSON access node: both start with a brace)
+  ## Both JSON nodes check the raw line for fields only NPMpro writes and for the closing brace, so a foreign or truncated
+  ## JSON line stays unparsed and never becomes an empty event.
+  - filter: "evt.Parsed.message startsWith '{' && evt.Parsed.message endsWith '}' && evt.Parsed.message contains ',\"session_time\":\"' && evt.Parsed.message contains ',\"stream_id\":\"'"
+    statics:
+      - parsed: npmpro_json
+        expression: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "npmpro")
+      - meta: log_type
+        value: npmpro_stream-log
+      - target: evt.StrTime
+        expression: evt.Unmarshaled.npmpro.time_local
+      - parsed: server_port
+        expression: evt.Unmarshaled.npmpro.server_port
+      - parsed: remote_addr
+        expression: evt.Unmarshaled.npmpro.remote_addr
+      - parsed: status
+        expression: evt.Unmarshaled.npmpro.status
+      - parsed: stream_id
+        expression: evt.Unmarshaled.npmpro.stream_id
+    onsuccess: next_stage
+  ## Parse the JSON access log. The nodes below run one after the other (the parent has no onsuccess):
+  ## the first reads the fields, the next ones split the request line and mark a failed basic auth, because the statics
+  ## of a node run after its grok and its child nodes.
+  ## A line from a unix socket client (remote_addr `unix:`) has no client address and is dropped on purpose, as it is in the classic
+  ## format (no grok matches it).
+  - filter: "evt.Parsed.message startsWith '{' && evt.Parsed.message endsWith '}' && evt.Parsed.message contains ',\"host_id\":\"' && evt.Parsed.message contains ',\"request_id\":\"' && !(evt.Parsed.message contains ',\"remote_addr\":\"unix:\",')"
+    nodes:
+      - statics:
+          - parsed: npmpro_format
+            value: json
+          - parsed: npmpro_json
+            expression: UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, "npmpro")
+          - meta: log_type
+            value: http_access-log
+          - target: evt.StrTime
+            expression: evt.Unmarshaled.npmpro.time_local
+          - parsed: host
+            expression: evt.Unmarshaled.npmpro.host
+          - parsed: remote_addr
+            expression: evt.Unmarshaled.npmpro.remote_addr
+          - parsed: request
+            expression: evt.Unmarshaled.npmpro.request
+          - parsed: status
+            expression: evt.Unmarshaled.npmpro.status
+          - parsed: http_referer
+            expression: "evt.Unmarshaled.npmpro.http_referer != '' ? evt.Unmarshaled.npmpro.http_referer : '-'"
+          - parsed: http_user_agent
+            expression: "evt.Unmarshaled.npmpro.http_user_agent != '' ? evt.Unmarshaled.npmpro.http_user_agent : '-'"
+          - parsed: remote_user
+            expression: "evt.Unmarshaled.npmpro.remote_user != '' ? evt.Unmarshaled.npmpro.remote_user : '-'"
+          - parsed: server_port
+            expression: evt.Unmarshaled.npmpro.server_port
+          - parsed: server_name
+            expression: evt.Unmarshaled.npmpro.server_name
+          - parsed: host_id
+            expression: evt.Unmarshaled.npmpro.host_id
+          - parsed: request_id
+            expression: evt.Unmarshaled.npmpro.request_id
+          - parsed: connection
+            expression: evt.Unmarshaled.npmpro.connection
+          - parsed: upstream_status
+            expression: evt.Unmarshaled.npmpro.upstream_status
+          - parsed: upstream_response_time
+            expression: evt.Unmarshaled.npmpro.upstream_response_time
+          - parsed: target_fqdn
+            expression: "evt.Unmarshaled.npmpro.server_name != '' ? evt.Unmarshaled.npmpro.server_name : evt.Unmarshaled.npmpro.host"
+      ## split the request line; a request that does not match keeps `request` as the raw field
+      - filter: "evt.Parsed.npmpro_format == 'json'"
+        grok:
+          pattern: '%{WORD:verb} %{DATA:request} HTTP/%{NUMBER:http_version}'
+          expression: evt.Unmarshaled.npmpro.request
+      ## a failed basic auth (this node has no filter, so it always succeeds: the result of a parent node is the result of its last child)
+      - statics:
+          - meta: sub_type
+            expression: "evt.Parsed.status == '401' && evt.Parsed.remote_user != '-' ? 'auth_fail' : ''"
+          - meta: username
+            expression: "evt.Parsed.status == '401' && evt.Parsed.remote_user != '-' ? evt.Parsed.remote_user : ''"
+  ## Parse the classic stream log (an empty port or protocol is allowed, and so is a line without the stream id)
   - grok:
-      pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
+      pattern: '^\[%{HTTPDATE:time_local}\] (?:%{NONNEGINT:server_port})? %{IPORHOST:remote_addr} %{NOTSPACE:protocol} (?:%{NOTSPACE:ssl_preread_protocol})? %{NUMBER:status} %{NUMBER} %{NUMBER} %{NUMBER}(?: %{NOTSPACE:stream_id})?$'
       apply_on: message
       statics:
         - meta: log_type
-          value: http_error-log
+          value: npmpro_stream-log
         - target: evt.StrTime
-          expression: evt.Parsed.time
-    pattern_syntax:
-      NPMPRO_NO_DOUBLE_QUOTE: '[^"]+'
+          expression: evt.Parsed.time_local
     onsuccess: next_stage
-    nodes:
-      - filter: "evt.Parsed.message contains 'was not found in'"
-        pattern_syntax:
-          NPMPRO_USER_NOT_FOUND: 'user "%{NPMPRO_NO_DOUBLE_QUOTE:username}" was not found in "%{NPMPRO_NO_DOUBLE_QUOTE}"'
-        grok:
-          pattern: '%{NPMPRO_USER_NOT_FOUND}'
-          apply_on: message
-        statics:
-          - meta: sub_type
-            value: "auth_fail"
-          - meta: username
-            expression: evt.Parsed.username
-      - filter: "evt.Parsed.message contains 'password mismatch'"
-        pattern_syntax:
-          NPMPRO_PASSWORD_MISMATCH: 'user "%{NPMPRO_NO_DOUBLE_QUOTE:username}": password mismatch'
-        grok:
-          pattern: '%{NPMPRO_PASSWORD_MISMATCH}'
-          apply_on: message
-        statics:
-          - meta: sub_type
-            value: "auth_fail"
-          - meta: username
-            expression: evt.Parsed.username
-      - filter: "evt.Parsed.message contains 'limiting requests, excess'"
-        statics:
-          - meta: sub_type
-            value: "req_limit_exceeded"
+  ## Parse the limit_req lines of the error log. Failed basic auth lines are not parsed on purpose:
+  ## the access log has the 401 line of the same request, and parsing both would count it twice.
+  - filter: "evt.Parsed.message contains 'limiting requests, excess'"
+    grok:
+      pattern: '(%{IPORHOST} )?%{NGINXERRTIME:time} \[%{LOGLEVEL}\] %{NONNEGINT}#%{NONNEGINT}: (\*%{NONNEGINT} )?%{GREEDYDATA:message}, client: %{IPORHOST:remote_addr}, server: %{DATA}, request: "%{WORD:verb} ([^/]+)?%{DATA:request}( HTTP/%{NUMBER:http_version})?"(?:, subrequest: "%{NOTDQUOTE}")?(?:, upstream: "%{NOTDQUOTE}")?(?:, host: "%{DATA:target_fqdn}(?::%{NONNEGINT})?")?'
+      apply_on: message
+    statics:
+      - meta: log_type
+        value: http_error-log
+      - target: evt.StrTime
+        expression: evt.Parsed.time
+      - meta: sub_type
+        value: "req_limit_exceeded"
+    onsuccess: next_stage
 
 # these ones apply for all grok patterns
 statics:
   - meta: service
-    value: http
+    expression: "evt.Meta.log_type startsWith 'http_' ? 'http' : 'tcp'"
   - meta: source_ip
     expression: "evt.Parsed.remote_addr"
   - meta: http_status
-    expression: "evt.Parsed.status"
+    expression: "evt.Meta.log_type startsWith 'http_' ? evt.Parsed.status : ''"
   - meta: http_path
-    expression: "evt.Parsed.request"
+    expression: "evt.Meta.log_type startsWith 'http_' ? evt.Parsed.request : ''"
   - meta: http_verb
-    expression: "evt.Parsed.verb"
+    expression: "evt.Meta.log_type startsWith 'http_' ? evt.Parsed.verb : ''"
   - meta: http_user_agent
-    expression: "evt.Parsed.http_user_agent"
+    expression: "evt.Meta.log_type startsWith 'http_' ? evt.Parsed.http_user_agent : ''"
   - meta: target_fqdn
-    expression: "evt.Parsed.target_fqdn"
+    expression: "evt.Meta.log_type startsWith 'http_' ? evt.Parsed.target_fqdn : ''"
   - meta: target_port
     expression: "evt.Parsed.server_port"
+  - meta: stream_id
+    expression: "evt.Meta.log_type == 'npmpro_stream-log' ? evt.Parsed.stream_id : ''"
   - meta: host_id
     expression: "evt.Parsed.host_id"
   - meta: request_id

@@ -1,0 +1,17 @@
+type: leaky
+name: TheBlackBush/npmpro-bad-requests
+description: "Detect clients that send many bad requests to NPMpro (400 from nginx itself, or 444 from the default site)"
+filter: "evt.Meta.log_type == 'http_access-log' && ((evt.Meta.http_status == '400' && evt.Parsed.upstream_status in ['', '-']) || (evt.Meta.http_status == '444' && evt.Meta.host_id == 'default'))"
+groupby: evt.Meta.source_ip
+capacity: 10
+leakspeed: "10s"
+blackhole: 5m
+labels:
+  service: http
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "http:scan"
+  label: "NPMpro bad requests"
+  remediation: true
