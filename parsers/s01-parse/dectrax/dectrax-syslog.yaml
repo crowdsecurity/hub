@@ -4,7 +4,8 @@ description: "Parse DECTRAX decoy and deception syslog events"
 name: dectrax/dectrax-syslog
 nodes:
   # Node 1: Key-Value parsing for structured syslog (RFC 5424 / key-value payloads)
-  - filter: "ParseKVLax(evt.Parsed.message, evt.Unmarshaled, 'dectrax') == nil"
+  - filter: "ParseKVLax(evt.Parsed.message, evt.Unmarshaled, 'dectrax') == nil and (evt.Unmarshaled.dectrax.src_ip != nil or evt.Unmarshaled.dectrax.src != nil or evt.Unmarshaled.dectrax.attacker != nil)"
+    onsuccess: next_stage
     statics:
       - meta: log_type
         value: dectrax-decoy-breach
@@ -21,25 +22,27 @@ nodes:
 
   # Node 2: Grok pattern for traditional syslog format
   - grok:
-      pattern: "^.*attacker=(%{IP:src_ip})\\s+decoy=(%{WORD:decoy_service})\\s+port=(%{INT:dest_port})\\s+severity=(%{WORD:threat_level}).*$"
+      pattern: "^.*(attacker|src_ip)=(%{IP:src_ip})\\s+decoy=(%{WORD:decoy_service})\\s+(port|dest_port)=(%{INT:dest_port})\\s+(severity|threat_level)=(%{WORD:threat_level}).*$"
       apply_on: message
-      statics:
-        - meta: log_type
-          value: dectrax-decoy-breach
-        - meta: source_ip
-          expression: "evt.Parsed.src_ip"
-        - meta: service
-          expression: "evt.Parsed.decoy_service"
-        - meta: dest_port
-          expression: "evt.Parsed.dest_port"
-        - meta: threat_level
-          expression: "evt.Parsed.threat_level"
+    onsuccess: next_stage
+    statics:
+      - meta: log_type
+        value: dectrax-decoy-breach
+      - meta: source_ip
+        expression: "evt.Parsed.src_ip"
+      - meta: service
+        expression: "evt.Parsed.decoy_service"
+      - meta: dest_port
+        expression: "evt.Parsed.dest_port"
+      - meta: threat_level
+        expression: "evt.Parsed.threat_level"
 
   # Node 3: CEF fallback format
   - filter: "evt.Parsed.message contains 'CEF:'"
     grok:
       pattern: "^.*CEF:0\\|DECTRAX\\|%{DATA:device_product}\\|%{DATA:device_version}\\|%{DATA:signature_id}\\|%{DATA:name}\\|%{DATA:severity}\\|%{GREEDYDATA:cef_extension}$"
       apply_on: message
+    onsuccess: next_stage
     statics:
       - meta: log_type
         value: dectrax-decoy-breach
