@@ -4,6 +4,10 @@ name: crowdsecurity/appsec-bot-challenge-detect-headers
 # Ships no JavaScript. Each rule is guarded on the hint actually being present,
 # so deployments where the browser sends none (plain HTTP, or a browser that
 # does not implement client hints) score nothing rather than everything.
+
+# Windows/macOS is set to 70 to allow legitimate users with a UA spoofing extension (the balanced/permissive threshold are higher)
+# For bots, platform_mismatch will most likely also fire, so the combined score will be higher.
+# Anddroid is still experimental: we saw firetv devices sending inconsistent client hints
 inband:
   on_challenge_submit:
     - filter: >-
@@ -11,7 +15,7 @@ inband:
         req.UserAgent() contains "Windows NT" &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "Windows")
       apply:
-        - AddRequestScore(0, "ch_platform_windows", "detect-experimental-headers")  # intended weight: 100
+        - AddRequestScore(70, "ch_platform_windows")
 
     - filter: >-
         req.Header.Get("Sec-CH-UA-Platform") != "" &&
@@ -26,10 +30,10 @@ inband:
         !(req.UserAgent() contains "iPhone") &&
         !(req.Header.Get("Sec-CH-UA-Platform") contains "macOS")
       apply:
-        - AddRequestScore(0, "ch_platform_macos", "detect-experimental-headers")  # intended weight: 100
+        - AddRequestScore(70, "ch_platform_macos")
 
     # Every browser on iOS is WebKit and implements no client hints, wrappers
     # (CriOS/EdgiOS/FxiOS) included.
     - filter: 'req.UserAgent() contains "iPhone" && req.Header.Get("Sec-CH-UA") != ""'
       apply:
-        - AddRequestScore(0, "ios_sends_client_hints", "detect-experimental-headers")  # intended weight: 100
+        - AddRequestScore(100, "ios_sends_client_hints")
