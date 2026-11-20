@@ -1,5 +1,5 @@
 len(results) == 4
-len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 7
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 9
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Success == true
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["message"] == "{\"ClientAddr\":\"172.17.0.1:39496\",\"ClientHost\":\"172.17.0.1\",\"ClientPort\":\"39496\",\"ClientUsername\":\"-\",\"DownstreamContentSize\":357,\"DownstreamStatus\":200,\"Duration\":357313,\"OriginContentSize\":357,\"OriginDuration\":324669,\"OriginStatus\":200,\"Overhead\":32644,\"RequestAddr\":\"test.docker.localhost\",\"RequestContentSize\":0,\"RequestCount\":190,\"RequestHost\":\"test.docker.localhost\",\"RequestMethod\":\"GET\",\"RequestPath\":\"/594VAEoi.save\",\"RequestPort\":\"-\",\"RequestProtocol\":\"HTTP/1.1\",\"RequestScheme\":\"http\",\"RetryAttempts\":0,\"RouterName\":\"test@docker\",\"ServiceAddr\":\"172.17.0.3:80\",\"ServiceName\":\"test@docker\",\"ServiceURL\":{\"Scheme\":\"http\",\"Opaque\":\"\",\"User\":null,\"Host\":\"172.17.0.3:80\",\"Path\":\"\",\"RawPath\":\"\",\"ForceQuery\":false,\"RawQuery\":\"\",\"Fragment\":\"\",\"RawFragment\":\"\"},\"StartLocal\":\"2021-12-08T14:02:43.587782192Z\",\"StartUTC\":\"2021-12-08T14:02:43.587782192Z\",\"downstream_Content-Length\":\"357\",\"downstream_Content-Type\":\"text/plain; charset=utf-8\",\"downstream_Date\":\"Wed, 08 Dec 2021 14:02:43 GMT\",\"entryPointName\":\"http\",\"level\":\"info\",\"msg\":\"\",\"origin_Content-Length\":\"357\",\"origin_Content-Type\":\"text/plain; charset=utf-8\",\"origin_Date\":\"Wed, 08 Dec 2021 14:02:43 GMT\",\"request_Connection\":\"Keep-Alive\",\"request_User-Agent\":\"Nikto\",\"request_X-Forwarded-Host\":\"test.docker.localhost\",\"request_X-Forwarded-Port\":\"80\",\"request_X-Forwarded-Proto\":\"http\",\"request_X-Forwarded-Server\":\"8f4adf27f2ad\",\"request_X-Real-Ip\":\"172.17.0.1\",\"time\":\"2021-12-08T14:02:43Z\"}"
 results["s00-raw"]["crowdsecurity/non-syslog"][0].Evt.Parsed["program"] == "traefik"
@@ -42,7 +42,19 @@ results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Parsed["program"] == "trae
 basename(results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_path"]) == "traefik_json.log"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Meta["datasource_type"] == "file"
 results["s00-raw"]["crowdsecurity/non-syslog"][6].Evt.Whitelisted == false
-len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 7
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["message"] == "{\"level\":\"info\",\"msg\":\"Configuration loaded from file: /etc/traefik/traefik.yml\",\"time\":\"2026-11-20T19:47:09Z\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Parsed["program"] == "traefik"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_path"]) == "traefik_json.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][7].Evt.Whitelisted == false
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Success == true
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["message"] == "{\"level\":\"warn\",\"providerName\":\"kubernetesingressnginx\",\"ingress\":\"example\",\"namespace\":\"example\",\"service\":\"example\",\"error\":\"service port not found\",\"time\":\"2026-11-20T19:54:06Z\",\"message\":\"Cannot resolve backend addresses, emitting empty backend\"}"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Parsed["program"] == "traefik"
+basename(results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_path"]) == "traefik_json.log"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Meta["datasource_type"] == "file"
+results["s00-raw"]["crowdsecurity/non-syslog"][8].Evt.Whitelisted == false
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 9
 results["s00-raw"]["crowdsecurity/syslog-logs"][0].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][1].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][2].Success == false
@@ -50,7 +62,9 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][3].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][4].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][5].Success == false
 results["s00-raw"]["crowdsecurity/syslog-logs"][6].Success == false
-len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 7
+results["s00-raw"]["crowdsecurity/syslog-logs"][7].Success == false
+results["s00-raw"]["crowdsecurity/syslog-logs"][8].Success == false
+len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 9
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Success == true
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["body_bytes_sent"] == "357"
 results["s01-parse"]["crowdsecurity/traefik-logs"][0].Evt.Parsed["dest_addr"] == "172.17.0.1"
@@ -392,6 +406,8 @@ results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Unmarshaled["traefik"]
 results["s01-parse"]["crowdsecurity/traefik-logs"][4].Evt.Whitelisted == false
 results["s01-parse"]["crowdsecurity/traefik-logs"][5].Success == false
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Success == true
+results["s01-parse"]["crowdsecurity/traefik-logs"][7].Success == false
+results["s01-parse"]["crowdsecurity/traefik-logs"][8].Success == false
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Parsed["body_bytes_sent"] == "0"
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Parsed["dest_addr"] == "172.71.122.85"
 results["s01-parse"]["crowdsecurity/traefik-logs"][6].Evt.Parsed["http_version"] == "2.0"
