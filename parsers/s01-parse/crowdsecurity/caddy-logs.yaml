@@ -1,6 +1,8 @@
 filter: |
       evt.Parsed.program startsWith 'caddy' &&
-      UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil] &&
+      (UnmarshalJSON(evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil] ||
+       UnmarshalJSON('{"level":' + evt.Parsed.message, evt.Unmarshaled, 'caddy') in ['', nil] ||
+       UnmarshalJSON('{"level":' + evt.Parsed.message + '}', evt.Unmarshaled, 'caddy') in ['', nil]) &&
       (evt.Unmarshaled.caddy.logger == nil || evt.Unmarshaled.caddy.logger != 'http.handlers.waf') &&
       evt.Unmarshaled.caddy.request != nil
 onsuccess: next_stage
