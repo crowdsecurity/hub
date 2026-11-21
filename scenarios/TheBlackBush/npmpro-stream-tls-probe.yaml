@@ -1,0 +1,17 @@
+type: leaky
+name: TheBlackBush/npmpro-stream-tls-probe
+description: "Detect clients whose connections to an NPMpro TLS stream keep failing before the TLS handshake ends (stream log status 500)"
+filter: "evt.Meta.log_type == 'npmpro_stream-log' && evt.Parsed.status == '500'"
+groupby: "evt.Meta.source_ip + '/' + (evt.Meta.stream_id not in ['', '-'] ? evt.Meta.stream_id : evt.Meta.target_port)"
+capacity: 15
+leakspeed: "5s"
+blackhole: 5m
+labels:
+  service: tcp
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "tcp:scan"
+  label: "NPMpro TLS stream probe"
+  remediation: true

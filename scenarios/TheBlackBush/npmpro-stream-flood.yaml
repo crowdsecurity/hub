@@ -1,0 +1,17 @@
+type: leaky
+name: TheBlackBush/npmpro-stream-flood
+description: "Detect clients that open too many connections to an NPMpro stream"
+filter: "evt.Meta.log_type == 'npmpro_stream-log'"
+groupby: "evt.Meta.source_ip + '/' + (evt.Meta.stream_id not in ['', '-'] ? evt.Meta.stream_id : evt.Meta.target_port)"
+capacity: 40
+leakspeed: "1s"
+blackhole: 1m
+labels:
+  service: tcp
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1498
+  behavior: "tcp:scan"
+  label: "NPMpro stream connection flood"
+  remediation: true

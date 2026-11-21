@@ -1,0 +1,32 @@
+name: TheBlackBush/npmpro
+parsers:
+  - TheBlackBush/npmpro-logs
+  - crowdsecurity/syslog-logs
+  - crowdsecurity/dateparse-enrich
+collections:
+  - crowdsecurity/appsec-virtual-patching
+  - crowdsecurity/appsec-generic-rules
+  - crowdsecurity/appsec-wordpress
+  - crowdsecurity/base-http-scenarios
+  - crowdsecurity/wordpress
+scenarios:
+  - crowdsecurity/nginx-req-limit-exceeded
+  - TheBlackBush/npmpro-login-bf
+  - TheBlackBush/npmpro-bad-requests
+  - TheBlackBush/npmpro-stream-flood
+  - TheBlackBush/npmpro-tls-probe
+  - TheBlackBush/npmpro-stream-tls-probe
+contexts:
+  - TheBlackBush/npmpro
+description: "NPMpro support: parser, web UI login bruteforce, bad requests, stream flood, TLS probes and generic http scenarios"
+labels:
+  label: "NPMpro - Generic Protection"
+author: TheBlackBush
+tags:
+  - security_engine
+  - linux
+  - nginx
+  - nginx-proxy
+  - crawl
+  - scan
+  - bruteforce
