@@ -22,8 +22,10 @@ pattern_syntax:
 
   # srcport, dstport, datalen
   PF_UDP_DATA: '%{POSINT:src_port},%{POSINT:dst_port},%{INT:data_length}'
+  # seq or seq:seq_end
+  PF_TCP_SEQUENCE: '%{INT:sequence_number}(?::%{INT:sequence_end})?'
   # srcport, dstport, datalen, flags, seq, ack, window, urg, options
-  PF_TCP_DATA: '%{WORD:tcp_flags},%{INT:sequence_number},(?:%{INT:ack_number})?,%{INT:tcp_window},(%{DATA:urg_data})?,%{GREEDYDATA:tcp_options}'
+  PF_TCP_DATA: '%{WORD:tcp_flags},(?:%{PF_TCP_SEQUENCE})?,(?:%{INT:ack_number})?,%{INT:tcp_window},(%{DATA:urg_data})?,%{GREEDYDATA:tcp_options}'
   # both protocols start with the same three values
   PF_PROTOCOL: '%{PF_UDP_DATA}(,%{PF_TCP_DATA})?'
 grok:
