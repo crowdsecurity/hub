@@ -1,0 +1,133 @@
+name: nikita-popov/radicale-logs
+description: "Parse Radicale CalDAV/CardDAV server logs (file or journald)"
+filter: "evt.Line.Labels.type == 'radicale'"
+onsuccess: next_stage
+nodes:
+  # Proxied request with User-Agent
+  # WebDAV methods (PROPFIND, REPORT, ...) may carry an optional "with depth 'N'" clause
+  - filter: "evt.Line.Raw contains 'request for' && evt.Line.Raw contains 'forwarded for' && evt.Line.Raw contains 'using'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] %{WORD:http_method} request for '%{DATA:http_path}'(?: with depth '%{DATA:depth}')? received from %{IP:src_ip} \\(forwarded for '%{IP:real_ip}'\\) using '%{DATA:useragent_raw}'"
+      apply_on: Line.Raw
+    stash:
+      - name: radicale_request_ip
+        key: "evt.Parsed.pid + '/' + evt.Parsed.thread"
+        value: evt.Parsed.real_ip
+        ttl: 30s
+        size: 1000
+    statics:
+      - meta: log_type
+        value: http_request
+      - meta: source_ip
+        expression: evt.Parsed.real_ip
+      - meta: http_path
+        expression: evt.Parsed.http_path
+      - meta: useragent
+        expression: evt.Parsed.useragent_raw
+  # Proxied request without User-Agent
+  - filter: "evt.Line.Raw contains 'request for' && evt.Line.Raw contains 'forwarded for' && !(evt.Line.Raw contains 'using')"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] %{WORD:http_method} request for '%{DATA:http_path}'(?: with depth '%{DATA:depth}')? received from %{IP:src_ip} \\(forwarded for '%{IP:real_ip}'\\)"
+      apply_on: Line.Raw
+    stash:
+      - name: radicale_request_ip
+        key: "evt.Parsed.pid + '/' + evt.Parsed.thread"
+        value: evt.Parsed.real_ip
+        ttl: 30s
+        size: 1000
+    statics:
+      - meta: log_type
+        value: http_request
+      - meta: source_ip
+        expression: evt.Parsed.real_ip
+      - meta: http_path
+        expression: evt.Parsed.http_path
+  # Direct request with User-Agent
+  - filter: "evt.Line.Raw contains 'request for' && !(evt.Line.Raw contains 'forwarded for') && evt.Line.Raw contains 'using'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] %{WORD:http_method} request for '%{DATA:http_path}'(?: with depth '%{DATA:depth}')? received from %{IP:src_ip} using '%{DATA:useragent_raw}'"
+      apply_on: Line.Raw
+    stash:
+      - name: radicale_request_ip
+        key: "evt.Parsed.pid + '/' + evt.Parsed.thread"
+        value: evt.Parsed.src_ip
+        ttl: 30s
+        size: 1000
+    statics:
+      - meta: log_type
+        value: http_request
+      - meta: source_ip
+        expression: evt.Parsed.src_ip
+      - meta: http_path
+        expression: evt.Parsed.http_path
+      - meta: useragent
+        expression: evt.Parsed.useragent_raw
+  # Direct request without User-Agent
+  - filter: "evt.Line.Raw contains 'request for' && !(evt.Line.Raw contains 'forwarded for') && !(evt.Line.Raw contains 'using')"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] %{WORD:http_method} request for '%{DATA:http_path}'(?: with depth '%{DATA:depth}')? received from %{IP:src_ip}"
+      apply_on: Line.Raw
+    stash:
+      - name: radicale_request_ip
+        key: "evt.Parsed.pid + '/' + evt.Parsed.thread"
+        value: evt.Parsed.src_ip
+        ttl: 30s
+        size: 1000
+    statics:
+      - meta: log_type
+        value: http_request
+      - meta: source_ip
+        expression: evt.Parsed.src_ip
+      - meta: http_path
+        expression: evt.Parsed.http_path
+  # Access denied
+  - filter: "evt.Line.Raw contains 'denied for'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] Access to '%{DATA:http_path}' denied for %{GREEDYDATA:auth_user}"
+      apply_on: Line.Raw
+    statics:
+      - meta: log_type
+        value: http_denied
+      - meta: http_path
+        expression: evt.Parsed.http_path
+      - meta: source_ip
+        expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
+  # Response with HTTP status code (WebDAV methods may carry an optional "with depth 'N'" clause)
+  - filter: "evt.Line.Raw contains 'response status'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] %{WORD:http_method} response status for '%{DATA:http_path}'(?: with depth '%{DATA:depth}')? in %{NUMBER:duration} seconds: %{INT:http_status}"
+      apply_on: Line.Raw
+    statics:
+      - meta: log_type
+        value: http_response
+      - meta: http_status
+        expression: evt.Parsed.http_status
+      - meta: http_path
+        expression: evt.Parsed.http_path
+      - meta: source_ip
+        expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
+  # Successful login: 'user' (auth_method)
+  - filter: "evt.Line.Raw contains 'Successful login'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] Successful login: '%{DATA:auth_user}' \\(%{DATA:auth_method}\\)"
+      apply_on: Line.Raw
+    statics:
+      - meta: log_type
+        value: auth_success
+      - meta: source_ip
+        expression: "GetFromStash('radicale_request_ip', evt.Parsed.pid + '/' + evt.Parsed.thread)"
+  # Failed login attempt from IP (forwarded for 'IP'): 'user'
+  - filter: "evt.Line.Raw contains 'Failed login attempt'"
+    grok:
+      pattern: "(?:%{SYSLOGTIMESTAMP:timestamp} \\S+ \\S+: )?\\[%{INT:pid}/%{DATA:thread}\\] \\[%{LOGLEVEL:log_level}\\] Failed login attempt from %{IP:src_ip}(?: \\(forwarded for '%{IP:real_ip}'\\))?: '%{DATA:auth_user}'"
+      apply_on: Line.Raw
+    statics:
+      - meta: log_type
+        value: auth_failed
+      - meta: source_ip
+        expression: "evt.Parsed.real_ip != nil ? evt.Parsed.real_ip : evt.Parsed.src_ip"
+statics:
+  - meta: service
+    value: radicale
+  - target: evt.StrTime
+    expression: evt.Parsed.timestamp
