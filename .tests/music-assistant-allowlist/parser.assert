@@ -1,0 +1,73 @@
+len(results) == 4
+len(results["s00-raw"]["crowdsecurity/non-syslog"]) == 55
+len(results["s00-raw"]["crowdsecurity/syslog-logs"]) == 55
+len(results["s01-parse"]["crowdsecurity/traefik-logs"]) == 55
+len(results["s02-enrich"]["crowdsecurity/dateparse-enrich"]) == 55
+len(results["s02-enrich"]["crowdsecurity/http-logs"]) == 55
+len(results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"]) == 55
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Parsed["file_name"] == "4af41ae38be3c5b2ff525ac65ce9530fac72e390084c1f3e8b7005b5d9669b17"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Parsed["request"] == "/imageproxy/4af41ae38be3c5b2ff525ac65ce9530fac72e390084c1f3e8b7005b5d9669b17"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Parsed["static_ressource"] == "false"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Parsed["status"] == "200"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Parsed["verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["http_path"] == "/imageproxy/4af41ae38be3c5b2ff525ac65ce9530fac72e390084c1f3e8b7005b5d9669b17?size=512&fmt=jpg"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["http_status"] == "200"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["http_verb"] == "GET"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["log_type"] == "http_access-log"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["service"] == "http"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["source_ip"] == "192.0.2.100"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Meta["target_fqdn"] == "music-assistant.example.com"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][0].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Evt.Parsed["request"] == "/imageproxy/bb32996ed58e41076d220696f0b55ddb1dfe70d1ecdcf91d5d71e85330e07321"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Evt.Meta["http_path"] == "/imageproxy/bb32996ed58e41076d220696f0b55ddb1dfe70d1ecdcf91d5d71e85330e07321?size=512&checksum="
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Evt.Meta["http_status"] == "304"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][45].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Evt.Parsed["request"] == "/imageproxy/cd7d4881338c4f769cb39d5e65d0ebee51b25c60df42451f8f18185522b9e9e7"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Evt.Meta["http_path"] == "/imageproxy/cd7d4881338c4f769cb39d5e65d0ebee51b25c60df42451f8f18185522b9e9e7?size=512&fmt=png"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Evt.Meta["http_status"] == "499"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][46].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Evt.Parsed["request"] == "/imageproxy/31e7e79b01d9b1a1641c4d5a8f009fd0dbbe950b727a8bd8b7658374fda490a3"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Evt.Meta["http_path"] == "/imageproxy/31e7e79b01d9b1a1641c4d5a8f009fd0dbbe950b727a8bd8b7658374fda490a3?size=512&fmt=jpg"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Evt.Meta["http_status"] == "404"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][47].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][48].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][48].Evt.Parsed["request"] == "/"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][48].Evt.Meta["http_path"] == "/"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][48].Evt.Meta["http_status"] == "200"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][48].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Evt.Parsed["file_name"] == "not-a-valid-hash"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Evt.Parsed["request"] == "/imageproxy/not-a-valid-hash"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Evt.Meta["http_path"] == "/imageproxy/not-a-valid-hash?size=512&fmt=jpg"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Evt.Meta["http_status"] == "400"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][49].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][50].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][50].Evt.Parsed["request"] == "/imageproxy/15993bf5f5141451b05fceed74d0671da78a599fece9f846ba747fed5d0a06c5"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][50].Evt.Meta["http_path"] == "/imageproxy/15993bf5f5141451b05fceed74d0671da78a599fece9f846ba747fed5d0a06c5?size=512&checksum="
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][50].Evt.Meta["http_status"] == "403"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][50].Evt.Whitelisted == false
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][51].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][51].Evt.Meta["http_path"] == "/imageproxy/44DE511B5E8E73290D89FF2581FEBD898B0EE5BAC094949E39A06805BE6F3E04?size=512&checksum="
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][51].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][51].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][52].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][52].Evt.Meta["http_path"] == "/imageproxy/8ed9f8f48135ab76a2179040663d20193ed6ed054ee3b8eeae16e4dd04275a73?foo=bar"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][52].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][52].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][53].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][53].Evt.Meta["http_path"] == "/imageproxy/e9e5cacb26a6e9bbccfd956040fb003cf93298293e5309b2b83d03150b7c7526"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][53].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][53].Evt.WhitelistReason == "Music Assistant allowlist"
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][54].Success == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][54].Evt.Meta["http_path"] == "/imageproxy/49f46b93b7ff9bd774ec605e4a38fea2d850677fa8bda5bb425ece6b1343b8da/?size=512&checksum="
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][54].Evt.Whitelisted == true
+results["s02-enrich"]["crowdsecurity/music-assistant-allowlist"][54].Evt.WhitelistReason == "Music Assistant allowlist"
+len(results["success"][""]) == 0
