@@ -1,0 +1,19 @@
+type: leaky
+name: Railline/axigen-tls-probing
+description: "Detect TLS scanners cycling through distinct handshake failures against Axigen"
+filter: "evt.Meta.log_type == 'axigen_tls_probe' && evt.Meta.source_ip != '' && !(Lower(evt.Meta.tls_error) contains 'certificate unknown')"
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.tls_error
+leakspeed: 1m
+capacity: 2
+blackhole: 5m
+reprocess: true
+labels:
+  service: axigen
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "generic:scan"
+  label: "Axigen TLS Probing"
+  remediation: true

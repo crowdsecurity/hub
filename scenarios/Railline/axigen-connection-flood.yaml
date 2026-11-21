@@ -1,0 +1,18 @@
+type: leaky
+name: Railline/axigen-connection-flood
+description: "Detect high-rate connection floods against Axigen services"
+filter: "evt.Meta.log_type == 'axigen_connection' && evt.Meta.source_ip != ''"
+groupby: evt.Meta.source_ip
+leakspeed: 10s
+capacity: 30
+blackhole: 2m
+reprocess: true
+labels:
+  service: axigen
+  confidence: 1
+  spoofable: 0
+  classification:
+    - attack.T1499
+  behavior: "generic:scan"
+  label: "Axigen Connection Flood"
+  remediation: true
