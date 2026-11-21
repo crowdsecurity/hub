@@ -1,0 +1,33 @@
+name: crowdsecurity/appsec-bot-challenge-detect-engine
+inband:
+  on_challenge_submit:
+    # Every iOS browser is WebKit, and Apple ships no WebUSB.
+    - filter: >-
+        (req.UserAgent() contains "iPhone" || req.UserAgent() contains "iPad") &&
+        fingerprint.Signals.Browser.Features.USB.Bool()
+      apply:
+        - AddRequestScore(0, "webusb_on_ios", "detect-experimental-engine")  # intended weight: 100
+
+    # Gecko has never shipped WebUSB
+    - filter: 'req.UserAgent() contains "Firefox/" && fingerprint.Signals.Browser.Features.USB.Bool()'
+      apply:
+        - AddRequestScore(0, "webusb_on_gecko", "detect-experimental-engine")  # intended weight: 100
+    
+    # Chrome should always support webUSB
+    - filter: >-
+        req.UserAgent() contains "Chrome/" &&
+        (req.UserAgent() contains "Windows NT" || req.UserAgent() contains "Mac OS X") &&
+        !(req.UserAgent() contains "Edg/" || req.UserAgent() contains "OPR/" || req.UserAgent() contains "YaBrowser") &&
+        !fingerprint.Signals.Browser.Features.USB.Bool()
+      apply:
+        - AddRequestScore(0, "chrome_without_webusb", "detect-experimental-engine")
+
+    # Chrome is always supposed to send device memory information, but we saw some instances where it was missing
+    # Might be a privacy extension, but we need the data to make sure
+    - filter: >-
+        req.UserAgent() contains "Chrome/" &&
+        (req.UserAgent() contains "Windows NT" || req.UserAgent() contains "Mac OS X") &&
+        !(req.UserAgent() contains "Edg/" || req.UserAgent() contains "OPR/" || req.UserAgent() contains "YaBrowser") &&
+        int(fingerprint.Signals.Device.Memory) == 0
+      apply:
+        - AddRequestScore(0, "chrome_without_device_apis", "detect-experimental-engine") 
