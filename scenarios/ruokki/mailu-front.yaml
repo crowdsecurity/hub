@@ -1,0 +1,18 @@
+# Dockge Bruteforce
+type: leaky
+name: ruokki/mailu-front-bf
+description: "Mailu Front Bruteforce"
+filter: evt.Meta.log_type == 'mailu-front'  && evt.Meta.sub_type== 'auth_fail'
+groupby: evt.Meta.source_ip
+leakspeed: 2m
+capacity: 5
+labels:
+  service: mailu-front
+  classification:
+    - attack.T1110
+  behavior: "pop3/imap:bruteforce"
+  confidence: 3
+  spoofable: 0
+  label: "Mailu-front Bruteforce"
+  remediation: true
+
