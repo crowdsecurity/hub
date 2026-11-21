@@ -1,0 +1,11 @@
+parsers:
+  - crowdsecurity/syslog-logs
+  - ./parsers/s01-parse/ananace/stalwart-logs.yaml
+  - crowdsecurity/dateparse-enrich
+scenarios:
+  - ./scenarios/hitech95/mail-generic-bf.yaml
+postoverflows:
+  - ""
+log_file: stalwart-bf.log
+log_type: stalwart
+ignore_parsers: true

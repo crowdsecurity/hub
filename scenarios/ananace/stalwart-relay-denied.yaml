@@ -1,0 +1,22 @@
+name: ananace/stalwart-relay-denied
+description: Detect failed relay attempts
+#debug: true
+type: leaky
+filter: evt.Meta.log_type == 'smtp' && evt.Meta.sub_type == 'relay_denied'
+references:
+  - https://en.wikipedia.org/wiki/Open_mail_relay
+groupby: evt.Meta.source_ip
+capacity: 1
+leakspeed: 600s
+blackhole: 1m
+reprocess: false
+labels:
+  service: stalwart
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  classification:
+  - attack.T1595
+  - attack.T1190
+  behavior: "smtp:spam"
+  label: "Stalwart Relay Denied"
