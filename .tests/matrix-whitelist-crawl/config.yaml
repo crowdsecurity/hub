@@ -1,0 +1,14 @@
+parsers:
+- ./parsers/s01-parse/crowdsecurity/traefik-logs.yaml
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- crowdsecurity/http-logs
+scenarios:
+- crowdsecurity/http-crawl-non_statics
+postoverflows:
+- ./postoverflows/s01-whitelist/pscriptos/matrix-whitelist.yaml
+log_file: matrix-whitelist-crawl.log
+log_type: traefik
+labels: {}
+ignore_parsers: true
+override_statics: []
