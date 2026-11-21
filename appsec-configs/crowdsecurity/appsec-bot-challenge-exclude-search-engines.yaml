@@ -57,6 +57,9 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/internet-archive.json")
       apply:
         - ExemptFromChallenge("internet-archive")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/petalbot.json")
+      apply:
+        - ExemptFromChallenge("petalbot")
 
 # Declares the datafiles so crowdsec downloads them.
 data:
@@ -113,4 +116,7 @@ data:
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/internet-archive.json
     dest_file: legit_bots/internet-archive.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/petalbot.json
+    dest_file: legit_bots/petalbot.json
     type: bots

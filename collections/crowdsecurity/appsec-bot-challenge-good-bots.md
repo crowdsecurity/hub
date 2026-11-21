@@ -10,7 +10,7 @@ Per-family exclusion configs (each declares its datafiles and exempts the matchi
 
  - [appsec-bot-challenge-exclude-search-engines](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-search-engines)
    — googlebot, googleother, bingbot, applebot, amazonbot, yandex, baidu, yahoo, sogou, qwant, babbar,
-     duckduckbot, ahrefs, semrush, lumar, seznam, naver, internet-archive
+     duckduckbot, ahrefs, semrush, lumar, seznam, naver, internet-archive, petalbot
  - [appsec-bot-challenge-exclude-ai-crawlers](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-ai-crawlers)
    — gptbot, openai-searchbot, openai-chatgpt-user, openai-adsbot, perplexitybot, perplexity-user,
      anthropic, mistralai-index, mistralai-user, duckassistbot, youbot, commoncrawl
