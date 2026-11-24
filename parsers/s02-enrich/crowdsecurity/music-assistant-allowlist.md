@@ -10,3 +10,6 @@ The path shape follows what the Music Assistant server accepts: it lowercases th
 A `403` is deliberately not allowlisted. It is returned by the reverse proxy or by an existing CrowdSec ban, not by Music Assistant, and it is the evidence that a client is already blocked. Allowlisting it would hide that signal, so those requests keep being parsed.
 
 Other paths, verbs, statuses and malformed ids are still parsed normally, so probing unrelated URLs remains detectable.
+
+### Trade-off
+`/imageproxy/` is not authenticated, and any well-formed hash gets a `404` when it is unknown. Because `404` is allowlisted, a client requesting random hashes on this endpoint is not counted by `crowdsecurity/http-probing` or `crowdsecurity/http-crawl-non_statics`. The exposure is limited to this one endpoint, which only serves images; requests to any other path are still counted. If you don't need protection against missing-artwork bursts, you can remove `'404'` from the expression in a local copy.
