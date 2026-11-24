@@ -1,0 +1,7 @@
+name: crowdsecurity/music-assistant-allowlist
+description: "Allowlist Music Assistant artwork requests (/imageproxy) to avoid crawl and probing false positives"
+filter: "evt.Meta.service == 'http' && evt.Meta.log_type in ['http_access-log', 'http_error-log']"
+whitelist:
+  reason: "Music Assistant allowlist"
+  expression:
+   - evt.Meta.http_status in ['200', '304', '404', '499'] && evt.Meta.http_verb == 'GET' && evt.Meta.http_path matches '^/imageproxy/[0-9a-fA-F]{64}/*([?].*)?$' # Album artwork
