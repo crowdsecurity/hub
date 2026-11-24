@@ -24,6 +24,9 @@ inband:
     - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/flipboard.json")
       apply:
         - ExemptFromChallenge("flipboard")
+    - filter: MatchKnownBot(req.RemoteAddr, req.UserAgent(), req.URL.Path, "legit_bots/iframely.json")
+      apply:
+        - ExemptFromChallenge("iframely")
 
 # Declares the datafiles so crowdsec downloads them.
 data:
@@ -47,4 +50,7 @@ data:
     type: bots
   - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/flipboard.json
     dest_file: legit_bots/flipboard.json
+    type: bots
+  - source_url: https://hub-data.crowdsec.net/whitelists/benign_bots/legit_bots/iframely.json
+    dest_file: legit_bots/iframely.json
     type: bots
