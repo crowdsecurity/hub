@@ -5,7 +5,7 @@ description: "Detect ISPConfig Bruteforce"
 filter: evt.Meta.log_type == 'ispconfig_failed_auth'
 groupby: evt.Meta.source_ip
 leakspeed: 1m
-capacity: 5
+capacity: 10
 blackhole: 1m
 labels:
   service: ispconfig
@@ -19,7 +19,7 @@ labels:
 ---
 # ISPConfig User Enumeration
 type: leaky
-name: LearningSpot/ispconfig_bf_user_enum
+name: LearningSpot/ispconfig-bf-user-enum
 description: "Detect ISPConfig User Enumeration Bruteforce"
 filter: evt.Meta.log_type == 'ispconfig_failed_auth'
 distinct: evt.Meta.target_user
