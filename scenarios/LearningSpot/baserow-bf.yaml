@@ -1,7 +1,7 @@
 type: leaky
 name: LearningSpot/baserow-bf
 description: "Detect failed login for Baserow"
-filter: "evt.Meta.log_type == 'baserow_failed_login' && evt.Meta.status == '401'"
+filter: "evt.Meta.log_type in ['baserow_failed_login', 'baserow_failed_2fa'] && evt.Meta.status == '401'"
 groupby: evt.Meta.source_ip
 leakspeed: 1m
 capacity: 5
