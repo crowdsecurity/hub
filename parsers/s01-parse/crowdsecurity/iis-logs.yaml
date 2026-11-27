@@ -18,10 +18,14 @@ nodes:
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-uri-query']")
         - parsed: verb
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-method']")
-        - meta: http_verb
+        - parsed: http_user_agent
+        expression: evt.Parsed.user_agent
+      - meta: http_verb
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='cs-method']")
         - meta: http_user_agent
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='csUser-Agent']")
+        - parsed: http_user_agent
+          expression: evt.Meta.http_user_agent
         - meta: target_fqdn
           expression: XMLGetNodeValue(evt.Line.Raw, "/Event/EventData[1]/Data[@Name='s-sitename']") #not a FQDN, but close enough ?
         - target: evt.StrTime
@@ -30,7 +34,7 @@ nodes:
           expression: evt.Meta.http_path + '?' + evt.Parsed.http_args
   - filter: "evt.Parsed.datasource_type != 'wineventlog'"
     grok:
-      pattern: "%{TIMESTAMP_ISO8601:date} %{IP:server_ip} %{WORD:http_method} %{DATA:http_path} %{DATA:http_args} %{INT} %{DATA:remote_user} %{IP:client_ip} %{DATA:user_agent} %{DATA:referer} %{INT:status} %{INT:substatus} %{INT:win32_status} %{INT:duration}"
+      pattern: "%{TIMESTAMP_ISO8601:date} %{IP:server_ip} %{WORD:http_method} %{DATA:http_path} %{DATA:http_args} %{INT} %{DATA:remote_user} %{IP:client_ip} %{DATA:user_agent} %{DATA:referer} %{INT:status} %{INT:substatus} %{INT:win32_status}(?: %{INT:bytes_sent} %{INT:bytes_received})? %{INT:duration}$"
       apply_on: message
     statics:
       - target: evt.StrTime
@@ -44,9 +48,9 @@ nodes:
       - meta: http_user_agent
         expression: evt.Parsed.user_agent
       - meta: http_verb
-        expression: evt.Parsed.method
+        expression: evt.Parsed.http_method
       - parsed: verb
-        expression: evt.Parsed.method
+        expression: evt.Parsed.http_method
       - target: evt.Parsed.request
         expression: evt.Meta.http_path + '?' + evt.Parsed.http_args
 
