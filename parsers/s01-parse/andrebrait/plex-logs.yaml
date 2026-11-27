@@ -1,0 +1,32 @@
+onsuccess: next_stage
+name: andrebrait/plex-logs
+description: "Parse Plex Media Server request logs"
+filter: "evt.Parsed.program == 'plex'"
+pattern_syntax:
+  PLEX_TIMESTAMP: "%{MONTH} %{MONTHDAY}, %{YEAR} %{TIME}"
+  # IPv6 clients are logged in brackets: [[2001:db8::1]:51234]
+  PLEX_CLIENT: "\\[?%{IP:remote_addr}\\]?:%{POSINT:remote_port}"
+nodes:
+  # Plex writes one "Completed:" line per finished HTTP request, but only with debug logging enabled.
+  # The query string is stripped from the logged path, so tokens never reach CrowdSec.
+  - grok:
+      pattern: '^%{PLEX_TIMESTAMP:timestamp} \[%{INT}\] %{WORD:level} - Completed: \[%{PLEX_CLIENT}\] %{INT:status} %{NOTSPACE:verb} %{DATA:request} \(%{INT} live\)'
+      apply_on: message
+statics:
+  - meta: log_type
+    value: http_access-log
+  - meta: service
+    value: http
+  - meta: source_ip
+    expression: "evt.Parsed.remote_addr"
+  - meta: http_status
+    expression: "evt.Parsed.status"
+  - meta: http_path
+    expression: "evt.Parsed.request"
+  - meta: http_verb
+    expression: "evt.Parsed.verb"
+  - target: evt.StrTime
+    expression: "evt.Parsed.timestamp"
+  # Plex logs local time without a zone offset.
+  - target: evt.StrTimeFormat
+    value: "Jan 02, 2006 15:04:05.000"

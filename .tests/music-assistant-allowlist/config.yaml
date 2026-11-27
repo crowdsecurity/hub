@@ -1,0 +1,16 @@
+parsers:
+- crowdsecurity/syslog-logs
+- crowdsecurity/dateparse-enrich
+- ./parsers/s01-parse/crowdsecurity/traefik-logs.yaml
+- crowdsecurity/http-logs
+- ./parsers/s02-enrich/crowdsecurity/music-assistant-allowlist.yaml
+scenarios:
+- crowdsecurity/http-crawl-non_statics
+- crowdsecurity/http-probing
+postoverflows:
+- ""
+log_file: music-assistant-allowlist.log
+log_type: traefik
+labels: {}
+ignore_parsers: false
+override_statics: []
