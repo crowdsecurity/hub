@@ -3,11 +3,10 @@ type: leaky
 name: andreasbrett/paperless-ngx-bf
 description: "Detect Paperless-ngx bruteforce attacks"
 filter: "evt.Meta.log_type == 'paperless_ngx_failed_auth'"
-leakspeed: 1m
+leakspeed: 20s
 capacity: 5
 groupby: evt.Meta.source_ip
-blackhole: 5m
-reprocess: true
+blackhole: 1m
 labels:
     service: paperless-ngx
     confidence: 3
@@ -27,13 +26,14 @@ groupby: evt.Meta.source_ip
 distinct: evt.Meta.username
 leakspeed: 1m
 capacity: 5
-blackhole: 5m
+blackhole: 1m
 labels:
     service: paperless-ngx
     confidence: 3
     spoofable: 0
     classification:
         - attack.T1589
+        - attack.T1110
     label: "Paperless-ngx User Enumeration"
     behavior: "http:bruteforce"
     remediation: true
