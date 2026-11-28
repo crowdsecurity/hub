@@ -1,0 +1,4 @@
+len(results) == 2
+all(results, {.Overflow.Alert.GetScenario() == "crowdsecurity/http-crawl-non_statics"})
+len(filter(results, {.Overflow.Whitelisted && "203.0.113.40" in .Overflow.GetSources()})) == 1
+len(filter(results, {!.Overflow.Whitelisted && "203.0.113.50" in .Overflow.GetSources()})) == 1
