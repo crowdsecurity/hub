@@ -1,0 +1,17 @@
+type: leaky
+name: TheBlackBush/npmpro-tls-probe
+description: "Detect clients that probe NPMpro at the TLS layer: rejected handshakes, old TLS versions, no shared cipher and data that is not TLS"
+filter: "evt.Meta.log_type == 'npmpro_tls-handshake' && evt.Meta.sub_type in ['rejected', 'protocol', 'cipher', 'garbage']"
+groupby: "evt.Meta.source_ip + '/' + evt.Meta.tls_transport"
+capacity: 10
+leakspeed: "30s"
+blackhole: 5m
+labels:
+  service: tcp
+  confidence: 2
+  spoofable: 0
+  classification:
+    - attack.T1595
+  behavior: "tcp:scan"
+  label: "NPMpro TLS probe"
+  remediation: true
