@@ -1,0 +1,18 @@
+type: leaky
+name: Railline/axigen-auth-bf
+description: "Detect rapid authentication brute force against Axigen"
+filter: "evt.Meta.log_type == 'axigen_failed_auth' && evt.Meta.source_ip != ''"
+groupby: evt.Meta.source_ip
+leakspeed: 30s
+capacity: 6
+blackhole: 5m
+reprocess: true
+labels:
+  service: axigen
+  confidence: 3
+  spoofable: 0
+  classification:
+    - attack.T1110
+  behavior: "generic:bruteforce"
+  label: "Axigen Authentication Bruteforce"
+  remediation: true
