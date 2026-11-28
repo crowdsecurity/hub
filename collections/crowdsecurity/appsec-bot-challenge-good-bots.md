@@ -18,6 +18,8 @@ Per-family exclusion configs (each declares its datafiles and exempts the matchi
    — mediapartners-google (AdSense / Ad Manager), google-adsbot (AdsBot-Google, AdsBot-Google-Mobile)
  - [appsec-bot-challenge-exclude-wikimedia-citation](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-wikimedia-citation)
    — wikimedia-citoid (Citoid/WMF), wikimedia-zotero-translation-server (ZoteroTranslationServer/WMF)
+ - [appsec-bot-challenge-exclude-google-tools](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-google-tools)
+   — google-inspectiontool (Google-InspectionTool), google-site-verification (Google-Site-Verification)
  - [appsec-bot-challenge-exclude-social](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-social)
    — meta, discord, telegram, twitterbot, pinterest, linkedin, flipboard
  - [appsec-bot-challenge-exclude-monitoring](https://app.crowdsec.net/hub/author/crowdsecurity/waf-configurations/appsec-bot-challenge-exclude-monitoring)
