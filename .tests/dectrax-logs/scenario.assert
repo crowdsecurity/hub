@@ -1,0 +1,6 @@
+len(results) == 2
+("198.51.100.42" in results[0].Overflow.GetSources() && "203.0.113.15" in results[1].Overflow.GetSources()) || ("203.0.113.15" in results[0].Overflow.GetSources() && "198.51.100.42" in results[1].Overflow.GetSources())
+results[0].Overflow.Alert.GetScenario() == "dectrax/dectrax-decoy-breach"
+results[0].Overflow.Alert.Remediation == true
+results[1].Overflow.Alert.GetScenario() == "dectrax/dectrax-decoy-breach"
+results[1].Overflow.Alert.Remediation == true
