@@ -107,6 +107,7 @@ results["s00-raw"]["crowdsecurity/syslog-logs"][8].Evt.Meta["machine"] == "opnse
 results["s00-raw"]["crowdsecurity/syslog-logs"][8].Evt.Whitelisted == false
 len(results["s01-parse"]["firewallservices/pf-logs"]) == 9
 results["s01-parse"]["firewallservices/pf-logs"][0].Success == true
+results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["ack_number"] == "3617062173"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["action"] == "block"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["data_length"] == "420"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["direction"] == "in"
@@ -127,8 +128,12 @@ results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["message"] == "53
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["program"] == "filterlog"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["reason"] == "match"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["rule"] == "53"
+results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["sequence_end"] == "29633800"
+results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["sequence_number"] == "29633380"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["src_ip"] == "10.0.2.2"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["src_port"] == "53742"
+results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["tcp_flags"] == "PA"
+results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["tcp_window"] == "65535"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["timestamp"] == "Sep 28 10:38:09"
 results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Parsed["tracker"] == "1000000301"
 basename(results["s01-parse"]["firewallservices/pf-logs"][0].Evt.Meta["datasource_path"]) == "pf-logs.log"
@@ -414,6 +419,7 @@ results["s01-parse"]["firewallservices/pf-logs"][8].Evt.Meta["machine"] == "opns
 results["s01-parse"]["firewallservices/pf-logs"][8].Evt.Whitelisted == false
 len(results["s01-parse"]["firewallservices/pf-logs-drop"]) == 9
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Success == true
+results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["ack_number"] == "3617062173"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["action"] == "block"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["data_length"] == "420"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["direction"] == "in"
@@ -434,8 +440,12 @@ results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["message"] =
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["program"] == "filterlog"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["reason"] == "match"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["rule"] == "53"
+results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["sequence_end"] == "29633800"
+results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["sequence_number"] == "29633380"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["src_ip"] == "10.0.2.2"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["src_port"] == "53742"
+results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["tcp_flags"] == "PA"
+results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["tcp_window"] == "65535"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["timestamp"] == "Sep 28 10:38:09"
 results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Parsed["tracker"] == "1000000301"
 basename(results["s01-parse"]["firewallservices/pf-logs-drop"][0].Evt.Meta["datasource_path"]) == "pf-logs.log"
